@@ -17,9 +17,14 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.Either;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.plugin.FakeProviderContext;
+import walkingkooka.plugin.store.PluginStore;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
@@ -28,6 +33,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcesso
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +41,19 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakeSpreadsheetProvider implements SpreadsheetProviderHateosResourceHandlerContext,
+public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakeProviderContext implements SpreadsheetProviderHateosResourceHandlerContext,
     HateosResourceHandlerContext {
 
     public FakeSpreadsheetProviderHateosResourceHandlerContext() {
         super();
     }
+
+    @Override
+    public SpreadsheetProvider spreadsheetProvider() {
+        throw new UnsupportedOperationException();
+    }
+
+    // HateosResourceHandlerContext.....................................................................................
 
     @Override
     public MediaType contentType() {
@@ -181,6 +194,45 @@ public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakeSpr
 
     @Override 
     public Optional<JsonString> typeName(final Class<?> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    // ProviderContext..................................................................................................
+
+    @Override
+    public PluginStore pluginStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
 }
