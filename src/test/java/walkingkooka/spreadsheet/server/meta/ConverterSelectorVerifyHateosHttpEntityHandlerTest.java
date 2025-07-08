@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.convert;
+package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
@@ -24,7 +24,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
@@ -35,6 +34,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.convert.MissingConverterSet;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverters;
@@ -52,7 +52,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, ConverterName, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
@@ -85,21 +85,21 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     }
 
     @Override
-    public ConverterName id() {
-        return ConverterName.with("ignored");
+    public SpreadsheetId id() {
+        return SpreadsheetId.with(1);
     }
 
     @Override
-    public Set<ConverterName> manyIds() {
+    public Set<SpreadsheetId> manyIds() {
         return Sets.of(
             this.id()
         );
     }
 
     @Override
-    public Range<ConverterName> range() {
+    public Range<SpreadsheetId> range() {
         return Range.singleton(
-            ConverterName.with("range-converter-name")
+            SpreadsheetId.with(2)
         );
     }
 

@@ -15,12 +15,11 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.convert;
+package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpEntity;
@@ -31,6 +30,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.convert.MissingConverter;
 import walkingkooka.spreadsheet.convert.MissingConverterSet;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -44,11 +44,11 @@ import java.util.Map;
 /**
  * A handler which eventually calls {@link MissingConverter#verify(Converter, SpreadsheetMetadataPropertyName, SpreadsheetConverterContext)}.
  */
-final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttpEntityHandler<ConverterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleOne<ConverterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleMany<ConverterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleNone<ConverterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleRange<ConverterName, SpreadsheetEngineHateosResourceHandlerContext> {
+final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -59,7 +59,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
         super();
     }
 
-    // POST /api/spreadsheet/SpreadsheetId/converter/*/findConverter
+    // POST /api/spreadsheet/SpreadsheetId/metadata/*/findConverter
     //
     // BODY = ConverterSelector
     @Override
@@ -109,8 +109,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
         ).setContentLength();
     }
 
-    // POST /api/spreadsheet/SpreadsheetId/converter/*/findConverter
-    //      1 2  3           4             5         6 7
+    // POST /api/spreadsheet/SpreadsheetId/*/verify/findConverter
     static SpreadsheetMetadataPropertyName<?> propertyName(final UrlPath path) {
         return SpreadsheetMetadataPropertyName.with(
             path.name()

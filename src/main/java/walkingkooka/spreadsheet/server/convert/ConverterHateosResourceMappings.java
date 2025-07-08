@@ -27,7 +27,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 public final class ConverterHateosResourceMappings implements PublicStaticHelper {
 
@@ -52,10 +51,6 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
             LinkRelation.SELF,
             HttpMethod.GET,
             ConverterInfoHateosResourceHandler.INSTANCE
-        ).setHateosHttpEntityHandler(
-            SpreadsheetServerLinkRelations.VERIFY,
-            HttpMethod.POST,
-            ConverterSelectorVerifyHateosHttpEntityHandler.INSTANCE
         );
     }
 
