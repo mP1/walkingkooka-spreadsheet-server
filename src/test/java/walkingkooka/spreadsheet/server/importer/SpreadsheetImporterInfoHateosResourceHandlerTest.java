@@ -32,8 +32,8 @@ import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     SpreadsheetImporterName,
     SpreadsheetImporterInfo,
     SpreadsheetImporterInfoSet,
-    SpreadsheetEngineHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosResourceHandlerContext>,
     ToStringTesting<SpreadsheetImporterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -58,10 +58,10 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
         SpreadsheetImporterName.with("importer-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetProvider systemSpreadsheetProvider() {
+        public SpreadsheetProvider spreadsheetProvider() {
             return new FakeSpreadsheetProvider() {
                 @Override
                 public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
@@ -164,7 +164,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 
@@ -174,7 +174,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "systemSpreadsheetProvider.spreadsheetImporterInfos"
+            "SpreadsheetProvider.spreadsheetImporterInfos"
         );
     }
 
