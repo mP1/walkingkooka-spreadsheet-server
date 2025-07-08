@@ -18,7 +18,10 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
-public interface SpreadsheetProviderHateosResourceHandlerContext extends SpreadsheetProvider, HateosResourceHandlerContext {
+public interface SpreadsheetProviderHateosResourceHandlerContext extends ProviderContext, HateosResourceHandlerContext {
+
+    SpreadsheetProvider spreadsheetProvider();
 }
