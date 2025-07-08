@@ -349,67 +349,63 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> comparatorRouter() {
-        return HateosResourceMappings.router(
-            API,
-            Sets.of(
-                SpreadsheetComparatorHateosResourceMappings.comparator()
-            ),
-            this.indentation,
-            this.lineEnding,
-            this.spreadsheetProviderHateosResourceHandlerContext
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            SpreadsheetComparatorHateosResourceMappings.comparator()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> converterRouter() {
-        return HateosResourceMappings.router(
-            API,
-            Sets.of(
-                ConverterHateosResourceMappings.converter()
-            ),
-            this.indentation,
-            this.lineEnding,
-            this.spreadsheetProviderHateosResourceHandlerContext
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            ConverterHateosResourceMappings.converter()
         );
     }
+
     private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
-        return HateosResourceMappings.router(
-            API,
-            Sets.of(
-                DateTimeSymbolsHateosResourceMappings.mappings()
-            ),
-            this.indentation,
-            this.lineEnding,
-            this.localeHateosResourceHandlerContext
+        return this.localeHateosResourceHandlerContext(
+            DateTimeSymbolsHateosResourceMappings.mappings()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
-        return HateosResourceMappings.router(
-            API,
-            Sets.of(
-                DecimalNumberSymbolsHateosResourceMappings.mappings()
-            ),
-            this.indentation,
-            this.lineEnding,
-            this.localeHateosResourceHandlerContext
+        return this.localeHateosResourceHandlerContext(
+            DecimalNumberSymbolsHateosResourceMappings.mappings()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
-        return HateosResourceMappings.router(
-            API,
-            Sets.of(
-                LocaleHateosResourceMappings.mappings()
-            ),
-            this.indentation,
-            this.lineEnding,
+        return this.localeHateosResourceHandlerContext(
+            LocaleHateosResourceMappings.mappings()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> localeHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, ?> mappings) {
+        return this.hateosResourceMappingsRouter(
+            mappings,
             this.localeHateosResourceHandlerContext
         );
     }
 
     private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
 
+    private Router<HttpRequestAttribute<?>, HttpHandler> spreadsheetProviderHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, ?> mappings) {
+        return this.hateosResourceMappingsRouter(
+            mappings,
+            this.spreadsheetProviderHateosResourceHandlerContext
+        );
+    }
+
     private final SpreadsheetProviderHateosResourceHandlerContext spreadsheetProviderHateosResourceHandlerContext;
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, ?> mappings,
+                                                                                      final HateosResourceHandlerContext context) {
+        return HateosResourceMappings.router(
+            API,
+            Sets.of(mappings),
+            this.indentation,
+            this.lineEnding,
+            context
+        );
+    }
 
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetMetadataHttpHandler.with(
