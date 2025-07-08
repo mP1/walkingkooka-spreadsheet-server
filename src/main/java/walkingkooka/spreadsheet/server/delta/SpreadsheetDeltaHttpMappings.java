@@ -18,7 +18,6 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -152,7 +151,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         cell = cell.setHttpHandler(
-            FORM,
+            FormName.HATEOS_RESOURCE_NAME.toUrlPathName(),
             SpreadsheetDeltaHttpMappingsFormHttpHandler.with(
                 engine,
                 indentation,
@@ -259,8 +258,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         return HateosResourceSelection.one(text);
     }
-
-    private static final UrlPathName FORM = UrlPathName.with("form");
 
     // column...........................................................................................................
 
@@ -389,7 +386,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     public static HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final int defaultCount,
                                                                                                                                                                                  final SpreadsheetEngine engine) {
         return HateosResourceMappings.with(
-            Form.HATEOS_RESOURCE_NAME,
+            FormName.HATEOS_RESOURCE_NAME,
             SpreadsheetDeltaHttpMappings::parseForm,
             SpreadsheetDelta.class,
             SpreadsheetDelta.class,
