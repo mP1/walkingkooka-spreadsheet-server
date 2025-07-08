@@ -241,58 +241,23 @@ public final class SpreadsheetHttpServer implements HttpServer {
             .add(
                 this.routing(API_COMPARATOR)
                     .build(),
-                (HttpRequest request, HttpResponse response) ->
-                    this.comparatorRouter()
-                        .route(request.routerParameters())
-                        .orElse(SpreadsheetHttpServer::notFound)
-                        .handle(
-                            request,
-                            response
-                        )
+                httpHandler(this.comparatorRouter())
             ).add(
                 this.routing(API_CONVERTER)
                     .build(),
-                (HttpRequest request, HttpResponse response) ->
-                    this.converterRouter()
-                        .route(request.routerParameters())
-                        .orElse(SpreadsheetHttpServer::notFound)
-                        .handle(
-                            request,
-                            response
-                        )
+                httpHandler(this.converterRouter())
             ).add(
                 this.routing(API_DATE_TIME_SYMBOLS)
                     .build(),
-                (HttpRequest request, HttpResponse response) ->
-                    this.dateTimeSymbolsRouter()
-                        .route(request.routerParameters())
-                        .orElse(SpreadsheetHttpServer::notFound)
-                        .handle(
-                            request,
-                            response
-                        )
+                httpHandler(this.dateTimeSymbolsRouter())
             ).add(
                 this.routing(API_DECIMAL_NUMBER_SYMBOLS)
                     .build(),
-                (HttpRequest request, HttpResponse response) ->
-                    this.decimalNumberSymbolsRouter()
-                        .route(request.routerParameters())
-                        .orElse(SpreadsheetHttpServer::notFound)
-                        .handle(
-                            request,
-                            response
-                        )
+                httpHandler(this.decimalNumberSymbolsRouter())
             ).add(
                 this.routing(API_LOCALE)
                     .build(),
-                (HttpRequest request, HttpResponse response) ->
-                this.localeRouter()
-                    .route(request.routerParameters())
-                    .orElse(SpreadsheetHttpServer::notFound)
-                    .handle(
-                        request,
-                        response
-                    )
+                httpHandler(this.localeRouter())
             ).add(
                 this.routing(API_COMPARATOR)
                     .build(),
@@ -325,6 +290,16 @@ public final class SpreadsheetHttpServer implements HttpServer {
                     fileServer
                 )
             ).router();
+    }
+
+    private static HttpHandler httpHandler(final Router<HttpRequestAttribute<?>, HttpHandler> router) {
+        return (HttpRequest request, HttpResponse response) ->
+            router.route(request.routerParameters())
+                .orElse(SpreadsheetHttpServer::notFound)
+                .handle(
+                    request,
+                    response
+                );
     }
 
     /**
