@@ -96,7 +96,7 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
                         SpreadsheetDelta,
                         Form<SpreadsheetExpressionReference>,
                         SpreadsheetEngineHateosResourceHandlerContext> mappings = HateosResourceMappings.with(
-                        Form.HATEOS_RESOURCE_NAME,
+                        FormName.HATEOS_RESOURCE_NAME,
                         SpreadsheetDeltaHttpMappings::parseForm,
                         SpreadsheetDelta.class,
                         SpreadsheetDelta.class,
