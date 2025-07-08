@@ -22,7 +22,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.validation.form.provider.FormHandlerInfo;
 import walkingkooka.validation.form.provider.FormHandlerInfoSet;
@@ -34,7 +34,7 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
         FormHandlerInfo,
         FormHandlerInfoSet,
         FormHandlerInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> formHandler() {
+        SpreadsheetProviderHateosResourceHandlerContext> mappings() {
 
         // formHandler GET...............................................................................................
 
@@ -44,7 +44,7 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
             FormHandlerInfo.class, // valueType
             FormHandlerInfoSet.class, // collectionType
             FormHandlerInfo.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -53,7 +53,7 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
     }
 
     private static HateosResourceSelection<FormHandlerName> parseFormHandlerSelection(final String text,
-                                                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                      final SpreadsheetProviderHateosResourceHandlerContext context) {
         final HateosResourceSelection<FormHandlerName> selection;
 
         switch (text) {
