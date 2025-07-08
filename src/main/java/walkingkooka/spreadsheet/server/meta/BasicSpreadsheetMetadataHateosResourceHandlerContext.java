@@ -404,6 +404,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             engine
         );
 
+        final HateosResourceMappings<SpreadsheetId,
+            SpreadsheetMetadata,
+            SpreadsheetMetadata,
+            SpreadsheetMetadata,
+            SpreadsheetEngineHateosResourceHandlerContext> metadataMappings = MetadataHateosResourceMappings.metadata();
+
         final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();
 
         final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosResourceHandlerContext> row = SpreadsheetDeltaHttpMappings.row(
@@ -426,6 +432,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 expressionFunction, // function
                 importer,
                 label,
+                metadataMappings,
                 parser, // /parser
                 row,
                 validator
