@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 public final class MetadataHateosResourceMappings implements PublicStaticHelper {
 
+    public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("metadata");
+
     public static HateosResourceMappings<SpreadsheetId,
         SpreadsheetMetadata,
         SpreadsheetMetadata,
@@ -36,7 +38,7 @@ public final class MetadataHateosResourceMappings implements PublicStaticHelper 
         SpreadsheetEngineHateosResourceHandlerContext> metadata() {
 
         return HateosResourceMappings.with(
-            HateosResourceName.with("metadata"), // not "spreadsheet" to avoid repetition in urls
+            HATEOS_RESOURCE_NAME, // not "spreadsheet" to avoid repetition in urls
             MetadataHateosResourceMappings::parseSelection,
             SpreadsheetMetadata.class, // valueType
             SpreadsheetMetadata.class, // collectionType
