@@ -17,9 +17,25 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
 public final class SpreadsheetProviderHateosResourceHandlerContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicSpreadsheetProviderHateosResourceHandlerContext}
+     */
+    public static SpreadsheetProviderHateosResourceHandlerContext basic(final SpreadsheetProvider spreadsheetProvider,
+                                                                        final ProviderContext providerContext,
+                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext) {
+        return BasicSpreadsheetProviderHateosResourceHandlerContext.with(
+            spreadsheetProvider,
+            providerContext,
+            hateosResourceHandlerContext
+        );
+    }
 
     /**
      * {@see FakeSpreadsheetProviderHateosResourceHandlerContext}
