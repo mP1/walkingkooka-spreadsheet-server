@@ -35,7 +35,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakeSpreadsheetProvider implements HateosResourceHandlerContext {
+public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakeSpreadsheetProvider implements SpreadsheetProviderHateosResourceHandlerContext,
+    HateosResourceHandlerContext {
 
     public FakeSpreadsheetProviderHateosResourceHandlerContext() {
         super();
