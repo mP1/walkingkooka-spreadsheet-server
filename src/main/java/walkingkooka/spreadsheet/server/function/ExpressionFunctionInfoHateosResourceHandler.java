@@ -24,7 +24,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -36,10 +36,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link ExpressionFunctionInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetProviderHateosResourceHandlerContext> {
 
     final static ExpressionFunctionInfoHateosResourceHandler INSTANCE = new ExpressionFunctionInfoHateosResourceHandler();
 
@@ -51,7 +51,7 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
     public Optional<ExpressionFunctionInfoSet> handleAll(final Optional<ExpressionFunctionInfoSet> infos,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                                          final UrlPath path,
-                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                         final SpreadsheetProviderHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -59,7 +59,7 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
 
         return Optional.of(
             SpreadsheetExpressionFunctions.infoSet(
-                context.systemSpreadsheetProvider()
+                context.spreadsheetProvider()
                     .expressionFunctionInfos()
             )
         );
@@ -70,14 +70,14 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
                                                       final Optional<ExpressionFunctionInfo> info,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                                       final UrlPath path,
-                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                      final SpreadsheetProviderHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        return context.systemSpreadsheetProvider()
+        return context.spreadsheetProvider()
             .expressionFunctionInfos()
             .stream()
             .filter(i -> i.name().equals(name))
@@ -86,6 +86,6 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
 
     @Override
     public String toString() {
-        return "SpreadsheetEngineContext.expressionFunctionInfos";
+        return "SpreadsheetProvider.expressionFunctionInfos";
     }
 }

@@ -166,8 +166,8 @@ These end points may be used to work with available [SpreadsheetFormHandlerInfoS
 
 These end points may be used to work with available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-expression-function-provider/blob/master/src/main/java/walkingkooka/tree/expression/function/provider/ExpressionFunctionInfoSet.java)
 
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/function
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/function/[ExpressionFunctionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
+- **GET** /api/function
+- **GET** /api/function/[ExpressionFunctionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
 
 #### [Importer](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/importer/SpreadsheetImporter.java)
 

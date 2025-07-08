@@ -30,8 +30,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -44,7 +44,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     ExpressionFunctionName,
     ExpressionFunctionInfo,
     ExpressionFunctionInfoSet,
-    SpreadsheetEngineHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosResourceHandlerContext>,
     ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -59,10 +59,10 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
         SpreadsheetExpressionFunctions.name("function-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetProvider systemSpreadsheetProvider() {
+        public SpreadsheetProvider spreadsheetProvider() {
             return new FakeSpreadsheetProvider() {
                 @Override
                 public ExpressionFunctionInfoSet expressionFunctionInfos() {
@@ -165,7 +165,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 
@@ -175,7 +175,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "SpreadsheetEngineContext.expressionFunctionInfos"
+            "SpreadsheetProvider.expressionFunctionInfos"
         );
     }
 

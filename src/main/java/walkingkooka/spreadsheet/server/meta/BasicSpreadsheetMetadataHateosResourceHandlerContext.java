@@ -70,16 +70,12 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
-import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
@@ -373,8 +369,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMappings<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
-        final HateosResourceMappings<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetEngineHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function();
-
         final HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetDeltaHttpMappings.label(
             defaultMax,
             engine
@@ -402,7 +396,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 column,
                 form,
                 formatter, // formatter
-                expressionFunction, // function
                 label,
                 metadataMappings,
                 parser, // /parser
