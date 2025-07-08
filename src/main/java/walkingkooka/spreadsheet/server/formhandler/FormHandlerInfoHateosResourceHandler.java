@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.form;
+package walkingkooka.spreadsheet.server.formhandler;
 
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
