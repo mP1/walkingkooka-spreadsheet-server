@@ -66,8 +66,10 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * A spreadsheet server that uses the given {@link HttpServer} and some other dependencies.
@@ -239,40 +241,32 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
-                this.routing(API_COMPARATOR)
-                    .build(),
+                this.routing(API_COMPARATOR),
                 httpHandler(this.comparatorRouter())
             ).add(
-                this.routing(API_CONVERTER)
-                    .build(),
+                this.routing(API_CONVERTER),
                 httpHandler(this.converterRouter())
             ).add(
-                this.routing(API_DATE_TIME_SYMBOLS)
-                    .build(),
+                this.routing(API_DATE_TIME_SYMBOLS),
                 httpHandler(this.dateTimeSymbolsRouter())
             ).add(
-                this.routing(API_DECIMAL_NUMBER_SYMBOLS)
-                    .build(),
+                this.routing(API_DECIMAL_NUMBER_SYMBOLS),
                 httpHandler(this.decimalNumberSymbolsRouter())
             ).add(
-                this.routing(API_LOCALE)
-                    .build(),
+                this.routing(API_LOCALE),
                 httpHandler(this.localeRouter())
             ).add(
-                this.routing(API_COMPARATOR)
-                    .build(),
+                this.routing(API_COMPARATOR),
                 this.pluginHttpHandler(
                     serverUrl.setPath(API)
                 )
             ).add(
-                this.routing(API_PLUGIN)
-                    .build(),
+                this.routing(API_PLUGIN),
                 this.pluginHttpHandler(
                     serverUrl.setPath(API)
                 )
             ).add(
-                this.routing(API)
-                    .build(),
+                this.routing(API),
                 this.spreadsheetMetadataHttpHandler(
                     serverUrl.setPath(API)
                 )
@@ -318,9 +312,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     // mappings.........................................................................................................
 
-    private HttpRequestAttributeRouting routing(final UrlPath path) {
+    private Map<HttpRequestAttribute<?>, Predicate<?>> routing(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
-            .path(path);
+            .path(path)
+            .build();
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> comparatorRouter() {
