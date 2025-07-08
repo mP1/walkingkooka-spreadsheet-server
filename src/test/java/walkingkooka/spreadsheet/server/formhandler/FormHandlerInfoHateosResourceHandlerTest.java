@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.form;
+package walkingkooka.spreadsheet.server.formhandler;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
