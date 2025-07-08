@@ -12570,7 +12570,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/validator",
+            "/api/validator",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -12593,7 +12593,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/validator/non-null",
+            "/api/validator/non-null",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -12611,7 +12611,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/validator/unknown",
+            "/api/validator/unknown",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(

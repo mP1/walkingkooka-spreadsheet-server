@@ -67,11 +67,13 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceMappings;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
+import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.validation.form.provider.FormHandlerName;
+import walkingkooka.validation.provider.ValidatorName;
 
 import java.util.Map;
 import java.util.Objects;
@@ -133,6 +135,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_PLUGIN = API.append(
         Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_VALIDATOR = API.append(
+        ValidatorName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     /**
@@ -296,6 +302,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                     serverUrl.setPath(API)
                 )
             ).add(
+                this.routing(API_VALIDATOR),
+                httpHandler(this.validatorRouter())
+            ).add(
                 this.routing(API),
                 this.spreadsheetMetadataHttpHandler(
                     serverUrl.setPath(API)
@@ -399,6 +408,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
         return this.localeHateosResourceHandlerContext(
             LocaleHateosResourceMappings.mappings()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> validatorRouter() {
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            ValidationHateosResourceMappings.mappings()
         );
     }
 
