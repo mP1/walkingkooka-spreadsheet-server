@@ -59,6 +59,7 @@ import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbols
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.formhandler.FormHandlerHateosResourceMappings;
+import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
@@ -112,6 +113,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_FORM_HANDLER = API.append(
         FormHandlerName.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_FUNCTION = API.append(
+        ExpressionFunctionHateosResourceMappings.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_IMPORTER = API.append(
@@ -277,6 +282,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_FORM_HANDLER),
                 httpHandler(this.formHandlerRouter())
             ).add(
+                this.routing(API_FUNCTION),
+                httpHandler(this.functionRouter())
+            ).add(
                 this.routing(API_IMPORTER),
                 httpHandler(this.importerRouter())
             ).add(
@@ -367,6 +375,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private Router<HttpRequestAttribute<?>, HttpHandler> exporterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
             SpreadsheetExporterHateosResourceMappings.exporter()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> functionRouter() {
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            ExpressionFunctionHateosResourceMappings.mappings()
         );
     }
 

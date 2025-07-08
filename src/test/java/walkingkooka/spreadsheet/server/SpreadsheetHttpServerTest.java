@@ -9217,7 +9217,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/function",
+            "/api/function",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -9237,7 +9237,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/function/ExpressionFunction1",
+            "/api/function/ExpressionFunction1",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -9254,7 +9254,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/function/UnknownFunctionName",
+            "/api/function/UnknownFunctionName",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
