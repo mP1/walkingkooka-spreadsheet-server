@@ -32,8 +32,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     ConverterName,
     ConverterInfo,
     ConverterInfoSet,
-    SpreadsheetEngineHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosResourceHandlerContext>,
     ToStringTesting<ConverterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -58,10 +58,10 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
         ConverterName.with("converter-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetProvider systemSpreadsheetProvider() {
+        public SpreadsheetProvider spreadsheetProvider() {
             return new FakeSpreadsheetProvider() {
                 @Override
                 public ConverterInfoSet converterInfos() {
@@ -164,7 +164,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 

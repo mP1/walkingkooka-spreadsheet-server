@@ -8457,7 +8457,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/converter",
+            "/api/converter",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8518,7 +8518,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/converter/general",
+            "/api/converter/general",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8536,7 +8536,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/converter/unknown",
+            "/api/converter/unknown",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(

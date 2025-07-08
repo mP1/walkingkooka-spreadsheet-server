@@ -26,7 +26,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -35,10 +35,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link ConverterInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetProviderHateosResourceHandlerContext> {
 
     final static ConverterInfoHateosResourceHandler INSTANCE = new ConverterInfoHateosResourceHandler();
 
@@ -50,7 +50,7 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
     public Optional<ConverterInfoSet> handleAll(final Optional<ConverterInfoSet> infos,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetProviderHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -58,7 +58,7 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
 
         return Optional.of(
             ConverterInfoSet.with(
-                context.systemSpreadsheetProvider()
+                context.spreadsheetProvider()
                     .converterInfos()
             )
         );
@@ -69,14 +69,14 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
                                              final Optional<ConverterInfo> info,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final UrlPath path,
-                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                             final SpreadsheetProviderHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        return context.systemSpreadsheetProvider()
+        return context.spreadsheetProvider()
             .converterInfos()
             .stream()
             .filter(i -> i.name().equals(name))

@@ -19,9 +19,6 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.provider.ConverterInfo;
-import walkingkooka.convert.provider.ConverterInfoSet;
-import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -76,7 +73,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
-import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
@@ -382,8 +378,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             engine
         );
 
-        final HateosResourceMappings<ConverterName, ConverterInfo, ConverterInfoSet, ConverterInfo, SpreadsheetEngineHateosResourceHandlerContext> converter = ConverterHateosResourceMappings.converter();
-
         final HateosResourceMappings<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetExporterInfo, SpreadsheetEngineHateosResourceHandlerContext> exporter = SpreadsheetExporterHateosResourceMappings.exporter();
 
         final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form(
@@ -424,7 +418,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 cell,
                 cellReference,
                 column,
-                converter,
                 exporter,
                 form,
                 formHandler,
