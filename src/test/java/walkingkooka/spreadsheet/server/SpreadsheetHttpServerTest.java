@@ -8584,7 +8584,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/exporter",
+            "/api/exporter",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8606,7 +8606,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/exporter/json",
+            "/api/exporter/json",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8624,7 +8624,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/exporter/unknown",
+            "/api/exporter/unknown",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(

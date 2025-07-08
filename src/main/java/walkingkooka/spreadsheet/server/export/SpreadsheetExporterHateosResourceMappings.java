@@ -25,7 +25,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
 public final class SpreadsheetExporterHateosResourceMappings implements PublicStaticHelper {
@@ -36,7 +36,7 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
         SpreadsheetExporterInfo,
         SpreadsheetExporterInfoSet,
         SpreadsheetExporterInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> exporter() {
+        SpreadsheetProviderHateosResourceHandlerContext> exporter() {
 
         // exporter GET...............................................................................................
 
@@ -46,7 +46,7 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
             SpreadsheetExporterInfo.class, // valueType
             SpreadsheetExporterInfoSet.class, // collectionType
             SpreadsheetExporterInfo.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -55,7 +55,7 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
     }
 
     private static HateosResourceSelection<SpreadsheetExporterName> parseSelection(final String text,
-                                                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                   final SpreadsheetProviderHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetExporterName> selection;
 
         switch (text) {

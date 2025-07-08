@@ -46,6 +46,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -55,6 +56,7 @@ import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosReso
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
+import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
@@ -98,6 +100,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_DECIMAL_NUMBER_SYMBOLS = API.append(
         DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_EXPORTER = API.append(
+        SpreadsheetExporterName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_LOCALE = API.append(
@@ -253,6 +259,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_DECIMAL_NUMBER_SYMBOLS),
                 httpHandler(this.decimalNumberSymbolsRouter())
             ).add(
+                this.routing(API_EXPORTER),
+                httpHandler(this.exporterRouter())
+            ).add(
                 this.routing(API_LOCALE),
                 httpHandler(this.localeRouter())
             ).add(
@@ -334,6 +343,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
         return this.localeHateosResourceHandlerContext(
             DecimalNumberSymbolsHateosResourceMappings.mappings()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> exporterRouter() {
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            SpreadsheetExporterHateosResourceMappings.exporter()
         );
     }
 
