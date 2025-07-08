@@ -47,6 +47,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -58,6 +59,7 @@ import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbols
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.formhandler.FormHandlerHateosResourceMappings;
+import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
@@ -110,6 +112,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_FORM_HANDLER = API.append(
         FormHandlerName.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_IMPORTER = API.append(
+        SpreadsheetImporterName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_LOCALE = API.append(
@@ -271,6 +277,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_FORM_HANDLER),
                 httpHandler(this.formHandlerRouter())
             ).add(
+                this.routing(API_IMPORTER),
+                httpHandler(this.importerRouter())
+            ).add(
                 this.routing(API_LOCALE),
                 httpHandler(this.localeRouter())
             ).add(
@@ -364,6 +373,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private Router<HttpRequestAttribute<?>, HttpHandler> formHandlerRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
             FormHandlerHateosResourceMappings.mappings()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> importerRouter() {
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            SpreadsheetImporterHateosResourceMappings.mappings()
         );
     }
 
