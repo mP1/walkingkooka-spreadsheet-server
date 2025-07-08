@@ -223,8 +223,8 @@ Many of these are very closely mapped to the context menu that appears when row/
 These end points may be used to work with
 available [ValidatorInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/validator/ValidatorInfoSet.java)
 
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/validator
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/validator/[ValidatorName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/provider/ValidatorName.java)
+- **GET** /api/validator
+- **GET** /api/validator/[ValidatorName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/provider/ValidatorName.java)
 
 #### url / query string parameters
 

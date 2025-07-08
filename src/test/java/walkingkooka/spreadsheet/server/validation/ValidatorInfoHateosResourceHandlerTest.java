@@ -29,8 +29,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
@@ -43,7 +43,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     ValidatorName,
     ValidatorInfo,
     ValidatorInfoSet,
-    SpreadsheetEngineHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosResourceHandlerContext>,
     ToStringTesting<ValidatorInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -58,10 +58,10 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
         ValidatorName.with("validator-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetProvider systemSpreadsheetProvider() {
+        public SpreadsheetProvider spreadsheetProvider() {
             return new FakeSpreadsheetProvider() {
                 @Override
                 public ValidatorInfoSet validatorInfos() {
@@ -164,7 +164,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 
@@ -174,7 +174,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "systemSpreadsheetProvider.validatorInfos"
+            "SpreadsheetProvider.validatorInfos"
         );
     }
 

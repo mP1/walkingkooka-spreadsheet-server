@@ -22,7 +22,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
@@ -36,7 +36,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
         ValidatorInfo,
         ValidatorInfoSet,
         ValidatorInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> validator() {
+        SpreadsheetProviderHateosResourceHandlerContext> mappings() {
 
         // validator GET...............................................................................................
 
@@ -46,7 +46,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
             ValidatorInfo.class, // valueType
             ValidatorInfoSet.class, // collectionType
             ValidatorInfo.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -55,7 +55,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
     }
 
     private static HateosResourceSelection<ValidatorName> parseSelection(final String text,
-                                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                         final SpreadsheetProviderHateosResourceHandlerContext context) {
         final HateosResourceSelection<ValidatorName> selection;
 
         switch (text) {
