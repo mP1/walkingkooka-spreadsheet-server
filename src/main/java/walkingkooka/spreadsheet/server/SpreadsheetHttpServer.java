@@ -45,9 +45,11 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
@@ -78,6 +80,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
         .stringValues();
 
     public final static UrlPath API = walkingkooka.net.UrlPath.parse("/api");
+
+    public final static UrlPath API_COMPARATOR = API.append(
+        SpreadsheetComparatorName.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
 
     public final static UrlPath API_DATE_TIME_SYMBOLS = API.append(
         DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
@@ -205,6 +211,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
+        this.spreadsheetProviderHateosResourceHandlerContext = SpreadsheetProviderHateosResourceHandlerContexts.basic(
+            systemSpreadsheetProvider,
+            providerContext,
+            hateosResourceHandlerContext
+        );
+
         this.localeHateosResourceHandlerContext = LocaleHateosResourceHandlerContexts.basic(
             localeContext,
             hateosResourceHandlerContext
@@ -222,6 +234,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
+                this.routing(API_COMPARATOR)
+                    .build(),
+                (HttpRequest request, HttpResponse response) ->
+                    this.comparatorRouter()
+                        .route(request.routerParameters())
+                        .orElse(SpreadsheetHttpServer::notFound)
+                        .handle(
+                            request,
+                            response
+                        )
+            ).add(
                 this.routing(API_DATE_TIME_SYMBOLS)
                     .build(),
                 (HttpRequest request, HttpResponse response) ->
@@ -254,6 +277,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
                         request,
                         response
                     )
+            ).add(
+                this.routing(API_COMPARATOR)
+                    .build(),
+                this.pluginHttpHandler(
+                    serverUrl.setPath(API)
+                )
             ).add(
                 this.routing(API_PLUGIN)
                     .build(),
@@ -303,6 +332,18 @@ public final class SpreadsheetHttpServer implements HttpServer {
             .path(path);
     }
 
+    private Router<HttpRequestAttribute<?>, HttpHandler> comparatorRouter() {
+        return HateosResourceMappings.router(
+            API,
+            Sets.of(
+                SpreadsheetComparatorHateosResourceMappings.comparator()
+            ),
+            this.indentation,
+            this.lineEnding,
+            this.spreadsheetProviderHateosResourceHandlerContext
+        );
+    }
+
     private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
         return HateosResourceMappings.router(
             API,
@@ -340,6 +381,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
+
+    private final SpreadsheetProviderHateosResourceHandlerContext spreadsheetProviderHateosResourceHandlerContext;
 
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetMetadataHttpHandler.with(
