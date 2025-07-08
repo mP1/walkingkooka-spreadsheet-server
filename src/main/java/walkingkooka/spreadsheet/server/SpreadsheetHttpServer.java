@@ -50,6 +50,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
+import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
@@ -83,6 +84,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_COMPARATOR = API.append(
         SpreadsheetComparatorName.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_CONVERTER = API.append(
+        ConverterHateosResourceMappings.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_DATE_TIME_SYMBOLS = API.append(
@@ -245,6 +250,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
                             response
                         )
             ).add(
+                this.routing(API_CONVERTER)
+                    .build(),
+                (HttpRequest request, HttpResponse response) ->
+                    this.converterRouter()
+                        .route(request.routerParameters())
+                        .orElse(SpreadsheetHttpServer::notFound)
+                        .handle(
+                            request,
+                            response
+                        )
+            ).add(
                 this.routing(API_DATE_TIME_SYMBOLS)
                     .build(),
                 (HttpRequest request, HttpResponse response) ->
@@ -344,6 +360,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
+    private Router<HttpRequestAttribute<?>, HttpHandler> converterRouter() {
+        return HateosResourceMappings.router(
+            API,
+            Sets.of(
+                ConverterHateosResourceMappings.converter()
+            ),
+            this.indentation,
+            this.lineEnding,
+            this.spreadsheetProviderHateosResourceHandlerContext
+        );
+    }
     private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
         return HateosResourceMappings.router(
             API,

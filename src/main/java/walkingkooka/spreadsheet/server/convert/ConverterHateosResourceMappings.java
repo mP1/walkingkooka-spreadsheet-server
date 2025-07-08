@@ -26,7 +26,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 
 public final class ConverterHateosResourceMappings implements PublicStaticHelper {
 
@@ -36,17 +36,17 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
         ConverterInfo,
         ConverterInfoSet,
         ConverterInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> converter() {
+        SpreadsheetProviderHateosResourceHandlerContext> converter() {
 
         // converter GET...............................................................................................
 
         return HateosResourceMappings.with(
-            CONVERTER,
+            HATEOS_RESOURCE_NAME,
             ConverterHateosResourceMappings::parseConverterSelection,
             ConverterInfo.class, // valueType
             ConverterInfoSet.class, // collectionType
             ConverterInfo.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -55,7 +55,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
     }
 
     private static HateosResourceSelection<ConverterName> parseConverterSelection(final String text,
-                                                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                  final SpreadsheetProviderHateosResourceHandlerContext context) {
         final HateosResourceSelection<ConverterName> selection;
 
         switch (text) {
@@ -78,7 +78,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
     /**
      * A {@link HateosResourceName} with <code>converter</code>.
      */
-    public static final HateosResourceName CONVERTER = HateosResourceName.with("converter");
+    public static final HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("converter");
 
     /**
      * Stop creation
