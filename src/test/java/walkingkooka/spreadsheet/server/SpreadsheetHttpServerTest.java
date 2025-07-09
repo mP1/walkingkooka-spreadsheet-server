@@ -8643,7 +8643,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/formatter",
+            "/api/formatter",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8673,7 +8673,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/date-format-pattern",
+            "/api/formatter/date-format-pattern",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8691,7 +8691,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/unknown-formatter-404",
+            "/api/formatter/unknown-formatter-404",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
