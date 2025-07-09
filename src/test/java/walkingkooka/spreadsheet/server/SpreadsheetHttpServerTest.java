@@ -9332,7 +9332,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/parser",
+            "/api/parser",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -9355,7 +9355,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/parser/date-parse-pattern",
+            "/api/parser/date-parse-pattern",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -9372,7 +9372,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/parser/unknown-parser-204",
+            "/api/parser/unknown-parser-204",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(

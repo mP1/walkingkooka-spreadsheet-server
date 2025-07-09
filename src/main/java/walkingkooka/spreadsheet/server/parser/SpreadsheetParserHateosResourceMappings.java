@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.parser;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -26,17 +27,38 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 public final class SpreadsheetParserHateosResourceMappings implements PublicStaticHelper {
-
-    // parser.......................................................................................................
 
     public static HateosResourceMappings<SpreadsheetParserName,
         SpreadsheetParserInfo,
         SpreadsheetParserInfoSet,
         SpreadsheetParserInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> parser() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProvider() {
+
+        // parser GET...............................................................................................
+
+        return HateosResourceMappings.with(
+            SpreadsheetParserName.HATEOS_RESOURCE_NAME,
+            SpreadsheetParserHateosResourceMappings::parseSelection,
+            SpreadsheetParserInfo.class, // valueType
+            SpreadsheetParserInfoSet.class, // collectionType
+            SpreadsheetParserInfo.class, // resourceType
+            SpreadsheetProviderHateosResourceHandlerContext.class // context
+        ).setHateosResourceHandler(
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetParserInfoHateosResourceHandler.INSTANCE
+        );
+    }
+
+    public static HateosResourceMappings<SpreadsheetParserName,
+        SpreadsheetParserInfo,
+        SpreadsheetParserInfoSet,
+        SpreadsheetParserInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> engine() {
 
         // parser GET...............................................................................................
 
@@ -47,10 +69,6 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
             SpreadsheetParserInfoSet.class, // collectionType
             SpreadsheetParserInfo.class, // resourceType
             SpreadsheetEngineHateosResourceHandlerContext.class // context
-        ).setHateosResourceHandler(
-            LinkRelation.SELF,
-            HttpMethod.GET,
-            SpreadsheetParserInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
             SpreadsheetServerLinkRelations.EDIT,
             HttpMethod.POST,
@@ -67,7 +85,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
     }
 
     private static HateosResourceSelection<SpreadsheetParserName> parseSelection(final String text,
-                                                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                 final HateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetParserName> selection;
 
         switch (text) {

@@ -32,8 +32,8 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     SpreadsheetParserName,
     SpreadsheetParserInfo,
     SpreadsheetParserInfoSet,
-    SpreadsheetEngineHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosResourceHandlerContext>,
     ToStringTesting<SpreadsheetParserInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -58,10 +58,10 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
         SpreadsheetParserName.with("parser-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetProvider systemSpreadsheetProvider() {
+        public SpreadsheetProvider spreadsheetProvider() {
             return new FakeSpreadsheetProvider() {
                 @Override
                 public SpreadsheetParserInfoSet spreadsheetParserInfos() {
@@ -164,7 +164,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 
@@ -174,7 +174,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "systemSpreadsheetProvider.spreadsheetParserInfos"
+            "SpreadsheetProvider.spreadsheetParserInfos"
         );
     }
 
