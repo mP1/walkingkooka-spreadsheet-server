@@ -47,8 +47,6 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> FORM = LinkRelation.with("form");
 
-    public final static LinkRelation<?> FORMAT = LinkRelation.with("format");
-
     public final static LinkRelation<?> INSERT_AFTER = LinkRelation.with("insert-after");
 
     public final static LinkRelation<?> INSERT_BEFORE = LinkRelation.with("insert-before");
