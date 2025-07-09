@@ -34,7 +34,6 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.convert.MissingConverterSet;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverters;
@@ -52,14 +51,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
 
     @Test
-    public void testHandleAll() {
-        this.handleAllAndCheck(
+    public void testHandleOne() {
+        this.handleOneAndCheck(
+            PROPERTY,
             this.entity(),
             HateosHttpEntityHandler.NO_PARAMETERS,
             this.path(),
@@ -85,21 +85,21 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     }
 
     @Override
-    public SpreadsheetId id() {
-        return SpreadsheetId.with(1);
+    public SpreadsheetMetadataPropertyName<?> id() {
+        return SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
     }
 
     @Override
-    public Set<SpreadsheetId> manyIds() {
+    public Set<SpreadsheetMetadataPropertyName<?>> manyIds() {
         return Sets.of(
             this.id()
         );
     }
 
     @Override
-    public Range<SpreadsheetId> range() {
+    public Range<SpreadsheetMetadataPropertyName<?>> range() {
         return Range.singleton(
-            SpreadsheetId.with(2)
+            this.id()
         );
     }
 
@@ -119,9 +119,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
     @Override
     public UrlPath path() {
-        return UrlPath.parse(
-            PROPERTY.value()
-        );
+        return UrlPath.EMPTY;
     }
 
     @Override

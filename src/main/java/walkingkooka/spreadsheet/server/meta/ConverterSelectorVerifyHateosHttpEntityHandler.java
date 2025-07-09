@@ -26,11 +26,10 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
-import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.convert.MissingConverter;
 import walkingkooka.spreadsheet.convert.MissingConverterSet;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -40,15 +39,16 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A handler which eventually calls {@link MissingConverter#verify(Converter, SpreadsheetMetadataPropertyName, SpreadsheetConverterContext)}.
  */
-final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetId, SpreadsheetEngineHateosResourceHandlerContext> {
+final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -59,20 +59,19 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
         super();
     }
 
-    // POST /api/spreadsheet/SpreadsheetId/metadata/*/findConverter
+    // POST /api/spreadsheet/SpreadsheetId/metadata/findConverter/verify
     //
     // BODY = ConverterSelector
     @Override
-    public HttpEntity handleAll(final HttpEntity entity,
+    public HttpEntity handleOne(final SpreadsheetMetadataPropertyName<?> propertyName,
+                                final HttpEntity entity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final UrlPath path,
                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+        Objects.requireNonNull(propertyName, "propertyName");
         HateosHttpEntityHandler.checkHttpEntity(entity);
         HateosHttpEntityHandler.checkParameters(parameters);
-
-        final SpreadsheetMetadataPropertyName<?> propertyName = propertyName(
-            HateosHttpEntityHandler.checkPath(path)
-        );
+        HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
         if (false == propertyName.isConverterSelector()) {
@@ -107,14 +106,6 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
             context.marshall(response)
                 .toString()
         ).setContentLength();
-    }
-
-    // POST /api/spreadsheet/SpreadsheetId/*/verify/findConverter
-    static SpreadsheetMetadataPropertyName<?> propertyName(final UrlPath path) {
-        return SpreadsheetMetadataPropertyName.with(
-            path.name()
-                .value()
-        );
     }
 
     @Override
