@@ -8553,7 +8553,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/metadata/*/verify/formulaConverter",
+            "/api/spreadsheet/1/metadata/formulaConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
                 METADATA_EN_AU.getOrFail(

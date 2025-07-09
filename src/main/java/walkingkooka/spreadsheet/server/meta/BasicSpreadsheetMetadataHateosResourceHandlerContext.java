@@ -370,10 +370,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             engine
         );
 
-        final HateosResourceMappings<SpreadsheetId,
-            SpreadsheetMetadata,
-            SpreadsheetMetadata,
-            SpreadsheetMetadata,
+        final HateosResourceMappings<SpreadsheetMetadataPropertyName<?>,
+            SpreadsheetMetadataPropertyNameHateosResource,
+            SpreadsheetMetadataPropertyNameHateosResource,
+            SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetEngineHateosResourceHandlerContext> metadataMappings = MetadataHateosResourceMappings.metadata();
 
         final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();

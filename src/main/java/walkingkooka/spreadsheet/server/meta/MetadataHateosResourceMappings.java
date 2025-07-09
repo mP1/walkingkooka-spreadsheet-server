@@ -19,30 +19,27 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 public final class MetadataHateosResourceMappings implements PublicStaticHelper {
 
-    public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("metadata");
-
-    public static HateosResourceMappings<SpreadsheetId,
-        SpreadsheetMetadata,
-        SpreadsheetMetadata,
-        SpreadsheetMetadata,
+    public static HateosResourceMappings<SpreadsheetMetadataPropertyName<?>,
+        SpreadsheetMetadataPropertyNameHateosResource,
+        SpreadsheetMetadataPropertyNameHateosResource,
+        SpreadsheetMetadataPropertyNameHateosResource,
         SpreadsheetEngineHateosResourceHandlerContext> metadata() {
 
+        // /api/spreadsheet/SpreadsheetId/metadata/FormulaConverter/verify
         return HateosResourceMappings.with(
-            HATEOS_RESOURCE_NAME, // not "spreadsheet" to avoid repetition in urls
+            SpreadsheetMetadataPropertyNameHateosResource.HATEOS_RESOURCE_NAME,
             MetadataHateosResourceMappings::parseSelection,
-            SpreadsheetMetadata.class, // valueType
-            SpreadsheetMetadata.class, // collectionType
-            SpreadsheetMetadata.class,// resourceType
+            SpreadsheetMetadataPropertyNameHateosResource.class, // valueType
+            SpreadsheetMetadataPropertyNameHateosResource.class, // collectionType
+            SpreadsheetMetadataPropertyNameHateosResource.class,// resourceType
             SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosHttpEntityHandler(
             SpreadsheetServerLinkRelations.VERIFY,
@@ -51,22 +48,11 @@ public final class MetadataHateosResourceMappings implements PublicStaticHelper 
         );
     }
 
-    private static HateosResourceSelection<SpreadsheetId> parseSelection(final String text,
-                                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
-        final HateosResourceSelection<SpreadsheetId> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid selection: " + text);
-        }
-
-        return selection;
+    private static HateosResourceSelection<SpreadsheetMetadataPropertyName<?>> parseSelection(final String text,
+                                                                                              final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return HateosResourceSelection.one(
+            SpreadsheetMetadataPropertyName.with(text)
+        );
     }
 
     /**
