@@ -117,12 +117,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
         SpreadsheetExporterName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
-    public final static UrlPath API_FORMATTER = API.append(
-        SpreadsheetFormatterName.HATEOS_RESOURCE_NAME.toUrlPathName()
-    );
-
     public final static UrlPath API_FORM_HANDLER = API.append(
         FormHandlerName.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_FORMATTER = API.append(
+        SpreadsheetFormatterName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_FUNCTION = API.append(
@@ -137,16 +137,16 @@ public final class SpreadsheetHttpServer implements HttpServer {
         LocaleHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
+    public final static UrlPath API_PLUGIN = API.append(
+        Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
     public final static UrlPath API_PARSER = API.append(
         SpreadsheetParserName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_SPREADSHEET = API.append(
         SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
-    );
-
-    public final static UrlPath API_PLUGIN = API.append(
-        Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_VALIDATOR = API.append(
@@ -323,15 +323,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_VALIDATOR),
                 httpHandler(this.validatorRouter())
             ).add(
-                this.routing(API),
-                this.spreadsheetMetadataHttpHandler(
-                    serverUrl.setPath(API)
-                )
-            ).add(
                 this.spreadsheetEngineRouting(API_SPREADSHEET)
                     .build(),
                 this.spreadsheetEngineHttpHandler(
                     serverUrl.setPath(API_SPREADSHEET)
+                )
+            ).add(
+                this.routing(API),
+                this.spreadsheetMetadataHttpHandler(
+                    serverUrl.setPath(API)
                 )
             ).add(
                 this.fileServerRouting()
@@ -405,12 +405,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> functionRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
-            ExpressionFunctionHateosResourceMappings.mappings()
-        );
-    }
-
     private Router<HttpRequestAttribute<?>, HttpHandler> formatterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
             SpreadsheetFormatterHateosResourceMappings.spreadsheetProvider()
@@ -420,6 +414,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private Router<HttpRequestAttribute<?>, HttpHandler> formHandlerRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
             FormHandlerHateosResourceMappings.mappings()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> functionRouter() {
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            ExpressionFunctionHateosResourceMappings.mappings()
         );
     }
 
@@ -499,7 +499,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return HttpRequestAttributeRouting.empty()
             .path(
                 path.append(UrlPathName.WILDCARD)
-                    .append(UrlPathName.WILDCARD));
+                    .append(UrlPathName.WILDCARD)
+            );
     }
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
