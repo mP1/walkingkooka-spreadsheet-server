@@ -39,14 +39,13 @@ A collection of end points to help manage plugins.
 - **GET** /api/plugin/[pluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/pluginName.java)/list
 - **GET** /api/plugin/[pluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/pluginName.java)/filter?query=$query&offset=0&count=1
 
-### [Context](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngineContext.java)
+### [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/metadata/SpreadsheetMetadata.java)
 
-A collection of end points that support CRUD operations on [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java). Note all payloads are in `JSON` form.
+A collection of end points that support CRUD operations on spreadsheets. Note all payloads are in `JSON` form.
 
 - **GET** /api/spreadsheet/*?offset=0&count=10
 - **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)
-- **POST** /api/spreadsheet/ 
- expects no BODY, creates a Spreadsheet with [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java) with defaults using any provided `Locale`.
+- **POST** /api/spreadsheet/ expects no BODY, creates a Spreadsheet with [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java) with defaults using any provided `Locale`.
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java) requires a BODY to update existing `SpreadsheetMetadata.`
 - **PATCH** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java) Used to update an existing [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java), name or individual global settings for a spreadsheet.
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/metadata/[SpreadsheetMetadataPropertyNameConverterSelector](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadataPropertyNameConverterSelector.java)/verify
