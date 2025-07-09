@@ -28,6 +28,8 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -51,6 +53,19 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetFormatterSelectorMenuList.with(null)
+        );
+    }
+
+    @Test
+    public void testWithIncludesNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetFormatterSelectorMenuList.with(
+                Arrays.asList(
+                    MENU1,
+                    null
+                )
+            )
         );
     }
 

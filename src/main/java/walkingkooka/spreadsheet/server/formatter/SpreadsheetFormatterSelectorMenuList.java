@@ -41,9 +41,20 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
 
         return menus instanceof SpreadsheetFormatterSelectorMenuList ?
             (SpreadsheetFormatterSelectorMenuList) menus :
-            new SpreadsheetFormatterSelectorMenuList(
-                Lists.immutable(menus)
+            withCopy(menus);
+    }
+
+    private static SpreadsheetFormatterSelectorMenuList withCopy(final List<SpreadsheetFormatterSelectorMenu> menus) {
+        Objects.requireNonNull(menus, "menus");
+
+        final List<SpreadsheetFormatterSelectorMenu> copy = Lists.array();
+        for (final SpreadsheetFormatterSelectorMenu menu : menus) {
+            copy.add(
+                Objects.requireNonNull(menu, "includes null menu")
             );
+        }
+
+        return new SpreadsheetFormatterSelectorMenuList(copy);
     }
 
     private SpreadsheetFormatterSelectorMenuList(final List<SpreadsheetFormatterSelectorMenu> menus) {
