@@ -7796,7 +7796,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -7804,7 +7804,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(form1)
@@ -7840,7 +7840,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form2",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -7848,7 +7848,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(form2)
@@ -7884,7 +7884,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form3",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -7892,7 +7892,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(form3)
@@ -7956,7 +7956,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -7966,7 +7966,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(
@@ -8062,7 +8062,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form123",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -8072,7 +8072,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(
@@ -8137,7 +8137,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form123",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -8147,7 +8147,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(
@@ -8226,7 +8226,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form123",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -8236,7 +8236,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(
@@ -8301,7 +8301,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/form",
+            "/api/spreadsheet/1/form/Form123",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -8311,7 +8311,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setForms(
                         Sets.of(

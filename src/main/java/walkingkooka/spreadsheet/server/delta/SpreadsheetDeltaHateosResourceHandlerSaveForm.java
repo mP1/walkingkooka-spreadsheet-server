@@ -21,6 +21,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -39,6 +40,7 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDeltaHateosResourceHandler<FormName>
     implements UnsupportedHateosResourceHandlerHandleAll<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleRange<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerSaveForm with(final SpreadsheetEngine engine) {
@@ -47,19 +49,6 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
 
     private SpreadsheetDeltaHateosResourceHandlerSaveForm(final SpreadsheetEngine engine) {
         super(engine);
-    }
-
-    @Override
-    public Optional<SpreadsheetDelta> handleNone(final Optional<SpreadsheetDelta> resource,
-                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                 final UrlPath path,
-                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return this.saveOrUpdate(
-            resource,
-            parameters,
-            path,
-            context
-        );
     }
 
     // handleOne........................................................................................................
@@ -71,19 +60,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
                                                 final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkFormName(name);
-
-        return this.saveOrUpdate(
-            resource,
-            parameters,
-            path,
-            context
-        );
-    }
-
-    private Optional<SpreadsheetDelta> saveOrUpdate(final Optional<SpreadsheetDelta> resource,
-                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                    final UrlPath path,
-                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
+        
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
