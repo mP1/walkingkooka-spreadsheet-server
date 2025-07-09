@@ -51,6 +51,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
@@ -68,6 +69,7 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceMappings;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
+import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -133,6 +135,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_LOCALE = API.append(
         LocaleHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_PARSER = API.append(
+        SpreadsheetParserName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_SPREADSHEET = API.append(
@@ -306,6 +312,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_LOCALE),
                 httpHandler(this.localeRouter())
             ).add(
+                this.routing(API_PARSER),
+                httpHandler(this.parserRouter())
+            ).add(
                 this.routing(API_PLUGIN),
                 this.pluginHttpHandler(
                     serverUrl.setPath(API)
@@ -423,6 +432,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
         return this.localeHateosResourceHandlerContext(
             LocaleHateosResourceMappings.mappings()
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> parserRouter() {
+        return this.spreadsheetProviderHateosResourceHandlerContext(
+            SpreadsheetParserHateosResourceMappings.spreadsheetProvider()
         );
     }
 
