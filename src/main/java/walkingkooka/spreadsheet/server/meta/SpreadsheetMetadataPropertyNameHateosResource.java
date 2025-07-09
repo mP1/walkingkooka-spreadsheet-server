@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.http.server.hateos.HateosResource;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 
 import java.util.Optional;
@@ -27,8 +26,6 @@ import java.util.Optional;
  * A {@link HateosResource} that is not intended to be created and only exists to satisfy {@link walkingkooka.net.http.server.hateos.HateosResourceMappings}
  */
 final class SpreadsheetMetadataPropertyNameHateosResource implements HateosResource<SpreadsheetMetadataPropertyName<?>> {
-
-    final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("metadata");
 
     /**
      * Private ctor
