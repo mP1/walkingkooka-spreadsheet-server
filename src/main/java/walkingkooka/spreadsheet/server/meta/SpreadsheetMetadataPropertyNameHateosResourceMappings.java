@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
-public final class MetadataHateosResourceMappings implements PublicStaticHelper {
+public final class SpreadsheetMetadataPropertyNameHateosResourceMappings implements PublicStaticHelper {
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("metadata");
 
@@ -39,7 +39,7 @@ public final class MetadataHateosResourceMappings implements PublicStaticHelper 
         // /api/spreadsheet/SpreadsheetId/metadata/FormulaConverter/verify
         return HateosResourceMappings.with(
             HATEOS_RESOURCE_NAME,
-            MetadataHateosResourceMappings::parseSelection,
+            SpreadsheetMetadataPropertyNameHateosResourceMappings::parseSelection,
             SpreadsheetMetadataPropertyNameHateosResource.class, // valueType
             SpreadsheetMetadataPropertyNameHateosResource.class, // collectionType
             SpreadsheetMetadataPropertyNameHateosResource.class,// resourceType
@@ -61,7 +61,7 @@ public final class MetadataHateosResourceMappings implements PublicStaticHelper 
     /**
      * Stop creation
      */
-    private MetadataHateosResourceMappings() {
+    private SpreadsheetMetadataPropertyNameHateosResourceMappings() {
         throw new UnsupportedOperationException();
     }
 }
