@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -26,6 +27,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 public final class MetadataHateosResourceMappings implements PublicStaticHelper {
+
+    public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("metadata");
 
     public static HateosResourceMappings<SpreadsheetMetadataPropertyName<?>,
         SpreadsheetMetadataPropertyNameHateosResource,
@@ -35,7 +38,7 @@ public final class MetadataHateosResourceMappings implements PublicStaticHelper 
 
         // /api/spreadsheet/SpreadsheetId/metadata/FormulaConverter/verify
         return HateosResourceMappings.with(
-            SpreadsheetMetadataPropertyNameHateosResource.HATEOS_RESOURCE_NAME,
+            HATEOS_RESOURCE_NAME,
             MetadataHateosResourceMappings::parseSelection,
             SpreadsheetMetadataPropertyNameHateosResource.class, // valueType
             SpreadsheetMetadataPropertyNameHateosResource.class, // collectionType
