@@ -48,6 +48,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.validation.ValidationValueTypeName;
 
 import java.util.Map;
 import java.util.Optional;
@@ -74,7 +75,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     private final static SpreadsheetCellRangeReferencePath PATH = SpreadsheetCellRangeReferencePath.LRTD;
     private final static int OFFSET = 12;
     private final static int COUNT = 34;
-    private final static String VALUE_TYPE = "test-value-type";
+    private final static ValidationValueTypeName VALUE_TYPE = ValidationValueTypeName.with("test-value-type");
     private final static Expression EXPRESSION = Expression.call(
         Expression.namedFunction(
             SpreadsheetExpressionFunctions.name("test123")
@@ -95,7 +96,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
         final int count = COUNT;
-        final String valueType = VALUE_TYPE;
+        final ValidationValueTypeName valueType = VALUE_TYPE;
         final Expression expression = EXPRESSION;
 
         this.handleOneAndCheck(
@@ -108,7 +109,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                                                       final SpreadsheetCellRangeReferencePath p,
                                                       final int o,
                                                       final int c,
-                                                      final String v,
+                                                      final ValidationValueTypeName v,
                                                       final Expression e,
                                                       final Set<SpreadsheetDeltaProperties> properties,
                                                       final SpreadsheetEngineContext context) {
@@ -129,7 +130,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                 SpreadsheetCellFindQuery.OFFSET, Lists.of(String.valueOf(offset)),
                 SpreadsheetCellFindQuery.COUNT, Lists.of(String.valueOf(count)),
-                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of(valueType),
+                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of(valueType.value()),
                 SpreadsheetCellFindQuery.QUERY, Lists.of(String.valueOf(expression))
             ), // parameters
             UrlPath.EMPTY,
@@ -189,7 +190,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
         final int count = COUNT;
-        final String valueType = VALUE_TYPE;
+        final ValidationValueTypeName valueType = VALUE_TYPE;
         final Expression expression = EXPRESSION;
 
         this.handleRangeAndCheck(
@@ -202,7 +203,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                                                       final SpreadsheetCellRangeReferencePath p,
                                                       final int o,
                                                       final int c,
-                                                      final String v,
+                                                      final ValidationValueTypeName v,
                                                       final Expression e,
                                                       final Set<SpreadsheetDeltaProperties> properties,
                                                       final SpreadsheetEngineContext context) {
@@ -283,7 +284,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
         final int count = COUNT;
-        final String valueType = VALUE_TYPE;
+        final ValidationValueTypeName valueType = VALUE_TYPE;
         final Expression expression = EXPRESSION;
 
         this.handleRangeAndCheck(
@@ -296,7 +297,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                                                       final SpreadsheetCellRangeReferencePath p,
                                                       final int o,
                                                       final int c,
-                                                      final String v,
+                                                      final ValidationValueTypeName v,
                                                       final Expression e,
                                                       final Set<SpreadsheetDeltaProperties> properties,
                                                       final SpreadsheetEngineContext context) {
@@ -407,7 +408,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                                                       final SpreadsheetCellRangeReferencePath p,
                                                       final int o,
                                                       final int c,
-                                                      final String v,
+                                                      final ValidationValueTypeName v,
                                                       final Expression e,
                                                       final Set<SpreadsheetDeltaProperties> properties,
                                                       final SpreadsheetEngineContext context) {
