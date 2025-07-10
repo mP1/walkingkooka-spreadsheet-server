@@ -26,6 +26,7 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.util.HasLocaleTesting;
 
 import java.util.Locale;
 
@@ -33,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LocaleHateosResourceTest implements ComparableTesting2<LocaleHateosResource>,
     HasTextTesting,
+    HasLocaleTesting,
     TreePrintableTesting,
     JsonNodeMarshallingTesting<LocaleHateosResource>,
     ClassTesting2<LocaleHateosResource> {
@@ -96,6 +98,11 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
         this.textAndCheck(
             resource,
             TEXT
+        );
+
+        this.localeAndCheck(
+            resource,
+            LOCALE
         );
     }
 

@@ -46,6 +46,7 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.util.HasLocale;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -56,6 +57,7 @@ import java.util.Optional;
  */
 public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     Value<String>,
+    HasLocale,
     HasText,
     Comparable<LocaleHateosResource>,
     TreePrintable {
@@ -97,6 +99,11 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     @Override
     public String hateosLinkId() {
         return this.localeTag.toString();
+    }
+
+    @Override
+    public Locale locale() {
+        return this.localeTag.value();
     }
 
     private final LocaleTag localeTag;
