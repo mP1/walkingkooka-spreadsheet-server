@@ -50,4 +50,9 @@ public class FakeLocaleHateosResourceHandlerContext extends FakeHateosResourceHa
     public Locale locale() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Optional<String> localeText(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
 }

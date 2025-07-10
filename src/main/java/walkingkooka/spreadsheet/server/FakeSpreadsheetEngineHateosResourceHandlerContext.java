@@ -406,6 +406,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public Optional<String> localeText(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public int cellCharacterWidth() {
         throw new UnsupportedOperationException();
     }

@@ -80,6 +80,12 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
         }
 
         @Override
+        public Optional<String> localeText(final Locale locale) {
+            Objects.requireNonNull(locale, "locale");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public MediaType contentType() {
             return MediaType.TEXT_PLAIN;
         }
