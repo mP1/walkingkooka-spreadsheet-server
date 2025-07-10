@@ -131,6 +131,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     }
 
     @Override
+    public void testLocaleTextWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testResolveLabelWithNullFails() {
         throw new UnsupportedOperationException();
     }
