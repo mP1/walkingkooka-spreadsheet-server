@@ -228,7 +228,7 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
 
 
     static {
-        Locale.getDefault();
+        LocaleTag.with(Locale.getDefault());
 
         JsonNodeContext.register(
             JsonNodeContext.computeTypeName(LocaleHateosResource.class),
