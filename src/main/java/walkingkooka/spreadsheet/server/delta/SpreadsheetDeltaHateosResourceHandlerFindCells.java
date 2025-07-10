@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.validation.ValidationValueTypeName;
 
 import java.util.Map;
 import java.util.Optional;
@@ -142,7 +143,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
     final static Integer DEFAULT_OFFSET = 0;
 
-    final static String DEFAULT_VALUE_TYPE = SpreadsheetValueType.ANY;
+    final static ValidationValueTypeName DEFAULT_VALUE_TYPE = SpreadsheetValueType.ANY;
 
     private final int defaultCount;
 
