@@ -7705,6 +7705,55 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testLabelFindByName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label/",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(mapping)
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label/*/findByName/Label",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
     // form.............................................................................................................
 
     @Test

@@ -413,6 +413,11 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     private final static LinkRelation<?> LABEL_LINK_RELATION = LinkRelation.SELF;
 
     /**
+     * /api/spreadsheet/SpreadsheetId/label/&star;/findByName/query-here
+     */
+    private final static LinkRelation<?> FIND_BY_NAME = LinkRelation.with("findByName");
+
+    /**
      * Factory that creates a labels.
      */
     public static HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final int defaultCount,
@@ -439,6 +444,13 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             LABEL_LINK_RELATION,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine)
+        ).setHateosResourceHandler(
+            FIND_BY_NAME,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
+                defaultCount,
+                engine
+            )
         );
     }
 
