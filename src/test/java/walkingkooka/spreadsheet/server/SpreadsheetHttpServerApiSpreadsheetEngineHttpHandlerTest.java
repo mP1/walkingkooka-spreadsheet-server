@@ -136,26 +136,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         }
     }
 
-    // cellReference.....................................................................................................
-
-    @Test
-    public void testRouteCellReferenceGet() {
-        this.routeAndCheck(HttpMethod.GET, "/api/1/cell-reference/B2?count=1", HttpStatusCode.OK);
-    }
-
-    @Test
-    public void testRouteCellReferenceGetInvalidFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> this.route(HttpMethod.GET, "/api/1/cell-reference/!invalid", "")
-        );
-    }
-
-    @Test
-    public void testRouteCellReferencePutFails() {
-        this.routeAndFail(HttpMethod.PUT, "/api/1/cell-reference/A");
-    }
-
     // column...........................................................................................................
 
     @Test

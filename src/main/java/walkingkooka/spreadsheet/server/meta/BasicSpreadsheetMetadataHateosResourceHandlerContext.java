@@ -68,7 +68,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
-import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -352,8 +351,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             handlerContext
         );
 
-        final HateosResourceMappings<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHttpMappings.cellReference(context);
-
         final HateosResourceMappings<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column(
             engine
         );
@@ -386,7 +383,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             deltaUrlPath,
             Sets.of(
                 cell,
-                cellReference,
                 column,
                 form,
                 formatter, // formatter
