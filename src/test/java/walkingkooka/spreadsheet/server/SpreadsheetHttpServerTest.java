@@ -115,7 +115,6 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
-import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
@@ -6386,29 +6385,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // cell-reference...................................................................................................
-
-    @Test
-    public void testCellReferenceGet() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/cell-reference/" + reference + "?count=100",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cell-reference\": \"A99\"\n" +
-                    "}",
-                SpreadsheetExpressionReferenceSimilarities.class.getSimpleName()
-            )
-        );
-    }
-
     // column...........................................................................................................
 
     @Test
@@ -7389,57 +7365,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     )
                 ),
                 SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testLabelSaveAndResolveCellReference() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
-
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label/",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(mapping)
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/cell-reference/" + label + "?count=1",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                this.toJson(
-                    SpreadsheetExpressionReferenceSimilarities.with(
-                        SpreadsheetExpressionReferenceSimilarities.NO_CELL_REFERENCE,
-                        SpreadsheetExpressionReferenceSimilarities.NO_LABEL,
-                        Sets.of(mapping)
-                    )
-                ),
-                SpreadsheetExpressionReferenceSimilarities.class.getSimpleName()
             )
         );
     }

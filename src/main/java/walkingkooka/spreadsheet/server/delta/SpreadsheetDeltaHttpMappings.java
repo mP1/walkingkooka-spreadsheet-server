@@ -23,7 +23,6 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -225,38 +224,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         }
 
         return result;
-    }
-
-    // cellReference....................................................................................................
-
-    public static HateosResourceMappings<String,
-        SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetEngineHateosResourceHandlerContext> cellReference(final SpreadsheetEngineContext context) {
-
-        return HateosResourceMappings.with(
-            CELL_REFERENCE,
-            SpreadsheetDeltaHttpMappings::parseCellReferenceText,
-            SpreadsheetExpressionReferenceSimilarities.class,
-            SpreadsheetExpressionReferenceSimilarities.class,
-            SpreadsheetExpressionReferenceSimilarities.class,
-            SpreadsheetEngineHateosResourceHandlerContext.class
-        ).setHateosResourceHandler(
-            LinkRelation.SELF,
-            HttpMethod.GET,
-            SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler.with(context)
-        );
-    }
-
-    /**
-     * A {@link HateosResourceName} with <code>cell-reference</code>.
-     */
-    private static final HateosResourceName CELL_REFERENCE = HateosResourceName.with("cell-reference");
-
-    private static HateosResourceSelection<String> parseCellReferenceText(final String text,
-                                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return HateosResourceSelection.one(text);
     }
 
     // column...........................................................................................................
