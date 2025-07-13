@@ -415,7 +415,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * /api/spreadsheet/SpreadsheetId/label/&star;/findByName/query-here
      */
-    private final static LinkRelation<?> FIND_BY_NAME = LinkRelation.with("findByName");
+    public final static LinkRelation<?> FIND_BY_NAME = LinkRelation.with("findByName");
 
     /**
      * Factory that creates a labels.
