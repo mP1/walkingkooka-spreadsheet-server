@@ -7309,7 +7309,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
     // find Response missing references
     @Test
-    public void testCellsNonBooleanQueryWithLabelsAndReferencesGet() {
+    public void testCellsFindNonBooleanQueryWithLabelsAndReferencesGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
