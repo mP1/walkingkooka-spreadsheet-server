@@ -3718,27 +3718,73 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
-    
-    @Test
-    public void testCellPatchStyle() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        // create cell with formula = 999
+    @Test
+    public void testCellDateTimeSymbolsPatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
+
         server.handleAndCheck(
-            HttpMethod.POST,
+            HttpMethod.PATCH,
             "/api/spreadsheet/1/cell/A1",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.A1
-                                .setFormula(
-                                    formula("=999")
-                                )
-                        )
-                    )
-            ),
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"A1\": {\n" +
+                "      \"dateTimeSymbols\": {\n" +
+                "        \"ampms\": [\n" +
+                "          \"am\",\n" +
+                "          \"pm\"\n" +
+                "        ],\n" +
+                "        \"monthNames\": [\n" +
+                "          \"January\",\n" +
+                "          \"February\",\n" +
+                "          \"March\",\n" +
+                "          \"April\",\n" +
+                "          \"May\",\n" +
+                "          \"June\",\n" +
+                "          \"July\",\n" +
+                "          \"August\",\n" +
+                "          \"September\",\n" +
+                "          \"October\",\n" +
+                "          \"November\",\n" +
+                "          \"December\"\n" +
+                "        ],\n" +
+                "        \"monthNameAbbreviations\": [\n" +
+                "          \"Jan.\",\n" +
+                "          \"Feb.\",\n" +
+                "          \"Mar.\",\n" +
+                "          \"Apr.\",\n" +
+                "          \"May\",\n" +
+                "          \"Jun.\",\n" +
+                "          \"Jul.\",\n" +
+                "          \"Aug.\",\n" +
+                "          \"Sep.\",\n" +
+                "          \"Oct.\",\n" +
+                "          \"Nov.\",\n" +
+                "          \"Dec.\"\n" +
+                "        ],\n" +
+                "        \"weekDayNames\": [\n" +
+                "          \"Sunday\",\n" +
+                "          \"Monday\",\n" +
+                "          \"Tuesday\",\n" +
+                "          \"Wednesday\",\n" +
+                "          \"Thursday\",\n" +
+                "          \"Friday\",\n" +
+                "          \"Saturday\"\n" +
+                "        ],\n" +
+                "        \"weekDayNameAbbreviations\": [\n" +
+                "          \"Sun.\",\n" +
+                "          \"Mon.\",\n" +
+                "          \"Tue.\",\n" +
+                "          \"Wed.\",\n" +
+                "          \"Thu.\",\n" +
+                "          \"Fri.\",\n" +
+                "          \"Sat.\"\n" +
+                "        ]\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
@@ -3788,6 +3834,58 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"value\": \"999\"\n" +
                     "        }\n" +
                     "      },\n" +
+                    "      \"dateTimeSymbols\": {\n" +
+                    "        \"ampms\": [\n" +
+                    "          \"am\",\n" +
+                    "          \"pm\"\n" +
+                    "        ],\n" +
+                    "        \"monthNames\": [\n" +
+                    "          \"January\",\n" +
+                    "          \"February\",\n" +
+                    "          \"March\",\n" +
+                    "          \"April\",\n" +
+                    "          \"May\",\n" +
+                    "          \"June\",\n" +
+                    "          \"July\",\n" +
+                    "          \"August\",\n" +
+                    "          \"September\",\n" +
+                    "          \"October\",\n" +
+                    "          \"November\",\n" +
+                    "          \"December\"\n" +
+                    "        ],\n" +
+                    "        \"monthNameAbbreviations\": [\n" +
+                    "          \"Jan.\",\n" +
+                    "          \"Feb.\",\n" +
+                    "          \"Mar.\",\n" +
+                    "          \"Apr.\",\n" +
+                    "          \"May\",\n" +
+                    "          \"Jun.\",\n" +
+                    "          \"Jul.\",\n" +
+                    "          \"Aug.\",\n" +
+                    "          \"Sep.\",\n" +
+                    "          \"Oct.\",\n" +
+                    "          \"Nov.\",\n" +
+                    "          \"Dec.\"\n" +
+                    "        ],\n" +
+                    "        \"weekDayNames\": [\n" +
+                    "          \"Sunday\",\n" +
+                    "          \"Monday\",\n" +
+                    "          \"Tuesday\",\n" +
+                    "          \"Wednesday\",\n" +
+                    "          \"Thursday\",\n" +
+                    "          \"Friday\",\n" +
+                    "          \"Saturday\"\n" +
+                    "        ],\n" +
+                    "        \"weekDayNameAbbreviations\": [\n" +
+                    "          \"Sun.\",\n" +
+                    "          \"Mon.\",\n" +
+                    "          \"Tue.\",\n" +
+                    "          \"Wed.\",\n" +
+                    "          \"Thu.\",\n" +
+                    "          \"Fri.\",\n" +
+                    "          \"Sat.\"\n" +
+                    "        ]\n" +
+                    "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 999.000\"\n" +
@@ -3806,6 +3904,343 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 DELTA
             )
         );
+    }
+
+    @Test
+    public void testCellDecimalNumberSymbolsPatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"A1\": {\n" +
+                "      \"decimalNumberSymbols\": {\n" +
+                "        \"negativeSign\": \"-\",\n" +
+                "        \"positiveSign\": \"+\",\n" +
+                "        \"zeroDigit\": \"0\",\n" +
+                "        \"currencySymbol\": \"$\",\n" +
+                "        \"decimalSeparator\": \".\",\n" +
+                "        \"exponentSymbol\": \"e\",\n" +
+                "        \"groupSeparator\": \",\",\n" +
+                "        \"infinitySymbol\": \"∞\",\n" +
+                "        \"monetaryDecimalSeparator\": \".\",\n" +
+                "        \"nanSymbol\": \"NaN\",\n" +
+                "        \"percentSymbol\": \"%\",\n" +
+                "        \"permillSymbol\": \"‰\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"decimalNumberSymbols\": {\n" +
+                    "        \"negativeSign\": \"-\",\n" +
+                    "        \"positiveSign\": \"+\",\n" +
+                    "        \"zeroDigit\": \"0\",\n" +
+                    "        \"currencySymbol\": \"$\",\n" +
+                    "        \"decimalSeparator\": \".\",\n" +
+                    "        \"exponentSymbol\": \"e\",\n" +
+                    "        \"groupSeparator\": \",\",\n" +
+                    "        \"infinitySymbol\": \"∞\",\n" +
+                    "        \"monetaryDecimalSeparator\": \".\",\n" +
+                    "        \"nanSymbol\": \"NaN\",\n" +
+                    "        \"percentSymbol\": \"%\",\n" +
+                    "        \"permillSymbol\": \"‰\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 999.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellFormatterPatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "     \"a1\": {\n" +
+                "      \"formatter\": \"text-format-pattern @\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formatter\": \"text-format-pattern @\",\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"999.\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellLocalePatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "     \"a1\": {\n" +
+                "      \"locale\": \"en-AU\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"locale\": \"en-AU\",\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 999.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellParserPatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "     \"a1\": {\n" +
+                "      \"parser\": \"number-parse-pattern ###\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"spreadsheet-error\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"kind\": \"ERROR\",\n" +
+                    "            \"message\": \"Invalid character '=' at (1,1) expected \\\"###\\\"\"\n" +
+                    "          }\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"parser\": \"number-parse-pattern ###\",\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text #ERROR\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellStylePatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
         server.handleAndCheck(
             HttpMethod.PATCH,
@@ -3900,6 +4335,184 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 DELTA
             )
         );
+    }
+
+    @Test
+    public void testCellValidatorPatch() {
+        final TestHttpServer server = this.createSpreadsheetAndSaveCell();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "     \"a1\": {\n" +
+                "      \"validator\": \"Hello-validator\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"spreadsheet-error\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"kind\": \"VALUE\",\n" +
+                    "            \"message\": \"Unknown validator Hello-validator\"\n" +
+                    "          }\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text #VALUE!\"\n" +
+                    "      },\n" +
+                    "      \"validator\": \"Hello-validator\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    private TestHttpServer createSpreadsheetAndSaveCell() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // create cell with formula = 999
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.A1
+                                .setFormula(
+                                    formula("=999")
+                                )
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 999.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        return server;
     }
 
     @Test
