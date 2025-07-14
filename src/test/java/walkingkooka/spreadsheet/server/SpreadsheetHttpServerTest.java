@@ -907,7 +907,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginDownloadAbsent() {
+    public void testPluginDownloadGetAbsent() {
         final TestHttpServer server = this.startServer();
 
         // get all plugins
@@ -928,7 +928,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginDownloadWithAcceptAll() {
+    public void testPluginDownloadGetWithAcceptAll() {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
@@ -978,7 +978,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginDownloadWithAcceptBinary() {
+    public void testPluginDownloadGetWithAcceptBinary() {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
@@ -1028,7 +1028,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginListAbsent() {
+    public void testPluginPluginNameListGetMissing() {
         final TestHttpServer server = this.startServer();
 
         // get all plugins
@@ -1049,7 +1049,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginList() {
+    public void testPluginListGet() {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
@@ -1124,7 +1124,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
 
     @Test
-    public void testPluginFileDownloadAbsent() {
+    public void testPluginPluginNameFileDownloadGetMissing() {
         final TestHttpServer server = this.startServer();
 
         // get all plugins
@@ -1143,7 +1143,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginFileDownload() {
+    public void testPluginPluginNameFileDownloadGet() {
         final TestHttpServer server = this.startServer();
 
         final String fileContent = "Hello";
@@ -1196,7 +1196,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginFilter() {
+    public void testPluginFilterGet() {
         final TestHttpServer server = this.startServer();
 
         final String fileContent = "Hello";
@@ -1276,7 +1276,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // metadata.........................................................................................................
+    // spreadsheet......................................................................................................
 
     @Test
     public void testMetadataGetInvalidSpreadsheetIdGivesBadRequest() {
@@ -1308,7 +1308,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testMetadataCreate() {
+    public void testMetadataPostCreate() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -1330,7 +1330,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testMetadataCreateWithTransactionIdHeader() {
+    public void testMetadataPostCreateWithTransactionIdHeader() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         this.checkNotEquals(
@@ -1341,7 +1341,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testMetadataCreateThenLoad() {
+    public void testMetadataPostCreateThenGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         this.checkNotEquals(
@@ -1486,9 +1486,71 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
+    
+    @Test
+    public void testMetadataCreateAndPatch() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SPREADSHEET_ID);
+        this.checkNotEquals(
+            null,
+            loaded,
+            () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
+
+        // patch metadata
+        final RoundingMode roundingMode = RoundingMode.FLOOR;
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1",
+            NO_HEADERS_TRANSACTION_ID,
+            JsonNode.object()
+                .set(
+                    JsonPropertyName.with(
+                        SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
+                    ),
+                    JsonNode.string(roundingMode.name())
+                )
+                .toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                loaded.set(
+                    SpreadsheetMetadataPropertyName.ROUNDING_MODE,
+                    roundingMode
+                )
+            )
+        );
+    }
 
     @Test
-    public void testCellSaveApostropheString() {
+    public void testMetdataPatchFails() {
+        final TestHttpServer server = this.startServer();
+
+        // patch metadata will fail with 204
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1",
+            NO_HEADERS_TRANSACTION_ID,
+            JsonNode.object()
+                .set(
+                    JsonPropertyName.with(
+                        SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
+                    ),
+                    JsonNode.string(
+                        RoundingMode.FLOOR.name()
+                    )
+                )
+                .toString(),
+            HttpStatusCode.NO_CONTENT.setMessage("Unable to load spreadsheet with id=1"),
+            "walkingkooka.store.MissingStoreException: Unable to load spreadsheet with id=1"
+        );
+    }
+
+    // cell.............................................................................................................
+    
+    @Test
+    public void testCellPostSaveApostropheString() {
         this.createSpreadsheetSaveCellAndCheck(
             "'Hello123'",
             "{\n" +
@@ -1543,7 +1605,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveDate() {
+    public void testCellPostSaveDateValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "2000/12/31",
             "{\n" +
@@ -1625,7 +1687,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveDateTime() {
+    public void testCellSavePostDateTimeValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "2000/12/31 12:34",
             "{\n" +
@@ -1735,7 +1797,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveNumber() {
+    public void testCellSavePostNumberValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "123.456",
             "{\n" +
@@ -1803,7 +1865,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveTime() {
+    public void testCellSavePostTimeValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "12:34",
             "{\n" +
@@ -1871,7 +1933,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveExpressionString() {
+    public void testCellSavePostExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
             "=\"Hello 123\"",
             "{\n" +
@@ -1948,7 +2010,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveExpressionNumber() {
+    public void testCellSavePostExpressionNumber() {
         this.createSpreadsheetSaveCellAndCheck(
             "=1+2",
             "{\n" +
@@ -2059,7 +2121,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveSelectionQueryParameter() {
+    public void testCellSaveSelectionUrlQueryParameterGet() {
         this.createSpreadsheetSaveCellAndCheck(
             "=\"Hello 123\"",
             "?home=A1&width=1000&height=800&selectionType=cell&selection=A2&window=",
@@ -2139,7 +2201,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // sort.............................................................................................................
 
     @Test
-    public void testCellSort() {
+    public void testCellSortGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2379,68 +2441,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // patch............................................................................................................
-
-    @Test
-    public void testMetadataCreateAndPatch() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SPREADSHEET_ID);
-        this.checkNotEquals(
-            null,
-            loaded,
-            () -> "spreadsheet metadata not created and saved: " + this.metadataStore
-        );
-
-        // patch metadata
-        final RoundingMode roundingMode = RoundingMode.FLOOR;
-
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1",
-            NO_HEADERS_TRANSACTION_ID,
-            JsonNode.object()
-                .set(
-                    JsonPropertyName.with(
-                        SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
-                    ),
-                    JsonNode.string(roundingMode.name())
-                )
-                .toString(),
-            this.response(
-                HttpStatusCode.OK.status(),
-                loaded.set(
-                    SpreadsheetMetadataPropertyName.ROUNDING_MODE,
-                    roundingMode
-                )
-            )
-        );
-    }
-
-    @Test
-    public void testPatchFails() {
-        final TestHttpServer server = this.startServer();
-
-        // patch metadata will fail with 204
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1",
-            NO_HEADERS_TRANSACTION_ID,
-            JsonNode.object()
-                .set(
-                    JsonPropertyName.with(
-                        SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
-                    ),
-                    JsonNode.string(
-                        RoundingMode.FLOOR.name()
-                    )
-                )
-                .toString(),
-            HttpStatusCode.NO_CONTENT.setMessage("Unable to load spreadsheet with id=1"),
-            "walkingkooka.store.MissingStoreException: Unable to load spreadsheet with id=1"
-        );
-    }
-
     private TestHttpServer createSpreadsheetSaveCellAndCheck(final String formula,
                                                              final String responseJson) {
         return this.createSpreadsheetSaveCellAndCheck(formula, "", responseJson);
@@ -2494,7 +2494,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveThenSaveAnotherCellReferencingFirst() {
+    public void testCellSavePostThenSaveAnotherCellReferencingFirst() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2755,7 +2755,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveTwice() {
+    public void testCellSavePostTwice() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3157,7 +3157,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // not a perfect validation that function names are case-insensitive
     @Test
-    public void testCellSaveFormulaWithMixedCaseFunction() {
+    public void testCellSavePostFormulaWithMixedCaseFunction() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3499,189 +3499,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellPatchStyle() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // create cell with formula = 999
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.A1
-                                .setFormula(
-                                    formula("=999")
-                                )
-                        )
-                    )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=999\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"999\",\n" +
-                    "                        \"text\": \"999\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"999\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=999\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"999\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"999\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 999.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 1,\n" +
-                    "  \"rowCount\": 1\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1/cell/A1",
-            NO_HEADERS_TRANSACTION_ID,
-            "{\n" +
-                "  \"cells\": {\n" +
-                "     \"a1\": {\n" +
-                "      \"style\": {\n" +
-                "            \"color\": \"#123456\"\n" +
-                "          }\n" +
-                "      }\n" +
-                "    }\n" +
-                "}",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=999\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"999\",\n" +
-                    "                        \"text\": \"999\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"999\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=999\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"999\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"999\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"style\": {\n" +
-                    "        \"color\": \"#123456\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text-style-node\",\n" +
-                    "        \"value\": {\n" +
-                    "          \"styles\": {\n" +
-                    "            \"color\": \"#123456\"\n" +
-                    "          },\n" +
-                    "          \"children\": [\n" +
-                    "            {\n" +
-                    "              \"type\": \"text\",\n" +
-                    "              \"value\": \"Number 999.000\"\n" +
-                    "            }\n" +
-                    "          ]\n" +
-                    "        }\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 1,\n" +
-                    "  \"rowCount\": 1\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    @Test
     public void testCellSavePatchCellUnknownLabelFails() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
@@ -3901,6 +3718,189 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
+    
+    @Test
+    public void testCellPatchStyle() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // create cell with formula = 999
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.A1
+                                .setFormula(
+                                    formula("=999")
+                                )
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 999.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "     \"a1\": {\n" +
+                "      \"style\": {\n" +
+                "            \"color\": \"#123456\"\n" +
+                "          }\n" +
+                "      }\n" +
+                "    }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=999\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"999\",\n" +
+                    "                        \"text\": \"999\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"999\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"999\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"style\": {\n" +
+                    "        \"color\": \"#123456\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text-style-node\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"styles\": {\n" +
+                    "            \"color\": \"#123456\"\n" +
+                    "          },\n" +
+                    "          \"children\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"text\",\n" +
+                    "              \"value\": \"Number 999.000\"\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        }\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
 
     @Test
     public void testCellPatchSelectionQueryParameter() {
@@ -4110,7 +4110,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadViewport() {
+    public void testCellLoadViewportGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -4601,7 +4601,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadViewportWithSelectionQueryParameters() {
+    public void testCellLoadViewportGetWithSelectionQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -4748,7 +4748,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadViewportWithSelectionQueryParametersWithAnchor() {
+    public void testCellLoadViewportGetWithSelectionQueryParametersWithAnchor() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -4896,7 +4896,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadViewportWithSelectionQueryParametersAnchorDefaulted() {
+    public void testCellLoadViewportGetWithSelectionQueryParametersAnchorDefaulted() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -5044,7 +5044,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadViewportWithSelectionAndNavigationQueryParameters() {
+    public void testCellLoadViewportGetWithSelectionAndNavigationQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -5338,7 +5338,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadViewportWithSelectionLabelAndNavigationQueryParameters() {
+    public void testCellLoadViewportGetWithSelectionLabelAndNavigationQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
@@ -5541,7 +5541,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLoadWithFunctionMissingFromFormulaExpressions() {
+    public void testCellLoadGetWithFunctionMissingFromFormulaExpressions() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
@@ -6137,7 +6137,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadCellInvalidWindowQueryParameterBadRequest() {
+    public void testCellLoadGetInvalidWindowQueryParameterBadRequest() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // load the cells that fill the viewport
@@ -6154,7 +6154,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // save cell, save metadata, save cell..............................................................................
 
     @Test
-    public void testCellSaveUpdateMetadataLoadCell() {
+    public void testCellSavePostUpdateMetadataLoadCell() {
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
@@ -6349,46 +6349,1626 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // save cell, save metadata, save cell..............................................................................
-
     @Test
-    public void testCellSaveThenSaveLabel() {
+    public void testCellClearPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(
-            SpreadsheetSelection.parseCell("A99")
-        );
-
+        // save cell B2
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/label/" + label,
+            "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            this.toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(mapping)
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("'Hello")
+                            )
+                    )
                 )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Hello\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Hello\",\n" +
+                    "                  \"text\": \"Hello\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Hello\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Hello\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Hello\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Hello\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
             )
+        );
+
+        // clear A1:B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2/clear",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(SpreadsheetDelta.EMPTY),
+            this.response(
+                HttpStatusCode.BAD_REQUEST.setMessage("Unknown link relation \"clear\"")
+            )
+        );
+    }
+
+    @Test
+    public void testCellClearPostRange() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("'Hello")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Hello\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Hello\",\n" +
+                    "                  \"text\": \"Hello\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Hello\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Hello\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Hello\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Hello\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // clear A1:B2
+        server.handleAndCheck(HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:C3/clear",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(SpreadsheetDelta.EMPTY),
+            this.response(
+                HttpStatusCode.BAD_REQUEST.setMessage("Unknown link relation \"clear\"")
+            )
+        );
+    }
+
+    // fillCell........................................................................................................
+
+    @Test
+    public void testCellFillPost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("'Hello")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Hello\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Hello\",\n" +
+                    "                  \"text\": \"Hello\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Hello\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Hello\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Hello\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Hello\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // fill A1:B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:B2/fill",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(SpreadsheetDelta.EMPTY
+                .setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("=1")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellFillPostRepeatsFromRange() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // fill A1:B2 from A1
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:B2/fill?from=A1",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("=1")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    \"B1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    \"A2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellFillPostThatClears() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("'Hello")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Hello\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Hello\",\n" +
+                    "                  \"text\": \"Hello\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Hello\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Hello\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Hello\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Hello\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // fill A1:B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:B2/fill",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(SpreadsheetDelta.EMPTY),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 0,\n" +
+                    "  \"rowCount\": 0\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellFillPostWithSelectionQueryParameter() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("'Hello")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Hello\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Hello\",\n" +
+                    "                  \"text\": \"Hello\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Hello\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Hello\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Hello\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Hello\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // fill A1:B2
+        server.handleAndCheck(HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:B2/fill",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("=1")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testCellsFindWithNonBooleanQueryGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("'Hello")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Hello\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Hello\",\n" +
+                    "                  \"text\": \"Hello\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Hello\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Hello\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Hello\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Hello\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/B2/find?query=1",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"'Hello\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"'\",\n" +
+                "                  \"text\": \"'\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"Hello\",\n" +
+                "                  \"text\": \"Hello\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"'Hello\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"value-expression\",\n" +
+                "          \"value\": \"Hello\"\n" +
+                "        },\n" +
+                "        \"value\": \"Hello\"\n" +
+                "      },\n" +
+                "      \"formattedValue\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Text Hello\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 50\n" +
+                "  },\n" +
+                "  \"columnCount\": 2,\n" +
+                "  \"rowCount\": 2\n" +
+                "}"
+        );
+    }
+
+    // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
+    // find Response missing references
+    @Test
+    public void testCellsNonBooleanQueryWithLabelsAndReferencesGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("=1")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // save cell C3
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/C3?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("C3")
+                            .setFormula(
+                                formula("=B2+1000")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"C3\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=B2+1000\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": [\n" +
+                    "                          {\n" +
+                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"value\": {\n" +
+                    "                              \"value\": \"B\",\n" +
+                    "                              \"text\": \"B\"\n" +
+                    "                            }\n" +
+                    "                          },\n" +
+                    "                          {\n" +
+                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"value\": {\n" +
+                    "                              \"value\": \"2\",\n" +
+                    "                              \"text\": \"2\"\n" +
+                    "                            }\n" +
+                    "                          }\n" +
+                    "                        ],\n" +
+                    "                        \"text\": \"B2\"\n" +
+                    "                      }\n" +
+                    "                    },\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"+\",\n" +
+                    "                        \"text\": \"+\"\n" +
+                    "                      }\n" +
+                    "                    },\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": [\n" +
+                    "                          {\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"value\": {\n" +
+                    "                              \"value\": \"1000\",\n" +
+                    "                              \"text\": \"1000\"\n" +
+                    "                            }\n" +
+                    "                          }\n" +
+                    "                        ],\n" +
+                    "                        \"text\": \"1000\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"B2+1000\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=B2+1000\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"add-expression\",\n" +
+                    "          \"value\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"reference-expression\",\n" +
+                    "              \"value\": {\n" +
+                    "                \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "                \"value\": \"B2\"\n" +
+                    "              }\n" +
+                    "            },\n" +
+                    "            {\n" +
+                    "              \"type\": \"value-expression\",\n" +
+                    "              \"value\": {\n" +
+                    "                \"type\": \"expression-number\",\n" +
+                    "                \"value\": \"1000\"\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1001\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 1001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"C\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"3\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 3,\n" +
+                    "  \"rowCount\": 3\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1371
+        // refereneces should be present but are missing
+        //
+        // save label
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        SpreadsheetSelection.labelName("Label123")
+                            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label123\",\n" +
+                    "      \"reference\": \"B2\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 3,\n" +
+                    "  \"rowCount\": 3\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
+        // Response missing references.
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/B2/find?query=1",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=1\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"1\",\n" +
+                "                        \"text\": \"1\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"1\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=1\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"value-expression\",\n" +
+                "          \"value\": {\n" +
+                "            \"type\": \"expression-number\",\n" +
+                "            \"value\": \"1\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"value\": {\n" +
+                "          \"type\": \"expression-number\",\n" +
+                "          \"value\": \"1\"\n" +
+                "        }\n" +
+                "      },\n" +
+                "      \"formattedValue\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Number 001.000\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"labels\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label123\",\n" +
+                "      \"reference\": \"B2\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"references\": {\n" +
+                "    \"B2\": [\n" +
+                "      {\n" +
+                "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                "        \"value\": \"C3\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"type\": \"spreadsheet-label-name\",\n" +
+                "        \"value\": \"Label123\"\n" +
+                "      }\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 50\n" +
+                "  },\n" +
+                "  \"columnCount\": 3,\n" +
+                "  \"rowCount\": 3\n" +
+                "}"
+        );
+    }
+
+    @Test
+    public void testCellLabelsWithReferenceGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save label
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        SpreadsheetSelection.labelName("Label123")
+                            .setLabelMappingReference(SpreadsheetSelection.A1)
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                "{\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label123\",\n" +
+                    "      \"reference\": \"A1\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"columnCount\": 0,\n" +
+                    "  \"rowCount\": 0\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/A1/labels",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"labels\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label123\",\n" +
+                "      \"reference\": \"A1\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
+        );
+    }
+
+    @Test
+    public void testCellsWithReferencesGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:A2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("=A2")
+                            ),
+                        SpreadsheetSelection.parseCell("A2")
+                            .setFormula(
+                                formula("'Zebra'")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=A2\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"A\",\n" +
+                    "                        \"text\": \"A\"\n" +
+                    "                      }\n" +
+                    "                    },\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"2\",\n" +
+                    "                        \"text\": \"2\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"A2\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=A2\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"reference-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "            \"value\": \"A2\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": \"Zebra'\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Zebra'\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    \"A2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Zebra'\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Zebra'\",\n" +
+                    "                  \"text\": \"Zebra'\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Zebra'\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Zebra'\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Zebra'\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Zebra'\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"references\": {\n" +
+                    "    \"A2\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "        \"value\": \"A1\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/A2/references",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"A1\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=A2\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"A\",\n" +
+                "                        \"text\": \"A\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"2\",\n" +
+                "                        \"text\": \"2\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"A2\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=A2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"reference-expression\",\n" +
+                "          \"value\": {\n" +
+                "            \"type\": \"spreadsheet-cell-reference\",\n" +
+                "            \"value\": \"A2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"value\": \"Zebra'\"\n" +
+                "      },\n" +
+                "      \"formattedValue\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Text Zebra'\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}"
         );
     }
 
     // column...........................................................................................................
 
     @Test
-    public void testColumnClear() {
+    public void testColumnClearPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -6507,7 +8087,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testColumnClearRange() {
+    public void testColumnClearPostWithRange() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -6626,7 +8206,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testColumnInsertAfter() {
+    public void testColumnInsertAfterPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
@@ -6873,7 +8453,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testColumnInsertBefore() {
+    public void testColumnInsertBeforePost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
@@ -7281,475 +8861,1154 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // label............................................................................................................
-
     @Test
-    public void testLabelSave() {
+    public void testColumnPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
-
         server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label/",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(mapping)
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testLabelSaveAndLoad() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
-
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label/",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(mapping)
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/label/" + label,
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testLabelLoadsWithOffsetAndCount() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetLabelMapping mapping1 = SpreadsheetSelection.labelName("Label111")
-            .setLabelMappingReference(SpreadsheetSelection.A1);
-        final SpreadsheetLabelMapping mapping2 = SpreadsheetSelection.labelName("Label222")
-            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"));
-        final SpreadsheetLabelMapping mapping3 = SpreadsheetSelection.labelName("Label333")
-            .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"));
-        final SpreadsheetLabelMapping mapping4 = SpreadsheetSelection.labelName("Label444")
-            .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"));
-
-        for (final SpreadsheetLabelMapping mapping : Lists.of(mapping1, mapping2, mapping3, mapping4)) {
-            server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/1/label/",
-                NO_HEADERS_TRANSACTION_ID,
-                toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    )
-                ),
-                this.response(
-                    HttpStatusCode.CREATED.status(),
-                    this.toJson(
-                        SpreadsheetDelta.EMPTY.setLabels(
-                            Sets.of(mapping)
-                        ).setColumnCount(
-                            OptionalInt.of(0)
-                        ).setRowCount(
-                            OptionalInt.of(0)
-                        )
-                    ),
-                    SpreadsheetDelta.class.getSimpleName()
-                )
-            );
-        }
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/label/*?offset=1&count=2",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(
-                            mapping2,
-                            mapping3
-                        )
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testLabelLoadsWithOffsetAndCountWithCellReferences() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetLabelMapping mapping1 = SpreadsheetSelection.labelName("Label111")
-            .setLabelMappingReference(SpreadsheetSelection.A1);
-        final SpreadsheetLabelMapping mapping2 = SpreadsheetSelection.labelName("Label222")
-            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"));
-        final SpreadsheetLabelMapping mapping3 = SpreadsheetSelection.labelName("Label333")
-            .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"));
-        final SpreadsheetLabelMapping mapping4 = SpreadsheetSelection.labelName("Label444")
-            .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"));
-
-        for (final SpreadsheetLabelMapping mapping : Lists.of(mapping1, mapping2, mapping3, mapping4)) {
-            server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/1/label/",
-                NO_HEADERS_TRANSACTION_ID,
-                toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    )
-                ),
-                this.response(
-                    HttpStatusCode.CREATED.status(),
-                    this.toJson(
-                        SpreadsheetDelta.EMPTY.setLabels(
-                            Sets.of(mapping)
-                        ).setColumnCount(
-                            OptionalInt.of(0)
-                        ).setRowCount(
-                            OptionalInt.of(0)
-                        )
-                    ),
-                    SpreadsheetDelta.class.getSimpleName()
-                )
-            );
-        }
-
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2",
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/column/A",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetDelta.EMPTY
-                    .setCells(
+                    .setColumns(
                         Sets.of(
-                            SpreadsheetSelection.parseCell("B2")
-                                .setFormula(
-                                    formula("=100")
-                                )
+                            SpreadsheetSelection.parseColumn("A")
+                                .column()
+                                .setHidden(true)
                         )
                     )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
+                    "  \"columns\": {\n" +
+                    "    \"A\": {\n" +
+                    "      \"hidden\": true\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testColumnPatchWithWindow() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/column/A",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setColumns(
+                        Sets.of(
+                            SpreadsheetSelection.parseColumn("A")
+                                .column()
+                                .setHidden(true)
+                        )
+                    ).setWindow(
+                        SpreadsheetViewportWindows.parse("A1:B2")
+                    )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"columns\": {\n" +
+                    "    \"A\": {\n" +
+                    "      \"hidden\": true\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
+    public void testColumnPatchAfterCellSavePost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell A1
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("'Hello A1")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
                     "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
+                    "    \"A1\": {\n" +
                     "      \"formula\": {\n" +
-                    "        \"text\": \"=100\",\n" +
+                    "        \"text\": \"'Hello A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"100\",\n" +
-                    "                        \"text\": \"100\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"100\"\n" +
+                    "                  \"value\": \"Hello A1\",\n" +
+                    "                  \"text\": \"Hello A1\"\n" +
                     "                }\n" +
                     "              }\n" +
                     "            ],\n" +
-                    "            \"text\": \"=100\"\n" +
+                    "            \"text\": \"'Hello A1\"\n" +
                     "          }\n" +
                     "        },\n" +
                     "        \"expression\": {\n" +
                     "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"100\"\n" +
-                    "          }\n" +
+                    "          \"value\": \"Hello A1\"\n" +
                     "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"100\"\n" +
-                    "        }\n" +
+                    "        \"value\": \"Hello A1\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 100.000\"\n" +
+                    "        \"value\": \"Text Hello A1\"\n" +
                     "      }\n" +
                     "    }\n" +
-                    "  },\n" +
-                    "  \"labels\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"Label222\",\n" +
-                    "      \"reference\": \"B2\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  \"references\": {\n" +
-                    "    \"B2\": [\n" +
-                    "      {\n" +
-                    "        \"type\": \"spreadsheet-label-name\",\n" +
-                    "        \"value\": \"Label222\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
+                    "    \"A\": 100\n" +
                     "  },\n" +
                     "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
+                    "    \"1\": 50\n" +
                     "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
                     "}",
                 DELTA
             )
         );
 
         server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/column/A?window=A1:B2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setColumns(
+                    Sets.of(
+                        SpreadsheetSelection.parseColumn("A")
+                            .column()
+                            .setHidden(true)
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"columns\": {\n" +
+                    "    \"A\": {\n" +
+                    "      \"hidden\": true\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"window\": \"A1:B2\"\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/column/A?window=A1",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setColumns(
+                    Sets.of(
+                        SpreadsheetSelection.parseColumn("A")
+                            .column()
+                            .setHidden(false)
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"columns\": {\n" +
+                    "    \"A\": {\n" +
+                    "      \"hidden\": false\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"window\": \"A1\"\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    // comparators......................................................................................................
+
+    @Test
+    public void testComparatorsGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/label/*?offset=1&count=2",
+            "/api/comparator",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date date\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date-time date-time\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month day-of-month\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-week day-of-week\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-am-pm hour-of-am-pm\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-day hour-of-day\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/minute-of-hour minute-of-hour\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/month-of-year month-of-year\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/nano-of-second nano-of-second\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/number number\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/seconds-of-minute seconds-of-minute\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text text\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text-case-insensitive text-case-insensitive\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
+                    "]",
+                SpreadsheetComparatorInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testComparatorsWithNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/comparator/day-of-month",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month day-of-month\"",
+                SpreadsheetComparatorInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testComparatorsWithNameUnknownGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/comparator/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                SpreadsheetComparatorInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    // converters.......................................................................................................
+
+    @Test
+    public void testConvertersGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/converter",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/format-pattern-to-string format-pattern-to-string\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-style-to-style has-style-to-style\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/jsonTo jsonTo\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/null-to-number null-to-number\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/number-to-number number-to-number\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-text selection-to-text\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/simple simple\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-color text-to-color\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-error text-to-error\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-expression text-to-expression\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-form-name text-to-form-name\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-json text-to-json\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-locale text-to-locale\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-selection text-to-selection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-color-name text-to-spreadsheet-color-name\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-formatter-selector text-to-spreadsheet-formatter-selector\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-id text-to-spreadsheet-id\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata text-to-spreadsheet-metadata\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-color text-to-spreadsheet-metadata-color\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-property-name text-to-spreadsheet-metadata-property-name\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-name text-to-spreadsheet-name\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-text text-to-spreadsheet-text\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-template-value-name text-to-template-value-name\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text text-to-text\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-node text-to-text-node\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style text-to-text-style\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style-property-name text-to-text-style-property-name\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-url text-to-url\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validation-error text-to-validation-error\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validator-selector text-to-validator-selector\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-value-type text-to-value-type\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-json to-json\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-styleable to-styleable\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-text-node to-text-node\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-validation-error-list to-validation-error-list\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-hyperlink url-to-hyperlink\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-image url-to-image\"\n" +
+                    "]",
+                ConverterInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testConvertersWithNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/converter/general",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\"",
+                ConverterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testConvertersWithNameUnknownGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/converter/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                ConverterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/formulaConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.FORMULA_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                    ).setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[]")
+                    .setContentLength()
+            )
+        );
+    }
+
+    // DateTimeSymbols..................................................................................................
+
+    @Test
+    public void testDateTimeSymbolsByLocaleGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/dateTimeSymbols/EN-AU",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=100\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"100\",\n" +
-                    "                        \"text\": \"100\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"100\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=100\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"100\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"100\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 100.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"labels\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"Label222\",\n" +
-                    "      \"reference\": \"B2\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"Label333\",\n" +
-                    "      \"reference\": \"C3\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
+                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"dateTimeSymbols\": {\n" +
+                    "    \"ampms\": [\n" +
+                    "      \"am\",\n" +
+                    "      \"pm\"\n" +
+                    "    ],\n" +
+                    "    \"monthNames\": [\n" +
+                    "      \"January\",\n" +
+                    "      \"February\",\n" +
+                    "      \"March\",\n" +
+                    "      \"April\",\n" +
+                    "      \"May\",\n" +
+                    "      \"June\",\n" +
+                    "      \"July\",\n" +
+                    "      \"August\",\n" +
+                    "      \"September\",\n" +
+                    "      \"October\",\n" +
+                    "      \"November\",\n" +
+                    "      \"December\"\n" +
+                    "    ],\n" +
+                    "    \"monthNameAbbreviations\": [\n" +
+                    "      \"Jan.\",\n" +
+                    "      \"Feb.\",\n" +
+                    "      \"Mar.\",\n" +
+                    "      \"Apr.\",\n" +
+                    "      \"May\",\n" +
+                    "      \"Jun.\",\n" +
+                    "      \"Jul.\",\n" +
+                    "      \"Aug.\",\n" +
+                    "      \"Sep.\",\n" +
+                    "      \"Oct.\",\n" +
+                    "      \"Nov.\",\n" +
+                    "      \"Dec.\"\n" +
+                    "    ],\n" +
+                    "    \"weekDayNames\": [\n" +
+                    "      \"Sunday\",\n" +
+                    "      \"Monday\",\n" +
+                    "      \"Tuesday\",\n" +
+                    "      \"Wednesday\",\n" +
+                    "      \"Thursday\",\n" +
+                    "      \"Friday\",\n" +
+                    "      \"Saturday\"\n" +
+                    "    ],\n" +
+                    "    \"weekDayNameAbbreviations\": [\n" +
+                    "      \"Sun.\",\n" +
+                    "      \"Mon.\",\n" +
+                    "      \"Tue.\",\n" +
+                    "      \"Wed.\",\n" +
+                    "      \"Thu.\",\n" +
+                    "      \"Fri.\",\n" +
+                    "      \"Sat.\"\n" +
+                    "    ]\n" +
+                    "  }\n" +
                     "}",
-                SpreadsheetDelta.class.getSimpleName()
+                DateTimeSymbolsHateosResource.class.getSimpleName()
             )
         );
     }
 
-    @Test
-    public void testLabelDelete() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
-
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label/",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(mapping)
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.DELETE,
-            "/api/spreadsheet/1/label/" + label,
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setDeletedLabels(
-                        Sets.of(label)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
-    }
+    // DateTimeSymbols..................................................................................................
 
     @Test
-    public void testLabelFindByName() {
+    public void testDecimalNumberSymbolsByLocaleGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
-
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label/",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(mapping)
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    ).setColumnCount(
-                        OptionalInt.of(0)
-                    ).setRowCount(
-                        OptionalInt.of(0)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
-            )
-        );
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/label/*/findByName/Label",
+            "/api/decimalNumberSymbols/EN-AU",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
                 HttpStatusCode.OK.status(),
-                this.toJson(
-                    SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(mapping)
-                    )
-                ),
-                SpreadsheetDelta.class.getSimpleName()
+                "{\n" +
+                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"e\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"infinitySymbol\": \"∞\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"NaN\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"‰\"\n" +
+                    "  }\n" +
+                    "}",
+                DecimalNumberSymbolsHateosResource.class.getSimpleName()
+            )
+        );
+    }
+
+    // exporters........................................................................................................
+
+    @Test
+    public void testExportersGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/exporter",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
+                    "]",
+                SpreadsheetExporterInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testExportersWithNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/exporter/json",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"",
+                SpreadsheetExporterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testExportersWithNameUnknownGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/exporter/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                SpreadsheetExporterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    // expression-function.............................................................................................
+
+    @Test
+    public void testExpressionFunctionGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/function",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"@https://example.com/expression-function-1 ExpressionFunction1\",\n" +
+                    "  \"@https://example.com/expression-function-2 ExpressionFunction2\"\n" +
+                    "]",
+                ExpressionFunctionInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testExpressionFunctionByNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/function/ExpressionFunction1",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"@https://example.com/expression-function-1 ExpressionFunction1\"",
+                ExpressionFunctionInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testExpressionFunctionByNameNotFoundGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/function/UnknownFunctionName",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                ExpressionFunctionInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    // formatters.......................................................................................................
+
+    @Test
+    public void testFormattersGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/formatter",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic automatic\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/collection collection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time-format-pattern date-time-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/default-text default-text\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/expression expression\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number-format-pattern number-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection spreadsheet-pattern-collection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern text-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern time-format-pattern\"\n" +
+                    "]",
+                SpreadsheetFormatterInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterByNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/formatter/date-format-pattern",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\"",
+                SpreadsheetFormatterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterByNameNotFoundGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/formatter/unknown-formatter-404",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                SpreadsheetFormatterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterEditPost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/formatter/*/edit",
+            NO_HEADERS_TRANSACTION_ID,
+            "\"date-format-pattern yyyy/mm/ddd\"",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                    "  \"message\": \"\",\n" +
+                    "  \"tokens\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"yyyy\",\n" +
+                    "      \"text\": \"yyyy\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"yy\",\n" +
+                    "          \"text\": \"yy\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"/\",\n" +
+                    "      \"text\": \"/\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mm\",\n" +
+                    "      \"text\": \"mm\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"m\",\n" +
+                    "          \"text\": \"m\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"mmm\",\n" +
+                    "          \"text\": \"mmm\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"mmmm\",\n" +
+                    "          \"text\": \"mmmm\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"mmmmm\",\n" +
+                    "          \"text\": \"mmmmm\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"/\",\n" +
+                    "      \"text\": \"/\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"ddd\",\n" +
+                    "      \"text\": \"ddd\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"d\",\n" +
+                    "          \"text\": \"d\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"dd\",\n" +
+                    "          \"text\": \"dd\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"dddd\",\n" +
+                    "          \"text\": \"dddd\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"next\": {\n" +
+                    "    \"alternatives\": [\n" +
+                    "      {\n" +
+                    "        \"label\": \"m\",\n" +
+                    "        \"text\": \"m\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mm\",\n" +
+                    "        \"text\": \"mm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmm\",\n" +
+                    "        \"text\": \"mmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmmm\",\n" +
+                    "        \"text\": \"mmmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmmmm\",\n" +
+                    "        \"text\": \"mmmmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"yy\",\n" +
+                    "        \"text\": \"yy\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"yyyy\",\n" +
+                    "        \"text\": \"yyyy\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"samples\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Short\",\n" +
+                    "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"31/12/99\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Medium\",\n" +
+                    "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"31 Dec. 1999\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Long\",\n" +
+                    "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"31 December 1999\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Full\",\n" +
+                    "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Friday, 31 December 1999\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}",
+                SpreadsheetFormatterSelectorEdit.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterMenuGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formatter/*/menu",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Full\",\n" +
+                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium\",\n" +
+                    "    \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Full\",\n" +
+                    "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Default\",\n" +
+                    "    \"selector\": \"default-text @\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"General\",\n" +
+                    "    \"selector\": \"general\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Number\",\n" +
+                    "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Integer\",\n" +
+                    "    \"selector\": \"number-format-pattern #,##0\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Percent\",\n" +
+                    "    \"selector\": \"number-format-pattern #,##0%\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Currency\",\n" +
+                    "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Default\",\n" +
+                    "    \"selector\": \"text-format-pattern @\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"time-format-pattern h:mm AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
+                    "  }\n" +
+                    "]",
+                SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterTokensPost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/formatter/date-format-pattern/tokens",
+            NO_HEADERS_TRANSACTION_ID,
+            "\"yyyy/mm/ddd\"",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  {\n" +
+                    "    \"label\": \"yyyy\",\n" +
+                    "    \"text\": \"yyyy\",\n" +
+                    "    \"alternatives\": [\n" +
+                    "      {\n" +
+                    "        \"label\": \"yy\",\n" +
+                    "        \"text\": \"yy\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"/\",\n" +
+                    "    \"text\": \"/\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"mm\",\n" +
+                    "    \"text\": \"mm\",\n" +
+                    "    \"alternatives\": [\n" +
+                    "      {\n" +
+                    "        \"label\": \"m\",\n" +
+                    "        \"text\": \"m\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmm\",\n" +
+                    "        \"text\": \"mmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmmm\",\n" +
+                    "        \"text\": \"mmmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmmmm\",\n" +
+                    "        \"text\": \"mmmmm\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"/\",\n" +
+                    "    \"text\": \"/\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"ddd\",\n" +
+                    "    \"text\": \"ddd\",\n" +
+                    "    \"alternatives\": [\n" +
+                    "      {\n" +
+                    "        \"label\": \"d\",\n" +
+                    "        \"text\": \"d\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"dd\",\n" +
+                    "        \"text\": \"dd\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"dddd\",\n" +
+                    "        \"text\": \"dddd\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  }\n" +
+                    "]",
+                SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterNextTokenPost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/formatter/date-format-pattern/next-token",
+            NO_HEADERS_TRANSACTION_ID,
+            "\"yyyy/mm/ddd\"",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"alternatives\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"m\",\n" +
+                    "      \"text\": \"m\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mm\",\n" +
+                    "      \"text\": \"mm\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mmm\",\n" +
+                    "      \"text\": \"mmm\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mmmm\",\n" +
+                    "      \"text\": \"mmmm\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mmmmm\",\n" +
+                    "      \"text\": \"mmmmm\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"yy\",\n" +
+                    "      \"text\": \"yy\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"yyyy\",\n" +
+                    "      \"text\": \"yyyy\"\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}",
+                SpreadsheetFormatterSelectorToken.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormatterSamplesGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formatter/date-format-pattern/samples",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"31/12/99\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"31 Dec. 1999\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"31 December 1999\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Full\",\n" +
+                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"Friday, 31 December 1999\"\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "]",
+                SpreadsheetFormatterSampleList.class.getSimpleName()
+            )
+        );
+    }
+
+    // formHandlers.....................................................................................................
+
+    @Test
+    public void testFormHandlersGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/formHandler",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/FormHandler/basic basic\"\n" +
+                    "]",
+                FormHandlerInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormHandlersWithNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/formHandler/basic",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-validation/FormHandler/basic basic\"",
+                FormHandlerInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormHandlersWithNameUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/formHandler/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                FormHandlerInfo.class.getSimpleName()
             )
         );
     }
@@ -8350,860 +10609,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // comparators......................................................................................................
-
-    @Test
-    public void testComparators() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/comparator",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date date\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date-time date-time\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month day-of-month\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-week day-of-week\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-am-pm hour-of-am-pm\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-day hour-of-day\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/minute-of-hour minute-of-hour\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/month-of-year month-of-year\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/nano-of-second nano-of-second\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/number number\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/seconds-of-minute seconds-of-minute\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text text\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text-case-insensitive text-case-insensitive\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
-                    "]",
-                SpreadsheetComparatorInfoSet.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testComparatorsWithName() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/comparator/day-of-month",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month day-of-month\"",
-                SpreadsheetComparatorInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testComparatorsWithNameUnknown() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/comparator/unknown",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.NO_CONTENT.status(),
-                SpreadsheetComparatorInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    // converters.......................................................................................................
-
-    @Test
-    public void testConverters() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/converter",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/format-pattern-to-string format-pattern-to-string\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-style-to-style has-style-to-style\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/jsonTo jsonTo\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/null-to-number null-to-number\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/number-to-number number-to-number\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-text selection-to-text\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/simple simple\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-color text-to-color\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-error text-to-error\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-expression text-to-expression\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-form-name text-to-form-name\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-json text-to-json\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-locale text-to-locale\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-selection text-to-selection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-color-name text-to-spreadsheet-color-name\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-formatter-selector text-to-spreadsheet-formatter-selector\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-id text-to-spreadsheet-id\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata text-to-spreadsheet-metadata\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-color text-to-spreadsheet-metadata-color\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-property-name text-to-spreadsheet-metadata-property-name\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-name text-to-spreadsheet-name\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-text text-to-spreadsheet-text\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-template-value-name text-to-template-value-name\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text text-to-text\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-node text-to-text-node\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style text-to-text-style\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style-property-name text-to-text-style-property-name\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-url text-to-url\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validation-error text-to-validation-error\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validator-selector text-to-validator-selector\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-value-type text-to-value-type\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-json to-json\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-styleable to-styleable\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-text-node to-text-node\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-validation-error-list to-validation-error-list\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-hyperlink url-to-hyperlink\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-image url-to-image\"\n" +
-                    "]",
-                ConverterInfoSet.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testConvertersWithName() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/converter/general",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\"",
-                ConverterInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testConvertersWithNameUnknown() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/converter/unknown",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.NO_CONTENT.status(),
-                ConverterInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testConverterVerify() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/metadata/formulaConverter/verify",
-            NO_HEADERS_TRANSACTION_ID,
-            JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
-                    SpreadsheetMetadataPropertyName.FORMULA_CONVERTER
-                )
-            ).toString(),
-            this.response(
-                HttpStatusCode.OK.status(),
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                    ).setHeader(
-                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                        Lists.of(
-                            MissingConverterSet.class.getSimpleName()
-                        )
-                    ).setBodyText("[]")
-                    .setContentLength()
-            )
-        );
-    }
-
-    // exporters........................................................................................................
-
-    @Test
-    public void testExporters() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/exporter",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
-                    "]",
-                SpreadsheetExporterInfoSet.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testExportersWithName() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/exporter/json",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"",
-                SpreadsheetExporterInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testExportersWithNameUnknown() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/exporter/unknown",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.NO_CONTENT.status(),
-                SpreadsheetExporterInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    // formatters......................................................................................................
-
-    @Test
-    public void testFormatters() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/formatter",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic automatic\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/collection collection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time-format-pattern date-time-format-pattern\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/default-text default-text\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/expression expression\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number-format-pattern number-format-pattern\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection spreadsheet-pattern-collection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern text-format-pattern\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern time-format-pattern\"\n" +
-                    "]",
-                SpreadsheetFormatterInfoSet.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterByName() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/formatter/date-format-pattern",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\"",
-                SpreadsheetFormatterInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterByNameNotFound() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/formatter/unknown-formatter-404",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.NO_CONTENT.status(),
-                SpreadsheetFormatterInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterEdit() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/formatter/*/edit",
-            NO_HEADERS_TRANSACTION_ID,
-            "\"date-format-pattern yyyy/mm/ddd\"",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
-                    "  \"message\": \"\",\n" +
-                    "  \"tokens\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"yyyy\",\n" +
-                    "      \"text\": \"yyyy\",\n" +
-                    "      \"alternatives\": [\n" +
-                    "        {\n" +
-                    "          \"label\": \"yy\",\n" +
-                    "          \"text\": \"yy\"\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"/\",\n" +
-                    "      \"text\": \"/\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mm\",\n" +
-                    "      \"text\": \"mm\",\n" +
-                    "      \"alternatives\": [\n" +
-                    "        {\n" +
-                    "          \"label\": \"m\",\n" +
-                    "          \"text\": \"m\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"label\": \"mmm\",\n" +
-                    "          \"text\": \"mmm\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"label\": \"mmmm\",\n" +
-                    "          \"text\": \"mmmm\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"label\": \"mmmmm\",\n" +
-                    "          \"text\": \"mmmmm\"\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"/\",\n" +
-                    "      \"text\": \"/\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"ddd\",\n" +
-                    "      \"text\": \"ddd\",\n" +
-                    "      \"alternatives\": [\n" +
-                    "        {\n" +
-                    "          \"label\": \"d\",\n" +
-                    "          \"text\": \"d\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"label\": \"dd\",\n" +
-                    "          \"text\": \"dd\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"label\": \"dddd\",\n" +
-                    "          \"text\": \"dddd\"\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  \"next\": {\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"m\",\n" +
-                    "        \"text\": \"m\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mm\",\n" +
-                    "        \"text\": \"mm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmm\",\n" +
-                    "        \"text\": \"mmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmmm\",\n" +
-                    "        \"text\": \"mmmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmmmm\",\n" +
-                    "        \"text\": \"mmmmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"yy\",\n" +
-                    "        \"text\": \"yy\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"yyyy\",\n" +
-                    "        \"text\": \"yyyy\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"samples\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"Short\",\n" +
-                    "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
-                    "      \"value\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"31/12/99\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"Medium\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
-                    "      \"value\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"31 Dec. 1999\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"Long\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
-                    "      \"value\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"31 December 1999\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"Full\",\n" +
-                    "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
-                    "      \"value\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Friday, 31 December 1999\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}",
-                SpreadsheetFormatterSelectorEdit.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterMenu() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/*/menu",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  {\n" +
-                    "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Default\",\n" +
-                    "    \"selector\": \"default-text @\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"General\",\n" +
-                    "    \"selector\": \"general\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Number\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Integer\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Percent\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0%\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Currency\",\n" +
-                    "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Default\",\n" +
-                    "    \"selector\": \"text-format-pattern @\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"time-format-pattern h:mm AM/PM\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
-                    "  }\n" +
-                    "]",
-                SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterTokens() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/formatter/date-format-pattern/tokens",
-            NO_HEADERS_TRANSACTION_ID,
-            "\"yyyy/mm/ddd\"",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  {\n" +
-                    "    \"label\": \"yyyy\",\n" +
-                    "    \"text\": \"yyyy\",\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"yy\",\n" +
-                    "        \"text\": \"yy\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"/\",\n" +
-                    "    \"text\": \"/\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"mm\",\n" +
-                    "    \"text\": \"mm\",\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"m\",\n" +
-                    "        \"text\": \"m\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmm\",\n" +
-                    "        \"text\": \"mmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmmm\",\n" +
-                    "        \"text\": \"mmmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmmmm\",\n" +
-                    "        \"text\": \"mmmmm\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"/\",\n" +
-                    "    \"text\": \"/\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"ddd\",\n" +
-                    "    \"text\": \"ddd\",\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"d\",\n" +
-                    "        \"text\": \"d\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"dd\",\n" +
-                    "        \"text\": \"dd\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"dddd\",\n" +
-                    "        \"text\": \"dddd\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  }\n" +
-                    "]",
-                SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterNextToken() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/formatter/date-format-pattern/next-token",
-            NO_HEADERS_TRANSACTION_ID,
-            "\"yyyy/mm/ddd\"",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"alternatives\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"m\",\n" +
-                    "      \"text\": \"m\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mm\",\n" +
-                    "      \"text\": \"mm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mmm\",\n" +
-                    "      \"text\": \"mmm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mmmm\",\n" +
-                    "      \"text\": \"mmmm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mmmmm\",\n" +
-                    "      \"text\": \"mmmmm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"yy\",\n" +
-                    "      \"text\": \"yy\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"yyyy\",\n" +
-                    "      \"text\": \"yyyy\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}",
-                SpreadsheetFormatterSelectorToken.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterSamples() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/date-format-pattern/samples",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  {\n" +
-                    "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-format-pattern d/m/yy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"31/12/99\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"31 Dec. 1999\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"31 December 1999\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"Friday, 31 December 1999\"\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "]",
-                SpreadsheetFormatterSampleList.class.getSimpleName()
-            )
-        );
-    }
-
-    // formHandlers.....................................................................................................
-
-    @Test
-    public void testFormHandlers() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/formHandler",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  \"https://github.com/mP1/walkingkooka-validation/FormHandler/basic basic\"\n" +
-                    "]",
-                FormHandlerInfoSet.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormHandlersWithName() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/formHandler/basic",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-validation/FormHandler/basic basic\"",
-                FormHandlerInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormHandlersWithNameUnknown() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/formHandler/unknown",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.NO_CONTENT.status(),
-                FormHandlerInfo.class.getSimpleName()
-            )
-        );
-    }
-    
-    // expression-function.............................................................................................
-
-    @Test
-    public void testExpressionFunction() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/function",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  \"@https://example.com/expression-function-1 ExpressionFunction1\",\n" +
-                    "  \"@https://example.com/expression-function-2 ExpressionFunction2\"\n" +
-                    "]",
-                ExpressionFunctionInfoSet.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testExpressionFunctionByName() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/function/ExpressionFunction1",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "\"@https://example.com/expression-function-1 ExpressionFunction1\"",
-                ExpressionFunctionInfo.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testExpressionFunctionByNameNotFound() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/function/UnknownFunctionName",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.NO_CONTENT.status(),
-                ExpressionFunctionInfo.class.getSimpleName()
-            )
-        );
-    }
-
     // importers........................................................................................................
 
     @Test
-    public void testImporters() {
+    public void testImportersGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9225,7 +10634,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testImportersWithName() {
+    public void testImportersWithNameGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9243,7 +10652,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testImportersWithNameUnknown() {
+    public void testImportersWithNameUnknownGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9259,10 +10668,535 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // Locale...........................................................................................................
+
+    @Test
+    public void testLocaleByLanguageTagGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/locale/EN-AU",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"text\": \"English (Australia)\"\n" +
+                    "}",
+                LocaleHateosResource.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLocaleListGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/locale/*?offset=130&count=3",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"el-GR\",\n" +
+                    "    \"text\": \"Greek (Greece)\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"en\",\n" +
+                    "    \"text\": \"English\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"en-001\",\n" +
+                    "    \"text\": \"English (World)\"\n" +
+                    "  }\n" +
+                    "]",
+                LocaleHateosResourceSet.class.getSimpleName()
+            )
+        );
+    }
+
+    // label............................................................................................................
+
+    @Test
+    public void testLabelSavePost() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label/",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(mapping)
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLabelSavePostAndLabelGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label/",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(mapping)
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label/" + label,
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLabelWithOffsetAndCountGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetLabelMapping mapping1 = SpreadsheetSelection.labelName("Label111")
+            .setLabelMappingReference(SpreadsheetSelection.A1);
+        final SpreadsheetLabelMapping mapping2 = SpreadsheetSelection.labelName("Label222")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"));
+        final SpreadsheetLabelMapping mapping3 = SpreadsheetSelection.labelName("Label333")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"));
+        final SpreadsheetLabelMapping mapping4 = SpreadsheetSelection.labelName("Label444")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"));
+
+        for (final SpreadsheetLabelMapping mapping : Lists.of(mapping1, mapping2, mapping3, mapping4)) {
+            server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    )
+                ),
+                this.response(
+                    HttpStatusCode.CREATED.status(),
+                    this.toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                            Sets.of(mapping)
+                        ).setColumnCount(
+                            OptionalInt.of(0)
+                        ).setRowCount(
+                            OptionalInt.of(0)
+                        )
+                    ),
+                    SpreadsheetDelta.class.getSimpleName()
+                )
+            );
+        }
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label/*?offset=1&count=2",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(
+                            mapping2,
+                            mapping3
+                        )
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLabelLoadsWithOffsetAndCountWithCellReferences() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetLabelMapping mapping1 = SpreadsheetSelection.labelName("Label111")
+            .setLabelMappingReference(SpreadsheetSelection.A1);
+        final SpreadsheetLabelMapping mapping2 = SpreadsheetSelection.labelName("Label222")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"));
+        final SpreadsheetLabelMapping mapping3 = SpreadsheetSelection.labelName("Label333")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"));
+        final SpreadsheetLabelMapping mapping4 = SpreadsheetSelection.labelName("Label444")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"));
+
+        for (final SpreadsheetLabelMapping mapping : Lists.of(mapping1, mapping2, mapping3, mapping4)) {
+            server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    )
+                ),
+                this.response(
+                    HttpStatusCode.CREATED.status(),
+                    this.toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                            Sets.of(mapping)
+                        ).setColumnCount(
+                            OptionalInt.of(0)
+                        ).setRowCount(
+                            OptionalInt.of(0)
+                        )
+                    ),
+                    SpreadsheetDelta.class.getSimpleName()
+                )
+            );
+        }
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("B2")
+                                .setFormula(
+                                    formula("=100")
+                                )
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=100\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"100\",\n" +
+                    "                        \"text\": \"100\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"100\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"100\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 100.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label222\",\n" +
+                    "      \"reference\": \"B2\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"references\": {\n" +
+                    "    \"B2\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-label-name\",\n" +
+                    "        \"value\": \"Label222\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label/*?offset=1&count=2",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=100\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"100\",\n" +
+                    "                        \"text\": \"100\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"100\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"100\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 100.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label222\",\n" +
+                    "      \"reference\": \"B2\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label333\",\n" +
+                    "      \"reference\": \"C3\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLabelDelete() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label/",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(mapping)
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.DELETE,
+            "/api/spreadsheet/1/label/" + label,
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setDeletedLabels(
+                        Sets.of(label)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLabelFindByName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label/",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(mapping)
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label/*/findByName/Label",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
     // parsers......................................................................................................
 
     @Test
-    public void testParsers() {
+    public void testParsersGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9285,7 +11219,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testParsersBySpreadsheetParserName() {
+    public void testParsersBySpreadsheetParserNameGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9303,7 +11237,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testParsersBySpreadsheetParserNameUnknown() {
+    public void testParsersBySpreadsheetParserNameUnknownGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -9319,7 +11253,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testParserEdit() {
+    public void testParserEditGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9466,7 +11400,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testParserNextToken() {
+    public void testParserNextTokenPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9515,7 +11449,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testParserTokens() {
+    public void testParserTokensPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9594,7 +11528,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // row...........................................................................................................
 
     @Test
-    public void testRowClear() {
+    public void testRowClearPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9713,7 +11647,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testRowClearRange() {
+    public void testRowClearPostRange() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9832,7 +11766,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testRowInsertAfter() {
+    public void testRowInsertAfterPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
@@ -10078,7 +12012,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testRowInsertBefore() {
+    public void testRowInsertBeforePost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
@@ -10324,7 +12258,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testRowDeleteShiftsCell() {
+    public void testRowDeleteShiftsCellPost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -10483,1829 +12417,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // clear...........................................................................................................
-
-
-    @Test
-    public void testCellClear() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("'Hello")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello\",\n" +
-                    "                  \"text\": \"Hello\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // clear A1:B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2/clear",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY),
-            this.response(
-                HttpStatusCode.BAD_REQUEST.setMessage("Unknown link relation \"clear\"")
-            )
-        );
-    }
-
-    @Test
-    public void testCellClearRange() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("'Hello")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello\",\n" +
-                    "                  \"text\": \"Hello\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // clear A1:B2
-        server.handleAndCheck(HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:C3/clear",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY),
-            this.response(
-                HttpStatusCode.BAD_REQUEST.setMessage("Unknown link relation \"clear\"")
-            )
-        );
-    }
-
-    // fillCell........................................................................................................
-
-    @Test
-    public void testCellFill() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("'Hello")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello\",\n" +
-                    "                  \"text\": \"Hello\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // fill A1:B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:B2/fill",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
-                    Sets.of(
-                        SpreadsheetSelection.A1
-                            .setFormula(
-                                formula("=1")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"deletedCells\": \"B2\",\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100,\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50,\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 1,\n" +
-                    "  \"rowCount\": 1\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    @Test
-    public void testCellFillRepeatsFromRange() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // fill A1:B2 from A1
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:B2/fill?from=A1",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.A1
-                            .setFormula(
-                                formula("=1")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    \"B1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    \"A2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100,\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50,\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    @Test
-    public void testCellFillThatClears() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("'Hello")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello\",\n" +
-                    "                  \"text\": \"Hello\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // fill A1:B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:B2/fill",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"deletedCells\": \"B2\",\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 0,\n" +
-                    "  \"rowCount\": 0\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    @Test
-    public void testCellFillWithSelectionQueryParameter() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("'Hello")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello\",\n" +
-                    "                  \"text\": \"Hello\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // fill A1:B2
-        server.handleAndCheck(HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:B2/fill",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.A1
-                            .setFormula(
-                                formula("=1")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"deletedCells\": \"B2\",\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100,\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50,\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 1,\n" +
-                    "  \"rowCount\": 1\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    // find cells.......................................................................................................
-
-    @Test
-    public void testFindCellsNonBooleanQuery() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("'Hello")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello\",\n" +
-                    "                  \"text\": \"Hello\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/cell/B2/find?query=1",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            HttpStatusCode.OK.status(),
-            "{\n" +
-                "  \"cells\": {\n" +
-                "    \"B2\": {\n" +
-                "      \"formula\": {\n" +
-                "        \"text\": \"'Hello\",\n" +
-                "        \"token\": {\n" +
-                "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                "          \"value\": {\n" +
-                "            \"value\": [\n" +
-                "              {\n" +
-                "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                "                \"value\": {\n" +
-                "                  \"value\": \"'\",\n" +
-                "                  \"text\": \"'\"\n" +
-                "                }\n" +
-                "              },\n" +
-                "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                "                \"value\": {\n" +
-                "                  \"value\": \"Hello\",\n" +
-                "                  \"text\": \"Hello\"\n" +
-                "                }\n" +
-                "              }\n" +
-                "            ],\n" +
-                "            \"text\": \"'Hello\"\n" +
-                "          }\n" +
-                "        },\n" +
-                "        \"expression\": {\n" +
-                "          \"type\": \"value-expression\",\n" +
-                "          \"value\": \"Hello\"\n" +
-                "        },\n" +
-                "        \"value\": \"Hello\"\n" +
-                "      },\n" +
-                "      \"formattedValue\": {\n" +
-                "        \"type\": \"text\",\n" +
-                "        \"value\": \"Text Hello\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"columnWidths\": {\n" +
-                "    \"B\": 100\n" +
-                "  },\n" +
-                "  \"rowHeights\": {\n" +
-                "    \"2\": 50\n" +
-                "  },\n" +
-                "  \"columnCount\": 2,\n" +
-                "  \"rowCount\": 2\n" +
-                "}"
-        );
-    }
-
-    // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
-    // find Response missing references
-    @Test
-    public void testFindCellsNonBooleanQueryWithLabelsAndReferences() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("B2")
-                            .setFormula(
-                                formula("=1")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 2,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // save cell C3
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/C3?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.parseCell("C3")
-                            .setFormula(
-                                formula("=B2+1000")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"C3\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=B2+1000\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": [\n" +
-                    "                          {\n" +
-                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
-                    "                            \"value\": {\n" +
-                    "                              \"value\": \"B\",\n" +
-                    "                              \"text\": \"B\"\n" +
-                    "                            }\n" +
-                    "                          },\n" +
-                    "                          {\n" +
-                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
-                    "                            \"value\": {\n" +
-                    "                              \"value\": \"2\",\n" +
-                    "                              \"text\": \"2\"\n" +
-                    "                            }\n" +
-                    "                          }\n" +
-                    "                        ],\n" +
-                    "                        \"text\": \"B2\"\n" +
-                    "                      }\n" +
-                    "                    },\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"+\",\n" +
-                    "                        \"text\": \"+\"\n" +
-                    "                      }\n" +
-                    "                    },\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": [\n" +
-                    "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                            \"value\": {\n" +
-                    "                              \"value\": \"1000\",\n" +
-                    "                              \"text\": \"1000\"\n" +
-                    "                            }\n" +
-                    "                          }\n" +
-                    "                        ],\n" +
-                    "                        \"text\": \"1000\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"B2+1000\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=B2+1000\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"add-expression\",\n" +
-                    "          \"value\": [\n" +
-                    "            {\n" +
-                    "              \"type\": \"reference-expression\",\n" +
-                    "              \"value\": {\n" +
-                    "                \"type\": \"spreadsheet-cell-reference\",\n" +
-                    "                \"value\": \"B2\"\n" +
-                    "              }\n" +
-                    "            },\n" +
-                    "            {\n" +
-                    "              \"type\": \"value-expression\",\n" +
-                    "              \"value\": {\n" +
-                    "                \"type\": \"expression-number\",\n" +
-                    "                \"value\": \"1000\"\n" +
-                    "              }\n" +
-                    "            }\n" +
-                    "          ]\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1001\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 1001.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"C\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"3\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 3,\n" +
-                    "  \"rowCount\": 3\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1371
-        // refereneces should be present but are missing
-        //
-        // save label
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(
-                        SpreadsheetSelection.labelName("Label123")
-                            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"B2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"1\",\n" +
-                    "                        \"text\": \"1\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"expression-number\",\n" +
-                    "            \"value\": \"1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": {\n" +
-                    "          \"type\": \"expression-number\",\n" +
-                    "          \"value\": \"1\"\n" +
-                    "        }\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Number 001.000\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"labels\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"Label123\",\n" +
-                    "      \"reference\": \"B2\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"B\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 3,\n" +
-                    "  \"rowCount\": 3\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
-        // Response missing references.
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/cell/B2/find?query=1",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            HttpStatusCode.OK.status(),
-            "{\n" +
-                "  \"cells\": {\n" +
-                "    \"B2\": {\n" +
-                "      \"formula\": {\n" +
-                "        \"text\": \"=1\",\n" +
-                "        \"token\": {\n" +
-                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                "          \"value\": {\n" +
-                "            \"value\": [\n" +
-                "              {\n" +
-                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                "                \"value\": {\n" +
-                "                  \"value\": \"=\",\n" +
-                "                  \"text\": \"=\"\n" +
-                "                }\n" +
-                "              },\n" +
-                "              {\n" +
-                "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
-                "                \"value\": {\n" +
-                "                  \"value\": [\n" +
-                "                    {\n" +
-                "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
-                "                      \"value\": {\n" +
-                "                        \"value\": \"1\",\n" +
-                "                        \"text\": \"1\"\n" +
-                "                      }\n" +
-                "                    }\n" +
-                "                  ],\n" +
-                "                  \"text\": \"1\"\n" +
-                "                }\n" +
-                "              }\n" +
-                "            ],\n" +
-                "            \"text\": \"=1\"\n" +
-                "          }\n" +
-                "        },\n" +
-                "        \"expression\": {\n" +
-                "          \"type\": \"value-expression\",\n" +
-                "          \"value\": {\n" +
-                "            \"type\": \"expression-number\",\n" +
-                "            \"value\": \"1\"\n" +
-                "          }\n" +
-                "        },\n" +
-                "        \"value\": {\n" +
-                "          \"type\": \"expression-number\",\n" +
-                "          \"value\": \"1\"\n" +
-                "        }\n" +
-                "      },\n" +
-                "      \"formattedValue\": {\n" +
-                "        \"type\": \"text\",\n" +
-                "        \"value\": \"Number 001.000\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"labels\": [\n" +
-                "    {\n" +
-                "      \"label\": \"Label123\",\n" +
-                "      \"reference\": \"B2\"\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"references\": {\n" +
-                "    \"B2\": [\n" +
-                "      {\n" +
-                "        \"type\": \"spreadsheet-cell-reference\",\n" +
-                "        \"value\": \"C3\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"type\": \"spreadsheet-label-name\",\n" +
-                "        \"value\": \"Label123\"\n" +
-                "      }\n" +
-                "    ]\n" +
-                "  },\n" +
-                "  \"columnWidths\": {\n" +
-                "    \"B\": 100\n" +
-                "  },\n" +
-                "  \"rowHeights\": {\n" +
-                "    \"2\": 50\n" +
-                "  },\n" +
-                "  \"columnCount\": 3,\n" +
-                "  \"rowCount\": 3\n" +
-                "}"
-        );
-    }
-
-    // findLabelsWithReference..........................................................................................
-
-    @Test
-    public void testFindLabelsWithReference() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save label
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/label",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(
-                        SpreadsheetSelection.labelName("Label123")
-                            .setLabelMappingReference(SpreadsheetSelection.A1)
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.CREATED.status(),
-                "{\n" +
-                    "  \"labels\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"Label123\",\n" +
-                    "      \"reference\": \"A1\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  \"columnCount\": 0,\n" +
-                    "  \"rowCount\": 0\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/cell/A1/labels",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            HttpStatusCode.OK.status(),
-            "{\n" +
-                "  \"labels\": [\n" +
-                "    {\n" +
-                "      \"label\": \"Label123\",\n" +
-                "      \"reference\": \"A1\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}"
-        );
-    }
-
-    // findCellsWithReferences..........................................................................................
-
-    @Test
-    public void testFindCellsWithReferences() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:A2",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.A1
-                            .setFormula(
-                                formula("=A2")
-                            ),
-                        SpreadsheetSelection.parseCell("A2")
-                            .setFormula(
-                                formula("'Zebra'")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"=A2\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"=\",\n" +
-                    "                  \"text\": \"=\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": [\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"A\",\n" +
-                    "                        \"text\": \"A\"\n" +
-                    "                      }\n" +
-                    "                    },\n" +
-                    "                    {\n" +
-                    "                      \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
-                    "                      \"value\": {\n" +
-                    "                        \"value\": \"2\",\n" +
-                    "                        \"text\": \"2\"\n" +
-                    "                      }\n" +
-                    "                    }\n" +
-                    "                  ],\n" +
-                    "                  \"text\": \"A2\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"=A2\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"reference-expression\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"type\": \"spreadsheet-cell-reference\",\n" +
-                    "            \"value\": \"A2\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"value\": \"Zebra'\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Zebra'\"\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    \"A2\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Zebra'\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Zebra'\",\n" +
-                    "                  \"text\": \"Zebra'\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Zebra'\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Zebra'\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Zebra'\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Zebra'\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"references\": {\n" +
-                    "    \"A2\": [\n" +
-                    "      {\n" +
-                    "        \"type\": \"spreadsheet-cell-reference\",\n" +
-                    "        \"value\": \"A1\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50,\n" +
-                    "    \"2\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 1,\n" +
-                    "  \"rowCount\": 2\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/cell/A2/references",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            HttpStatusCode.OK.status(),
-            "{\n" +
-                "  \"cells\": {\n" +
-                "    \"A1\": {\n" +
-                "      \"formula\": {\n" +
-                "        \"text\": \"=A2\",\n" +
-                "        \"token\": {\n" +
-                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
-                "          \"value\": {\n" +
-                "            \"value\": [\n" +
-                "              {\n" +
-                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
-                "                \"value\": {\n" +
-                "                  \"value\": \"=\",\n" +
-                "                  \"text\": \"=\"\n" +
-                "                }\n" +
-                "              },\n" +
-                "              {\n" +
-                "                \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
-                "                \"value\": {\n" +
-                "                  \"value\": [\n" +
-                "                    {\n" +
-                "                      \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
-                "                      \"value\": {\n" +
-                "                        \"value\": \"A\",\n" +
-                "                        \"text\": \"A\"\n" +
-                "                      }\n" +
-                "                    },\n" +
-                "                    {\n" +
-                "                      \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
-                "                      \"value\": {\n" +
-                "                        \"value\": \"2\",\n" +
-                "                        \"text\": \"2\"\n" +
-                "                      }\n" +
-                "                    }\n" +
-                "                  ],\n" +
-                "                  \"text\": \"A2\"\n" +
-                "                }\n" +
-                "              }\n" +
-                "            ],\n" +
-                "            \"text\": \"=A2\"\n" +
-                "          }\n" +
-                "        },\n" +
-                "        \"expression\": {\n" +
-                "          \"type\": \"reference-expression\",\n" +
-                "          \"value\": {\n" +
-                "            \"type\": \"spreadsheet-cell-reference\",\n" +
-                "            \"value\": \"A2\"\n" +
-                "          }\n" +
-                "        },\n" +
-                "        \"value\": \"Zebra'\"\n" +
-                "      },\n" +
-                "      \"formattedValue\": {\n" +
-                "        \"type\": \"text\",\n" +
-                "        \"value\": \"Text Zebra'\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "  }\n" +
-                "}"
-        );
-    }
-    
-    // column...........................................................................................................
-
-    @Test
-    public void testColumnPatch() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1/column/A",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY
-                    .setColumns(
-                        Sets.of(
-                            SpreadsheetSelection.parseColumn("A")
-                                .column()
-                                .setHidden(true)
-                        )
-                    )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"columns\": {\n" +
-                    "    \"A\": {\n" +
-                    "      \"hidden\": true\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    @Test
-    public void testColumnPatchWithWindow() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1/column/A",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY
-                    .setColumns(
-                        Sets.of(
-                            SpreadsheetSelection.parseColumn("A")
-                                .column()
-                                .setHidden(true)
-                        )
-                    ).setWindow(
-                        SpreadsheetViewportWindows.parse("A1:B2")
-                    )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"columns\": {\n" +
-                    "    \"A\": {\n" +
-                    "      \"hidden\": true\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    @Test
-    public void testCellSavePatchColumn() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell A1
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setCells(
-                    Sets.of(
-                        SpreadsheetSelection.A1
-                            .setFormula(
-                                formula("'Hello A1")
-                            )
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"cells\": {\n" +
-                    "    \"A1\": {\n" +
-                    "      \"formula\": {\n" +
-                    "        \"text\": \"'Hello A1\",\n" +
-                    "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"value\": [\n" +
-                    "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"'\",\n" +
-                    "                  \"text\": \"'\"\n" +
-                    "                }\n" +
-                    "              },\n" +
-                    "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
-                    "                \"value\": {\n" +
-                    "                  \"value\": \"Hello A1\",\n" +
-                    "                  \"text\": \"Hello A1\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            ],\n" +
-                    "            \"text\": \"'Hello A1\"\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"expression\": {\n" +
-                    "          \"type\": \"value-expression\",\n" +
-                    "          \"value\": \"Hello A1\"\n" +
-                    "        },\n" +
-                    "        \"value\": \"Hello A1\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text Hello A1\"\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
-                    "  },\n" +
-                    "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
-                    "  },\n" +
-                    "  \"columnCount\": 1,\n" +
-                    "  \"rowCount\": 1\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1/column/A?window=A1:B2",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setColumns(
-                    Sets.of(
-                        SpreadsheetSelection.parseColumn("A")
-                            .column()
-                            .setHidden(true)
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"columns\": {\n" +
-                    "    \"A\": {\n" +
-                    "      \"hidden\": true\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"window\": \"A1:B2\"\n" +
-                    "}",
-                DELTA
-            )
-        );
-
-        server.handleAndCheck(
-            HttpMethod.PATCH,
-            "/api/spreadsheet/1/column/A?window=A1",
-            NO_HEADERS_TRANSACTION_ID,
-            toJson(
-                SpreadsheetDelta.EMPTY.setColumns(
-                    Sets.of(
-                        SpreadsheetSelection.parseColumn("A")
-                            .column()
-                            .setHidden(false)
-                    )
-                )
-            ),
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"columns\": {\n" +
-                    "    \"A\": {\n" +
-                    "      \"hidden\": false\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  \"window\": \"A1\"\n" +
-                    "}",
-                DELTA
-            )
-        );
-    }
-
-    // row...........................................................................................................
-
     @Test
     public void testRowPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
@@ -12370,7 +12481,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePatchRow() {
+    public void testRowPatchAfterCellSavePost() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell A1
@@ -12500,7 +12611,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // validators........................................................................................................
 
     @Test
-    public void testValidators() {
+    public void testValidatorsGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -12523,7 +12634,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testValidatorsWithName() {
+    public void testValidatorsWithNameGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -12541,7 +12652,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testValidatorsWithNameUnknown() {
+    public void testValidatorsWithNameUnknownGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -12557,170 +12668,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    // DateTimeSymbols..................................................................................................
-
-    @Test
-    public void testDateTimeSymbolsOne() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/dateTimeSymbols/EN-AU",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"localeTag\": \"en-AU\",\n" +
-                    "  \"dateTimeSymbols\": {\n" +
-                    "    \"ampms\": [\n" +
-                    "      \"am\",\n" +
-                    "      \"pm\"\n" +
-                    "    ],\n" +
-                    "    \"monthNames\": [\n" +
-                    "      \"January\",\n" +
-                    "      \"February\",\n" +
-                    "      \"March\",\n" +
-                    "      \"April\",\n" +
-                    "      \"May\",\n" +
-                    "      \"June\",\n" +
-                    "      \"July\",\n" +
-                    "      \"August\",\n" +
-                    "      \"September\",\n" +
-                    "      \"October\",\n" +
-                    "      \"November\",\n" +
-                    "      \"December\"\n" +
-                    "    ],\n" +
-                    "    \"monthNameAbbreviations\": [\n" +
-                    "      \"Jan.\",\n" +
-                    "      \"Feb.\",\n" +
-                    "      \"Mar.\",\n" +
-                    "      \"Apr.\",\n" +
-                    "      \"May\",\n" +
-                    "      \"Jun.\",\n" +
-                    "      \"Jul.\",\n" +
-                    "      \"Aug.\",\n" +
-                    "      \"Sep.\",\n" +
-                    "      \"Oct.\",\n" +
-                    "      \"Nov.\",\n" +
-                    "      \"Dec.\"\n" +
-                    "    ],\n" +
-                    "    \"weekDayNames\": [\n" +
-                    "      \"Sunday\",\n" +
-                    "      \"Monday\",\n" +
-                    "      \"Tuesday\",\n" +
-                    "      \"Wednesday\",\n" +
-                    "      \"Thursday\",\n" +
-                    "      \"Friday\",\n" +
-                    "      \"Saturday\"\n" +
-                    "    ],\n" +
-                    "    \"weekDayNameAbbreviations\": [\n" +
-                    "      \"Sun.\",\n" +
-                    "      \"Mon.\",\n" +
-                    "      \"Tue.\",\n" +
-                    "      \"Wed.\",\n" +
-                    "      \"Thu.\",\n" +
-                    "      \"Fri.\",\n" +
-                    "      \"Sat.\"\n" +
-                    "    ]\n" +
-                    "  }\n" +
-                    "}",
-                DateTimeSymbolsHateosResource.class.getSimpleName()
-            )
-        );
-    }
-
-    // DateTimeSymbols..................................................................................................
-
-    @Test
-    public void testDecimalNumberSymbolsOne() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/decimalNumberSymbols/EN-AU",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"localeTag\": \"en-AU\",\n" +
-                    "  \"decimalNumberSymbols\": {\n" +
-                    "    \"negativeSign\": \"-\",\n" +
-                    "    \"positiveSign\": \"+\",\n" +
-                    "    \"zeroDigit\": \"0\",\n" +
-                    "    \"currencySymbol\": \"$\",\n" +
-                    "    \"decimalSeparator\": \".\",\n" +
-                    "    \"exponentSymbol\": \"e\",\n" +
-                    "    \"groupSeparator\": \",\",\n" +
-                    "    \"infinitySymbol\": \"∞\",\n" +
-                    "    \"monetaryDecimalSeparator\": \".\",\n" +
-                    "    \"nanSymbol\": \"NaN\",\n" +
-                    "    \"percentSymbol\": \"%\",\n" +
-                    "    \"permillSymbol\": \"‰\"\n" +
-                    "  }\n" +
-                    "}",
-                DecimalNumberSymbolsHateosResource.class.getSimpleName()
-            )
-        );
-    }
-
-    // Locale...........................................................................................................
-
-    @Test
-    public void testLocaleOne() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/locale/EN-AU",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"localeTag\": \"en-AU\",\n" +
-                    "  \"text\": \"English (Australia)\"\n" +
-                    "}",
-                LocaleHateosResource.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testLocaleList() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/locale/*?offset=130&count=3",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  {\n" +
-                    "    \"localeTag\": \"el-GR\",\n" +
-                    "    \"text\": \"Greek (Greece)\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"localeTag\": \"en\",\n" +
-                    "    \"text\": \"English\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"localeTag\": \"en-001\",\n" +
-                    "    \"text\": \"English (World)\"\n" +
-                    "  }\n" +
-                    "]",
-                LocaleHateosResourceSet.class.getSimpleName()
-            )
-        );
-    }
-
     // file server......................................................................................................
 
     @Test
-    public void testFileFound() {
+    public void testFileFoundGet() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -12740,7 +12691,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFileNotFound() {
+    public void testFileNotFoundGet() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
