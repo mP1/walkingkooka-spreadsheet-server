@@ -59,17 +59,6 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
 
     @Test
-    public void testHandleAllFails() {
-        this.handleAllFails(
-            this.entity(),
-            this.parameters(),
-            this.path(),
-            this.context(),
-            UnsupportedOperationException.class
-        );
-    }
-
-    @Test
     public void testHandleManyFails() {
         this.handleManyFails(
             this.manyIds(),
@@ -93,6 +82,18 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
     }
 
     @Test
+    public void testHandleOneFails() {
+        this.handleOneFails(
+            this.id(),
+            this.entity(),
+            this.parameters(),
+            this.path(),
+            this.context(),
+            UnsupportedOperationException.class
+        );
+    }
+
+    @Test
     public void testHandleRangeFails() {
         this.handleRangeFails(
             this.range(),
@@ -105,39 +106,21 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
     }
 
     @Test
-    public void testHandleAllContentTypeBadContentType() {
-        final IllegalArgumentException thrown = this.handleOneFails(
-            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN,
-            this.entity()
-                .setContentType(MediaType.TEXT_PLAIN)
-                .setAccept(
-                    MediaType.APPLICATION_JSON.accept()
-                ),
-            this.parameters(),
-            this.path(),
-            this.context(),
-            IllegalArgumentException.class
-        );
-        this.checkEquals(
-            "Content-Type: Got text/plain require application/json",
-            thrown.getMessage()
-        );
-    }
-
-    @Test
-    public void testHandleOne() {
+    public void testHandleAll() {
         final SpreadsheetFormatterSelector selector = SpreadsheetPattern.parseDateFormatPattern("yyyy")
             .spreadsheetFormatterSelector();
 
-        this.handleOneAndCheck(
-            selector.name(), // resource id
+        this.handleAllAndCheck(
             this.httpEntity(
                 JsonNode.string(selector.valueText())
             ).setAccept(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
             ),
             this.parameters(),
-            this.path(),
+            UrlPath.parse(
+                "/" +
+                    selector.text()
+            ),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
@@ -170,8 +153,8 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
                 }
 
                 @Override
-                public JsonNode marshall(final Object value) {
-                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
+                public JsonNode marshallOptional(final Optional<?> value) {
+                    return JSON_NODE_MARSHALL_CONTEXT.marshallOptional(value);
                 }
             },
             this.httpEntity(
