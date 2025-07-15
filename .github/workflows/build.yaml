@@ -44,9 +44,3 @@ jobs:
           name: gwt-jar-test-build.log
           path: target/it-tests/gwt-jar-test/build.log
 
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: gwt-jar-test-build.log
-          path: target/it-tests/gwt-jar-test/build.log
-
