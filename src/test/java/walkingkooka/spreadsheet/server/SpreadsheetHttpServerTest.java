@@ -10157,15 +10157,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFormatterEditPost() {
+    public void testFormatterEditGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/formatter/*/edit",
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formatter/*/edit/date-format-pattern%20yyyy/mm/ddd",
             NO_HEADERS_TRANSACTION_ID,
-            "\"date-format-pattern yyyy/mm/ddd\"",
+            "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
