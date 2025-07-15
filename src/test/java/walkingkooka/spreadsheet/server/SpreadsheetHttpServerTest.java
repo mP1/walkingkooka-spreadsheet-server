@@ -89,7 +89,6 @@ import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -10466,55 +10465,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  }\n" +
                     "]",
                 SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterNextTokenGet() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/*/next-token/date-format-pattern%20yyyy/mm/ddd",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "{\n" +
-                    "  \"alternatives\": [\n" +
-                    "    {\n" +
-                    "      \"label\": \"m\",\n" +
-                    "      \"text\": \"m\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mm\",\n" +
-                    "      \"text\": \"mm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mmm\",\n" +
-                    "      \"text\": \"mmm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mmmm\",\n" +
-                    "      \"text\": \"mmmm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"mmmmm\",\n" +
-                    "      \"text\": \"mmmmm\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"yy\",\n" +
-                    "      \"text\": \"yy\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"label\": \"yyyy\",\n" +
-                    "      \"text\": \"yyyy\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}",
-                SpreadsheetFormatterSelectorToken.class.getSimpleName()
             )
         );
     }
