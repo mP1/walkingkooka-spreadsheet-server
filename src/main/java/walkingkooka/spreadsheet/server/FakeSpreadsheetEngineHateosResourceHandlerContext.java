@@ -411,6 +411,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public Optional<SpreadsheetCell> cell() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public int cellCharacterWidth() {
         throw new UnsupportedOperationException();
     }
