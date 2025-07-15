@@ -34,7 +34,6 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
 
@@ -77,29 +76,20 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
-        HateosHttpEntityHandler.checkPathEmpty(path);
+        HateosHttpEntityHandler.checkPath(path);
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
-        requiredContentType.requireContentType(
-            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                .orElse(null)
-        );
-
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
             .testOrFail(requiredContentType);
-
-        final String selector = context.unmarshall(
-            JsonNode.parse(
-                httpEntity.bodyText()
-            ),
-            String.class
-        );
 
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         final SpreadsheetParserSelectorEdit response = SpreadsheetParserSelectorEdit.parse(
-            selector,
+            path.isRoot() ?
+                "" :
+                path.value()
+                    .substring(1),
             SpreadsheetParserSelectorEditContexts.basic(
                 context, // SpreadsheetParserProvider
                 metadata.spreadsheetParserContext(
