@@ -66,10 +66,6 @@ final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler impleme
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
-        requiredContentType.requireContentType(
-            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                .orElse(null)
-        );
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
             .testOrFail(requiredContentType);
 
