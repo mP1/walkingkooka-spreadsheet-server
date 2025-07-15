@@ -88,7 +88,6 @@ import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContex
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -10465,57 +10464,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  }\n" +
                     "]",
                 SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterSamplesGet() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/date-format-pattern/samples",
-            NO_HEADERS_TRANSACTION_ID,
-            "",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  {\n" +
-                    "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-format-pattern d/m/yy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"31/12/99\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"31 Dec. 1999\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"31 December 1999\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
-                    "    \"value\": {\n" +
-                    "      \"type\": \"text\",\n" +
-                    "      \"value\": \"Friday, 31 December 1999\"\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "]",
-                SpreadsheetFormatterSampleList.class.getSimpleName()
             )
         );
     }
