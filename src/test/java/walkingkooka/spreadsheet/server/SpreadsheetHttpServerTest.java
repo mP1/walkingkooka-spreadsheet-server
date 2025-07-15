@@ -11690,10 +11690,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         // save cell B2
         server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/parser/*/edit",
+            HttpMethod.GET,
+            "/api/spreadsheet/1/parser/*/edit/date-parse-pattern%20yyyy/mm/ddd",
             NO_HEADERS_TRANSACTION_ID,
-            "\"date-parse-pattern yyyy/mm/ddd\"",
+            "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +

@@ -115,22 +115,6 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
     }
 
     @Test
-    public void testHandleAllContentTypeBadContentType() {
-        final IllegalArgumentException thrown = this.handleAllFails(
-            this.entity()
-                .setContentType(MediaType.TEXT_PLAIN),
-            this.parameters(),
-            this.path(),
-            this.context(),
-            IllegalArgumentException.class
-        );
-        this.checkEquals(
-            "Content-Type: Got text/plain require application/json",
-            thrown.getMessage()
-        );
-    }
-
-    @Test
     public void testHandleAllBadAccept() {
         final IllegalArgumentException thrown = this.handleAllFails(
             this.entity()
@@ -153,23 +137,17 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
     public void testHandleAll() {
         this.handleAllAndCheck(
             // two format requests
-            this.httpEntity(
-                JsonNode.string(SpreadsheetParserName.DATE_PARSER_PATTERN + " dd/mm/yyyy").toString()
-            ).setAccept(
+            HttpEntity.EMPTY.setAccept(
                 MediaType.APPLICATION_JSON.accept()
             ),
             this.parameters(),
-            this.path(),
+            UrlPath.parse(
+                "/" + SpreadsheetParserName.DATE_PARSER_PATTERN + " dd/mm/yyyy"
+            ),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
                     return MediaType.APPLICATION_JSON;
-                }
-
-                @Override
-                public <T> T unmarshall(final JsonNode json,
-                                        final Class<T> type) {
-                    return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(json, type);
                 }
 
                 @Override
