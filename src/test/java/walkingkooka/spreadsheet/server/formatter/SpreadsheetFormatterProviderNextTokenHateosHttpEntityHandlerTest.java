@@ -111,9 +111,7 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
             .spreadsheetFormatterSelector();
 
         this.handleAllAndCheck(
-            this.httpEntity(
-                JsonNode.string(selector.valueText())
-            ).setAccept(
+            HttpEntity.EMPTY.setAccept(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
             ),
             this.parameters(),
