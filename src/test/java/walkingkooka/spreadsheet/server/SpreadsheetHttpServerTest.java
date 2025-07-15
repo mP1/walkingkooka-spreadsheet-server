@@ -88,7 +88,6 @@ import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContex
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
@@ -10387,83 +10386,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  }\n" +
                     "]",
                 SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
-            )
-        );
-    }
-
-    @Test
-    public void testFormatterTokensPost() {
-        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
-
-        // save cell B2
-        server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/formatter/date-format-pattern/tokens",
-            NO_HEADERS_TRANSACTION_ID,
-            "\"yyyy/mm/ddd\"",
-            this.response(
-                HttpStatusCode.OK.status(),
-                "[\n" +
-                    "  {\n" +
-                    "    \"label\": \"yyyy\",\n" +
-                    "    \"text\": \"yyyy\",\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"yy\",\n" +
-                    "        \"text\": \"yy\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"/\",\n" +
-                    "    \"text\": \"/\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"mm\",\n" +
-                    "    \"text\": \"mm\",\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"m\",\n" +
-                    "        \"text\": \"m\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmm\",\n" +
-                    "        \"text\": \"mmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmmm\",\n" +
-                    "        \"text\": \"mmmm\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"mmmmm\",\n" +
-                    "        \"text\": \"mmmmm\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"/\",\n" +
-                    "    \"text\": \"/\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"ddd\",\n" +
-                    "    \"text\": \"ddd\",\n" +
-                    "    \"alternatives\": [\n" +
-                    "      {\n" +
-                    "        \"label\": \"d\",\n" +
-                    "        \"text\": \"d\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"dd\",\n" +
-                    "        \"text\": \"dd\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"label\": \"dddd\",\n" +
-                    "        \"text\": \"dddd\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  }\n" +
-                    "]",
-                SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
             )
         );
     }
