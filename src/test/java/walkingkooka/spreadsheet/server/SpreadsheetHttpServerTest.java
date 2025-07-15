@@ -10471,15 +10471,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFormatterNextTokenPost() {
+    public void testFormatterNextTokenGet() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
-            HttpMethod.POST,
-            "/api/spreadsheet/1/formatter/date-format-pattern/next-token",
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formatter/*/next-token/date-format-pattern%20yyyy/mm/ddd",
             NO_HEADERS_TRANSACTION_ID,
-            "\"yyyy/mm/ddd\"",
+            "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +

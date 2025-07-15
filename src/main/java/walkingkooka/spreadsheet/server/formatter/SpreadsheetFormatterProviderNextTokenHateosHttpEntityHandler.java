@@ -25,27 +25,25 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * A handler that takes the {@link SpreadsheetFormatterName} and request body {@link String} to make a {@link SpreadsheetFormatterSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatter(SpreadsheetFormatterSelector, ProviderContext)}.
  */
 final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler instance() {
@@ -58,15 +56,13 @@ final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler impleme
     }
 
     @Override
-    public HttpEntity handleOne(final SpreadsheetFormatterName formatterName,
-                                final HttpEntity httpEntity,
+    public HttpEntity handleAll(final HttpEntity httpEntity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final UrlPath path,
                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        HateosHttpEntityHandler.checkId(formatterName);
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
-        HateosHttpEntityHandler.checkPathEmpty(path);
+        HateosHttpEntityHandler.checkPath(path);
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
@@ -77,19 +73,11 @@ final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler impleme
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
             .testOrFail(requiredContentType);
 
-        // read request body text
-        final String text = context.unmarshall(
-            JsonNode.parse(
-                httpEntity.bodyText()
-            ),
-            String.class
-        );
-
-        // format all the individual requests
-        final Optional<SpreadsheetFormatterSelectorToken> response = nextTextComponent(
-            formatterName.setValueText(text), // selector
-            context
-        );
+        // the path contains a selector
+        final String text = path.isRoot() ?
+            "" :
+            path.value()
+                .substring(1);
 
         return HttpEntity.EMPTY.setContentType(
             requiredContentType.setCharset(CharsetName.UTF_8)
@@ -97,16 +85,13 @@ final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler impleme
             HateosResourceMappings.X_CONTENT_TYPE_NAME,
             SpreadsheetFormatterSelectorToken.class.getSimpleName()
         ).setBodyText(
-            response.map(r -> context.marshall(r).toString())
-                .orElse("")
+            context.marshallOptional(
+                    context.spreadsheetFormatterNextToken(
+                        SpreadsheetFormatterSelector.parse(text)
+                    )
+                )
+                .toString()
         ).setContentLength();
-    }
-
-    private Optional<SpreadsheetFormatterSelectorToken> nextTextComponent(final SpreadsheetFormatterSelector selector,
-                                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return context.spreadsheetFormatterNextToken(
-            selector
-        );
     }
 
     @Override
