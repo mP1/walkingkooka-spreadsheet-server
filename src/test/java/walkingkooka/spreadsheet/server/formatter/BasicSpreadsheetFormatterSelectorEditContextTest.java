@@ -76,6 +76,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
 
     private SpreadsheetFormatterContext spreadsheetFormatterContext() {
         return SpreadsheetFormatterContexts.basic(
+            SpreadsheetFormatterContext.NO_CELL,
             this::numberToColor,
             this::nameToColor,
             1, // cellCharacterWidth
