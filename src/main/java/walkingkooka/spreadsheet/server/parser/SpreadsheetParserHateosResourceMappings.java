@@ -77,10 +77,6 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
             SpreadsheetServerLinkRelations.TOKENS,
             HttpMethod.POST,
             SpreadsheetParserTokensHateosHttpEntityHandler.instance()
-        ).setHateosHttpEntityHandler(
-            SpreadsheetServerLinkRelations.NEXT_TOKEN,
-            HttpMethod.POST,
-            SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.instance()
         );
     }
 
