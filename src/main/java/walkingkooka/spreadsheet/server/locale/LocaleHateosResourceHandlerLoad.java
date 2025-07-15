@@ -32,6 +32,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A {@link HateosResourceHandler} that invokes {@link LocaleContext#availableLocales()} to supply the requested {@link LocaleHateosResource}.
@@ -67,8 +68,8 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         return context.availableLocales()
             .stream()
             .filter((final Locale l) -> l.toLanguageTag().equals(id.toString()))
-            .findFirst()
-            .map((Locale l) -> fromLocale(l, context));
+            .flatMap((Locale l) -> fromLocale(l, context))
+            .findFirst();
     }
 
     @Override
@@ -89,9 +90,9 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         final SortedSet<LocaleHateosResource> all = SortedSets.tree();
         context.availableLocales()
             .stream()
+            .flatMap((Locale l) -> fromLocale(l, context))
             .skip(offset)
             .limit(count)
-            .map((Locale l) -> fromLocale(l, context))
             .forEach(all::add);
 
         return Optional.of(
@@ -116,19 +117,22 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
                 context.availableLocales()
                     .stream()
                     .filter((Locale l) -> ids.contains(LocaleTag.with(l)))
-                    .map((Locale l) -> fromLocale(l, context))
+                    .flatMap((Locale l) -> fromLocale(l, context))
                     .collect(Collectors.toCollection(SortedSets::tree))
             )
         );
     }
 
-    private static LocaleHateosResource fromLocale(final Locale locale,
-                                                   final LocaleContext context) {
-        return LocaleHateosResource.with(
-            LocaleTag.with(locale),
-            context.localeText(locale)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown locale " + locale))
-        );
+    private static Stream<LocaleHateosResource> fromLocale(final Locale locale,
+                                                           final LocaleContext context) {
+        final Optional<String> text = context.localeText(locale);
+
+        return text.map(
+            (String t) -> LocaleHateosResource.with(
+                LocaleTag.with(locale),
+                t
+            )
+        ).stream();
     }
 
     // Object...........................................................................................................
