@@ -32,10 +32,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
@@ -54,6 +56,26 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             Optional.of(
                 LocaleHateosResource.fromLocale(
                     EN_AU.value()
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testHandleAll() {
+        this.handleAllAndCheck(
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT, Lists.of("10000")
+            ),
+            UrlPath.EMPTY,
+            this.context(),
+            Optional.of(
+                LocaleHateosResourceSet.EMPTY.concatAll(
+                    Arrays.stream(Locale.getAvailableLocales())
+                        .filter((l) -> false == l.getDisplayName().isEmpty())
+                        .map(LocaleHateosResource::fromLocale)
+                        .collect(Collectors.toList())
                 )
             )
         );
