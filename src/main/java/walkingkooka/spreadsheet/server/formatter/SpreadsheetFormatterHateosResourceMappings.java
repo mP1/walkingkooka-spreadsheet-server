@@ -84,10 +84,6 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             HttpMethod.POST,
             SpreadsheetFormatterTokensHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-            SpreadsheetServerLinkRelations.NEXT_TOKEN,
-            HttpMethod.GET,
-            SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler.instance()
-        ).setHateosHttpEntityHandler(
             SpreadsheetServerLinkRelations.SAMPLES,
             HttpMethod.GET,
             SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
