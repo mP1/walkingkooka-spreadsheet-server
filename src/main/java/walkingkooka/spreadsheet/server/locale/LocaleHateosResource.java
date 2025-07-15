@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
@@ -47,6 +48,7 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("locale");
 
+    @GwtIncompatible
     public static LocaleHateosResource fromLocale(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
 
