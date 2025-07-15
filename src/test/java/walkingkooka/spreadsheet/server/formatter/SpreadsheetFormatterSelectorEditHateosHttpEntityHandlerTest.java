@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.formatter;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -29,7 +28,6 @@ import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -113,29 +111,9 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest i
     }
 
     @Test
-    public void testHandleAllContentTypeBadContentType() {
-        final IllegalArgumentException thrown = this.handleAllFails(
-            this.entity()
-                .setHeader(
-                    HttpHeaderName.CONTENT_TYPE,
-                    Lists.of(MediaType.TEXT_PLAIN)
-                ),
-            this.parameters(),
-            this.path(),
-            this.context(),
-            IllegalArgumentException.class
-        );
-        this.checkEquals(
-            "Content-Type: Got text/plain require application/json",
-            thrown.getMessage()
-        );
-    }
-
-    @Test
     public void testHandleAllBadAccept() {
         final IllegalArgumentException thrown = this.handleAllFails(
             this.entity()
-                .setContentType(MediaType.APPLICATION_JSON)
                 .setAccept(
                     Accept.parse("text/plain")
                 ),
@@ -154,26 +132,15 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest i
     public void testHandleAll() {
         this.handleAllAndCheck(
             // two format requests
-            this.httpEntity(
-                JsonNode.string("date-format-pattern dd/mm/yyyy").toString()
-            ).setAccept(
+            HttpEntity.EMPTY.setAccept(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
             ),
             this.parameters(),
-            this.path(),
+            UrlPath.parse("/date-format-pattern dd/mm/yyyy"),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
                     return MediaType.APPLICATION_JSON;
-                }
-
-                @Override
-                public <T> T unmarshall(final JsonNode json,
-                                        final Class<T> type) {
-                    return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                        json,
-                        type
-                    );
                 }
 
                 @Override
