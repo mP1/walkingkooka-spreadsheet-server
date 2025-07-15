@@ -68,7 +68,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             .stream()
             .filter((final Locale l) -> l.toLanguageTag().equals(id.toString()))
             .findFirst()
-            .map(LocaleHateosResource::fromLocale);
+            .map((Locale l) -> fromLocale(l, context));
     }
 
     @Override
@@ -91,7 +91,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             .stream()
             .skip(offset)
             .limit(count)
-            .map(LocaleHateosResource::fromLocale)
+            .map((Locale l) -> fromLocale(l, context))
             .forEach(all::add);
 
         return Optional.of(
@@ -116,9 +116,18 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
                 context.availableLocales()
                     .stream()
                     .filter((Locale l) -> ids.contains(LocaleTag.with(l)))
-                    .map(LocaleHateosResource::fromLocale)
+                    .map((Locale l) -> fromLocale(l, context))
                     .collect(Collectors.toCollection(SortedSets::tree))
             )
+        );
+    }
+
+    private static LocaleHateosResource fromLocale(final Locale locale,
+                                                   final LocaleContext context) {
+        return LocaleHateosResource.with(
+            LocaleTag.with(locale),
+            context.localeText(locale)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown locale " + locale))
         );
     }
 
