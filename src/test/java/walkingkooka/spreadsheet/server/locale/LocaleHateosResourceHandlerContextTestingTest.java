@@ -39,6 +39,21 @@ import java.util.Set;
 public final class LocaleHateosResourceHandlerContextTestingTest implements LocaleHateosResourceHandlerContextTesting<TestLocaleHateosResourceHandlerContext> {
 
     @Override
+    public void testFindByLocaleTextWithNullTextFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testFindByLocaleTextWithNegativeOffsetFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testFindByLocaleTextWithInvalidCountFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetPreProcessorSame() {
         throw new UnsupportedOperationException();
     }
@@ -71,6 +86,13 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
         public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
 
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Set<Locale> findByLocaleText(final String text,
+                                            final int offset,
+                                            final int count) {
             throw new UnsupportedOperationException();
         }
 
