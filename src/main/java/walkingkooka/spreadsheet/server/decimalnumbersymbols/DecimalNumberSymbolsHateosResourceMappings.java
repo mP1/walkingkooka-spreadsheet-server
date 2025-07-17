@@ -22,6 +22,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
 
@@ -31,7 +32,8 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
         DecimalNumberSymbolsHateosResource,
         DecimalNumberSymbolsHateosResourceSet,
         DecimalNumberSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> mappings() {
+        LocaleHateosResourceHandlerContext> mappings(final int defaultCount,
+                                                     final LocaleHateosResourceHandlerContext context) {
 
         return HateosResourceMappings.with(
             DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME,
@@ -44,6 +46,13 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
             LinkRelation.SELF,
             HttpMethod.GET,
             DecimalNumberSymbolsHateosResourceHandlerLoad.INSTANCE
+        ).setHttpHandler(
+            SpreadsheetServerLinkRelations.LOCALE_STARTS_WITH.toUrlPathName()
+                .get(),
+            DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith.with(
+                defaultCount,
+                context
+            )
         );
     }
 
