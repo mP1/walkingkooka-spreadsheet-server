@@ -19,7 +19,10 @@ package walkingkooka.spreadsheet.server.locale;
 
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.set.ImmutableSortedSetDefaults;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -31,6 +34,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
@@ -52,6 +56,35 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
      * The comma which separates the CSV text representation.
      */
     public static final CharacterConstant SEPARATOR = CharacterConstant.COMMA;
+
+    /**
+     * Handy filter that creates a {@link LocaleHateosResource} for each locale that starts with that given text
+     */
+    public static Set<LocaleHateosResource> filter(final String startsWith,
+                                                   final LocaleContext context) {
+
+        final Set<LocaleHateosResource> matched = Sets.ordered();
+
+        for (final Locale locale : context.findByLocaleText(
+            startsWith,
+            0,
+            Integer.MAX_VALUE
+        )) {
+            final String localeText = context.localeText(locale)
+                .orElse(null);
+
+            if (null != localeText && (LocaleContexts.CASE_SENSITIVITY.startsWith(localeText, startsWith) || LocaleContexts.CASE_SENSITIVITY.equals(localeText, startsWith))) {
+                matched.add(
+                    LocaleHateosResource.with(
+                        LocaleTag.with(locale),
+                        localeText
+                    )
+                );
+            }
+        }
+
+        return matched;
+    }
 
     /**
      * Factory that creates {@link LocaleHateosResourceSet} with the given locales.
