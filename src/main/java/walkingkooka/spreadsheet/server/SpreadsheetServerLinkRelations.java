@@ -58,6 +58,8 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> LIST = LinkRelation.with("list");
 
+    public final static LinkRelation<?> LOCALE_STARTS_WITH = LinkRelation.with("localeStartsWith");
+
     public final static LinkRelation<?> MENU = LinkRelation.with("menu");
 
     public final static LinkRelation<?> NEXT_TOKEN = LinkRelation.with("next-token");
