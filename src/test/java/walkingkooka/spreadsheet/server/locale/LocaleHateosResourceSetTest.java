@@ -19,7 +19,10 @@ package walkingkooka.spreadsheet.server.locale;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.ImmutableSortedSetTesting;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.locale.FakeLocaleContext;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
@@ -27,6 +30,8 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
 
@@ -106,6 +111,101 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
                 LocaleHateosResource.fromLocale(Locale.ENGLISH),
                 EN_AU,
                 EN_NZ
+            )
+        );
+    }
+
+    // filter...........................................................................................................
+
+    private final static Locale ENAU = Locale.forLanguageTag("en-AU");
+    private final static Locale ENNZ = Locale.forLanguageTag("en-NZ");
+    private final static Locale FR = Locale.FRENCH;
+
+    private final static String ENGLISH_AUSTRALIA_TEXT = "English (Australia)";
+    private final static String ENGLISH_NEW_ZEALAND_TEXT = "English (New Zealand)";
+    private final static String FRENCH_TEXT = "French 123";
+
+    private final static LocaleContext CONTEXT = new FakeLocaleContext() {
+
+        @Override
+        public Set<Locale> findByLocaleText(final String text,
+                                            final int offset,
+                                            final int count) {
+            return Sets.of(
+                ENAU,
+                ENNZ,
+                FR
+            );
+        }
+
+        @Override
+        public Optional<String> localeText(final Locale locale) {
+            return Optional.ofNullable(
+                ENAU.equals(locale) ?
+                    ENGLISH_AUSTRALIA_TEXT :
+                    ENNZ.equals(locale) ?
+                        ENGLISH_NEW_ZEALAND_TEXT :
+                        FR.equals(locale) ?
+                            FRENCH_TEXT :
+                            null
+            );
+        }
+    };
+
+    @Test
+    public void testFilterMatchesNone() {
+        this.filterAndCheck(
+            "Z",
+            CONTEXT
+        );
+    }
+
+    @Test
+    public void testFilterMatchesSome() {
+        this.filterAndCheck(
+            "English",
+            CONTEXT,
+            LocaleHateosResource.with(
+                LocaleTag.with(ENAU),
+                ENGLISH_AUSTRALIA_TEXT
+            ),
+            LocaleHateosResource.with(
+                LocaleTag.with(ENNZ),
+                ENGLISH_NEW_ZEALAND_TEXT
+            )
+        );
+    }
+
+    @Test
+    public void testFilterMatchesSome2() {
+        this.filterAndCheck(
+            FRENCH_TEXT,
+            CONTEXT,
+            LocaleHateosResource.with(
+                LocaleTag.with(FR),
+                FRENCH_TEXT
+            )
+        );
+    }
+
+    private void filterAndCheck(final String startsWith,
+                                final LocaleContext context,
+                                final LocaleHateosResource... expected) {
+        this.filterAndCheck(
+            startsWith,
+            context,
+            Sets.of(expected)
+        );
+    }
+
+    private void filterAndCheck(final String startsWith,
+                                final LocaleContext context,
+                                final Set<LocaleHateosResource> expected) {
+        this.checkEquals(
+            expected,
+            LocaleHateosResourceSet.filter(
+                startsWith,
+                context
             )
         );
     }
