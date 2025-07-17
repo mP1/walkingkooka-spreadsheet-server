@@ -22,6 +22,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
 
@@ -31,7 +32,8 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
         DateTimeSymbolsHateosResource,
         DateTimeSymbolsHateosResourceSet,
         DateTimeSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> mappings() {
+        LocaleHateosResourceHandlerContext> mappings(final int defaultCount,
+                                                     final LocaleHateosResourceHandlerContext context) {
 
         return HateosResourceMappings.with(
             DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME,
@@ -44,6 +46,13 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
             LinkRelation.SELF,
             HttpMethod.GET,
             DateTimeSymbolsHateosResourceHandlerLoad.INSTANCE
+        ).setHttpHandler(
+            SpreadsheetServerLinkRelations.LOCALE_STARTS_WITH.toUrlPathName()
+                .get(),
+            DateTimeSymbolsHttpHandlerFindByLocaleStartsWith.with(
+                defaultCount,
+                context
+            )
         );
     }
 

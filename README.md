@@ -118,6 +118,7 @@ These end points may be used to work with available [ConverterInfoSet](https://g
 End points to fetch `DateTimeSymbols` for a given `Locale`.
 
 - **GET** /api/dateTimeSymbols/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+- **GET** /api/dateTimeSymbols/*/localeStartsWith/LOCALE
 
 #### [DecimalNumberSymbols](https://github.com/mP1/walkingkooka-math/blob/master/src/main/java/walkingkooka/math/DecimalNumberSymbols.java)
 
