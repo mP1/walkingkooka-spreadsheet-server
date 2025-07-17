@@ -131,6 +131,21 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     }
 
     @Override
+    public void testFindByLocaleTextWithNullTextFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testFindByLocaleTextWithNegativeOffsetFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testFindByLocaleTextWithInvalidCountFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testLocaleTextWithNullFails() {
         throw new UnsupportedOperationException();
     }
