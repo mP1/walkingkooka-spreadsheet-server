@@ -111,6 +111,7 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
+import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
@@ -10063,6 +10064,58 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testDecimalNumberSymbolsFindByLocaleStartsWith() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/decimalNumberSymbols/*/localeStartsWith/English?offset=7&count=1",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"decimalNumberSymbols\": {\n" +
+                    "      \"negativeSign\": \"-\",\n" +
+                    "      \"positiveSign\": \"+\",\n" +
+                    "      \"zeroDigit\": \"0\",\n" +
+                    "      \"currencySymbol\": \"$\",\n" +
+                    "      \"decimalSeparator\": \".\",\n" +
+                    "      \"exponentSymbol\": \"e\",\n" +
+                    "      \"groupSeparator\": \",\",\n" +
+                    "      \"infinitySymbol\": \"∞\",\n" +
+                    "      \"monetaryDecimalSeparator\": \".\",\n" +
+                    "      \"nanSymbol\": \"NaN\",\n" +
+                    "      \"percentSymbol\": \"%\",\n" +
+                    "      \"permillSymbol\": \"‰\"\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "]",
+                DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testDecimalNumberSymbolsFindByLocaleStartsWithUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/decimalNumberSymbols/*/localeStartsWith/ZZZ",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[]",
+                DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
+            )
+        );
+    }
+    
     // exporters........................................................................................................
 
     @Test
