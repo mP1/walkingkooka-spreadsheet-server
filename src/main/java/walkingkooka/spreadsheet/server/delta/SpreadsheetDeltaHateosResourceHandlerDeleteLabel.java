@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -58,7 +59,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends Spreadsheet
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkLabel(label);
+        Objects.requireNonNull(label, "label");
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);

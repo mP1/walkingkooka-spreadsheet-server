@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -40,10 +39,6 @@ import java.util.Optional;
 abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> implements HateosResourceHandler<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleNone<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
-
-    static SpreadsheetLabelName checkLabel(final SpreadsheetLabelName label) {
-        return Objects.requireNonNull(label, "label");
-    }
 
     /**
      * Checks that the range bounds are not null and both are inclusive.
