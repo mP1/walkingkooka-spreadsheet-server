@@ -37,19 +37,13 @@ import java.util.Optional;
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences with(final int defaultCount) {
-        if (defaultCount < 0) {
-            throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
-        }
+    /**
+     * Singleton
+     */
+    final static SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences INSTANCE = new SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences();
 
-        return new SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences(
-            defaultCount
-        );
-    }
-
-    private SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences(final int defaultCount) {
+    private SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences() {
         super();
-        this.defaultCount = defaultCount;
     }
 
     @Override
@@ -115,13 +109,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends
                     SpreadsheetUrlQueryParameters.offset(parameters)
                         .orElse(0),
                     SpreadsheetUrlQueryParameters.count(parameters)
-                        .orElse(this.defaultCount),
+                        .orElse(DEFAULT_COUNT),
                     context
                 )
         );
     }
 
-    private final int defaultCount;
+    final static int DEFAULT_COUNT = 10;
 
     @Override
     String operation() {
