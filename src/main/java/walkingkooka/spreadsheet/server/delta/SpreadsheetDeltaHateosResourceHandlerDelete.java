@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -71,7 +72,12 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                                         final UrlPath path,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkRangeBounded(columnOrRow, this.rangeLabel());
+        final String label = this.rangeLabel();
+        Objects.requireNonNull(columnOrRow, label);
+
+        if (!columnOrRow.lowerBound().isInclusive() || !columnOrRow.upperBound().isInclusive()) {
+            throw new IllegalArgumentException("Range with both " + label + " required=" + columnOrRow);
+        }
 
         final R lower = columnOrRow.lowerBound()
             .value()
