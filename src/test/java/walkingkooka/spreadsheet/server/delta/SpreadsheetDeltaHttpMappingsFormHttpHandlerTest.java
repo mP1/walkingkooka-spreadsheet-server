@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -29,7 +28,6 @@ public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements Ht
     @Override
     public SpreadsheetDeltaHttpMappingsFormHttpHandler createHttpHandler() {
         return SpreadsheetDeltaHttpMappingsFormHttpHandler.with(
-            SpreadsheetEngines.fake(),
             Indentation.SPACES2,
             LineEnding.NL,
             SpreadsheetEngineHateosResourceHandlerContexts.fake()

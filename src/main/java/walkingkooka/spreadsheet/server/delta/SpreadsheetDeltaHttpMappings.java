@@ -138,7 +138,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         cell = cell.setHttpHandler(
             FormName.HATEOS_RESOURCE_NAME.toUrlPathName(),
             SpreadsheetDeltaHttpMappingsFormHttpHandler.with(
-                engine,
                 indentation,
                 lineEnding,
                 handlerContext
