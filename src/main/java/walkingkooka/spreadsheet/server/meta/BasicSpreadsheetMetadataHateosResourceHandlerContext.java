@@ -278,7 +278,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         return this.cellColumnProvidersRowViewportRouter(
             id,
-            100, // defaultMax
             engine,
             context,
             this.systemSpreadsheetProvider
@@ -299,7 +298,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private final ProviderContext providerContext;
 
     private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnProvidersRowViewportRouter(final SpreadsheetId id,
-                                                                                              final int defaultMax,
                                                                                               final SpreadsheetEngine engine,
                                                                                               final SpreadsheetEngineContext context,
                                                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
@@ -352,9 +350,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMappings<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column();
 
-        final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form(
-            defaultMax
-        );
+        final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form();
 
         final HateosResourceMappings<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.engine(context);
 
