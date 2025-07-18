@@ -38,6 +38,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorSelector;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.export.SpreadsheetExporter;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
@@ -98,6 +99,11 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
+
+    @Override
+    public SpreadsheetEngine spreadsheetEngine() {
+        throw new UnsupportedOperationException();
+    }
 
     // SpreadsheetEngineContext.........................................................................................
 

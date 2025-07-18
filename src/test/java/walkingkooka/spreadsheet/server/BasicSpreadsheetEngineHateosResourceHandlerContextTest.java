@@ -25,8 +25,10 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -41,6 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetEngineHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
+
+    private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
         JsonNodeMarshallUnmarshallContexts.basic(
@@ -67,10 +71,25 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     // with.............................................................................................................
 
     @Test
+    public void testWithNullSpreadsheetEngineFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                null,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ENGINE_CONTEXT,
+                SPREADSHEET_FORMATTER_CONTEXT,
+                SPREADSHEET_PROVIDER
+            )
+        );
+    }
+
+    @Test
     public void testWithNullHateosResourceHandlerContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_ENGINE_CONTEXT,
                 SPREADSHEET_FORMATTER_CONTEXT,
@@ -84,6 +103,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                SPREADSHEET_ENGINE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
                 SPREADSHEET_FORMATTER_CONTEXT,
@@ -97,6 +117,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                SPREADSHEET_ENGINE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
                 null,
@@ -110,6 +131,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                SPREADSHEET_ENGINE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
                 SPREADSHEET_FORMATTER_CONTEXT,
@@ -163,6 +185,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     @Override
     public BasicSpreadsheetEngineHateosResourceHandlerContext createContext() {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+            SPREADSHEET_ENGINE,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SPREADSHEET_ENGINE_CONTEXT,
             SPREADSHEET_FORMATTER_CONTEXT,
