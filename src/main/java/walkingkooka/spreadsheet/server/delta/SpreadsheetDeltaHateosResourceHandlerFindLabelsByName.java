@@ -44,19 +44,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByName extends Spread
     UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindLabelsByName with(final int defaultCount) {
-        if (defaultCount < 0) {
-            throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
-        }
+    /**
+     * Singleton
+     */
+    final static SpreadsheetDeltaHateosResourceHandlerFindLabelsByName INSTANCE = new SpreadsheetDeltaHateosResourceHandlerFindLabelsByName();
 
-        return new SpreadsheetDeltaHateosResourceHandlerFindLabelsByName(
-            defaultCount
-        );
-    }
-
-    private SpreadsheetDeltaHateosResourceHandlerFindLabelsByName(final int defaultCount) {
+    private SpreadsheetDeltaHateosResourceHandlerFindLabelsByName() {
         super();
-        this.defaultCount = defaultCount;
     }
 
     // /api/spreadsheet/SpreadsheetId/label/*/findByName/query-here
@@ -80,13 +74,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByName extends Spread
                     SpreadsheetUrlQueryParameters.offset(parameters)
                         .orElse(0),
                     SpreadsheetUrlQueryParameters.count(parameters)
-                        .orElse(this.defaultCount),
+                        .orElse(DEFAULT_COUNT),
                     context
                 )
         );
     }
 
-    private final int defaultCount;
+    final static int DEFAULT_COUNT = 50;
 
     @Override
     String operation() {

@@ -395,9 +395,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosResourceHandler(
             FIND_BY_NAME,
             HttpMethod.GET,
-            SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-                defaultCount
-            )
+            SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.INSTANCE
         );
     }
 

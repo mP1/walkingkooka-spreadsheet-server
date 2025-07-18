@@ -37,22 +37,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerFindLabelsByName,
     SpreadsheetLabelName> {
-
-    private final static int DEFAULT_COUNT = 99;
-
-    @Test
-    public void testWithNegativeDefaultCount() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-                -1
-            )
-        );
-    }
 
     private final static int OFFSET = 12;
     private final static int COUNT = 34;
@@ -70,9 +56,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
         final String text = "label123";
 
         this.handleAllAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-                99
-            ),
             Optional.empty(), // resource
             Maps.of(
                 SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
@@ -112,9 +95,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
 
     @Override
     public SpreadsheetDeltaHateosResourceHandlerFindLabelsByName createHandler() {
-        return SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-            DEFAULT_COUNT
-        );
+        return SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.INSTANCE;
     }
 
     @Override
