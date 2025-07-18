@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -78,7 +79,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
             Optional.of(
-                checkLabel(label)
+                Objects.requireNonNull(label, "label")
             ),
             resource,
             parameters,
