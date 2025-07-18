@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.convert.CanConvert;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -48,18 +49,29 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     SpreadsheetFormatterContextDelegator {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
+                                                                                                           final SpreadsheetEngine spreadsheetEngine,
                                                                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
             metadata,
+            spreadsheetEngine,
             context
         );
     }
 
     private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetMetadata metadata,
+                                                                                                       final SpreadsheetEngine spreadsheetEngine,
                                                                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         this.metadata = metadata;
+        this.spreadsheetEngine = spreadsheetEngine;
         this.context = context;
     }
+
+    @Override
+    public SpreadsheetEngine spreadsheetEngine() {
+        throw new UnsupportedOperationException();
+    }
+
+    private final SpreadsheetEngine spreadsheetEngine;
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
@@ -69,6 +81,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
             this :
             new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
                 this.metadata,
+                this.spreadsheetEngine,
                 after
             );
     }

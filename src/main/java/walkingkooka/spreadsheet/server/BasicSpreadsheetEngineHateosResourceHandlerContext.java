@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.convert.CanConvert;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -46,11 +47,13 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     SpreadsheetFormatterContextDelegator,
     SpreadsheetProviderDelegator {
 
-    static BasicSpreadsheetEngineHateosResourceHandlerContext with(final HateosResourceHandlerContext hateosResourceHandlerContext,
+    static BasicSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetEngine spreadsheetEngine,
+                                                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                    final SpreadsheetEngineContext engineContext,
                                                                    final SpreadsheetFormatterContext formatterContext,
                                                                    final SpreadsheetProvider systemSpreadsheetProvider) {
         return new BasicSpreadsheetEngineHateosResourceHandlerContext(
+            Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(engineContext, "engineContext"),
             Objects.requireNonNull(formatterContext, "formatterContext"),
@@ -58,15 +61,24 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         );
     }
 
-    private BasicSpreadsheetEngineHateosResourceHandlerContext(final HateosResourceHandlerContext hateosResourceHandlerContext,
+    private BasicSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngine spreadsheetEngine,
+                                                               final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                final SpreadsheetEngineContext engineContext,
                                                                final SpreadsheetFormatterContext formatterContext,
                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
+        this.spreadsheetEngine = spreadsheetEngine;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.engineContext = engineContext;
         this.formatterContext = formatterContext;
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
+
+    @Override
+    public SpreadsheetEngine spreadsheetEngine() {
+        return this.spreadsheetEngine;
+    }
+
+    private final SpreadsheetEngine spreadsheetEngine;
 
     // 4 methods immediately below are required due to clashes between XXXDelegators
 
@@ -97,6 +109,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return before.equals(after) ?
             this :
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                this.spreadsheetEngine,
                 after,
                 this.engineContext,
                 this.formatterContext.setPreProcessor(processor),

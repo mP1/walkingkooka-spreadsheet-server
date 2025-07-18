@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -31,13 +32,18 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
     SpreadsheetEngineContext,
     SpreadsheetFormatterProviderSamplesContext {
 
-    @Override
-    SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
+    /**
+     * Getter that returns a {@link SpreadsheetEngine}.
+     */
+    SpreadsheetEngine spreadsheetEngine();
 
     /**
      * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.
      */
     SpreadsheetProvider systemSpreadsheetProvider();
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 
     // HasMissingCellNumberValue........................................................................................
 

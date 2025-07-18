@@ -313,6 +313,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
+            engine,
             HateosResourceHandlerContexts.basic(
                 JsonNodeMarshallUnmarshallContexts.basic(
                     metadata.jsonNodeMarshallContext(),

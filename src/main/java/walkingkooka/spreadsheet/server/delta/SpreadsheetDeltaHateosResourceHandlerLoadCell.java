@@ -116,6 +116,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
             maybeNavigatedViewport.orElse(viewport),
             SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext.with(
                 metadata,
+                this.engine,
                 context
             )
         );
