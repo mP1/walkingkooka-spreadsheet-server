@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -58,7 +59,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteForm extends SpreadsheetD
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkFormName(formName);
+        Objects.requireNonNull(formName, "formName");
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
