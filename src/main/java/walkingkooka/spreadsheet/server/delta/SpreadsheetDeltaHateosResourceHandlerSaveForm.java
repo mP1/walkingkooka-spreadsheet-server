@@ -32,6 +32,7 @@ import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -59,8 +60,8 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkFormName(name);
-        
+        Objects.requireNonNull(name, "formName");
+
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
