@@ -50,17 +50,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
     @Test
     public void testHandleOneWithPatchCellOutsideFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL.toCellRange(),
-                    Sets.of(
-                        CELL.setFormula(
-                            SpreadsheetFormula.EMPTY.setText("=1")
-                        )
-                    ), // load
-                    Sets.empty() // save
-                )
-            ),
             CELL,
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
@@ -77,7 +66,17 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             ),
             this.parameters(),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(
+                        CELL.setFormula(
+                            SpreadsheetFormula.EMPTY.setText("=1")
+                        )
+                    ), // load
+                    Sets.empty() // save
+                )
+            ),
             IllegalArgumentException.class
         );
 
@@ -97,13 +96,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL.toCellRange(),
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL,
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -114,7 +106,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             ),
             this.parameters(),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(saved)
@@ -133,13 +131,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL.toCellRange(),
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL,
             this.httpEntity(
                 this.marshall(
@@ -152,7 +143,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             ),
             this.parameters(),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(saved)
@@ -171,13 +168,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL.toCellRange(),
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL,
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -190,7 +180,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
             ),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -222,13 +218,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL.toCellRange(),
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL,
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -241,7 +230,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
             ),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -270,13 +265,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL.toCellRange(),
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL,
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -289,7 +277,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
             ),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setViewport(
                     Optional.of(
@@ -308,17 +302,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
     @Test
     public void testHandleRangeWithPatchCellOutsideFails() {
         final IllegalArgumentException thrown = this.handleRangeFails(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL_RANGE,
-                    Sets.of(
-                        CELL.setFormula(
-                            SpreadsheetFormula.EMPTY.setText("=1")
-                        )
-                    ), // load
-                    Sets.empty() // save
-                )
-            ),
             CELL_RANGE.range(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
@@ -335,7 +318,17 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             ),
             this.parameters(),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(
+                        CELL.setFormula(
+                            SpreadsheetFormula.EMPTY.setText("=1")
+                        )
+                    ), // load
+                    Sets.empty() // save
+                )
+            ),
             IllegalArgumentException.class
         );
 
@@ -355,13 +348,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL_RANGE,
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL_RANGE.range(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -372,7 +358,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             ),
             this.parameters(),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(saved)
@@ -391,13 +383,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL_RANGE,
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL_RANGE.range(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -410,7 +395,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
             ),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -442,13 +433,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL_RANGE,
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL_RANGE.range(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -461,7 +445,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
             ),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -488,13 +478,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-            this.createHandler(
-                this.spreadsheetEngine(
-                    CELL_RANGE,
-                    Sets.of(loaded),
-                    Sets.of(saved)
-                )
-            ),
             CELL_RANGE.range(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -507,7 +490,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
             ),
             this.path(),
-            this.context(),
+            this.context(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setViewport(
                     Optional.of(
@@ -571,10 +560,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
     }
 
     @Override
-    SpreadsheetDeltaPatchHateosHttpEntityHandlerCell createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.with(
-            engine
-        );
+    public SpreadsheetDeltaPatchHateosHttpEntityHandlerCell createHandler() {
+        return SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.INSTANCE;
     }
 
     @Override

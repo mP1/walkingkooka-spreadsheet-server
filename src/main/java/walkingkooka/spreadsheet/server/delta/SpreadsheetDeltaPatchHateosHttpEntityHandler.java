@@ -36,8 +36,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -47,7 +45,6 @@ import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -60,36 +57,8 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     UnsupportedHateosHttpEntityHandlerHandleMany<S, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosHttpEntityHandlerHandleNone<S, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    /**
-     * {@see SpreadsheetDeltaPatchHateosHttpEntityHandlerCell}
-     */
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerCell cell(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.with(
-            engine
-        );
-    }
-
-    /**
-     * {@see SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn}
-     */
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn column(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn.with(
-            engine
-        );
-    }
-
-    /**
-     * {@see SpreadsheetDeltaPatchHateosHttpEntityHandlerRow}
-     */
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerRow row(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaPatchHateosHttpEntityHandlerRow.with(
-            engine
-        );
-    }
-
-    SpreadsheetDeltaPatchHateosHttpEntityHandler(final SpreadsheetEngine engine) {
-        super();
-        this.engine = Objects.requireNonNull(engine, "engine");
+    SpreadsheetDeltaPatchHateosHttpEntityHandler() {
+        super();;
     }
 
     @Override
@@ -198,7 +167,6 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
             Optional.empty(), // no input SpreadsheetDelta
             parameters,
             saved,
-            this.engine,
             context
         );
 
@@ -219,10 +187,10 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     }
 
     abstract JsonNode preparePatch(final JsonNode delta,
-                                   final SpreadsheetEngineContext context);
+                                   final SpreadsheetEngineHateosResourceHandlerContext context);
 
     private SpreadsheetDelta loadSpreadsheetDelta(final R selectionRange,
-                                                  final SpreadsheetEngineContext context) {
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         try {
             return this.load(
                 selectionRange,
@@ -242,19 +210,20 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
      * {@link walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference}.
      */
     abstract SpreadsheetDelta load(final R selectionRange,
-                                   final SpreadsheetEngineContext context);
+                                   final SpreadsheetEngineHateosResourceHandlerContext context);
 
     /**
      * Used to load all the cells within an unhidden column or row.
      */
     final Set<SpreadsheetCell> loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> window,
-                                                      final SpreadsheetEngineContext context) {
-        return this.engine.loadMultipleCellRanges(
-            window,
-            SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
-            CELLS,
-            context
-        ).cells();
+                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.spreadsheetEngine()
+            .loadMultipleCellRanges(
+                window,
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                CELLS,
+                context
+            ).cells();
     }
 
     private final static Set<SpreadsheetDeltaProperties> CELLS = Sets.of(
@@ -269,7 +238,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
 
     abstract SpreadsheetDelta save(final SpreadsheetDelta patched,
                                    final R selectionRange,
-                                   final SpreadsheetEngineContext context);
+                                   final SpreadsheetEngineHateosResourceHandlerContext context);
 
     /**
      * Tries to read the parameters from the request parameters otherwise returns the given {@link SpreadsheetViewport}.
@@ -295,7 +264,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
         return SpreadsheetDeltaUrlQueryParameters.window(
             parameters,
             Optional.of(delta),
-            this.engine,
+            context.spreadsheetEngine(),
             context
         );
     }
@@ -315,6 +284,4 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                     .toString()
             ).setContentLength();
     }
-
-    final SpreadsheetEngine engine;
 }

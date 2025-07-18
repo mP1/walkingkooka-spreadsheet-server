@@ -62,7 +62,6 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
             in,
             parameters,
             out,
-            context.spreadsheetEngine(),
             context
         );
     }

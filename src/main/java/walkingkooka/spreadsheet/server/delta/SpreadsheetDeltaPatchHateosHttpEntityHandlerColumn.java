@@ -25,7 +25,6 @@ import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -38,16 +37,10 @@ import java.util.Set;
 
 final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends SpreadsheetDeltaPatchHateosHttpEntityHandler<SpreadsheetColumnReference, SpreadsheetColumnRangeReference> {
 
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn(
-            engine
-        );
-    }
+    final static SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn INSTANCE = new SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn();
 
-    private SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn(final SpreadsheetEngine engine) {
-        super(
-            engine
-        );
+    private SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn() {
+        super();
     }
 
     @Override
@@ -62,14 +55,14 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
 
     @Override
     JsonNode preparePatch(final JsonNode delta,
-                          final SpreadsheetEngineContext context) {
+                          final SpreadsheetEngineHateosResourceHandlerContext context) {
         return delta;
     }
 
     @Override
     SpreadsheetDelta load(final SpreadsheetColumnRangeReference range,
-                          final SpreadsheetEngineContext context) {
-        final SpreadsheetEngine engine = this.engine;
+                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+        final SpreadsheetEngine engine = context.spreadsheetEngine();
 
         final Set<SpreadsheetColumn> loaded = SortedSets.tree(SpreadsheetColumn.REFERENCE_COMPARATOR);
 
@@ -132,8 +125,8 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
                           final SpreadsheetColumnRangeReference range,
-                          final SpreadsheetEngineContext context) {
-        final SpreadsheetEngine engine = this.engine;
+                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+        final SpreadsheetEngine engine = context.spreadsheetEngine();
 
         final Set<SpreadsheetCell> cells = SortedSets.tree();
 

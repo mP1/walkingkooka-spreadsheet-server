@@ -22,8 +22,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -36,12 +34,10 @@ import java.util.Set;
 
 final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends SpreadsheetDeltaPatchHateosHttpEntityHandler<SpreadsheetCellReference, SpreadsheetCellRangeReference> {
 
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerCell with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaPatchHateosHttpEntityHandlerCell(engine);
-    }
+    final static SpreadsheetDeltaPatchHateosHttpEntityHandlerCell INSTANCE = new SpreadsheetDeltaPatchHateosHttpEntityHandlerCell();
 
-    private SpreadsheetDeltaPatchHateosHttpEntityHandlerCell(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaPatchHateosHttpEntityHandlerCell() {
+        super();
     }
 
     @Override
@@ -56,7 +52,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
 
     @Override
     JsonNode preparePatch(final JsonNode delta,
-                          final SpreadsheetEngineContext context) {
+                          final SpreadsheetEngineHateosResourceHandlerContext context) {
         return SpreadsheetDelta.resolveCellLabels(
             delta.objectOrFail(),
             (e) -> context.storeRepository()
@@ -68,13 +64,14 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
 
     @Override
     SpreadsheetDelta load(final SpreadsheetCellRangeReference cellRange,
-                          final SpreadsheetEngineContext context) {
-        return this.engine.loadCells(
-            cellRange,
-            SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
-            CELL_AND_LABELS,
-            context
-        );
+                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.spreadsheetEngine()
+            .loadCells(
+                cellRange,
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                CELL_AND_LABELS,
+                context
+            );
     }
 
     private final static Set<SpreadsheetDeltaProperties> CELL_AND_LABELS = Sets.of(
@@ -98,10 +95,11 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
                           final SpreadsheetCellRangeReference cellRange,
-                          final SpreadsheetEngineContext context) {
-        return this.engine.saveCells(
-            patched.cells(),
-            context
-        );
+                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.spreadsheetEngine()
+            .saveCells(
+                patched.cells(),
+                context
+            );
     }
 }
