@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -87,7 +86,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     private void handleRangeAndCheck2(final Map<HttpRequestAttribute<?>, Object> parameters,
                                       final SpreadsheetCellRangeReference from) {
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFillCells.with(
+            this.range(),
+            this.collectionResource(),
+            parameters,
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -103,11 +106,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                     }
                 }
             ),
-            this.range(),
-            this.collectionResource(),
-            parameters,
-            this.path(),
-            this.context(),
             Optional.of(
                 this.deltaWithCell()
             )
@@ -132,7 +130,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
         final SpreadsheetViewportWindows window = this.window();
 
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFillCells.with(
+            range,
+            Optional.of(resource.setWindow(window)),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -157,11 +159,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                     }
                 }
             ),
-            range,
-            Optional.of(resource.setWindow(window)),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(Sets.of(saved1))
@@ -178,13 +175,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerFillCells createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerFillCells.with(engine);
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
+    public SpreadsheetDeltaHateosResourceHandlerFillCells createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerFillCells.INSTANCE;
     }
 
     @Override

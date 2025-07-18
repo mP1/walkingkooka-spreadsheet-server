@@ -377,12 +377,11 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final String body,
                                    final HttpStatusCode statusCode,
                                    final String message) {
-        final SpreadsheetEngine engine = this.engine();
         final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
 
         this.routeAndCheck(
             SpreadsheetDeltaHttpMappings.cell(
-                engine,
+                this.engine(),
                 DEFAULT_MAX,
                 INDENTATION,
                 LINE_ENDING,
@@ -540,6 +539,11 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             @Override
             public MediaType contentType() {
                 return CONTENT_TYPE;
+            }
+
+            @Override
+            public SpreadsheetEngine spreadsheetEngine() {
+                return engine();
             }
 
             @Override

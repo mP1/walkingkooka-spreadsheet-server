@@ -189,10 +189,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerLoadForm createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerLoadForm createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerLoadForm.with(
-            DEFAULT_COUNT,
-            engine
+            DEFAULT_COUNT
         );
     }
 

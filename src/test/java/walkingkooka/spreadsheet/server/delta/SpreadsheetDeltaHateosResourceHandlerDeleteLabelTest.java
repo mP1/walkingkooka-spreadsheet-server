@@ -26,11 +26,11 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -97,7 +97,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            this.context(SpreadsheetLabelStores.treeMap()),
+            this.context(
+                SpreadsheetLabelStores.treeMap()
+            ),
             Optional.of(
                 SpreadsheetDelta.EMPTY
             )
@@ -105,31 +107,33 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteLabel createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteLabel.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerDeleteLabel createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteLabel.INSTANCE;
     }
 
-    @Override
-    SpreadsheetEngine engine() {
-        return new FakeSpreadsheetEngine() {
-            @Override
-            public SpreadsheetDelta deleteLabel(final SpreadsheetLabelName label,
-                                                final SpreadsheetEngineContext context) {
-                SpreadsheetDelta response = SpreadsheetDelta.EMPTY;
+    private SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+        return this.context(
+            new FakeSpreadsheetEngine() {
+                @Override
+                public SpreadsheetDelta deleteLabel(final SpreadsheetLabelName label,
+                                                    final SpreadsheetEngineContext context) {
+                    SpreadsheetDelta response = SpreadsheetDelta.EMPTY;
 
-                final SpreadsheetLabelStore store = context.storeRepository()
-                    .labels();
-                if (store.load(label).isPresent()) {
-                    store.delete(label);
+                    final SpreadsheetLabelStore store = context.storeRepository()
+                        .labels();
+                    if (store.load(label).isPresent()) {
+                        store.delete(label);
 
-                    response = response.setDeletedLabels(
-                        Sets.of(label)
-                    );
+                        response = response.setDeletedLabels(
+                            Sets.of(label)
+                        );
+                    }
+
+                    return response;
                 }
-
-                return response;
-            }
-        };
+            },
+            store
+        );
     }
 
     @Override

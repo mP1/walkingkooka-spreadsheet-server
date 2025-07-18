@@ -106,15 +106,13 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
                         LinkRelation.SELF,
                         HttpMethod.GET,
                         SpreadsheetDeltaHateosResourceHandlerPrepareForm.with(
-                            reference,
-                            this.engine
+                            reference
                         )
                     ).setHateosResourceHandler(
                         LinkRelation.SELF,
                         HttpMethod.POST,
                         SpreadsheetDeltaHateosResourceHandlerSubmitForm.with(
-                            reference,
-                            this.engine
+                            reference
                         )
                     );
 

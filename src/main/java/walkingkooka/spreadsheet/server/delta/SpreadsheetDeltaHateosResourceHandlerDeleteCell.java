@@ -40,12 +40,10 @@ import java.util.Optional;
 final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerDeleteCell with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerDeleteCell INSTANCE = new SpreadsheetDeltaHateosResourceHandlerDeleteCell();
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteCell(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerDeleteCell() {
+        super();
     }
 
     @Override
@@ -93,10 +91,11 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
                 resource,
                 parameters,
                 context,
-                this.engine.deleteCells(
-                    cells,
-                    context
-                )
+                context.spreadsheetEngine()
+                    .deleteCells(
+                        cells,
+                        context
+                    )
             )
         );
     }

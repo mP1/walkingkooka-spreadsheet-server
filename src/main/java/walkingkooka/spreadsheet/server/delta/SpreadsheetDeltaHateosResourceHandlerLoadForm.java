@@ -42,21 +42,18 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadForm extends SpreadsheetDel
     UnsupportedHateosResourceHandlerHandleRange<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadForm with(final int defaultCount,
-                                                              final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerLoadForm with(final int defaultCount) {
         if (defaultCount < 0) {
             throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerLoadForm(
-            defaultCount,
-            engine
+            defaultCount
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadForm(final int defaultCount,
-                                                          final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerLoadForm(final int defaultCount) {
+        super();
         this.defaultCount = defaultCount;
     }
 
@@ -75,10 +72,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadForm extends SpreadsheetDel
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.loadForm(
-                name,
-                context
-            )
+            context.spreadsheetEngine()
+                .loadForm(
+                    name,
+                    context
+                )
         );
     }
 
@@ -93,13 +91,14 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadForm extends SpreadsheetDel
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.loadForms(
-                SpreadsheetUrlQueryParameters.offset(parameters)
-                    .orElse(0),
-                SpreadsheetUrlQueryParameters.count(parameters)
-                    .orElse(this.defaultCount),
-                context
-            )
+            context.spreadsheetEngine()
+                .loadForms(
+                    SpreadsheetUrlQueryParameters.offset(parameters)
+                        .orElse(0),
+                    SpreadsheetUrlQueryParameters.count(parameters)
+                        .orElse(this.defaultCount),
+                    context
+                )
         );
     }
 

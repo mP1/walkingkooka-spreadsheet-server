@@ -43,12 +43,10 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFillCells with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerFillCells(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerFillCells INSTANCE = new SpreadsheetDeltaHateosResourceHandlerFillCells();
 
-    private SpreadsheetDeltaHateosResourceHandlerFillCells(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerFillCells() {
+        super();
     }
 
     @Override
@@ -72,12 +70,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
                 resource,
                 parameters,
                 context,
-                this.engine.fillCells(
-                    delta.cells(),
-                    from,
-                    range,
-                    context
-                )
+                context.spreadsheetEngine()
+                    .fillCells(
+                        delta.cells(),
+                        from,
+                        range,
+                        context
+                    )
             )
         );
     }

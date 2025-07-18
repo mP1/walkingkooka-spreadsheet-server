@@ -42,21 +42,18 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadLabel with(final int defaultCount,
-                                                               final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerLoadLabel with(final int defaultCount) {
         if (defaultCount < 0) {
             throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerLoadLabel(
-            defaultCount,
-            engine
+            defaultCount
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadLabel(final int defaultCount,
-                                                           final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerLoadLabel(final int defaultCount) {
+        super();
         this.defaultCount = defaultCount;
     }
 
@@ -75,10 +72,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.loadLabel(
-                label,
-                context
-            )
+            context.spreadsheetEngine()
+                .loadLabel(
+                    label,
+                    context
+                )
         );
     }
 
@@ -93,13 +91,14 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.loadLabels(
-                SpreadsheetUrlQueryParameters.offset(parameters)
-                    .orElse(0),
-                SpreadsheetUrlQueryParameters.count(parameters)
-                    .orElse(this.defaultCount),
-                context
-            )
+            context.spreadsheetEngine()
+                .loadLabels(
+                    SpreadsheetUrlQueryParameters.offset(parameters)
+                        .orElse(0),
+                    SpreadsheetUrlQueryParameters.count(parameters)
+                        .orElse(this.defaultCount),
+                    context
+                )
         );
     }
 

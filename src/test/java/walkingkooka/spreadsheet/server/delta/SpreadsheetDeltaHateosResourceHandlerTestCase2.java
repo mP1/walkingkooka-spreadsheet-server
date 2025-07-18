@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -46,6 +45,8 @@ import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -62,6 +63,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStore;
@@ -91,8 +93,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
     implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
@@ -109,25 +109,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     SpreadsheetDeltaHateosResourceHandlerTestCase2() {
         super();
     }
-
-    @Test
-    public final void testWithNullEngineFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createHandler(
-                null
-            )
-        );
-    }
-
-    @Override
-    public final H createHandler() {
-        return this.createHandler(
-            this.engine()
-        );
-    }
-
-    abstract H createHandler(final SpreadsheetEngine engine);
 
     final static double COLUMN_WIDTH = 100;
 
@@ -160,8 +141,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
         return map;
     }
-
-    abstract SpreadsheetEngine engine();
 
     /**
      * Creates a cell with the formatted text. This does not parse anything else such as a math equation.
@@ -297,7 +276,15 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         abstract public SpreadsheetMetadata spreadsheetMetadata();
     }
 
-    TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
+    TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine) {
+        return this.context(
+            engine,
+            SpreadsheetCellStores.fake()
+        );
+    }
+
+    TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine,
+                                                              final SpreadsheetCellStore store) {
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
             Url.parseAbsolute("https://example.com"),
             METADATA,
@@ -336,6 +323,16 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 private final SpreadsheetLabelReferencesStore labelReferences = SpreadsheetLabelReferencesStores.treeMap();
 
                 @Override
+                public SpreadsheetMetadataStore metadatas() {
+                    return this.metadata;
+                }
+
+                private final SpreadsheetMetadataStore metadata = SpreadsheetMetadataStores.treeMap(
+                    METADATA,
+                    NOW
+                );
+
+                @Override
                 public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
                     return this.rangeToCells;
                 }
@@ -368,6 +365,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         );
 
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public SpreadsheetEngine spreadsheetEngine() {
+                return engine;
+            }
 
             @Override
             public SpreadsheetFormulaParserToken parseFormula(final TextCursor cursor,

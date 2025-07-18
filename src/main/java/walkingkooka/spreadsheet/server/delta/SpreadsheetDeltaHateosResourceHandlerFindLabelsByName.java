@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
@@ -45,21 +44,18 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByName extends Spread
     UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindLabelsByName with(final int defaultCount,
-                                                                      final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerFindLabelsByName with(final int defaultCount) {
         if (defaultCount < 0) {
             throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerFindLabelsByName(
-            defaultCount,
-            engine
+            defaultCount
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerFindLabelsByName(final int defaultCount,
-                                                                  final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerFindLabelsByName(final int defaultCount) {
+        super();
         this.defaultCount = defaultCount;
     }
 
@@ -75,17 +71,18 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByName extends Spread
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.findLabelsByName(
-                path.isRoot() ?
-                    "" :
-                    path.value()
-                        .substring(1), // skip leading slash
-                SpreadsheetUrlQueryParameters.offset(parameters)
-                    .orElse(0),
-                SpreadsheetUrlQueryParameters.count(parameters)
-                    .orElse(this.defaultCount),
-                context
-            )
+            context.spreadsheetEngine()
+                .findLabelsByName(
+                    path.isRoot() ?
+                        "" :
+                        path.value()
+                            .substring(1), // skip leading slash
+                    SpreadsheetUrlQueryParameters.offset(parameters)
+                        .orElse(0),
+                    SpreadsheetUrlQueryParameters.count(parameters)
+                        .orElse(this.defaultCount),
+                    context
+                )
         );
     }
 

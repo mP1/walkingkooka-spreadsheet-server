@@ -49,19 +49,14 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadCell with(final SpreadsheetEngineEvaluation evaluation,
-                                                              final SpreadsheetEngine engine) {
-        Objects.requireNonNull(evaluation, "evaluation");
-
+    static SpreadsheetDeltaHateosResourceHandlerLoadCell with(final SpreadsheetEngineEvaluation evaluation) {
         return new SpreadsheetDeltaHateosResourceHandlerLoadCell(
-            evaluation,
-            engine
+            Objects.requireNonNull(evaluation, "evaluation")
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadCell(final SpreadsheetEngineEvaluation evaluation,
-                                                          final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerLoadCell(final SpreadsheetEngineEvaluation evaluation) {
+        super();
         this.evaluation = evaluation;
     }
 
@@ -76,6 +71,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
+        final SpreadsheetEngine engine = context.spreadsheetEngine();
+
         // compute window including navigation.
         final Optional<SpreadsheetViewport> maybeViewport = this.viewport(
             parameters,
@@ -88,8 +85,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         }
 
         final SpreadsheetViewport viewport = maybeViewport.get();
-
-        final SpreadsheetEngine engine = this.engine;
 
         final Optional<SpreadsheetViewport> maybeNavigatedViewport = engine.navigate(
             viewport,
@@ -116,7 +111,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
             maybeNavigatedViewport.orElse(viewport),
             SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext.with(
                 metadata,
-                this.engine,
+                engine,
                 context
             )
         );
@@ -129,12 +124,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final SpreadsheetViewport viewport,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
-        final SpreadsheetViewportWindows window = this.engine.window(
-            viewport.rectangle(),
-            true, // includeFrozenColumnsRows,
-            SpreadsheetEngine.NO_SELECTION, // no selection
-            context
-        );
+        final SpreadsheetViewportWindows window = context.spreadsheetEngine()
+            .window(
+                viewport.rectangle(),
+                true, // includeFrozenColumnsRows,
+                SpreadsheetEngine.NO_SELECTION, // no selection
+                context
+            );
 
         // copy all the parameters plus the resolved window, which will be used by prepareResponse.
         final Map<HttpRequestAttribute<?>, Object> parametersPlusWindow = Maps.ordered();
@@ -196,12 +192,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     private SpreadsheetDelta loadCell(final SpreadsheetCellReference reference,
                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return this.engine.loadCells(
-            reference,
-            this.evaluation,
-            deltaProperties,
-            context
-        );
+        return context.spreadsheetEngine()
+            .loadCells(
+                reference,
+                this.evaluation,
+                deltaProperties,
+                context
+            );
     }
 
     private final SpreadsheetEngineEvaluation evaluation;
@@ -251,12 +248,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     private SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> cells,
                                                     final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return this.engine.loadMultipleCellRanges(
-            cells,
-            this.evaluation,
-            deltaProperties,
-            context
-        );
+        return context.spreadsheetEngine()
+            .loadMultipleCellRanges(
+                cells,
+                this.evaluation,
+                deltaProperties,
+                context
+            );
     }
 
     @Override

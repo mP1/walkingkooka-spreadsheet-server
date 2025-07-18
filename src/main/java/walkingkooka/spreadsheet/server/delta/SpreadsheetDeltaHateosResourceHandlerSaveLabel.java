@@ -45,14 +45,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSaveLabel with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerSaveLabel(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerSaveLabel INSTANCE =new SpreadsheetDeltaHateosResourceHandlerSaveLabel();
 
     // handleNone.......................................................................................................
 
-    private SpreadsheetDeltaHateosResourceHandlerSaveLabel(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerSaveLabel() {
+        super();
     }
 
     @Override
@@ -122,10 +120,11 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
         }
 
         return Optional.of(
-            this.engine.saveLabel(
-                labelMapping,
-                context
-            )
+            context.spreadsheetEngine()
+                .saveLabel(
+                    labelMapping,
+                    context
+                )
         );
     }
 

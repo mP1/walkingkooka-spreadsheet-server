@@ -45,21 +45,18 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindCells with(final int defaultCount,
-                                                               final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerFindCells with(final int defaultCount) {
         if (defaultCount < 0) {
             throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerFindCells(
-            defaultCount,
-            engine
+            defaultCount
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerFindCells(final int defaultCount,
-                                                           final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerFindCells(final int defaultCount) {
+        super();
         this.defaultCount = defaultCount;
     }
 
@@ -123,20 +120,21 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         final SpreadsheetCellFindQuery find = SpreadsheetCellFindQuery.extract(parameters);
 
         return Optional.ofNullable(
-            this.engine.findCells(
-                cells, // cells
-                find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
-                find.offset().orElse(DEFAULT_OFFSET), // offset
-                find.count().orElse(this.defaultCount), // count
-                find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
-                find.query()
-                    .map(q -> context.toExpression(
-                            q.parserToken()
-                        ).orElse(DEFAULT_QUERY)
-                    ).orElse(DEFAULT_QUERY), // query
-                SpreadsheetDeltaProperties.extract(parameters),
-                context
-            )
+            context.spreadsheetEngine()
+                .findCells(
+                    cells, // cells
+                    find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
+                    find.offset().orElse(DEFAULT_OFFSET), // offset
+                    find.count().orElse(this.defaultCount), // count
+                    find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
+                    find.query()
+                        .map(q -> context.toExpression(
+                                q.parserToken()
+                            ).orElse(DEFAULT_QUERY)
+                        ).orElse(DEFAULT_QUERY), // query
+                    SpreadsheetDeltaProperties.extract(parameters),
+                    context
+                )
         );
     }
 

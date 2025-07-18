@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
@@ -76,7 +75,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         final SpreadsheetCell cell = this.cell();
 
         this.handleOneAndCheck(
-            this.createHandler(
+            this.id(),
+            this.resource(),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta saveCell(final SpreadsheetCell c,
@@ -90,11 +93,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                     }
                 }
             ),
-            this.id(),
-            this.resource(),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 this.saved()
             )
@@ -136,30 +134,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         final String query = "true()";
 
         this.handleOneAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerSaveCell.with(
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
-                                                     final SpreadsheetEngineContext context) {
-                        Objects.requireNonNull(context, "context");
-
-                        checkEquals(SpreadsheetDeltaHateosResourceHandlerSaveCellTest.this.cell(), cell, "cell");
-                        checkNotEquals(null, context, "context");
-
-                        return SpreadsheetDelta.EMPTY
-                            .setCells(Sets.of(saved1, saved2))
-                            .setWindow(window);
-                    }
-
-                    @Override
-                    public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
-                                                            final ValidationValueTypeName valueType,
-                                                            final Expression expression,
-                                                            final SpreadsheetEngineContext context) {
-                        return cells;
-                    }
-                }
-            ),
             this.id(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -173,6 +147,32 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
             ),
             this.path(),
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public SpreadsheetEngine spreadsheetEngine() {
+                    return new FakeSpreadsheetEngine() {
+                        @Override
+                        public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
+                                                         final SpreadsheetEngineContext context) {
+                            Objects.requireNonNull(context, "context");
+
+                            checkEquals(SpreadsheetDeltaHateosResourceHandlerSaveCellTest.this.cell(), cell, "cell");
+                            checkNotEquals(null, context, "context");
+
+                            return SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(saved1, saved2))
+                                .setWindow(window);
+                        }
+
+                        @Override
+                        public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
+                                                                final ValidationValueTypeName valueType,
+                                                                final Expression expression,
+                                                                final SpreadsheetEngineContext context) {
+                            return cells;
+                        }
+                    };
+                }
 
                 @Override
                 public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
@@ -224,7 +224,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         final SpreadsheetViewportWindows window = this.window();
 
         this.handleOneAndCheck(
-            this.createHandler(
+            this.id(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(unsaved1))
+                    .setWindow(window)
+            ),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
@@ -240,16 +249,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                     }
                 }
             ),
-            this.id(),
-            Optional.of(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(unsaved1))
-                    .setWindow(window)
-            ),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(Sets.of(saved1))
@@ -278,7 +277,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
             );
 
         this.handleRangeAndCheck(
-            this.createHandler(
+            range.range(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(Sets.of(b2, c3))
+            ),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -292,15 +298,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
 
                         return result;
                     }
-                }),
-            range.range(),
-            Optional.of(
-                SpreadsheetDelta.EMPTY
-                    .setCells(Sets.of(b2, c3))
+                }
             ),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 result
             )
@@ -326,7 +325,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         final SpreadsheetViewportWindows window = this.window();
 
         this.handleRangeAndCheck(
-            this.createHandler(
+            range.range(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(Sets.of(unsaved1, unsaved2))
+                    .setWindow(window)
+            ),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -343,16 +350,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 Sets.of(saved1, saved2, saved3)
                             );
                     }
-                }),
-            range.range(),
-            Optional.of(
-                SpreadsheetDelta.EMPTY
-                    .setCells(Sets.of(unsaved1, unsaved2))
-                    .setWindow(window)
+                }
             ),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -370,8 +369,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSaveCell createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerSaveCell.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerSaveCell createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerSaveCell.INSTANCE;
     }
 
     @Override
@@ -418,11 +417,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
         return CONTEXT;
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
     }
 
     private SpreadsheetDelta saved() {

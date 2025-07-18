@@ -28,7 +28,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,9 +40,8 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     /**
      * Package private to limit sub classing.
      */
-    SpreadsheetDeltaHateosResourceHandler(final SpreadsheetEngine engine) {
+    SpreadsheetDeltaHateosResourceHandler() {
         super();
-        this.engine = Objects.requireNonNull(engine, "engine");
     }
 
     @Override
@@ -64,12 +62,10 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
             in,
             parameters,
             out,
-            this.engine,
+            context.spreadsheetEngine(),
             context
         );
     }
-
-    final SpreadsheetEngine engine;
 
     final Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final Optional<SpreadsheetDelta> delta,

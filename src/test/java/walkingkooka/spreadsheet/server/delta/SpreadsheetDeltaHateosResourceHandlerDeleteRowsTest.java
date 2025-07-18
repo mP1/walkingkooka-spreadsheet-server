@@ -28,7 +28,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -47,7 +46,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         final Set<SpreadsheetCell> cells = Sets.of(this.cell());
 
         this.handleOneAndCheck(
-            this.createHandler(
+            row,
+            resource,
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -58,12 +61,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                         checkEquals(1, count, "count");
                         return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
-                }),
-            row,
-            resource,
-            HateosResourceHandler.NO_PARAMETERS,
-            UrlPath.EMPTY,
-            this.context(),
+                }
+            ),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(cells)
@@ -82,7 +81,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
         this.handleRangeAndCheck(
-            this.createHandler(
+            range, // 3 inclusive
+            resource,
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -93,12 +96,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                         checkEquals(3, count, "count"); // 2, 3 & 4
                         return delta;
                     }
-                }),
-            range, // 3 inclusive
-            resource,
-            HateosResourceHandler.NO_PARAMETERS,
-            UrlPath.EMPTY,
-            this.context(),
+                }
+            ),
             Optional.of(delta)
         );
     }
@@ -111,7 +110,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         final SpreadsheetViewportWindows window = this.window();
 
         this.handleOneAndCheck(
-            this.createHandler(
+            row,
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.WINDOW,
+                Lists.of(
+                    window.toString()
+                )
+            ),
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -123,17 +131,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                         return SpreadsheetDelta.EMPTY.setCells(cells)
                             .setWindow(window);
                     }
-                }),
-            row,
-            Optional.empty(),
-            Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.WINDOW,
-                Lists.of(
-                    window.toString()
-                )
+                }
             ),
-            UrlPath.EMPTY,
-            this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(this.cellsWithinWindow())
@@ -177,8 +176,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteRows createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteRows.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerDeleteRows createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteRows.INSTANCE;
     }
 
     @Override

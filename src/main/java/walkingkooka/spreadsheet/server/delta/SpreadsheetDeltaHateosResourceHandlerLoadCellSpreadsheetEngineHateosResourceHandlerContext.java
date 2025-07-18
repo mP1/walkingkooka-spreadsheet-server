@@ -68,7 +68,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
 
     @Override
     public SpreadsheetEngine spreadsheetEngine() {
-        throw new UnsupportedOperationException();
+        return this.spreadsheetEngine;
     }
 
     private final SpreadsheetEngine spreadsheetEngine;

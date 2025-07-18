@@ -20,20 +20,17 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Objects;
 
 final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends SpreadsheetDeltaHateosResourceHandlerInsert<SpreadsheetRowReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow INSTANCE = new SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow();
 
-    private SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow() {
+        super();
     }
 
     @Override
@@ -49,7 +46,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
     @Override
     SpreadsheetDelta insert(final SpreadsheetRowReference column,
                             final int count,
-                            final SpreadsheetEngineContext context) {
+                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.insertBefore(
             column,
             count,
@@ -60,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetRowReference> column,
                             final int count,
-                            final SpreadsheetEngineContext context) {
+                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.insertBefore(
             column.lowerBound()
                 .value()
@@ -72,12 +69,13 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
 
     private SpreadsheetDelta insertBefore(final SpreadsheetRowReference column,
                                           final int count,
-                                          final SpreadsheetEngineContext context) {
-        return this.engine.insertRows(
-            column,
-            count,
-            context
-        );
+                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.spreadsheetEngine()
+            .insertRows(
+                column,
+                count,
+                context
+            );
     }
 
     @Override

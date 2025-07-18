@@ -27,7 +27,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -46,7 +45,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
         final Set<SpreadsheetCell> cells = this.cells();
 
         this.handleOneAndCheck(
-            this.createHandler(
+            column,
+            resource,
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -57,12 +60,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                         checkEquals(1, count, "count");
                         return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
-                }),
-            column,
-            resource,
-            HateosResourceHandler.NO_PARAMETERS,
-            UrlPath.EMPTY,
-            this.context(),
+                }
+            ),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(cells)
@@ -81,7 +80,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
         this.handleRangeAndCheck(
-            this.createHandler(
+            range, // 2 inclusive
+            resource,
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -92,12 +95,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                         checkEquals(3, count, "count"); // C, D & E
                         return delta;
                     }
-                }),
-            range, // 2 inclusive
-            resource,
-            HateosResourceHandler.NO_PARAMETERS,
-            UrlPath.EMPTY,
-            this.context(),
+                }
+            ),
             Optional.of(delta)
         );
     }
@@ -110,7 +109,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
         final SpreadsheetViewportWindows window = this.window();
 
         this.handleOneAndCheck(
-            this.createHandler(
+            column,
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.WINDOW,
+                Lists.of(
+                    window.toString()
+                )
+            ),
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -124,16 +132,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                     }
                 }
             ),
-            column,
-            Optional.empty(),
-            Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.WINDOW,
-                Lists.of(
-                    window.toString()
-                )
-            ),
-            UrlPath.EMPTY,
-            this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(this.cellsWithinWindow())
@@ -178,8 +176,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteColumns createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteColumns.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerDeleteColumns createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteColumns.INSTANCE;
     }
 
     @Override

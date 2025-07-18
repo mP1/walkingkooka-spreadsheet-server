@@ -44,12 +44,10 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
     UnsupportedHateosResourceHandlerHandleNone<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleRange<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSaveForm with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerSaveForm(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerSaveForm INSTANCE = new SpreadsheetDeltaHateosResourceHandlerSaveForm();
 
-    private SpreadsheetDeltaHateosResourceHandlerSaveForm(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerSaveForm() {
+        super();
     }
 
     // handleOne........................................................................................................
@@ -84,10 +82,11 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
         }
 
         return Optional.of(
-            this.engine.saveForm(
-                form,
-                context
-            )
+            context.spreadsheetEngine()
+                .saveForm(
+                    form,
+                    context
+                )
         );
     }
 

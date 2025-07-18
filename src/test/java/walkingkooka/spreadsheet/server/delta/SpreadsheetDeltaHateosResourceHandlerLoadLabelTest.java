@@ -28,11 +28,11 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -159,45 +159,46 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerLoadLabel createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerLoadLabel createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(
-            DEFAULT_COUNT,
-            engine
+            DEFAULT_COUNT
         );
     }
 
-    @Override
-    SpreadsheetEngine engine() {
-        return new FakeSpreadsheetEngine() {
+    private SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+        return this.context(
+            new FakeSpreadsheetEngine() {
 
-            @Override
-            public SpreadsheetDelta loadLabel(final SpreadsheetLabelName name,
-                                              final SpreadsheetEngineContext context) {
-                return SpreadsheetDelta.EMPTY.setLabels(
-                    context.storeRepository()
-                        .labels()
-                        .load(name)
-                        .map(Sets::of)
-                        .orElse(Sets.empty())
-                );
-            }
-
-            @Override
-            public SpreadsheetDelta loadLabels(final int offset,
-                                               final int count,
-                                               final SpreadsheetEngineContext context) {
-                return SpreadsheetDelta.EMPTY.setLabels(
-                    new TreeSet<>(
+                @Override
+                public SpreadsheetDelta loadLabel(final SpreadsheetLabelName name,
+                                                  final SpreadsheetEngineContext context) {
+                    return SpreadsheetDelta.EMPTY.setLabels(
                         context.storeRepository()
                             .labels()
-                            .values(
-                                offset,
-                                count
-                            )
-                    )
-                );
-            }
-        };
+                            .load(name)
+                            .map(Sets::of)
+                            .orElse(Sets.empty())
+                    );
+                }
+
+                @Override
+                public SpreadsheetDelta loadLabels(final int offset,
+                                                   final int count,
+                                                   final SpreadsheetEngineContext context) {
+                    return SpreadsheetDelta.EMPTY.setLabels(
+                        new TreeSet<>(
+                            context.storeRepository()
+                                .labels()
+                                .values(
+                                    offset,
+                                    count
+                                )
+                        )
+                    );
+                }
+            },
+            store
+        );
     }
 
     @Override

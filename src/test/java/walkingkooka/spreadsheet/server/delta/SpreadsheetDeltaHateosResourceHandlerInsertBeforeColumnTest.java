@@ -24,7 +24,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -44,10 +43,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
 
     @Test
     public void testHandleOneInsertBeforeColumn() {
-        final SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn handler = SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
-            SpreadsheetEngines.basic()
-        );
-
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
@@ -82,7 +77,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
         final SpreadsheetCellReference e4 = d4.addColumn(count);
 
         this.handleOneAndCheck(
-            handler,
             c3.column(),
             RESOURCE,
             Maps.of(
@@ -90,7 +84,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
                 Lists.of("" + count)
             ),
             UrlPath.EMPTY,
-            this.context(cellStore),
+            this.context(
+                SpreadsheetEngines.basic(),
+                cellStore
+            ),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -124,10 +121,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
 
     @Test
     public void testHandleRangeInsertBeforeColumnRange() {
-        final SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn handler = SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
-            SpreadsheetEngines.basic()
-        );
-
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
@@ -162,7 +155,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
         final SpreadsheetCellReference e4 = d4.addColumn(count);
 
         this.handleRangeAndCheck(
-            handler,
             c3.column().range(d4.column()),
             RESOURCE,
             Maps.of(
@@ -170,7 +162,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
                 Lists.of("" + count)
             ),
             UrlPath.EMPTY,
-            this.context(cellStore),
+            this.context(
+                SpreadsheetEngines.basic(),
+                cellStore
+            ),
             Optional.of(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -203,8 +198,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.INSTANCE;
     }
 
     @Override
