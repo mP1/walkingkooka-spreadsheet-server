@@ -36,6 +36,7 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.validation.ValidationValueTypeName;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -83,7 +84,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                                 final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.handleRange(
-            checkCell(cell)
+            Objects.requireNonNull(cell, "cell")
                 .range(cell),
             resource,
             parameters,

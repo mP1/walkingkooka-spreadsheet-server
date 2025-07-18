@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -56,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
         return deleteCells(
             resource,
             parameters,
-            checkCell(cell),
+            Objects.requireNonNull(cell, "cell"),
             path,
             context
         );

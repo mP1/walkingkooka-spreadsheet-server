@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -76,7 +77,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends
                                                 final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.findCellsWithReferences(
-            checkCell(cell),
+            Objects.requireNonNull(cell, "cell"),
             resource,
             parameters,
             path,
