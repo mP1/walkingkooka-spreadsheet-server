@@ -302,7 +302,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * Factory that creates a form end points
      */
-    public static HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final int defaultCount) {
+    public static HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form() {
         return HateosResourceMappings.with(
             FormName.HATEOS_RESOURCE_NAME,
             SpreadsheetDeltaHttpMappings::parseForm,
@@ -313,9 +313,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosResourceHandler(
             FORM_LINK_RELATION,
             HttpMethod.GET,
-            SpreadsheetDeltaHateosResourceHandlerLoadForm.with(
-                defaultCount
-            )
+            SpreadsheetDeltaHateosResourceHandlerLoadForm.INSTANCE
         ).setHateosResourceHandler(
             FORM_LINK_RELATION,
             HttpMethod.POST,
