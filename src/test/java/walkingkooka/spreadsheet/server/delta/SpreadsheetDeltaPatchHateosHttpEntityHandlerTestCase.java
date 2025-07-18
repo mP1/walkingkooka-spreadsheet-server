@@ -184,8 +184,8 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
     final Map<HttpRequestAttribute<?>, Object> parameters(final String queryString) {
         return HttpRequests.value(
-            HttpMethod.POST,
             HttpTransport.SECURED,
+            HttpMethod.POST,
             Url.parseRelative("/api/patch/something?" + queryString),
             HttpProtocolVersion.VERSION_1_0,
             HttpEntity.EMPTY // is ignored

@@ -117,8 +117,8 @@ public class J2clTest {
 
         httpServer.handler.handle(
             HttpRequests.value(
-                HttpMethod.POST,
                 HttpTransport.SECURED,
+                HttpMethod.POST,
                 Url.parseRelative("/api/spreadsheet"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
