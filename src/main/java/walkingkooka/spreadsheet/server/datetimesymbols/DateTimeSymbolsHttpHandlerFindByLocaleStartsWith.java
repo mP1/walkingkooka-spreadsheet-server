@@ -42,19 +42,15 @@ import java.util.SortedSet;
  */
 final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHandler {
 
-    static DateTimeSymbolsHttpHandlerFindByLocaleStartsWith with(final int defaultCount,
-                                                                 final LocaleHateosResourceHandlerContext context) {
+    static DateTimeSymbolsHttpHandlerFindByLocaleStartsWith with(final LocaleHateosResourceHandlerContext context) {
         return new DateTimeSymbolsHttpHandlerFindByLocaleStartsWith(
-            defaultCount,
             Objects.requireNonNull(context, "context")
         );
     }
 
-    private DateTimeSymbolsHttpHandlerFindByLocaleStartsWith(final int defaultCount,
-                                                             final LocaleHateosResourceHandlerContext context) {
+    private DateTimeSymbolsHttpHandlerFindByLocaleStartsWith(final LocaleHateosResourceHandlerContext context) {
         super();
 
-        this.defaultCount = defaultCount;
         this.context = context;
     }
 
@@ -85,7 +81,7 @@ final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHand
         final int offset = SpreadsheetUrlQueryParameters.offset(request.routerParameters())
             .orElse(0);
         final int count = SpreadsheetUrlQueryParameters.count(request.routerParameters())
-            .orElse(this.defaultCount);
+            .orElse(DEFAULT_COUNT);
 
         for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
             final DateTimeSymbols dateTimeSymbols = context.dateTimeSymbolsForLocale(locale)
@@ -118,7 +114,7 @@ final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHand
         );
     }
 
-    private final int defaultCount;
+    private final static int DEFAULT_COUNT = 10;
 
     private final LocaleHateosResourceHandlerContext context;
 
