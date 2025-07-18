@@ -46,17 +46,14 @@ final class SpreadsheetDeltaHateosResourceHandlerSubmitForm extends SpreadsheetD
     UnsupportedHateosResourceHandlerHandleRange<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSubmitForm with(final SpreadsheetExpressionReference cells,
-                                                                final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerSubmitForm with(final SpreadsheetExpressionReference cells) {
         return new SpreadsheetDeltaHateosResourceHandlerSubmitForm(
-            cells,
-            engine
+            cells
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerSubmitForm(final SpreadsheetExpressionReference cells,
-                                                            final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerSubmitForm(final SpreadsheetExpressionReference cells) {
+        super();
         this.cells = cells;
     }
 
@@ -78,11 +75,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSubmitForm extends SpreadsheetD
             .orElseThrow(() -> new IllegalArgumentException("Missing form " + formName));
 
         return Optional.of(
-            this.engine.submitForm(
-                form,
-                this.cells,
-                context
-            )
+            context.spreadsheetEngine()
+                .submitForm(
+                    form,
+                    this.cells,
+                    context
+                )
         );
     }
 

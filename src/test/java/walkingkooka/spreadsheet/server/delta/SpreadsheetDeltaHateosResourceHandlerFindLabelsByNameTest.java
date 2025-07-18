@@ -29,7 +29,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -50,8 +49,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
         assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-                -1,
-                SpreadsheetEngines.fake()
+                -1
             )
         );
     }
@@ -73,7 +71,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
 
         this.handleAllAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-                99,
+                99
+            ),
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+            ), // parameters
+            UrlPath.parse("/" + text),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -88,13 +94,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
                     }
                 }
             ),
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
-            ), // parameters
-            UrlPath.parse("/" + text),
-            SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
             )
@@ -112,16 +111,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerFindLabelsByName createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerFindLabelsByName createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-            DEFAULT_COUNT,
-            engine
+            DEFAULT_COUNT
         );
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
     }
 
     @Override

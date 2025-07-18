@@ -26,11 +26,11 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -110,25 +110,27 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSaveLabel createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerSaveLabel createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerSaveLabel.INSTANCE;
     }
 
-    @Override
-    SpreadsheetEngine engine() {
-        return new FakeSpreadsheetEngine() {
-            @Override
-            public SpreadsheetDelta saveLabel(final SpreadsheetLabelMapping mapping,
-                                              final SpreadsheetEngineContext context) {
-                return SpreadsheetDelta.EMPTY.setLabels(
-                    Sets.of(
-                        context.storeRepository()
-                            .labels()
-                            .save(mapping)
-                    )
-                );
-            }
-        };
+    private SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+        return this.context(
+            new FakeSpreadsheetEngine() {
+                @Override
+                public SpreadsheetDelta saveLabel(final SpreadsheetLabelMapping mapping,
+                                                  final SpreadsheetEngineContext context) {
+                    return SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(
+                            context.storeRepository()
+                                .labels()
+                                .save(mapping)
+                        )
+                    );
+                }
+            },
+            store
+        );
     }
 
     @Override

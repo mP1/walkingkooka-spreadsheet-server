@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -66,8 +65,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                -1,
-                SpreadsheetEngines.fake()
+                -1
             )
         );
     }
@@ -101,28 +99,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         this.handleOneAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                99,
-                new FakeSpreadsheetEngine() {
-
-                    @Override
-                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                      final SpreadsheetCellRangeReferencePath p,
-                                                      final int o,
-                                                      final int c,
-                                                      final ValidationValueTypeName v,
-                                                      final Expression e,
-                                                      final Set<SpreadsheetDeltaProperties> properties,
-                                                      final SpreadsheetEngineContext context) {
-                        checkEquals(b2.toCellRange(), r, "range");
-                        checkEquals(path, p, "path");
-                        checkEquals(offset, o, "offset");
-                        checkEquals(count, c, "count");
-                        checkEquals(valueType, v, "valueType");
-                        checkEquals(expression, e, "expression");
-
-                        return SpreadsheetDelta.EMPTY.setCells(found);
-                    }
-                }
+                99
             ),
             b2, // reference
             Optional.empty(), // resource
@@ -135,6 +112,31 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             ), // parameters
             UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public SpreadsheetEngine spreadsheetEngine() {
+                    return new FakeSpreadsheetEngine() {
+
+                        @Override
+                        public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                          final SpreadsheetCellRangeReferencePath p,
+                                                          final int o,
+                                                          final int c,
+                                                          final ValidationValueTypeName v,
+                                                          final Expression e,
+                                                          final Set<SpreadsheetDeltaProperties> properties,
+                                                          final SpreadsheetEngineContext context) {
+                            checkEquals(b2.toCellRange(), r, "range");
+                            checkEquals(path, p, "path");
+                            checkEquals(offset, o, "offset");
+                            checkEquals(count, c, "count");
+                            checkEquals(valueType, v, "valueType");
+                            checkEquals(expression, e, "expression");
+
+                            return SpreadsheetDelta.EMPTY.setCells(found);
+                        }
+                    };
+                }
 
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
@@ -195,28 +197,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         this.handleRangeAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                99,
-                new FakeSpreadsheetEngine() {
-
-                    @Override
-                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                      final SpreadsheetCellRangeReferencePath p,
-                                                      final int o,
-                                                      final int c,
-                                                      final ValidationValueTypeName v,
-                                                      final Expression e,
-                                                      final Set<SpreadsheetDeltaProperties> properties,
-                                                      final SpreadsheetEngineContext context) {
-                        checkEquals(range, r, "range");
-                        checkEquals(path, p, "path");
-                        checkEquals(offset, o, "offset");
-                        checkEquals(count, c, "count");
-                        checkEquals(valueType, v, "valueType");
-                        checkEquals(expression, e, "expression");
-
-                        return SpreadsheetDelta.EMPTY.setCells(found);
-                    }
-                }
+                99
             ),
             range.range(), // reference
             Optional.empty(), // resource
@@ -229,6 +210,31 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             ), // parameters
             UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public SpreadsheetEngine spreadsheetEngine() {
+                    return new FakeSpreadsheetEngine() {
+
+                        @Override
+                        public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                          final SpreadsheetCellRangeReferencePath p,
+                                                          final int o,
+                                                          final int c,
+                                                          final ValidationValueTypeName v,
+                                                          final Expression e,
+                                                          final Set<SpreadsheetDeltaProperties> properties,
+                                                          final SpreadsheetEngineContext context) {
+                            checkEquals(range, r, "range");
+                            checkEquals(path, p, "path");
+                            checkEquals(offset, o, "offset");
+                            checkEquals(count, c, "count");
+                            checkEquals(valueType, v, "valueType");
+                            checkEquals(expression, e, "expression");
+
+                            return SpreadsheetDelta.EMPTY.setCells(found);
+                        }
+                    };
+                }
 
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
@@ -289,28 +295,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         this.handleRangeAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                99,
-                new FakeSpreadsheetEngine() {
-
-                    @Override
-                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                      final SpreadsheetCellRangeReferencePath p,
-                                                      final int o,
-                                                      final int c,
-                                                      final ValidationValueTypeName v,
-                                                      final Expression e,
-                                                      final Set<SpreadsheetDeltaProperties> properties,
-                                                      final SpreadsheetEngineContext context) {
-                        checkEquals(range, r, "range");
-                        checkEquals(path, p, "path");
-                        checkEquals(offset, o, "offset");
-                        checkEquals(count, c, "count");
-                        checkEquals(valueType, v, "valueType");
-                        checkEquals(expression, e, "expression");
-
-                        return SpreadsheetDelta.EMPTY.setCells(found);
-                    }
-                }
+                99
             ),
             range.range(), // reference
             Optional.empty(), // resource
@@ -323,6 +308,31 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             ), // parameters
             UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public SpreadsheetEngine spreadsheetEngine() {
+                    return new FakeSpreadsheetEngine() {
+
+                        @Override
+                        public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                          final SpreadsheetCellRangeReferencePath p,
+                                                          final int o,
+                                                          final int c,
+                                                          final ValidationValueTypeName v,
+                                                          final Expression e,
+                                                          final Set<SpreadsheetDeltaProperties> properties,
+                                                          final SpreadsheetEngineContext context) {
+                            checkEquals(range, r, "range");
+                            checkEquals(path, p, "path");
+                            checkEquals(offset, o, "offset");
+                            checkEquals(count, c, "count");
+                            checkEquals(valueType, v, "valueType");
+                            checkEquals(expression, e, "expression");
+
+                            return SpreadsheetDelta.EMPTY.setCells(found);
+                        }
+                    };
+                }
 
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
@@ -400,7 +410,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         this.handleRangeAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                DEFAULT_COUNT,
+                DEFAULT_COUNT
+            ),
+            range.range(), // reference
+            Optional.empty(), // resource
+            HateosResourceHandler.NO_PARAMETERS, // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -423,11 +439,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                     }
                 }
             ),
-            range.range(), // reference
-            Optional.empty(), // resource
-            HateosResourceHandler.NO_PARAMETERS, // parameters
-            UrlPath.EMPTY,
-            this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setCells(
                     found
@@ -447,16 +458,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerFindCells createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerFindCells createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-            DEFAULT_COUNT,
-            engine
+            DEFAULT_COUNT
         );
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
     }
 
     @Override

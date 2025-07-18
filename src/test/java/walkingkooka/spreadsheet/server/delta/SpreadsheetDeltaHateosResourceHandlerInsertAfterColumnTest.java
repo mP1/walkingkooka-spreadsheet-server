@@ -23,7 +23,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
@@ -50,7 +49,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
             );
 
         this.handleOneAndCheck(
-            this.createHandler(
+            column,
+            this.resource(),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -64,11 +67,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
                     }
                 }
             ),
-            column,
-            this.resource(),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 returned
             )
@@ -90,7 +88,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
             );
 
         this.handleRangeAndCheck(
-            this.createHandler(
+            range.range(),
+            this.resource(),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -104,11 +106,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
                     }
                 }
             ),
-            range.range(),
-            this.resource(),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 returned
             )
@@ -116,8 +113,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.INSTANCE;
     }
 
     @Override

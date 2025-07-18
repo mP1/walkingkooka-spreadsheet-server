@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -60,7 +59,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         );
 
         this.handleOneFails(
-            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+            cell, // reference
+            Optional.empty(), // resource
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -74,11 +77,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                     }
                 }
             ),
-            cell, // reference
-            Optional.empty(), // resource
-            HateosResourceHandler.NO_PARAMETERS,
-            UrlPath.EMPTY,
-            this.context(),
             IllegalArgumentException.class
         );
     }
@@ -95,7 +93,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         );
 
         this.handleOneAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+            cell, // reference
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
+            ), // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -109,13 +113,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                     }
                 }
             ),
-            cell, // reference
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
-            ), // parameters
-            UrlPath.EMPTY,
-            this.context(),
             Optional.of(
                 delta
             )
@@ -145,7 +142,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         );
 
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+            cellRange.range(), // reference
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS,
+                Lists.of(comparators)
+            ), // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -159,14 +163,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                     }
                 }
             ),
-            cellRange.range(), // reference
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.COMPARATORS,
-                Lists.of(comparators)
-            ), // parameters
-            UrlPath.EMPTY,
-            this.context(),
             Optional.of(
                 delta
             )
@@ -195,7 +191,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         );
 
         this.handleAllAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS,
+                Lists.of(comparators)
+            ), // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -209,13 +211,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                     }
                 }
             ),
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.COMPARATORS,
-                Lists.of(comparators)
-            ), // parameters
-            UrlPath.EMPTY,
-            this.context(),
             Optional.of(
                 delta
             )
@@ -233,15 +228,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSortCells createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-            engine
-        );
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
+    public SpreadsheetDeltaHateosResourceHandlerSortCells createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerSortCells.INSTANCE;
     }
 
     @Override

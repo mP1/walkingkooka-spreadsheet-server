@@ -43,12 +43,10 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends Spreadsheet
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerDeleteLabel with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteLabel(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerDeleteLabel INSTANCE = new SpreadsheetDeltaHateosResourceHandlerDeleteLabel();
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteLabel(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerDeleteLabel() {
+        super();
     }
 
     // handleOne........................................................................................................
@@ -70,10 +68,11 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends Spreadsheet
                 resource,
                 parameters,
                 context,
-                this.engine.deleteLabel(
-                    label,
-                    context
-                )
+                context.spreadsheetEngine()
+                    .deleteLabel(
+                        label,
+                        context
+                    )
             )
         );
     }

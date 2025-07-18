@@ -23,8 +23,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
@@ -41,8 +39,8 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     extends SpreadsheetDeltaHateosResourceHandler<R>
     implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    SpreadsheetDeltaHateosResourceHandlerInsert(final SpreadsheetEngine engine) {
-        super(engine);
+    SpreadsheetDeltaHateosResourceHandlerInsert() {
+        super();
     }
 
     @Override
@@ -78,7 +76,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
      */
     abstract SpreadsheetDelta insert(final R columnOrRow,
                                      final int count,
-                                     final SpreadsheetEngineContext context);
+                                     final SpreadsheetEngineHateosResourceHandlerContext context);
 
     @Override
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
@@ -124,5 +122,5 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
      */
     abstract SpreadsheetDelta insert(final Range<R> columnOrRow,
                                      final int count,
-                                     final SpreadsheetEngineContext context);
+                                     final SpreadsheetEngineHateosResourceHandlerContext context);
 }

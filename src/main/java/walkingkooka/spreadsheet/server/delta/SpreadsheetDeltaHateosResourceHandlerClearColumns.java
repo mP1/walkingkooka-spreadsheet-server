@@ -43,12 +43,10 @@ import java.util.Optional;
 final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetColumnReference>
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerClearColumns with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerClearColumns(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerClearColumns INSTANCE = new SpreadsheetDeltaHateosResourceHandlerClearColumns();
 
-    private SpreadsheetDeltaHateosResourceHandlerClearColumns(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerClearColumns() {
+        super();
     }
 
     @Override
@@ -111,12 +109,13 @@ final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends Spreadshee
                 resource,
                 parameters,
                 context,
-                this.engine.fillCells(
-                    SpreadsheetDelta.NO_CELLS,
-                    cellRange, // from is ignored because cells is empty.
-                    cellRange,
-                    context
-                )
+                context.spreadsheetEngine()
+                    .fillCells(
+                        SpreadsheetDelta.NO_CELLS,
+                        cellRange, // from is ignored because cells is empty.
+                        cellRange,
+                        context
+                    )
             )
         );
     }

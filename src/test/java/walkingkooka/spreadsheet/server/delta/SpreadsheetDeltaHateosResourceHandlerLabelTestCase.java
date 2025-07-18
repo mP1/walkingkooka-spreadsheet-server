@@ -21,6 +21,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
@@ -38,8 +39,14 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
         super();
     }
 
-    final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+    final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine,
+                                                                    final SpreadsheetLabelStore store) {
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public SpreadsheetEngine spreadsheetEngine() {
+                return engine;
+            }
 
             @Override
             public SpreadsheetStoreRepository storeRepository() {

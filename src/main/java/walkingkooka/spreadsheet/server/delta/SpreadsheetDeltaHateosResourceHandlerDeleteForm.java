@@ -43,12 +43,10 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteForm extends SpreadsheetD
     UnsupportedHateosResourceHandlerHandleMany<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleAll<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerDeleteForm with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteForm(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerDeleteForm INSTANCE = new SpreadsheetDeltaHateosResourceHandlerDeleteForm();
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteForm(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerDeleteForm() {
+        super();
     }
 
     // handleOne........................................................................................................
@@ -70,10 +68,11 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteForm extends SpreadsheetD
                 resource,
                 parameters,
                 context,
-                this.engine.deleteForm(
-                    formName,
-                    context
-                )
+                context.spreadsheetEngine()
+                    .deleteForm(
+                        formName,
+                        context
+                    )
             )
         );
     }

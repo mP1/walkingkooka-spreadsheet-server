@@ -45,17 +45,14 @@ final class SpreadsheetDeltaHateosResourceHandlerPrepareForm extends Spreadsheet
     UnsupportedHateosResourceHandlerHandleRange<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerPrepareForm with(final SpreadsheetExpressionReference cells,
-                                                                 final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerPrepareForm with(final SpreadsheetExpressionReference cells) {
         return new SpreadsheetDeltaHateosResourceHandlerPrepareForm(
-            cells,
-            engine
+            cells
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerPrepareForm(final SpreadsheetExpressionReference cells,
-                                                             final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerPrepareForm(final SpreadsheetExpressionReference cells) {
+        super();
         this.cells = cells;
     }
 
@@ -74,11 +71,12 @@ final class SpreadsheetDeltaHateosResourceHandlerPrepareForm extends Spreadsheet
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.prepareForm(
-                formName,
-                this.cells,
-                context
-            )
+            context.spreadsheetEngine()
+                .prepareForm(
+                    formName,
+                    this.cells,
+                    context
+                )
         );
     }
 

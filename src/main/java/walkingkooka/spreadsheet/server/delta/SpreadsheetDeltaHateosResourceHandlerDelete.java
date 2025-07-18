@@ -23,8 +23,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -39,8 +37,8 @@ import java.util.Optional;
 abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetSelection & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler<R>
     implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    SpreadsheetDeltaHateosResourceHandlerDelete(final SpreadsheetEngine engine) {
-        super(engine);
+    SpreadsheetDeltaHateosResourceHandlerDelete() {
+        super();
     }
 
     @Override
@@ -130,5 +128,5 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
      */
     abstract SpreadsheetDelta execute(final R lower,
                                       final int count,
-                                      final SpreadsheetEngineContext context);
+                                      final SpreadsheetEngineHateosResourceHandlerContext context);
 }

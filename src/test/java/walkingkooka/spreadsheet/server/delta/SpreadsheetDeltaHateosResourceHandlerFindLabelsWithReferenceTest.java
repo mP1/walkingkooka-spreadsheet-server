@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -54,8 +53,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
         assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-                -1,
-                SpreadsheetEngines.fake()
+                -1
             )
         );
     }
@@ -76,7 +74,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
 
         this.handleOneAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-                99,
+                99
+            ),
+            a1, // reference
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+            ), // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -91,14 +98,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                     }
                 }
             ),
-            a1, // reference
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
-            ), // parameters
-            UrlPath.EMPTY,
-            SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
             )
@@ -116,7 +115,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
 
         this.handleOneAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-                99,
+                99
+            ),
+            a1, // reference
+            Optional.empty(), // resource
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -131,11 +136,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                     }
                 }
             ),
-            a1, // reference
-            Optional.empty(), // resource
-            HateosResourceHandler.NO_PARAMETERS,
-            UrlPath.EMPTY,
-            SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
             )
@@ -153,7 +153,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
 
         this.handleRangeAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-                99,
+                99
+            ),
+            b2c3.range(), // reference
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+            ), // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -168,14 +177,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                     }
                 }
             ),
-            b2c3.range(), // reference
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
-            ), // parameters
-            UrlPath.EMPTY,
-            SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
             )
@@ -192,7 +193,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
 
         this.handleAllAndCheck(
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-                99,
+                99
+            ),
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+            ), // parameters
+            UrlPath.EMPTY,
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -207,13 +216,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                     }
                 }
             ),
-            Optional.empty(), // resource
-            Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
-            ), // parameters
-            UrlPath.EMPTY,
-            SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
             )
@@ -231,16 +233,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-            DEFAULT_COUNT,
-            engine
+            DEFAULT_COUNT
         );
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
     }
 
     @Override

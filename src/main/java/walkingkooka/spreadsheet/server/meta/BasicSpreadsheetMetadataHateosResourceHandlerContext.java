@@ -357,8 +357,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
 
         final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form(
-            defaultMax,
-            engine
+            defaultMax
         );
 
         final HateosResourceMappings<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.engine(context);

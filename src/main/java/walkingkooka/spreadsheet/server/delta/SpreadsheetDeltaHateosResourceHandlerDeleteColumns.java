@@ -23,6 +23,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Objects;
 
@@ -31,12 +32,10 @@ import java.util.Objects;
  */
 final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends SpreadsheetDeltaHateosResourceHandlerDelete<SpreadsheetColumnReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerDeleteColumns with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteColumns(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerDeleteColumns INSTANCE = new SpreadsheetDeltaHateosResourceHandlerDeleteColumns();
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteColumns(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerDeleteColumns() {
+        super();
     }
 
     @Override
@@ -52,12 +51,13 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends Spreadshe
     @Override
     SpreadsheetDelta execute(final SpreadsheetColumnReference column,
                              final int count,
-                             final SpreadsheetEngineContext context) {
-        return this.engine.deleteColumns(
-            column,
-            count,
-            context
-        );
+                             final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.spreadsheetEngine()
+            .deleteColumns(
+                column,
+                count,
+                context
+            );
     }
 
     @Override

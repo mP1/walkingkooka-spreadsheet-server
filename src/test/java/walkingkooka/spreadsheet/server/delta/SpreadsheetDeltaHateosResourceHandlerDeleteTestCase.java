@@ -21,9 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
@@ -63,11 +61,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
             this.context(),
             IllegalArgumentException.class
         );
-    }
-
-    @Override
-    final SpreadsheetEngine engine() {
-        return new FakeSpreadsheetEngine();
     }
 
     @Override

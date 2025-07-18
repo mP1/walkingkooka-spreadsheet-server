@@ -61,7 +61,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteFormTest extends S
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            this.context(store),
+            this.context(
+                store
+            ),
             Optional.of(
                 SpreadsheetDelta.EMPTY
             )
@@ -75,8 +77,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteFormTest extends S
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteForm createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteForm.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerDeleteForm createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteForm.INSTANCE;
     }
 
     @Override

@@ -44,12 +44,10 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSortCells with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerSortCells(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerSortCells INSTANCE =new SpreadsheetDeltaHateosResourceHandlerSortCells();
 
-    private SpreadsheetDeltaHateosResourceHandlerSortCells(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerSortCells() {
+        super();
     }
 
     @Override
@@ -110,12 +108,13 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
         HateosResourceHandler.checkContext(context);
 
         return Optional.ofNullable(
-            this.engine.sortCells(
-                cells, // cells
-                SpreadsheetDeltaUrlQueryParameters.comparators(parameters),
-                SpreadsheetDeltaProperties.extract(parameters),
-                context
-            )
+            context.spreadsheetEngine()
+                .sortCells(
+                    cells, // cells
+                    SpreadsheetDeltaUrlQueryParameters.comparators(parameters),
+                    SpreadsheetDeltaProperties.extract(parameters),
+                    context
+                )
         );
     }
 

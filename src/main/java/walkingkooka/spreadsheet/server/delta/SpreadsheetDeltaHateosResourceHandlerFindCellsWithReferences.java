@@ -22,7 +22,6 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -38,21 +37,18 @@ import java.util.Optional;
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences with(final int defaultCount,
-                                                                             final SpreadsheetEngine engine) {
+    static SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences with(final int defaultCount) {
         if (defaultCount < 0) {
             throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences(
-            defaultCount,
-            engine
+            defaultCount
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences(final int defaultCount,
-                                                                         final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences(final int defaultCount) {
+        super();
         this.defaultCount = defaultCount;
     }
 
@@ -113,14 +109,15 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.findCellsWithReference(
-                reference,
-                SpreadsheetUrlQueryParameters.offset(parameters)
-                    .orElse(0),
-                SpreadsheetUrlQueryParameters.count(parameters)
-                    .orElse(this.defaultCount),
-                context
-            )
+            context.spreadsheetEngine()
+                .findCellsWithReference(
+                    reference,
+                    SpreadsheetUrlQueryParameters.offset(parameters)
+                        .orElse(0),
+                    SpreadsheetUrlQueryParameters.count(parameters)
+                        .orElse(this.defaultCount),
+                    context
+                )
         );
     }
 

@@ -95,21 +95,16 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             LinkRelation.SELF,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, // default SpreadsheetEngineEvaluation
-                engine
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY // default SpreadsheetEngineEvaluation
             )
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerSaveCell.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerSaveCell.INSTANCE
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.DELETE,
-            SpreadsheetDeltaHateosResourceHandlerDeleteCell.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerDeleteCell.INSTANCE
         ).setHateosHttpEntityHandler(
             LinkRelation.SELF,
             HttpMethod.PATCH,
@@ -124,10 +119,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             cell = cell.setHateosResourceHandler(
                 evaluation.toLinkRelation(),
                 HttpMethod.GET,
-                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                    evaluation,
-                    engine
-                )
+                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(evaluation)
             );
         }
 
@@ -135,17 +127,14 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         cell = cell.setHateosResourceHandler(
             SpreadsheetServerLinkRelations.FILL,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerFillCells.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerFillCells.INSTANCE
         );
 
         cell = cell.setHateosResourceHandler(
             SpreadsheetServerLinkRelations.FIND,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                defaultMax,
-                engine
+                defaultMax
             )
         );
 
@@ -163,8 +152,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetServerLinkRelations.LABELS,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
-                defaultMax,
-                engine
+                defaultMax
             )
         );
 
@@ -172,17 +160,14 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetServerLinkRelations.REFERENCES,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-                defaultMax,
-                engine
+                defaultMax
             )
         );
 
         cell = cell.setHateosResourceHandler(
             SpreadsheetServerLinkRelations.SORT,
             HttpMethod.GET,
-            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerSortCells.INSTANCE
         );
 
         return cell;
@@ -243,27 +228,19 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosResourceHandler(
             SpreadsheetServerLinkRelations.CLEAR,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerClearColumns.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerClearColumns.INSTANCE
         ).setHateosResourceHandler(
             SpreadsheetServerLinkRelations.INSERT_AFTER,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.INSTANCE
         ).setHateosResourceHandler(
             SpreadsheetServerLinkRelations.INSERT_BEFORE,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.INSTANCE
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.DELETE,
-            SpreadsheetDeltaHateosResourceHandlerDeleteColumns.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerDeleteColumns.INSTANCE
         ).setHateosHttpEntityHandler(
             LinkRelation.SELF,
             HttpMethod.PATCH,
@@ -299,27 +276,19 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosResourceHandler(
             SpreadsheetServerLinkRelations.CLEAR,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerClearRows.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerClearRows.INSTANCE
         ).setHateosResourceHandler(
             SpreadsheetServerLinkRelations.INSERT_AFTER,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.INSTANCE
         ).setHateosResourceHandler(
             SpreadsheetServerLinkRelations.INSERT_BEFORE,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow.INSTANCE
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.DELETE,
-            SpreadsheetDeltaHateosResourceHandlerDeleteRows.with(
-                engine
-            )
+            SpreadsheetDeltaHateosResourceHandlerDeleteRows.INSTANCE
         ).setHateosHttpEntityHandler(
             LinkRelation.SELF,
             HttpMethod.PATCH,
@@ -350,8 +319,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * Factory that creates a form end points
      */
-    public static HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final int defaultCount,
-                                                                                                                                                                                 final SpreadsheetEngine engine) {
+    public static HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final int defaultCount) {
         return HateosResourceMappings.with(
             FormName.HATEOS_RESOURCE_NAME,
             SpreadsheetDeltaHttpMappings::parseForm,
@@ -363,17 +331,16 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             FORM_LINK_RELATION,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerLoadForm.with(
-                defaultCount,
-                engine
+                defaultCount
             )
         ).setHateosResourceHandler(
             FORM_LINK_RELATION,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerSaveForm.with(engine)
+            SpreadsheetDeltaHateosResourceHandlerSaveForm.INSTANCE
         ).setHateosResourceHandler(
             FORM_LINK_RELATION,
             HttpMethod.DELETE,
-            SpreadsheetDeltaHateosResourceHandlerDeleteForm.with(engine)
+            SpreadsheetDeltaHateosResourceHandlerDeleteForm.INSTANCE
         );
     }
 
@@ -432,24 +399,22 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosResourceHandler(
             LABEL_LINK_RELATION,
             HttpMethod.DELETE,
-            SpreadsheetDeltaHateosResourceHandlerDeleteLabel.with(engine)
+            SpreadsheetDeltaHateosResourceHandlerDeleteLabel.INSTANCE
         ).setHateosResourceHandler(
             LABEL_LINK_RELATION,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(
-                defaultCount,
-                engine
+                defaultCount
             )
         ).setHateosResourceHandler(
             LABEL_LINK_RELATION,
             HttpMethod.POST,
-            SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine)
+            SpreadsheetDeltaHateosResourceHandlerSaveLabel.INSTANCE
         ).setHateosResourceHandler(
             FIND_BY_NAME,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindLabelsByName.with(
-                defaultCount,
-                engine
+                defaultCount
             )
         );
     }

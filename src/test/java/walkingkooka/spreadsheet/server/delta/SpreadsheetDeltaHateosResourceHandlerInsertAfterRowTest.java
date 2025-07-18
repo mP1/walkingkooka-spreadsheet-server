@@ -23,7 +23,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
@@ -50,7 +49,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
             );
 
         this.handleOneAndCheck(
-            this.createHandler(
+            row,
+            this.resource(),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -63,11 +66,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
                     }
                 }
             ),
-            row,
-            this.resource(),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 returned
             )
@@ -89,7 +87,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
             );
 
         this.handleRangeAndCheck(
-            this.createHandler(
+            range.range(),
+            this.resource(),
+            this.parameters(),
+            this.path(),
+            this.context(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -102,11 +104,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
                     }
                 }
             ),
-            range.range(),
-            this.resource(),
-            this.parameters(),
-            this.path(),
-            this.context(),
             Optional.of(
                 returned
             )
@@ -114,8 +111,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerInsertAfterRow createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerInsertAfterRow createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.INSTANCE;
     }
 
     @Override

@@ -42,12 +42,10 @@ import java.util.Set;
 final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSaveCell with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerSaveCell(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerSaveCell INSTANCE = new SpreadsheetDeltaHateosResourceHandlerSaveCell();
 
-    private SpreadsheetDeltaHateosResourceHandlerSaveCell(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerSaveCell() {
+        super();
     }
 
     @Override
@@ -72,11 +70,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
                 resource,
                 parameters,
                 context,
-                this.engine.saveCell(
-                    cells.iterator()
-                        .next(),
-                    context
-                )
+                context.spreadsheetEngine()
+                    .saveCell(
+                        cells.iterator()
+                            .next(),
+                        context
+                    )
             )
         );
     }
@@ -98,12 +97,13 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
                 resource,
                 parameters,
                 context,
-                this.engine.fillCells(
-                    delta.cells(),
-                    spreadsheetCellRangeReference,
-                    spreadsheetCellRangeReference,
-                    context
-                )
+                context.spreadsheetEngine()
+                    .fillCells(
+                        delta.cells(),
+                        spreadsheetCellRangeReference,
+                        spreadsheetCellRangeReference,
+                        context
+                    )
             )
         );
     }

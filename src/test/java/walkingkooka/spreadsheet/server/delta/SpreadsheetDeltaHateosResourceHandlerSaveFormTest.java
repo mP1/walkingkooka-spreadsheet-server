@@ -73,8 +73,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveFormTest extends Spr
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSaveForm createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerSaveForm.with(engine);
+    public SpreadsheetDeltaHateosResourceHandlerSaveForm createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerSaveForm.INSTANCE;
     }
 
     @Override

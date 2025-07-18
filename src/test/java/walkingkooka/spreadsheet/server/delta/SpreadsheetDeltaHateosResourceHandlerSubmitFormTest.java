@@ -77,10 +77,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerSubmitFormTest extends S
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSubmitForm createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerSubmitForm createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerSubmitForm.with(
-            SpreadsheetSelection.A1,
-            engine
+            SpreadsheetSelection.A1
         );
     }
 

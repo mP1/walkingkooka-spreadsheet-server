@@ -20,20 +20,17 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Objects;
 
 final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends SpreadsheetDeltaHateosResourceHandlerInsert<SpreadsheetColumnReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(engine);
-    }
+    final static SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn INSTANCE = new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn();
 
-    private SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(final SpreadsheetEngine engine) {
-        super(engine);
+    private SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn() {
+        super();
     }
 
     @Override
@@ -49,7 +46,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
     @Override
     SpreadsheetDelta insert(final SpreadsheetColumnReference column,
                             final int count,
-                            final SpreadsheetEngineContext context) {
+                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.insertAfter(
             column.addSaturated(1),
             count,
@@ -60,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetColumnReference> column,
                             final int count,
-                            final SpreadsheetEngineContext context) {
+                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.insertAfter(
             column.upperBound()
                 .value()
@@ -73,12 +70,13 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
 
     private SpreadsheetDelta insertAfter(final SpreadsheetColumnReference column,
                                          final int count,
-                                         final SpreadsheetEngineContext context) {
-        return this.engine.insertColumns(
-            column,
-            count,
-            context
-        );
+                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.spreadsheetEngine()
+            .insertColumns(
+                column,
+                count,
+                context
+            );
     }
 
     @Override

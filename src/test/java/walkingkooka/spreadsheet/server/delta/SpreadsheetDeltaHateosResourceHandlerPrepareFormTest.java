@@ -73,10 +73,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerPrepareFormTest extends 
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerPrepareForm createHandler(final SpreadsheetEngine engine) {
+    public SpreadsheetDeltaHateosResourceHandlerPrepareForm createHandler() {
         return SpreadsheetDeltaHateosResourceHandlerPrepareForm.with(
-            SpreadsheetSelection.A1,
-            engine
+            SpreadsheetSelection.A1
         );
     }
 

@@ -27,6 +27,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -237,6 +238,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
             input,
             parameters,
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public SpreadsheetEngine spreadsheetEngine() {
+                    return SpreadsheetEngines.fake();
+                }
+
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
                     return SpreadsheetMetadata.EMPTY;
@@ -252,9 +259,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                          final SpreadsheetEngineHateosResourceHandlerContext context,
                                          final SpreadsheetDelta output,
                                          final SpreadsheetDelta expected) {
-        final SpreadsheetDelta response = new SpreadsheetDeltaHateosResourceHandler<Integer>(
-            SpreadsheetEngines.fake()
-        ) {
+        final SpreadsheetDelta response = new SpreadsheetDeltaHateosResourceHandler<Integer>() {
 
             @Override
             public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> optional,
