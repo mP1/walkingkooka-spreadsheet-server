@@ -455,7 +455,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> localeHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, ?> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> localeHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.localeHateosResourceHandlerContext
@@ -464,7 +464,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> spreadsheetProviderHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, ?> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> spreadsheetProviderHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.spreadsheetProviderHateosResourceHandlerContext
@@ -473,8 +473,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final SpreadsheetProviderHateosResourceHandlerContext spreadsheetProviderHateosResourceHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, ?> mappings,
-                                                                                      final HateosResourceHandlerContext context) {
+    private <X extends HateosResourceHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
+                                                                                                                               final X context) {
         return HateosResourceMappings.router(
             API,
             Sets.of(mappings),

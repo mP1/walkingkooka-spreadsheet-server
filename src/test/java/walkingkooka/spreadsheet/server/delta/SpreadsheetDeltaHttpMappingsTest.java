@@ -846,7 +846,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     // helpers..........................................................................................................
 
-    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
+    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosResourceHandlerContext> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
@@ -862,7 +862,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         );
     }
 
-    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
+    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosResourceHandlerContext> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
@@ -903,7 +903,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         }
     }
 
-    private HttpResponse route(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
+    private HttpResponse route(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosResourceHandlerContext> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
