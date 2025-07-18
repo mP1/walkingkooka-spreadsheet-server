@@ -57,7 +57,6 @@ import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -72,11 +71,9 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetDelta,
         SpreadsheetCell,
-        SpreadsheetEngineHateosResourceHandlerContext> cell(final SpreadsheetEngine engine,
-                                                            final Indentation indentation,
+        SpreadsheetEngineHateosResourceHandlerContext> cell(final Indentation indentation,
                                                             final LineEnding lineEnding,
                                                             final SpreadsheetEngineHateosResourceHandlerContext handlerContext) {
-        Objects.requireNonNull(engine, "engine");
         // cell GET, POST...............................................................................................
 
         HateosResourceMappings<SpreadsheetCellReference,
@@ -107,9 +104,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosHttpEntityHandler(
             LinkRelation.SELF,
             HttpMethod.PATCH,
-            SpreadsheetDeltaPatchHateosHttpEntityHandler.cell(
-                engine
-            )
+            SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.INSTANCE
         );
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
@@ -209,7 +204,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetDelta,
         SpreadsheetColumn,
-        SpreadsheetEngineHateosResourceHandlerContext> column(final SpreadsheetEngine engine) {
+        SpreadsheetEngineHateosResourceHandlerContext> column() {
         return HateosResourceMappings.with(
             SpreadsheetHateosResourceNames.COLUMN,
             SpreadsheetDeltaHttpMappings::parseColumn,
@@ -236,9 +231,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosHttpEntityHandler(
             LinkRelation.SELF,
             HttpMethod.PATCH,
-            SpreadsheetDeltaPatchHateosHttpEntityHandler.column(
-                engine
-            )
+            SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn.INSTANCE
         );
     }
 
@@ -257,7 +250,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetDelta,
         SpreadsheetRow,
-        SpreadsheetEngineHateosResourceHandlerContext> row(final SpreadsheetEngine engine) {
+        SpreadsheetEngineHateosResourceHandlerContext> row() {
         return HateosResourceMappings.with(
             SpreadsheetHateosResourceNames.ROW,
             SpreadsheetDeltaHttpMappings::parseRow,
@@ -284,9 +277,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosHttpEntityHandler(
             LinkRelation.SELF,
             HttpMethod.PATCH,
-            SpreadsheetDeltaPatchHateosHttpEntityHandler.row(
-                engine
-            )
+            SpreadsheetDeltaPatchHateosHttpEntityHandlerRow.INSTANCE
         );
     }
 
@@ -379,8 +370,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * Factory that creates a labels.
      */
-    public static HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final int defaultCount,
-                                                                                                                                                                                final SpreadsheetEngine engine) {
+    public static HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final int defaultCount) {
         return HateosResourceMappings.with(
             SpreadsheetHateosResourceNames.LABEL,
             SpreadsheetDeltaHttpMappings::parseLabel,
@@ -444,8 +434,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     static SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
                                             final Map<HttpRequestAttribute<?>, Object> parameters,
                                             final SpreadsheetDelta out,
-                                            final SpreadsheetEngine engine,
-                                            final SpreadsheetEngineContext context) {
+                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
 
         final Optional<SpreadsheetCellQuery> query = extractOrMetadataFindHighlightingAndQuery(
             parameters,
@@ -453,6 +442,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         SpreadsheetDelta result = out;
+
+        final SpreadsheetEngine engine = context.spreadsheetEngine();
 
         if (query.isPresent()) {
             result = out.setMatchedCells(

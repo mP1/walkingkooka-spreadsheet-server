@@ -61,8 +61,6 @@ import java.math.MathContext;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H extends SpreadsheetDeltaPatchHateosHttpEntityHandler<S, R>,
     S extends SpreadsheetSelection & Comparable<S>,
     R extends SpreadsheetSelection & Comparable<R>> implements
@@ -95,18 +93,6 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
             return Optional.of(viewport);
         }
     };
-
-    // with.............................................................................................................
-
-    @Test
-    public final void testWithNullSpreadsheetEngineFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createHandler(
-                null
-            )
-        );
-    }
 
     // handleXXX........................................................................................................
 
@@ -143,15 +129,6 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
             UnsupportedOperationException.class
         );
     }
-
-    @Override
-    public final H createHandler() {
-        return this.createHandler(
-            ENGINE
-        );
-    }
-
-    abstract H createHandler(final SpreadsheetEngine engine);
 
     final HttpEntity httpEntity(final SpreadsheetDelta delta) {
         return this.httpEntity(
@@ -198,17 +175,33 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return new TestSpreadsheetEngineHateosResourceHandlerContext();
+    final public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return new TestSpreadsheetEngineHateosResourceHandlerContext(ENGINE);
+    }
+
+    final public SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine spreadsheetEngine) {
+        return new TestSpreadsheetEngineHateosResourceHandlerContext(spreadsheetEngine);
     }
 
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+
+        TestSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngine spreadsheetEngine) {
+            this.spreadsheetEngine = spreadsheetEngine;
+        }
+
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
         }
+
+        @Override
+        public SpreadsheetEngine spreadsheetEngine() {
+            return this.spreadsheetEngine;
+        }
+
+        private final SpreadsheetEngine spreadsheetEngine;
 
         @Override
         public SpreadsheetMetadata spreadsheetMetadata() {

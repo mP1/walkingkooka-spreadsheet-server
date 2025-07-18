@@ -73,7 +73,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -114,19 +113,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 //    LINE_ENDING,
 //    context
 //            )
-
-    @Test
-    public void testCellWithNullEngineFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetDeltaHttpMappings.cell(
-                null,
-                INDENTATION,
-                LINE_ENDING,
-                SpreadsheetEngineHateosResourceHandlerContexts.fake()
-            )
-        );
-    }
 
     @Test
     public void testRouteCellInvalidFails() {
@@ -363,7 +349,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
         this.routeAndCheck(
             SpreadsheetDeltaHttpMappings.cell(
-                this.engine(),
                 INDENTATION,
                 LINE_ENDING,
                 context
@@ -384,7 +369,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
         return this.route(
             SpreadsheetDeltaHttpMappings.cell(
-                this.engine(),
                 INDENTATION,
                 LINE_ENDING,
                 context
@@ -626,16 +610,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     // column...........................................................................................................
 
     @Test
-    public void testColumnWithNullEngineFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetDeltaHttpMappings.column(
-                null
-            )
-        );
-    }
-
-    @Test
     public void testRouteClearColumnsOnePost() {
         this.routeColumnAndCheck(
             HttpMethod.POST,
@@ -721,9 +695,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                      final String body,
                                      final HttpStatusCode statusCode) {
         this.routeAndCheck(
-            SpreadsheetDeltaHttpMappings.column(
-                this.engine()
-            ),
+            SpreadsheetDeltaHttpMappings.column(),
             method,
             url,
             body,
@@ -737,9 +709,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         assertThrows(
             thrown,
             () -> this.route(
-                SpreadsheetDeltaHttpMappings.column(
-                    this.engine()
-                ),
+                SpreadsheetDeltaHttpMappings.column(),
                 method,
                 url,
                 "",
@@ -748,17 +718,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         );
     }
 
-    // row...........................................................................................................
-
-    @Test
-    public void testRowWithNullEngineFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetDeltaHttpMappings.row(
-                null
-            )
-        );
-    }
+    // row..............................................................................................................
 
     @Test
     public void testRouteRowsInvalidFails() {
@@ -861,9 +821,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                   final String body,
                                   final HttpStatusCode statusCode) {
         this.routeAndCheck(
-            SpreadsheetDeltaHttpMappings.row(
-                this.engine()
-            ),
+            SpreadsheetDeltaHttpMappings.row(),
             method,
             url,
             body,
@@ -877,9 +835,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         assertThrows(
             thrown,
             () -> this.route(
-                SpreadsheetDeltaHttpMappings.row(
-                    this.engine()
-                ),
+                SpreadsheetDeltaHttpMappings.row(),
                 method,
                 url,
                 "",
