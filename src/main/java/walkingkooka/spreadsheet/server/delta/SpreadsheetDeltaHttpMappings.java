@@ -73,7 +73,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetCell,
         SpreadsheetEngineHateosResourceHandlerContext> cell(final SpreadsheetEngine engine,
-                                                            final int defaultMax,
                                                             final Indentation indentation,
                                                             final LineEnding lineEnding,
                                                             final SpreadsheetEngineHateosResourceHandlerContext handlerContext) {
