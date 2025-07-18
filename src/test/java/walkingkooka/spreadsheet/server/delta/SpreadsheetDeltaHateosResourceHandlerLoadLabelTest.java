@@ -111,8 +111,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
                     Sets.of(
                         mapping1,
                         mapping2,
-                        mapping3
-                        // mapping4 defaultCount=3
+                        mapping3,
+                        mapping4
                     )
                 )
             )
@@ -160,9 +160,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
 
     @Override
     public SpreadsheetDeltaHateosResourceHandlerLoadLabel createHandler() {
-        return SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(
-            DEFAULT_COUNT
-        );
+        return SpreadsheetDeltaHateosResourceHandlerLoadLabel.INSTANCE;
     }
 
     private SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {

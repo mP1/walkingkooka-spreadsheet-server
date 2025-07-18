@@ -370,7 +370,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * Factory that creates a labels.
      */
-    public static HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final int defaultCount) {
+    public static HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label() {
         return HateosResourceMappings.with(
             SpreadsheetHateosResourceNames.LABEL,
             SpreadsheetDeltaHttpMappings::parseLabel,
@@ -385,9 +385,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosResourceHandler(
             LABEL_LINK_RELATION,
             HttpMethod.GET,
-            SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(
-                defaultCount
-            )
+            SpreadsheetDeltaHateosResourceHandlerLoadLabel.INSTANCE
         ).setHateosResourceHandler(
             LABEL_LINK_RELATION,
             HttpMethod.POST,
