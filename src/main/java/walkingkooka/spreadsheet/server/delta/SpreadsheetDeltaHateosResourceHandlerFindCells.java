@@ -45,19 +45,13 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindCells with(final int defaultCount) {
-        if (defaultCount < 0) {
-            throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
-        }
+    /**
+     * Singleton
+     */
+    final static SpreadsheetDeltaHateosResourceHandlerFindCells INSTANCE = new SpreadsheetDeltaHateosResourceHandlerFindCells();
 
-        return new SpreadsheetDeltaHateosResourceHandlerFindCells(
-            defaultCount
-        );
-    }
-
-    private SpreadsheetDeltaHateosResourceHandlerFindCells(final int defaultCount) {
+    private SpreadsheetDeltaHateosResourceHandlerFindCells() {
         super();
-        this.defaultCount = defaultCount;
     }
 
     @Override
@@ -125,7 +119,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                     cells, // cells
                     find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
                     find.offset().orElse(DEFAULT_OFFSET), // offset
-                    find.count().orElse(this.defaultCount), // count
+                    find.count().orElse(DEFAULT_COUNT), // count
                     find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
                     find.query()
                         .map(q -> context.toExpression(
@@ -144,7 +138,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
     final static ValidationValueTypeName DEFAULT_VALUE_TYPE = SpreadsheetValueType.ANY;
 
-    private final int defaultCount;
+    final static int DEFAULT_COUNT = 50;
 
     final static Expression DEFAULT_QUERY = Expression.value(true);
 

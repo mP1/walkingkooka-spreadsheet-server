@@ -133,9 +133,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         cell = cell.setHateosResourceHandler(
             SpreadsheetServerLinkRelations.FIND,
             HttpMethod.GET,
-            SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                defaultMax
-            )
+            SpreadsheetDeltaHateosResourceHandlerFindCells.INSTANCE
         );
 
         cell = cell.setHttpHandler(
