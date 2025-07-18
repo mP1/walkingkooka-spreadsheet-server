@@ -29,7 +29,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -48,7 +47,6 @@ import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
@@ -827,8 +825,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     public void testLoadCellRangeNoFrozenColumnRows() {
         this.loadCellRangeFilteredAndCheck(
             "A1",
-            0, // frozenColumns
-            0, // frozenRows
+            // frozenColumns
+            // frozenRows
             "A1:D4", // range
             "A1:D4" // window
         );
@@ -843,16 +841,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     public void testLoadCellRange1FrozenColumn() {
         this.loadCellRangeFilteredAndCheck(
             "A1",
-            1, // frozenColumns
-            0, // frozenRows
+            // frozenColumns
+            // frozenRows
             "A1:A4,B1:D4", // range
             "A1:A4,B1:D4" // window
         );
     }
 
     private void loadCellRangeFilteredAndCheck(final String home,
-                                               final int frozenColumns,
-                                               final int frozenRows,
                                                final String range,
                                                final String window) {
 
@@ -869,41 +865,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         parameters.put(SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of("" + viewportHeight));
 
         parameters.put(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
-
-        new FakeSpreadsheetEngineContext() {
-            @Override
-            public SpreadsheetMetadata spreadsheetMetadata() {
-                return METADATA_EN_AU
-                    .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
-                    .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
-            }
-
-            @Override
-            public SpreadsheetStoreRepository storeRepository() {
-                return new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetCellStore cells() {
-                        return this.cells;
-                    }
-
-                    private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
-
-                    @Override
-                    public SpreadsheetColumnStore columns() {
-                        return this.columns;
-                    }
-
-                    private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
-
-                    @Override
-                    public SpreadsheetRowStore rows() {
-                        return this.rows;
-                    }
-
-                    private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
-                };
-            }
-        };
 
         this.handleAllAndCheck(
             SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
