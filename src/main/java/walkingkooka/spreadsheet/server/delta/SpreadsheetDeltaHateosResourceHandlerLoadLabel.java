@@ -42,19 +42,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadLabel with(final int defaultCount) {
-        if (defaultCount < 0) {
-            throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
-        }
+    /**
+     * Singleton
+     */
+    final static SpreadsheetDeltaHateosResourceHandlerLoadLabel INSTANCE = new SpreadsheetDeltaHateosResourceHandlerLoadLabel();
 
-        return new SpreadsheetDeltaHateosResourceHandlerLoadLabel(
-            defaultCount
-        );
-    }
-
-    private SpreadsheetDeltaHateosResourceHandlerLoadLabel(final int defaultCount) {
+    private SpreadsheetDeltaHateosResourceHandlerLoadLabel() {
         super();
-        this.defaultCount = defaultCount;
     }
 
     // handleOne........................................................................................................
@@ -96,13 +90,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
                     SpreadsheetUrlQueryParameters.offset(parameters)
                         .orElse(0),
                     SpreadsheetUrlQueryParameters.count(parameters)
-                        .orElse(this.defaultCount),
+                        .orElse(DEFAULT_COUNT),
                     context
                 )
         );
     }
 
-    private final int defaultCount;
+    final static int DEFAULT_COUNT = 10;
 
     @Override
     String operation() {
