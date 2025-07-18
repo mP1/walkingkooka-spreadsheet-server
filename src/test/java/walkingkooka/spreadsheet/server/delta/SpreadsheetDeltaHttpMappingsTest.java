@@ -54,7 +54,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -125,20 +124,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             () -> SpreadsheetDeltaHttpMappings.cell(
                 null,
                 DEFAULT_MAX,
-                INDENTATION,
-                LINE_ENDING,
-                SpreadsheetEngineHateosResourceHandlerContexts.fake()
-            )
-        );
-    }
-
-    @Test
-    public void testCellWithInvalidDefaultMaxFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetDeltaHttpMappings.cell(
-                SpreadsheetEngines.fake(),
-                -1, // defaultMax
                 INDENTATION,
                 LINE_ENDING,
                 SpreadsheetEngineHateosResourceHandlerContexts.fake()

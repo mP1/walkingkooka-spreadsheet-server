@@ -41,22 +41,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences,
     SpreadsheetCellReference> {
-
-    private final static int DEFAULT_COUNT = 99;
-
-    @Test
-    public void testWithNegativeDefaultCount() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-                -1
-            )
-        );
-    }
 
     private final static int OFFSET = 12;
     private final static int COUNT = 34;
@@ -73,9 +59,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
         );
 
         this.handleOneAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-                99
-            ),
             a1, // reference
             Optional.empty(), // resource
             Maps.of(
@@ -114,9 +97,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
         );
 
         this.handleOneAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-                99
-            ),
             a1, // reference
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS, // parameters
@@ -131,7 +111,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
                                                                    final SpreadsheetEngineContext context) {
                         checkEquals(a1, reference);
                         checkEquals(0, offset);
-                        checkEquals(DEFAULT_COUNT, count);
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.DEFAULT_COUNT, count);
                         return expected;
                     }
                 }
@@ -152,9 +132,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
         );
 
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-                99
-            ),
             b2c3.range(), // reference
             Optional.empty(), // resource
             Maps.of(
@@ -192,9 +169,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
         );
 
         this.handleAllAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-                99
-            ),
             Optional.empty(), // resource
             Maps.of(
                 SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
@@ -234,9 +208,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
 
     @Override
     public SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences createHandler() {
-        return SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
-            DEFAULT_COUNT
-        );
+        return SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.INSTANCE;
     }
 
     @Override
