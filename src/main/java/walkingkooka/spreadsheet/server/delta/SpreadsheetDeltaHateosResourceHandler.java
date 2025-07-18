@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -25,7 +24,6 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
@@ -39,21 +37,6 @@ import java.util.Optional;
 abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> implements HateosResourceHandler<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleNone<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
-
-    /**
-     * Checks that the range bounds are not null and both are inclusive.
-     * Complains if the resource is null.
-     */
-    static <T extends SpreadsheetSelection & Comparable<T>> Range<T> checkRangeBounded(final Range<T> range,
-                                                                                       final String label) {
-        Objects.requireNonNull(range, label);
-
-        if (!range.lowerBound().isInclusive() || !range.upperBound().isInclusive()) {
-            throw new IllegalArgumentException("Range with both " + label + " required=" + range);
-        }
-
-        return range;
-    }
 
     /**
      * Package private to limit sub classing.
