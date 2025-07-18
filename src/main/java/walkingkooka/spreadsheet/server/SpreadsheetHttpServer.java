@@ -153,7 +153,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         ValidatorName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
-    public final static int DEFAULT_DATE_TIME_SYMBOLS_COUNT = 10;
     public final static int DEFAULT_DECIMAL_NUMBER_SYMBOLS_COUNT = 10;
 
     /**
@@ -294,7 +293,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_DATE_TIME_SYMBOLS),
                 httpHandler(
                     this.dateTimeSymbolsRouter(
-                        DEFAULT_DATE_TIME_SYMBOLS_COUNT,
                         this.localeHateosResourceHandlerContext
                     )
                 )
@@ -400,13 +398,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter(final int defaultCount,
-                                                                               final LocaleHateosResourceHandlerContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter(final LocaleHateosResourceHandlerContext context) {
         return this.localeHateosResourceHandlerContext(
-            DateTimeSymbolsHateosResourceMappings.mappings(
-                defaultCount,
-                context
-            )
+            DateTimeSymbolsHateosResourceMappings.mappings(context)
         );
     }
 

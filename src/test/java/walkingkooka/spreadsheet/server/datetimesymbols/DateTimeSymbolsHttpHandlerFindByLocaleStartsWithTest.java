@@ -269,7 +269,6 @@ public final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWithTest implemen
     @Override
     public DateTimeSymbolsHttpHandlerFindByLocaleStartsWith createHttpHandler() {
         return DateTimeSymbolsHttpHandlerFindByLocaleStartsWith.with(
-            10,
             new FakeLocaleHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
