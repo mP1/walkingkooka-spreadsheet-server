@@ -121,8 +121,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
         httpServer.handler.handle(
             HttpRequests.value(
-                HttpMethod.POST,
                 HttpTransport.SECURED,
+                HttpMethod.POST,
                 Url.parseRelative("/api/spreadsheet"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(

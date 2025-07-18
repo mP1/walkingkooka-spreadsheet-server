@@ -291,8 +291,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                                 final String urlPathAppend,
                                 final String bodyText) {
         final MediaType contentType = MediaType.APPLICATION_JSON;
-        return HttpRequests.value(method,
+        return HttpRequests.value(
             HttpTransport.UNSECURED,
+            method,
             Url.parseAbsolute(SERVER_URL + urlPathAppend).relativeUrl(),
             HttpProtocolVersion.VERSION_1_0,
             HttpEntity.EMPTY
