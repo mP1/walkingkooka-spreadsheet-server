@@ -27,7 +27,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -44,12 +43,10 @@ import java.util.Objects;
  */
 final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
 
-    static SpreadsheetDeltaHttpMappingsFormHttpHandler with(final SpreadsheetEngine engine,
-                                                            final Indentation indentation,
+    static SpreadsheetDeltaHttpMappingsFormHttpHandler with(final Indentation indentation,
                                                             final LineEnding lineEnding,
                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
         return new SpreadsheetDeltaHttpMappingsFormHttpHandler(
-            engine,
             indentation,
             lineEnding,
             context
@@ -57,12 +54,10 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
     }
 
     private SpreadsheetDeltaHttpMappingsFormHttpHandler(
-        final SpreadsheetEngine engine,
         final Indentation indentation,
         final LineEnding lineEnding,
         final SpreadsheetEngineHateosResourceHandlerContext context) {
 
-        this.engine = engine;
         this.indentation = indentation;
         this.lineEnding = lineEnding;
         this.context = context;
@@ -139,7 +134,6 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
         }
     }
 
-    private final SpreadsheetEngine engine;
     private final Indentation indentation;
     private final LineEnding lineEnding;
     private final SpreadsheetEngineHateosResourceHandlerContext context;
