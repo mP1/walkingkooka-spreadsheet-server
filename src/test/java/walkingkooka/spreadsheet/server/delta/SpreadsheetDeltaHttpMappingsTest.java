@@ -105,8 +105,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
-    private final static int DEFAULT_MAX = 999;
-
     // cell.............................................................................................................
 
 //    SpreadsheetDeltaHttpMappings.cell(
@@ -123,7 +121,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             NullPointerException.class,
             () -> SpreadsheetDeltaHttpMappings.cell(
                 null,
-                DEFAULT_MAX,
                 INDENTATION,
                 LINE_ENDING,
                 SpreadsheetEngineHateosResourceHandlerContexts.fake()
@@ -367,7 +364,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         this.routeAndCheck(
             SpreadsheetDeltaHttpMappings.cell(
                 this.engine(),
-                DEFAULT_MAX,
                 INDENTATION,
                 LINE_ENDING,
                 context
@@ -389,7 +385,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         return this.route(
             SpreadsheetDeltaHttpMappings.cell(
                 this.engine(),
-                DEFAULT_MAX,
                 INDENTATION,
                 LINE_ENDING,
                 context
