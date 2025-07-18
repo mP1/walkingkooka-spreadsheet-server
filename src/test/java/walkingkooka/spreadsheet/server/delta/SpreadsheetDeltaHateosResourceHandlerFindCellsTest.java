@@ -53,22 +53,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerFindCells,
     SpreadsheetCellReference> {
-
-    private final static int DEFAULT_COUNT = 99;
-
-    @Test
-    public void testWithNegativeDefaultCount() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                -1
-            )
-        );
-    }
 
     private final static SpreadsheetCellRangeReferencePath PATH = SpreadsheetCellRangeReferencePath.LRTD;
     private final static int OFFSET = 12;
@@ -98,9 +84,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final Expression expression = EXPRESSION;
 
         this.handleOneAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                99
-            ),
             b2, // reference
             Optional.empty(), // resource
             Maps.of(
@@ -196,9 +179,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final Expression expression = EXPRESSION;
 
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                99
-            ),
             range.range(), // reference
             Optional.empty(), // resource
             Maps.of(
@@ -294,9 +274,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final Expression expression = EXPRESSION;
 
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                99
-            ),
             range.range(), // reference
             Optional.empty(), // resource
             Maps.of(
@@ -409,9 +386,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         };
 
         this.handleRangeAndCheck(
-            SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                DEFAULT_COUNT
-            ),
             range.range(), // reference
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS, // parameters
@@ -431,7 +405,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         checkEquals(range, r, "range");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_CELL_RANGE_PATH, p, "path");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_OFFSET, o, "offset");
-                        checkEquals(DEFAULT_COUNT, c, "count");
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_COUNT, c, "count");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_VALUE_TYPE, v, "valueType");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_QUERY, e, "expression");
 
@@ -459,9 +433,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
     @Override
     public SpreadsheetDeltaHateosResourceHandlerFindCells createHandler() {
-        return SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-            DEFAULT_COUNT
-        );
+        return SpreadsheetDeltaHateosResourceHandlerFindCells.INSTANCE;
     }
 
     @Override
