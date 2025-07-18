@@ -153,8 +153,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         ValidatorName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
-    public final static int DEFAULT_DECIMAL_NUMBER_SYMBOLS_COUNT = 10;
-
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
@@ -300,7 +298,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_DECIMAL_NUMBER_SYMBOLS),
                 httpHandler(
                     this.decimalNumberSymbolsRouter(
-                        DEFAULT_DECIMAL_NUMBER_SYMBOLS_COUNT,
                         this.localeHateosResourceHandlerContext
                     )
                 )
@@ -404,13 +401,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter(final int defaultCount,
-                                                                                    final LocaleHateosResourceHandlerContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter(final LocaleHateosResourceHandlerContext context) {
         return this.localeHateosResourceHandlerContext(
-            DecimalNumberSymbolsHateosResourceMappings.mappings(
-                defaultCount,
-                context
-            )
+            DecimalNumberSymbolsHateosResourceMappings.mappings(context)
         );
     }
 

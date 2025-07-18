@@ -42,19 +42,15 @@ import java.util.SortedSet;
  */
 final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHandler {
 
-    static DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith with(final int defaultCount,
-                                                                      final LocaleHateosResourceHandlerContext context) {
+    static DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith with(final LocaleHateosResourceHandlerContext context) {
         return new DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith(
-            defaultCount,
             Objects.requireNonNull(context, "context")
         );
     }
 
-    private DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith(final int defaultCount,
-                                                                  final LocaleHateosResourceHandlerContext context) {
+    private DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith(final LocaleHateosResourceHandlerContext context) {
         super();
 
-        this.defaultCount = defaultCount;
         this.context = context;
     }
 
@@ -85,7 +81,7 @@ final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith implements Htt
         final int offset = SpreadsheetUrlQueryParameters.offset(request.routerParameters())
             .orElse(0);
         final int count = SpreadsheetUrlQueryParameters.count(request.routerParameters())
-            .orElse(this.defaultCount);
+            .orElse(DEFAULT_COUNT);
 
         for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
             final DecimalNumberSymbols decimalNumberSymbols = context.decimalNumberSymbolsForLocale(locale)
@@ -118,7 +114,7 @@ final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith implements Htt
         );
     }
 
-    private final int defaultCount;
+    private final static int DEFAULT_COUNT = 10;
 
     private final LocaleHateosResourceHandlerContext context;
 

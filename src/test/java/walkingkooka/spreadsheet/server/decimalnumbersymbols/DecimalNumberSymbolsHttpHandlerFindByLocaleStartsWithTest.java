@@ -155,7 +155,6 @@ public final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWithTest imp
     @Override
     public DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith createHttpHandler() {
         return DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith.with(
-            10,
             new FakeLocaleHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
