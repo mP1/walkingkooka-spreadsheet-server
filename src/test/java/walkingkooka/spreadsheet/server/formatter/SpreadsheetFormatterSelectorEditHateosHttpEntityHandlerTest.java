@@ -362,7 +362,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest i
 
     @Override
     public SpreadsheetFormatterSelectorEditHateosHttpEntityHandler createHandler() {
-        return SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.instance();
+        return SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.INSTANCE;
     }
 
     @Override
