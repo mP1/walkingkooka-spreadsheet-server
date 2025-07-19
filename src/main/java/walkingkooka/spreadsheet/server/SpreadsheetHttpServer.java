@@ -381,7 +381,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> comparatorRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
-            SpreadsheetComparatorHateosResourceMappings.comparator()
+            SpreadsheetComparatorHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
