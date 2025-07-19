@@ -72,8 +72,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetCell,
         SpreadsheetEngineHateosResourceHandlerContext> cell(final Indentation indentation,
-                                                            final LineEnding lineEnding,
-                                                            final SpreadsheetEngineHateosResourceHandlerContext handlerContext) {
+                                                            final LineEnding lineEnding) {
         // cell GET, POST...............................................................................................
 
         HateosResourceMappings<SpreadsheetCellReference,

@@ -345,18 +345,15 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final String body,
                                    final HttpStatusCode statusCode,
                                    final String message) {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
-
         this.routeAndCheck(
             SpreadsheetDeltaHttpMappings.cell(
                 INDENTATION,
-                LINE_ENDING,
-                context
+                LINE_ENDING
             ),
             method,
             url,
             body,
-            context,
+            this.context(),
             statusCode,
             message
         );
@@ -365,18 +362,15 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     private HttpResponse routeCell(final HttpMethod method,
                                    final String url,
                                    final String body) {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
-
         return this.route(
             SpreadsheetDeltaHttpMappings.cell(
                 INDENTATION,
-                LINE_ENDING,
-                context
+                LINE_ENDING
             ),
             method,
             url,
             body,
-            context
+            this.context()
         );
     }
 
