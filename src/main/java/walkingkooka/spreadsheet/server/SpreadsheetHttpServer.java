@@ -393,7 +393,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
         return this.localeHateosResourceHandlerContext(
-            DateTimeSymbolsHateosResourceMappings.mappings()
+            DateTimeSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 
