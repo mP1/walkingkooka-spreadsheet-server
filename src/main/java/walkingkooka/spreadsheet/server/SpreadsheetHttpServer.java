@@ -447,7 +447,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> validatorRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
-            ValidationHateosResourceMappings.mappings()
+            ValidationHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
