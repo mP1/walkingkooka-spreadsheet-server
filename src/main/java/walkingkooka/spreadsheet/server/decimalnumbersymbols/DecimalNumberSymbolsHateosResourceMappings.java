@@ -32,7 +32,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
         DecimalNumberSymbolsHateosResource,
         DecimalNumberSymbolsHateosResourceSet,
         DecimalNumberSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> mappings() {
+        LocaleHateosResourceHandlerContext> localeHateosResourceHandlerContext() {
 
         return HateosResourceMappings.with(
             DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME,

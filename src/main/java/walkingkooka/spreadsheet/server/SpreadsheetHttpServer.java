@@ -399,7 +399,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
         return this.localeHateosResourceHandlerContext(
-            DecimalNumberSymbolsHateosResourceMappings.mappings()
+            DecimalNumberSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 
