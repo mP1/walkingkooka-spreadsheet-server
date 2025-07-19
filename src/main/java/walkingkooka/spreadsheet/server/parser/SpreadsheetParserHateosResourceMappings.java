@@ -36,7 +36,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
         SpreadsheetParserInfo,
         SpreadsheetParserInfoSet,
         SpreadsheetParserInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProvider() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // parser GET...............................................................................................
 
