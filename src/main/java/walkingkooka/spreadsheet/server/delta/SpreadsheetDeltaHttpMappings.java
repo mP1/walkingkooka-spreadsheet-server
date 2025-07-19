@@ -18,7 +18,6 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -67,10 +66,6 @@ import java.util.stream.Collectors;
  */
 public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
-    public final static UrlPathName FORMATTER_EDIT = UrlPathName.with("formatter-edit");
-
-    public final static UrlPathName FORMATTER_MENU = UrlPathName.with("formatter-menu");
-
     // cell.............................................................................................................
 
     public static HateosResourceMappings<SpreadsheetCellReference,
@@ -111,10 +106,12 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             HttpMethod.PATCH,
             SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.INSTANCE
         ).setHateosHttpHandler(
-            FORMATTER_EDIT,
+            SpreadsheetServerLinkRelations.FORMATTER_EDIT.toUrlPathName()
+                .get(),
             SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandler()
         ).setHateosHttpHandler(
-            FORMATTER_MENU,
+            SpreadsheetServerLinkRelations.FORMATTER_MENU.toUrlPathName()
+                .get(),
             SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterMenuHateosHttpHandler()
         );
 
