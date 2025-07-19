@@ -417,7 +417,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> formHandlerRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
-            FormHandlerHateosResourceMappings.mappings()
+            FormHandlerHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
