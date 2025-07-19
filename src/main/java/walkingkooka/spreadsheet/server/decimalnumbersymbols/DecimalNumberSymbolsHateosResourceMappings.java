@@ -32,7 +32,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
         DecimalNumberSymbolsHateosResource,
         DecimalNumberSymbolsHateosResourceSet,
         DecimalNumberSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> mappings(final LocaleHateosResourceHandlerContext context) {
+        LocaleHateosResourceHandlerContext> mappings() {
 
         return HateosResourceMappings.with(
             DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME,
@@ -45,10 +45,10 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
             LinkRelation.SELF,
             HttpMethod.GET,
             DecimalNumberSymbolsHateosResourceHandlerLoad.INSTANCE
-        ).setHttpHandler(
+        ).setHateosHttpHandler(
             SpreadsheetServerLinkRelations.LOCALE_STARTS_WITH.toUrlPathName()
                 .get(),
-            DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith.with(context)
+            DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE
         );
     }
 

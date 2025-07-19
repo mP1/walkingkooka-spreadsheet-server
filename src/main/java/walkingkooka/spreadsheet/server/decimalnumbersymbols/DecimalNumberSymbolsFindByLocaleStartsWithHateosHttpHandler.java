@@ -15,10 +15,10 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.datetimesymbols;
+package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
 import walkingkooka.collect.set.SortedSets;
-import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -27,6 +27,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
@@ -38,27 +39,23 @@ import java.util.Objects;
 import java.util.SortedSet;
 
 /**
- * A {@link HttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DateTimeSymbols} for each.
+ * A {@link HttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DecimalNumberSymbols} for each.
  */
-final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHandler {
+final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler implements HateosHttpHandler<LocaleHateosResourceHandlerContext> {
 
-    static DateTimeSymbolsHttpHandlerFindByLocaleStartsWith with(final LocaleHateosResourceHandlerContext context) {
-        return new DateTimeSymbolsHttpHandlerFindByLocaleStartsWith(
-            Objects.requireNonNull(context, "context")
-        );
-    }
+    final static DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler INSTANCE =  new DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler();
 
-    private DateTimeSymbolsHttpHandlerFindByLocaleStartsWith(final LocaleHateosResourceHandlerContext context) {
+    private DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler() {
         super();
-
-        this.context = context;
     }
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final LocaleHateosResourceHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         final MediaType requiredContentType = context.contentType();
 
@@ -69,14 +66,12 @@ final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHand
             .path()
             .namesList();
 
-        final LocaleHateosResourceHandlerContext context = this.context;
-
-        // /api/dateTimeSymbols/*/localeStartsWith/StartsWithString
+        // /api/decimalNumberSymbols/*/localeStartsWith/StartsWithString
         // 01   2               3 4                5
         final String startsWith = names.get(5)
             .value();
 
-        final SortedSet<DateTimeSymbolsHateosResource> all = SortedSets.tree();
+        final SortedSet<DecimalNumberSymbolsHateosResource> all = SortedSets.tree();
 
         final int offset = SpreadsheetUrlQueryParameters.offset(request.routerParameters())
             .orElse(0);
@@ -84,14 +79,14 @@ final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHand
             .orElse(DEFAULT_COUNT);
 
         for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
-            final DateTimeSymbols dateTimeSymbols = context.dateTimeSymbolsForLocale(locale)
+            final DecimalNumberSymbols decimalNumberSymbols = context.decimalNumberSymbolsForLocale(locale)
                 .orElse(null);
 
-            if (null != dateTimeSymbols) {
+            if (null != decimalNumberSymbols) {
                 all.add(
-                    DateTimeSymbolsHateosResource.with(
+                    DecimalNumberSymbolsHateosResource.with(
                         LocaleTag.with(locale),
-                        dateTimeSymbols
+                        decimalNumberSymbols
                     )
                 );
             }
@@ -105,10 +100,10 @@ final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHand
                 context.contentType()
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                DateTimeSymbolsHateosResourceSet.class.getSimpleName()
+                DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
             ).setBodyText(
                 context.marshall(
-                    DateTimeSymbolsHateosResourceSet.with(all)
+                    DecimalNumberSymbolsHateosResourceSet.with(all)
                 ).toString()
             ).setContentLength()
         );
@@ -116,10 +111,8 @@ final class DateTimeSymbolsHttpHandlerFindByLocaleStartsWith implements HttpHand
 
     private final static int DEFAULT_COUNT = 10;
 
-    private final LocaleHateosResourceHandlerContext context;
-
     @Override
     public String toString() {
-        return this.context.toString();
+        return this.getClass().getSimpleName();
     }
 }

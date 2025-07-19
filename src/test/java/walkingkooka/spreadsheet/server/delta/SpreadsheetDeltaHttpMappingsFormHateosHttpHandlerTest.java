@@ -17,28 +17,34 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.net.http.server.HttpHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosHttpHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements HttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHttpHandler> {
+public final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandlerTest implements HateosHttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHateosHttpHandler,
+    SpreadsheetEngineHateosResourceHandlerContext> {
 
     @Override
-    public SpreadsheetDeltaHttpMappingsFormHttpHandler createHttpHandler() {
-        return SpreadsheetDeltaHttpMappingsFormHttpHandler.with(
+    public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHandler() {
+        return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.with(
             Indentation.SPACES2,
-            LineEnding.NL,
-            SpreadsheetEngineHateosResourceHandlerContexts.fake()
+            LineEnding.NL
         );
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetDeltaHttpMappingsFormHttpHandler> type() {
-        return SpreadsheetDeltaHttpMappingsFormHttpHandler.class;
+    public Class<SpreadsheetDeltaHttpMappingsFormHateosHttpHandler> type() {
+        return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.class;
     }
 
     @Override

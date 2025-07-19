@@ -130,12 +130,11 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetDeltaHateosResourceHandlerFindCells.INSTANCE
         );
 
-        cell = cell.setHttpHandler(
+        cell = cell.setHateosHttpHandler(
             FormName.HATEOS_RESOURCE_NAME.toUrlPathName(),
-            SpreadsheetDeltaHttpMappingsFormHttpHandler.with(
+            SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.with(
                 indentation,
-                lineEnding,
-                handlerContext
+                lineEnding
             )
         );
 
