@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -28,9 +29,22 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 public final class SpreadsheetFormatterHateosResourceMappings implements PublicStaticHelper {
+
+    /**
+     * {@see SpreadsheetFormatterSelectorEditHateosHttpHandler}
+     */
+    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandler() {
+        return SpreadsheetFormatterSelectorEditHateosHttpHandler.INSTANCE;
+    }
+
+    /**
+     * {@see SpreadsheetFormatterMenuHateosHttpHandler}
+     */
+    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterMenuHateosHttpHandler() {
+        return SpreadsheetFormatterMenuHateosHttpHandler.INSTANCE;
+    }
 
     public static HateosResourceMappings<SpreadsheetFormatterName,
         SpreadsheetFormatterInfo,
@@ -49,31 +63,6 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             LinkRelation.SELF,
             HttpMethod.GET,
             SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
-        );
-    }
-
-    // spreadsheetEngineHateosResourceHandlerContext....................................................................
-
-    public static HateosResourceMappings<SpreadsheetFormatterName,
-        SpreadsheetFormatterInfo,
-        SpreadsheetFormatterInfoSet,
-        SpreadsheetFormatterInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> spreadsheetEngineHateosResourceHandlerContext() {
-        return HateosResourceMappings.with(
-            SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
-            SpreadsheetFormatterHateosResourceMappings::parseSelection,
-            SpreadsheetFormatterInfo.class, // valueType
-            SpreadsheetFormatterInfoSet.class, // collectionType
-            SpreadsheetFormatterInfo.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class
-        ).setHateosHttpHandler(
-            SpreadsheetServerLinkRelations.EDIT.toUrlPathName()
-                .get(),
-            SpreadsheetFormatterSelectorEditHateosHttpHandler.INSTANCE
-        ).setHateosHttpHandler(
-            SpreadsheetServerLinkRelations.MENU.toUrlPathName()
-                .get(),
-            SpreadsheetFormatterMenuHateosHttpHandler.INSTANCE
         );
     }
 

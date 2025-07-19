@@ -10305,7 +10305,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/*/edit/date-format-pattern%20yyyy/mm/ddd",
+            "/api/spreadsheet/1/cell/A1/formatter-edit/date-format-pattern%20yyyy/mm/ddd",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -10452,7 +10452,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/formatter/*/menu",
+            "/api/spreadsheet/1/cell/A1/formatter-menu",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
