@@ -32,7 +32,7 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
         DateTimeSymbolsHateosResource,
         DateTimeSymbolsHateosResourceSet,
         DateTimeSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> mappings() {
+        LocaleHateosResourceHandlerContext> localeHateosResourceHandlerContext() {
 
         return HateosResourceMappings.with(
             DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME,
