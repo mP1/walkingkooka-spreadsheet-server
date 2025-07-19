@@ -304,18 +304,18 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     id.toString()
                 )
             );
-        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+        final SpreadsheetMetadata spreadsheetMetadata = context.spreadsheetMetadata();
 
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
             engine,
             HateosResourceHandlerContexts.basic(
                 JsonNodeMarshallUnmarshallContexts.basic(
-                    metadata.jsonNodeMarshallContext(),
-                    metadata.jsonNodeUnmarshallContext()
+                    spreadsheetMetadata.jsonNodeMarshallContext(),
+                    spreadsheetMetadata.jsonNodeUnmarshallContext()
                 )
             ),
             context,
-            metadata.spreadsheetFormatterContext(
+            spreadsheetMetadata.spreadsheetFormatterContext(
                 SpreadsheetMetadata.NO_CELL,
                 (final Optional<Object> v) -> context.spreadsheetEngineContext(SpreadsheetMetadataPropertyName.FORMATTING_FUNCTIONS)
                     .spreadsheetExpressionEvaluationContext(
@@ -354,7 +354,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetMetadataPropertyNameHateosResource,
-            SpreadsheetEngineHateosResourceHandlerContext> metadataMappings = SpreadsheetMetadataPropertyNameHateosResourceMappings.spreadsheetEngineHateosResourceHandlerContext();
+            SpreadsheetEngineHateosResourceHandlerContext> metadata = SpreadsheetMetadataPropertyNameHateosResourceMappings.spreadsheetEngineHateosResourceHandlerContext();
 
         final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.engine();
 
@@ -367,7 +367,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 column,
                 form,
                 label,
-                metadataMappings,
+                metadata,
                 parser, // /parser
                 row
             ),
