@@ -18,6 +18,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -48,6 +49,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
@@ -64,6 +66,10 @@ import java.util.stream.Collectors;
  * A collection of factory methods to create various {@link HateosResourceHandler}.
  */
 public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
+
+    final static UrlPathName FORMATTER_EDIT = UrlPathName.with("formatter-edit");
+
+    final static UrlPathName FORMATTER_MENU = UrlPathName.with("formatter-menu");
 
     // cell.............................................................................................................
 
@@ -104,6 +110,12 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             LinkRelation.SELF,
             HttpMethod.PATCH,
             SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.INSTANCE
+        ).setHateosHttpHandler(
+            FORMATTER_EDIT,
+            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandler()
+        ).setHateosHttpHandler(
+            FORMATTER_MENU,
+            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterMenuHateosHttpHandler()
         );
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
