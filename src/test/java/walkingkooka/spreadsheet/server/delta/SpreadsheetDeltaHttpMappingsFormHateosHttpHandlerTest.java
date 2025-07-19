@@ -28,7 +28,7 @@ public final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandlerTest impleme
     SpreadsheetEngineHateosResourceHandlerContext> {
 
     @Override
-    public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHandler() {
+    public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHateosHttpHandler() {
         return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.with(
             Indentation.SPACES2,
             LineEnding.NL
