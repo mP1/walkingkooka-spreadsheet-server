@@ -56,14 +56,10 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
         }
     }
 
-    static SpreadsheetFormatterSelectorEditHateosHttpEntityHandler instance() {
-        return INSTANCE;
-    }
-
     /**
      * Singleton
      */
-    private final static SpreadsheetFormatterSelectorEditHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterSelectorEditHateosHttpEntityHandler();
+    final static SpreadsheetFormatterSelectorEditHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterSelectorEditHateosHttpEntityHandler();
 
     private SpreadsheetFormatterSelectorEditHateosHttpEntityHandler() {
     }
