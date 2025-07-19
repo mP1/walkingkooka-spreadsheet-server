@@ -57,14 +57,10 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
         ); // force json registry
     }
 
-    static SpreadsheetFormatterMenuHateosHttpEntityHandler instance() {
-        return INSTANCE;
-    }
-
     /**
      * Singleton
      */
-    private final static SpreadsheetFormatterMenuHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterMenuHateosHttpEntityHandler();
+    final static SpreadsheetFormatterMenuHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterMenuHateosHttpEntityHandler();
 
     private SpreadsheetFormatterMenuHateosHttpEntityHandler() {
     }
