@@ -290,16 +290,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
             ).add(
                 this.routing(API_DATE_TIME_SYMBOLS),
                 httpHandler(
-                    this.dateTimeSymbolsRouter(
-                        this.localeHateosResourceHandlerContext
-                    )
+                    this.dateTimeSymbolsRouter()
                 )
             ).add(
                 this.routing(API_DECIMAL_NUMBER_SYMBOLS),
                 httpHandler(
-                    this.decimalNumberSymbolsRouter(
-                        this.localeHateosResourceHandlerContext
-                    )
+                    this.decimalNumberSymbolsRouter()
                 )
             ).add(
                 this.routing(API_EXPORTER),
@@ -395,15 +391,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter(final LocaleHateosResourceHandlerContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
         return this.localeHateosResourceHandlerContext(
-            DateTimeSymbolsHateosResourceMappings.mappings(context)
+            DateTimeSymbolsHateosResourceMappings.mappings()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter(final LocaleHateosResourceHandlerContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
         return this.localeHateosResourceHandlerContext(
-            DecimalNumberSymbolsHateosResourceMappings.mappings(context)
+            DecimalNumberSymbolsHateosResourceMappings.mappings()
         );
     }
 

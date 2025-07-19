@@ -32,7 +32,7 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
         DateTimeSymbolsHateosResource,
         DateTimeSymbolsHateosResourceSet,
         DateTimeSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> mappings(final LocaleHateosResourceHandlerContext context) {
+        LocaleHateosResourceHandlerContext> mappings() {
 
         return HateosResourceMappings.with(
             DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME,
@@ -45,10 +45,10 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
             LinkRelation.SELF,
             HttpMethod.GET,
             DateTimeSymbolsHateosResourceHandlerLoad.INSTANCE
-        ).setHttpHandler(
+        ).setHateosHttpHandler(
             SpreadsheetServerLinkRelations.LOCALE_STARTS_WITH.toUrlPathName()
                 .get(),
-            DateTimeSymbolsHttpHandlerFindByLocaleStartsWith.with(context)
+            DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE
         );
     }
 

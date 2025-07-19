@@ -25,22 +25,23 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.hateos.HateosHttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWithTest implements HttpHandlerTesting<DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith>,
+public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTest implements HateosHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler, LocaleHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -94,6 +95,7 @@ public final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWithTest imp
         );
 
         this.handleAndCheck(
+            this.createHandler(),
             HttpRequests.get(
                 HttpTransport.UNSECURED,
                 Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=0&count=2"),
@@ -102,6 +104,7 @@ public final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWithTest imp
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 )
             ),
+            this.context(),
             response
         );
     }
@@ -140,6 +143,7 @@ public final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWithTest imp
         );
 
         this.handleAndCheck(
+            this.createHandler(),
             HttpRequests.get(
                 HttpTransport.UNSECURED,
                 Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=7&count=1"),
@@ -148,45 +152,49 @@ public final class DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWithTest imp
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 )
             ),
+            this.context(),
             response
         );
     }
 
     @Override
-    public DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith createHttpHandler() {
-        return DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith.with(
-            new FakeLocaleHateosResourceHandlerContext() {
-                @Override
-                public MediaType contentType() {
-                    return SpreadsheetServerMediaTypes.CONTENT_TYPE;
-                }
+    public DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler createHandler() {
+        return DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
+    }
 
-                @Override
-                public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
-                    return LOCALE_CONTEXT.decimalNumberSymbolsForLocale(locale);
-                }
-
-                @Override
-                public Set<Locale> findByLocaleText(final String text,
-                                                    final int offset,
-                                                    final int count) {
-                    return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
-                }
-
-                @Override
-                public JsonNode marshall(final Object value) {
-                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
-                }
-
+    @Override
+    public LocaleHateosResourceHandlerContext context() {
+        return new FakeLocaleHateosResourceHandlerContext() {
+            @Override
+            public MediaType contentType() {
+                return SpreadsheetServerMediaTypes.CONTENT_TYPE;
             }
-        );
+
+            @Override
+            public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+                return LOCALE_CONTEXT.decimalNumberSymbolsForLocale(locale);
+            }
+
+            @Override
+            public Set<Locale> findByLocaleText(final String text,
+                                                final int offset,
+                                                final int count) {
+                return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
+            }
+
+            @Override
+            public JsonNode marshall(final Object value) {
+                return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
+            }
+
+        };
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith> type() {
-        return DecimalNumberSymbolsHttpHandlerFindByLocaleStartsWith.class;
+    public Class<DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler> type() {
+        return DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.class;
     }
 
     @Override

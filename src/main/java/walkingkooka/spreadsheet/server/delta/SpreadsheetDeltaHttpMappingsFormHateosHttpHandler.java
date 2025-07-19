@@ -25,6 +25,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -41,33 +42,31 @@ import java.util.Objects;
 /**
  * Glue that handles dispatching to {@link walkingkooka.net.http.server.hateos.HateosResourceHandler} for forms.
  */
-final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
+final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHttpMappingsFormHttpHandler with(final Indentation indentation,
-                                                            final LineEnding lineEnding,
-                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return new SpreadsheetDeltaHttpMappingsFormHttpHandler(
+    static SpreadsheetDeltaHttpMappingsFormHateosHttpHandler with(final Indentation indentation,
+                                                                  final LineEnding lineEnding) {
+        return new SpreadsheetDeltaHttpMappingsFormHateosHttpHandler(
             indentation,
-            lineEnding,
-            context
+            lineEnding
         );
     }
 
-    private SpreadsheetDeltaHttpMappingsFormHttpHandler(
+    private SpreadsheetDeltaHttpMappingsFormHateosHttpHandler(
         final Indentation indentation,
-        final LineEnding lineEnding,
-        final SpreadsheetEngineHateosResourceHandlerContext context) {
+        final LineEnding lineEnding) {
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
-        this.context = context;
     }
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         // extract cell from path
         final UrlPath path = request.url()
@@ -118,7 +117,7 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
                         ),
                         this.indentation,
                         this.lineEnding,
-                        this.context
+                        context
                     ).route(
                         request.routerParameters()
                     ).ifPresent(
@@ -136,7 +135,6 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
 
     private final Indentation indentation;
     private final LineEnding lineEnding;
-    private final SpreadsheetEngineHateosResourceHandlerContext context;
 
     @Override
     public String toString() {
