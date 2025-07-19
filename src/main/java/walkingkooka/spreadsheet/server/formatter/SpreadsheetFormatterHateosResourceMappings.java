@@ -36,7 +36,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         SpreadsheetFormatterInfo,
         SpreadsheetFormatterInfoSet,
         SpreadsheetFormatterInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProvider() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         return HateosResourceMappings.with(
             SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
