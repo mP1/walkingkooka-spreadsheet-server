@@ -95,7 +95,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
         );
 
         this.handleAndCheck(
-            this.createHandler(),
+            this.createHateosHttpHandler(),
             HttpRequests.get(
                 HttpTransport.UNSECURED,
                 Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=0&count=2"),
@@ -143,7 +143,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
         );
 
         this.handleAndCheck(
-            this.createHandler(),
+            this.createHateosHttpHandler(),
             HttpRequests.get(
                 HttpTransport.UNSECURED,
                 Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=7&count=1"),
@@ -158,7 +158,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
     }
 
     @Override
-    public DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler createHandler() {
+    public DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler createHateosHttpHandler() {
         return DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
     }
 

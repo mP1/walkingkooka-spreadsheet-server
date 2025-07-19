@@ -171,7 +171,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
         );
 
         this.handleAndCheck(
-            this.createHandler(),
+            this.createHateosHttpHandler(),
             HttpRequests.get(
                 HttpTransport.UNSECURED,
                 Url.parseRelative("/api/dateTimeSymbols/*/localeStartsWith/English?offset=0&count=2"),
@@ -257,7 +257,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
         );
 
         this.handleAndCheck(
-            this.createHandler(),
+            this.createHateosHttpHandler(),
             HttpRequests.get(
                 HttpTransport.UNSECURED,
                 Url.parseRelative("/api/dateTimeSymbols/*/localeStartsWith/English?offset=7&count=1"),
@@ -272,7 +272,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
     }
 
     @Override
-    public DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler createHandler() {
+    public DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler createHateosHttpHandler() {
         return DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
     }
 
