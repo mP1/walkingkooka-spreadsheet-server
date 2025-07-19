@@ -36,7 +36,7 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
         SpreadsheetComparatorInfo,
         SpreadsheetComparatorInfoSet,
         SpreadsheetComparatorInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> comparator() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // comparator GET...............................................................................................
 
