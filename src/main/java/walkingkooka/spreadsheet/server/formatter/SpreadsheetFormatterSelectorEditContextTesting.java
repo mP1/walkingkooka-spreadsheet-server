@@ -17,11 +17,11 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextTesting;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextTesting2;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderTesting;
 
 public interface SpreadsheetFormatterSelectorEditContextTesting<C extends SpreadsheetFormatterSelectorEditContext> extends SpreadsheetFormatterProviderTesting<C>,
-    SpreadsheetFormatterContextTesting<C> {
+    SpreadsheetFormatterContextTesting2<C> {
 
     @Override
     default C createSpreadsheetFormatterProvider() {
