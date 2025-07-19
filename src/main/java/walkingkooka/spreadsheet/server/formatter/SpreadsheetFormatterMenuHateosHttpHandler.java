@@ -18,33 +18,26 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
+import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * A handler that returns all available {@link SpreadsheetFormatterSelectorMenu}
  */
-final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetFormatterSelectorMenuList.with(
@@ -60,26 +53,24 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
     /**
      * Singleton
      */
-    final static SpreadsheetFormatterMenuHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterMenuHateosHttpEntityHandler();
+    final static SpreadsheetFormatterMenuHateosHttpHandler INSTANCE = new SpreadsheetFormatterMenuHateosHttpHandler();
 
-    private SpreadsheetFormatterMenuHateosHttpEntityHandler() {
+    private SpreadsheetFormatterMenuHateosHttpHandler() {
     }
 
     @Override
-    public HttpEntity handleAll(final HttpEntity httpEntity,
-                                final Map<HttpRequestAttribute<?>, Object> parameters,
-                                final UrlPath path,
-                                final SpreadsheetEngineHateosResourceHandlerContext context) {
-        HateosHttpEntityHandler.checkHttpEntity(httpEntity);
-        HateosHttpEntityHandler.checkParameters(parameters);
-        HateosHttpEntityHandler.checkPathEmpty(path);
-        HateosHttpEntityHandler.checkContext(context);
+    public void handle(final HttpRequest request,
+                       final HttpResponse response,
+                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         final MediaType requiredContentType = context.contentType();
-        HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
+        HttpHeaderName.ACCEPT.headerOrFail(request)
             .testOrFail(requiredContentType);
 
-        final SpreadsheetFormatterSelectorMenuList response = SpreadsheetFormatterSelectorMenu.prepare(
+        final SpreadsheetFormatterSelectorMenuList menuList = SpreadsheetFormatterSelectorMenu.prepare(
             SpreadsheetFormatterSelectorMenuContexts.basic(
                 context, // SpreadsheetFormatProvider
                 SpreadsheetFormatterProviderSamplesContexts.basic(
@@ -98,15 +89,18 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
         );
 
         // write TextNodes as JSON response
-        return HttpEntity.EMPTY.setContentType(
-            requiredContentType.setCharset(CharsetName.UTF_8)
-        ).addHeader(
-            HateosResourceMappings.X_CONTENT_TYPE_NAME,
-            response.getClass().getSimpleName()
-        ).setBodyText(
-            context.marshall(response)
-                .toString()
-        ).setContentLength();
+        response.setStatus(HttpStatusCode.OK.status());
+        response.setEntity(
+            HttpEntity.EMPTY.setContentType(
+                requiredContentType.setCharset(CharsetName.UTF_8)
+            ).addHeader(
+                HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                menuList.getClass().getSimpleName()
+            ).setBodyText(
+                context.marshall(menuList)
+                    .toString()
+            ).setContentLength()
+        );
     }
 
     @Override
