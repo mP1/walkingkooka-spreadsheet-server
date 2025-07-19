@@ -38,7 +38,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
         ExpressionFunctionInfo,
         ExpressionFunctionInfoSet,
         ExpressionFunctionInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> mappings() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // function GET...............................................................................................
 
