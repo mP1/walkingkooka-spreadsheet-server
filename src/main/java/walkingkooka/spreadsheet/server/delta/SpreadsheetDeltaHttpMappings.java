@@ -67,9 +67,9 @@ import java.util.stream.Collectors;
  */
 public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
-    final static UrlPathName FORMATTER_EDIT = UrlPathName.with("formatter-edit");
+    public final static UrlPathName FORMATTER_EDIT = UrlPathName.with("formatter-edit");
 
-    final static UrlPathName FORMATTER_MENU = UrlPathName.with("formatter-menu");
+    public final static UrlPathName FORMATTER_MENU = UrlPathName.with("formatter-menu");
 
     // cell.............................................................................................................
 
