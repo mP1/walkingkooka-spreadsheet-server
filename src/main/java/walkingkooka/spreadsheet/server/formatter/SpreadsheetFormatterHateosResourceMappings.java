@@ -23,15 +23,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
-
-import java.util.Objects;
 
 public final class SpreadsheetFormatterHateosResourceMappings implements PublicStaticHelper {
 
@@ -55,15 +52,13 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         );
     }
 
-    // engine...........................................................................................................
+    // spreadsheetEngineHateosResourceHandlerContext....................................................................
 
     public static HateosResourceMappings<SpreadsheetFormatterName,
         SpreadsheetFormatterInfo,
         SpreadsheetFormatterInfoSet,
         SpreadsheetFormatterInfo,
-        SpreadsheetEngineHateosResourceHandlerContext> engine(final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(context, "context");
-
+        SpreadsheetEngineHateosResourceHandlerContext> spreadsheetEngineHateosResourceHandlerContext() {
         return HateosResourceMappings.with(
             SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
             SpreadsheetFormatterHateosResourceMappings::parseSelection,
