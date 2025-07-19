@@ -41,7 +41,7 @@ final class PluginHttpMappings implements StaticHelper {
         Plugin,
         PluginSet,
         Plugin,
-        PluginHateosResourceHandlerContext> plugin() {
+        PluginHateosResourceHandlerContext> pluginHateosResourceHandlerContext() {
 
         // plugin ......................................................................................................
 
@@ -128,7 +128,7 @@ final class PluginHttpMappings implements StaticHelper {
         return HateosResourceMappings.router(
             basePath,
             Sets.of(
-                PluginHttpMappings.plugin()
+                PluginHttpMappings.pluginHateosResourceHandlerContext()
             ),
             indentation,
             lineEnding,
