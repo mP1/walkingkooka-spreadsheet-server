@@ -387,7 +387,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> converterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
-            ConverterHateosResourceMappings.converter()
+            ConverterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 

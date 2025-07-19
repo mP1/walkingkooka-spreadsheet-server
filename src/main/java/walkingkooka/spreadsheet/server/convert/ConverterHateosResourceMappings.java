@@ -36,7 +36,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
         ConverterInfo,
         ConverterInfoSet,
         ConverterInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> converter() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // converter GET...............................................................................................
 
