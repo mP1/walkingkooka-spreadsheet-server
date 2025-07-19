@@ -36,7 +36,7 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
         SpreadsheetExporterInfo,
         SpreadsheetExporterInfoSet,
         SpreadsheetExporterInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> exporter() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // exporter GET...............................................................................................
 
