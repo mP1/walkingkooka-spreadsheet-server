@@ -441,7 +441,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> parserRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
-            SpreadsheetParserHateosResourceMappings.spreadsheetProvider()
+            SpreadsheetParserHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
