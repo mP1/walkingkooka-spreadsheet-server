@@ -34,7 +34,7 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
         FormHandlerInfo,
         FormHandlerInfoSet,
         FormHandlerInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> mappings() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // formHandler GET...............................................................................................
 
