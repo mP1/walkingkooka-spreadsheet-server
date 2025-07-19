@@ -309,7 +309,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
 
     @Override
     public SpreadsheetFormatterMenuHateosHttpEntityHandler createHandler() {
-        return SpreadsheetFormatterMenuHateosHttpEntityHandler.instance();
+        return SpreadsheetFormatterMenuHateosHttpEntityHandler.INSTANCE;
     }
 
     @Override
