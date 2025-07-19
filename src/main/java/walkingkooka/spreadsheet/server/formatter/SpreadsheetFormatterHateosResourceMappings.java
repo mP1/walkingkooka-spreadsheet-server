@@ -66,10 +66,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             SpreadsheetFormatterInfoSet.class, // collectionType
             SpreadsheetFormatterInfo.class,// resourceType
             SpreadsheetEngineHateosResourceHandlerContext.class
-        ).setHateosHttpEntityHandler(
-            SpreadsheetServerLinkRelations.EDIT,
-            HttpMethod.GET,
-            SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.INSTANCE
+        ).setHateosHttpHandler(
+            SpreadsheetServerLinkRelations.EDIT.toUrlPathName()
+                .get(),
+            SpreadsheetFormatterSelectorEditHateosHttpHandler.INSTANCE
         ).setHateosHttpHandler(
             SpreadsheetServerLinkRelations.MENU.toUrlPathName()
                 .get(),
