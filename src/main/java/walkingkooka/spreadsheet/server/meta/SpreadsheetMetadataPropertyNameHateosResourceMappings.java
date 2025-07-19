@@ -34,7 +34,7 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
         SpreadsheetMetadataPropertyNameHateosResource,
         SpreadsheetMetadataPropertyNameHateosResource,
         SpreadsheetMetadataPropertyNameHateosResource,
-        SpreadsheetEngineHateosResourceHandlerContext> metadata() {
+        SpreadsheetEngineHateosResourceHandlerContext> spreadsheetEngineHateosResourceHandlerContext() {
 
         // /api/spreadsheet/SpreadsheetId/metadata/FormulaConverter/verify
         return HateosResourceMappings.with(

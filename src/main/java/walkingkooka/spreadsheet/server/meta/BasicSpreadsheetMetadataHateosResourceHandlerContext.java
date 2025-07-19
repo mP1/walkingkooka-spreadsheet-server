@@ -359,7 +359,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetMetadataPropertyNameHateosResource,
-            SpreadsheetEngineHateosResourceHandlerContext> metadataMappings = SpreadsheetMetadataPropertyNameHateosResourceMappings.metadata();
+            SpreadsheetEngineHateosResourceHandlerContext> metadataMappings = SpreadsheetMetadataPropertyNameHateosResourceMappings.spreadsheetEngineHateosResourceHandlerContext();
 
         final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.engine();
 
