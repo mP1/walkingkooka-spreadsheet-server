@@ -272,7 +272,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             )
         );
 
-        return this.cellColumnProvidersRowViewportRouter(
+        return this.mappings(
             id,
             engine,
             context,
@@ -293,10 +293,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private final ProviderContext providerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnProvidersRowViewportRouter(final SpreadsheetId id,
-                                                                                              final SpreadsheetEngine engine,
-                                                                                              final SpreadsheetEngineContext context,
-                                                                                              final SpreadsheetProvider systemSpreadsheetProvider) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> mappings(final SpreadsheetId id,
+                                                                  final SpreadsheetEngine engine,
+                                                                  final SpreadsheetEngineContext context,
+                                                                  final SpreadsheetProvider systemSpreadsheetProvider) {
         final AbsoluteUrl serverUrl = this.serverUrl;
         final UrlPath deltaUrlPath = serverUrl.path()
             .append(
