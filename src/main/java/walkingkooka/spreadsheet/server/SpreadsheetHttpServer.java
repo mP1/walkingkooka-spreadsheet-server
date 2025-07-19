@@ -435,7 +435,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
         return this.localeHateosResourceHandlerContext(
-            LocaleHateosResourceMappings.mappings()
+            LocaleHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 

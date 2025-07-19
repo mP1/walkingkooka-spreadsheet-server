@@ -29,7 +29,7 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
         LocaleHateosResource,
         LocaleHateosResourceSet,
         LocaleHateosResource,
-        LocaleHateosResourceHandlerContext> mappings() {
+        LocaleHateosResourceHandlerContext> localeHateosResourceHandlerContext() {
 
         return HateosResourceMappings.with(
             LocaleHateosResource.HATEOS_RESOURCE_NAME,
