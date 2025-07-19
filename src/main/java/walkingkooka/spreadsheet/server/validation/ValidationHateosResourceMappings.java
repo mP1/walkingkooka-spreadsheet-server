@@ -36,7 +36,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
         ValidatorInfo,
         ValidatorInfoSet,
         ValidatorInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> mappings() {
+        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
 
         // validator GET...............................................................................................
 
