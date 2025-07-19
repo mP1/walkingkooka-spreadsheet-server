@@ -405,7 +405,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private Router<HttpRequestAttribute<?>, HttpHandler> exporterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContext(
-            SpreadsheetExporterHateosResourceMappings.exporter()
+            SpreadsheetExporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
