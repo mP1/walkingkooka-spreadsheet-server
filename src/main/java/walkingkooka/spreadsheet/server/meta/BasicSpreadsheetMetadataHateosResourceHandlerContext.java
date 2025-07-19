@@ -317,13 +317,14 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             context,
             metadata.spreadsheetFormatterContext(
                 SpreadsheetMetadata.NO_CELL,
-                (final Optional<Object> v) -> context.spreadsheetExpressionEvaluationContext(
-                    SpreadsheetMetadata.NO_CELL,
-                    SpreadsheetExpressionReferenceLoaders.fake()
-                ).addLocalVariable(
-                    SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
-                    v
-                ),
+                (final Optional<Object> v) -> context.spreadsheetEngineContext(SpreadsheetMetadataPropertyName.FORMATTING_FUNCTIONS)
+                    .spreadsheetExpressionEvaluationContext(
+                        SpreadsheetMetadata.NO_CELL,
+                        SpreadsheetExpressionReferenceLoaders.fake()
+                    ).addLocalVariable(
+                        SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
+                        v
+                    ),
                 context, // SpreadsheetLabelNameResolver
                 context, // ConverterProvider
                 context, // SpreadsheetFormatterProvider
