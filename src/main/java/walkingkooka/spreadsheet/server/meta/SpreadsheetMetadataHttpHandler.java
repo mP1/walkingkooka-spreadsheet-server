@@ -42,8 +42,6 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 import java.util.Map;
 import java.util.Objects;
@@ -59,8 +57,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
      * Creates a new {@link SpreadsheetMetadataHttpHandler} handler.
      */
     public static SpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
-                                                      final Indentation indentation,
-                                                      final LineEnding lineEnding,
                                                       final LocaleContext localeContext,
                                                       final SpreadsheetProvider systemSpreadsheetProvider,
                                                       final ProviderContext providerContext,
@@ -70,8 +66,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
                                                       final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return new SpreadsheetMetadataHttpHandler(
             Objects.requireNonNull(serverUrl, "serverUrl"),
-            Objects.requireNonNull(indentation, "indentation"),
-            Objects.requireNonNull(lineEnding, "lineEnding"),
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(providerContext, "providerContext"),
@@ -86,8 +80,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
      * Private ctor
      */
     private SpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
-                                           final Indentation indentation,
-                                           final LineEnding lineEnding,
                                            final LocaleContext localeContext,
                                            final SpreadsheetProvider systemSpreadsheetProvider,
                                            final ProviderContext providerContext,
@@ -101,8 +93,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
             serverUrl,
-            indentation,
-            lineEnding,
             localeContext,
             systemSpreadsheetProvider,
             providerContext,
@@ -122,8 +112,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             .then(
                 SpreadsheetMetadataHateosResourceHandlersRouter.with(
                     serverUrl.path(),
-                    indentation,
-                    lineEnding,
                     context
                 )
             );

@@ -28,7 +28,6 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
@@ -70,7 +69,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
@@ -92,8 +90,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
      */
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl serverUrl,
-                                                                     final Indentation indentation,
-                                                                     final LineEnding lineEnding,
                                                                      final LocaleContext localeContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
                                                                      final ProviderContext providerContext,
@@ -102,8 +98,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
-        Objects.requireNonNull(indentation, "indentation");
-        Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(localeContext, "localeContext");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
         Objects.requireNonNull(providerContext, "providerContext");
@@ -114,8 +108,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
             serverUrl,
-            indentation,
-            lineEnding,
             localeContext,
             systemSpreadsheetProvider,
             providerContext,
@@ -127,8 +119,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl serverUrl,
-                                                                 final Indentation indentation,
-                                                                 final LineEnding lineEnding,
                                                                  final LocaleContext localeContext,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                                                  final ProviderContext providerContext,
@@ -139,9 +129,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         super();
 
         this.serverUrl = serverUrl;
-
-        this.indentation = indentation;
-        this.lineEnding = lineEnding;
 
         this.localeContext = localeContext;
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
@@ -308,12 +295,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
             engine,
-            HateosResourceHandlerContexts.basic(
-                JsonNodeMarshallUnmarshallContexts.basic(
-                    spreadsheetMetadata.jsonNodeMarshallContext(),
-                    spreadsheetMetadata.jsonNodeUnmarshallContext()
-                )
-            ),
+            this.hateosResourceHandlerContext,
             context,
             spreadsheetMetadata.spreadsheetFormatterContext(
                 SpreadsheetMetadata.NO_CELL,
@@ -339,10 +321,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             )
         );
 
-        final HateosResourceMappings<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell(
-            this.indentation,
-            this.lineEnding
-        );
+        final HateosResourceMappings<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell();
 
         final HateosResourceMappings<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column();
 
@@ -371,16 +350,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 parser, // /parser
                 row
             ),
-            this.indentation,
-            this.lineEnding,
             handlerContext
         );
     }
 
     private final AbsoluteUrl serverUrl;
-    private final Indentation indentation;
-    private final LineEnding lineEnding;
-
     private final SpreadsheetProvider systemSpreadsheetProvider;
 
     @Override
@@ -398,6 +372,16 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // HateosResourceHandlerContext ....................................................................................
 
     @Override
+    public Indentation indentation() {
+        return this.hateosResourceHandlerContext.indentation();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.hateosResourceHandlerContext.lineEnding();
+    }
+
+    @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
         final HateosResourceHandlerContext after = before.setPreProcessor(processor);
@@ -406,8 +390,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             this :
             new BasicSpreadsheetMetadataHateosResourceHandlerContext(
                 this.serverUrl,
-                this.indentation,
-                this.lineEnding,
                 this.localeContext,
                 this.systemSpreadsheetProvider,
                 this.providerContext,

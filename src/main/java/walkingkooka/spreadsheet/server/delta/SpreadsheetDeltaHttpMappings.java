@@ -51,8 +51,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
@@ -72,8 +70,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetDelta,
         SpreadsheetCell,
-        SpreadsheetEngineHateosResourceHandlerContext> cell(final Indentation indentation,
-                                                            final LineEnding lineEnding) {
+        SpreadsheetEngineHateosResourceHandlerContext> cell() {
         // cell GET, POST...............................................................................................
 
         HateosResourceMappings<SpreadsheetCellReference,
@@ -140,10 +137,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
         cell = cell.setHateosHttpHandler(
             FormName.HATEOS_RESOURCE_NAME.toUrlPathName(),
-            SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.with(
-                indentation,
-                lineEnding
-            )
+            SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.INSTANCE
         );
 
         cell = cell.setHateosResourceHandler(

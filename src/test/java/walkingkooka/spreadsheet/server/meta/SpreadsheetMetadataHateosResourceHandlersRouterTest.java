@@ -61,8 +61,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     implements SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-    private final static LineEnding LINE_ENDING = LineEnding.SYSTEM;
 
     private final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x12ef);
 
@@ -87,6 +85,16 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         }
 
         @Override
+        public Indentation indentation() {
+            return Indentation.SPACES2;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return LineEnding.NL;
+        }
+
+        @Override
         public JsonNode marshall(final Object value) {
             return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
         }
@@ -94,55 +102,22 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     @Test
     public void testWithNullBasePathFails() {
-        this.withFails(
-            null,
-            INDENTATION,
-            LINE_ENDING,
-            CONTEXT
-        );
-    }
-
-    @Test
-    public void testWithNullIndentationFails() {
-        this.withFails(
-            BASE_PATH,
-            null,
-            LINE_ENDING,
-            CONTEXT
-        );
-    }
-
-    @Test
-    public void testWithNullLineEndingFails() {
-        this.withFails(
-            BASE_PATH,
-            INDENTATION,
-            null,
-            CONTEXT
-        );
-    }
-
-    @Test
-    public void testWithNullLoadContextFails() {
-        this.withFails(
-            BASE_PATH,
-            INDENTATION,
-            LINE_ENDING,
-            null
-        );
-    }
-
-    private void withFails(final UrlPath basePath,
-                           final Indentation indentation,
-                           final LineEnding lineEnding,
-                           final SpreadsheetMetadataHateosResourceHandlerContext context) {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                basePath,
-                indentation,
-                lineEnding,
-                context
+                null,
+                CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
+                BASE_PATH,
+                null
             )
         );
     }
@@ -432,8 +407,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     private Router<HttpRequestAttribute<?>, HttpHandler> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
         return SpreadsheetMetadataHateosResourceHandlersRouter.with(
             BASE_PATH,
-            INDENTATION,
-            LINE_ENDING,
             context
         );
     }

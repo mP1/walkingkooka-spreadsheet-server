@@ -346,10 +346,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final HttpStatusCode statusCode,
                                    final String message) {
         this.routeAndCheck(
-            SpreadsheetDeltaHttpMappings.cell(
-                INDENTATION,
-                LINE_ENDING
-            ),
+            SpreadsheetDeltaHttpMappings.cell(),
             method,
             url,
             body,
@@ -363,10 +360,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final String url,
                                    final String body) {
         return this.route(
-            SpreadsheetDeltaHttpMappings.cell(
-                INDENTATION,
-                LINE_ENDING
-            ),
+            SpreadsheetDeltaHttpMappings.cell(),
             method,
             url,
             body,
@@ -497,6 +491,16 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             @Override
             public MediaType contentType() {
                 return CONTENT_TYPE;
+            }
+
+            @Override
+            public Indentation indentation() {
+                return INDENTATION;
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return LINE_ENDING;
             }
 
             @Override
@@ -868,8 +872,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final Optional<HttpHandler> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
-            INDENTATION,
-            LINE_ENDING,
             context
         ).route(request.routerParameters());
 
@@ -906,8 +908,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final Optional<HttpHandler> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
-            INDENTATION,
-            LINE_ENDING,
             context
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),

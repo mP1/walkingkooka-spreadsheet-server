@@ -31,8 +31,6 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 import java.util.Objects;
 
@@ -58,12 +56,8 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
      * Builds a {@link Router} that handles all operations, using the given {@link HateosResourceHandler handlers}.
      */
     static Router<HttpRequestAttribute<?>, HttpHandler> with(final UrlPath basePath,
-                                                             final Indentation indentation,
-                                                             final LineEnding lineEnding,
                                                              final SpreadsheetMetadataHateosResourceHandlerContext context) {
         Objects.requireNonNull(basePath, "basePath");
-        Objects.requireNonNull(indentation, "indentation");
-        Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(context, "context");
 
         // metadata GET, POST...........................................................................................
@@ -97,8 +91,6 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
                         HateosResourceHandlers.fake()
                     )
             ),
-            indentation,
-            lineEnding,
             context
         );
     }

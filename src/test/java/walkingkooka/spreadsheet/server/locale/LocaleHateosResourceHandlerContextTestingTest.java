@@ -22,6 +22,8 @@ import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContextTestingTest.TestLocaleHateosResourceHandlerContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
@@ -110,6 +112,16 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
         @Override
         public MediaType contentType() {
             return MediaType.TEXT_PLAIN;
+        }
+
+        @Override
+        public Indentation indentation() {
+            return INDENTATION;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return EOL;
         }
 
         @Override

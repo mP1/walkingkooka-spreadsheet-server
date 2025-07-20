@@ -31,6 +31,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -103,6 +105,16 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public MediaType contentType() {
         return SpreadsheetServerMediaTypes.CONTENT_TYPE;
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.context.indentation();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.context.lineEnding();
     }
 
     // must be overridden because of clashes between various XXXDelegators

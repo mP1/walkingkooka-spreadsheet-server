@@ -32,8 +32,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
@@ -44,20 +42,9 @@ import java.util.Objects;
  */
 final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHttpMappingsFormHateosHttpHandler with(final Indentation indentation,
-                                                                  final LineEnding lineEnding) {
-        return new SpreadsheetDeltaHttpMappingsFormHateosHttpHandler(
-            indentation,
-            lineEnding
-        );
-    }
+    final static SpreadsheetDeltaHttpMappingsFormHateosHttpHandler INSTANCE = new SpreadsheetDeltaHttpMappingsFormHateosHttpHandler();
 
-    private SpreadsheetDeltaHttpMappingsFormHateosHttpHandler(
-        final Indentation indentation,
-        final LineEnding lineEnding) {
-
-        this.indentation = indentation;
-        this.lineEnding = lineEnding;
+    private SpreadsheetDeltaHttpMappingsFormHateosHttpHandler() {
     }
 
     @Override
@@ -115,8 +102,6 @@ final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosH
                         Sets.of(
                             mappings
                         ),
-                        this.indentation,
-                        this.lineEnding,
                         context
                     ).route(
                         request.routerParameters()
@@ -132,9 +117,6 @@ final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosH
             i++;
         }
     }
-
-    private final Indentation indentation;
-    private final LineEnding lineEnding;
 
     @Override
     public String toString() {
