@@ -74,8 +74,6 @@ import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.validation.form.provider.FormHandlerName;
 import walkingkooka.validation.provider.ValidatorName;
 
@@ -157,8 +155,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
     public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
-                                             final Indentation indentation,
-                                             final LineEnding lineEnding,
                                              final MediaTypeDetector mediaTypeDetector,
                                              final LocaleContext localeContext,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
@@ -171,8 +167,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<HttpHandler, HttpServer> server) {
         return new SpreadsheetHttpServer(
             checkServerUrl(serverUrl),
-            Objects.requireNonNull(indentation, "indentation"),
-            Objects.requireNonNull(lineEnding, "lineEnding"),
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
@@ -226,8 +220,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Private ctor use factory.
      */
     private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
-                                  final Indentation indentation,
-                                  final LineEnding lineEnding,
                                   final MediaTypeDetector mediaTypeDetector,
                                   final LocaleContext localeContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
@@ -239,9 +231,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<HttpHandler, HttpServer> server) {
         super();
-
-        this.indentation = indentation;
-        this.lineEnding = lineEnding;
 
         this.mediaTypeDetector = mediaTypeDetector;
 
@@ -474,8 +463,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return HateosResourceMappings.router(
             API,
             Sets.of(mappings),
-            this.indentation,
-            this.lineEnding,
             context
         );
     }
@@ -483,8 +470,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetMetadataHttpHandler.with(
             api,
-            this.indentation,
-            this.lineEnding,
             this.localeContext,
             this.systemSpreadsheetProvider,
             this.providerContext,
@@ -510,8 +495,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             url,
-            this.indentation,
-            this.lineEnding,
             this.localeContext,
             this.systemSpreadsheetProvider,
             this.providerContext,
@@ -525,17 +508,11 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
         return PluginHttpHandler.with(
             apiPlugin,
-            this.indentation,
-            this.lineEnding,
             this.hateosResourceHandlerContext,
             this.providerContext,
             this.mediaTypeDetector
         );
     }
-
-    private final Indentation indentation;
-
-    private final LineEnding lineEnding;
 
     private final MediaTypeDetector mediaTypeDetector;
 

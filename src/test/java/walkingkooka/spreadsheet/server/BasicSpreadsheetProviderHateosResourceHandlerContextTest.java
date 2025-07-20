@@ -52,6 +52,8 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
     );
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
+        INDENTATION,
+        EOL,
         JsonNodeMarshallUnmarshallContexts.basic(
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(

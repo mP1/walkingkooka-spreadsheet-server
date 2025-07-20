@@ -25,6 +25,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
@@ -57,6 +59,16 @@ public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakePro
 
     @Override
     public MediaType contentType() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Indentation indentation() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
         throw new UnsupportedOperationException();
     }
 

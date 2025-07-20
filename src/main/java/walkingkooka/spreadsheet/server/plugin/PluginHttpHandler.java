@@ -33,8 +33,6 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 import java.util.Map;
 import java.util.Objects;
@@ -53,15 +51,11 @@ public final class PluginHttpHandler implements HttpHandler {
      * Creates a new {@link PluginHttpHandler} handler.
      */
     public static PluginHttpHandler with(final AbsoluteUrl serverUrl,
-                                         final Indentation indentation,
-                                         final LineEnding lineEnding,
                                          final HateosResourceHandlerContext hateosResourceHandlerContext,
                                          final ProviderContext providerContext,
                                          final MediaTypeDetector contentTypeDetector) {
         return new PluginHttpHandler(
             Objects.requireNonNull(serverUrl, "serverUrl"),
-            Objects.requireNonNull(indentation, "indentation"),
-            Objects.requireNonNull(lineEnding, "lineEnding"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(contentTypeDetector, "contentTypeDetector")
@@ -72,8 +66,6 @@ public final class PluginHttpHandler implements HttpHandler {
      * Private ctor
      */
     private PluginHttpHandler(final AbsoluteUrl serverUrl,
-                              final Indentation indentation,
-                              final LineEnding lineEnding,
                               final HateosResourceHandlerContext hateosResourceHandlerContext,
                               final ProviderContext providerContext,
                               final MediaTypeDetector contentTypeDetector) {
@@ -105,8 +97,6 @@ public final class PluginHttpHandler implements HttpHandler {
             .then(
                 PluginHttpMappings.router(
                     serverUrl.path(),
-                    indentation,
-                    lineEnding,
                     PluginHateosResourceHandlerContexts.basic(
                         hateosResourceHandlerContext,
                         providerContext

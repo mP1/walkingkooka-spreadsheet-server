@@ -311,8 +311,6 @@ public class J2clTest {
             UrlScheme.HTTPS.andHost(
                 HostAddress.with("example.com")
             ),
-            Indentation.SPACES2,
-            LineEnding.NL,
             MediaTypeDetectors.fake(),
             LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
@@ -328,6 +326,8 @@ public class J2clTest {
             ),
             metadataStore,
             HateosResourceHandlerContexts.basic(
+                Indentation.SPACES2,
+                LineEnding.NL,
                 JsonNodeMarshallUnmarshallContexts.basic(
                     JsonNodeMarshallContexts.basic(),
                     JsonNodeUnmarshallContexts.basic(

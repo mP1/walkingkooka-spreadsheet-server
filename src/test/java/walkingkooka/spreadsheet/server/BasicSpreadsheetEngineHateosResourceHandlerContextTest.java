@@ -47,6 +47,8 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
+        INDENTATION,
+        EOL,
         JsonNodeMarshallUnmarshallContexts.basic(
             JSON_NODE_MARSHALL_CONTEXT,
             JSON_NODE_UNMARSHALL_CONTEXT

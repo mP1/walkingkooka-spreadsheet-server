@@ -27,8 +27,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.function.Function;
@@ -39,8 +37,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
      * {@see BasicSpreadsheetMetadataHateosResourceHandlerContext}
      */
     public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl serverUrl,
-                                                                        final Indentation indentation,
-                                                                        final LineEnding lineEnding,
                                                                         final LocaleContext localeContext,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider,
                                                                         final ProviderContext providerContext,
@@ -50,8 +46,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             serverUrl,
-            indentation,
-            lineEnding,
             localeContext,
             systemSpreadsheetProvider,
             providerContext,

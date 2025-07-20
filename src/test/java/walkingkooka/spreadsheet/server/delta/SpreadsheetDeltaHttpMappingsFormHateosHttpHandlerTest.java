@@ -21,18 +21,13 @@ import walkingkooka.net.http.server.hateos.HateosHttpHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 public final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandlerTest implements HateosHttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHateosHttpHandler,
     SpreadsheetEngineHateosResourceHandlerContext> {
 
     @Override
     public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHateosHttpHandler() {
-        return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.with(
-            Indentation.SPACES2,
-            LineEnding.NL
-        );
+        return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.INSTANCE;
     }
 
     @Override

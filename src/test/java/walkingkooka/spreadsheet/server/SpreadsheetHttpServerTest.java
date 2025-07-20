@@ -305,8 +305,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 null,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -327,8 +325,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
                 Url.parseAbsolute("http://example.com/path123"),
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -355,8 +351,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
                 Url.parseAbsolute("http://example.com?path123"),
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -383,8 +377,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
                 Url.parseAbsolute("http://example.com#fragment456"),
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -406,57 +398,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testWithNullIndentationFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                null,
-                LINE_ENDING,
-                MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullLineEndingFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                INDENTATION,
-                null,
-                MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
     public void testWithNullMediaTypeDetectorFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 null,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -477,8 +423,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 null,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -499,8 +443,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 null,
@@ -521,8 +463,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -543,8 +483,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -565,8 +503,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -587,8 +523,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -609,8 +543,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -631,8 +563,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -653,8 +583,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -13308,8 +13236,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             UrlScheme.HTTP.andHost(
                 HostAddress.with("example.com")
             ),
-            Indentation.SPACES2,
-            LineEnding.NL,
             MEDIA_TYPE_DETECTOR,
             LOCALE_CONTEXT,
             SpreadsheetProviders.basic(
@@ -13333,6 +13259,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             ),
             this.metadataStore,
             HateosResourceHandlerContexts.basic(
+                INDENTATION,
+                LINE_ENDING,
                 JsonNodeMarshallUnmarshallContexts.basic(
                     JSON_NODE_MARSHALL_CONTEXT,
                     JSON_NODE_UNMARSHALL_CONTEXT

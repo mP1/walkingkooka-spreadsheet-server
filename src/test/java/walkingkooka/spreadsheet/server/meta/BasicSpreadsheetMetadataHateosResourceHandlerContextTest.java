@@ -83,8 +83,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.store.Store;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -106,14 +104,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
-
     private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
+        INDENTATION,
+        EOL,
         JsonNodeMarshallUnmarshallContexts.basic(
             JSON_NODE_MARSHALL_CONTEXT,
             JSON_NODE_UNMARSHALL_CONTEXT
@@ -126,8 +123,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 null,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -138,47 +133,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             )
         );
     }
-
-    @Test
-    public void testWithNullIndentationFails() {
-        final AbsoluteUrl serverUrl = this.base();
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                null,
-                LINE_ENDING,
-                LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullLineEndingFails() {
-        final AbsoluteUrl serverUrl = this.base();
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                INDENTATION,
-                null,
-                LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
-            )
-        );
-    }
-
 
     @Test
     public void testWithNullLocaleContextFails() {
@@ -187,8 +141,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 null,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -207,8 +159,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 null,
                 PROVIDER_CONTEXT,
@@ -227,8 +177,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 null,
@@ -248,8 +196,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -268,8 +214,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -288,8 +232,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -308,8 +250,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -1161,8 +1101,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             this.base(),
-            INDENTATION,
-            LINE_ENDING,
             LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             providerContext,

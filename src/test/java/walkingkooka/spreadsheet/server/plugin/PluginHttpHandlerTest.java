@@ -31,8 +31,6 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,9 +39,6 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
 
     private final static ProviderContext PROVIDER_CONTEXT = new FakeProviderContext() {
@@ -61,38 +56,6 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
             NullPointerException.class,
             () -> PluginHttpHandler.with(
                 null,
-                INDENTATION,
-                LINE_ENDING,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT,
-                CONTENT_TYPE_DETECTOR
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullIndentationFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> PluginHttpHandler.with(
-                SERVER_URL,
-                null,
-                LINE_ENDING,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT,
-                CONTENT_TYPE_DETECTOR
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullLineEndingFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> PluginHttpHandler.with(
-                SERVER_URL,
-                INDENTATION,
-                null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 PROVIDER_CONTEXT,
                 CONTENT_TYPE_DETECTOR
@@ -106,8 +69,6 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
             NullPointerException.class,
             () -> PluginHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 null,
                 PROVIDER_CONTEXT,
                 CONTENT_TYPE_DETECTOR
@@ -121,8 +82,6 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
             NullPointerException.class,
             () -> PluginHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
                 CONTENT_TYPE_DETECTOR
@@ -136,8 +95,6 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
             NullPointerException.class,
             () -> PluginHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 PROVIDER_CONTEXT,
                 null
@@ -151,8 +108,6 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
     public PluginHttpHandler createHttpHandler() {
         return PluginHttpHandler.with(
             SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             PROVIDER_CONTEXT,
             CONTENT_TYPE_DETECTOR

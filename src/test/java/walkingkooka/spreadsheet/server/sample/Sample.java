@@ -315,8 +315,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             UrlScheme.HTTPS.andHost(
                 HostAddress.with("example.com")
             ),
-            Indentation.SPACES2,
-            LineEnding.NL,
             MediaTypeDetectors.fake(),
             LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
@@ -332,6 +330,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             ),
             metadataStore,
             HateosResourceHandlerContexts.basic(
+                Indentation.SPACES2,
+                LineEnding.NL,
                 JsonNodeMarshallUnmarshallContexts.basic(
                     JsonNodeMarshallContexts.basic(),
                     JsonNodeUnmarshallContexts.basic(

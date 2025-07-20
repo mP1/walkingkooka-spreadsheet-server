@@ -73,46 +73,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 null,
-                INDENTATION,
-                LINE_ENDING,
-                LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullIndentationFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHttpHandler.with(
-                SERVER_URL,
-                null,
-                LINE_ENDING,
-                LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullLineEndingFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHttpHandler.with(
-                SERVER_URL,
-                INDENTATION,
-                null,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -130,8 +90,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 null,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -149,8 +107,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 null,
                 PROVIDER_CONTEXT,
@@ -168,8 +124,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 null,
@@ -187,8 +141,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -206,8 +158,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -226,8 +176,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -245,8 +193,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -269,8 +215,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
             SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
             LOCALE_CONTEXT,
             SYSTEM_PROVIDER_CONTEXT,
             PROVIDER_CONTEXT,

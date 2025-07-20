@@ -69,8 +69,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.StorageStores;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -325,8 +323,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             Url.parseAbsolute(SERVER_URL + "/api"),
-            Indentation.SPACES2,
-            LineEnding.NL,
             LocaleContexts.fake(),
             systemSpreadsheetProvider(),
             PROVIDER_CONTEXT,
@@ -334,6 +330,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             spreadsheetIdToSpreadsheetProvider(),
             spreadsheetIdToStoreRepository(),
             HateosResourceHandlerContexts.basic(
+                INDENTATION,
+                EOL,
                 JsonNodeMarshallUnmarshallContexts.basic(
                     JSON_NODE_MARSHALL_CONTEXT,
                     JSON_NODE_UNMARSHALL_CONTEXT

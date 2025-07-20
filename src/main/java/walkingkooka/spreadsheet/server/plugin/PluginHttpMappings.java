@@ -32,8 +32,6 @@ import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 final class PluginHttpMappings implements StaticHelper {
 
@@ -122,16 +120,12 @@ final class PluginHttpMappings implements StaticHelper {
      * {@see PluginHateosResourceHandlersRouter}
      */
     static Router<HttpRequestAttribute<?>, HttpHandler> router(final UrlPath basePath,
-                                                               final Indentation indentation,
-                                                               final LineEnding lineEnding,
                                                                final PluginHateosResourceHandlerContext context) {
         return HateosResourceMappings.router(
             basePath,
             Sets.of(
                 PluginHttpMappings.pluginHateosResourceHandlerContext()
             ),
-            indentation,
-            lineEnding,
             context
         );
     }
