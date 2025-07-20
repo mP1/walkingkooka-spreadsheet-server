@@ -58,7 +58,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     UnsupportedHateosHttpEntityHandlerHandleNone<S, SpreadsheetEngineHateosResourceHandlerContext> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandler() {
-        super();;
+        super();
     }
 
     @Override
