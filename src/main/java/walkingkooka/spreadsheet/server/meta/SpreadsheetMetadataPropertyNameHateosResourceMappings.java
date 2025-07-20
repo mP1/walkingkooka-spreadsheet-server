@@ -25,6 +25,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 
 public final class SpreadsheetMetadataPropertyNameHateosResourceMappings implements PublicStaticHelper {
 
@@ -48,6 +49,10 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
             SpreadsheetServerLinkRelations.VERIFY,
             HttpMethod.POST,
             ConverterSelectorVerifyHateosHttpEntityHandler.INSTANCE
+        ).setHateosHttpHandler(
+            SpreadsheetServerLinkRelations.EDIT.toUrlPathName()
+                .get(),
+            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandler()
         );
     }
 
