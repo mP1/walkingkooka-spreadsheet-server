@@ -17,8 +17,11 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -31,6 +34,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMen
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 
 public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements SpreadsheetFormatterSelectorMenuContextTesting<TestSpreadsheetFormatterSelectorMenuContext>,
     SpreadsheetMetadataTesting,
@@ -71,7 +75,8 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
 
     static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator {
+        SpreadsheetFormatterProviderDelegator,
+        ProviderContextDelegator {
 
         @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
@@ -86,6 +91,21 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
         @Override
         public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
             return SPREADSHEET_FORMATTER_PROVIDER;
+        }
+
+        @Override
+        public ProviderContext providerContext() {
+            return PROVIDER_CONTEXT;
+        }
+
+        @Override
+        public ConverterContext canConvert() {
+            return SPREADSHEET_FORMATTER_CONTEXT;
+        }
+
+        @Override
+        public LocalDateTime now() {
+            return SPREADSHEET_FORMATTER_CONTEXT.now();
         }
     }
 

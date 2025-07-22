@@ -19,7 +19,10 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.plugin.PluginSelectorMenuLikeTesting;
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -33,6 +36,8 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -153,7 +158,8 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
 
     static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
         SpreadsheetFormatterProviderDelegator,
-        SpreadsheetFormatterContextDelegator {
+        SpreadsheetFormatterContextDelegator,
+        ProviderContextDelegator {
 
         @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
@@ -168,6 +174,21 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
         @Override
         public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
             return SPREADSHEET_FORMATTER_PROVIDER;
+        }
+
+        @Override
+        public ProviderContext providerContext() {
+            return PROVIDER_CONTEXT;
+        }
+
+        @Override
+        public ConverterContext canConvert() {
+            return SPREADSHEET_FORMATTER_CONTEXT;
+        }
+
+        @Override
+        public LocalDateTime now() {
+            return SPREADSHEET_FORMATTER_CONTEXT.now();
         }
     }
 

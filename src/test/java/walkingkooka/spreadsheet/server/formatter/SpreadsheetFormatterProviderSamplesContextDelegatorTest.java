@@ -48,7 +48,8 @@ public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements 
         @Override
         public SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext() {
             return SpreadsheetFormatterProviderSamplesContexts.basic(
-                SPREADSHEET_FORMATTER_CONTEXT
+                SPREADSHEET_FORMATTER_CONTEXT,
+                PROVIDER_CONTEXT
             );
         }
     }

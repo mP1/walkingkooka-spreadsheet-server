@@ -17,7 +17,10 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.format.FakeSpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -28,8 +31,10 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class FakeSpreadsheetFormatterSelectorMenuContext extends FakeSpreadsheetFormatterContext
     implements SpreadsheetFormatterSelectorMenuContext {
@@ -65,6 +70,35 @@ public class FakeSpreadsheetFormatterSelectorMenuContext extends FakeSpreadsheet
 
     @Override
     public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    // ProviderContext..................................................................................................
+
+    @Override
+    public PluginStore pluginStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public <T> Optional<T> environmentValue(EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
 }

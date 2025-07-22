@@ -43,7 +43,8 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
             () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
                 null,
                 SpreadsheetFormatterProviderSamplesContexts.basic(
-                    SPREADSHEET_FORMATTER_CONTEXT
+                    SPREADSHEET_FORMATTER_CONTEXT,
+                    PROVIDER_CONTEXT
                 )
             )
         );
@@ -65,7 +66,8 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
         return BasicSpreadsheetFormatterSelectorMenuContext.with(
             SPREADSHEET_FORMATTER_PROVIDER,
             SpreadsheetFormatterProviderSamplesContexts.basic(
-                SPREADSHEET_FORMATTER_CONTEXT
+                SPREADSHEET_FORMATTER_CONTEXT,
+                PROVIDER_CONTEXT
             )
         );
     }
@@ -92,7 +94,8 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
     @Test
     public void testToString() {
         final SpreadsheetFormatterProviderSamplesContext samplesContext = SpreadsheetFormatterProviderSamplesContexts.basic(
-            SPREADSHEET_FORMATTER_CONTEXT
+            SPREADSHEET_FORMATTER_CONTEXT,
+            PROVIDER_CONTEXT
         );
 
         this.toStringAndCheck(

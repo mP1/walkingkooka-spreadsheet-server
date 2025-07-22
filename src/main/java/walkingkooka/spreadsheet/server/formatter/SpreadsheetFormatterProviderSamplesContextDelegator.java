@@ -17,12 +17,20 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 
+import java.time.LocalDateTime;
+
 public interface SpreadsheetFormatterProviderSamplesContextDelegator extends SpreadsheetFormatterProviderSamplesContext,
-    SpreadsheetFormatterContextDelegator {
+    SpreadsheetFormatterContextDelegator,
+    ProviderContextDelegator {
+
+    // SpreadsheetFormatterContextDelegator.............................................................................
 
     @Override
     default SpreadsheetFormatterContext spreadsheetFormatterContext() {
@@ -30,4 +38,22 @@ public interface SpreadsheetFormatterProviderSamplesContextDelegator extends Spr
     }
 
     SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext();
+
+    // ProviderContextDelegator.........................................................................................
+
+    @Override
+    default ProviderContext providerContext() {
+        return this.spreadsheetFormatterProviderSamplesContext();
+    }
+
+    @Override
+    default ConverterContext canConvert() {
+        return this.spreadsheetFormatterProviderSamplesContext();
+    }
+
+    @Override
+    default LocalDateTime now() {
+        return this.spreadsheetFormatterProviderSamplesContext()
+            .now();
+    }
 }
