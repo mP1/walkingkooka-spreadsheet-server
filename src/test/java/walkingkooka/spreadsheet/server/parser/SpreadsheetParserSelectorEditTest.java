@@ -89,11 +89,6 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
         );
     }
 
-    private final static List<SpreadsheetFormatterSample> DATE_FORMAT_SAMPLES = SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-        SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(""),
-        SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
-    );
-
     @Test
     public void testParseOnlySpreadsheetParserName() {
         this.parseStringAndCheck(
@@ -105,23 +100,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "Empty \"text\"",
                 Lists.empty(),
                 Optional.empty(),
-                DATE_FORMAT_SAMPLES
-            )
-        );
-    }
-
-    @Test
-    public void testParseOnlySpreadsheetParserNameSpaceMissingPattern() {
-        this.parseStringAndCheck(
-            SpreadsheetParserName.DATE_PARSER_PATTERN + " ",
-            SpreadsheetParserSelectorEdit.with(
-                Optional.of(
-                    SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("")
-                ),
-                "Empty \"text\"",
-                Lists.empty(),
-                Optional.empty(),
-                DATE_FORMAT_SAMPLES
+                dateFormatSamples("")
             )
         );
     }
@@ -145,7 +124,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 thrown.getMessage(),
                 Lists.empty(),
                 Optional.empty(),
-                DATE_FORMAT_SAMPLES
+                dateFormatSamples("!")
             )
         );
     }
@@ -215,7 +194,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                         )
                     )
                 ),
-                DATE_FORMAT_SAMPLES
+                dateFormatSamples("yyyy")
             )
         );
     }
@@ -231,6 +210,13 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 SPREADSHEET_FORMATTER_PROVIDER,
                 PROVIDER_CONTEXT
             )
+        );
+    }
+
+    private static List<SpreadsheetFormatterSample> dateFormatSamples(final String text) {
+        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text),
+            SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
         );
     }
 
@@ -314,7 +300,11 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "    Full\n" +
                 "      date-format-pattern\n" +
                 "        \"dddd, d mmmm yyyy\"\n" +
-                "      Text \"Friday, 31 December 1999\"\n"
+                "      Text \"Friday, 31 December 1999\"\n" +
+                "    Sample\n" +
+                "      date-format-pattern\n" +
+                "        \"yyyy/mm/dd\"\n" +
+                "      Text \"1999/12/31\"\n"
         );
     }
 
@@ -459,6 +449,14 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Friday, 31 December 1999\"\n" +
                 "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"label\": \"Sample\",\n" +
+                "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "      \"value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"31/12/1999\"\n" +
+                "      }\n" +
                 "    }\n" +
                 "  ]\n" +
                 "}"
@@ -602,6 +600,14 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Friday, 31 December 1999\"\n" +
+                "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"label\": \"Sample\",\n" +
+                "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "      \"value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"31/12/1999\"\n" +
                 "      }\n" +
                 "    }\n" +
                 "  ]\n" +

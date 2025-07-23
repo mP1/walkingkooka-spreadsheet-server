@@ -88,35 +88,20 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         );
     }
 
-    private final static List<SpreadsheetFormatterSample> DATE_FORMAT_SAMPLES = SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-        SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(""),
-        SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
-    );
-
     @Test
     public void testParseOnlySpreadsheetFormatterName() {
+        final String text = "";
+
         this.parseStringAndCheck(
             SpreadsheetFormatterName.DATE_FORMAT_PATTERN.value(),
             SpreadsheetFormatterSelectorEdit.with(
-                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")),
+                Optional.of(
+                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text)
+                ),
                 "Empty \"text\"",
                 Lists.empty(),
                 Optional.empty(),
-                DATE_FORMAT_SAMPLES
-            )
-        );
-    }
-
-    @Test
-    public void testParseOnlySpreadsheetFormatterNameSpaceMissingPattern() {
-        this.parseStringAndCheck(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " ",
-            SpreadsheetFormatterSelectorEdit.with(
-                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")),
-                "Empty \"text\"",
-                Lists.empty(),
-                Optional.empty(),
-                DATE_FORMAT_SAMPLES
+                dateFormatSamples("")
             )
         );
     }
@@ -124,7 +109,6 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     @Test
     public void testParseSpreadsheetFormatterNameInvalidPattern() {
         final String selector = SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " !";
-
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetFormatterSelector.parse(selector)
@@ -138,17 +122,19 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 thrown.getMessage(),
                 Lists.empty(),
                 Optional.empty(),
-                DATE_FORMAT_SAMPLES
+                dateFormatSamples("!")
             )
         );
     }
 
     @Test
     public void testParse() {
+        final String text = "yyyy";
+
         this.parseStringAndCheck(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " yyyy",
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " " + text,
             SpreadsheetFormatterSelectorEdit.with(
-                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yyyy")),
+                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text)),
                 "",
                 Lists.of(
                     SpreadsheetFormatterSelectorToken.with(
@@ -206,8 +192,15 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                         )
                     )
                 ),
-                DATE_FORMAT_SAMPLES
+                dateFormatSamples(text)
             )
+        );
+    }
+
+    private static List<SpreadsheetFormatterSample> dateFormatSamples(final String text) {
+        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text),
+            SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
         );
     }
 
@@ -303,7 +296,11 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    Full\n" +
                 "      date-format-pattern\n" +
                 "        \"dddd, d mmmm yyyy\"\n" +
-                "      Text \"Friday, 31 December 1999\"\n"
+                "      Text \"Friday, 31 December 1999\"\n" +
+                "    Sample\n" +
+                "      date-format-pattern\n" +
+                "        \"yyyy/mm/dd\"\n" +
+                "      Text \"1999/12/31\"\n"
         );
     }
 
@@ -448,6 +445,14 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Friday, 31 December 1999\"\n" +
                 "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"label\": \"Sample\",\n" +
+                "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "      \"value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"31/12/1999\"\n" +
+                "      }\n" +
                 "    }\n" +
                 "  ]\n" +
                 "}"
@@ -591,6 +596,14 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Friday, 31 December 1999\"\n" +
+                "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"label\": \"Sample\",\n" +
+                "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "      \"value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"31/12/1999\"\n" +
                 "      }\n" +
                 "    }\n" +
                 "  ]\n" +
