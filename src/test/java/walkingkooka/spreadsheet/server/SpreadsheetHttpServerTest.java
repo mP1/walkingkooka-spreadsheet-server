@@ -10568,10 +10568,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"label\": \"Sample\",\n" +
-                    "    \"selector\": \"date-format-pattern\"\n" +
-                    "  },\n" +
-                    "  {\n" +
                     "    \"label\": \"Short\",\n" +
                     "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
                     "  },\n" +
@@ -10588,16 +10584,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"label\": \"Sample\",\n" +
-                    "    \"selector\": \"date-time-format-pattern\"\n" +
-                    "  },\n" +
-                    "  {\n" +
                     "    \"label\": \"Default\",\n" +
                     "    \"selector\": \"default-text @\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Sample\",\n" +
-                    "    \"selector\": \"default-text\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"General\",\n" +
@@ -10620,16 +10608,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"label\": \"Sample\",\n" +
-                    "    \"selector\": \"number-format-pattern\"\n" +
-                    "  },\n" +
-                    "  {\n" +
                     "    \"label\": \"Default\",\n" +
                     "    \"selector\": \"text-format-pattern @\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Sample\",\n" +
-                    "    \"selector\": \"text-format-pattern\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +
@@ -10638,10 +10618,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  {\n" +
                     "    \"label\": \"Long\",\n" +
                     "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"label\": \"Sample\",\n" +
-                    "    \"selector\": \"time-format-pattern\"\n" +
                     "  }\n" +
                     "]",
                 SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
