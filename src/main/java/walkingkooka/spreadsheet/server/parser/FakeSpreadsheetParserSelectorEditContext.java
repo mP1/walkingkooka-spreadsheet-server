@@ -105,6 +105,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFor
 
     @Override
     public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterSelector selector,
+                                                                        final boolean includeSamples,
                                                                         final SpreadsheetFormatterProviderSamplesContext context) {
         throw new UnsupportedOperationException();
     }

@@ -22,6 +22,7 @@ import walkingkooka.plugin.PluginSelectorMenu;
 import walkingkooka.plugin.PluginSelectorMenuLike;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.json.JsonNode;
@@ -61,6 +62,7 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
             menus = context.spreadsheetFormatterSamples(
                     info.name()
                         .setValueText(""),
+                    SpreadsheetFormatterProvider.SKIP_SAMPLES,
                     context
                 ).stream()
                 .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))

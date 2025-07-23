@@ -97,10 +97,6 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
                     SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy")
                 ),
                 SpreadsheetFormatterSelectorMenu.with(
-                    "Sample",
-                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")
-                ),
-                SpreadsheetFormatterSelectorMenu.with(
                     "Short",
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d/m/yy, h:mm AM/PM")
                 ),
@@ -117,16 +113,8 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                 ),
                 SpreadsheetFormatterSelectorMenu.with(
-                    "Sample",
-                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("")
-                ),
-                SpreadsheetFormatterSelectorMenu.with(
                     "Default",
                     SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
-                ),
-                SpreadsheetFormatterSelectorMenu.with(
-                    "Sample",
-                    SpreadsheetFormatterSelector.parse("default-text")
                 ),
                 SpreadsheetFormatterSelectorMenu.with(
                     "General",
@@ -149,16 +137,8 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
                     SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("$#,##0.00")
                 ),
                 SpreadsheetFormatterSelectorMenu.with(
-                    "Sample",
-                    SpreadsheetFormatterSelector.parse("number-format-pattern")
-                ),
-                SpreadsheetFormatterSelectorMenu.with(
                     "Default",
                     SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
-                ),
-                SpreadsheetFormatterSelectorMenu.with(
-                    "Sample",
-                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("")
                 ),
                 SpreadsheetFormatterSelectorMenu.with(
                     "Short",
@@ -167,10 +147,6 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
                 SpreadsheetFormatterSelectorMenu.with(
                     "Long",
                     SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm:ss AM/PM")
-                ),
-                SpreadsheetFormatterSelectorMenu.with(
-                    "Sample",
-                    SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("")
                 )
             ),
             SpreadsheetFormatterSelectorMenu.prepare(

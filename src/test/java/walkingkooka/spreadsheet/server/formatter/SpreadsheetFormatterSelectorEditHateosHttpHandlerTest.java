@@ -404,9 +404,11 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest impleme
 
                 @Override
                 public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterSelector selector,
+                                                                                    final boolean includeSamples,
                                                                                     final SpreadsheetFormatterProviderSamplesContext context) {
                     return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
                         selector,
+                        includeSamples,
                         context
                     );
                 }

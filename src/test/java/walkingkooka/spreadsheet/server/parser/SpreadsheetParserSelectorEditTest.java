@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
@@ -216,6 +217,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     private static List<SpreadsheetFormatterSample> dateFormatSamples(final String text) {
         return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
             SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text),
+            SpreadsheetFormatterProvider.INCLUDE_SAMPLES,
             SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
         );
     }
