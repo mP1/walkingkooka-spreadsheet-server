@@ -386,6 +386,14 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Friday, 31 December 1999\"\n" +
                     "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Sample\",\n" +
+                    "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"31/12/1999\"\n" +
+                    "      }\n" +
                     "    }\n" +
                     "  ]\n" +
                     "}"

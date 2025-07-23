@@ -441,7 +441,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest impleme
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 2333\r\n" +
+                    "Content-Length: 2502\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
                     "\r\n" +
@@ -579,6 +579,14 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest impleme
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Friday, 31 December 1999\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Sample\",\n" +
+                    "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"31/12/1999\"\n" +
                     "      }\n" +
                     "    }\n" +
                     "  ]\n" +
