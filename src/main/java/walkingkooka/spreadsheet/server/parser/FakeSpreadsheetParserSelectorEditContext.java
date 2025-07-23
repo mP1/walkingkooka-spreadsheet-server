@@ -92,7 +92,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFor
     }
 
     @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name, 
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
                                                      final List<?> values, 
                                                      final ProviderContext context) {
         throw new UnsupportedOperationException();
@@ -104,7 +104,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFor
     }
 
     @Override
-    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterSelector selector,
                                                                         final SpreadsheetFormatterProviderSamplesContext context) {
         throw new UnsupportedOperationException();
     }

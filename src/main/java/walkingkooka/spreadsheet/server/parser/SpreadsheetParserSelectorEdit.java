@@ -66,8 +66,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                 final Optional<SpreadsheetFormatterSelector> maybeSpreadsheetFormatterSelector = context.spreadsheetFormatterSelector(spreadsheetParserSelector);
                 if (maybeSpreadsheetFormatterSelector.isPresent()) {
                     samples = context.spreadsheetFormatterSamples(
-                        maybeSpreadsheetFormatterSelector.get()
-                            .name(),
+                        maybeSpreadsheetFormatterSelector.get(),
                         SpreadsheetFormatterProviderSamplesContexts.basic(
                             context, // SpreadsheetFormatterContext
                             context // ProviderContext

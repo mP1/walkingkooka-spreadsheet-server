@@ -61,7 +61,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         try {
             spreadsheetFormatterSelector = SpreadsheetFormatterSelector.parse(selector);
             samples = context.spreadsheetFormatterSamples(
-                spreadsheetFormatterSelector.name(),
+                spreadsheetFormatterSelector,
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     context,
                     context

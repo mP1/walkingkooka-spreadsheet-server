@@ -59,7 +59,8 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
 
         try {
             menus = context.spreadsheetFormatterSamples(
-                    info.name(),
+                    info.name()
+                        .setValueText(""),
                     context
                 ).stream()
                 .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))

@@ -89,7 +89,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     }
 
     private final static List<SpreadsheetFormatterSample> DATE_FORMAT_SAMPLES = SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-        SpreadsheetFormatterName.DATE_FORMAT_PATTERN,
+        SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(""),
         SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
     );
 
