@@ -34,8 +34,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 
 import java.util.function.Function;
 
@@ -44,10 +42,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting<SpreadsheetMetadataHttpHandler> {
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
-
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
 
