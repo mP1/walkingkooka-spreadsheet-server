@@ -295,7 +295,8 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                         v = TextStylePropertyName.with(without);
                         break;
                     default:
-                        throw new IllegalArgumentException("Unknown placeholder: " + name);
+                        v = s;
+                        break;
                 }
                 return v;
             }

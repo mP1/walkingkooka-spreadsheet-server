@@ -628,6 +628,37 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         );
     }
 
+    @Test
+    public void testExtractCustomParameters() {
+        final Map<TemplateValueName, Object> expected = Maps.sorted();
+        expected.put(
+            SpreadsheetUrlPathTemplate.SPREADSHEET_ID,
+            ID
+        );
+        expected.put(
+            SpreadsheetUrlPathTemplate.SPREADSHEET_NAME,
+            NAME
+        );
+        expected.put(
+            TemplateValueName.with("Custom1"),
+            "Value1"
+        );
+        expected.put(
+            TemplateValueName.with("Custom2"),
+            "/Value2"
+        );
+
+        this.checkEquals(
+            expected,
+            SpreadsheetUrlPathTemplate.parse("/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/custom1/${Custom1}/custom2/${Custom2}")
+                .extract(
+                    UrlPath.parse(
+                        "/api/spreadsheet/123/name/SpreadsheetName456/custom1/Value1/custom2/Value2"
+                    )
+                )
+        );
+    }
+
     // render...........................................................................................................
 
     @Test
