@@ -192,13 +192,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest impleme
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 2502\r\n" +
+                    "Content-Length: 2485\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
                     "\r\n" +
                     "{\n" +
                     "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
-                    "  \"message\": \"\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"dd\",\n" +
