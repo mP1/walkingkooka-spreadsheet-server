@@ -20,11 +20,9 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContextTesting;
 
 public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends SpreadsheetEngineHateosResourceHandlerContext> extends HateosResourceHandlerContextTesting<C>,
-    SpreadsheetEngineContextTesting<C>,
-    SpreadsheetFormatterProviderSamplesContextTesting<C> {
+    SpreadsheetEngineContextTesting<C> {
 
     @Test
     @Override

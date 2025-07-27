@@ -23,8 +23,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -32,6 +30,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -44,19 +43,17 @@ import java.util.Optional;
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
     HateosResourceHandlerContextDelegator,
     SpreadsheetEngineContextDelegator,
-    SpreadsheetFormatterContextDelegator,
-    SpreadsheetProviderDelegator {
+    SpreadsheetProviderDelegator,
+    JsonNodeMarshallContextDelegator {
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetEngine spreadsheetEngine,
                                                                    final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                    final SpreadsheetEngineContext engineContext,
-                                                                   final SpreadsheetFormatterContext formatterContext,
                                                                    final SpreadsheetProvider systemSpreadsheetProvider) {
         return new BasicSpreadsheetEngineHateosResourceHandlerContext(
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(engineContext, "engineContext"),
-            Objects.requireNonNull(formatterContext, "formatterContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
         );
     }
@@ -64,12 +61,10 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     private BasicSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngine spreadsheetEngine,
                                                                final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                final SpreadsheetEngineContext engineContext,
-                                                               final SpreadsheetFormatterContext formatterContext,
                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.engineContext = engineContext;
-        this.formatterContext = formatterContext;
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
 
@@ -84,12 +79,14 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.hateosResourceHandlerContext.expressionNumberKind();
+        return this.engineContext.spreadsheetMetadata()
+            .expressionNumberKind();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.formatterContext.mathContext();
+        return this.spreadsheetMetadata()
+            .mathContext();
     }
 
     @Override
@@ -103,7 +100,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+    public BasicSpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
         final HateosResourceHandlerContext after = before.setPreProcessor(processor);
         return before.equals(after) ?
@@ -112,7 +109,6 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
                 this.spreadsheetEngine,
                 after,
                 this.engineContext,
-                this.formatterContext.setPreProcessor(processor),
                 this.systemSpreadsheetProvider
             );
     }
@@ -121,7 +117,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     @Override
     public CanConvert canConvert() {
-        return this.formatterContext; // engineContext will delegate to ProviderContext
+        return this.engineContext;
     }
 
     // JsonNodeMarshallUnmarshallContext................................................................................
@@ -173,16 +169,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     private final SpreadsheetEngineContext engineContext;
 
-    // SpreadsheetFormatterContext......................................................................................
-
-    @Override
-    public SpreadsheetFormatterContext spreadsheetFormatterContext() {
-        return this.formatterContext;
-    }
-
-    private final SpreadsheetFormatterContext formatterContext;
-
-    // SpreadsheetEngineHateosResourceHandlerContext..........................................................................
+    // SpreadsheetEngineHateosResourceHandlerContext....................................................................
 
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {

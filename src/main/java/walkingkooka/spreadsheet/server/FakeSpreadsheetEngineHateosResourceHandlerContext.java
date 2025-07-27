@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
-import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfoSet;
@@ -37,7 +36,6 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorSelector;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.export.SpreadsheetExporter;
@@ -45,7 +43,6 @@ import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterSelector;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
@@ -129,11 +126,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<Object> value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<SpreadsheetCell> cell,
                                                                                          final SpreadsheetExpressionReferenceLoader loader) {
         throw new UnsupportedOperationException();
@@ -149,11 +141,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     @Override
     public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
                                                final Optional<SpreadsheetFormatterSelector> formatter) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector) {
         throw new UnsupportedOperationException();
     }
 
@@ -424,40 +411,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public Optional<SpreadsheetCell> cell() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int cellCharacterWidth() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<Color> colorNumber(final int number) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<Color> colorName(final SpreadsheetColorName name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<TextNode> formatValue(final Optional<Object> value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int generalFormatNumberDigitCount() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long dateOffset() {
-        throw new UnsupportedOperationException();
-    }
+    // CanConvert.......................................................................................................
 
     @Override
     public boolean canConvert(final Object value,
@@ -468,146 +422,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> type) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> ampms() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String ampm(final int hourOfDay) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> monthNames() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String monthName(final int month) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> monthNameAbbreviations() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String monthNameAbbreviation(final int month) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String weekDayName(final int day) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String weekDayNameAbbreviation(final int day) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int defaultYear() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int twoDigitYear() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int twoToFourDigitYear(final int year) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public DateTimeSymbols dateTimeSymbols() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String currencySymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char groupSeparator() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String infinitySymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char monetaryDecimalSeparator() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String nanSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char negativeSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char percentSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char permillSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char positiveSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char zeroDigit() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public DecimalNumberSymbols decimalNumberSymbols() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Converter<SpreadsheetConverterContext> converter() {
         throw new UnsupportedOperationException();
     }
 

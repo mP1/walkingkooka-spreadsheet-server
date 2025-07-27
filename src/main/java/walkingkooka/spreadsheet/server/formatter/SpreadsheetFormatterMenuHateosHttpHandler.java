@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A handler that returns all available {@link SpreadsheetFormatterMenu}
@@ -77,7 +78,9 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                     context.spreadsheetMetadata()
                         .spreadsheetFormatterContext(
                             SpreadsheetMetadata.NO_CELL,
-                            context::spreadsheetExpressionEvaluationContext,
+                            (final Optional<Object> v) -> {
+                                throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
+                            },
                             context, // SpreadsheetLabelNameResolver
                             context, // ConverterProvider
                             context, // SpreadsheetFormatterProvider

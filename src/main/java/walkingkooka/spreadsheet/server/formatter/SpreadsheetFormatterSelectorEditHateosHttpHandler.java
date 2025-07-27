@@ -27,11 +27,15 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A handler that accepts a request with a possible {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
@@ -86,7 +90,14 @@ final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosH
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
                         SpreadsheetMetadata.NO_CELL,
-                        context::spreadsheetExpressionEvaluationContext,
+                        (final Optional<Object> v) -> context.spreadsheetEngineContext(SpreadsheetMetadataPropertyName.FORMATTING_FUNCTIONS)
+                            .spreadsheetExpressionEvaluationContext(
+                                SpreadsheetMetadata.NO_CELL,
+                                SpreadsheetExpressionReferenceLoaders.fake()
+                            ).addLocalVariable(
+                                SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
+                                v
+                            ),
                         SpreadsheetLabelNameResolvers.fake(),
                         context, // ConverterProvider
                         context, // // SpreadsheetFormatterProvider

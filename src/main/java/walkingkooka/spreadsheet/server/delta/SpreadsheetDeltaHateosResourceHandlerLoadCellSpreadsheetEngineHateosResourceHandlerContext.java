@@ -23,8 +23,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -34,6 +32,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
@@ -48,7 +48,7 @@ import java.util.Optional;
 final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
     ConverterProviderDelegator,
     SpreadsheetEngineContextDelegator,
-    SpreadsheetFormatterContextDelegator {
+    JsonNodeMarshallUnmarshallContextDelegator {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
                                                                                                            final SpreadsheetEngine spreadsheetEngine,
@@ -151,10 +151,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         return this.context;
     }
 
-    // SpreadsheetFormatterContext......................................................................................
+    // JsonNodeMarshallUnmarshallContextDelegator.......................................................................
 
     @Override
-    public SpreadsheetFormatterContext spreadsheetFormatterContext() {
+    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
         return this.context;
     }
 
