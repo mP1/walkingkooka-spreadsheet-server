@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.url;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -36,7 +35,6 @@ import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.template.url.UrlPathTemplate;
 import walkingkooka.template.url.UrlPathTemplateValues;
-import walkingkooka.text.CaseKind;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
@@ -46,6 +44,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * A {@link Template} that supports extracting well known named parameters having values path components automatically converted.
@@ -88,66 +87,55 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             LOCALE_TAG,
-            LocaleTag.class
+            LocaleTag::parse
         );
     }
 
     public SpreadsheetColumnReferenceOrRange spreadsheetColumnReferenceOrRange(final UrlPath path) {
-        return Cast.to(
-            this.getOrFail(
+        return this.getOrFail(
                 path,
                 SPREADSHEET_COLUMN_REFERENCE_OR_RANGE,
-                SpreadsheetColumnReferenceOrRange.class
-            )
-        );
+                SpreadsheetSelection::parseColumnOrColumnRange
+            );
     }
 
     public SpreadsheetEngineEvaluation spreadsheetEngineEvaluation(final UrlPath path) {
-        return Cast.to(
-            this.getOrFail(
+        return this.getOrFail(
                 path,
                 SPREADSHEET_ENGINE_EVALUATION,
-                SpreadsheetExpressionReference.class
-            )
-        );
+                SpreadsheetEngineEvaluation::parse
+            );
     }
 
-
     public SpreadsheetExpressionReference spreadsheetExpressionReference(final UrlPath path) {
-        return Cast.to(
-            this.getOrFail(
+        return this.getOrFail(
                 path,
                 SPREADSHEET_EXPRESSION_REFERENCE,
-                SpreadsheetExpressionReference.class
-            )
-        );
+                SpreadsheetSelection::parseExpressionReference
+            );
     }
 
     public SpreadsheetFormatterSelector spreadsheetFormatterSelector(final UrlPath path) {
-        return Cast.to(
-            this.getOrFail(
+        return this.getOrFail(
                 path,
                 SPREADSHEET_FORMATTER_SELECTOR,
-                SpreadsheetFormatterSelector.class
-            )
-        );
+                SpreadsheetFormatterSelector::parse
+            );
     }
 
     public Optional<SpreadsheetId> spreadsheetId(final UrlPath path) {
         return this.get(
             path,
             SPREADSHEET_ID,
-            SpreadsheetId.class
+            SpreadsheetId::parse
         );
     }
 
-    public Optional<SpreadsheetEngineEvaluation> spreadsheetLabelName(final UrlPath path) {
-        return Cast.to(
-            this.get(
-                path,
-                SPREADSHEET_LABEL_NAME,
-                SpreadsheetLabelName.class
-            )
+    public Optional<SpreadsheetLabelName> spreadsheetLabelName(final UrlPath path) {
+        return this.get(
+            path,
+            SPREADSHEET_LABEL_NAME,
+            SpreadsheetSelection::labelName
         );
     }
 
@@ -155,7 +143,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             SPREADSHEET_METADATA_PROPERTY_NAME,
-            SpreadsheetMetadataPropertyName.class
+            SpreadsheetMetadataPropertyName::with
         );
     }
 
@@ -163,7 +151,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             SPREADSHEET_NAME,
-            SpreadsheetName.class
+            SpreadsheetName::with
         );
     }
 
@@ -171,7 +159,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.getOrFail(
             path,
             SPREADSHEET_ROW_REFERENCE_OR_RANGE,
-            SpreadsheetRowReferenceOrRange.class
+            SpreadsheetSelection::parseRowOrRowRange
         );
     }
 
@@ -179,31 +167,29 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             TEXT_STYLE_PROPERTY_NAME,
-            TextStylePropertyName.class
+            TextStylePropertyName::with
         );
     }
 
     public <T> T getOrFail(final UrlPath path,
                            final TemplateValueName name,
-                           final Class<T> type) {
+                           final Function<String, T> parser) {
         return this.get(
             path,
             name,
-            type
+            parser
         ).orElseThrow(() -> new IllegalArgumentException("Unknown placeholder: " + name));
     }
 
     public <T> Optional<T> get(final UrlPath path,
                                final TemplateValueName name,
-                               final Class<T> type) {
+                               final Function<String, T> parser) {
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(parser, "parser");
 
-        return Cast.to(
-            this.template.tryPrepareValues(path)
-                .flatMap(v -> get(v, name))
-        );
+        return this.template.tryPrepareValues(path)
+                .flatMap(v -> v.get(name, parser));
     }
 
     public Map<TemplateValueName, Object> extract(final UrlPath path) {
@@ -246,12 +232,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                         v = SpreadsheetSelection.parseColumnOrColumnRange(s);
                         break;
                     case "SpreadsheetEngineEvaluation":
-                        v = SpreadsheetEngineEvaluation.valueOf(
-                            CaseKind.KEBAB.change(
-                                s,
-                                CaseKind.SNAKE
-                            )
-                        );
+                        v = SpreadsheetEngineEvaluation.parse(s);
                         break;
                     case "SpreadsheetExpressionReference":
                         v = SpreadsheetSelection.parseExpressionReference(s);
