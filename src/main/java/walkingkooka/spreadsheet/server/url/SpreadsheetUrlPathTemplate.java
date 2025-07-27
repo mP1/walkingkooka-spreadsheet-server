@@ -112,23 +112,6 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         );
     }
 
-    public Optional<SpreadsheetEngineEvaluation> spreadsheetLabelName(final UrlPath path) {
-        return Cast.to(
-            this.get(
-                path,
-                SPREADSHEET_LABEL_NAME,
-                SpreadsheetLabelName.class
-            )
-        );
-    }
-
-    public SpreadsheetMetadataPropertyName<?> spreadsheetMetadataPropertyName(final UrlPath path) {
-        return getOrFail(
-            path,
-            SPREADSHEET_METADATA_PROPERTY_NAME,
-            SpreadsheetMetadataPropertyName.class
-        );
-    }
 
     public SpreadsheetExpressionReference spreadsheetExpressionReference(final UrlPath path) {
         return Cast.to(
@@ -155,6 +138,24 @@ public final class SpreadsheetUrlPathTemplate implements Template {
             path,
             SPREADSHEET_ID,
             SpreadsheetId.class
+        );
+    }
+
+    public Optional<SpreadsheetEngineEvaluation> spreadsheetLabelName(final UrlPath path) {
+        return Cast.to(
+            this.get(
+                path,
+                SPREADSHEET_LABEL_NAME,
+                SpreadsheetLabelName.class
+            )
+        );
+    }
+
+    public SpreadsheetMetadataPropertyName<?> spreadsheetMetadataPropertyName(final UrlPath path) {
+        return getOrFail(
+            path,
+            SPREADSHEET_METADATA_PROPERTY_NAME,
+            SpreadsheetMetadataPropertyName.class
         );
     }
 
