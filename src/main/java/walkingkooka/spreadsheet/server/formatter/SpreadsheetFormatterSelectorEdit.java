@@ -271,10 +271,10 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
     static SpreadsheetFormatterSelectorEdit unmarshall(final JsonNode node,
                                                        final JsonNodeUnmarshallContext context) {
         Optional<SpreadsheetFormatterSelector> selector = Optional.empty();
-        String message = null;
-        List<SpreadsheetFormatterSelectorToken> tokens = null;
+        String message = "";
+        List<SpreadsheetFormatterSelectorToken> tokens = Lists.empty();
         Optional<SpreadsheetFormatterSelectorToken> next = Optional.empty();
-        List<SpreadsheetFormatterSample> samples = null;
+        List<SpreadsheetFormatterSample> samples = Lists.empty();
 
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
@@ -328,7 +328,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
      * <pre>
      * {
      *   "selector": "date-format-pattern dd/mm/yyyy",
-     *   "message": "",
+     *   "message": "Hello",
      *   "tokens": [
      *     {
      *       "label": "dd",
@@ -467,21 +467,50 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
      * </pre>
      */
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return JsonNode.object()
-            .setChildren(
-                Lists.of(
-                    context.marshallOptional(this.selector)
-                        .setName(SELECTOR_PROPERTY),
-                    context.marshall(this.message)
-                        .setName(MESSAGE_PROPERTY),
-                    context.marshall(this.tokens)
-                        .setName(TOKENS_PROPERTY),
-                    context.marshallOptional(this.next)
-                        .setName(NEXT_PROPERTY),
-                    context.marshall(this.samples)
-                        .setName(SAMPLES_PROPERTY)
-                )
+        final List<JsonNode> children = Lists.array();
+
+        final Optional<SpreadsheetFormatterSelector> selector = this.selector;
+        if(selector.isPresent()) {
+            children.add(
+                context.marshallOptional(selector)
+                    .setName(SELECTOR_PROPERTY)
             );
+        }
+
+        final String message = this.message;
+        if (false == CharSequences.isNullOrEmpty(message)) {
+            children.add(
+                context.marshall(message)
+                    .setName(MESSAGE_PROPERTY)
+            );
+        }
+
+        final List<SpreadsheetFormatterSelectorToken> tokens = this.tokens;
+        if(false == tokens.isEmpty()) {
+            children.add(
+                context.marshall(tokens)
+                    .setName(TOKENS_PROPERTY)
+            );
+        }
+
+        final Optional<SpreadsheetFormatterSelectorToken> next = this.next;
+        if(next.isPresent()) {
+            children.add(
+                context.marshallOptional(next)
+                    .setName(NEXT_PROPERTY)
+            );
+        }
+
+        final List<SpreadsheetFormatterSample> samples = this.samples;
+        if(false == samples.isEmpty()) {
+            children.add(
+                context.marshall(this.samples)
+                    .setName(SAMPLES_PROPERTY)
+            );
+        }
+
+        return JsonNode.object()
+            .setChildren(children);
     }
 
     private final static String SELECTOR_PROPERTY_STRING = "selector";

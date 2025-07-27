@@ -309,12 +309,11 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     // json............................................................................................................
 
     @Test
-    public void testMarshall() {
+    public void testMarshallWithoutMessage() {
         this.marshallAndCheck(
             this.createJsonNodeMarshallingValue(),
             "{\n" +
                 "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
-                "  \"message\": \"\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
                 "      \"label\": \"dd\",\n" +
@@ -457,6 +456,16 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "      }\n" +
                 "    }\n" +
                 "  ]\n" +
+                "}"
+        );
+    }
+
+    @Test
+    public void testMarshallOnlyMessage() {
+        this.marshallAndCheck(
+            this.parseString("!invalid"),
+            "{\n" +
+                "  \"message\": \"Invalid character '!' at 0\"\n" +
                 "}"
         );
     }
@@ -611,6 +620,16 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "  ]\n" +
                 "}",
             this.createJsonNodeMarshallingValue()
+        );
+    }
+
+    @Test
+    public void testUnmarshallOnlyMessage() {
+        this.unmarshallAndCheck(
+            "{\n" +
+                "  \"message\": \"Invalid character '!' at 0\"\n" +
+                "}",
+            this.parseString("!invalid")
         );
     }
 
