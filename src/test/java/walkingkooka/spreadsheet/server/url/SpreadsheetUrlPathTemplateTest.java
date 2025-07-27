@@ -25,6 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
@@ -67,6 +68,8 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
 
     private final static SpreadsheetRowReference ROW = SpreadsheetSelection.parseRow("2");
     private final static SpreadsheetRowRangeReference ROW_RANGE = SpreadsheetSelection.parseRowRange("3:4");
+
+    private final static SpreadsheetFormatterSelector SPREADSHEET_FORMATTER_SELECTOR = SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT;
 
     private final static SpreadsheetMetadataPropertyName<?> SPREADSHEET_METADATA_PROPERTY_NAME = SpreadsheetMetadataPropertyName.ROUNDING_MODE;
 
@@ -317,6 +320,36 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         );
     }
 
+    // spreadsheetFormatterSelector......................................................................................
+
+    @Test
+    public void testSpreadsheetFormatterSelector() {
+        this.spreadsheetFormatterSelectorAndCheck(
+            "/api/spreadsheet/123/cell/A1/formatter/${SpreadsheetFormatterSelector}",
+            "/api/spreadsheet/123/cell/A1/formatter/text-format-pattern @",
+            SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
+        );
+    }
+
+    private void spreadsheetFormatterSelectorAndCheck(final String template,
+                                                      final String path,
+                                                      final SpreadsheetFormatterSelector expected) {
+        this.spreadsheetFormatterSelectorAndCheck(
+            SpreadsheetUrlPathTemplate.parse(template),
+            UrlPath.parse(path),
+            expected
+        );
+    }
+
+    private void spreadsheetFormatterSelectorAndCheck(final SpreadsheetUrlPathTemplate template,
+                                                      final UrlPath path,
+                                                      final SpreadsheetFormatterSelector expected) {
+        this.checkEquals(
+            expected,
+            template.spreadsheetFormatterSelector(path)
+        );
+    }
+    
     // spreadsheetId....................................................................................................
 
     @Test
@@ -566,6 +599,10 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             SpreadsheetUrlPathTemplate.TEXT_STYLE_PROPERTY_NAME,
             TEXT_STYLE_PROPERTY_NAME
         );
+        expected.put(
+            SpreadsheetUrlPathTemplate.SPREADSHEET_FORMATTER_SELECTOR,
+            SPREADSHEET_FORMATTER_SELECTOR
+        );
 
         this.checkEquals(
             expected,
@@ -573,7 +610,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 .extract(
                     UrlPath.parse(
                         "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/skip-evaluate/column/B/row/2" +
-                            "/label/Label123/metadata/roundingMode/style/text-align"
+                            "/label/Label123/metadata/roundingMode/style/text-align/formatter/text-format-pattern @"
                     )
                 )
         );
@@ -608,6 +645,9 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                     if (n.equals(SpreadsheetUrlPathTemplate.SPREADSHEET_ROW_REFERENCE_OR_RANGE)) {
                         return ROW.toStringMaybeStar();
                     }
+                    if (n.equals(SpreadsheetUrlPathTemplate.SPREADSHEET_FORMATTER_SELECTOR)) {
+                        return SPREADSHEET_FORMATTER_SELECTOR.toString();
+                    }
                     if (n.equals(SpreadsheetUrlPathTemplate.SPREADSHEET_LABEL_NAME)) {
                         return LABEL.toStringMaybeStar();
                     }
@@ -622,7 +662,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 }
             ),
             "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/skip-evaluate/column/B/row/2" +
-                "/label/Label123/metadata/roundingMode/style/text-align"
+                "/label/Label123/metadata/roundingMode/style/text-align/formatter/text-format-pattern @"
         );
     }
 
@@ -671,25 +711,32 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             SpreadsheetUrlPathTemplate.TEXT_STYLE_PROPERTY_NAME,
             TEXT_STYLE_PROPERTY_NAME
         );
+        values.put(
+            SpreadsheetUrlPathTemplate.SPREADSHEET_FORMATTER_SELECTOR,
+            SPREADSHEET_FORMATTER_SELECTOR
+        );
 
         this.checkEquals(
             UrlPath.parse(
                 "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/localeTag/en-AU/column/B/row/2" +
-                    "/label/Label123/metadata/roundingMode/style/text-align"),
+                    "/label/Label123/metadata/roundingMode/style/text-align/formatter/text-format-pattern @"),
             SpreadsheetUrlPathTemplate.parse(
                 "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell/${SpreadsheetExpressionReference}/localeTag/${LocaleTag}" +
                     "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +
-                    "/label/${SpreadsheetLabelName}/metadata/roundingMode/style/${TextStylePropertyName}"
+                    "/label/${SpreadsheetLabelName}/metadata/roundingMode/style/${TextStylePropertyName}" +
+                    "/formatter/${SpreadsheetFormatterSelector}"
             ).render(values)
         );
     }
 
     @Override
     public SpreadsheetUrlPathTemplate createTemplate() {
-        return SpreadsheetUrlPathTemplate.parse("/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}" +
+        return SpreadsheetUrlPathTemplate.parse(
+            "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}" +
             "/cell/${SpreadsheetExpressionReference}/${SpreadsheetEngineEvaluation}" +
             "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +
-            "/label/${SpreadsheetLabelName}/metadata/${SpreadsheetMetadataPropertyName}/style/${TextStylePropertyName}"
+            "/label/${SpreadsheetLabelName}/metadata/${SpreadsheetMetadataPropertyName}/style/${TextStylePropertyName}" +
+            "/formatter/${SpreadsheetFormatterSelector}"
         );
     }
 
@@ -788,7 +835,15 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 "      StringTemplate\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
-                "        ${TextStylePropertyName}\n"
+                "        ${TextStylePropertyName}\n" +
+                "      StringTemplate\n" +
+                "        \"/\"\n" +
+                "      StringTemplate\n" +
+                "        \"formatter\"\n" +
+                "      StringTemplate\n" +
+                "        \"/\"\n" +
+                "      TemplateValueNameTemplate\n" +
+                "        ${SpreadsheetFormatterSelector}\n"
         );
     }
 

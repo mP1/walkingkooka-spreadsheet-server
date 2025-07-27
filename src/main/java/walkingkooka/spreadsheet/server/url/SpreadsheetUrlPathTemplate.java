@@ -23,6 +23,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -58,6 +59,8 @@ public final class SpreadsheetUrlPathTemplate implements Template {
     public final static TemplateValueName SPREADSHEET_ENGINE_EVALUATION = TemplateValueName.with(SpreadsheetEngineEvaluation.class.getSimpleName());
 
     public final static TemplateValueName SPREADSHEET_EXPRESSION_REFERENCE = TemplateValueName.with(SpreadsheetExpressionReference.class.getSimpleName());
+
+    public final static TemplateValueName SPREADSHEET_FORMATTER_SELECTOR = TemplateValueName.with(SpreadsheetFormatterSelector.class.getSimpleName());
 
     public final static TemplateValueName SPREADSHEET_ID = TemplateValueName.with(SpreadsheetId.class.getSimpleName());
 
@@ -133,6 +136,16 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                 path,
                 SPREADSHEET_EXPRESSION_REFERENCE,
                 SpreadsheetExpressionReference.class
+            )
+        );
+    }
+
+    public SpreadsheetFormatterSelector spreadsheetFormatterSelector(final UrlPath path) {
+        return Cast.to(
+            this.getOrFail(
+                path,
+                SPREADSHEET_FORMATTER_SELECTOR,
+                SpreadsheetFormatterSelector.class
             )
         );
     }
@@ -242,6 +255,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                     case "SpreadsheetExpressionReference":
                         v = SpreadsheetSelection.parseExpressionReference(s);
                         break;
+                    case "SpreadsheetFormatterSelector":
+                        v = SpreadsheetFormatterSelector.parse(s);
+                        break;
                     case "SpreadsheetId":
                         v = SpreadsheetId.parse(s);
                         break;
@@ -298,6 +314,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                             .toStringMaybeStar();
                         break;
                     case "SpreadsheetId":
+                    case "SpreadsheetFormatterSelector":
                     case "SpreadsheetMetadataPropertyName":
                     case "SpreadsheetName":
                         stringValue = value.toString();
