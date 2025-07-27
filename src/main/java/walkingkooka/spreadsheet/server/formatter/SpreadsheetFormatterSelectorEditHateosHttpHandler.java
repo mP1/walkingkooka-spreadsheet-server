@@ -27,7 +27,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -41,8 +40,8 @@ final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosH
 
     static {
         try {
-            SpreadsheetFormatterSelectorEdit.prepare(
-                SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT,
+            SpreadsheetFormatterSelectorEdit.parse(
+                null,
                 null
             ); // force json registry
         } catch (final NullPointerException ignore) {
@@ -78,13 +77,11 @@ final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosH
             .path()
             .pathAfter(6);
 
-        final SpreadsheetFormatterSelectorEdit edit = SpreadsheetFormatterSelectorEdit.prepare(
-            SpreadsheetFormatterSelector.parse(
-                selector.isRoot() ?
-                    "" :
-                    selector.value()
-                        .substring(1)
-            ),
+        final SpreadsheetFormatterSelectorEdit edit = SpreadsheetFormatterSelectorEdit.parse(
+            selector.isRoot() ?
+                "" :
+                selector.value()
+                    .substring(1),
             SpreadsheetFormatterSelectorEditContexts.basic(
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(

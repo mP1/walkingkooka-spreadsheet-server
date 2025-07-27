@@ -18,49 +18,214 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenAlternative;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterSelectorEditTest implements TreePrintableTesting,
+public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTesting<SpreadsheetFormatterSelectorEdit>,
+    TreePrintableTesting,
     JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorEdit>,
     SpreadsheetMetadataTesting,
     ClassTesting<SpreadsheetFormatterSelectorEdit> {
 
-    private final SpreadsheetFormatterSelectorEditContext CONTEXT = SpreadsheetFormatterSelectorEditContexts.basic(
-        SPREADSHEET_FORMATTER_CONTEXT,
-        SPREADSHEET_FORMATTER_PROVIDER,
-        PROVIDER_CONTEXT
-    );
-
     @Test
-    public void testPrepareWithNullSelectorFails() {
+    public void testParseWithNullContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> SpreadsheetFormatterSelectorEdit.prepare(
-                null,
-                CONTEXT
+            () -> SpreadsheetFormatterSelectorEdit.parse(
+                "",
+                null
+            )
+        );
+    }
+
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testParseStringEmpty() {
+        this.parseStringAndCheck(
+            "",
+            SpreadsheetFormatterSelectorEdit.with(
+                Optional.empty(), // selector
+                "Empty \"text\"",
+                Lists.empty(),
+                Optional.empty(),
+                Lists.empty()
             )
         );
     }
 
     @Test
-    public void testPrepareWithNullContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetFormatterSelectorEdit.prepare(
-                SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT,
-                null
+    public void testParseInvalidSpreadsheetFormatterName() {
+        this.parseStringAndCheck(
+            "123",
+            SpreadsheetFormatterSelectorEdit.with(
+                Optional.empty(),
+                "Invalid character '1' at 0",
+                Lists.empty(),
+                Optional.empty(),
+                Lists.empty()
             )
         );
+    }
+
+    @Test
+    public void testParseOnlySpreadsheetFormatterName() {
+        final String text = "";
+
+        this.parseStringAndCheck(
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.value(),
+            SpreadsheetFormatterSelectorEdit.with(
+                Optional.of(
+                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text)
+                ),
+                "Empty \"text\"",
+                Lists.empty(),
+                Optional.empty(),
+                dateFormatSamples("")
+            )
+        );
+    }
+
+    @Test
+    public void testParseSpreadsheetFormatterNameInvalidPattern() {
+        final String selector = SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " !";
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> SpreadsheetFormatterSelector.parse(selector)
+                .spreadsheetFormatPattern()
+        );
+
+        this.parseStringAndCheck(
+            selector,
+            SpreadsheetFormatterSelectorEdit.with(
+                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("!")),
+                thrown.getMessage(),
+                Lists.empty(),
+                Optional.empty(),
+                dateFormatSamples("!")
+            )
+        );
+    }
+
+    @Test
+    public void testParse() {
+        final String text = "yyyy";
+
+        this.parseStringAndCheck(
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " " + text,
+            SpreadsheetFormatterSelectorEdit.with(
+                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text)),
+                "",
+                Lists.of(
+                    SpreadsheetFormatterSelectorToken.with(
+                        "yyyy",
+                        "yyyy",
+                        Lists.of(
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "yy",
+                                "yy"
+                            )
+                        )
+                    )
+                ),
+                Optional.of(
+                    SpreadsheetFormatterSelectorToken.with(
+                        "",
+                        "",
+                        Lists.of(
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "d",
+                                "d"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "dd",
+                                "dd"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "ddd",
+                                "ddd"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "dddd",
+                                "dddd"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "m",
+                                "m"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "mm",
+                                "mm"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "mmm",
+                                "mmm"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "mmmm",
+                                "mmmm"
+                            ),
+                            SpreadsheetFormatterSelectorTokenAlternative.with(
+                                "mmmmm",
+                                "mmmmm"
+                            )
+                        )
+                    )
+                ),
+                dateFormatSamples(text)
+            )
+        );
+    }
+
+    private static List<SpreadsheetFormatterSample> dateFormatSamples(final String text) {
+        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text),
+            SpreadsheetFormatterProvider.INCLUDE_SAMPLES,
+            SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
+        );
+    }
+
+    @Override
+    public SpreadsheetFormatterSelectorEdit parseString(final String selector) {
+        return SpreadsheetFormatterSelectorEdit.parse(
+            selector,
+            SpreadsheetFormatterSelectorEditContexts.basic(
+                SPREADSHEET_FORMATTER_CONTEXT,
+                SPREADSHEET_FORMATTER_PROVIDER,
+                PROVIDER_CONTEXT
+            )
+        );
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 
     // TreePrintable....................................................................................................
@@ -68,10 +233,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements TreePrintable
     @Test
     public void testTreePrint() {
         this.treePrintAndCheck(
-            SpreadsheetFormatterSelectorEdit.prepare(
-                SpreadsheetFormatterSelector.parse(SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " yyyy/mm/dd"),
-                CONTEXT
-            ),
+            this.parseString(SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " yyyy/mm/dd"),
             "SpreadsheetFormatterSelectorEdit\n" +
                 "  selector\n" +
                 "    date-format-pattern\n" +
@@ -152,6 +314,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements TreePrintable
             this.createJsonNodeMarshallingValue(),
             "{\n" +
                 "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "  \"message\": \"\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
                 "      \"label\": \"dd\",\n" +
@@ -303,6 +466,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements TreePrintable
         this.unmarshallAndCheck(
             "{\n" +
                 "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "  \"message\": \"\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
                 "      \"label\": \"dd\",\n" +
@@ -461,12 +625,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements TreePrintable
 
     @Override
     public SpreadsheetFormatterSelectorEdit createJsonNodeMarshallingValue() {
-        return SpreadsheetFormatterSelectorEdit.prepare(
-            SpreadsheetFormatterSelector.parse(
-                SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " dd/mm/yyyy"
-            ),
-            CONTEXT
-        );
+        return this.parseString(SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " dd/mm/yyyy");
     }
 
     // class............................................................................................................
