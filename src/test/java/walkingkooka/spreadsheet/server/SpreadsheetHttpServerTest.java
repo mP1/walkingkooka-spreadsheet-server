@@ -10242,7 +10242,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
-                    "  \"message\": \"\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"yyyy\",\n" +
@@ -10397,7 +10396,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
-                    "  \"message\": \"\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"yyyy\",\n" +
