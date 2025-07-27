@@ -51,25 +51,21 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         Objects.requireNonNull(selector, "selector");
         Objects.requireNonNull(context, "context");
 
-        List<SpreadsheetFormatterSelectorToken> tokens = Lists.empty();
-        Optional<SpreadsheetFormatterSelectorToken> next = Optional.empty();
-        List<SpreadsheetFormatterSample> samples = Lists.empty();
-
-            samples = context.spreadsheetFormatterSamples(
-                selector,
-                SpreadsheetFormatterProvider.INCLUDE_SAMPLES,
-                SpreadsheetFormatterProviderSamplesContexts.basic(
-                    context,
-                    context
-                )
-            );
-
-            final SpreadsheetFormatter formatter = context.spreadsheetFormatter(
-                selector,
+        final List<SpreadsheetFormatterSample> samples = context.spreadsheetFormatterSamples(
+            selector,
+            SpreadsheetFormatterProvider.INCLUDE_SAMPLES,
+            SpreadsheetFormatterProviderSamplesContexts.basic(
+                context,
                 context
-            );
-            tokens = formatter.tokens(context);
-            next = context.spreadsheetFormatterNextToken(selector);
+            )
+        );
+
+        final SpreadsheetFormatter formatter = context.spreadsheetFormatter(
+            selector,
+            context
+        );
+        final List<SpreadsheetFormatterSelectorToken> tokens = formatter.tokens(context);
+        final Optional<SpreadsheetFormatterSelectorToken> next = context.spreadsheetFormatterNextToken(selector);
 
         return SpreadsheetFormatterSelectorEdit.with(
             selector,
