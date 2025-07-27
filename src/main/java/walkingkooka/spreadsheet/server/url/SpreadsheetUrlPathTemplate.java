@@ -87,7 +87,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             LOCALE_TAG,
-            LocaleTag::parse
+            removeSlashFirstAndParse(
+                LocaleTag::parse
+            )
         );
     }
 
@@ -95,7 +97,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.getOrFail(
                 path,
                 SPREADSHEET_COLUMN_REFERENCE_OR_RANGE,
-                SpreadsheetSelection::parseColumnOrColumnRange
+                removeSlashFirstAndParse(
+                    SpreadsheetSelection::parseColumnOrColumnRange
+                )
             );
     }
 
@@ -103,7 +107,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.getOrFail(
                 path,
                 SPREADSHEET_ENGINE_EVALUATION,
-                SpreadsheetEngineEvaluation::parse
+                removeSlashFirstAndParse(
+                    SpreadsheetEngineEvaluation::parse
+                )
             );
     }
 
@@ -111,7 +117,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.getOrFail(
                 path,
                 SPREADSHEET_EXPRESSION_REFERENCE,
-                SpreadsheetSelection::parseExpressionReference
+                removeSlashFirstAndParse(
+                    SpreadsheetSelection::parseExpressionReference
+                )
             );
     }
 
@@ -119,7 +127,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.getOrFail(
                 path,
                 SPREADSHEET_FORMATTER_SELECTOR,
-                SpreadsheetFormatterSelector::parse
+                removeSlashFirstAndParse(
+                    SpreadsheetFormatterSelector::parse
+                )
             );
     }
 
@@ -127,7 +137,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.get(
             path,
             SPREADSHEET_ID,
-            SpreadsheetId::parse
+            removeSlashFirstAndParse(
+                SpreadsheetId::parse
+            )
         );
     }
 
@@ -135,7 +147,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.get(
             path,
             SPREADSHEET_LABEL_NAME,
-            SpreadsheetSelection::labelName
+            removeSlashFirstAndParse(
+                SpreadsheetSelection::labelName
+            )
         );
     }
 
@@ -143,7 +157,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             SPREADSHEET_METADATA_PROPERTY_NAME,
-            SpreadsheetMetadataPropertyName::with
+            removeSlashFirstAndParse(
+                SpreadsheetMetadataPropertyName::with
+            )
         );
     }
 
@@ -151,7 +167,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             SPREADSHEET_NAME,
-            SpreadsheetName::with
+            removeSlashFirstAndParse(
+                SpreadsheetName::with
+            )
         );
     }
 
@@ -159,7 +177,9 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return this.getOrFail(
             path,
             SPREADSHEET_ROW_REFERENCE_OR_RANGE,
-            SpreadsheetSelection::parseRowOrRowRange
+            removeSlashFirstAndParse(
+                SpreadsheetSelection::parseRowOrRowRange
+            )
         );
     }
 
@@ -167,8 +187,22 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         return getOrFail(
             path,
             TEXT_STYLE_PROPERTY_NAME,
-            TextStylePropertyName::with
+            removeSlashFirstAndParse(
+                TextStylePropertyName::with
+            )
         );
+    }
+
+    private static <T> Function<String, T> removeSlashFirstAndParse(final Function<String, T> function) {
+        return s -> function.apply(
+            removeSlashFirst(s)
+        );
+    }
+
+    private static String removeSlashFirst(final String text) {
+        return text.startsWith("/") ?
+            text.substring(1) :
+            text;
     }
 
     public <T> T getOrFail(final UrlPath path,
@@ -224,39 +258,41 @@ public final class SpreadsheetUrlPathTemplate implements Template {
             (final String s) -> {
                 final Object v;
 
+                final String without = removeSlashFirst(s);
+                
                 switch (name.value()) {
                     case "LocaleTag":
-                        v = LocaleTag.parse(s);
+                        v = LocaleTag.parse(without);
                         break;
                     case "SpreadsheetColumnReferenceOrRange":
-                        v = SpreadsheetSelection.parseColumnOrColumnRange(s);
+                        v = SpreadsheetSelection.parseColumnOrColumnRange(without);
                         break;
                     case "SpreadsheetEngineEvaluation":
-                        v = SpreadsheetEngineEvaluation.parse(s);
+                        v = SpreadsheetEngineEvaluation.parse(without);
                         break;
                     case "SpreadsheetExpressionReference":
-                        v = SpreadsheetSelection.parseExpressionReference(s);
+                        v = SpreadsheetSelection.parseExpressionReference(without);
                         break;
                     case "SpreadsheetFormatterSelector":
-                        v = SpreadsheetFormatterSelector.parse(s);
+                        v = SpreadsheetFormatterSelector.parse(without);
                         break;
                     case "SpreadsheetId":
-                        v = SpreadsheetId.parse(s);
+                        v = SpreadsheetId.parse(without);
                         break;
                     case "SpreadsheetLabelName":
-                        v = SpreadsheetSelection.labelName(s);
+                        v = SpreadsheetSelection.labelName(without);
                         break;
                     case "SpreadsheetMetadataPropertyName":
-                        v = SpreadsheetMetadataPropertyName.with(s);
+                        v = SpreadsheetMetadataPropertyName.with(without);
                         break;
                     case "SpreadsheetName":
-                        v = SpreadsheetName.with(s);
+                        v = SpreadsheetName.with(without);
                         break;
                     case "SpreadsheetRowReferenceOrRange":
-                        v = SpreadsheetSelection.parseRowOrRowRange(s);
+                        v = SpreadsheetSelection.parseRowOrRowRange(without);
                         break;
                     case "TextStylePropertyName":
-                        v = TextStylePropertyName.with(s);
+                        v = TextStylePropertyName.with(without);
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown placeholder: " + name);
