@@ -17,25 +17,19 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextTesting2;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderTesting;
 
-import java.lang.reflect.Method;
-
-public final class SpreadsheetFormatterSelectorMenuContextsTest implements PublicStaticHelperTesting<SpreadsheetFormatterSelectorMenuContexts> {
+public interface SpreadsheetFormatterMenuContextTesting<C extends SpreadsheetFormatterMenuContext> extends SpreadsheetFormatterProviderTesting<C>,
+    SpreadsheetFormatterContextTesting2<C> {
 
     @Override
-    public Class<SpreadsheetFormatterSelectorMenuContexts> type() {
-        return SpreadsheetFormatterSelectorMenuContexts.class;
+    default C createSpreadsheetFormatterProvider() {
+        return this.createContext();
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
+    default String typeNameSuffix() {
+        return SpreadsheetFormatterMenuContext.class.getSimpleName();
     }
 }

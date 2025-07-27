@@ -35,14 +35,14 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import java.util.Objects;
 
 /**
- * A handler that returns all available {@link SpreadsheetFormatterSelectorMenu}
+ * A handler that returns all available {@link SpreadsheetFormatterMenu}
  */
 final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        SpreadsheetFormatterSelectorMenuList.with(
+        SpreadsheetFormatterMenuList.with(
             Lists.of(
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Label123",
                     SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
                 )
@@ -70,8 +70,8 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
         HttpHeaderName.ACCEPT.headerOrFail(request)
             .testOrFail(requiredContentType);
 
-        final SpreadsheetFormatterSelectorMenuList menuList = SpreadsheetFormatterSelectorMenu.prepare(
-            SpreadsheetFormatterSelectorMenuContexts.basic(
+        final SpreadsheetFormatterMenuList menuList = SpreadsheetFormatterMenu.prepare(
+            SpreadsheetFormatterMenuContexts.basic(
                 context, // SpreadsheetFormatProvider
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     context.spreadsheetMetadata()

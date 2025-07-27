@@ -112,8 +112,8 @@ import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosReso
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceSet;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuList;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
-import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
@@ -10620,7 +10620,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
                     "  }\n" +
                     "]",
-                SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
+                SpreadsheetFormatterMenuList.class.getSimpleName()
             )
         );
     }

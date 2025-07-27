@@ -33,17 +33,17 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu>,
-    ClassTesting<SpreadsheetFormatterSelectorMenuList>,
-    ImmutableListTesting<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu>,
-    JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorMenuList> {
+public class SpreadsheetFormatterMenuListTest implements ListTesting2<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu>,
+    ClassTesting<SpreadsheetFormatterMenuList>,
+    ImmutableListTesting<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu>,
+    JsonNodeMarshallingTesting<SpreadsheetFormatterMenuList> {
 
-    private final static SpreadsheetFormatterSelectorMenu MENU1 = SpreadsheetFormatterSelectorMenu.with(
+    private final static SpreadsheetFormatterMenu MENU1 = SpreadsheetFormatterMenu.with(
         "Short",
         SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yy/mm")
     );
 
-    private final static SpreadsheetFormatterSelectorMenu MENU2 = SpreadsheetFormatterSelectorMenu.with(
+    private final static SpreadsheetFormatterMenu MENU2 = SpreadsheetFormatterMenu.with(
         "Long",
         SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("yyyy/mm/dd")
     );
@@ -52,7 +52,7 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     public void testWithNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> SpreadsheetFormatterSelectorMenuList.with(null)
+            () -> SpreadsheetFormatterMenuList.with(null)
         );
     }
 
@@ -60,7 +60,7 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     public void testWithIncludesNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> SpreadsheetFormatterSelectorMenuList.with(
+            () -> SpreadsheetFormatterMenuList.with(
                 Arrays.asList(
                     MENU1,
                     null
@@ -71,10 +71,10 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
 
     @Test
     public void testDoesntDoubleWrap() {
-        final SpreadsheetFormatterSelectorMenuList list = this.createList();
+        final SpreadsheetFormatterMenuList list = this.createList();
         assertSame(
             list,
-            SpreadsheetFormatterSelectorMenuList.with(list)
+            SpreadsheetFormatterMenuList.with(list)
         );
     }
 
@@ -107,7 +107,7 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
 
     @Test
     public void testRemoveIndexFails() {
-        final SpreadsheetFormatterSelectorMenuList list = this.createList();
+        final SpreadsheetFormatterMenuList list = this.createList();
 
         this.removeIndexFails(
             list,
@@ -117,7 +117,7 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
 
     @Test
     public void testRemoveElementFails() {
-        final SpreadsheetFormatterSelectorMenuList list = this.createList();
+        final SpreadsheetFormatterMenuList list = this.createList();
 
         this.removeFails(
             list,
@@ -126,8 +126,8 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     }
 
     @Override
-    public SpreadsheetFormatterSelectorMenuList createList() {
-        return SpreadsheetFormatterSelectorMenuList.with(
+    public SpreadsheetFormatterMenuList createList() {
+        return SpreadsheetFormatterMenuList.with(
             Lists.of(
                 MENU1,
                 MENU2
@@ -136,8 +136,8 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     }
 
     @Override
-    public Class<SpreadsheetFormatterSelectorMenuList> type() {
-        return SpreadsheetFormatterSelectorMenuList.class;
+    public Class<SpreadsheetFormatterMenuList> type() {
+        return SpreadsheetFormatterMenuList.class;
     }
 
     @Override
@@ -175,16 +175,16 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     }
 
     @Override
-    public SpreadsheetFormatterSelectorMenuList unmarshall(final JsonNode json,
-                                                           final JsonNodeUnmarshallContext context) {
-        return SpreadsheetFormatterSelectorMenuList.unmarshall(
+    public SpreadsheetFormatterMenuList unmarshall(final JsonNode json,
+                                                   final JsonNodeUnmarshallContext context) {
+        return SpreadsheetFormatterMenuList.unmarshall(
             json,
             context
         );
     }
 
     @Override
-    public SpreadsheetFormatterSelectorMenuList createJsonNodeMarshallingValue() {
+    public SpreadsheetFormatterMenuList createJsonNodeMarshallingValue() {
         return this.createList();
     }
 }

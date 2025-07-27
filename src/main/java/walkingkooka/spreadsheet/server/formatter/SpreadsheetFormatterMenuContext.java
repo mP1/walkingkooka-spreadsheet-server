@@ -17,19 +17,13 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextTesting2;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderTesting;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-public interface SpreadsheetFormatterSelectorMenuContextTesting<C extends SpreadsheetFormatterSelectorMenuContext> extends SpreadsheetFormatterProviderTesting<C>,
-    SpreadsheetFormatterContextTesting2<C> {
-
-    @Override
-    default C createSpreadsheetFormatterProvider() {
-        return this.createContext();
-    }
+public interface SpreadsheetFormatterMenuContext extends SpreadsheetFormatterProvider,
+    SpreadsheetFormatterProviderSamplesContext {
 
     @Override
-    default String typeNameSuffix() {
-        return SpreadsheetFormatterSelectorMenuContext.class.getSimpleName();
-    }
+    SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

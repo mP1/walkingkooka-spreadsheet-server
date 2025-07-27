@@ -41,14 +41,14 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelectorMenuLikeTesting<SpreadsheetFormatterSelectorMenu, SpreadsheetFormatterSelector, SpreadsheetFormatterName>,
-    JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorMenu>,
+public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLikeTesting<SpreadsheetFormatterMenu, SpreadsheetFormatterSelector, SpreadsheetFormatterName>,
+    JsonNodeMarshallingTesting<SpreadsheetFormatterMenu>,
     SpreadsheetMetadataTesting {
 
     @Override
-    public SpreadsheetFormatterSelectorMenu createPluginSelectorMenu(final String label,
-                                                                     final SpreadsheetFormatterSelector selector) {
-        return SpreadsheetFormatterSelectorMenu.with(
+    public SpreadsheetFormatterMenu createPluginSelectorMenu(final String label,
+                                                             final SpreadsheetFormatterSelector selector) {
+        return SpreadsheetFormatterMenu.with(
             label,
             selector
         );
@@ -70,7 +70,7 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     public void testPrepareWithContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> SpreadsheetFormatterSelectorMenu.prepare(
+            () -> SpreadsheetFormatterMenu.prepare(
                 null
             )
         );
@@ -80,83 +80,83 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     public void testPrepare() {
         this.checkEquals(
             Lists.of(
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Short",
                     SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d/m/yy")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Medium",
                     SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmm yyyy")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Long",
                     SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmmm yyyy")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Full",
                     SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Short",
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d/m/yy, h:mm AM/PM")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Medium",
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmm yyyy, h:mm:ss AM/PM")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Long",
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Full",
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Default",
                     SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "General",
                     SpreadsheetFormatterName.GENERAL.setValueText("")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Number",
                     SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("\"#,##0.###\"")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Integer",
                     SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Percent",
                     SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0%")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Currency",
                     SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("$#,##0.00")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Default",
                     SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Short",
                     SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm AM/PM")
                 ),
-                SpreadsheetFormatterSelectorMenu.with(
+                SpreadsheetFormatterMenu.with(
                     "Long",
                     SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm:ss AM/PM")
                 )
             ),
-            SpreadsheetFormatterSelectorMenu.prepare(
-                new TestSpreadsheetFormatterSelectorMenuContext()
+            SpreadsheetFormatterMenu.prepare(
+                new TestSpreadsheetFormatterMenuContext()
             ),
             "prepare"
         );
     }
 
-    static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
+    static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         ProviderContextDelegator {
@@ -195,17 +195,17 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     // json.............................................................................................................
 
     @Override
-    public SpreadsheetFormatterSelectorMenu unmarshall(final JsonNode json,
-                                                       final JsonNodeUnmarshallContext context) {
-        return SpreadsheetFormatterSelectorMenu.unmarshall(
+    public SpreadsheetFormatterMenu unmarshall(final JsonNode json,
+                                               final JsonNodeUnmarshallContext context) {
+        return SpreadsheetFormatterMenu.unmarshall(
             json,
             context
         );
     }
 
     @Override
-    public SpreadsheetFormatterSelectorMenu createJsonNodeMarshallingValue() {
-        return SpreadsheetFormatterSelectorMenu.with(
+    public SpreadsheetFormatterMenu createJsonNodeMarshallingValue() {
+        return SpreadsheetFormatterMenu.with(
             "Label123",
             this.createPluginSelector()
         );
@@ -214,8 +214,8 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetFormatterSelectorMenu> type() {
-        return SpreadsheetFormatterSelectorMenu.class;
+    public Class<SpreadsheetFormatterMenu> type() {
+        return SpreadsheetFormatterMenu.class;
     }
 
     @Override
