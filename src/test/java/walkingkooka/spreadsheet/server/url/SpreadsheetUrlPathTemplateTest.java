@@ -47,6 +47,7 @@ import walkingkooka.tree.text.TextStylePropertyName;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -85,7 +86,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 .get(
                     null,
                     TemplateValueName.with("Hello"),
-                    Object.class
+                    Function.identity()
                 )
         );
     }
@@ -98,7 +99,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 .get(
                     UrlPath.EMPTY,
                     null,
-                    Object.class
+                    Function.identity()
                 )
         );
     }
@@ -122,7 +123,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell",
             "/api/spreadsheet/123/name/SpreadsheetName456/cell",
             SpreadsheetUrlPathTemplate.SPREADSHEET_ID,
-            SpreadsheetId.class,
+            SpreadsheetId::parse,
             Optional.of(ID)
         );
     }
@@ -133,7 +134,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell",
             "/api/spreadsheet/123/name/SpreadsheetName456/cell",
             SpreadsheetUrlPathTemplate.SPREADSHEET_NAME,
-            SpreadsheetName.class,
+            SpreadsheetName::with,
             Optional.of(NAME)
         );
     }
@@ -144,8 +145,19 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "/api/dateTimeSymbols/${LocaleTag}/*",
             "/api/dateTimeSymbols/en-AU/*",
             SpreadsheetUrlPathTemplate.LOCALE_TAG,
-            LocaleTag.class,
+            LocaleTag::parse,
             Optional.of(LOCALE_TAG)
+        );
+    }
+
+    @Test
+    public void testGetCustomExisting() {
+        this.getAndCheck(
+            "/api/${String123}/*",
+            "/api/Hello/*",
+            TemplateValueName.with("String123"),
+            Function.identity(),
+            Optional.of("Hello")
         );
     }
 
@@ -155,7 +167,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell",
             "/api/spreadsheet/123/name/SpreadsheetName456/cell",
             TemplateValueName.with("Unknown"),
-            Void.class,
+            Function.identity(),
             Optional.empty()
         );
     }
@@ -163,7 +175,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     private <T> void getAndCheck(final String template,
                                  final String path,
                                  final TemplateValueName name,
-                                 final Class<T> type,
+                                 final Function<String, T> type,
                                  final Optional<T> expected) {
         this.getAndCheck(
             SpreadsheetUrlPathTemplate.parse(template),
@@ -177,7 +189,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     private <T> void getAndCheck(final SpreadsheetUrlPathTemplate template,
                                  final UrlPath path,
                                  final TemplateValueName name,
-                                 final Class<T> type,
+                                 final Function<String, T> type,
                                  final Optional<T> expected) {
         this.checkEquals(
             expected,
