@@ -18,14 +18,13 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Either;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
-import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -35,8 +34,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.MissingConverterSet;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverters;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -47,6 +44,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.MathContext;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -132,71 +130,6 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             }
 
             @Override
-            public String currencySymbol() {
-                return DECIMAL_NUMBER_SYMBOLS.currencySymbol();
-            }
-
-            @Override
-            public char decimalSeparator() {
-                return DECIMAL_NUMBER_SYMBOLS.decimalSeparator();
-            }
-
-            @Override
-            public String exponentSymbol() {
-                return DECIMAL_NUMBER_SYMBOLS.exponentSymbol();
-            }
-
-            @Override
-            public char groupSeparator() {
-                return DECIMAL_NUMBER_SYMBOLS.groupSeparator();
-            }
-
-            @Override
-            public String infinitySymbol() {
-                return DECIMAL_NUMBER_SYMBOLS.infinitySymbol();
-            }
-
-            @Override
-            public char monetaryDecimalSeparator() {
-                return DECIMAL_NUMBER_SYMBOLS.monetaryDecimalSeparator();
-            }
-
-            @Override
-            public String nanSymbol() {
-                return DECIMAL_NUMBER_SYMBOLS.nanSymbol();
-            }
-
-            @Override
-            public char negativeSign() {
-                return DECIMAL_NUMBER_SYMBOLS.negativeSign();
-            }
-
-            @Override
-            public char percentSymbol() {
-                return DECIMAL_NUMBER_SYMBOLS.percentSymbol();
-            }
-
-            @Override
-            public char permillSymbol() {
-                return DECIMAL_NUMBER_SYMBOLS.permillSymbol();
-            }
-
-            @Override
-            public char positiveSign() {
-                return DECIMAL_NUMBER_SYMBOLS.positiveSign();
-            }
-
-            @Override
-            public char zeroDigit() {
-                return DECIMAL_NUMBER_SYMBOLS.zeroDigit();
-            }
-
-            @Override
-            public DecimalNumberSymbols decimalNumberSymbols() {
-                return DECIMAL_NUMBER_SYMBOLS;
-            }
-
-            @Override
             public Locale locale() {
                 return LOCALE;
             }
@@ -221,41 +154,22 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             }
 
             @Override
-            public Converter<SpreadsheetConverterContext> converter() {
-                return this.converter(
-                    METADATA_EN_AU.getOrFail(PROPERTY),
-                    this
+            public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
+                                                                       final ProviderContext context) {
+                return SPREADSHEET_PROVIDER.converter(
+                    selector,
+                    context
                 );
             }
 
             @Override
-            public boolean canConvert(final Object value,
-                                      final Class<?> type) {
-                return SpreadsheetConverters.simple()
-                    .canConvert(
-                        value,
-                        type,
-                        this
-                    );
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value,
-                                                 final Class<T> type) {
-                return this.converter()
-                    .convert(
-                        value,
-                        type,
-                        this
-                    );
-            }
-
-            @Override
-            public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
+            public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
+                                                                       final List<?> values,
                                                                        final ProviderContext context) {
-                return SpreadsheetMetadataTesting.CONVERTER_PROVIDER.converter(
-                    selector,
-                    SpreadsheetMetadataTesting.PROVIDER_CONTEXT
+                return SPREADSHEET_PROVIDER.converter(
+                    converterName,
+                    values,
+                    context
                 );
             }
 

@@ -80,7 +80,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_FORMATTER_CONTEXT,
                 SPREADSHEET_PROVIDER
             )
         );
@@ -94,7 +93,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
                 SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_FORMATTER_CONTEXT,
                 SPREADSHEET_PROVIDER
             )
         );
@@ -107,21 +105,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 SPREADSHEET_ENGINE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                null,
-                SPREADSHEET_FORMATTER_CONTEXT,
-                SPREADSHEET_PROVIDER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetFormatterContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                SPREADSHEET_ENGINE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_ENGINE_CONTEXT,
                 null,
                 SPREADSHEET_PROVIDER
             )
@@ -136,7 +119,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
                 SPREADSHEET_ENGINE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_FORMATTER_CONTEXT,
                 null
             )
         );
@@ -190,14 +172,13 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             SPREADSHEET_ENGINE,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SPREADSHEET_ENGINE_CONTEXT,
-            SPREADSHEET_FORMATTER_CONTEXT,
             SPREADSHEET_PROVIDER
         );
     }
 
     @Override
     public MathContext mathContext() {
-        return SPREADSHEET_FORMATTER_CONTEXT.mathContext();
+        return HATEOS_RESOURCE_HANDLER_CONTEXT.mathContext();
     }
 
     // DecimalNumberContext.............................................................................................

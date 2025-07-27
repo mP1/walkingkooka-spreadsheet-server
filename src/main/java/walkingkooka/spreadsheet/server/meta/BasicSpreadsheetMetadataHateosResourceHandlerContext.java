@@ -42,7 +42,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -54,7 +53,6 @@ import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -291,28 +289,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     id.toString()
                 )
             );
-        final SpreadsheetMetadata spreadsheetMetadata = context.spreadsheetMetadata();
 
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
             engine,
             this.hateosResourceHandlerContext,
             context,
-            spreadsheetMetadata.spreadsheetFormatterContext(
-                SpreadsheetMetadata.NO_CELL,
-                (final Optional<Object> v) -> context.spreadsheetEngineContext(SpreadsheetMetadataPropertyName.FORMATTING_FUNCTIONS)
-                    .spreadsheetExpressionEvaluationContext(
-                        SpreadsheetMetadata.NO_CELL,
-                        SpreadsheetExpressionReferenceLoaders.fake()
-                    ).addLocalVariable(
-                        SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
-                        v
-                    ),
-                context, // SpreadsheetLabelNameResolver
-                context, // ConverterProvider
-                context, // SpreadsheetFormatterProvider
-                context, // LocaleContext
-                context // ProviderContext
-            ),
             systemSpreadsheetProvider
         ).setPreProcessor(
             SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(

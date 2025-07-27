@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -29,8 +28,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
  */
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
-    SpreadsheetEngineContext,
-    SpreadsheetFormatterProviderSamplesContext {
+    SpreadsheetEngineContext {
 
     /**
      * Getter that returns a {@link SpreadsheetEngine}.
