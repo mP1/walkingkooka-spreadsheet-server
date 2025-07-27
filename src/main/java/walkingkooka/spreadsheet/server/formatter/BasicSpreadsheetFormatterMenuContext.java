@@ -25,20 +25,20 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Objects;
 
-final class BasicSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
+final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
     SpreadsheetFormatterProviderDelegator,
     SpreadsheetFormatterProviderSamplesContextDelegator {
 
-    static BasicSpreadsheetFormatterSelectorMenuContext with(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
-                                                             final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
-        return new BasicSpreadsheetFormatterSelectorMenuContext(
+    static BasicSpreadsheetFormatterMenuContext with(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                     final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
+        return new BasicSpreadsheetFormatterMenuContext(
             Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
             Objects.requireNonNull(spreadsheetFormatterProviderSamplesContext, "spreadsheetFormatterProviderSamplesContext")
         );
     }
 
-    private BasicSpreadsheetFormatterSelectorMenuContext(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
-                                                         final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
+    private BasicSpreadsheetFormatterMenuContext(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                 final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
         this.spreadsheetFormatterProviderSamplesContext = spreadsheetFormatterProviderSamplesContext;
     }
@@ -61,7 +61,7 @@ final class BasicSpreadsheetFormatterSelectorMenuContext implements SpreadsheetF
 
         return before.equals(after) ?
             this :
-            new BasicSpreadsheetFormatterSelectorMenuContext(
+            new BasicSpreadsheetFormatterMenuContext(
                 this.spreadsheetFormatterProvider,
                 after
             );

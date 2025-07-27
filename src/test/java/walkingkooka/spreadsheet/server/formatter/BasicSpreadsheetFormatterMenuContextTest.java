@@ -31,16 +31,16 @@ import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements SpreadsheetFormatterSelectorMenuContextTesting<BasicSpreadsheetFormatterSelectorMenuContext>,
+public final class BasicSpreadsheetFormatterMenuContextTest implements SpreadsheetFormatterMenuContextTesting<BasicSpreadsheetFormatterMenuContext>,
     SpreadsheetMetadataTesting,
-    ToStringTesting<BasicSpreadsheetFormatterSelectorMenuContext>,
+    ToStringTesting<BasicSpreadsheetFormatterMenuContext>,
     DecimalNumberContextDelegator {
 
     @Test
     public void testWithNullSpreadsheetFormatterProviderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
+            () -> BasicSpreadsheetFormatterMenuContext.with(
                 null,
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     SPREADSHEET_FORMATTER_CONTEXT,
@@ -54,7 +54,7 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
     public void testWithNullSpreadsheetFormatterProviderSamplesContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
+            () -> BasicSpreadsheetFormatterMenuContext.with(
                 SPREADSHEET_FORMATTER_PROVIDER,
                 null
             )
@@ -62,8 +62,8 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
     }
 
     @Override
-    public BasicSpreadsheetFormatterSelectorMenuContext createContext() {
-        return BasicSpreadsheetFormatterSelectorMenuContext.with(
+    public BasicSpreadsheetFormatterMenuContext createContext() {
+        return BasicSpreadsheetFormatterMenuContext.with(
             SPREADSHEET_FORMATTER_PROVIDER,
             SpreadsheetFormatterProviderSamplesContexts.basic(
                 SPREADSHEET_FORMATTER_CONTEXT,
@@ -99,7 +99,7 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
         );
 
         this.toStringAndCheck(
-            BasicSpreadsheetFormatterSelectorMenuContext.with(
+            BasicSpreadsheetFormatterMenuContext.with(
                 SPREADSHEET_FORMATTER_PROVIDER,
                 samplesContext
             ),
@@ -110,8 +110,8 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetFormatterSelectorMenuContext> type() {
-        return BasicSpreadsheetFormatterSelectorMenuContext.class;
+    public Class<BasicSpreadsheetFormatterMenuContext> type() {
+        return BasicSpreadsheetFormatterMenuContext.class;
     }
 
     @Override

@@ -38,15 +38,15 @@ import java.util.stream.Collectors;
  * Represents a single menu item for a {@link SpreadsheetFormatterSelector}. A {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterName#DATE_FORMAT_PATTERN},
  * might include three items one for SHORT, MEDIUM and LONG patterns.
  */
-public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMenuLike<SpreadsheetFormatterSelector, SpreadsheetFormatterName> {
+public final class SpreadsheetFormatterMenu implements PluginSelectorMenuLike<SpreadsheetFormatterSelector, SpreadsheetFormatterName> {
 
     /**
-     * Prepares a flat list of {@link SpreadsheetFormatterSelectorMenu} for all {@link SpreadsheetFormatterSelector}.
+     * Prepares a flat list of {@link SpreadsheetFormatterMenu} for all {@link SpreadsheetFormatterSelector}.
      */
-    public static SpreadsheetFormatterSelectorMenuList prepare(final SpreadsheetFormatterSelectorMenuContext context) {
+    public static SpreadsheetFormatterMenuList prepare(final SpreadsheetFormatterMenuContext context) {
         Objects.requireNonNull(context, "context");
 
-        return SpreadsheetFormatterSelectorMenuList.with(
+        return SpreadsheetFormatterMenuList.with(
             context.spreadsheetFormatterInfos()
                 .stream()
                 .flatMap(i -> menus(i, context).stream())
@@ -54,9 +54,9 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
         );
     }
 
-    private static List<SpreadsheetFormatterSelectorMenu> menus(final SpreadsheetFormatterInfo info,
-                                                                final SpreadsheetFormatterSelectorMenuContext context) {
-        List<SpreadsheetFormatterSelectorMenu> menus;
+    private static List<SpreadsheetFormatterMenu> menus(final SpreadsheetFormatterInfo info,
+                                                        final SpreadsheetFormatterMenuContext context) {
+        List<SpreadsheetFormatterMenu> menus;
 
         try {
             menus = context.spreadsheetFormatterSamples(
@@ -65,7 +65,7 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
                     SpreadsheetFormatterProvider.SKIP_SAMPLES,
                     context
                 ).stream()
-                .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))
+                .map(s -> SpreadsheetFormatterMenu.with(s.label(), s.selector()))
                 .distinct()
                 .collect(Collectors.toList());
         } catch (final RuntimeException ignore) {
@@ -76,9 +76,9 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
         return menus;
     }
 
-    public static SpreadsheetFormatterSelectorMenu with(final String label,
-                                                        final SpreadsheetFormatterSelector selector) {
-        return new SpreadsheetFormatterSelectorMenu(
+    public static SpreadsheetFormatterMenu with(final String label,
+                                                final SpreadsheetFormatterSelector selector) {
+        return new SpreadsheetFormatterMenu(
             PluginSelectorMenu.with(
                 label,
                 selector
@@ -86,7 +86,7 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
         );
     }
 
-    private SpreadsheetFormatterSelectorMenu(final PluginSelectorMenu<SpreadsheetFormatterSelector, SpreadsheetFormatterName> menu) {
+    private SpreadsheetFormatterMenu(final PluginSelectorMenu<SpreadsheetFormatterSelector, SpreadsheetFormatterName> menu) {
         this.menu = Objects.requireNonNull(
             menu,
             "menu"
@@ -115,10 +115,10 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
     @Override
     public boolean equals(final Object other) {
         return other == this ||
-            other instanceof SpreadsheetFormatterSelectorMenu && this.equals0((SpreadsheetFormatterSelectorMenu) other);
+            other instanceof SpreadsheetFormatterMenu && this.equals0((SpreadsheetFormatterMenu) other);
     }
 
-    private boolean equals0(final SpreadsheetFormatterSelectorMenu other) {
+    private boolean equals0(final SpreadsheetFormatterMenu other) {
         return this.menu.equals(other.menu);
     }
 
@@ -137,11 +137,11 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
     // json.............................................................................................................
 
     /**
-     * Factory that creates a {@link SpreadsheetFormatterSelectorMenu} parse a {@link JsonNode}.
+     * Factory that creates a {@link SpreadsheetFormatterMenu} parse a {@link JsonNode}.
      */
-    static SpreadsheetFormatterSelectorMenu unmarshall(final JsonNode node,
-                                                       final JsonNodeUnmarshallContext context) {
-        return new SpreadsheetFormatterSelectorMenu(
+    static SpreadsheetFormatterMenu unmarshall(final JsonNode node,
+                                               final JsonNodeUnmarshallContext context) {
+        return new SpreadsheetFormatterMenu(
             PluginSelectorMenu.unmarshall(
                 node,
                 context,
@@ -156,10 +156,10 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
 
     static {
         JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(SpreadsheetFormatterSelectorMenu.class),
-            SpreadsheetFormatterSelectorMenu::unmarshall,
-            SpreadsheetFormatterSelectorMenu::marshall,
-            SpreadsheetFormatterSelectorMenu.class
+            JsonNodeContext.computeTypeName(SpreadsheetFormatterMenu.class),
+            SpreadsheetFormatterMenu::unmarshall,
+            SpreadsheetFormatterMenu::marshall,
+            SpreadsheetFormatterMenu.class
         );
     }
 }

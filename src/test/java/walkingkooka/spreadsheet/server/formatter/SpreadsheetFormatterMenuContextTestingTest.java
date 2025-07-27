@@ -30,18 +30,18 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuContextTestingTest.TestSpreadsheetFormatterSelectorMenuContext;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuContextTestingTest.TestSpreadsheetFormatterMenuContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
 
-public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements SpreadsheetFormatterSelectorMenuContextTesting<TestSpreadsheetFormatterSelectorMenuContext>,
+public final class SpreadsheetFormatterMenuContextTestingTest implements SpreadsheetFormatterMenuContextTesting<TestSpreadsheetFormatterMenuContext>,
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
     @Override
-    public TestSpreadsheetFormatterSelectorMenuContext createContext() {
-        return new TestSpreadsheetFormatterSelectorMenuContext();
+    public TestSpreadsheetFormatterMenuContext createContext() {
+        return new TestSpreadsheetFormatterMenuContext();
     }
 
     @Override
@@ -64,8 +64,8 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
     // class............................................................................................................
 
     @Override
-    public Class<TestSpreadsheetFormatterSelectorMenuContext> type() {
-        return TestSpreadsheetFormatterSelectorMenuContext.class;
+    public Class<TestSpreadsheetFormatterMenuContext> type() {
+        return TestSpreadsheetFormatterMenuContext.class;
     }
 
     @Override
@@ -73,7 +73,7 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
+    static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
         ProviderContextDelegator {

@@ -195,7 +195,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 1429\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
-                    "X-Content-Type-Name: SpreadsheetFormatterSelectorMenuList\r\n" +
+                    "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
                     "[\n" +
                     "  {\n" +

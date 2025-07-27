@@ -36,8 +36,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class FakeSpreadsheetFormatterSelectorMenuContext extends FakeSpreadsheetFormatterContext
-    implements SpreadsheetFormatterSelectorMenuContext {
+public class FakeSpreadsheetFormatterMenuContext extends FakeSpreadsheetFormatterContext
+    implements SpreadsheetFormatterMenuContext {
 
     @Override
     public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {

@@ -17,13 +17,25 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
-public interface SpreadsheetFormatterSelectorMenuContext extends SpreadsheetFormatterProvider,
-    SpreadsheetFormatterProviderSamplesContext {
+import java.lang.reflect.Method;
+
+public final class SpreadsheetFormatterMenuContextsTest implements PublicStaticHelperTesting<SpreadsheetFormatterMenuContexts> {
 
     @Override
-    SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
+    public Class<SpreadsheetFormatterMenuContexts> type() {
+        return SpreadsheetFormatterMenuContexts.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
+    }
+
+    @Override
+    public boolean canHavePublicTypes(final Method method) {
+        return false;
+    }
 }

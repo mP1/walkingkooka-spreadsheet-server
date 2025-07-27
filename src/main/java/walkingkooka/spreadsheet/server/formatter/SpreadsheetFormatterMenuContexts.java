@@ -24,30 +24,30 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 /**
  * A collection of {@link SpreadsheetFormatterSelectorEditContext} factory methods.
  */
-public final class SpreadsheetFormatterSelectorMenuContexts implements PublicStaticHelper {
+public final class SpreadsheetFormatterMenuContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetFormatterSelectorMenuContext}
+     * {@see BasicSpreadsheetFormatterMenuContext}
      */
-    public static SpreadsheetFormatterSelectorMenuContext basic(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
-                                                                final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
-        return BasicSpreadsheetFormatterSelectorMenuContext.with(
+    public static SpreadsheetFormatterMenuContext basic(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                        final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
+        return BasicSpreadsheetFormatterMenuContext.with(
             spreadsheetFormatterProvider,
             spreadsheetFormatterProviderSamplesContext
         );
     }
 
     /**
-     * {@see FakeSpreadsheetFormatterSelectorMenuContext}
+     * {@see FakeSpreadsheetFormatterMenuContext}
      */
-    public static SpreadsheetFormatterSelectorMenuContext fake() {
-        return new FakeSpreadsheetFormatterSelectorMenuContext();
+    public static SpreadsheetFormatterMenuContext fake() {
+        return new FakeSpreadsheetFormatterMenuContext();
     }
 
     /**
      * Stop creation
      */
-    private SpreadsheetFormatterSelectorMenuContexts() {
+    private SpreadsheetFormatterMenuContexts() {
         throw new UnsupportedOperationException();
     }
 }
