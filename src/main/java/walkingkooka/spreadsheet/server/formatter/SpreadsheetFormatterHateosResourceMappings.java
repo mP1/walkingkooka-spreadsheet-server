@@ -33,10 +33,17 @@ import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerC
 public final class SpreadsheetFormatterHateosResourceMappings implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetFormatterSelectorEditHateosHttpHandler}
+     * {@see SpreadsheetFormatterSelectorEditHateosHttpHandlerCell}
      */
-    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandler() {
-        return SpreadsheetFormatterSelectorEditHateosHttpHandler.INSTANCE;
+    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerCell() {
+        return SpreadsheetFormatterSelectorEditHateosHttpHandlerCell.INSTANCE;
+    }
+
+    /**
+     * {@see SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata}
+     */
+    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerMetadata() {
+        return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.INSTANCE;
     }
 
     /**
