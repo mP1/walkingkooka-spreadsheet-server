@@ -312,7 +312,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
     }
 
     @Test
-    public void testHandleWithCellWithValue() {
+    public void testHandleDateWithCellWithValue() {
         final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
 
         final LocalDateTime value = LocalDateTime.of(
@@ -497,6 +497,276 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"01/01/1970\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}"
+            )
+        );
+    }
+
+    @Test
+    public void testHandleWithDateTimeCellWithValue() {
+        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
+
+        final LocalDateTime value = LocalDateTime.of(
+            1970,
+            1,
+            1,
+            12,
+            0,
+            0
+        );
+
+        this.checkNotEquals(
+            value,
+            NOW.now(),
+            "value must be different from NOW"
+        );
+
+        context.storeRepository()
+            .cells()
+            .save(
+                SpreadsheetSelection.A1.setFormula(
+                    SpreadsheetFormula.EMPTY.setValue(
+                        Optional.of(value)
+                    )
+                )
+            );
+
+        this.handleAndCheck(
+            HttpRequests.get(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-edit/date-time-format-pattern%20dd/mm/yyyy%20hh/mm"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    MediaType.APPLICATION_JSON.accept()
+                )
+            ),
+            context,
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 3800\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
+                    "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
+                    "\r\n" +
+                    "{\n" +
+                    "  \"selector\": \"date-time-format-pattern dd/mm/yyyy hh/mm\",\n" +
+                    "  \"tokens\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"dd\",\n" +
+                    "      \"text\": \"dd\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"d\",\n" +
+                    "          \"text\": \"d\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"ddd\",\n" +
+                    "          \"text\": \"ddd\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"dddd\",\n" +
+                    "          \"text\": \"dddd\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"/\",\n" +
+                    "      \"text\": \"/\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mm\",\n" +
+                    "      \"text\": \"mm\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"m\",\n" +
+                    "          \"text\": \"m\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"mmm\",\n" +
+                    "          \"text\": \"mmm\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"mmmm\",\n" +
+                    "          \"text\": \"mmmm\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"label\": \"mmmmm\",\n" +
+                    "          \"text\": \"mmmmm\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"/\",\n" +
+                    "      \"text\": \"/\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"yyyy\",\n" +
+                    "      \"text\": \"yyyy\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"yy\",\n" +
+                    "          \"text\": \"yy\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \" \",\n" +
+                    "      \"text\": \" \"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"hh\",\n" +
+                    "      \"text\": \"hh\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"h\",\n" +
+                    "          \"text\": \"h\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"/\",\n" +
+                    "      \"text\": \"/\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"mm\",\n" +
+                    "      \"text\": \"mm\",\n" +
+                    "      \"alternatives\": [\n" +
+                    "        {\n" +
+                    "          \"label\": \"m\",\n" +
+                    "          \"text\": \"m\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"next\": {\n" +
+                    "    \"alternatives\": [\n" +
+                    "      {\n" +
+                    "        \"label\": \".\",\n" +
+                    "        \"text\": \".\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"0\",\n" +
+                    "        \"text\": \"0\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"A/P\",\n" +
+                    "        \"text\": \"A/P\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"AM/PM\",\n" +
+                    "        \"text\": \"AM/PM\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"a/p\",\n" +
+                    "        \"text\": \"a/p\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"am/pm\",\n" +
+                    "        \"text\": \"am/pm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"d\",\n" +
+                    "        \"text\": \"d\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"dd\",\n" +
+                    "        \"text\": \"dd\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"ddd\",\n" +
+                    "        \"text\": \"ddd\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"dddd\",\n" +
+                    "        \"text\": \"dddd\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"h\",\n" +
+                    "        \"text\": \"h\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"hh\",\n" +
+                    "        \"text\": \"hh\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"m\",\n" +
+                    "        \"text\": \"m\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mm\",\n" +
+                    "        \"text\": \"mm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmm\",\n" +
+                    "        \"text\": \"mmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmmm\",\n" +
+                    "        \"text\": \"mmmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"mmmmm\",\n" +
+                    "        \"text\": \"mmmmm\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"s\",\n" +
+                    "        \"text\": \"s\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"ss\",\n" +
+                    "        \"text\": \"ss\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"yy\",\n" +
+                    "        \"text\": \"yy\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"label\": \"yyyy\",\n" +
+                    "        \"text\": \"yyyy\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"samples\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Short\",\n" +
+                    "      \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"1/1/70, 12:00 PM\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Medium\",\n" +
+                    "      \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"1 Jan. 1970, 12:00:00 PM\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Long\",\n" +
+                    "      \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"1 January 1970 at 12:00:00 PM\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Full\",\n" +
+                    "      \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Thursday, 1 January 1970 at 12:00:00 PM\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Sample\",\n" +
+                    "      \"selector\": \"date-time-format-pattern dd/mm/yyyy hh/mm\",\n" +
+                    "      \"value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"01/01/1970 12/00\"\n" +
                     "      }\n" +
                     "    }\n" +
                     "  ]\n" +
