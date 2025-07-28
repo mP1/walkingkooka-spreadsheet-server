@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<SpreadsheetUrlPathTemplate>,
@@ -75,6 +76,55 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     private final static SpreadsheetMetadataPropertyName<?> SPREADSHEET_METADATA_PROPERTY_NAME = SpreadsheetMetadataPropertyName.ROUNDING_MODE;
 
     private final static TextStylePropertyName<?> TEXT_STYLE_PROPERTY_NAME = TextStylePropertyName.TEXT_ALIGN;
+
+    // removeRootSlashIfNecessary.......................................................................................
+
+    @Test
+    public void testRemoveRootSlashIfNecessaryWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(null)
+        );
+    }
+
+    @Test
+    public void testRemoveRootSlashIfNecessaryWithEmpty() {
+        this.removeRootSlashIfNecessaryAndCheck(
+            ""
+        );
+    }
+
+    @Test
+    public void testRemoveRootSlashIfNecessaryWithMissingRootSlash() {
+        this.removeRootSlashIfNecessaryAndCheck(
+            "missing start slash"
+        );
+    }
+
+    private void removeRootSlashIfNecessaryAndCheck(final String text) {
+        assertSame(
+            text,
+            SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(text),
+            text
+        );
+    }
+
+    @Test
+    public void testRemoveRootSlashIfNecessaryWithRootSlash() {
+        this.removeRootSlashIfNecessaryAndCheck(
+            "/path1/path2/path3",
+            "path1/path2/path3"
+        );
+    }
+
+    private void removeRootSlashIfNecessaryAndCheck(final String text,
+                                                    final String expected) {
+        this.checkEquals(
+            expected,
+            SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(text),
+            text
+        );
+    }
 
     // get..........................................................................................................
 

@@ -195,11 +195,16 @@ public final class SpreadsheetUrlPathTemplate implements Template {
 
     private static <T> Function<String, T> removeSlashFirstAndParse(final Function<String, T> function) {
         return s -> function.apply(
-            removeSlashFirst(s)
+            removeRootSlashIfNecessary(s)
         );
     }
 
-    private static String removeSlashFirst(final String text) {
+    /**
+     * Utility that removes the root slash from the given text if necessary.
+     */
+    public static String removeRootSlashIfNecessary(final String text) {
+        Objects.requireNonNull(text, "text");
+
         return text.startsWith("/") ?
             text.substring(1) :
             text;
@@ -258,7 +263,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
             (final String s) -> {
                 final Object v;
 
-                final String without = removeSlashFirst(s);
+                final String without = removeRootSlashIfNecessary(s);
                 
                 switch (name.value()) {
                     case "LocaleTag":
