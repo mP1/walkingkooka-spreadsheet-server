@@ -52,7 +52,7 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
         ).setHateosHttpHandler(
             SpreadsheetServerLinkRelations.EDIT.toUrlPathName()
                 .get(),
-            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandler()
+            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandlerMetadata()
         );
     }
 

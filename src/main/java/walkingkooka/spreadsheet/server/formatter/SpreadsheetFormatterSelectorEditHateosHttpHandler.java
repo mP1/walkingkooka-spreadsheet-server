@@ -27,8 +27,8 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
@@ -40,7 +40,7 @@ import java.util.Optional;
 /**
  * A handler that accepts a request with a possible {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
-final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         try {
@@ -53,18 +53,14 @@ final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosH
         }
     }
 
-    /**
-     * Singleton
-     */
-    final static SpreadsheetFormatterSelectorEditHateosHttpHandler INSTANCE = new SpreadsheetFormatterSelectorEditHateosHttpHandler();
-
-    private SpreadsheetFormatterSelectorEditHateosHttpHandler() {
+    SpreadsheetFormatterSelectorEditHateosHttpHandler() {
+        super();
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+    public final void handle(final HttpRequest request,
+                             final HttpResponse response,
+                             final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
@@ -75,38 +71,10 @@ final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosH
         HttpHeaderName.ACCEPT.headerOrFail(request)
             .testOrFail(requiredContentType);
 
-        // /api/spreadsheet/1/formatter/*/edit/SpreadsheetFormatterSelector
-        // 01   2           3 4         5 6
-        final UrlPath selector = request.url()
-            .path()
-            .pathAfter(6);
-
-        final SpreadsheetFormatterSelectorEdit edit = SpreadsheetFormatterSelectorEdit.parse(
-            selector.isRoot() ?
-                "" :
-                selector.value()
-                    .substring(1),
-            SpreadsheetFormatterSelectorEditContexts.basic(
-                context.spreadsheetMetadata()
-                    .spreadsheetFormatterContext(
-                        SpreadsheetMetadata.NO_CELL,
-                        (final Optional<Object> v) -> context.spreadsheetEngineContext(SpreadsheetMetadataPropertyName.FORMATTING_FUNCTIONS)
-                            .spreadsheetExpressionEvaluationContext(
-                                SpreadsheetMetadata.NO_CELL,
-                                SpreadsheetExpressionReferenceLoaders.fake()
-                            ).addLocalVariable(
-                                SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
-                                v
-                            ),
-                        SpreadsheetLabelNameResolvers.fake(),
-                        context, // ConverterProvider
-                        context, // // SpreadsheetFormatterProvider
-                        context, // LocaleContext
-                        context // ProviderContext
-                    ),
-                context, // SpreadsheetLabelNameResolver
-                context // ProviderContext
-            )
+        final SpreadsheetFormatterSelectorEdit edit = this.extractSelectorAndProduceEdit(
+            request.url()
+                .path(),
+            context
         );
 
         response.setStatus(HttpStatusCode.OK.status());
@@ -125,8 +93,45 @@ final class SpreadsheetFormatterSelectorEditHateosHttpHandler implements HateosH
         );
     }
 
+    abstract SpreadsheetFormatterSelectorEdit extractSelectorAndProduceEdit(final UrlPath path,
+                                                                            final SpreadsheetEngineHateosResourceHandlerContext context);
+
+    final SpreadsheetFormatterSelectorEdit produceEdit(final String formatterSelector,
+                                                       final Optional<SpreadsheetCell> cell,
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return SpreadsheetFormatterSelectorEdit.parse(
+            formatterSelector.startsWith(UrlPath.SEPARATOR.string()) ?
+                formatterSelector.substring(
+                    UrlPath.SEPARATOR.string()
+                        .length()
+                ) :
+                formatterSelector,
+            SpreadsheetFormatterSelectorEditContexts.basic(
+                context.spreadsheetMetadata()
+                    .spreadsheetFormatterContext(
+                        cell,
+                        (final Optional<Object> v) -> context.spreadsheetEngineContext(SpreadsheetMetadataPropertyName.FORMATTING_FUNCTIONS)
+                            .spreadsheetExpressionEvaluationContext(
+                                cell,
+                                SpreadsheetExpressionReferenceLoaders.fake()
+                            ).addLocalVariable(
+                                SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
+                                v
+                            ),
+                        SpreadsheetLabelNameResolvers.empty(),
+                        context, // ConverterProvider
+                        context, // // SpreadsheetFormatterProvider
+                        context, // LocaleContext
+                        context // ProviderContext
+                    ),
+                context, // SpreadsheetLabelNameResolver
+                context // ProviderContext
+            )
+        );
+    }
+
     @Override
-    public String toString() {
+    public final String toString() {
         return this.getClass().getSimpleName();
     }
 }

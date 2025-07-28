@@ -105,7 +105,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         ).setHateosHttpHandler(
             SpreadsheetServerLinkRelations.FORMATTER_EDIT.toUrlPathName()
                 .get(),
-            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandler()
+            SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandlerCell()
         ).setHateosHttpHandler(
             SpreadsheetServerLinkRelations.FORMATTER_MENU.toUrlPathName()
                 .get(),
