@@ -74,7 +74,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                 .handle(
                     HttpRequests.get(
                         HttpTransport.UNSECURED,
-                        Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-menu/date-format-pattern%20dd/mm/yyyy"),
+                        Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-edit/date-format-pattern%20dd/mm/yyyy"),
                         HttpProtocolVersion.VERSION_1_0,
                         HttpEntity.EMPTY
                     ),
@@ -91,6 +91,56 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
         this.checkEquals(
             "Missing header Accept",
             thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testHandleMissingSpreadsheetFormatterSelector() {
+        this.handleAndCheck(
+            HttpRequests.get(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-edit"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    MediaType.APPLICATION_JSON.accept()
+                )
+            ),
+            this.context(),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 33\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
+                    "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
+                    "\r\n" +
+                    "{\n" +
+                    "  \"message\": \"Empty \\\"text\\\"\"\n" +
+                    "}"
+            )
+        );
+    }
+
+    @Test
+    public void testHandleEmptySpreadsheetFormatterSelector() {
+        this.handleAndCheck(
+            HttpRequests.get(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-edit/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    MediaType.APPLICATION_JSON.accept()
+                )
+            ),
+            this.context(),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 33\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
+                    "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
+                    "\r\n" +
+                    "{\n" +
+                    "  \"message\": \"Empty \\\"text\\\"\"\n" +
+                    "}"
+            )
         );
     }
 

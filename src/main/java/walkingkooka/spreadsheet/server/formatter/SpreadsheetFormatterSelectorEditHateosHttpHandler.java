@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -100,12 +101,13 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                                                        final Optional<SpreadsheetCell> cell,
                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return SpreadsheetFormatterSelectorEdit.parse(
-            formatterSelector.startsWith(UrlPath.SEPARATOR.string()) ?
+            null != formatterSelector && formatterSelector.startsWith(UrlPath.SEPARATOR.string()) ?
                 formatterSelector.substring(
                     UrlPath.SEPARATOR.string()
                         .length()
                 ) :
-                formatterSelector,
+                CharSequences.nullToEmpty(formatterSelector)
+                    .toString(),
             SpreadsheetFormatterSelectorEditContexts.basic(
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
