@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.url.SpreadsheetUrlPathTemplate;
 
 import java.util.Map;
 import java.util.Optional;
@@ -90,10 +91,9 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         final SpreadsheetParserSelectorEdit response = SpreadsheetParserSelectorEdit.parse(
-            path.isRoot() ?
-                "" :
+            SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(
                 path.value()
-                    .substring(1),
+            ),
             SpreadsheetParserSelectorEditContexts.basic(
                 context, // SpreadsheetParserProvider
                 metadata.spreadsheetParserContext(

@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
+import walkingkooka.spreadsheet.server.url.SpreadsheetUrlPathTemplate;
 
 import java.util.Map;
 import java.util.Optional;
@@ -67,10 +68,9 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByName extends Spread
         return Optional.of(
             context.spreadsheetEngine()
                 .findLabelsByName(
-                    path.isRoot() ?
-                        "" :
+                    SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(
                         path.value()
-                            .substring(1), // skip leading slash
+                    ), // skip leading slash
                     SpreadsheetUrlQueryParameters.offset(parameters)
                         .orElse(0),
                     SpreadsheetUrlQueryParameters.count(parameters)
