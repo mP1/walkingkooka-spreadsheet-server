@@ -87,6 +87,56 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
     }
 
     @Test
+    public void testHandleMissingSpreadsheetFormatterSelector() {
+        this.handleAndCheck(
+            HttpRequests.get(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/spreadsheet/1/metadata/formulaConverter/edit"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    MediaType.APPLICATION_JSON.accept()
+                )
+            ),
+            this.context(),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 33\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
+                    "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
+                    "\r\n" +
+                    "{\n" +
+                    "  \"message\": \"Empty \\\"text\\\"\"\n" +
+                    "}"
+            )
+        );
+    }
+
+    @Test
+    public void testHandleEmptySpreadsheetFormatterSelector() {
+        this.handleAndCheck(
+            HttpRequests.get(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/spreadsheet/1/metadata/formulaConverter/edit/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    MediaType.APPLICATION_JSON.accept()
+                )
+            ),
+            this.context(),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 33\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
+                    "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
+                    "\r\n" +
+                    "{\n" +
+                    "  \"message\": \"Empty \\\"text\\\"\"\n" +
+                    "}"
+            )
+        );
+    }
+
+    @Test
     public void testHandle() {
         this.handleAndCheck(
             HttpRequests.get(
@@ -97,99 +147,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                @Override
-                public MediaType contentType() {
-                    return MediaType.APPLICATION_JSON;
-                }
-
-                @Override
-                public <T> T unmarshall(final JsonNode json,
-                                        final Class<T> type) {
-                    return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                        json,
-                        type
-                    );
-                }
-
-                @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return SpreadsheetMetadataTesting.METADATA_EN_AU;
-                }
-
-                @Override
-                public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
-                                                                           final ProviderContext context) {
-                    return CONVERTER_PROVIDER.converter(
-                        selector,
-                        context
-                    );
-                }
-
-                @Override
-                public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
-                                                                           final List<?> values,
-                                                                           final ProviderContext context) {
-                    return CONVERTER_PROVIDER.converter(
-                        converterName,
-                        values,
-                        context
-                    );
-                }
-
-                @Override
-                public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
-                                                                 final ProviderContext context) {
-                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
-                        selector,
-                        context
-                    );
-                }
-
-                @Override
-                public Optional<SpreadsheetFormatterSelectorToken> spreadsheetFormatterNextToken(final SpreadsheetFormatterSelector selector) {
-                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextToken(selector);
-                }
-
-                @Override
-                public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterSelector selector,
-                                                                                    final boolean includeSamples,
-                                                                                    final SpreadsheetFormatterProviderSamplesContext context) {
-                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-                        selector,
-                        includeSamples,
-                        context
-                    );
-                }
-
-                @Override
-                public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
-                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterInfos();
-                }
-
-                @Override
-                public Optional<TextNode> formatValue(final SpreadsheetCell cell,
-                                                      final Optional<Object> value,
-                                                      final Optional<SpreadsheetFormatterSelector> formatter) {
-                    return SPREADSHEET_PROVIDER.spreadsheetFormatter(
-                        formatter.get(),
-                        PROVIDER_CONTEXT
-                    ).format(
-                        value,
-                        SPREADSHEET_FORMATTER_CONTEXT
-                    );
-                }
-
-                @Override
-                public LocalDateTime now() {
-                    return NOW.now();
-                }
-
-                @Override
-                public JsonNode marshall(final Object value) {
-                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
-                }
-            },
+            this.context(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 2485\r\n" +
@@ -356,6 +314,93 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;
+            }
+
+            @Override
+            public <T> T unmarshall(final JsonNode json,
+                                    final Class<T> type) {
+                return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                    json,
+                    type
+                );
+            }
+
+            @Override
+            public SpreadsheetMetadata spreadsheetMetadata() {
+                return SpreadsheetMetadataTesting.METADATA_EN_AU;
+            }
+
+            @Override
+            public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
+                                                                       final ProviderContext context) {
+                return CONVERTER_PROVIDER.converter(
+                    selector,
+                    context
+                );
+            }
+
+            @Override
+            public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
+                                                                       final List<?> values,
+                                                                       final ProviderContext context) {
+                return CONVERTER_PROVIDER.converter(
+                    converterName,
+                    values,
+                    context
+                );
+            }
+
+            @Override
+            public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                             final ProviderContext context) {
+                return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                    selector,
+                    context
+                );
+            }
+
+            @Override
+            public Optional<SpreadsheetFormatterSelectorToken> spreadsheetFormatterNextToken(final SpreadsheetFormatterSelector selector) {
+                return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextToken(selector);
+            }
+
+            @Override
+            public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterSelector selector,
+                                                                                final boolean includeSamples,
+                                                                                final SpreadsheetFormatterProviderSamplesContext context) {
+                return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                    selector,
+                    includeSamples,
+                    context
+                );
+            }
+
+            @Override
+            public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+                return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterInfos();
+            }
+
+            @Override
+            public Optional<TextNode> formatValue(final SpreadsheetCell cell,
+                                                  final Optional<Object> value,
+                                                  final Optional<SpreadsheetFormatterSelector> formatter) {
+                return SPREADSHEET_PROVIDER.spreadsheetFormatter(
+                    formatter.get(),
+                    PROVIDER_CONTEXT
+                ).format(
+                    value,
+                    SPREADSHEET_FORMATTER_CONTEXT
+                );
+            }
+
+            @Override
+            public LocalDateTime now() {
+                return NOW.now();
+            }
+
+            @Override
+            public JsonNode marshall(final Object value) {
+                return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
             }
         };
     }
