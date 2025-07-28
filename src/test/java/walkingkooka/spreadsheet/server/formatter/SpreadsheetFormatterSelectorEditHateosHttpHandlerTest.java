@@ -66,7 +66,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest impleme
                 .handle(
                     HttpRequests.get(
                         HttpTransport.UNSECURED,
-                        Url.parseRelative("/api/spreadsheet/1/formatter/*/menu/date-format-pattern%20dd/mm/yyyy"),
+                        Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-menu/date-format-pattern%20dd/mm/yyyy"),
                         HttpProtocolVersion.VERSION_1_0,
                         HttpEntity.EMPTY
                     ),
@@ -91,7 +91,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest impleme
         this.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/spreadsheet/1/formatter/*/menu/date-format-pattern%20dd/mm/yyyy"),
+                Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-menu/date-format-pattern%20dd/mm/yyyy"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     MediaType.APPLICATION_JSON.accept()
