@@ -52,6 +52,8 @@ import walkingkooka.spreadsheet.store.FakeSpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -194,6 +196,16 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
+        }
+
+        @Override
+        public Indentation indentation() {
+            return INDENTATION;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return LineEnding.NL;
         }
 
         @Override

@@ -42,6 +42,8 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 
 import java.time.LocalDateTime;
@@ -534,6 +536,16 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         @Override
         public Optional<EmailAddress> user() {
             return Optional.of(USER);
+        }
+
+        @Override
+        public Indentation indentation() {
+            return INDENTATION;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return LineEnding.NL;
         }
 
         @Override

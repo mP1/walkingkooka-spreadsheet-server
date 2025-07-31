@@ -50,6 +50,8 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.text.TextNode;
@@ -147,6 +149,16 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 @Override
                 public MediaType contentType() {
                     return MediaType.APPLICATION_JSON;
+                }
+
+                @Override
+                public Indentation indentation() {
+                    return INDENTATION;
+                }
+
+                @Override
+                public LineEnding lineEnding() {
+                    return LineEnding.NL;
                 }
 
                 @Override

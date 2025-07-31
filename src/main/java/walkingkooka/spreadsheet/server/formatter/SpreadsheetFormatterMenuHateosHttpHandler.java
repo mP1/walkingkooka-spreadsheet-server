@@ -101,8 +101,9 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 menuList.getClass().getSimpleName()
             ).setBodyText(
-                context.marshall(menuList)
-                    .toString()
+                context.toJsonText(
+                    context.marshall(menuList)
+                )
             ).setContentLength()
         );
     }

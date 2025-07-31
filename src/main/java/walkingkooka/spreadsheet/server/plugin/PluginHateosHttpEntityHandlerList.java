@@ -73,11 +73,13 @@ final class PluginHateosHttpEntityHandlerList implements HateosHttpEntityHandler
             .map(p -> HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                 .addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
                 .setBodyText(
-                    context.marshall(
-                        JarEntryInfoList.readJarFile(
-                            p.archive().inputStream()
+                    context.toJsonText(
+                        context.marshall(
+                            JarEntryInfoList.readJarFile(
+                                p.archive().inputStream()
+                            )
                         )
-                    ).toString()
+                    )
                 ).setContentLength()
             ).orElse(HttpEntity.EMPTY);
     }

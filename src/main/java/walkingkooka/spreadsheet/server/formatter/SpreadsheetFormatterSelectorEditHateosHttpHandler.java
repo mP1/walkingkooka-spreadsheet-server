@@ -88,8 +88,9 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 edit.getClass().getSimpleName()
             ).setBodyText(
-                context.marshall(edit)
-                    .toString()
+                context.toJsonText(
+                    context.marshall(edit)
+                )
             ).setContentLength()
         );
     }

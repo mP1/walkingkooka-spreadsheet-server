@@ -40,6 +40,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 
@@ -123,6 +125,16 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public Indentation indentation() {
+                return INDENTATION;
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return LineEnding.NL;
+            }
 
             @Override
             public ExpressionNumberKind expressionNumberKind() {

@@ -116,8 +116,9 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                 MissingConverterSet.class.getSimpleName()
             )
         ).setBodyText(
-            context.marshall(response)
-                .toString()
+            context.toJsonText(
+                context.marshall(response)
+            )
         ).setContentLength();
     }
 

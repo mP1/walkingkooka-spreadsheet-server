@@ -53,6 +53,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.text.TextNode;
 
@@ -786,6 +788,16 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;
+            }
+
+            @Override
+            public Indentation indentation() {
+                return INDENTATION;
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return LineEnding.NL;
             }
 
             @Override

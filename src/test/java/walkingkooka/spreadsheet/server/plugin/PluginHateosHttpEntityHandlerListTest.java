@@ -40,6 +40,8 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 
 import java.nio.charset.StandardCharsets;
@@ -248,6 +250,16 @@ public final class PluginHateosHttpEntityHandlerListTest
         TestPluginHateosResourceHandlerContext() {
             this.store = PluginStores.treeMap();
             this.store.save(PLUGIN1);
+        }
+
+        @Override
+        public Indentation indentation() {
+            return INDENTATION;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return LineEnding.NL;
         }
 
         @Override
