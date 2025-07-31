@@ -314,11 +314,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             );
     }
 
-    private static String toJsonString(final Object value) {
-        return JSON_NODE_MARSHALL_CONTEXT.marshall(value)
-            .toString();
-    }
-
     @Override
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
