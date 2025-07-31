@@ -46,6 +46,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.text.TextNode;
 
@@ -102,6 +104,16 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                 @Override
                 public MediaType contentType() {
                     return MediaType.APPLICATION_JSON;
+                }
+
+                @Override
+                public Indentation indentation() {
+                    return INDENTATION;
+                }
+
+                @Override
+                public LineEnding lineEnding() {
+                    return LineEnding.NL;
                 }
 
                 @Override

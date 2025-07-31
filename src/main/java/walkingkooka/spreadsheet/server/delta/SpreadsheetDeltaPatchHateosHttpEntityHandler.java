@@ -280,8 +280,9 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                     .setCharset(CharsetName.UTF_8)
             ).addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
             .setBodyText(
-                context.marshall(response)
-                    .toString()
+                context.toJsonText(
+                    context.marshall(response)
+                )
             ).setContentLength();
     }
 }

@@ -35,6 +35,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Locale;
@@ -166,6 +168,16 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
             @Override
             public MediaType contentType() {
                 return SpreadsheetServerMediaTypes.CONTENT_TYPE;
+            }
+
+            @Override
+            public Indentation indentation() {
+                return INDENTATION;
+            }
+
+            @Override
+            public LineEnding lineEnding() {
+                return LineEnding.NL;
             }
 
             @Override

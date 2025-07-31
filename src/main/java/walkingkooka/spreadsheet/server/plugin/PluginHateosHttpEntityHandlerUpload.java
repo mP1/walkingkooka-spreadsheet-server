@@ -170,8 +170,9 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
 
         return HttpEntity.EMPTY.setContentType(context.contentType())
             .setBodyText(
-                context.marshall(saved)
-                    .toString()
+                context.toJsonText(
+                    context.marshall(saved)
+                )
             ).setContentLength();
     }
 

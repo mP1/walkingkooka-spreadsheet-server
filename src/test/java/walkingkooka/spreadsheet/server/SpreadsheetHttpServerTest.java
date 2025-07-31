@@ -1436,8 +1436,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
                     ),
                     JsonNode.string(roundingMode.name())
-                )
-                .toString(),
+                ).toJsonText(
+                    INDENTATION,
+                    LINE_ENDING
+                ),
             this.response(
                 HttpStatusCode.OK.status(),
                 loaded.set(

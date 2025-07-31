@@ -102,9 +102,11 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler implemen
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
             ).setBodyText(
-                context.marshall(
-                    DecimalNumberSymbolsHateosResourceSet.with(all)
-                ).toString()
+                context.toJsonText(
+                    context.marshall(
+                        DecimalNumberSymbolsHateosResourceSet.with(all)
+                    )
+                )
             ).setContentLength()
         );
     }

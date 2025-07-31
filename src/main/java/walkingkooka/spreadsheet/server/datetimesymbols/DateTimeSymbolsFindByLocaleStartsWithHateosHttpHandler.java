@@ -101,9 +101,11 @@ final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements Ha
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DateTimeSymbolsHateosResourceSet.class.getSimpleName()
             ).setBodyText(
-                context.marshall(
-                    DateTimeSymbolsHateosResourceSet.with(all)
-                ).toString()
+                context.toJsonText(
+                    context.marshall(
+                        DateTimeSymbolsHateosResourceSet.with(all)
+                    )
+                )
             ).setContentLength()
         );
     }
