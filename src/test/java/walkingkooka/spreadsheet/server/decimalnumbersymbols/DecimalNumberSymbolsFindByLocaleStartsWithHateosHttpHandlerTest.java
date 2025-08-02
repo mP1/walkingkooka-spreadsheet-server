@@ -60,6 +60,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                 "[\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en\",\n" +
+                    "    \"text\": \"English\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
                     "      \"positiveSign\": \"+\",\n" +
@@ -77,6 +78,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                     "  },\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en-001\",\n" +
+                    "    \"text\": \"English (World)\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
                     "      \"positiveSign\": \"+\",\n" +
@@ -124,6 +126,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                 "[\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"text\": \"English (Australia)\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
                     "      \"positiveSign\": \"+\",\n" +
@@ -190,6 +193,11 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                                                 final int offset,
                                                 final int count) {
                 return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
+            }
+
+            @Override
+            public Optional<String> localeText(final Locale locale) {
+                return LOCALE_CONTEXT.localeText(locale);
             }
 
             @Override

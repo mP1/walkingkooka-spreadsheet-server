@@ -9986,6 +9986,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"text\": \"English (Australia)\",\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -10020,6 +10021,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "[\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"text\": \"English (Australia)\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
                     "      \"positiveSign\": \"+\",\n" +

@@ -117,6 +117,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
         this.treePrintAndCheck(
             this.createSet(),
             "en\n" +
+                "  English\n" +
                 "  DecimalNumberSymbols\n" +
                 "    negativeSign\n" +
                 "      '-'\n" +
@@ -143,6 +144,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "    permillSymbol\n" +
                 "      '‰'\n" +
                 "en-AU\n" +
+                "  English (Australia)\n" +
                 "  DecimalNumberSymbols\n" +
                 "    negativeSign\n" +
                 "      '-'\n" +
@@ -169,6 +171,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "    permillSymbol\n" +
                 "      '‰'\n" +
                 "en-NZ\n" +
+                "  English (New Zealand)\n" +
                 "  DecimalNumberSymbols\n" +
                 "    negativeSign\n" +
                 "      '-'\n" +
@@ -206,6 +209,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
             "[\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en\",\n" +
+                "    \"text\": \"English\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
                 "      \"positiveSign\": \"+\",\n" +
@@ -223,6 +227,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "  },\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en-AU\",\n" +
+                "    \"text\": \"English (Australia)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
                 "      \"positiveSign\": \"+\",\n" +
@@ -240,6 +245,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "  },\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"text\": \"English (New Zealand)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
                 "      \"positiveSign\": \"+\",\n" +
@@ -265,6 +271,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
             "[\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en\",\n" +
+                "    \"text\": \"English\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
                 "      \"positiveSign\": \"+\",\n" +
@@ -282,6 +289,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "  },\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en-AU\",\n" +
+                "    \"text\": \"English (Australia)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
                 "      \"positiveSign\": \"+\",\n" +
@@ -299,6 +307,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "  },\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"text\": \"English (New Zealand)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
                 "      \"positiveSign\": \"+\",\n" +
@@ -325,7 +334,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
         locales.addAll(
                 Arrays.stream(
                     Locale.getAvailableLocales()
-                ).filter(l -> false == l.getLanguage().contains("ar") // BUG: JRE has some AR locales with with RTL \\u200E and not the actual printable char.
+                    ).filter(l -> false == l.getDisplayName().isEmpty() && false == l.getLanguage().contains("ar") // BUG: JRE has some AR locales with with RTL \\u200E and not the actual printable char.
             ).map(DecimalNumberSymbolsHateosResource::fromLocale)
             .collect(Collectors.toList())
         );
