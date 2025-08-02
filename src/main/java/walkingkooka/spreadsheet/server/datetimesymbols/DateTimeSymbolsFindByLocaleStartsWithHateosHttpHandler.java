@@ -85,6 +85,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements Ha
                 all.add(
                     DateTimeSymbolsHateosResource.with(
                         LocaleTag.with(locale),
+                        context.localeTextOrFail(locale),
                         dateTimeSymbols
                     )
                 );

@@ -17,11 +17,14 @@
 
 package walkingkooka.spreadsheet.server.datetimesymbols;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
@@ -37,16 +40,19 @@ import java.util.Optional;
 
 public final class DateTimeSymbolsHateosResource implements HateosResource<LocaleTag>,
     Value<DateTimeSymbols>,
+    HasText,
     Comparable<DateTimeSymbolsHateosResource>,
     TreePrintable {
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("dateTimeSymbols");
 
+    @GwtIncompatible
     public static DateTimeSymbolsHateosResource fromLocale(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
 
-        return new DateTimeSymbolsHateosResource(
+        return with(
             LocaleTag.with(locale),
+            locale.getDisplayName(),
             DateTimeSymbols.fromDateFormatSymbols(
                 new DateFormatSymbols(locale)
             )
@@ -54,16 +60,20 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
     }
 
     public static DateTimeSymbolsHateosResource with(final LocaleTag localeTag,
+                                                     final String localeText,
                                                      final DateTimeSymbols dateTimeSymbols) {
         return new DateTimeSymbolsHateosResource(
             Objects.requireNonNull(localeTag, "localeTag"),
+            CharSequences.failIfNullOrEmpty(localeText, "localeText"),
             Objects.requireNonNull(dateTimeSymbols, "dateTimeSymbols")
         );
     }
 
     private DateTimeSymbolsHateosResource(final LocaleTag localeTag,
+                                          final String localeText,
                                           final DateTimeSymbols dateTimeSymbols) {
         this.localeTag = localeTag;
+        this.localeText = localeText;
         this.dateTimeSymbols = dateTimeSymbols;
     }
 
@@ -79,6 +89,20 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
 
     private final LocaleTag localeTag;
 
+    // Hext.............................................................................................................
+
+    @Override
+    public String text() {
+        return this.localeText;
+    }
+
+    /**
+     * The locale text, such as "English"
+     */
+    private final String localeText;
+
+    // Value............................................................................................................
+
     @Override
     public DateTimeSymbols value() {
         return this.dateTimeSymbols;
@@ -92,6 +116,7 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
     public int hashCode() {
         return Objects.hash(
             this.localeTag,
+            this.localeText,
             this.dateTimeSymbols
         );
     }
@@ -105,12 +130,13 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
 
     private boolean equals0(final DateTimeSymbolsHateosResource other) {
         return this.localeTag.equals(other.localeTag) &&
+            this.localeText.equals(other.localeText) &&
             this.dateTimeSymbols.equals(other.dateTimeSymbols);
     }
 
     @Override
     public String toString() {
-        return this.localeTag + " " + this.dateTimeSymbols;
+        return this.localeTag + " " + localeText + " " + this.dateTimeSymbols;
     }
 
     // Comparable.......................................................................................................
@@ -125,6 +151,13 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
     @Override
     public void printTree(final IndentingPrinter printer) {
         printer.println(this.localeTag.toString());
+
+        printer.indent();
+        {
+            printer.println(this.localeText);
+        }
+        printer.outdent();
+
         printer.indent();
         {
             this.dateTimeSymbols.printTree(printer);
@@ -142,6 +175,7 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
         Objects.requireNonNull(node, "node");
 
         LocaleTag localeTag = null;
+        String localeText = null;
         DateTimeSymbols dateTimeSymbols = null;
 
         for (final JsonNode child : node.objectOrFail().children()) {
@@ -151,6 +185,12 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
                     localeTag = context.unmarshall(
                         child,
                         LocaleTag.class
+                    );
+                    break;
+                case TEXT_PROPERTY_STRING:
+                    localeText = context.unmarshall(
+                        child,
+                        String.class
                     );
                     break;
                 case DATE_TIME_SYMBOLS_PROPERTY_STRING:
@@ -172,8 +212,9 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
             JsonNodeUnmarshallContext.missingProperty(DATE_TIME_SYMBOLS_PROPERTY, node);
         }
 
-        return new DateTimeSymbolsHateosResource(
+        return with(
             localeTag,
+            localeText,
             dateTimeSymbols
         );
     }
@@ -181,13 +222,16 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
             .set(LOCALE_TAG_PROPERTY, context.marshall(this.localeTag))
+            .set(TEXT_PROPERTY, context.marshall(this.localeText))
             .set(DATE_TIME_SYMBOLS_PROPERTY, context.marshall(this.dateTimeSymbols));
     }
 
     private final static String LOCALE_TAG_PROPERTY_STRING = "localeTag";
+    private final static String TEXT_PROPERTY_STRING = "text";
     private final static String DATE_TIME_SYMBOLS_PROPERTY_STRING = "dateTimeSymbols";
 
     private final static JsonPropertyName LOCALE_TAG_PROPERTY = JsonPropertyName.with(LOCALE_TAG_PROPERTY_STRING);
+    private final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_PROPERTY_STRING);
     private final static JsonPropertyName DATE_TIME_SYMBOLS_PROPERTY = JsonPropertyName.with(DATE_TIME_SYMBOLS_PROPERTY_STRING);
 
     static {
