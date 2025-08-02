@@ -117,6 +117,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
         this.treePrintAndCheck(
             this.createSet(),
             "en\n" +
+                "  English\n" +
                 "  DateTimeSymbols\n" +
                 "    ampms\n" +
                 "      AM\n" +
@@ -164,6 +165,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 "      Fri\n" +
                 "      Sat\n" +
                 "en-AU\n" +
+                "  English (Australia)\n" +
                 "  DateTimeSymbols\n" +
                 "    ampms\n" +
                 "      am\n" +
@@ -211,6 +213,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 "      Fri.\n" +
                 "      Sat.\n" +
                 "en-NZ\n" +
+                "  English (New Zealand)\n" +
                 "  DateTimeSymbols\n" +
                 "    ampms\n" +
                 "      AM\n" +
@@ -260,188 +263,13 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
         );
     }
 
-    // json.............................................................................................................
-
-    @Test
-    public void testMarshall() {
-        this.marshallAndCheck(
-            this.createJsonNodeMarshallingValue(),
-            "[\n" +
-                "  {\n" +
-                "    \"localeTag\": \"en\",\n" +
-                "    \"dateTimeSymbols\": {\n" +
-                "      \"ampms\": [\n" +
-                "        \"AM\",\n" +
-                "        \"PM\"\n" +
-                "      ],\n" +
-                "      \"monthNames\": [\n" +
-                "        \"January\",\n" +
-                "        \"February\",\n" +
-                "        \"March\",\n" +
-                "        \"April\",\n" +
-                "        \"May\",\n" +
-                "        \"June\",\n" +
-                "        \"July\",\n" +
-                "        \"August\",\n" +
-                "        \"September\",\n" +
-                "        \"October\",\n" +
-                "        \"November\",\n" +
-                "        \"December\"\n" +
-                "      ],\n" +
-                "      \"monthNameAbbreviations\": [\n" +
-                "        \"Jan\",\n" +
-                "        \"Feb\",\n" +
-                "        \"Mar\",\n" +
-                "        \"Apr\",\n" +
-                "        \"May\",\n" +
-                "        \"Jun\",\n" +
-                "        \"Jul\",\n" +
-                "        \"Aug\",\n" +
-                "        \"Sep\",\n" +
-                "        \"Oct\",\n" +
-                "        \"Nov\",\n" +
-                "        \"Dec\"\n" +
-                "      ],\n" +
-                "      \"weekDayNames\": [\n" +
-                "        \"Sunday\",\n" +
-                "        \"Monday\",\n" +
-                "        \"Tuesday\",\n" +
-                "        \"Wednesday\",\n" +
-                "        \"Thursday\",\n" +
-                "        \"Friday\",\n" +
-                "        \"Saturday\"\n" +
-                "      ],\n" +
-                "      \"weekDayNameAbbreviations\": [\n" +
-                "        \"Sun\",\n" +
-                "        \"Mon\",\n" +
-                "        \"Tue\",\n" +
-                "        \"Wed\",\n" +
-                "        \"Thu\",\n" +
-                "        \"Fri\",\n" +
-                "        \"Sat\"\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"localeTag\": \"en-AU\",\n" +
-                "    \"dateTimeSymbols\": {\n" +
-                "      \"ampms\": [\n" +
-                "        \"am\",\n" +
-                "        \"pm\"\n" +
-                "      ],\n" +
-                "      \"monthNames\": [\n" +
-                "        \"January\",\n" +
-                "        \"February\",\n" +
-                "        \"March\",\n" +
-                "        \"April\",\n" +
-                "        \"May\",\n" +
-                "        \"June\",\n" +
-                "        \"July\",\n" +
-                "        \"August\",\n" +
-                "        \"September\",\n" +
-                "        \"October\",\n" +
-                "        \"November\",\n" +
-                "        \"December\"\n" +
-                "      ],\n" +
-                "      \"monthNameAbbreviations\": [\n" +
-                "        \"Jan.\",\n" +
-                "        \"Feb.\",\n" +
-                "        \"Mar.\",\n" +
-                "        \"Apr.\",\n" +
-                "        \"May\",\n" +
-                "        \"Jun.\",\n" +
-                "        \"Jul.\",\n" +
-                "        \"Aug.\",\n" +
-                "        \"Sep.\",\n" +
-                "        \"Oct.\",\n" +
-                "        \"Nov.\",\n" +
-                "        \"Dec.\"\n" +
-                "      ],\n" +
-                "      \"weekDayNames\": [\n" +
-                "        \"Sunday\",\n" +
-                "        \"Monday\",\n" +
-                "        \"Tuesday\",\n" +
-                "        \"Wednesday\",\n" +
-                "        \"Thursday\",\n" +
-                "        \"Friday\",\n" +
-                "        \"Saturday\"\n" +
-                "      ],\n" +
-                "      \"weekDayNameAbbreviations\": [\n" +
-                "        \"Sun.\",\n" +
-                "        \"Mon.\",\n" +
-                "        \"Tue.\",\n" +
-                "        \"Wed.\",\n" +
-                "        \"Thu.\",\n" +
-                "        \"Fri.\",\n" +
-                "        \"Sat.\"\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"localeTag\": \"en-NZ\",\n" +
-                "    \"dateTimeSymbols\": {\n" +
-                "      \"ampms\": [\n" +
-                "        \"AM\",\n" +
-                "        \"PM\"\n" +
-                "      ],\n" +
-                "      \"monthNames\": [\n" +
-                "        \"January\",\n" +
-                "        \"February\",\n" +
-                "        \"March\",\n" +
-                "        \"April\",\n" +
-                "        \"May\",\n" +
-                "        \"June\",\n" +
-                "        \"July\",\n" +
-                "        \"August\",\n" +
-                "        \"September\",\n" +
-                "        \"October\",\n" +
-                "        \"November\",\n" +
-                "        \"December\"\n" +
-                "      ],\n" +
-                "      \"monthNameAbbreviations\": [\n" +
-                "        \"Jan\",\n" +
-                "        \"Feb\",\n" +
-                "        \"Mar\",\n" +
-                "        \"Apr\",\n" +
-                "        \"May\",\n" +
-                "        \"Jun\",\n" +
-                "        \"Jul\",\n" +
-                "        \"Aug\",\n" +
-                "        \"Sep\",\n" +
-                "        \"Oct\",\n" +
-                "        \"Nov\",\n" +
-                "        \"Dec\"\n" +
-                "      ],\n" +
-                "      \"weekDayNames\": [\n" +
-                "        \"Sunday\",\n" +
-                "        \"Monday\",\n" +
-                "        \"Tuesday\",\n" +
-                "        \"Wednesday\",\n" +
-                "        \"Thursday\",\n" +
-                "        \"Friday\",\n" +
-                "        \"Saturday\"\n" +
-                "      ],\n" +
-                "      \"weekDayNameAbbreviations\": [\n" +
-                "        \"Sun\",\n" +
-                "        \"Mon\",\n" +
-                "        \"Tue\",\n" +
-                "        \"Wed\",\n" +
-                "        \"Thu\",\n" +
-                "        \"Fri\",\n" +
-                "        \"Sat\"\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  }\n" +
-                "]"
-        );
-    }
-
     @Test
     public void testUnmarshall() {
         this.unmarshallAndCheck(
             "[\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en\",\n" +
+                "    \"text\": \"English\",\n" +
                 "    \"dateTimeSymbols\": {\n" +
                 "      \"ampms\": [\n" +
                 "        \"AM\",\n" +
@@ -497,6 +325,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 "  },\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en-AU\",\n" +
+                "    \"text\": \"English (Australia)\",\n" +
                 "    \"dateTimeSymbols\": {\n" +
                 "      \"ampms\": [\n" +
                 "        \"am\",\n" +
@@ -552,6 +381,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 "  },\n" +
                 "  {\n" +
                 "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"text\": \"English (New Zealand)\",\n" +
                 "    \"dateTimeSymbols\": {\n" +
                 "      \"ampms\": [\n" +
                 "        \"AM\",\n" +
@@ -616,7 +446,8 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
         locales.addAll(
             Arrays.stream(
                     Locale.getAvailableLocales()
-                ).map(DateTimeSymbolsHateosResource::fromLocale)
+                ).filter(l -> false == l.getDisplayName().isEmpty())
+                .map(DateTimeSymbolsHateosResource::fromLocale)
                 .collect(Collectors.toList())
         );
 

@@ -60,6 +60,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                 "[\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en\",\n" +
+                    "    \"text\": \"English\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +
                     "        \"AM\",\n" +
@@ -115,6 +116,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                     "  },\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en-001\",\n" +
+                    "    \"text\": \"English (World)\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +
                     "        \"AM\",\n" +
@@ -200,6 +202,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                 "[\n" +
                     "  {\n" +
                     "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"text\": \"English (Australia)\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +
                     "        \"am\",\n" +
@@ -304,6 +307,11 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                                                 final int offset,
                                                 final int count) {
                 return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
+            }
+
+            @Override
+            public Optional<String> localeText(final Locale locale) {
+                return LOCALE_CONTEXT.localeText(locale);
             }
 
             @Override

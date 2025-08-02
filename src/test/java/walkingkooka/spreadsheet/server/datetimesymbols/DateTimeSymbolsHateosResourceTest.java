@@ -23,6 +23,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
@@ -36,12 +37,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DateTimeSymbolsHateosResourceTest implements ComparableTesting2<DateTimeSymbolsHateosResource>,
     TreePrintableTesting,
+    HasTextTesting,
     JsonNodeMarshallingTesting<DateTimeSymbolsHateosResource>,
     ClassTesting2<DateTimeSymbolsHateosResource> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
     private final static LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+
+    private final static String LOCALE_TEXT = "English (Australia)";
 
     private final static DateTimeSymbols DATE_TIME_SYMBOLS = DateTimeSymbols.fromDateFormatSymbols(
         new DateFormatSymbols(LOCALE)
@@ -52,6 +56,19 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
         assertThrows(
             NullPointerException.class,
             () -> DateTimeSymbolsHateosResource.with(
+                null,
+                LOCALE_TEXT,
+                DATE_TIME_SYMBOLS
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullLocaleTextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> DateTimeSymbolsHateosResource.with(
+                LOCALE_TAG,
                 null,
                 DATE_TIME_SYMBOLS
             )
@@ -64,6 +81,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
             NullPointerException.class,
             () -> DateTimeSymbolsHateosResource.with(
                 LOCALE_TAG,
+                LOCALE_TEXT,
                 null
             )
         );
@@ -73,16 +91,21 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     public void testWith() {
         final DateTimeSymbolsHateosResource resource = DateTimeSymbolsHateosResource.with(
             LOCALE_TAG,
+            LOCALE_TEXT,
             DATE_TIME_SYMBOLS
-        );
-        this.checkEquals(
-            DATE_TIME_SYMBOLS,
-            resource.value()
         );
 
         this.checkEquals(
             "en-AU",
             resource.hateosLinkId()
+        );
+        this.textAndCheck(
+            resource,
+            LOCALE_TEXT
+        );
+        this.checkEquals(
+            DATE_TIME_SYMBOLS,
+            resource.value()
         );
     }
 
@@ -119,9 +142,11 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
         this.treePrintAndCheck(
             DateTimeSymbolsHateosResource.with(
                 LOCALE_TAG,
+                LOCALE_TEXT,
                 DATE_TIME_SYMBOLS
             ),
             "en-AU\n" +
+                "  English (Australia)\n" +
                 "  DateTimeSymbols\n" +
                 "    ampms\n" +
                 "      am\n" +
@@ -182,6 +207,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
                 LocaleTag.with(
                     locale
                 ),
+                locale.getDisplayName(),
                 DateTimeSymbols.fromDateFormatSymbols(
                     new DateFormatSymbols(locale)
                 )
@@ -193,6 +219,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     public DateTimeSymbolsHateosResource createComparable() {
         return DateTimeSymbolsHateosResource.with(
             LOCALE_TAG,
+            LOCALE_TEXT,
             DATE_TIME_SYMBOLS
         );
     }
@@ -205,6 +232,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
             this.createJsonNodeMarshallingValue(),
             "{\n" +
                 "  \"localeTag\": \"en-AU\",\n" +
+                "  \"text\": \"English (Australia)\",\n" +
                 "  \"dateTimeSymbols\": {\n" +
                 "    \"ampms\": [\n" +
                 "      \"am\",\n" +
@@ -274,6 +302,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     public DateTimeSymbolsHateosResource createJsonNodeMarshallingValue() {
         return DateTimeSymbolsHateosResource.with(
             LOCALE_TAG,
+            LOCALE_TEXT,
             DATE_TIME_SYMBOLS
         );
     }

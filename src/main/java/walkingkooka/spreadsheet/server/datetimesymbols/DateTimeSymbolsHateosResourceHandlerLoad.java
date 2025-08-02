@@ -66,7 +66,13 @@ final class DateTimeSymbolsHateosResourceHandlerLoad implements HateosResourceHa
         return context.dateTimeSymbolsForLocale(
             id.value()
         ).map(
-            d -> DateTimeSymbolsHateosResource.with(id, d)
+            d -> DateTimeSymbolsHateosResource.with(
+                id,
+                context.localeTextOrFail(
+                    id.value()
+                ),
+                d
+            )
         );
     }
 
