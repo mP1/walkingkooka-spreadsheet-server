@@ -17,11 +17,14 @@
 
 package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
@@ -37,16 +40,19 @@ import java.util.Optional;
 
 public final class DecimalNumberSymbolsHateosResource implements HateosResource<LocaleTag>,
     Value<DecimalNumberSymbols>,
+    HasText,
     Comparable<DecimalNumberSymbolsHateosResource>,
     TreePrintable {
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("decimalNumberSymbols");
 
+    @GwtIncompatible
     public static DecimalNumberSymbolsHateosResource fromLocale(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
 
-        return new DecimalNumberSymbolsHateosResource(
+        return with(
             LocaleTag.with(locale),
+            locale.getDisplayName(),
             DecimalNumberSymbols.fromDecimalFormatSymbols(
                 '+',
                 new DecimalFormatSymbols(locale)
@@ -55,16 +61,20 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
     }
     
     public static DecimalNumberSymbolsHateosResource with(final LocaleTag localeTag,
+                                                          final String localeText,
                                                           final DecimalNumberSymbols decimalNumberSymbols) {
         return new DecimalNumberSymbolsHateosResource(
             Objects.requireNonNull(localeTag, "localeTag"),
+            CharSequences.failIfNullOrEmpty(localeText, "localeText"),
             Objects.requireNonNull(decimalNumberSymbols, "decimalNumberSymbols")
         );
     }
 
     private DecimalNumberSymbolsHateosResource(final LocaleTag localeTag,
+                                               final String localeText,
                                                final DecimalNumberSymbols decimalNumberSymbols) {
         this.localeTag = localeTag;
+        this.localeText = localeText;
         this.decimalNumberSymbols = decimalNumberSymbols;
     }
 
@@ -80,6 +90,20 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
 
     private final LocaleTag localeTag;
 
+    // Hext.............................................................................................................
+
+    @Override
+    public String text() {
+        return this.localeText;
+    }
+
+    /**
+     * The locale text, such as "English"
+     */
+    private final String localeText;
+
+    // Value............................................................................................................
+
     @Override
     public DecimalNumberSymbols value() {
         return this.decimalNumberSymbols;
@@ -93,6 +117,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
     public int hashCode() {
         return Objects.hash(
             this.localeTag,
+            this.localeText,
             this.decimalNumberSymbols
         );
     }
@@ -106,12 +131,13 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
 
     private boolean equals0(final DecimalNumberSymbolsHateosResource other) {
         return this.localeTag.equals(other.localeTag) &&
+            this.localeText.equals(other.localeText) &&
             this.decimalNumberSymbols.equals(other.decimalNumberSymbols);
     }
 
     @Override
     public String toString() {
-        return this.localeTag + " " + this.decimalNumberSymbols;
+        return this.localeTag + " " + localeText + " " + this.decimalNumberSymbols;
     }
 
     // Comparable.......................................................................................................
@@ -126,6 +152,13 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
     @Override
     public void printTree(final IndentingPrinter printer) {
         printer.println(this.localeTag.toString());
+
+        printer.indent();
+        {
+            printer.println(this.localeText);
+        }
+        printer.outdent();
+
         printer.indent();
         {
             this.decimalNumberSymbols.printTree(printer);
@@ -143,6 +176,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         Objects.requireNonNull(node, "node");
 
         LocaleTag localeTag = null;
+        String localeText = null;
         DecimalNumberSymbols decimalNumberSymbols = null;
 
         for (final JsonNode child : node.objectOrFail().children()) {
@@ -152,6 +186,12 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
                     localeTag = context.unmarshall(
                         child,
                         LocaleTag.class
+                    );
+                    break;
+                case TEXT_PROPERTY_STRING:
+                    localeText = context.unmarshall(
+                        child,
+                        String.class
                     );
                     break;
                 case DECIMAL_NUMBER_SYMBOLS_PROPERTY_STRING:
@@ -173,8 +213,9 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
             JsonNodeUnmarshallContext.missingProperty(DECIMAL_NUMBER_SYMBOLS_PROPERTY, node);
         }
 
-        return new DecimalNumberSymbolsHateosResource(
+        return with(
             localeTag,
+            localeText,
             decimalNumberSymbols
         );
     }
@@ -182,13 +223,16 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
             .set(LOCALE_TAG_PROPERTY, context.marshall(this.localeTag))
+            .set(TEXT_PROPERTY, context.marshall(this.localeText))
             .set(DECIMAL_NUMBER_SYMBOLS_PROPERTY, context.marshall(this.decimalNumberSymbols));
     }
 
     private final static String LOCALE_TAG_PROPERTY_STRING = "localeTag";
+    private final static String TEXT_PROPERTY_STRING = "text";
     private final static String DECIMAL_NUMBER_SYMBOLS_PROPERTY_STRING = "decimalNumberSymbols";
 
     private final static JsonPropertyName LOCALE_TAG_PROPERTY = JsonPropertyName.with(LOCALE_TAG_PROPERTY_STRING);
+    private final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_PROPERTY_STRING);
     private final static JsonPropertyName DECIMAL_NUMBER_SYMBOLS_PROPERTY = JsonPropertyName.with(DECIMAL_NUMBER_SYMBOLS_PROPERTY_STRING);
 
     static {

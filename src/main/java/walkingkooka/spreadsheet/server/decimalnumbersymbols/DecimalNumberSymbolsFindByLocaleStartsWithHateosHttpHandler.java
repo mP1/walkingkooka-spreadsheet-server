@@ -86,6 +86,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler implemen
                 all.add(
                     DecimalNumberSymbolsHateosResource.with(
                         LocaleTag.with(locale),
+                        context.localeTextOrFail(locale),
                         decimalNumberSymbols
                     )
                 );

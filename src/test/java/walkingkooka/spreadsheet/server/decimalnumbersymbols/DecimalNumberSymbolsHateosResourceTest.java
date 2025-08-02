@@ -23,6 +23,7 @@ import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
@@ -35,6 +36,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DecimalNumberSymbolsHateosResourceTest implements ComparableTesting2<DecimalNumberSymbolsHateosResource>,
+    HasTextTesting,
     TreePrintableTesting,
     JsonNodeMarshallingTesting<DecimalNumberSymbolsHateosResource>,
     ClassTesting2<DecimalNumberSymbolsHateosResource> {
@@ -42,6 +44,8 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
     private final static LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+
+    private final static String LOCALE_TEXT = "English (Australia)";
 
     private final static DecimalNumberSymbols DECIMAL_NUMBER_SYMBOLS = DecimalNumberSymbols.fromDecimalFormatSymbols(
         '+',
@@ -54,6 +58,19 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
             NullPointerException.class,
             () -> DecimalNumberSymbolsHateosResource.with(
                 null,
+                LOCALE_TEXT,
+                DECIMAL_NUMBER_SYMBOLS
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullLocaleTextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> DecimalNumberSymbolsHateosResource.with(
+                LOCALE_TAG,
+                null,
                 DECIMAL_NUMBER_SYMBOLS
             )
         );
@@ -65,6 +82,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
             NullPointerException.class,
             () -> DecimalNumberSymbolsHateosResource.with(
                 LOCALE_TAG,
+                LOCALE_TEXT,
                 null
             )
         );
@@ -74,6 +92,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
     public void testWith() {
         final DecimalNumberSymbolsHateosResource resource = DecimalNumberSymbolsHateosResource.with(
             LOCALE_TAG,
+            LOCALE_TEXT,
             DECIMAL_NUMBER_SYMBOLS
         );
         this.checkEquals(
@@ -84,6 +103,11 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
         this.checkEquals(
             "en-AU",
             resource.hateosLinkId()
+        );
+
+        this.textAndCheck(
+            resource,
+            LOCALE_TEXT
         );
     }
 
@@ -121,9 +145,11 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
         this.treePrintAndCheck(
             DecimalNumberSymbolsHateosResource.with(
                 LOCALE_TAG,
+                LOCALE_TEXT,
                 DECIMAL_NUMBER_SYMBOLS
             ),
             "en-AU\n" +
+                "  English (Australia)\n" +
                 "  DecimalNumberSymbols\n" +
                 "    negativeSign\n" +
                 "      '-'\n" +
@@ -163,6 +189,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
                 LocaleTag.with(
                     locale
                 ),
+                locale.getDisplayName(),
                 DecimalNumberSymbols.fromDecimalFormatSymbols(
                     '+',
                     new DecimalFormatSymbols(locale)
@@ -175,6 +202,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
     public DecimalNumberSymbolsHateosResource createComparable() {
         return DecimalNumberSymbolsHateosResource.with(
             LOCALE_TAG,
+            LOCALE_TEXT,
             DECIMAL_NUMBER_SYMBOLS
         );
     }
@@ -187,6 +215,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
             this.createJsonNodeMarshallingValue(),
             "{\n" +
                 "  \"localeTag\": \"en-AU\",\n" +
+                "  \"text\": \"English (Australia)\",\n" +
                 "  \"decimalNumberSymbols\": {\n" +
                 "    \"negativeSign\": \"-\",\n" +
                 "    \"positiveSign\": \"+\",\n" +
@@ -207,7 +236,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
     @Override
     public DecimalNumberSymbolsHateosResource unmarshall(final JsonNode node,
-                                                    final JsonNodeUnmarshallContext context) {
+                                                         final JsonNodeUnmarshallContext context) {
         return DecimalNumberSymbolsHateosResource.unmarshall(
             node,
             context
@@ -218,6 +247,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
     public DecimalNumberSymbolsHateosResource createJsonNodeMarshallingValue() {
         return DecimalNumberSymbolsHateosResource.with(
             LOCALE_TAG,
+            LOCALE_TEXT,
             DECIMAL_NUMBER_SYMBOLS
         );
     }
