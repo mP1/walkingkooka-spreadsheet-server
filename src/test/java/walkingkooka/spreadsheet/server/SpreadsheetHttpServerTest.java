@@ -1383,6 +1383,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"headings\": true,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
@@ -5840,6 +5841,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"headings\": true,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
@@ -6308,6 +6310,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"headings\": true,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
@@ -6555,6 +6558,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"headings\": true,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
