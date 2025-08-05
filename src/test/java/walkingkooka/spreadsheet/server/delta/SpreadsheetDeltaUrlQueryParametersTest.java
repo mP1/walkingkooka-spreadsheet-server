@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportNavigation;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportNavigationList;
-import walkingkooka.spreadsheet.viewport.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 
 import java.lang.reflect.Method;
@@ -179,16 +178,16 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
             Optional.empty(),
             new FakeSpreadsheetEngine() {
                 @Override
-                public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle rectangle,
-                                                         final boolean includeFrozenColumnsRows,
-                                                         final Optional<SpreadsheetSelection> selection,
+                public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                          final SpreadsheetEngineContext context) {
-                    checkEquals(SpreadsheetSelection.parseCell("B2")
-                            .viewportRectangle(111, 222),
-                        rectangle, "rectangle");
-                    checkEquals(false, includeFrozenColumnsRows, "includeFrozenColumnsRows");
-                    checkEquals(Optional.empty(), selection);
-
+                    checkEquals(
+                        SpreadsheetViewport.with(
+                            SpreadsheetSelection.parseCell("B2")
+                                .viewportRectangle(111, 222)
+                        ),
+                        viewport,
+                        "viewport"
+                    );
                     return windows;
                 }
             },
@@ -211,15 +210,16 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
             Optional.empty(),
             new FakeSpreadsheetEngine() {
                 @Override
-                public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle rectangle,
-                                                         final boolean includeFrozenColumnsRows,
-                                                         final Optional<SpreadsheetSelection> selection,
+                public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                          final SpreadsheetEngineContext context) {
-                    checkEquals(SpreadsheetSelection.parseCell("B2")
-                            .viewportRectangle(111, 222),
-                        rectangle, "rectangle");
-                    checkEquals(true, includeFrozenColumnsRows, "includeFrozenColumnsRows");
-                    checkEquals(Optional.empty(), selection);
+                    checkEquals(
+                        SpreadsheetViewport.with(
+                            SpreadsheetSelection.parseCell("B2")
+                                .viewportRectangle(111, 222)
+                        ).setIncludeFrozenColumnsRows(true),
+                        viewport,
+                        "viewport"
+                    );
 
                     return windows;
                 }

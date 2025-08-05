@@ -751,17 +751,17 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         }
 
                         @Override
-                        public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                                 final boolean includeFrozenColumnsRows,
-                                                                 final Optional<SpreadsheetSelection> s,
+                        public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                                  final SpreadsheetEngineContext context) {
                             checkEquals(
-                                SpreadsheetViewportRectangle.with(
-                                    home,
-                                    width,
-                                    height
+                                SpreadsheetViewport.with(
+                                    SpreadsheetViewportRectangle.with(
+                                        home,
+                                        width,
+                                        height
+                                    )
                                 ),
-                                viewportRectangle,
+                                viewport,
                                 "viewport"
                             );
                             return SpreadsheetViewportWindows.with(
@@ -902,14 +902,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     }
 
                     @Override
-                    public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                             final boolean includeFrozenColumnsRows,
-                                                             final Optional<SpreadsheetSelection> selection,
+                    public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                              final SpreadsheetEngineContext context) {
                         if (range.equals("throw")) {
                             throw new UnsupportedOperationException();
                         }
-                        checkEquals(SpreadsheetDelta.NO_VIEWPORT, selection);
+                        checkEquals(
+                            Optional.empty(),
+                            viewport.anchoredSelection(),
+                            "viewport"
+                        );
 
                         return SpreadsheetViewportWindows.parse(range);
                     }
@@ -1226,9 +1228,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         }
 
                         @Override
-                        public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                                 final boolean includeFrozenColumnsRows,
-                                                                 final Optional<SpreadsheetSelection> selection,
+                        public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                                  final SpreadsheetEngineContext context) {
                             return spreadsheetViewportWindows;
                         }

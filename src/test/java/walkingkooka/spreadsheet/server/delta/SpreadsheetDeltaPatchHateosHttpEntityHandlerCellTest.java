@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
-import walkingkooka.spreadsheet.viewport.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.tree.text.FontStyle;
 import walkingkooka.tree.text.TextStyle;
@@ -550,9 +549,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             }
 
             @Override
-            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                     final boolean includeFrozenColumnsRows,
-                                                     final Optional<SpreadsheetSelection> selection,
+            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                      final SpreadsheetEngineContext context) {
                 return WINDOWS;
             }

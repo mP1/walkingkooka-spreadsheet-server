@@ -75,7 +75,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
-import walkingkooka.spreadsheet.viewport.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -434,9 +433,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             }
 
             @Override
-            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                     final boolean includeFrozenColumnsRows,
-                                                     final Optional<SpreadsheetSelection> selection,
+            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                      final SpreadsheetEngineContext context) {
                 return SpreadsheetViewportWindows.parse("B2:C3");
             }

@@ -31,7 +31,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
-import walkingkooka.spreadsheet.viewport.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 
 import java.util.Optional;
@@ -701,9 +700,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             }
 
             @Override
-            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                     final boolean includeFrozenColumnsRows,
-                                                     final Optional<SpreadsheetSelection> selection,
+            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
                                                      final SpreadsheetEngineContext context) {
                 return WINDOWS;
             }
