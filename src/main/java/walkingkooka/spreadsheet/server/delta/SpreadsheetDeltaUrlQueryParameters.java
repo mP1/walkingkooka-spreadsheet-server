@@ -185,13 +185,15 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 failIfMissing(missing);
 
                 windows = engine.window(
-                    viewportRectangle(
-                        home.get(),
-                        width.get(),
-                        height.get()
+                    SpreadsheetViewport.with(
+                        viewportRectangle(
+                            home.get(),
+                            width.get(),
+                            height.get()
+                        )
+                    ).setIncludeFrozenColumnsRows(
+                        includeFrozenColumnsRows(includeFrozenColumnsRows.get())
                     ),
-                    includeFrozenColumnsRows(includeFrozenColumnsRows.get()),
-                    SpreadsheetEngine.NO_SELECTION,
                     context
                 );
             } else {

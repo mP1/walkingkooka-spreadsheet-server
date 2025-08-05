@@ -126,11 +126,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetViewportWindows window = context.spreadsheetEngine()
             .window(
-                viewport.rectangle(),
-                SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValue(parameters)
+                SpreadsheetViewport.with(
+                    viewport.rectangle()
+                ).setIncludeFrozenColumnsRows(
+                    SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValue(parameters)
                         .map(Boolean::parseBoolean)
-                            .orElse(Boolean.TRUE), // includeFrozenColumnsRows,
-                SpreadsheetEngine.NO_SELECTION, // no selection
+                        .orElse(Boolean.TRUE)
+                ),
                 context
             );
 
