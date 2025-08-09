@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -393,6 +394,18 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    // EnvironmentContext..............................................................................................
+
+    @Override
+    public <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                                   final T value) {
+        this.providerContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
     }
 
     // Object...........................................................................................................

@@ -73,6 +73,12 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
     }
 
     @Override
+    public <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                           final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
@@ -66,6 +67,16 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    @Override
+    public <T> PluginHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                      final T value) {
+        this.providerContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
     }
 
     private final ProviderContext providerContext;

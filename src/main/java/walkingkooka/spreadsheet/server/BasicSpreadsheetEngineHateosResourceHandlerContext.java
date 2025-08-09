@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.convert.CanConvert;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -165,6 +166,16 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public SpreadsheetProvider spreadsheetProvider() {
         return this.engineContext;
+    }
+
+    @Override
+    public <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                                 final T value) {
+        this.engineContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
     }
 
     private final SpreadsheetEngineContext engineContext;

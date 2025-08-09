@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.plugin.ProviderContext;
@@ -77,6 +78,16 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
         ProviderContextDelegator {
+
+        @Override
+        public <T> TestSpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                           final T value) {
+            PROVIDER_CONTEXT.setEnvironmentValue(
+                name,
+                value
+            );
+            return this;
+        }
 
         @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {

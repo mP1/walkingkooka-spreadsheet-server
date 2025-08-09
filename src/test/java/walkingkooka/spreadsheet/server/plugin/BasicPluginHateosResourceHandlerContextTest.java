@@ -53,6 +53,14 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
                 Objects.requireNonNull(name, "name");
                 throw new UnsupportedOperationException();
             }
+
+            @Override
+            public <T> ProviderContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                           final T value) {
+                Objects.requireNonNull(name, "name");
+                Objects.requireNonNull(value, "value");
+                throw new UnsupportedOperationException();
+            }
         },
         PluginStores.treeMap()
     );

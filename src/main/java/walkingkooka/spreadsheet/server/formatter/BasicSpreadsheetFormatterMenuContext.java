@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
@@ -43,6 +44,15 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
         this.spreadsheetFormatterProviderSamplesContext = spreadsheetFormatterProviderSamplesContext;
     }
 
+    @Override
+    public <T> SpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                   final T value) {
+        this.spreadsheetFormatterProviderSamplesContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
+    }
     // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
