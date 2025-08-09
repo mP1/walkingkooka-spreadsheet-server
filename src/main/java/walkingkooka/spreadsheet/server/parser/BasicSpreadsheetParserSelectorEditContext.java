@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.parser;
 
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.convert.CanConvert;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -146,6 +147,16 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     @Override
     public LocalDateTime now() {
         return this.providerContext.now();
+    }
+
+    @Override
+    public <T> SpreadsheetParserSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                        final T value) {
+        this.providerContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
     }
 
     private final ProviderContext providerContext;

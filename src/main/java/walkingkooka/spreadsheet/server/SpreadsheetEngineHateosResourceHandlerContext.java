@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -30,6 +31,9 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
     SpreadsheetEngineContext {
 
+    @Override
+    <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                          final T value);
     /**
      * Getter that returns a {@link SpreadsheetEngine}.
      */

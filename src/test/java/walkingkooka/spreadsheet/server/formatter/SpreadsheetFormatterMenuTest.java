@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.formatter;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.PluginSelectorMenuLikeTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
@@ -161,6 +162,15 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         SpreadsheetFormatterContextDelegator,
         ProviderContextDelegator {
 
+        @Override
+        public <T> SpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                       final T value) {
+            PROVIDER_CONTEXT.setEnvironmentValue(
+                name,
+                value
+            );
+            return this;
+        }
         @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
             throw new UnsupportedOperationException();

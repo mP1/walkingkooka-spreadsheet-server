@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -29,6 +30,10 @@ public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserP
     SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
     ProviderContext {
+
+    @Override
+    <T> SpreadsheetParserSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                 final T value);
 
     @Override
     SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);

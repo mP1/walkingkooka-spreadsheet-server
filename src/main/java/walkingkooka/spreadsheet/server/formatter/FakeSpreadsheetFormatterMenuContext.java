@@ -89,6 +89,12 @@ public class FakeSpreadsheetFormatterMenuContext extends FakeSpreadsheetFormatte
     }
 
     @Override
+    public <T> SpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                   final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }

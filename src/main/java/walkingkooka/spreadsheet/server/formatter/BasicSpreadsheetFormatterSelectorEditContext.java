@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.convert.CanConvert;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -103,6 +104,16 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     @Override
     public LocalDateTime now() {
         return this.providerContext.now();
+    }
+
+    @Override
+    public <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                           final T value) {
+        this.providerContext.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
     }
 
     private final ProviderContext providerContext;
