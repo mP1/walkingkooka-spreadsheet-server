@@ -34,6 +34,10 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
     @Override
     <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                           final T value);
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
     /**
      * Getter that returns a {@link SpreadsheetEngine}.
      */

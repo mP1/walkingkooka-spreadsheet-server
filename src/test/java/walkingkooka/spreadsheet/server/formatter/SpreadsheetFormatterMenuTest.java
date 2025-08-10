@@ -171,6 +171,13 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
             );
             return this;
         }
+
+        @Override
+        public SpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+            PROVIDER_CONTEXT.removeEnvironmentValue(name);
+            return this;
+        }
+
         @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
             throw new UnsupportedOperationException();

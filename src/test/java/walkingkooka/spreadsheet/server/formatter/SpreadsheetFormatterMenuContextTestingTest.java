@@ -90,6 +90,12 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         }
 
         @Override
+        public TestSpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+            PROVIDER_CONTEXT.removeEnvironmentValue(name);
+            return this;
+        }
+
+        @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
             throw new UnsupportedOperationException();
         }

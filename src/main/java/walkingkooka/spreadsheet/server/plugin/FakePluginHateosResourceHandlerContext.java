@@ -58,6 +58,11 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
     }
 
     @Override
+    public PluginHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }

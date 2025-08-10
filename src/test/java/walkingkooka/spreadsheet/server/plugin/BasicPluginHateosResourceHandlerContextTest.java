@@ -19,8 +19,7 @@ package walkingkooka.spreadsheet.server.plugin;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.environment.FakeEnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
@@ -29,7 +28,7 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -47,21 +46,10 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     );
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(), // CanConvert
-        new FakeEnvironmentContext() {
-            @Override
-            public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-                Objects.requireNonNull(name, "name");
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public <T> ProviderContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                           final T value) {
-                Objects.requireNonNull(name, "name");
-                Objects.requireNonNull(value, "value");
-                throw new UnsupportedOperationException();
-            }
-        },
+        EnvironmentContexts.empty(
+            LocalDateTime::now,
+            Optional.empty() // user
+        ),
         PluginStores.treeMap()
     );
 

@@ -33,5 +33,8 @@ public interface PluginHateosResourceHandlerContext extends HateosResourceHandle
                                                                final T value);
 
     @Override
+    PluginHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
+    @Override
     PluginHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

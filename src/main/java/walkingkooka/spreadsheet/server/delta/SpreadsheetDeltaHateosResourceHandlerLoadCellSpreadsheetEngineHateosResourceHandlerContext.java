@@ -183,5 +183,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         return this;
     }
 
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.context.removeEnvironmentValue(name);
+        return this;
+    }
+
     private final SpreadsheetEngineHateosResourceHandlerContext context;
 }

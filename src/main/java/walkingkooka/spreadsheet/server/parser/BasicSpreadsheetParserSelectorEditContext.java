@@ -159,6 +159,12 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
         return this;
     }
 
+    @Override
+    public SpreadsheetParserSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.providerContext.removeEnvironmentValue(name);
+        return this;
+    }
+
     private final ProviderContext providerContext;
 
     @Override

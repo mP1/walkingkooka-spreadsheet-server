@@ -79,6 +79,12 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
         return this;
     }
 
+    @Override
+    public PluginHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.providerContext.removeEnvironmentValue(name);
+        return this;
+    }
+
     private final ProviderContext providerContext;
 
     @Override

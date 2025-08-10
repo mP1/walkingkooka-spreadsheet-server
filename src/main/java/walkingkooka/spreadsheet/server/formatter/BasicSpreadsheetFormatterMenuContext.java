@@ -53,6 +53,13 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
         );
         return this;
     }
+
+    @Override
+    public SpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.spreadsheetFormatterProviderSamplesContext.removeEnvironmentValue(name);
+        return this;
+    }
+
     // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
