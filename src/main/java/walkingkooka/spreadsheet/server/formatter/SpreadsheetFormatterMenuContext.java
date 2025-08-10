@@ -30,5 +30,8 @@ public interface SpreadsheetFormatterMenuContext extends SpreadsheetFormatterPro
                                                             final T value);
 
     @Override
+    SpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
+    @Override
     SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

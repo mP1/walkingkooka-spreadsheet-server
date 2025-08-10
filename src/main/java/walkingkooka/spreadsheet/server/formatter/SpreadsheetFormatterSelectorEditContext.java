@@ -29,4 +29,7 @@ public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetForm
     @Override
     <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                     final T value);
+
+    @Override
+    SpreadsheetFormatterSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name);
 }

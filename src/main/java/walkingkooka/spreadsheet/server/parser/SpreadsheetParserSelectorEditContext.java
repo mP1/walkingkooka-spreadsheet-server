@@ -36,5 +36,8 @@ public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserP
                                                                  final T value);
 
     @Override
+    SpreadsheetParserSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+
+    @Override
     SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

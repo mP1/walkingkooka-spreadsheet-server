@@ -438,6 +438,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }

@@ -116,6 +116,12 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
         return this;
     }
 
+    @Override
+    public SpreadsheetFormatterSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.providerContext.removeEnvironmentValue(name);
+        return this;
+    }
+
     private final ProviderContext providerContext;
 
     @Override

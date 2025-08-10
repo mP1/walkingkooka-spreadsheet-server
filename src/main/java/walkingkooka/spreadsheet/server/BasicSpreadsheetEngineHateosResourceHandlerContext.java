@@ -178,6 +178,12 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this;
     }
 
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.engineContext.removeEnvironmentValue(name);
+        return this;
+    }
+
     private final SpreadsheetEngineContext engineContext;
 
     // SpreadsheetEngineHateosResourceHandlerContext....................................................................

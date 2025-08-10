@@ -187,6 +187,11 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     }
 
     @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }

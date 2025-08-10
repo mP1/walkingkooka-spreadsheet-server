@@ -408,6 +408,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         return this;
     }
 
+    @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.providerContext.removeEnvironmentValue(name);
+        return this;
+    }
+
     // Object...........................................................................................................
 
     @Override
