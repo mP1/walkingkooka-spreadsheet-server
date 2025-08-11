@@ -1292,8 +1292,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
-                    "  \"color1\": \"#000000\",\n" +
-                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"color1\": \"black\",\n" +
+                    "  \"color2\": \"white\",\n" +
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
@@ -5753,8 +5753,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
-                    "  \"color1\": \"#000000\",\n" +
-                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"color1\": \"black\",\n" +
+                    "  \"color2\": \"white\",\n" +
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
@@ -6225,8 +6225,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
-                    "  \"color1\": \"#000000\",\n" +
-                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"color1\": \"black\",\n" +
+                    "  \"color2\": \"white\",\n" +
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
@@ -6476,8 +6476,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
-                    "  \"color1\": \"#000000\",\n" +
-                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"color1\": \"black\",\n" +
+                    "  \"color2\": \"white\",\n" +
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
