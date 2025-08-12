@@ -67,7 +67,8 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
         LocaleContexts.fake(),
         SPREADSHEET_PROVIDER,
-        PROVIDER_CONTEXT
+        PROVIDER_CONTEXT,
+        TERMINAL_CONTEXT
     );
 
     // with.............................................................................................................

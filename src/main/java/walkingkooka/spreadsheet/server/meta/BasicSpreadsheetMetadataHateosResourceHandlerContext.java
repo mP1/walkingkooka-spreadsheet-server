@@ -66,8 +66,10 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
+import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
@@ -255,6 +257,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     providerContext
                 ),
                 providerContext.pluginStore()
+            ),
+            TerminalContexts.printer(
+                Printers.sink(LineEnding.NONE)
             )
         );
 
