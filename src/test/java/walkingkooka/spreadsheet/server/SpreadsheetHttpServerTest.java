@@ -1291,6 +1291,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
+                    "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
                     "  \"color1\": \"black\",\n" +
                     "  \"color2\": \"white\",\n" +
@@ -5752,6 +5753,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
+                    "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
                     "  \"color1\": \"black\",\n" +
                     "  \"color2\": \"white\",\n" +
@@ -6224,6 +6226,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
+                    "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
                     "  \"color1\": \"black\",\n" +
                     "  \"color2\": \"white\",\n" +
@@ -6475,6 +6478,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
+                    "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
                     "  \"color1\": \"black\",\n" +
                     "  \"color2\": \"white\",\n" +
