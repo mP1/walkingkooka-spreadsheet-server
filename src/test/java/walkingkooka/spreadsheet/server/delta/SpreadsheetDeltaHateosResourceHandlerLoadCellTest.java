@@ -1132,7 +1132,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigationRightPixels() {
+    public void testLoadCellRangeNavigationRightPixelsWithoutSelection() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             Optional.empty(),
