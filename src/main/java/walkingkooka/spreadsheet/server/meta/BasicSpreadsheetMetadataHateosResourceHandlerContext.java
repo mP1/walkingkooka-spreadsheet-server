@@ -178,7 +178,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                         if (false == labelStore.load(selection.toLabelName()).isPresent()) {
                             saved = saved.set(
                                 propertyName,
-                                viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
+                                viewport.clearAnchoredSelection()
                             );
                         }
                     }
