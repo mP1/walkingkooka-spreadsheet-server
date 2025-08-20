@@ -80,7 +80,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
-import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
+import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.store.Store;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -974,26 +974,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     }
 
     @Test
-    public void testSaveMetadataViewportSelectionCell() {
+    public void testSaveMetadataSelectionCell() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
-        final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
-        final SpreadsheetViewport viewport = SpreadsheetViewport.with(
-            SpreadsheetSelection.parseCell("B2")
-                .viewportRectangle(
-                    123,
-                    456
-                )
-        ).setAnchoredSelection(
-            Optional.of(SpreadsheetSelection.A1.setDefaultAnchor())
-        );
+        final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
+        final AnchoredSpreadsheetSelection selection = SpreadsheetSelection.A1.setDefaultAnchor();
 
         final SpreadsheetMetadata updated = metadata.set(
             propertyName,
-            viewport
+            selection
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);
@@ -1013,29 +1005,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
 
-        final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
-        final SpreadsheetViewport viewport = SpreadsheetViewport.with(
-            SpreadsheetSelection.parseCell("B2")
-                .viewportRectangle(
-                    123,
-                    456
-                )
-        ).setAnchoredSelection(
-            Optional.of(label.setDefaultAnchor())
-        );
+        final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
+        final AnchoredSpreadsheetSelection selection = label.setDefaultAnchor();
 
         final SpreadsheetMetadata updated = metadata.set(
             propertyName,
-            viewport
+            selection
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);
 
         this.checkEquals(
-            updated.set(
-                propertyName,
-                viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
-            ),
+            updated.remove(propertyName),
             saved
         );
     }
@@ -1054,20 +1035,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 label.setLabelMappingReference(SpreadsheetSelection.A1)
             );
 
-        final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
-        final SpreadsheetViewport viewport = SpreadsheetViewport.with(
-            SpreadsheetSelection.parseCell("B2")
-                .viewportRectangle(
-                    123,
-                    456
-                )
-        ).setAnchoredSelection(
-            Optional.of(label.setDefaultAnchor())
-        );
+        final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
+        final AnchoredSpreadsheetSelection selection = label.setDefaultAnchor();
 
         final SpreadsheetMetadata updated = metadata.set(
             propertyName,
-            viewport
+            selection
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);

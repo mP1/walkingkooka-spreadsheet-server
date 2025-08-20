@@ -95,12 +95,19 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         if (maybeNavigatedViewport.isPresent()) {
+            final SpreadsheetViewport navigatedViewport = maybeNavigatedViewport.get();
+
             metadata = context.storeRepository()
                 .metadatas()
                 .save(
                     metadata.set(
-                        SpreadsheetMetadataPropertyName.VIEWPORT,
-                        maybeNavigatedViewport.get()
+                        SpreadsheetMetadataPropertyName.VIEWPORT_HOME,
+                        navigatedViewport.rectangle()
+                            .home()
+                    ).setOrRemove(
+                        SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION,
+                        navigatedViewport.anchoredSelection()
+                            .orElse(null)
                     )
                 );
         }
