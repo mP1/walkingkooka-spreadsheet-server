@@ -5875,15 +5875,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\",\n" +
-                    "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\",\n" +
-                    "    \"anchoredSelection\": {\n" +
-                    "      \"selection\": {\n" +
-                    "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
-                    "        \"value\": \"A1:B1\"\n" +
-                    "      },\n" +
-                    "      \"anchor\": \"TOP_LEFT\"\n" +
-                    "    }\n" +
+                    "  \"viewportHome\": \"A1\",\n" +
+                    "  \"viewportSelection\": {\n" +
+                    "    \"selection\": {\n" +
+                    "      \"type\": \"spreadsheet-cell-range-reference\",\n" +
+                    "      \"value\": \"A1:B1\"\n" +
+                    "    },\n" +
+                    "    \"anchor\": \"TOP_LEFT\"\n" +
                     "  }\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()

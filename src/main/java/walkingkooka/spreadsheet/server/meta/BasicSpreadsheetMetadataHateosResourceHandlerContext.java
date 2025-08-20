@@ -65,7 +65,6 @@ import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMap
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
-import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -161,26 +160,21 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         SpreadsheetMetadata saved = metadata;
         {
-            final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
+            final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
 
-            final Optional<SpreadsheetViewport> maybeViewport = metadata.get(propertyName);
-            if (maybeViewport.isPresent()) {
+            final Optional<AnchoredSpreadsheetSelection> maybeAnchoredSelection = metadata.get(propertyName);
+            if (maybeAnchoredSelection.isPresent()) {
                 // if a selection is present and is a label that does not exist clear it.
 
-                final SpreadsheetViewport viewport = maybeViewport.get();
-                final Optional<AnchoredSpreadsheetSelection> maybeAnchored = viewport.anchoredSelection();
-                if (maybeAnchored.isPresent()) {
-                    final AnchoredSpreadsheetSelection anchored = maybeAnchored.get();
-                    final SpreadsheetSelection selection = anchored.selection();
-                    if (selection.isLabelName()) {
+                final AnchoredSpreadsheetSelection anchored = maybeAnchoredSelection.get();
+                final SpreadsheetSelection selection = anchored.selection();
+                if (selection.isLabelName()) {
 
-                        final SpreadsheetLabelStore labelStore = repo.labels();
-                        if (false == labelStore.load(selection.toLabelName()).isPresent()) {
-                            saved = saved.set(
-                                propertyName,
-                                viewport.clearAnchoredSelection()
-                            );
-                        }
+                    final SpreadsheetLabelStore labelStore = repo.labels();
+                    if (false == labelStore.load(selection.toLabelName()).isPresent()) {
+                        saved = saved.remove(
+                            propertyName
+                        );
                     }
                 }
             }
