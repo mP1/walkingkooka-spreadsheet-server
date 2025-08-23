@@ -52,6 +52,7 @@ import walkingkooka.tree.text.TextNode;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -403,6 +404,11 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     value,
                     SPREADSHEET_FORMATTER_CONTEXT
                 );
+            }
+
+            @Override
+            public Locale locale() {
+                return LOCALE;
             }
 
             @Override

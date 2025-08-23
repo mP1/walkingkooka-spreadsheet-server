@@ -58,6 +58,7 @@ import walkingkooka.tree.text.TextNode;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -257,6 +258,11 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 public JsonNode marshall(final Object value) {
                     return JsonNodeMarshallContexts.basic()
                         .marshall(value);
+                }
+
+                @Override
+                public Locale locale() {
+                    return LOCALE;
                 }
 
                 @Override
