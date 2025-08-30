@@ -29,12 +29,16 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -43,13 +47,17 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
-    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
+    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(Locale.ENGLISH);
 
     private final static SpreadsheetProvider SYSTEM_PROVIDER_CONTEXT = SpreadsheetProviders.fake();
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
-    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
+    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.treeMap(
+        SpreadsheetMetadata.EMPTY.set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE_CONTEXT.locale())
+            .loadFromLocale(LOCALE_CONTEXT),
+        LocalDateTime::now
+    );
 
     private final static Function<SpreadsheetId, SpreadsheetProvider> SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION = (id) -> {
         throw new UnsupportedOperationException();
