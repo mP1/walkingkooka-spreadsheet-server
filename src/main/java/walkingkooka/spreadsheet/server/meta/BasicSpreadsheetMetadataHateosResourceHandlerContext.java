@@ -144,6 +144,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                         .orElseThrow(() -> new IllegalStateException("Saved SpreadsheetMetadata missing id"))
                 )
         );
+        metadataStore.addDeleteWatcher(
+            (SpreadsheetId deleted) -> this.spreadsheetIdToHateosRouter.remove(deleted)
+        );
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
