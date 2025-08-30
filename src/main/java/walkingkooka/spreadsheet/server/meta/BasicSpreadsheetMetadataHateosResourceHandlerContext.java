@@ -136,6 +136,15 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         this.metadataStore = metadataStore;
 
+        // need to create SpreadsheetEngineContext after a SpreadsheetMetadata saved, so Converter and other Contexts are re-created.
+        metadataStore.addSaveWatcher(
+            (SpreadsheetMetadata saved) ->
+                this.spreadsheetIdToHateosRouter.remove(
+                    saved.id()
+                        .orElseThrow(() -> new IllegalStateException("Saved SpreadsheetMetadata missing id"))
+                )
+        );
+
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
 
