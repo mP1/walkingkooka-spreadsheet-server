@@ -177,7 +177,7 @@ public class J2clTest {
                     "  \"defaultYear\": 1900,\n" +
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
                     "  \"formHandlers\": \"basic\",\n" +
-                    "  \"formulaConverter\": \"general\",\n" +
+                    "  \"formulaConverter\": \"collection(text, number, basic, spreadsheet-value)\",\n" +
                     "  \"formulaFunctions\": \"@\",\n" +
                     "  \"frozenColumns\": \"A:B\",\n" +
                     "  \"frozenRows\": \"1:2\",\n" +
@@ -246,7 +246,7 @@ public class J2clTest {
             ).set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
             .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
-            .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+            .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
