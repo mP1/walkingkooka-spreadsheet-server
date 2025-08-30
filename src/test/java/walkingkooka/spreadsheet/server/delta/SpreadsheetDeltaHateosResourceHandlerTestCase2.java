@@ -234,6 +234,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final static Locale LOCALE = Locale.ENGLISH;
 
+    final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)");
+
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
         .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
         .loadFromLocale(
@@ -251,9 +253,9 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         .set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, 0L)
         .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
         .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
-        .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+        .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, CONVERTER)
         .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
-        .set(SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER, ConverterSelector.parse("general"))
+        .set(SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER, CONVERTER)
         .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
         .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
         .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
