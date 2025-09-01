@@ -25,6 +25,8 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Locale;
+
 /**
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
  */
@@ -47,6 +49,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
      * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.
      */
     SpreadsheetProvider systemSpreadsheetProvider();
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);

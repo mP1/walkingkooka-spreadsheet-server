@@ -411,6 +411,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
     // CanConvert.......................................................................................................
 
     @Override

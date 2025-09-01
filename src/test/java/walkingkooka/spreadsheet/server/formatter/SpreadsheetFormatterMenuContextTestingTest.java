@@ -36,6 +36,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 public final class SpreadsheetFormatterMenuContextTestingTest implements SpreadsheetFormatterMenuContextTesting<TestSpreadsheetFormatterMenuContext>,
     SpreadsheetMetadataTesting,
@@ -93,6 +94,11 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         public TestSpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
             PROVIDER_CONTEXT.removeEnvironmentValue(name);
             return this;
+        }
+
+        @Override
+        public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
         }
 
         @Override

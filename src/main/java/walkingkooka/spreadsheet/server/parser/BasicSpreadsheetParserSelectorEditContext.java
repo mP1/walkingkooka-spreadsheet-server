@@ -34,6 +34,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -70,6 +71,13 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
         this.spreadsheetFormatterContext = spreadsheetFormatterContext;
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
         this.providerContext = providerContext;
+    }
+
+    @Override
+    public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
+        this.localeContext()
+            .setLocale(locale);
+        return this;
     }
 
     @Override

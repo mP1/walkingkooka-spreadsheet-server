@@ -148,6 +148,12 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale) {
+        this.context.setLocale(locale);
+        return this;
+    }
+
+    @Override
     public SpreadsheetEngineContext spreadsheetEngineContext() {
         return this.context;
     }
