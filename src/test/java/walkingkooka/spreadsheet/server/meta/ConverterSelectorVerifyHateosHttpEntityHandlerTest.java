@@ -25,6 +25,8 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -49,6 +51,7 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
@@ -188,6 +191,16 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
                 return METADATA_EN_AU;
+            }
+
+            @Override
+            public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+                return LOCALE_CONTEXT.dateTimeSymbolsForLocale(locale);
+            }
+
+            @Override
+            public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+                return LOCALE_CONTEXT.decimalNumberSymbolsForLocale(locale);
             }
         };
     }
