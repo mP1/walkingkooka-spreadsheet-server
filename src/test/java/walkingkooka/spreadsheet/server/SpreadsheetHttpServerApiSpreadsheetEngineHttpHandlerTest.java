@@ -318,7 +318,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             Url.parseAbsolute(SERVER_URL + "/api"),
-            LocaleContexts.fake(),
+            LocaleContexts.jre(LOCALE),
             systemSpreadsheetProvider(),
             PROVIDER_CONTEXT,
             this.metadataStore,

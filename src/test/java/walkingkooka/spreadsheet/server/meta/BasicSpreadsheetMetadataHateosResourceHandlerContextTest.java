@@ -104,7 +104,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
+    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(LOCALE);
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 

@@ -33,11 +33,17 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
 public class FakeSpreadsheetFormatterMenuContext extends FakeSpreadsheetFormatterContext
     implements SpreadsheetFormatterMenuContext {
+
+    @Override
+    public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {

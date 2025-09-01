@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -71,6 +72,13 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
                 this.spreadsheetFormatterProvider,
                 this.providerContext
             );
+    }
+
+    @Override
+    public SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale) {
+        this.localeContext()
+            .setLocale(locale);
+        return this;
     }
 
     @Override

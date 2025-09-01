@@ -39,6 +39,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -176,6 +177,11 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         public SpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
             PROVIDER_CONTEXT.removeEnvironmentValue(name);
             return this;
+        }
+
+        @Override
+        public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
         }
 
         @Override

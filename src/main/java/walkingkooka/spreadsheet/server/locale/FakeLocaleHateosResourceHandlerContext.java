@@ -62,4 +62,9 @@ public class FakeLocaleHateosResourceHandlerContext extends FakeHateosResourceHa
     public Optional<String> localeText(final Locale locale) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public LocaleHateosResourceHandlerContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
 }

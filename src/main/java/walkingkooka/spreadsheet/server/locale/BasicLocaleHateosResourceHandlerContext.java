@@ -52,7 +52,7 @@ final class BasicLocaleHateosResourceHandlerContext implements LocaleHateosResou
         return this.localeContext;
     }
 
-    private final LocaleContext localeContext;
+    private LocaleContext localeContext;
 
     // HateosResourceHandlerContext.....................................................................................
 
