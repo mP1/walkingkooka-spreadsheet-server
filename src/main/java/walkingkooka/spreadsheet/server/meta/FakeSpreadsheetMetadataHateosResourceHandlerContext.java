@@ -38,6 +38,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -174,6 +175,11 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     }
 
     // EnvironmentContext...............................................................................................
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {

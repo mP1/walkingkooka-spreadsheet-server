@@ -158,6 +158,12 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     }
 
     @Override
+    public Locale locale() {
+        return this.localeContext()
+            .locale();
+    }
+
+    @Override
     public <T> SpreadsheetParserSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                         final T value) {
         this.providerContext.setEnvironmentValue(

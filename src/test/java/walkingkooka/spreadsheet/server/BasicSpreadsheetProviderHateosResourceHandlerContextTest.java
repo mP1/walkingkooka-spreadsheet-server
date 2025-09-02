@@ -35,6 +35,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -44,9 +45,12 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(),
-        EnvironmentContexts.empty(
-            LocalDateTime::now,
-            EnvironmentContext.ANONYMOUS
+        EnvironmentContexts.map(
+            EnvironmentContexts.empty(
+                Locale.FRANCE,
+                LocalDateTime::now,
+                EnvironmentContext.ANONYMOUS
+            )
         ),
         PluginStores.treeMap()
     );

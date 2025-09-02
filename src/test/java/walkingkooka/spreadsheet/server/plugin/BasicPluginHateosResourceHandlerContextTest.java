@@ -46,9 +46,12 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     );
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(), // CanConvert
-        EnvironmentContexts.empty(
-            LocalDateTime::now,
-            Optional.empty() // user
+        EnvironmentContexts.map(
+            EnvironmentContexts.empty(
+                LOCALE,
+                LocalDateTime::now,
+                Optional.empty() // user
+            )
         ),
         PluginStores.treeMap()
     );

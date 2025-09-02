@@ -209,6 +209,7 @@ public class J2clTest {
     private static SpreadsheetHttpServer spreadsheetHttpServer(final TestHttpServer httpServer) {
         final SpreadsheetId createdId = SpreadsheetId.with(1);
         final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
+        final Locale locale = Locale.forLanguageTag("en-AU");
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
@@ -250,7 +251,7 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+            .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
             .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
@@ -316,10 +317,13 @@ public class J2clTest {
             SpreadsheetProviders.fake(),
             ProviderContexts.basic(
                 ConverterContexts.fake(), // CanConvert
-                EnvironmentContexts.empty(
-                    LocalDateTime::now,
-                    Optional.of(
-                        EmailAddress.parse("user@example.com")
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        locale,
+                        LocalDateTime::now,
+                        Optional.of(
+                            EmailAddress.parse("user@example.com")
+                        )
                     )
                 ),
                 PluginStores.treeMap()
