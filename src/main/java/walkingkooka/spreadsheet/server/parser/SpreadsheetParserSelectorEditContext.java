@@ -25,11 +25,16 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Locale;
+
 public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserProvider,
     SpreadsheetParserContext,
     SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
     ProviderContext {
+
+    @Override
+    SpreadsheetParserSelectorEditContext setLocale(final Locale locale);
 
     @Override
     <T> SpreadsheetParserSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,

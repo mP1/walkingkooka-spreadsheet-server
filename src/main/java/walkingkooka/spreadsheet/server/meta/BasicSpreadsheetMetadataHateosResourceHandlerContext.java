@@ -73,6 +73,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -407,7 +408,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         return this.providerContext;
     }
 
-    // EnvironmentContext..............................................................................................
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
+        this.providerContext.setLocale(locale);
+        return this;
+    }
 
     @Override
     public <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,

@@ -25,6 +25,7 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Locale;
 import java.util.Objects;
 
 final class BasicSpreadsheetProviderHateosResourceHandlerContext implements SpreadsheetProviderHateosResourceHandlerContext,
@@ -59,6 +60,12 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
     private final SpreadsheetProvider spreadsheetProvider;
 
     // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetProviderHateosResourceHandlerContext setLocale(final Locale locale) {
+        this.providerContext.setLocale(locale);
+        return this;
+    }
 
     @Override
     public <T> SpreadsheetProviderHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,

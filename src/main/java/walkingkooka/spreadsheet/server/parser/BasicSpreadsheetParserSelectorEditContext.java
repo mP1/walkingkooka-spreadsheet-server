@@ -74,13 +74,6 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     }
 
     @Override
-    public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
-        this.localeContext()
-            .setLocale(locale);
-        return this;
-    }
-
-    @Override
     public SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
         final SpreadsheetFormatterContext after = before.setPreProcessor(processor);
@@ -161,6 +154,12 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     public Locale locale() {
         return this.localeContext()
             .locale();
+    }
+
+    @Override
+    public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
+        this.providerContext.setLocale(locale);
+        return this;
     }
 
     @Override

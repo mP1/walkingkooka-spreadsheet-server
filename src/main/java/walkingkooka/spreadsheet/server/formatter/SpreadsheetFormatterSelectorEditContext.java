@@ -22,9 +22,14 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 
+import java.util.Locale;
+
 public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
     ProviderContext {
+
+    @Override
+    SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale);
 
     @Override
     <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,

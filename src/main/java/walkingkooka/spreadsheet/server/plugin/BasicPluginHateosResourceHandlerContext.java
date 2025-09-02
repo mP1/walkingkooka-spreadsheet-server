@@ -24,6 +24,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Locale;
 import java.util.Objects;
 
 final class BasicPluginHateosResourceHandlerContext implements PluginHateosResourceHandlerContext,
@@ -67,6 +68,12 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    @Override
+    public PluginHateosResourceHandlerContext setLocale(final Locale locale) {
+        this.providerContext.setLocale(locale);
+        return this;
     }
 
     @Override

@@ -182,6 +182,11 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     }
 
     @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
         throw new UnsupportedOperationException();
     }

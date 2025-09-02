@@ -40,13 +40,20 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetParserSelectorEditContext {
+public
+class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetParserSelectorEditContext {
 
     public FakeSpreadsheetParserSelectorEditContext() {
         super();
+    }
+
+    @Override
+    public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
