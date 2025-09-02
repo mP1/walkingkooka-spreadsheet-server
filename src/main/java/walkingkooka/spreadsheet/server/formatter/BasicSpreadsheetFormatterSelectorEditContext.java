@@ -115,6 +115,11 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     }
 
     @Override
+    public Locale locale() {
+        return this.providerContext.locale();
+    }
+
+    @Override
     public <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                            final T value) {
         this.providerContext.setEnvironmentValue(

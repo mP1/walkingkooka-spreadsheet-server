@@ -24,6 +24,9 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
@@ -703,6 +706,20 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 public Optional<EmailAddress> user() {
                     return PROVIDER_CONTEXT.user();
                 }
+
+                @Override
+                public <T> ProviderContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                               final T value) {
+                    this.environmentContext.setEnvironmentValue(
+                        name,
+                        value
+                    );
+                    return this;
+                }
+
+                private final EnvironmentContext environmentContext = EnvironmentContexts.map(
+                    PROVIDER_CONTEXT
+                );
             }
         );
         final SpreadsheetId id = this.spreadsheetId();

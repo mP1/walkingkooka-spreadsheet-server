@@ -13333,9 +13333,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             ),
             ProviderContexts.basic(
                 ConverterContexts.fake(), // CanConvert
-                EnvironmentContexts.empty(
-                    NOW,
-                    Optional.of(USER)
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LOCALE,
+                        NOW,
+                        Optional.of(USER)
+                    )
                 ),
                 this.httpServer.pluginStore
             ),
