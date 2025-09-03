@@ -27,6 +27,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -71,6 +72,8 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
         HttpHeaderName.ACCEPT.headerOrFail(request)
             .testOrFail(requiredContentType);
 
+        final ProviderContext providerContext = context.providerContext();
+
         final SpreadsheetFormatterMenuList menuList = SpreadsheetFormatterMenu.prepare(
             SpreadsheetFormatterMenuContexts.basic(
                 context, // SpreadsheetFormatProvider
@@ -85,9 +88,9 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                             context, // ConverterProvider
                             context, // SpreadsheetFormatterProvider
                             context, // LocaleContext
-                            context // ProviderContext
+                            providerContext // ProviderContext
                         ), // SpreadsheetFormatterContext
-                    context // ProviderContext
+                    providerContext // ProviderContext
                 )
             )
         );

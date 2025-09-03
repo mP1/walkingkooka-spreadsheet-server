@@ -29,6 +29,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -89,6 +90,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
             .testOrFail(requiredContentType);
 
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+        final ProviderContext providerContext = context.providerContext();
 
         final SpreadsheetParserSelectorEdit response = SpreadsheetParserSelectorEdit.parse(
             SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(
@@ -115,10 +117,10 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                     context, // ConverterProvider
                     context, // // SpreadsheetFormatterProvider
                     context, // LocaleContext
-                    context // ProviderContext
+                    providerContext // ProviderContext
                 ),
                 context, // SpreadsheetFormatterProvider
-                context // ProviderContext
+                providerContext // ProviderContext
             )
         );
 

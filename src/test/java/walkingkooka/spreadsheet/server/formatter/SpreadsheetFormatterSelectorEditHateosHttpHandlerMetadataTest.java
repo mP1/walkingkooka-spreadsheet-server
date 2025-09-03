@@ -420,6 +420,11 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
             public JsonNode marshall(final Object value) {
                 return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
             }
+
+            @Override
+            public ProviderContext providerContext() {
+                return PROVIDER_CONTEXT;
+            }
         };
     }
 

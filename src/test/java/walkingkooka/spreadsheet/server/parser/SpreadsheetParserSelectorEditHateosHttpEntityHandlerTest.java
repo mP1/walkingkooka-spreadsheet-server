@@ -269,6 +269,11 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 public LocalDateTime now() {
                     return NOW.now();
                 }
+
+                @Override
+                public ProviderContext providerContext() {
+                    return PROVIDER_CONTEXT;
+                }
             },
             this.httpEntity(
                 "{\n" +

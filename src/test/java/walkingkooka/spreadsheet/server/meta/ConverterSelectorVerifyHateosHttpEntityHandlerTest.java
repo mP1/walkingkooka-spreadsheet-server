@@ -202,6 +202,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
                 return LOCALE_CONTEXT.decimalNumberSymbolsForLocale(locale);
             }
+
+            @Override
+            public ProviderContext providerContext() {
+                return PROVIDER_CONTEXT;
+            }
         };
     }
 
