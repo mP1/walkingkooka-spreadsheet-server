@@ -125,9 +125,8 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                                 v
                             ),
                         SpreadsheetLabelNameResolvers.empty(),
-                        context, // ConverterProvider
-                        context, // // SpreadsheetFormatterProvider
                         context, // LocaleContext
+                        context, // // SpreadsheetProvider
                         providerContext // ProviderContext
                     ),
                 context, // SpreadsheetLabelNameResolver

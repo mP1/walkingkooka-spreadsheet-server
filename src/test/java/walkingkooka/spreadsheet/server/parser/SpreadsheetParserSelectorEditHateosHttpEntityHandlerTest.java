@@ -246,9 +246,8 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                                 throw new UnsupportedOperationException();
                             },
                             SpreadsheetLabelNameResolvers.fake(),
-                            CONVERTER_PROVIDER,
-                            SPREADSHEET_FORMATTER_PROVIDER,
                             LOCALE_CONTEXT,
+                            SPREADSHEET_PROVIDER,
                             PROVIDER_CONTEXT
                         )
                     );
