@@ -19,6 +19,9 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
@@ -31,8 +34,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
-import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -85,7 +86,7 @@ import java.util.function.Function;
  */
 final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
     HateosResourceHandlerContextDelegator,
-    ProviderContextDelegator {
+    EnvironmentContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -246,28 +247,28 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
-
-        final SpreadsheetMetadata metadata = this.load(id);
-
         final ProviderContext providerContext = this.providerContext;
+
+        final SpreadsheetMetadata metadata = this.load(id);;
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
             this.serverUrl,
             metadata,
             repository,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+            EnvironmentContexts.map(
+                EnvironmentContexts.empty(
+                    metadata.locale(),
+                    providerContext::now, // share ProviderContext#hasNow
+                    providerContext.user() // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1860
+                )
+            ),
             this.localeContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
             ),
             metadata.spreadsheetProvider(spreadsheetProvider),
-            ProviderContexts.basic(
-                providerContext,
-                metadata.environmentContext(
-                    providerContext
-                ),
-                providerContext.pluginStore()
-            )
+            providerContext
         );
 
         return this.mappings(
@@ -288,8 +289,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             )
         );
     }
-
-    private final ProviderContext providerContext;
 
     private Router<HttpRequestAttribute<?>, HttpHandler> mappings(final SpreadsheetId id,
                                                                   final SpreadsheetEngine engine,
@@ -401,36 +400,37 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
-    // ProviderContextDelegator.........................................................................................
-
-    @Override
-    public ProviderContext providerContext() {
-        return this.providerContext;
-    }
-
     // EnvironmentContext...............................................................................................
 
     @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
-        this.providerContext.setLocale(locale);
-        return this;
+        Objects.requireNonNull(locale, "locale");
+
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                                    final T value) {
-        this.providerContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(value, "value");
+
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.providerContext.removeEnvironmentValue(name);
-        return this;
+        Objects.requireNonNull(name, "name");
+
+        throw new UnsupportedOperationException();
     }
+
+    @Override
+    public EnvironmentContext environmentContext() {
+        return this.providerContext;
+    }
+
+    private final ProviderContext providerContext;
 
     // Object...........................................................................................................
 

@@ -18,11 +18,11 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -31,17 +31,14 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Locale;
 import java.util.function.Function;
 
 /**
  * A {@link Context} for spreadsheets.
  */
 public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
-    ProviderContext {
-
-    @Override
-    <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                            final T value);
+    EnvironmentContext {
 
     @Override
     SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
@@ -70,4 +67,20 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosR
      * Factory that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}
      */
     SpreadsheetStoreRepository storeRepository(final SpreadsheetId id);
+
+    @Override
+    default SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    default <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                                    final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    default SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
 }
