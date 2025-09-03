@@ -87,7 +87,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
             ConverterSelector.class
         );
 
-        final SpreadsheetMetadataPropertyName<ConverterSelector> converterSelectorSpreadsheetMetadataPropertyName = Cast.to(propertyName);
+        final SpreadsheetMetadataPropertyName<ConverterSelector> converterSelectorSpreadsheetMetadataPropertyName = propertyName.toConverterSelector();
         final ProviderContext providerContext = context.providerContext();
 
         final MissingConverterSet response = MissingConverterSet.with(
