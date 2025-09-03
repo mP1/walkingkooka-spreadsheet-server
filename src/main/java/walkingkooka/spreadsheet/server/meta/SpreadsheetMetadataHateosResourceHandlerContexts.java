@@ -38,21 +38,21 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
      */
     public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl serverUrl,
                                                                         final LocaleContext localeContext,
-                                                                        final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                        final ProviderContext providerContext,
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext) {
+                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                                        final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                        final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             serverUrl,
             localeContext,
-            systemSpreadsheetProvider,
-            providerContext,
             metadataStore,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
-            hateosResourceHandlerContext
+            hateosResourceHandlerContext,
+            systemSpreadsheetProvider,
+            providerContext
         );
     }
 

@@ -118,12 +118,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
             this.serverUrl,
             this.localeContext,
-            this.systemSpreadsheetProvider,
-            this.providerContext,
             this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
-            this.hateosResourceHandlerContext
+            this.hateosResourceHandlerContext,
+            this.systemSpreadsheetProvider,
+            this.providerContext
         ).httpRouter(id);
     }
 

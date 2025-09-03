@@ -93,48 +93,46 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
      */
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl serverUrl,
                                                                      final LocaleContext localeContext,
-                                                                     final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                     final ProviderContext providerContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext) {
+                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                                     final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                     final ProviderContext providerContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(localeContext, "localeContext");
-        Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
-        Objects.requireNonNull(providerContext, "providerContext");
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
+        Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
+        Objects.requireNonNull(providerContext, "providerContext");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
             serverUrl,
             localeContext,
-            systemSpreadsheetProvider,
-            providerContext,
             metadataStore,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
-            hateosResourceHandlerContext
+            hateosResourceHandlerContext,
+            systemSpreadsheetProvider,
+            providerContext
         );
     }
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl serverUrl,
                                                                  final LocaleContext localeContext,
-                                                                 final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                 final ProviderContext providerContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext) {
+                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                                 final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                 final ProviderContext providerContext) {
         super();
 
         this.serverUrl = serverUrl;
 
         this.localeContext = localeContext;
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-        this.providerContext = providerContext;
 
         this.metadataStore = metadataStore;
 
@@ -154,6 +152,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
+
+        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
+        this.providerContext = providerContext;
     }
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
@@ -384,12 +385,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             new BasicSpreadsheetMetadataHateosResourceHandlerContext(
                 this.serverUrl,
                 this.localeContext,
-                this.systemSpreadsheetProvider,
-                this.providerContext,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
-                after
+                after,
+                this.systemSpreadsheetProvider,
+                this.providerContext
             );
     }
 

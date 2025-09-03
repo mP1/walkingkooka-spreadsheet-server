@@ -94,12 +94,12 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
         final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
             serverUrl,
             localeContext,
-            systemSpreadsheetProvider,
-            providerContext,
             metadataStore,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToStoreRepository,
-            hateosResourceHandlerContext
+            hateosResourceHandlerContext,
+            systemSpreadsheetProvider,
+            providerContext
         );
 
         this.context = context;
