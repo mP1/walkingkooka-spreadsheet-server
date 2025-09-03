@@ -27,6 +27,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -101,6 +102,8 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
     final SpreadsheetFormatterSelectorEdit produceEdit(final String formatterSelector,
                                                        final Optional<SpreadsheetCell> cell,
                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
+        final ProviderContext providerContext = context.providerContext();
+
         return SpreadsheetFormatterSelectorEdit.parse(
             null != formatterSelector && formatterSelector.startsWith(UrlPath.SEPARATOR.string()) ?
                 formatterSelector.substring(
@@ -125,10 +128,10 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                         context, // ConverterProvider
                         context, // // SpreadsheetFormatterProvider
                         context, // LocaleContext
-                        context // ProviderContext
+                        providerContext // ProviderContext
                     ),
                 context, // SpreadsheetLabelNameResolver
-                context // ProviderContext
+                providerContext // ProviderContext
             )
         );
     }

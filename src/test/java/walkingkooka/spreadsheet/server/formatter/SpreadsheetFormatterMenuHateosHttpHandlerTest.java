@@ -208,6 +208,11 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                 public JsonNode marshall(final Object value) {
                     return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
                 }
+
+                @Override
+                public ProviderContext providerContext() {
+                    return PROVIDER_CONTEXT;
+                }
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +

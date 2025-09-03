@@ -424,6 +424,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             public SpreadsheetMetadata spreadsheetMetadata() {
                 return METADATA;
             }
+
+            @Override
+            public ProviderContext providerContext() {
+                return PROVIDER_CONTEXT;
+            }
         };
     }
 }

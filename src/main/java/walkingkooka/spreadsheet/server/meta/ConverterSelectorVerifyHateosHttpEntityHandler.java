@@ -30,6 +30,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.convert.MissingConverter;
 import walkingkooka.spreadsheet.convert.MissingConverterSet;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -87,12 +88,13 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
         );
 
         final SpreadsheetMetadataPropertyName<ConverterSelector> converterSelectorSpreadsheetMetadataPropertyName = Cast.to(propertyName);
+        final ProviderContext providerContext = context.providerContext();
 
         final MissingConverterSet response = MissingConverterSet.with(
             MissingConverter.verify(
                 context.converter(
                     converterSelector,
-                    context // ProviderContext
+                    providerContext
                 ),
                 converterSelectorSpreadsheetMetadataPropertyName,
                 context.spreadsheetMetadata()
@@ -103,7 +105,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                         SpreadsheetLabelNameResolvers.empty(),
                         context, // ConverterProvider
                         context, // LocaleContext
-                        context // ProviderContext
+                        providerContext // ProviderContext
                     ) // SpreadsheetConverterContext
             )
         );

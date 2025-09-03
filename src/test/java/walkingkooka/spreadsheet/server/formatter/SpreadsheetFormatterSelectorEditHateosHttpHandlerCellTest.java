@@ -913,6 +913,11 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
 
                 private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
             };
+
+            @Override
+            public ProviderContext providerContext() {
+                return PROVIDER_CONTEXT;
+            }
         };
     }
 

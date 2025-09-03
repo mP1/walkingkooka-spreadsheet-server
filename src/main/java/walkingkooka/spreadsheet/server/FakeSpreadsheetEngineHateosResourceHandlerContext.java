@@ -30,7 +30,6 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
@@ -430,7 +429,8 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
-    // ProviderContext..................................................................................................
+    // EnvironmentContext...............................................................................................
+
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
         throw new UnsupportedOperationException();
@@ -453,11 +453,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public PluginStore pluginStore() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
@@ -466,6 +461,13 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {
+        throw new UnsupportedOperationException();
+    }
+
+    // HasProviderContext...............................................................................................
+
+    @Override
+    public ProviderContext providerContext() {
         throw new UnsupportedOperationException();
     }
 }
