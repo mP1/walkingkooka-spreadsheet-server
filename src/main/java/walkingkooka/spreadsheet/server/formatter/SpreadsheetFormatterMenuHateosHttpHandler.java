@@ -85,9 +85,8 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                                 throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
                             },
                             context, // SpreadsheetLabelNameResolver
-                            context, // ConverterProvider
-                            context, // SpreadsheetFormatterProvider
                             context, // LocaleContext
+                            context, // SpreadsheetProvider
                             providerContext // ProviderContext
                         ), // SpreadsheetFormatterContext
                     providerContext // ProviderContext
