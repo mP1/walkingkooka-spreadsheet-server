@@ -127,12 +127,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 null,
                 LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
             )
         );
     }
@@ -145,48 +145,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 null,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSystemSpreadsheetProviderFails() {
-        final AbsoluteUrl serverUrl = this.base();
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                LOCALE_CONTEXT,
-                null,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSystemProviderContextFails() {
-        final AbsoluteUrl serverUrl = this.base();
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                null,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                PROVIDER_CONTEXT
             )
         );
     }
@@ -200,12 +164,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
             )
         );
     }
@@ -218,12 +182,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
             )
         );
     }
@@ -236,12 +200,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
             )
         );
     }
@@ -254,11 +218,47 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 LOCALE_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
+                null,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSystemSpreadsheetProviderFails() {
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                LOCALE_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                null,
+                PROVIDER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSystemProviderContextFails() {
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                LOCALE_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_PROVIDER,
                 null
             )
         );
@@ -1092,12 +1092,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             this.base(),
             LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            providerContext,
             METADATA_STORE,
             this::spreadsheetIdToSpreadsheetProvider,
             this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            SPREADSHEET_PROVIDER,
+            providerContext
         );
     }
 
