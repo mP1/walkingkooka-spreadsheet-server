@@ -257,6 +257,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             repository,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             this.localeContext,
+            TerminalContexts.printer(
+                Printers.sink(LineEnding.NONE)
+            ),
             metadata.spreadsheetProvider(spreadsheetProvider),
             ProviderContexts.basic(
                 providerContext,
@@ -264,9 +267,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     providerContext
                 ),
                 providerContext.pluginStore()
-            ),
-            TerminalContexts.printer(
-                Printers.sink(LineEnding.NONE)
             )
         );
 
