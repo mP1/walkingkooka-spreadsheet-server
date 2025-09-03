@@ -361,6 +361,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 }
             },
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+            ENVIRONMENT_CONTEXT,
             LocaleContexts.jre(LOCALE),
             TERMINAL_CONTEXT,
             SPREADSHEET_PROVIDER,
