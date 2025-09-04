@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -26,6 +27,7 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
@@ -59,6 +61,16 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             .mathContext();
     }
 
+    // locale...........................................................................................................
+
+    @Test
+    public void testLocale() {
+        this.localeAndCheck(
+            this.createContext(),
+            LOCALE
+        );
+    }
+
     // DecimalNumberContextDelegator....................................................................................
 
     @Override
@@ -71,7 +83,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
         return BasicSpreadsheetFormatterSelectorEditContext.with(
             this.spreadsheetFormatterContext(),
             SpreadsheetFormatterProviders.spreadsheetFormatters(),
-            PROVIDER_CONTEXT
+            ProviderContexts.fake()
         );
     }
 

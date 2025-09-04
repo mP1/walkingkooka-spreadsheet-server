@@ -17,8 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 
@@ -26,18 +25,8 @@ import java.util.Locale;
 
 public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
-    ProviderContext {
-
-    @Override
-    SpreadsheetFormatterSelectorEditContext cloneEnvironment();
+    HasProviderContext {
 
     @Override
     SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale);
-
-    @Override
-    <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                    final T value);
-
-    @Override
-    SpreadsheetFormatterSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name);
 }

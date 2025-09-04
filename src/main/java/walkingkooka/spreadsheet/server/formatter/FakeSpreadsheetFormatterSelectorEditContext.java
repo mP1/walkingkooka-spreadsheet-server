@@ -17,10 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.format.FakeSpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -33,7 +30,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
 
 public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetFormatterSelectorEditContext {
     @Override
@@ -66,46 +62,17 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
         throw new UnsupportedOperationException();
     }
 
-    // ProviderContext..................................................................................................
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext cloneEnvironment() {
-        throw new UnsupportedOperationException();
-    }
+    // LocaleContext....................................................................................................
 
     @Override
     public SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-        throw new UnsupportedOperationException();
-    }
+    // HasProviderContext...............................................................................................
 
     @Override
-    public <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                           final T value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Set<EnvironmentValueName<?>> environmentValueNames() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PluginStore pluginStore() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<EmailAddress> user() {
+    public ProviderContext providerContext() {
         throw new UnsupportedOperationException();
     }
 }
