@@ -18,16 +18,13 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.convert.CanConvert;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -37,8 +34,7 @@ import java.util.Objects;
  */
 final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetFormatterSelectorEditContext,
     SpreadsheetFormatterContextDelegator,
-    SpreadsheetFormatterProviderDelegator,
-    ProviderContextDelegator {
+    SpreadsheetFormatterProviderDelegator {
 
     static BasicSpreadsheetFormatterSelectorEditContext with(final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                              final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
@@ -75,6 +71,12 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     }
 
     @Override
+    public Locale locale() {
+        return this.localeContext()
+            .locale();
+    }
+
+    @Override
     public SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale) {
         this.localeContext()
             .setLocale(locale);
@@ -102,42 +104,11 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
 
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
 
-    // ProviderContext..................................................................................................
+    // HasProviderContext...............................................................................................
 
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.providerContext.now();
-    }
-
-    @Override
-    public Locale locale() {
-        return this.providerContext.locale();
-    }
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext cloneEnvironment() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                           final T value) {
-        this.providerContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.providerContext.removeEnvironmentValue(name);
-        return this;
     }
 
     private final ProviderContext providerContext;

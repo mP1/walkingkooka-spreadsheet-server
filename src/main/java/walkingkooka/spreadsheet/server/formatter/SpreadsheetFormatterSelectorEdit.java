@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
@@ -61,18 +62,21 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
         try {
             spreadsheetFormatterSelector = SpreadsheetFormatterSelector.parse(selector);
+
+            final ProviderContext providerContext = context.providerContext();
+
             samples = context.spreadsheetFormatterSamples(
                 spreadsheetFormatterSelector,
                 SpreadsheetFormatterProvider.INCLUDE_SAMPLES,
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     context,
-                    context
+                    providerContext
                 )
             );
 
             final SpreadsheetFormatter formatter = context.spreadsheetFormatter(
                 spreadsheetFormatterSelector,
-                context
+                providerContext
             );
             try {
                 tokens = formatter.tokens(context);
