@@ -18,11 +18,9 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -77,29 +75,7 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
 
     static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator,
-        ProviderContextDelegator {
-
-        @Override
-        public TestSpreadsheetFormatterMenuContext cloneEnvironment() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public <T> TestSpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                           final T value) {
-            PROVIDER_CONTEXT.setEnvironmentValue(
-                name,
-                value
-            );
-            return this;
-        }
-
-        @Override
-        public TestSpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-            PROVIDER_CONTEXT.removeEnvironmentValue(name);
-            return this;
-        }
+        SpreadsheetFormatterProviderDelegator {
 
         @Override
         public Locale locale() {
