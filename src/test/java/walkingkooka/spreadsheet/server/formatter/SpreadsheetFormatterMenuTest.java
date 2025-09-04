@@ -20,10 +20,8 @@ package walkingkooka.spreadsheet.server.formatter;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.PluginSelectorMenuLikeTesting;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -160,29 +158,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
 
     static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
         SpreadsheetFormatterProviderDelegator,
-        SpreadsheetFormatterContextDelegator,
-        ProviderContextDelegator {
-
-        @Override
-        public SpreadsheetFormatterMenuContext cloneEnvironment() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public <T> SpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                       final T value) {
-            PROVIDER_CONTEXT.setEnvironmentValue(
-                name,
-                value
-            );
-            return this;
-        }
-
-        @Override
-        public SpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-            PROVIDER_CONTEXT.removeEnvironmentValue(name);
-            return this;
-        }
+        SpreadsheetFormatterContextDelegator {
 
         @Override
         public Locale locale() {

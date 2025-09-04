@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
@@ -45,35 +44,12 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
         this.spreadsheetFormatterProviderSamplesContext = spreadsheetFormatterProviderSamplesContext;
     }
 
-    // EnvironmentContext...............................................................................................
-
-    @Override
-    public SpreadsheetFormatterMenuContext cloneEnvironment() {
-        throw new UnsupportedOperationException();
-    }
+    // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
     public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public <T> SpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                   final T value) {
-        this.spreadsheetFormatterProviderSamplesContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
-
-    @Override
-    public SpreadsheetFormatterMenuContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.spreadsheetFormatterProviderSamplesContext.removeEnvironmentValue(name);
-        return this;
-    }
-
-    // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
     public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
