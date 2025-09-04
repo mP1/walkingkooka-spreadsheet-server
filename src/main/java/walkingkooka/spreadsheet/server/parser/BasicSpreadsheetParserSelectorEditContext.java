@@ -18,10 +18,7 @@
 package walkingkooka.spreadsheet.server.parser;
 
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.convert.CanConvert;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -33,7 +30,6 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -44,8 +40,7 @@ import java.util.Objects;
 final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
     SpreadsheetFormatterContextDelegator,
     SpreadsheetFormatterProviderDelegator,
-    SpreadsheetParserProviderDelegator,
-    ProviderContextDelegator {
+    SpreadsheetParserProviderDelegator {
 
     static BasicSpreadsheetParserSelectorEditContext with(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                           final SpreadsheetParserContext spreadsheetParserContext,
@@ -133,56 +128,17 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
 
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
 
-    // ProviderContext..................................................................................................
-
-    @Override
-    public ProviderContext providerContext() {
-        return this.providerContext;
-    }
-
-    @Override
-    public CanConvert canConvert() {
-        return this.spreadsheetFormatterContext; // ProviderContext from SpreadsheetMetadataTesting#PROVIDER_CONTEXT will throw UOE
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.providerContext.now();
-    }
-
-    // EnvironmentContext...............................................................................................
-
-    @Override
-    public SpreadsheetParserSelectorEditContext cloneEnvironment() {
-        return this; // ProviderContext.cloneEnvironment must return this
-    }
-
-    @Override
-    public Locale locale() {
-        return this.localeContext()
-            .locale();
-    }
-
     @Override
     public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
         this.providerContext.setLocale(locale);
         return this;
     }
 
-    @Override
-    public <T> SpreadsheetParserSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                        final T value) {
-        this.providerContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
+    // HasProviderContext...............................................................................................
 
     @Override
-    public SpreadsheetParserSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.providerContext.removeEnvironmentValue(name);
-        return this;
+    public ProviderContext providerContext() {
+        return this.providerContext;
     }
 
     private final ProviderContext providerContext;

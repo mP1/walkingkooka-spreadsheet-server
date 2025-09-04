@@ -17,8 +17,7 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
@@ -31,20 +30,10 @@ public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserP
     SpreadsheetParserContext,
     SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
-    ProviderContext {
-
-    @Override
-    SpreadsheetParserSelectorEditContext cloneEnvironment();
+    HasProviderContext {
 
     @Override
     SpreadsheetParserSelectorEditContext setLocale(final Locale locale);
-
-    @Override
-    <T> SpreadsheetParserSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                 final T value);
-
-    @Override
-    SpreadsheetParserSelectorEditContext removeEnvironmentValue(final EnvironmentValueName<?> name);
 
     @Override
     SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
