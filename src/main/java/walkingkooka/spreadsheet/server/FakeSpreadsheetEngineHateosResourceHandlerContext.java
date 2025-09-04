@@ -432,6 +432,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     // EnvironmentContext...............................................................................................
 
     @Override
+    public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
         throw new UnsupportedOperationException();
     }

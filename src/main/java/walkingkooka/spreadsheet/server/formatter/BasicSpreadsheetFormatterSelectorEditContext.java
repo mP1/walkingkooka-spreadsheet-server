@@ -120,6 +120,11 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     }
 
     @Override
+    public SpreadsheetFormatterSelectorEditContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> SpreadsheetFormatterSelectorEditContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                            final T value) {
         this.providerContext.setEnvironmentValue(

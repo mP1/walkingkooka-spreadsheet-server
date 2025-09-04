@@ -404,6 +404,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // EnvironmentContext...............................................................................................
 
     @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
 

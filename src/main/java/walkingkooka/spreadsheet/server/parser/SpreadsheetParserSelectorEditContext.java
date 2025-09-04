@@ -34,6 +34,9 @@ public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserP
     ProviderContext {
 
     @Override
+    SpreadsheetParserSelectorEditContext cloneEnvironment();
+
+    @Override
     SpreadsheetParserSelectorEditContext setLocale(final Locale locale);
 
     @Override

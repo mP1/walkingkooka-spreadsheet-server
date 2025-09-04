@@ -40,6 +40,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -177,6 +178,20 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {
         return this.context.systemSpreadsheetProvider();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
+        final SpreadsheetEngineHateosResourceHandlerContext context = this.context;
+        final SpreadsheetEngineHateosResourceHandlerContext clone = context.cloneEnvironment();
+
+        return context.equals(clone) ?
+            this :
+            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+                this.metadata,
+                this.spreadsheetEngine,
+                Objects.requireNonNull(clone, "environmentContext")
+            );
     }
 
     @Override

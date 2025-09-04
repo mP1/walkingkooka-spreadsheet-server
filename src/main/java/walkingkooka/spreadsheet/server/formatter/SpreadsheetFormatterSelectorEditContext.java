@@ -29,6 +29,9 @@ public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetForm
     ProviderContext {
 
     @Override
+    SpreadsheetFormatterSelectorEditContext cloneEnvironment();
+
+    @Override
     SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale);
 
     @Override

@@ -69,6 +69,11 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
     // ProviderContext..................................................................................................
 
     @Override
+    public SpreadsheetFormatterSelectorEditContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }

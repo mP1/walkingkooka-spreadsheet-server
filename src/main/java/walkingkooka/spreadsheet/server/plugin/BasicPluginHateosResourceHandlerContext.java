@@ -77,6 +77,11 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     }
 
     @Override
+    public PluginHateosResourceHandlerContext cloneEnvironment() {
+        return this; // ProviderContext.cloneEnvironment always returns this
+    }
+
+    @Override
     public <T> PluginHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                       final T value) {
         this.providerContext.setEnvironmentValue(
