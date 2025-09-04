@@ -185,7 +185,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         final SpreadsheetEngineHateosResourceHandlerContext context = this.context;
         final SpreadsheetEngineHateosResourceHandlerContext clone = context.cloneEnvironment();
 
-        return context.equals(clone) ?
+        // Recreate only if different cloned EnvironmentContext, cloned environment should be equals
+        return context == clone ?
             this :
             new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
                 this.metadata,
