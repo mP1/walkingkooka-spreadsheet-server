@@ -34,6 +34,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
     SpreadsheetEngineContext {
 
     @Override
+    SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment();
+
+    @Override
     <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                           final T value);
 

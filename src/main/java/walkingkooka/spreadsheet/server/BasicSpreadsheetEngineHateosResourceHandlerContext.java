@@ -174,6 +174,23 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext;
     }
 
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
+        final SpreadsheetEngineContext engineContext = this.engineContext;
+        final SpreadsheetEngineContext clone = engineContext.cloneEnvironment();
+
+        return engineContext.equals(clone) ?
+            this :
+            new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                this.spreadsheetEngine,
+                this.hateosResourceHandlerContext,
+                clone,
+                this.systemSpreadsheetProvider
+            );
+    }
+
     @Override
     public <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                                  final T value) {

@@ -150,6 +150,13 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
         return this.providerContext.now();
     }
 
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetParserSelectorEditContext cloneEnvironment() {
+        return this; // ProviderContext.cloneEnvironment must return this
+    }
+
     @Override
     public Locale locale() {
         return this.localeContext()

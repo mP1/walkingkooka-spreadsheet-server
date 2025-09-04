@@ -81,6 +81,11 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         ProviderContextDelegator {
 
         @Override
+        public TestSpreadsheetFormatterMenuContext cloneEnvironment() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public <T> TestSpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                            final T value) {
             PROVIDER_CONTEXT.setEnvironmentValue(

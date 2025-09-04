@@ -52,6 +52,11 @@ class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterC
     }
 
     @Override
+    public SpreadsheetParserSelectorEditContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }

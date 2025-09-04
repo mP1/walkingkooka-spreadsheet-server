@@ -62,6 +62,11 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
     // EnvironmentContext...............................................................................................
 
     @Override
+    public SpreadsheetProviderHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetProviderHateosResourceHandlerContext setLocale(final Locale locale) {
         this.providerContext.setLocale(locale);
         return this;

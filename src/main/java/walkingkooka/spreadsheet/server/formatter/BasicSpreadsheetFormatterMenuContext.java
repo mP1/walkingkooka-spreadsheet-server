@@ -45,6 +45,13 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
         this.spreadsheetFormatterProviderSamplesContext = spreadsheetFormatterProviderSamplesContext;
     }
 
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetFormatterMenuContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();

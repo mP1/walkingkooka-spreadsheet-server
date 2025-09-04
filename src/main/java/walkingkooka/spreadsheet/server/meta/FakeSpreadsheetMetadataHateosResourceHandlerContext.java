@@ -156,6 +156,11 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     // EnvironmentContext...............................................................................................
 
     @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Locale locale() {
         throw new UnsupportedOperationException();
     }

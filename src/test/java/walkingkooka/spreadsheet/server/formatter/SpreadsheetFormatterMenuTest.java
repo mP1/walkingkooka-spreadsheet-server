@@ -164,6 +164,11 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         ProviderContextDelegator {
 
         @Override
+        public SpreadsheetFormatterMenuContext cloneEnvironment() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public <T> SpreadsheetFormatterMenuContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                                        final T value) {
             PROVIDER_CONTEXT.setEnvironmentValue(

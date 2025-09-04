@@ -90,6 +90,11 @@ public class FakeSpreadsheetFormatterMenuContext extends FakeSpreadsheetFormatte
     // EnvironmentContext...............................................................................................
 
     @Override
+    public SpreadsheetFormatterMenuContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Optional<T> environmentValue(EnvironmentValueName<T> name) {
         throw new UnsupportedOperationException();
     }
