@@ -181,7 +181,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         final SpreadsheetEngineContext engineContext = this.engineContext;
         final SpreadsheetEngineContext clone = engineContext.cloneEnvironment();
 
-        return engineContext.equals(clone) ?
+        // Recreate only if different cloned EnvironmentContext, cloned environment should be equals
+        return engineContext == clone ?
             this :
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 this.spreadsheetEngine,
