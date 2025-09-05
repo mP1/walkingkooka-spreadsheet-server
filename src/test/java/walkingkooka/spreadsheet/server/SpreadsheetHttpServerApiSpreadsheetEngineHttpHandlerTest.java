@@ -68,7 +68,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
-import walkingkooka.storage.StorageStores;
+import walkingkooka.storage.Storages;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -415,7 +415,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetRowStores.treeMap(),
-            StorageStores.tree(STORAGE_CONTEXT),
+            Storages.tree(),
             SpreadsheetUserStores.treeMap()
         );
         return (i) -> {
