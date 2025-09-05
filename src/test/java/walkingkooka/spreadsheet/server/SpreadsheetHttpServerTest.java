@@ -13459,7 +13459,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetRowStores.treeMap(),
-            StorageStores.tree(STORAGE_STORE_CONTEXT),
+            StorageStores.tree(STORAGE_CONTEXT),
             SpreadsheetUserStores.treeMap()
         );
     }

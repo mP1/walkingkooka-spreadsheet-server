@@ -1213,7 +1213,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetRowStores.treeMap(),
-                StorageStores.tree(STORAGE_STORE_CONTEXT),
+                StorageStores.tree(STORAGE_CONTEXT),
                 SpreadsheetUserStores.treeMap()
             );
             this.spreadsheetIdToRepository.put(id, repository);
