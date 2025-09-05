@@ -63,7 +63,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
-import walkingkooka.storage.FakeStorageStoreContext;
+import walkingkooka.storage.FakeStorageContext;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -281,7 +281,7 @@ public class TestGwtTest extends GWTTestCase {
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetRowStores.treeMap(),
             StorageStores.tree(
-                new FakeStorageStoreContext() {
+                new FakeStorageContext() {
                     @Override
                     public LocalDateTime now() {
                         return LocalDateTime.now();
