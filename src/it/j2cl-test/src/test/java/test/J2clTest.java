@@ -81,8 +81,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
-import walkingkooka.storage.FakeStorageContext;
-import walkingkooka.storage.StorageStores;
+import walkingkooka.storage.Storages;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -288,21 +287,7 @@ public class J2clTest {
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetRowStores.treeMap(),
-            StorageStores.tree(
-                new FakeStorageContext() {
-                    @Override
-                    public LocalDateTime now() {
-                        return LocalDateTime.now();
-                    }
-
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return Optional.of(
-                            EmailAddress.parse("user@example.com")
-                        );
-                    }
-                }
-            ),
+            Storages.tree(),
             SpreadsheetUserStores.fake()
         );
 
