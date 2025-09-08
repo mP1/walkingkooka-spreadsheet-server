@@ -95,6 +95,11 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     // SpreadsheetParserContext.........................................................................................
 
     @Override
+    public boolean isGroupSeparatorWithinNumbersSupported() {
+        return this.spreadsheetParserContext.isGroupSeparatorWithinNumbersSupported();
+    }
+
+    @Override
     public InvalidCharacterException invalidCharacterException(final Parser<?> parser,
                                                                final TextCursor cursor) {
         return this.spreadsheetParserContext.invalidCharacterException(
