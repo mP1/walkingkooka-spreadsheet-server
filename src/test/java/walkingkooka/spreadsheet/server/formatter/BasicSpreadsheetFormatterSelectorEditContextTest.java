@@ -119,6 +119,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                        ',', // valueSeparator
                         Converters.objectToString(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
