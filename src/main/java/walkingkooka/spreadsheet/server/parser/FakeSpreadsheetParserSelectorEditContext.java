@@ -58,7 +58,7 @@ class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterC
     }
 
     @Override
-    public boolean isGroupSeparatorWithinNumbersSupported() {
+    public boolean canNumbersHaveGroupSeparator() {
         throw new UnsupportedOperationException();
     }
 
