@@ -13232,6 +13232,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/absolute-url absolute-url\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/collection collection\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/email-address email-address\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/expression expression\",\n" +
