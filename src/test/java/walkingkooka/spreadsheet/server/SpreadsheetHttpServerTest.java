@@ -13237,7 +13237,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/email-address email-address\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/expression expression\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/text-length text-length\"\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/text-length text-length\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/text-mask text-mask\"\n" +
                     "]",
                 ValidatorInfoSet.class.getSimpleName()
             )
