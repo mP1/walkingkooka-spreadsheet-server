@@ -1410,8 +1410,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"\",\n" +
-                    "  \"validators\": \"\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -5872,8 +5872,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"\",\n" +
-                    "  \"validators\": \"\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
                     "  \"valueSeparator\": \",\",\n" +
                     "  \"viewportHome\": \"A1\",\n" +
                     "  \"viewportSelection\": {\n" +
@@ -6343,8 +6343,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"\",\n" +
-                    "  \"validators\": \"\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -6595,8 +6595,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"\",\n" +
-                    "  \"validators\": \"\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
