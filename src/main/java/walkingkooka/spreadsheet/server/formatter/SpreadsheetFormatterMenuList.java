@@ -27,6 +27,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ import java.util.Objects;
 public final class SpreadsheetFormatterMenuList extends AbstractList<SpreadsheetFormatterMenu>
     implements ImmutableListDefaults<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu> {
 
-    public static SpreadsheetFormatterMenuList with(final List<SpreadsheetFormatterMenu> menus) {
+    public static SpreadsheetFormatterMenuList with(final Collection<SpreadsheetFormatterMenu> menus) {
         Objects.requireNonNull(menus, "menus");
 
         return menus instanceof SpreadsheetFormatterMenuList ?
@@ -44,7 +45,7 @@ public final class SpreadsheetFormatterMenuList extends AbstractList<Spreadsheet
             withCopy(menus);
     }
 
-    private static SpreadsheetFormatterMenuList withCopy(final List<SpreadsheetFormatterMenu> menus) {
+    private static SpreadsheetFormatterMenuList withCopy(final Collection<SpreadsheetFormatterMenu> menus) {
         Objects.requireNonNull(menus, "menus");
 
         final List<SpreadsheetFormatterMenu> copy = Lists.array();
@@ -79,7 +80,7 @@ public final class SpreadsheetFormatterMenuList extends AbstractList<Spreadsheet
     }
 
     @Override
-    public SpreadsheetFormatterMenuList setElements(final List<SpreadsheetFormatterMenu> menus) {
+    public SpreadsheetFormatterMenuList setElements(final Collection<SpreadsheetFormatterMenu> menus) {
         final SpreadsheetFormatterMenuList copy = with(menus);
         return this.equals(copy) ?
             this :
