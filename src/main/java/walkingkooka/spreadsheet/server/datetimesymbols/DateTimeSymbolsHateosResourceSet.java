@@ -28,6 +28,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
@@ -50,7 +51,7 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
     /**
      * Factory that creates {@link DateTimeSymbolsHateosResourceSet} with the given resources.
      */
-    public static DateTimeSymbolsHateosResourceSet with(final SortedSet<DateTimeSymbolsHateosResource> resources) {
+    public static DateTimeSymbolsHateosResourceSet with(final Collection<DateTimeSymbolsHateosResource> resources) {
         return EMPTY.setElements(resources);
     }
 
@@ -125,7 +126,7 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
     }
 
     @Override
-    public DateTimeSymbolsHateosResourceSet setElements(final SortedSet<DateTimeSymbolsHateosResource> resources) {
+    public DateTimeSymbolsHateosResourceSet setElements(final Collection<DateTimeSymbolsHateosResource> resources) {
         final DateTimeSymbolsHateosResourceSet dateTimeSymbolsHateosResourceSet;
 
         if (resources instanceof DateTimeSymbolsHateosResourceSet) {

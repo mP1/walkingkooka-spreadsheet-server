@@ -28,6 +28,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
@@ -50,7 +51,7 @@ public final class DecimalNumberSymbolsHateosResourceSet extends AbstractSet<Dec
     /**
      * Factory that creates {@link DecimalNumberSymbolsHateosResourceSet} with the given resources.
      */
-    public static DecimalNumberSymbolsHateosResourceSet with(final SortedSet<DecimalNumberSymbolsHateosResource> resources) {
+    public static DecimalNumberSymbolsHateosResourceSet with(final Collection<DecimalNumberSymbolsHateosResource> resources) {
         return EMPTY.setElements(resources);
     }
 
@@ -125,7 +126,7 @@ public final class DecimalNumberSymbolsHateosResourceSet extends AbstractSet<Dec
     }
 
     @Override
-    public DecimalNumberSymbolsHateosResourceSet setElements(final SortedSet<DecimalNumberSymbolsHateosResource> resources) {
+    public DecimalNumberSymbolsHateosResourceSet setElements(final Collection<DecimalNumberSymbolsHateosResource> resources) {
         final DecimalNumberSymbolsHateosResourceSet decimalNumberSymbolsHateosResourceSet;
 
         if (resources instanceof DecimalNumberSymbolsHateosResourceSet) {
