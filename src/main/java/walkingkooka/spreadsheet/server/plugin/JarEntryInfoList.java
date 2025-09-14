@@ -28,6 +28,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,20 +47,21 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         return JarEntryInfoListReadJarFile.readJarFile(inputStream);
     }
 
-    public static JarEntryInfoList with(final List<JarEntryInfo> infos) {
+    public static JarEntryInfoList with(final Collection<JarEntryInfo> infos) {
         Objects.requireNonNull(infos, "infos");
 
         return infos instanceof JarEntryInfoList ?
             (JarEntryInfoList) infos :
-            withCopy(
-                Lists.immutable(infos)
-            );
+            withCopy(infos);
     }
 
-    private static JarEntryInfoList withCopy(final List<JarEntryInfo> infos) {
-        return infos.isEmpty() ?
+    private static JarEntryInfoList withCopy(final Collection<JarEntryInfo> infos) {
+        final List<JarEntryInfo> copy = Lists.array();
+        copy.addAll(infos);
+
+        return copy.isEmpty() ?
             EMPTY :
-            new JarEntryInfoList(infos);
+            new JarEntryInfoList(copy);
     }
 
     private JarEntryInfoList(final List<JarEntryInfo> infos) {
@@ -86,7 +88,7 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
     }
 
     @Override
-    public JarEntryInfoList setElements(final List<JarEntryInfo> infos) {
+    public JarEntryInfoList setElements(final Collection<JarEntryInfo> infos) {
         final JarEntryInfoList copy = with(infos);
         return this.equals(copy) ?
             this :
