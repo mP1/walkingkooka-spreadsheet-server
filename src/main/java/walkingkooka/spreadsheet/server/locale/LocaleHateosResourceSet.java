@@ -32,6 +32,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Locale;
@@ -89,7 +90,7 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
     /**
      * Factory that creates {@link LocaleHateosResourceSet} with the given locales.
      */
-    public static LocaleHateosResourceSet with(final SortedSet<LocaleHateosResource> locales) {
+    public static LocaleHateosResourceSet with(final Collection<LocaleHateosResource> locales) {
         return EMPTY.setElements(locales);
     }
 
@@ -164,7 +165,7 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
     }
 
     @Override
-    public LocaleHateosResourceSet setElements(final SortedSet<LocaleHateosResource> locales) {
+    public LocaleHateosResourceSet setElements(final Collection<LocaleHateosResource> locales) {
         final LocaleHateosResourceSet localeHateosResourceSet;
 
         if (locales instanceof LocaleHateosResourceSet) {
