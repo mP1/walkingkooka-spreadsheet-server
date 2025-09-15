@@ -71,7 +71,7 @@ class JarEntryInfoListReadJarFile extends JarEntryInfoListReadJarFileGwt {
                 );
             }
 
-            return JarEntryInfoList.with(entries);
+            return JarEntryInfoList.EMPTY.setElements(entries);
         } catch (final IOException cause) {
             throw new RuntimeException(cause);
         }
