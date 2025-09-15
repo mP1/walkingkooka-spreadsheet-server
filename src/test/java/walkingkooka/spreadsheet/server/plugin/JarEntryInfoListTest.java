@@ -31,6 +31,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
@@ -76,25 +77,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
             Optional.of(LAST_MODIFIED)
         );
     }
-
-    @Test
-    public void testWithEmpty() {
-        assertSame(
-            JarEntryInfoList.EMPTY,
-            JarEntryInfoList.with(
-                Lists.empty()
-            )
-        );
-    }
-
-    @Test
-    public void testDoesntDoubleWrap() {
-        final JarEntryInfoList list = this.createList();
-        assertSame(
-            list,
-            JarEntryInfoList.with(list)
-        );
-    }
+    
 
     @Test
     public void testGet() {
@@ -139,7 +122,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     @Test
     public void testSwap() {
         this.swapAndCheck(
-            JarEntryInfoList.with(
+            new JarEntryInfoList(
                 Lists.of(
                     INFO1,
                     INFO2,
@@ -148,7 +131,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
             ),
             0,
             2,
-            JarEntryInfoList.with(
+            new JarEntryInfoList(
                 Lists.of(
                     INFO3,
                     INFO2,
@@ -158,11 +141,50 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
         );
     }
 
+    // setElements......................................................................................................
+
+    @Test
+    public void testSetElementsIncludesNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createList()
+                .setElements(
+                    Arrays.asList(
+                        INFO1,
+                        null
+                    )
+                )
+        );
+    }
+
+    @Test
+    public void testSetElementsDoesntDoubleWrap() {
+        final JarEntryInfoList list = this.createList();
+        assertSame(
+            list,
+            list.setElements(list)
+        );
+    }
+
+    @Test
+    public void testSetElementsWithEmpty() {
+        assertSame(
+            JarEntryInfoList.EMPTY,
+            new JarEntryInfoList(
+                Lists.of(
+                    INFO1,
+                    INFO2,
+                    INFO3
+                )
+            ).setElements(Lists.empty())
+        );
+    }
+
     // ImmutableListTesting.............................................................................................
 
     @Override
     public JarEntryInfoList createList() {
-        return JarEntryInfoList.with(
+        return new JarEntryInfoList(
             Lists.of(
                 INFO1,
                 INFO2,
@@ -195,7 +217,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
         );
 
         this.checkEquals(
-            JarEntryInfoList.with(
+            new JarEntryInfoList(
                 Lists.of(
                     JarEntryInfo.with(
                         JarEntryInfoName.MANIFEST_MF,

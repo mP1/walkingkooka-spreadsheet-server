@@ -47,24 +47,8 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         return JarEntryInfoListReadJarFile.readJarFile(inputStream);
     }
 
-    public static JarEntryInfoList with(final Collection<JarEntryInfo> infos) {
-        Objects.requireNonNull(infos, "infos");
-
-        return infos instanceof JarEntryInfoList ?
-            (JarEntryInfoList) infos :
-            withCopy(infos);
-    }
-
-    private static JarEntryInfoList withCopy(final Collection<JarEntryInfo> infos) {
-        final List<JarEntryInfo> copy = Lists.array();
-        copy.addAll(infos);
-
-        return copy.isEmpty() ?
-            EMPTY :
-            new JarEntryInfoList(copy);
-    }
-
-    private JarEntryInfoList(final List<JarEntryInfo> infos) {
+    // @VisibleForTesting
+    JarEntryInfoList(final List<JarEntryInfo> infos) {
         this.infos = infos;
     }
 
@@ -88,18 +72,39 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
     }
 
     @Override
-    public JarEntryInfoList setElements(final Collection<JarEntryInfo> infos) {
-        final JarEntryInfoList copy = with(infos);
-        return this.equals(copy) ?
+    public JarEntryInfoList setElements(final Collection<JarEntryInfo> jarEntryInfos) {
+        JarEntryInfoList jarEntryInfoList;
+
+        if (jarEntryInfos instanceof JarEntryInfoList) {
+            jarEntryInfoList = (JarEntryInfoList) jarEntryInfos;
+        } else {
+            final List<JarEntryInfo> copy = Lists.array();
+            for (final JarEntryInfo jarEntryInfo : Objects.requireNonNull(jarEntryInfos, "jarEntryInfos")) {
+                this.elementCheck(jarEntryInfo);
+
+                copy.add(jarEntryInfo);
+            }
+
+            switch (jarEntryInfos.size()) {
+                case 0:
+                    jarEntryInfoList = EMPTY;
+                    break;
+                default:
+                    jarEntryInfoList = new JarEntryInfoList(copy);
+                    break;
+            }
+        }
+
+        return this.equals(jarEntryInfoList) ?
             this :
-            copy;
+            jarEntryInfoList;
     }
 
     // json.............................................................................................................
 
     static JarEntryInfoList unmarshall(final JsonNode node,
                                        final JsonNodeUnmarshallContext context) {
-        return with(
+        return EMPTY.setElements(
             Cast.to(
                 context.unmarshallList(
                     node,
