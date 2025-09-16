@@ -1372,6 +1372,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
+                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, url)\",\n" +
@@ -5834,6 +5835,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
+                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, url)\",\n" +
@@ -6305,6 +6307,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
+                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, url)\",\n" +
@@ -6557,6 +6560,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
+                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, url)\",\n" +
