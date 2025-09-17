@@ -4156,7 +4156,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
-                    "          \"badgeText\": \"#ERROR\",\n" +
+                    "          \"badgeText\": \"Invalid character '=' at (1,1) expected \\\"###\\\"\",\n" +
                     "          \"children\": [\n" +
                     "            {\n" +
                     "              \"type\": \"text\",\n" +
@@ -4350,7 +4350,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
-                    "          \"badgeText\": \"#VALUE!\",\n" +
+                    "          \"badgeText\": \"Unknown validator Hello-validator\",\n" +
                     "          \"children\": [\n" +
                     "            {\n" +
                     "              \"type\": \"text\",\n" +
@@ -6459,7 +6459,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
-                    "          \"badgeText\": \"#NAME?\",\n" +
+                    "          \"badgeText\": \"Function not found: \\\"ExpressionFunction1\\\"\",\n" +
                     "          \"children\": [\n" +
                     "            {\n" +
                     "              \"type\": \"text\",\n" +
