@@ -22,8 +22,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-
+import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProvider;
 public final class SpreadsheetParserSelectorEditContexts implements PublicStaticHelper {
 
     /**
