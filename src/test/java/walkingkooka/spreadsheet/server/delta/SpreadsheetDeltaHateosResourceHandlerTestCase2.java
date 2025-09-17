@@ -252,7 +252,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
         .set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, 0L)
         .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
-        .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
+        .set(
+            SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
+            SpreadsheetFormatterSelector.parse(
+                "badge-error " + SpreadsheetParsePattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector()
+            )
+        ).set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
         .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, CONVERTER)
         .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
         .set(SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER, CONVERTER)
