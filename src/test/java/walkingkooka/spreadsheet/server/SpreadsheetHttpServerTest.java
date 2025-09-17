@@ -79,7 +79,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
-import walkingkooka.spreadsheet.convert.MissingConverterSet;
+import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;

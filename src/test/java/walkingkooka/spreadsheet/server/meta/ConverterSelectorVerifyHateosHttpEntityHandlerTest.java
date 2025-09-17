@@ -35,7 +35,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.MissingConverterSet;
+import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
