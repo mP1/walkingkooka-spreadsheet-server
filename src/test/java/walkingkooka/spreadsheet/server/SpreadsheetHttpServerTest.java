@@ -4154,8 +4154,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      },\n" +
                     "      \"parser\": \"number-parse-pattern ###\",\n" +
                     "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text #ERROR\"\n" +
+                    "        \"type\": \"badge\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"badgeText\": \"#ERROR\",\n" +
+                    "          \"children\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"text\",\n" +
+                    "              \"value\": \"#ERROR\"\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        }\n" +
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
@@ -4340,8 +4348,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "        }\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text #VALUE!\"\n" +
+                    "        \"type\": \"badge\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"badgeText\": \"#VALUE!\",\n" +
+                    "          \"children\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"text\",\n" +
+                    "              \"value\": \"#VALUE!\"\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        }\n" +
                     "      },\n" +
                     "      \"validator\": \"Hello-validator\"\n" +
                     "    }\n" +
@@ -6441,8 +6457,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "        }\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
-                    "        \"type\": \"text\",\n" +
-                    "        \"value\": \"Text #NAME?\"\n" +
+                    "        \"type\": \"badge\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"badgeText\": \"#NAME?\",\n" +
+                    "          \"children\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"text\",\n" +
+                    "              \"value\": \"#NAME?\"\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        }\n" +
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
