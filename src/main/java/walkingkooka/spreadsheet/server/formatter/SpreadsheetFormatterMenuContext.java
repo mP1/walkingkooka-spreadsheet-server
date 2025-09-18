@@ -17,8 +17,8 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 public interface SpreadsheetFormatterMenuContext extends SpreadsheetFormatterProvider,

@@ -22,8 +22,8 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 

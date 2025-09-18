@@ -18,8 +18,8 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 
 /**
  * A collection of {@link SpreadsheetFormatterSelectorEditContext} factory methods.
