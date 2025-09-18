@@ -28,8 +28,8 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 

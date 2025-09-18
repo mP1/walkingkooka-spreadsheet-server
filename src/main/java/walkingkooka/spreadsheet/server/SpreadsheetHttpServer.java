@@ -47,7 +47,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;

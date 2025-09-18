@@ -22,7 +22,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;

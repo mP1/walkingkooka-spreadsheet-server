@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 
 public final class SpreadsheetFormatterSelectorEditContexts implements PublicStaticHelper {
 

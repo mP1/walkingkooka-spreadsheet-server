@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.parser;
 
 import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProvider;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;

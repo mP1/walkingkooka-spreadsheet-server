@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 
 import java.util.Locale;
 

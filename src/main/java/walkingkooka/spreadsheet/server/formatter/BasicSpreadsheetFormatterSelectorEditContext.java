@@ -21,8 +21,8 @@ import walkingkooka.convert.CanConvert;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;

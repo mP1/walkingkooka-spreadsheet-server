@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
