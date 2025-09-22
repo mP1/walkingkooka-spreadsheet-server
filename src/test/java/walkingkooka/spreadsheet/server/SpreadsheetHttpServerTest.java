@@ -1443,7 +1443,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JsonPropertyName.with(
                         SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
                     ),
-                    JsonNode.string(roundingMode.name())
+                    roundingMode.name()
                 ).toJsonText(
                     INDENTATION,
                     LINE_ENDING
@@ -1472,9 +1472,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JsonPropertyName.with(
                         SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
                     ),
-                    JsonNode.string(
-                        RoundingMode.FLOOR.name()
-                    )
+                    RoundingMode.FLOOR.name()
                 )
                 .toString(),
             HttpStatusCode.NO_CONTENT.setMessage("Unable to load spreadsheet with id=1"),
