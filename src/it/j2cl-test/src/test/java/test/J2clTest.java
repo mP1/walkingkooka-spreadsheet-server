@@ -316,7 +316,6 @@ public class J2clTest {
             MediaTypeDetectors.fake(),
             LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
-            providerContext,
             metadataStore,
             HateosResourceHandlerContexts.basic(
                 Indentation.SPACES2,

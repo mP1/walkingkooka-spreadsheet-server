@@ -320,7 +320,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             MediaTypeDetectors.fake(),
             LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
-            providerContext,
             metadataStore,
             HateosResourceHandlerContexts.basic(
                 Indentation.SPACES2,
