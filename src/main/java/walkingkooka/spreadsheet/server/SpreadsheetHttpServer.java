@@ -40,7 +40,6 @@ import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
@@ -159,7 +158,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final MediaTypeDetector mediaTypeDetector,
                                              final LocaleContext localeContext,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
-                                             final ProviderContext providerContext,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
                                              final SpreadsheetContext spreadsheetContext,
@@ -172,7 +170,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
-            Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(spreadsheetContext, "spreadsheetContext"),
@@ -226,7 +223,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final MediaTypeDetector mediaTypeDetector,
                                   final LocaleContext localeContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
-                                  final ProviderContext providerContext,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
                                   final SpreadsheetContext spreadsheetContext,
@@ -242,8 +238,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
-        this.providerContext = providerContext;
-
         this.metadataStore = metadataStore;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
@@ -256,7 +250,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.spreadsheetProviderHateosResourceHandlerContext = SpreadsheetProviderHateosResourceHandlerContexts.basic(
             systemSpreadsheetProvider,
-            providerContext,
+            spreadsheetContext.providerContext(),
             hateosResourceHandlerContext
         );
 
@@ -499,6 +493,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
+        final SpreadsheetContext spreadsheetContext = this.spreadsheetContext;
+
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             url,
             this.localeContext,
@@ -507,7 +503,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,
-            this.spreadsheetContext
+            spreadsheetContext
         );
     }
 
@@ -515,7 +511,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return PluginHttpHandler.with(
             apiPlugin,
             this.hateosResourceHandlerContext,
-            this.providerContext,
+            this.spreadsheetContext.providerContext(),
             this.mediaTypeDetector
         );
     }
@@ -525,8 +521,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final LocaleContext localeContext;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
-
-    private final ProviderContext providerContext;
 
     private final SpreadsheetMetadataStore metadataStore;
 

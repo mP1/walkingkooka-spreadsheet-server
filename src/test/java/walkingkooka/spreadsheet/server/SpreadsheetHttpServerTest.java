@@ -288,7 +288,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = new FakeSpreadsheetContext() {
         @Override
         public ProviderContext providerContext() {
-            return PROVIDER_CONTEXT;
+            return ProviderContexts.fake();
         }
     };
 
@@ -317,7 +317,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -338,7 +337,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -365,7 +363,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -392,7 +389,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -419,7 +415,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 null,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -440,7 +435,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 null,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -460,28 +454,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
-                null,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullProviderContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
-                SYSTEM_SPREADSHEET_PROVIDER,
                 null,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -503,7 +475,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -524,7 +495,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 null,
                 SPREADSHEET_CONTEXT,
@@ -545,7 +515,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
@@ -566,7 +535,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -587,7 +555,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -608,7 +575,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -629,7 +595,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -13418,17 +13383,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SPREADSHEET_PARSER_PROVIDER,
                 VALIDATOR_PROVIDER
             ),
-            ProviderContexts.basic(
-                ConverterContexts.fake(), // CanConvert
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        LOCALE,
-                        NOW,
-                        Optional.of(USER)
-                    )
-                ),
-                this.httpServer.pluginStore
-            ),
             this.metadataStore,
             HateosResourceHandlerContexts.basic(
                 INDENTATION,
@@ -13438,7 +13392,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JSON_NODE_UNMARSHALL_CONTEXT
                 )
             ),
-            SPREADSHEET_CONTEXT,
+            new FakeSpreadsheetContext() {
+                @Override
+                public ProviderContext providerContext() {
+                    return ProviderContexts.basic(
+                        ConverterContexts.fake(), // CanConvert
+                        EnvironmentContexts.map(
+                            EnvironmentContexts.empty(
+                                LOCALE,
+                                NOW,
+                                Optional.of(USER)
+                            )
+                        ),
+                        SpreadsheetHttpServerTest.this.httpServer.pluginStore
+                    );
+                }
+            },
             this::spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToRepository,
             this::fileServer,
