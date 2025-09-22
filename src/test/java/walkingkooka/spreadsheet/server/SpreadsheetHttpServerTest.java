@@ -324,7 +324,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute("http://example.com/path123"),
+                Url.parseAbsolute("https://example.com/path123"),
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -339,7 +339,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         this.checkEquals(
-            "Url must not have path got \"http://example.com/path123\"",
+            "Url must not have path got \"https://example.com/path123\"",
             thrown.getMessage(),
             "message"
         );
@@ -350,7 +350,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute("http://example.com?path123"),
+                Url.parseAbsolute("https://example.com?path123"),
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -365,7 +365,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         this.checkEquals(
-            "Url must not have query string got \"http://example.com?path123\"",
+            "Url must not have query string got \"https://example.com?path123\"",
             thrown.getMessage(),
             "message"
         );
@@ -376,7 +376,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute("http://example.com#fragment456"),
+                Url.parseAbsolute("https://example.com#fragment456"),
                 MEDIA_TYPE_DETECTOR,
                 LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
@@ -391,7 +391,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         this.checkEquals(
-            "Url must not have fragment got \"http://example.com#fragment456\"",
+            "Url must not have fragment got \"https://example.com#fragment456\"",
             thrown.getMessage(),
             "message"
         );
