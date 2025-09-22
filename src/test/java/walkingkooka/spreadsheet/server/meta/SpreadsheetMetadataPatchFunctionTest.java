@@ -92,7 +92,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                     JsonNode.object()
                         .set(
                             JsonPropertyName.with(SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()),
-                            JsonNode.string(RoundingMode.HALF_DOWN.name())
+                            RoundingMode.HALF_DOWN.name()
                         )
                 )
 
