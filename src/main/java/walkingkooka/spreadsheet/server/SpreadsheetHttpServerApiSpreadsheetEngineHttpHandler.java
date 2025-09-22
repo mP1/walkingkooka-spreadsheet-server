@@ -24,7 +24,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetContext;
@@ -46,7 +45,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final AbsoluteUrl serverUrl,
                                                                      final LocaleContext localeContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                     final ProviderContext providerContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -56,7 +54,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
             serverUrl,
             localeContext,
             systemSpreadsheetProvider,
-            providerContext,
             metadataStore,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToStoreRepository,
@@ -71,7 +68,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final AbsoluteUrl serverUrl,
                                                                  final LocaleContext localeContext,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                 final ProviderContext providerContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -84,8 +80,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.localeContext = localeContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-
-        this.providerContext = providerContext;
 
         this.metadataStore = metadataStore;
 
@@ -134,8 +128,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     }
 
     private final LocaleContext localeContext;
-
-    private final ProviderContext providerContext;
 
     private final SpreadsheetMetadataStore metadataStore;
 
