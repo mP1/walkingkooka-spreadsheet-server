@@ -193,7 +193,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
-    private final static LocalDateTime MODIFIED_TIMESTAMP = LocalDateTime.of(2021, 7, 15, 20, 33);
     private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
 
     private static final ExpressionFunctionProvider<SpreadsheetExpressionEvaluationContext> EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider<>() {
