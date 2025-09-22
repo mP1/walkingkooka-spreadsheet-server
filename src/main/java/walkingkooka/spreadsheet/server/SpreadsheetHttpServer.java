@@ -482,7 +482,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     /**
      * Require base url plus two more components to hold the service and its identifier, eg:
-     * <pre>http://example.com/api-base/spreadsheet/spreadsheet-id-1234/cells/A1</pre>
+     * <pre>https://example.com/api-base/spreadsheet/spreadsheet-id-1234/cells/A1</pre>
      */
     private HttpRequestAttributeRouting spreadsheetEngineRouting(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
