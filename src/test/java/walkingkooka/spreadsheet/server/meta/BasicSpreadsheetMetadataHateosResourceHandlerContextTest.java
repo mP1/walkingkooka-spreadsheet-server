@@ -141,8 +141,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -160,8 +159,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -180,8 +178,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -199,8 +196,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -218,8 +214,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -237,8 +232,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 null,
                 SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -256,8 +250,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                SPREADSHEET_PROVIDER
             )
         );
     }
@@ -275,26 +268,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
-                null,
-                PROVIDER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSystemProviderContextFails() {
-        final AbsoluteUrl serverUrl = this.base();
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                LOCALE_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER,
                 null
             )
         );
@@ -1132,9 +1105,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this::spreadsheetIdToSpreadsheetProvider,
             this::spreadsheetIdToRepository,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            providerContext
+            new FakeSpreadsheetContext() {
+                @Override
+                public ProviderContext providerContext() {
+                    return providerContext;
+                }
+            },
+            SPREADSHEET_PROVIDER
         );
     }
 

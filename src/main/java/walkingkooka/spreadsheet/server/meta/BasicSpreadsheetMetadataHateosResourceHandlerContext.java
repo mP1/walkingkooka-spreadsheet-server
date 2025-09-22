@@ -99,8 +99,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                      final SpreadsheetContext spreadsheetContext,
-                                                                     final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                     final ProviderContext providerContext) {
+                                                                     final SpreadsheetProvider systemSpreadsheetProvider) {
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(localeContext, "localeContext");
         Objects.requireNonNull(metadataStore, "metadataStore");
@@ -109,7 +108,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
         Objects.requireNonNull(spreadsheetContext, "spreadsheetContext");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
-        Objects.requireNonNull(providerContext, "providerContext");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
             serverUrl,
@@ -119,8 +117,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             spreadsheetIdToRepository,
             hateosResourceHandlerContext,
             spreadsheetContext,
-            systemSpreadsheetProvider,
-            providerContext
+            systemSpreadsheetProvider
         );
     }
 
@@ -131,8 +128,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                  final SpreadsheetContext spreadsheetContext,
-                                                                 final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                 final ProviderContext providerContext) {
+                                                                 final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
 
         this.serverUrl = serverUrl;
@@ -161,7 +157,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.spreadsheetContext = spreadsheetContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-        this.providerContext = providerContext;
     }
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
@@ -255,7 +250,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
-        final ProviderContext providerContext = this.providerContext;
+
+        final SpreadsheetContext spreadsheetContext = this.spreadsheetContext;
+        final ProviderContext providerContext = spreadsheetContext.providerContext();
 
         final SpreadsheetMetadata metadata = this.load(id);
 
@@ -272,7 +269,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 )
             ),
             this.localeContext,
-            this.spreadsheetContext,
+            spreadsheetContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
             ),
@@ -294,9 +291,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-            this.providerContext.refreshModifiedAuditInfo(
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-            )
+            this.spreadsheetContext.providerContext()
+                .refreshModifiedAuditInfo(
+                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                )
         );
     }
 
@@ -399,8 +397,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.spreadsheetIdToRepository,
                 after,
                 this.spreadsheetContext,
-                this.systemSpreadsheetProvider,
-                this.providerContext
+                this.systemSpreadsheetProvider
             );
     }
 
@@ -443,10 +440,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     @Override
     public EnvironmentContext environmentContext() {
-        return this.providerContext;
+        return this.spreadsheetContext.providerContext();
     }
-
-    private final ProviderContext providerContext;
 
     // Object...........................................................................................................
 

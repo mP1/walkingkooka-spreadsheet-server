@@ -25,8 +25,6 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
-import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetContext;
@@ -52,8 +50,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(Locale.ENGLISH);
 
     private final static SpreadsheetProvider SYSTEM_PROVIDER = SpreadsheetProviders.fake();
-
-    private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.treeMap(
         SpreadsheetMetadata.EMPTY.set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE_CONTEXT.locale())
@@ -81,7 +77,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 null,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
@@ -99,7 +94,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 null,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
@@ -110,31 +104,12 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     }
 
     @Test
-    public void testWithNullSystemProviderContextFails() {
+    public void testWithNullSystemProviderFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                null,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullProviderContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHttpHandler.with(
-                SERVER_URL,
-                LOCALE_CONTEXT,
-                SYSTEM_PROVIDER,
                 null,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -153,7 +128,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
@@ -171,7 +145,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
@@ -190,7 +163,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
@@ -208,7 +180,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
@@ -226,7 +197,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
-                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
@@ -249,7 +219,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             SERVER_URL,
             LOCALE_CONTEXT,
             SYSTEM_PROVIDER,
-            PROVIDER_CONTEXT,
             METADATA_STORE,
             SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
             SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,

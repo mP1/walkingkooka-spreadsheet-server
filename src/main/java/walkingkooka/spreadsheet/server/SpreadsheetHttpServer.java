@@ -478,7 +478,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             api,
             this.localeContext,
             this.systemSpreadsheetProvider,
-            this.providerContext,
             this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
