@@ -49,6 +49,7 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
@@ -161,6 +162,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final ProviderContext providerContext,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                             final SpreadsheetContext spreadsheetContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -173,6 +175,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(spreadsheetContext, "spreadsheetContext"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
             Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
             Objects.requireNonNull(fileServer, "fileServer"),
@@ -226,6 +229,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final ProviderContext providerContext,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                  final SpreadsheetContext spreadsheetContext,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -243,6 +247,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.metadataStore = metadataStore;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
+
+        this.spreadsheetContext = spreadsheetContext;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
 
@@ -476,7 +482,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
             this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
-            this.hateosResourceHandlerContext
+            this.hateosResourceHandlerContext,
+            this.spreadsheetContext
         );
     }
 
@@ -501,7 +508,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
             this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
-            this.hateosResourceHandlerContext
+            this.hateosResourceHandlerContext,
+            this.spreadsheetContext
         );
     }
 
@@ -531,6 +539,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
+
+    private final SpreadsheetContext spreadsheetContext;
 
     // files............................................................................................................
 

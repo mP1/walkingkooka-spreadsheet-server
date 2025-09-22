@@ -29,6 +29,8 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -69,6 +71,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
 
+    private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
+
     @Test
     public void testWithNullServerUrlFails() {
         assertThrows(
@@ -81,7 +85,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -98,7 +103,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -115,7 +121,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -132,7 +139,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -149,7 +157,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -166,7 +175,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -184,7 +194,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT
             )
         );
     }
@@ -201,6 +212,25 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                null,
+                SPREADSHEET_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                LOCALE_CONTEXT,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null
             )
         );
@@ -223,7 +253,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             METADATA_STORE,
             SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
             SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            SPREADSHEET_CONTEXT
         );
     }
 

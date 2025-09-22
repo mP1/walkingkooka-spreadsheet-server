@@ -44,6 +44,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -97,6 +98,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                                     final SpreadsheetContext spreadsheetContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
                                                                      final ProviderContext providerContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
@@ -105,6 +107,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
+        Objects.requireNonNull(spreadsheetContext, "spreadsheetContext");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
         Objects.requireNonNull(providerContext, "providerContext");
 
@@ -115,6 +118,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
             hateosResourceHandlerContext,
+            spreadsheetContext,
             systemSpreadsheetProvider,
             providerContext
         );
@@ -126,6 +130,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                                 final SpreadsheetContext spreadsheetContext,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                                                  final ProviderContext providerContext) {
         super();
@@ -152,6 +157,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
+
+        this.spreadsheetContext = spreadsheetContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
         this.providerContext = providerContext;
@@ -265,6 +272,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 )
             ),
             this.localeContext,
+            this.spreadsheetContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
             ),
@@ -281,6 +289,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private final LocaleContext localeContext;
+
+    private final SpreadsheetContext spreadsheetContext;
 
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
@@ -389,6 +399,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
                 after,
+                this.spreadsheetContext,
                 this.systemSpreadsheetProvider,
                 this.providerContext
             );

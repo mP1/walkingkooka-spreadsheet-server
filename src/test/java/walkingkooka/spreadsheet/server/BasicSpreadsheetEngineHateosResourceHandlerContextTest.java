@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -67,6 +68,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
         ENVIRONMENT_CONTEXT,
         LocaleContexts.jre(LOCALE),
+        SpreadsheetContexts.fake(),
         TERMINAL_CONTEXT,
         SPREADSHEET_PROVIDER,
         PROVIDER_CONTEXT
@@ -126,7 +128,17 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         );
     }
 
-    // SpreadsheetEngineHateosResourceHandlerContextTesting...................................................................
+    // SpreadsheetEngineHateosResourceHandlerContextTesting.............................................................
+
+    @Override
+    public void testCreateMetadataWithNullUserFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testCreateMetadataWithNullLocaleFails() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public void testDateTimeSymbolsForLocaleWithNullFails() {
@@ -135,6 +147,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
     @Override
     public void testDecimalNumberSymbolsForLocaleWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testDeleteMetadataWithNullFails() {
         throw new UnsupportedOperationException();
     }
 
@@ -154,12 +171,22 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     }
 
     @Override
+    public void testLoadMetadataWithNullIdFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testLocaleTextWithNullFails() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void testResolveLabelWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSaveMetadataWithNullFails() {
         throw new UnsupportedOperationException();
     }
 
