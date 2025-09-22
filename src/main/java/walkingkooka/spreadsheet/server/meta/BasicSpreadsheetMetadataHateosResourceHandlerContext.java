@@ -250,7 +250,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
         final ProviderContext providerContext = this.providerContext;
 
-        final SpreadsheetMetadata metadata = this.load(id);;
+        final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
             this.serverUrl,
