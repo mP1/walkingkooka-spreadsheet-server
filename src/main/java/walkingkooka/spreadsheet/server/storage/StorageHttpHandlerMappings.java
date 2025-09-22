@@ -18,9 +18,10 @@
 package walkingkooka.spreadsheet.server.storage;
 
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.storage.Storage;
 
 /**
- * A collection of {@link walkingkooka.net.http.server.HttpHandler} that support CRUD {@link walkingkooka.storage.StorageStore} operations
+ * A collection of {@link walkingkooka.net.http.server.HttpHandler} that support CRUD {@link Storage} operations
  * <pre>
  * GET /api/spreadsheet/SpreadsheetId/storage/path/to/file.txt
  * </pre>
