@@ -276,8 +276,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
             ),
-            metadata.spreadsheetProvider(spreadsheetProvider),
-            providerContext
+            metadata.spreadsheetProvider(spreadsheetProvider)
         );
 
         return this.mappings(
