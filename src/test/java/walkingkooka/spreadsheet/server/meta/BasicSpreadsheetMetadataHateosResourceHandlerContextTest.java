@@ -62,6 +62,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -120,6 +122,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         )
     );
 
+    private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
+
     @Test
     public void testWithNullServerUrlFails() {
         assertThrows(
@@ -131,6 +135,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
             )
@@ -149,6 +154,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
             )
@@ -168,6 +174,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
             )
@@ -186,6 +193,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
             )
@@ -204,6 +212,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
             )
@@ -221,6 +230,26 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
+                null,
+                SPREADSHEET_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetContextFails() {
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                LOCALE_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
@@ -240,6 +269,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 null,
                 PROVIDER_CONTEXT
             )
@@ -258,6 +288,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER,
                 null
             )
@@ -1096,6 +1127,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this::spreadsheetIdToSpreadsheetProvider,
             this::spreadsheetIdToRepository,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
+            SPREADSHEET_CONTEXT,
             SPREADSHEET_PROVIDER,
             providerContext
         );

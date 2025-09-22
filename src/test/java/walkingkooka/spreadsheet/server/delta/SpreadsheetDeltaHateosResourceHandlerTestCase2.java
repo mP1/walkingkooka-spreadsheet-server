@@ -41,6 +41,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
+import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -369,6 +370,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             ENVIRONMENT_CONTEXT,
             LocaleContexts.jre(LOCALE),
+            SpreadsheetContexts.fake(),
             TERMINAL_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT

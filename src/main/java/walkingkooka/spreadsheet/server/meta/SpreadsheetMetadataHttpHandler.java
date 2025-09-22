@@ -36,6 +36,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -63,7 +64,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
                                                       final SpreadsheetMetadataStore metadataStore,
                                                       final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                       final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                      final HateosResourceHandlerContext hateosResourceHandlerContext) {
+                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                      final SpreadsheetContext spreadsheetContext) {
         return new SpreadsheetMetadataHttpHandler(
             Objects.requireNonNull(serverUrl, "serverUrl"),
             Objects.requireNonNull(localeContext, "localeContext"),
@@ -72,7 +74,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
             Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
-            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext")
+            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(spreadsheetContext, "spreadsheetContext")
         );
     }
 
@@ -86,7 +89,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
                                            final SpreadsheetMetadataStore metadataStore,
                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                           final HateosResourceHandlerContext hateosResourceHandlerContext) {
+                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                           final SpreadsheetContext spreadsheetContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -98,6 +102,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToStoreRepository,
             hateosResourceHandlerContext,
+            spreadsheetContext,
             systemSpreadsheetProvider,
             providerContext
         );
