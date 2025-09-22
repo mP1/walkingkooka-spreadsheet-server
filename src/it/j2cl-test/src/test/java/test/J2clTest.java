@@ -50,6 +50,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -60,7 +61,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterProviders;
-import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
+import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -294,6 +295,20 @@ public class J2clTest {
 
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatters();
 
+        final ProviderContext providerContext = ProviderContexts.basic(
+            ConverterContexts.fake(), // CanConvert
+            EnvironmentContexts.map(
+                EnvironmentContexts.empty(
+                    locale,
+                    LocalDateTime::now,
+                    Optional.of(
+                        EmailAddress.parse("user@example.com")
+                    )
+                )
+            ),
+            PluginStores.treeMap()
+        );
+
         return SpreadsheetHttpServer.with(
             UrlScheme.HTTPS.andHost(
                 HostAddress.with("example.com")
@@ -301,19 +316,7 @@ public class J2clTest {
             MediaTypeDetectors.fake(),
             LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
-            ProviderContexts.basic(
-                ConverterContexts.fake(), // CanConvert
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        locale,
-                        LocalDateTime::now,
-                        Optional.of(
-                            EmailAddress.parse("user@example.com")
-                        )
-                    )
-                ),
-                PluginStores.treeMap()
-            ),
+            providerContext,
             metadataStore,
             HateosResourceHandlerContexts.basic(
                 Indentation.SPACES2,
@@ -326,7 +329,13 @@ public class J2clTest {
                     )
                 )
             ),
-            SpreadsheetContexts.fake(),
+            new FakeSpreadsheetContext() {
+
+                @Override
+                public ProviderContext providerContext() {
+                    return providerContext;
+                }
+            },
             (id) -> metadata.spreadsheetProvider(
                 SpreadsheetProviders.basic(
                     ConverterProviders.converters(),

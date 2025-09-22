@@ -129,8 +129,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,
             this.spreadsheetContext,
-            this.systemSpreadsheetProvider,
-            this.providerContext
+            this.systemSpreadsheetProvider
         ).httpRouter(id);
     }
 
