@@ -503,7 +503,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             url,
             this.localeContext,
             this.systemSpreadsheetProvider,
-            this.providerContext,
             this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,

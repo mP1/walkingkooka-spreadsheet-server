@@ -322,7 +322,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             Url.parseAbsolute(SERVER_URL + "/api"),
             LocaleContexts.jre(LOCALE),
             systemSpreadsheetProvider(),
-            PROVIDER_CONTEXT,
             this.metadataStore,
             spreadsheetIdToSpreadsheetProvider(),
             spreadsheetIdToStoreRepository(),
