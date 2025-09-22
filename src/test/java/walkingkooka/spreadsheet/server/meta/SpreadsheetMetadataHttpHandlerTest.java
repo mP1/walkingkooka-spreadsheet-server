@@ -51,7 +51,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
 
     private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(Locale.ENGLISH);
 
-    private final static SpreadsheetProvider SYSTEM_PROVIDER_CONTEXT = SpreadsheetProviders.fake();
+    private final static SpreadsheetProvider SYSTEM_PROVIDER = SpreadsheetProviders.fake();
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
@@ -80,7 +80,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 null,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -98,7 +98,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 null,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -134,7 +134,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 null,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -152,7 +152,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -170,7 +170,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
                 null,
@@ -189,7 +189,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -207,7 +207,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -225,7 +225,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 LOCALE_CONTEXT,
-                SYSTEM_PROVIDER_CONTEXT,
+                SYSTEM_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -248,7 +248,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
         return SpreadsheetMetadataHttpHandler.with(
             SERVER_URL,
             LOCALE_CONTEXT,
-            SYSTEM_PROVIDER_CONTEXT,
+            SYSTEM_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
             SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
