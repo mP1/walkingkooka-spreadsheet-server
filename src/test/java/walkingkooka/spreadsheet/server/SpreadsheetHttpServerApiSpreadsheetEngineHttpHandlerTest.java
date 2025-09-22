@@ -39,6 +39,7 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -47,7 +48,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
-import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
+import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -333,7 +334,12 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                     JSON_NODE_UNMARSHALL_CONTEXT
                 )
             ),
-            SpreadsheetContexts.fake()
+            new FakeSpreadsheetContext() {
+                @Override
+                public ProviderContext providerContext() {
+                    return PROVIDER_CONTEXT;
+                }
+            }
         );
     }
 

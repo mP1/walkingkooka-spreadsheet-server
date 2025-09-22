@@ -24,12 +24,13 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
+import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -68,10 +69,14 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
         ENVIRONMENT_CONTEXT,
         LocaleContexts.jre(LOCALE),
-        SpreadsheetContexts.fake(),
+        new FakeSpreadsheetContext() {
+            @Override
+            public ProviderContext providerContext() {
+                return PROVIDER_CONTEXT;
+            }
+        },
         TERMINAL_CONTEXT,
-        SPREADSHEET_PROVIDER,
-        PROVIDER_CONTEXT
+        SPREADSHEET_PROVIDER
     );
 
     // with.............................................................................................................

@@ -62,8 +62,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
+import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -122,7 +122,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         )
     );
 
-    private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
+    private final static SpreadsheetContext SPREADSHEET_CONTEXT = new FakeSpreadsheetContext() {
+        @Override
+        public ProviderContext providerContext() {
+            return PROVIDER_CONTEXT;
+        }
+    };
 
     @Test
     public void testWithNullServerUrlFails() {
