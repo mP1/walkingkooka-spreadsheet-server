@@ -79,12 +79,11 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetMetadata saved = context.metadataStore()
-            .create(
-                context.userOrFail(),
-                HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
-                    .flatMap(this::preferredLocale)
-            );
+        final SpreadsheetMetadata saved = context.createMetadata(
+            context.userOrFail(),
+            HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
+                .flatMap(this::preferredLocale)
+        );
         saved.id()
             .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
 

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -26,8 +27,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -73,15 +72,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+
                 @Override
-                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                    checkEquals(id, i, "spreadsheetId");
-                    return new FakeSpreadsheetStoreRepository() {
-                        @Override
-                        public SpreadsheetMetadataStore metadatas() {
-                            return SpreadsheetMetadataTesting.spreadsheetMetadataStore(); // empty
-                        }
-                    };
+                public void deleteMetadata(final SpreadsheetId id) {
+                    // NOP
                 }
             },
             Optional.empty()
@@ -102,18 +96,18 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+
                 @Override
-                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                    checkEquals(id, i, "spreadsheetId");
-                    return new FakeSpreadsheetStoreRepository() {
-                        @Override
-                        public SpreadsheetMetadataStore metadatas() {
-                            return store;
-                        }
-                    };
+                public void deleteMetadata(final SpreadsheetId id) {
+                    store.delete(id);
                 }
             },
             Optional.empty()
+        );
+
+        this.checkEquals(
+            Lists.empty(),
+            store.all()
         );
     }
 
@@ -149,8 +143,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
                 LocalDateTime.of(1999, 12, 31, 12, 58, 59),
                 USER,
                 LocalDateTime.of(1999, 12, 31, 12, 58, 59)
-                )
-            );
+            )
+        );
     }
 
     // toString.........................................................................................................

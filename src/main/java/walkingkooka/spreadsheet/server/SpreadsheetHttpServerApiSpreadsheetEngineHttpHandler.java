@@ -111,7 +111,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     Router<HttpRequestAttribute<?>, HttpHandler> router(final SpreadsheetId id) {
         return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
             this.serverUrl,
-            this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,

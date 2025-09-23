@@ -17,16 +17,18 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -46,16 +48,6 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     implements SpreadsheetMetadataHateosResourceHandlerContext {
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
-
-    @Override
-    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetMetadataStore metadataStore() {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public SpreadsheetProvider spreadsheetProvider(final SpreadsheetId id) {
@@ -198,6 +190,72 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
 
     @Override
     public LocalDateTime now() {
+        throw new UnsupportedOperationException();
+    }
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public Set<Locale> availableLocales() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<Locale> findByLocaleText(final String text,
+                                        final int offset,
+                                        final int count) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<String> localeText(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    // ProviderContext..................................................................................................
+
+    @Override
+    public ProviderContext providerContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    // SpreadsheetContext...............................................................................................
+
+    @Override
+    public SpreadsheetMetadata createMetadata(final EmailAddress user,
+                                              final Optional<Locale> locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteMetadata(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                   final int offset,
+                                                                   final int count) {
         throw new UnsupportedOperationException();
     }
 }

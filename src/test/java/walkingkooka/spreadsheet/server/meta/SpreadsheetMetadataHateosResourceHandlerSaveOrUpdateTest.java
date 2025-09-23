@@ -28,8 +28,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.store.FakeSpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -120,30 +118,18 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return this.store;
+                public SpreadsheetMetadata createMetadata(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                    return metadata.set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                            .setCreatedBy(creator)
+                            .setModifiedBy(creator)
+                    ).setOrRemove(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        locale.orElse(null)
+                    );
                 }
-
-                @Override
-                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                    return this.store.save(metadata);
-                }
-
-                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                    @Override
-                    public SpreadsheetMetadata create(final EmailAddress creator,
-                                                      final Optional<Locale> locale) {
-                        return metadata.set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                .setCreatedBy(creator)
-                                .setModifiedBy(creator)
-                        ).setOrRemove(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.orElse(null)
-                        );
-                    }
-                };
 
                 @Override
                 public Optional<EmailAddress> user() {
@@ -173,30 +159,18 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return this.store;
+                public SpreadsheetMetadata createMetadata(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                    return metadata.set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                            .setCreatedBy(creator)
+                            .setModifiedBy(creator)
+                    ).set(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        locale.get()
+                    );
                 }
-
-                @Override
-                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                    return this.store.save(metadata);
-                }
-
-                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                    @Override
-                    public SpreadsheetMetadata create(final EmailAddress creator,
-                                                      final Optional<Locale> locale) {
-                        return metadata.set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                .setCreatedBy(creator)
-                                .setModifiedBy(creator)
-                        ).set(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.get()
-                        );
-                    }
-                };
 
                 @Override
                 public Optional<EmailAddress> user() {
@@ -222,30 +196,18 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return this.store;
+                public SpreadsheetMetadata createMetadata(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                    return metadata.set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                            .setCreatedBy(creator)
+                            .setModifiedBy(creator)
+                    ).setOrRemove(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        locale.orElse(null)
+                    );
                 }
-
-                @Override
-                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                    return this.store.save(metadata);
-                }
-
-                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                    @Override
-                    public SpreadsheetMetadata create(final EmailAddress creator,
-                                                      final Optional<Locale> locale) {
-                        return metadata.set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                .setCreatedBy(creator)
-                                .setModifiedBy(creator)
-                        ).setOrRemove(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.orElse(null)
-                        );
-                    }
-                };
 
                 @Override
                 public Optional<EmailAddress> user() {

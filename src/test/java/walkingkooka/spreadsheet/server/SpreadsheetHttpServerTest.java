@@ -29,12 +29,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
-import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.locale.LocaleContexts;
-import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.RelativeUrl;
@@ -42,7 +37,6 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
@@ -99,6 +93,7 @@ import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -168,7 +163,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -1209,8 +1203,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             "",
             HttpStatusCode.NO_CONTENT.status()
-                .setMessage("Unable to load spreadsheet 99"),
-            "Unable to load spreadsheet 99"
+                .setMessage("SpreadsheetMetadata: Missing 99"),
+            "SpreadsheetMetadata: Missing 99"
         );
     }
 
@@ -13364,7 +13358,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JSON_NODE_UNMARSHALL_CONTEXT
                 )
             ),
-            new TestSpreadsheetContext(),
+            SpreadsheetContexts.basic(
+                (ue, dl) -> this.createMetadata(),
+                this.metadataStore,
+                LOCALE_CONTEXT,
+                ProviderContexts.basic(
+                    ConverterContexts.fake(), // CanConvert
+                    EnvironmentContexts.map(
+                        EnvironmentContexts.empty(
+                            LOCALE,
+                            NOW,
+                            Optional.of(USER)
+                        )
+                    ),
+                    SpreadsheetHttpServerTest.this.httpServer.pluginStore
+                )
+            ),
             this::spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToRepository,
             this::fileServer,
@@ -13372,81 +13381,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
         this.httpServer.start();
         return this.httpServer;
-    }
-    
-    final class TestSpreadsheetContext implements SpreadsheetContext,
-        LocaleContextDelegator {
-
-        @Override
-        public SpreadsheetMetadata createMetadata(final EmailAddress emailAddress,
-                                                  final Optional<Locale> locale) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void deleteMetadata(final SpreadsheetId id) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
-                                                                                 final int offset,
-                                                                                 final int count) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
-            return this.localeContext.dateTimeSymbolsForLocale(locale);
-        }
-
-        @Override
-        public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
-            return this.localeContext.decimalNumberSymbolsForLocale(locale);
-        }
-
-        @Override
-        public Locale locale() {
-            return this.localeContext.locale();
-        }
-
-        @Override
-        public SpreadsheetContext setLocale(final Locale locale) {
-            this.localeContext = this.localeContext.setLocale(locale);
-            return this;
-        }
-        
-        @Override
-        public LocaleContext localeContext() {
-            return this.localeContext;
-        }
-
-        private LocaleContext localeContext = LocaleContexts.jre(LOCALE);
-
-        @Override
-        public ProviderContext providerContext() {
-            return ProviderContexts.basic(
-                ConverterContexts.fake(), // CanConvert
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        LOCALE,
-                        NOW,
-                        Optional.of(USER)
-                    )
-                ),
-                SpreadsheetHttpServerTest.this.httpServer.pluginStore
-            );
-        }
     }
 
     private TestHttpServer startServerAndCreateEmptySpreadsheet() {

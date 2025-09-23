@@ -26,16 +26,16 @@ import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -69,15 +69,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+
                 @Override
-                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                    checkEquals(id, i, "spreadsheetId");
-                    return new FakeSpreadsheetStoreRepository() {
-                        @Override
-                        public SpreadsheetMetadataStore metadatas() {
-                            return SpreadsheetMetadataTesting.spreadsheetMetadataStore();
-                        }
-                    };
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    return Optional.empty();
                 }
             },
             MissingStoreException.class
@@ -98,15 +93,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+
                 @Override
-                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                    checkEquals(id, i, "spreadsheetId");
-                    return new FakeSpreadsheetStoreRepository() {
-                        @Override
-                        public SpreadsheetMetadataStore metadatas() {
-                            return store;
-                        }
-                    };
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    return store.load(id);
                 }
             },
             Optional.of(metadata)
@@ -132,9 +122,16 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             ),
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return store;
+                public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                               final int offset,
+                                                                               final int count) {
+                    return store.findByName(
+                        name,
+                        offset,
+                        count
+                    );
                 }
             },
             Optional.of(
@@ -170,8 +167,14 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return store;
+                public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                               final int offset,
+                                                                               final int count) {
+                    return store.findByName(
+                        name,
+                        offset,
+                        count
+                    );
                 }
             },
             Optional.of(
@@ -209,8 +212,14 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return store;
+                public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                               final int offset,
+                                                                               final int count) {
+                    return store.findByName(
+                        name,
+                        offset,
+                        count
+                    );
                 }
             },
             Optional.of(
@@ -251,8 +260,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return store;
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    return store.load(id);
                 }
             },
             Optional.of(all)
@@ -262,6 +271,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     private SpreadsheetMetadata metadata(final long id) {
         return SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_NAME, SpreadsheetName.with("Spreadsheet" + id))
             .set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                 AuditInfo.with(

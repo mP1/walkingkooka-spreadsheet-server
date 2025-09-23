@@ -465,7 +465,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return SpreadsheetMetadataHttpHandler.with(
             api,
             this.systemSpreadsheetProvider,
-            this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,
