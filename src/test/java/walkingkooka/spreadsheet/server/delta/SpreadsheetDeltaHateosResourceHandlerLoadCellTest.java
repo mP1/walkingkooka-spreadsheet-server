@@ -39,8 +39,8 @@ import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -707,7 +707,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             Lists.of(deltaProperties)
         );
 
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
         metadataStore.save(METADATA_EN_AU);
 
         this.handleAllAndCheck(
@@ -1201,7 +1201,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 )
         );
 
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
         metadataStore.save(metadata);
 
         this.handleAllAndCheck(
@@ -1390,7 +1390,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(METADATA);
 
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {

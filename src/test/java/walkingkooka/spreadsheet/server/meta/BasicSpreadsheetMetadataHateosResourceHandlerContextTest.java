@@ -68,6 +68,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -97,9 +98,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -109,9 +110,15 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com/api987");
 
-    private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
+    private final static Function<SpreadsheetId, SpreadsheetProvider> SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION = (id) -> {
+        throw new UnsupportedOperationException();
+    };
 
-    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+    private final static Function<SpreadsheetId, SpreadsheetStoreRepository> SPREADSHEET_ID_TO_STORE_REPOSITORY = (id) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
         INDENTATION,
@@ -135,8 +142,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 null,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER
@@ -151,7 +158,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
                 null,
-                this::spreadsheetIdToRepository,
+                SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER
@@ -165,7 +172,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                this::spreadsheetIdToSpreadsheetProvider,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
@@ -180,8 +187,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 null,
                 SPREADSHEET_CONTEXT,
                 SPREADSHEET_PROVIDER
@@ -195,8 +202,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
                 SPREADSHEET_PROVIDER
@@ -210,8 +217,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_CONTEXT,
                 null
@@ -1059,14 +1066,16 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     }
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SERVER_URL,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
+            this.spreadsheetIdToSpreadsheetProvider(metadataStore),
+            this.spreadsheetIdToRepository(metadataStore),
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SpreadsheetContexts.basic(
                 (u, dl) -> this.createMetadata(dl),
-                METADATA_STORE,
+                metadataStore,
                 LOCALE_CONTEXT,
                 providerContext
             ),
@@ -1092,8 +1101,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         return metadata;
     }
 
-    private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
-        return METADATA_STORE.loadOrFail(id)
+    private Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider(final SpreadsheetMetadataStore store) {
+        return (id) -> store.loadOrFail(id)
             .spreadsheetProvider(
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
@@ -1125,73 +1134,72 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             );
     }
 
-    private SpreadsheetStoreRepository spreadsheetIdToRepository(final SpreadsheetId id) {
-        Objects.requireNonNull(id, "id");
+    private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository(final SpreadsheetMetadataStore store) {
+        final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = Maps.sorted();
 
-        SpreadsheetStoreRepository repository = this.spreadsheetIdToRepository.get(id);
+        return (final SpreadsheetId id) -> {
+            SpreadsheetStoreRepository repository = spreadsheetIdToRepository.get(id);
 
-        if (null == repository) {
-            final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
-            final LocalDateTime now = NOW.now();
+            if (null == repository) {
+                final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
+                final LocalDateTime now = NOW.now();
 
-            final Locale locale = LOCALE;
+                final Locale locale = LOCALE;
 
-            METADATA_STORE.save(
-                SpreadsheetMetadataTesting.METADATA_EN_AU
-                    .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
-                    .set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        AuditInfo.with(
-                            creator,
-                            now,
-                            creator,
-                            now
-                        )
-                    ).set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
-                    .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
-                    .loadFromLocale(
-                        LocaleContexts.jre(locale)
-                    ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
-                    .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS, DECIMAL_NUMBER_SYMBOLS)
-                    .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
-                    .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
-                    .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)"))
-                    .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
-                    .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
-                    .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                    .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))
-                    .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 20)
-                    .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy mm dd").spreadsheetFormatterSelector())
-                    .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("\"Date\" yyyy mm dd").spreadsheetParserSelector())
-                    .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("\"DateTime\" yyyy hh").spreadsheetFormatterSelector())
-                    .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("\"DateTime\" yyyy hh").spreadsheetParserSelector())
-                    .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("\"Number\" 000.000").spreadsheetFormatterSelector())
-                    .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("\"Number\" 000.000").spreadsheetParserSelector())
-                    .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.parseTextFormatPattern("\"Text\" @").spreadsheetFormatterSelector())
-                    .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" ss hh").spreadsheetFormatterSelector())
-                    .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("\"Time\" ss hh").spreadsheetParserSelector()));
-            repository = SpreadsheetStoreRepositories.basic(
-                SpreadsheetCellStores.treeMap(),
-                SpreadsheetCellReferencesStores.treeMap(),
-                SpreadsheetColumnStores.treeMap(),
-                SpreadsheetFormStores.treeMap(),
-                SpreadsheetGroupStores.treeMap(),
-                SpreadsheetLabelStores.treeMap(),
-                SpreadsheetLabelReferencesStores.treeMap(),
-                METADATA_STORE,
-                SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetRowStores.treeMap(),
-                Storages.tree(),
-                SpreadsheetUserStores.treeMap()
-            );
-            this.spreadsheetIdToRepository.put(id, repository);
-        }
-
-        return repository;
+                store.save(
+                    SpreadsheetMetadataTesting.METADATA_EN_AU
+                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
+                        .set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AuditInfo.with(
+                                creator,
+                                now,
+                                creator,
+                                now
+                            )
+                        ).set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+                        .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+                        .loadFromLocale(
+                            LocaleContexts.jre(locale)
+                        ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+                        .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS, DECIMAL_NUMBER_SYMBOLS)
+                        .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
+                        .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
+                        .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)"))
+                        .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
+                        .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
+                        .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
+                        .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))
+                        .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 20)
+                        .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy mm dd").spreadsheetFormatterSelector())
+                        .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("\"Date\" yyyy mm dd").spreadsheetParserSelector())
+                        .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("\"DateTime\" yyyy hh").spreadsheetFormatterSelector())
+                        .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("\"DateTime\" yyyy hh").spreadsheetParserSelector())
+                        .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("\"Number\" 000.000").spreadsheetFormatterSelector())
+                        .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("\"Number\" 000.000").spreadsheetParserSelector())
+                        .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.parseTextFormatPattern("\"Text\" @").spreadsheetFormatterSelector())
+                        .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" ss hh").spreadsheetFormatterSelector())
+                        .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("\"Time\" ss hh").spreadsheetParserSelector()));
+                repository = SpreadsheetStoreRepositories.basic(
+                    SpreadsheetCellStores.treeMap(),
+                    SpreadsheetCellReferencesStores.treeMap(),
+                    SpreadsheetColumnStores.treeMap(),
+                    SpreadsheetFormStores.treeMap(),
+                    SpreadsheetGroupStores.treeMap(),
+                    SpreadsheetLabelStores.treeMap(),
+                    SpreadsheetLabelReferencesStores.treeMap(),
+                    store,
+                    SpreadsheetCellRangeStores.treeMap(),
+                    SpreadsheetCellRangeStores.treeMap(),
+                    SpreadsheetRowStores.treeMap(),
+                    Storages.tree(),
+                    SpreadsheetUserStores.treeMap()
+                );
+                spreadsheetIdToRepository.put(id, repository);
+            }
+            return repository;
+        };
     }
-
-    private final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = Maps.sorted();
 
     private SpreadsheetId spreadsheetId() {
         return SpreadsheetId.with(0x123def);

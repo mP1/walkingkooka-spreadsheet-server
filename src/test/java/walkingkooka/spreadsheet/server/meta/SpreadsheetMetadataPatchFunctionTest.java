@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
@@ -64,7 +65,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     @Test
     public void testApplyLoadFails() {
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
             @Override
@@ -105,7 +106,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     @Test
     public void testApply() {
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
 
         final Locale locale = Locale.forLanguageTag("EN-AU");
 

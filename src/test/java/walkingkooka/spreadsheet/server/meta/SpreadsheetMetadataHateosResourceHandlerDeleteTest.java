@@ -25,8 +25,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -87,7 +87,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
         final SpreadsheetId id = SpreadsheetId.with(111);
         final SpreadsheetMetadata metadata = this.metadata(id.value());
 
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(metadata);
 
         this.handleOneAndCheck(
