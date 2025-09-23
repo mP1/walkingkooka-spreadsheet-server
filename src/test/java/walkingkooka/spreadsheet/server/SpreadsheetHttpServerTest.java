@@ -32,6 +32,7 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.AbsoluteUrl;
@@ -41,6 +42,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
@@ -319,7 +321,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 null,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -339,7 +340,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 Url.parseAbsolute("https://example.com/path123"),
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -365,7 +365,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 Url.parseAbsolute("https://example.com?path123"),
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -391,7 +390,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 Url.parseAbsolute("https://example.com#fragment456"),
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -417,27 +415,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 null,
-                LOCALE_CONTEXT,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullLocaleContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                null,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -457,7 +434,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 null,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -477,7 +453,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -497,7 +472,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 null,
@@ -517,7 +491,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -537,7 +510,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -557,7 +529,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -577,7 +548,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -597,7 +567,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                LOCALE_CONTEXT,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -13375,7 +13344,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HostAddress.with("example.com")
             ),
             MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
             SpreadsheetProviders.basic(
                 CONVERTER_PROVIDER,
                 EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
@@ -13396,46 +13364,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JSON_NODE_UNMARSHALL_CONTEXT
                 )
             ),
-            new FakeSpreadsheetContext() {
-
-                @Override
-                public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
-                    return this.localeContext.dateTimeSymbolsForLocale(locale);
-                }
-
-                @Override
-                public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
-                    return this.localeContext.decimalNumberSymbolsForLocale(locale);
-                }
-
-                @Override
-                public Locale locale() {
-                    return this.localeContext.locale();
-                }
-
-                @Override
-                public SpreadsheetContext setLocale(final Locale locale) {
-                    this.localeContext = this.localeContext.setLocale(locale);
-                    return this;
-                }
-
-                private LocaleContext localeContext = LocaleContexts.jre(LOCALE);
-
-                @Override
-                public ProviderContext providerContext() {
-                    return ProviderContexts.basic(
-                        ConverterContexts.fake(), // CanConvert
-                        EnvironmentContexts.map(
-                            EnvironmentContexts.empty(
-                                LOCALE,
-                                NOW,
-                                Optional.of(USER)
-                            )
-                        ),
-                        SpreadsheetHttpServerTest.this.httpServer.pluginStore
-                    );
-                }
-            },
+            new TestSpreadsheetContext(),
             this::spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToRepository,
             this::fileServer,
@@ -13443,6 +13372,81 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
         this.httpServer.start();
         return this.httpServer;
+    }
+    
+    final class TestSpreadsheetContext implements SpreadsheetContext,
+        LocaleContextDelegator {
+
+        @Override
+        public SpreadsheetMetadata createMetadata(final EmailAddress emailAddress,
+                                                  final Optional<Locale> locale) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void deleteMetadata(final SpreadsheetId id) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                                 final int offset,
+                                                                                 final int count) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+            return this.localeContext.dateTimeSymbolsForLocale(locale);
+        }
+
+        @Override
+        public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+            return this.localeContext.decimalNumberSymbolsForLocale(locale);
+        }
+
+        @Override
+        public Locale locale() {
+            return this.localeContext.locale();
+        }
+
+        @Override
+        public SpreadsheetContext setLocale(final Locale locale) {
+            this.localeContext = this.localeContext.setLocale(locale);
+            return this;
+        }
+        
+        @Override
+        public LocaleContext localeContext() {
+            return this.localeContext;
+        }
+
+        private LocaleContext localeContext = LocaleContexts.jre(LOCALE);
+
+        @Override
+        public ProviderContext providerContext() {
+            return ProviderContexts.basic(
+                ConverterContexts.fake(), // CanConvert
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LOCALE,
+                        NOW,
+                        Optional.of(USER)
+                    )
+                ),
+                SpreadsheetHttpServerTest.this.httpServer.pluginStore
+            );
+        }
     }
 
     private TestHttpServer startServerAndCreateEmptySpreadsheet() {
