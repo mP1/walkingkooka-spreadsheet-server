@@ -75,24 +75,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 null,
-                LOCALE_CONTEXT,
-                SYSTEM_PROVIDER,
-                METADATA_STORE,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullLocaleContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHttpHandler.with(
-                SERVER_URL,
-                null,
                 SYSTEM_PROVIDER,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -109,7 +91,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                LOCALE_CONTEXT,
                 null,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -126,7 +107,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -143,7 +123,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
                 METADATA_STORE,
                 null,
@@ -161,7 +140,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -178,7 +156,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -195,7 +172,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER,
                 METADATA_STORE,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -217,7 +193,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
             SERVER_URL,
-            LOCALE_CONTEXT,
             SYSTEM_PROVIDER,
             METADATA_STORE,
             SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,

@@ -23,7 +23,6 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -93,7 +92,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
      */
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl serverUrl,
-                                                                     final LocaleContext localeContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
@@ -101,7 +99,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final SpreadsheetContext spreadsheetContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
         Objects.requireNonNull(serverUrl, "serverUrl");
-        Objects.requireNonNull(localeContext, "localeContext");
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
@@ -111,7 +108,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
             serverUrl,
-            localeContext,
             metadataStore,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
@@ -122,7 +118,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl serverUrl,
-                                                                 final LocaleContext localeContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
@@ -132,8 +127,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         super();
 
         this.serverUrl = serverUrl;
-
-        this.localeContext = localeContext;
 
         this.metadataStore = metadataStore;
 
@@ -268,7 +261,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     providerContext.user() // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1860
                 )
             ),
-            this.localeContext,
             spreadsheetContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
@@ -283,8 +275,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             this.systemSpreadsheetProvider
         );
     }
-
-    private final LocaleContext localeContext;
 
     private final SpreadsheetContext spreadsheetContext;
 
@@ -391,7 +381,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             this :
             new BasicSpreadsheetMetadataHateosResourceHandlerContext(
                 this.serverUrl,
-                this.localeContext,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
