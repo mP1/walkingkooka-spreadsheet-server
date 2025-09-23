@@ -255,10 +255,7 @@ public class TestGwtTest extends GWTTestCase {
             .set(SpreadsheetMetadataPropertyName.VALIDATION_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
-            metadata,
-            () -> now
-        );
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         final SpreadsheetStoreRepository repo = SpreadsheetStoreRepositories.basic(
             SpreadsheetCellStores.treeMap(),
