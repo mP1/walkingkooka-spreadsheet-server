@@ -1175,7 +1175,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
             final LocalDateTime now = NOW.now();
 
-            final Locale locale = Locale.ENGLISH;
+            final Locale locale = LOCALE;
 
             METADATA_STORE.save(
                 SpreadsheetMetadataTesting.METADATA_EN_AU

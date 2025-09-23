@@ -31,7 +31,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -96,7 +95,7 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
                     EmailAddress.parse("modified@example.com"),
                     LocalDateTime.of(2000, 1, 2, 12, 58, 59)
                 )
-            ).set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH);
+            ).set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
     }
 
     final SpreadsheetId spreadsheetId() {

@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Optional;
 
 public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends SpreadsheetMetadataHateosResourceHandlersTestCase2<SpreadsheetMetadataHateosResourceHandlerDelete> {
@@ -129,7 +128,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
                     USER,
                     LocalDateTime.of(2024, 4, 2, 15, 25, 0)
                 )
-            ).set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH);
+            ).set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
     }
 
     @Override

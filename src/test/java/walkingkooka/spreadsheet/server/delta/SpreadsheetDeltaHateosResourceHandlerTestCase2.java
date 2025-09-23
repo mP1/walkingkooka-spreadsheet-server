@@ -235,8 +235,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    final static Locale LOCALE = Locale.ENGLISH;
-
     final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)");
 
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY

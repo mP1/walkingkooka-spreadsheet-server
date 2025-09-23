@@ -36,7 +36,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -271,7 +270,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                     USER,
                     LocalDateTime.of(2024, 4, 2, 15, 25, 0)
                 )
-            ).set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH);
+            ).set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
     }
 
     // helpers..........................................................................................................
