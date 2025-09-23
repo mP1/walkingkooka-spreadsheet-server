@@ -106,6 +106,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetMetadataHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
 
+    private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com/api987");
+
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
@@ -144,7 +146,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullMetadataStoreFails() {
-        final AbsoluteUrl serverUrl = this.base();
+        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -161,7 +163,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
-        final AbsoluteUrl serverUrl = this.base();
+        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -178,7 +180,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSpreadsheetIdRepositoryFails() {
-        final AbsoluteUrl serverUrl = this.base();
+        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -195,7 +197,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
-        final AbsoluteUrl serverUrl = this.base();
+        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -212,7 +214,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSpreadsheetContextFails() {
-        final AbsoluteUrl serverUrl = this.base();
+        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -229,7 +231,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSystemSpreadsheetProviderFails() {
-        final AbsoluteUrl serverUrl = this.base();
+        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -1070,7 +1072,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-            this.base(),
+            SERVER_URL,
             METADATA_STORE,
             this::spreadsheetIdToSpreadsheetProvider,
             this::spreadsheetIdToRepository,
@@ -1097,10 +1099,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             },
             SPREADSHEET_PROVIDER
         );
-    }
-
-    private AbsoluteUrl base() {
-        return Url.parseAbsolute("https://example.com/api987");
     }
 
     private SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
