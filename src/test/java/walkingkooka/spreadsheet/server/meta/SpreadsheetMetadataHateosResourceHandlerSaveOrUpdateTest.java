@@ -278,7 +278,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "create/saveMetadata"
+            "saveUpdateMetadata"
         );
     }
 
