@@ -42,10 +42,6 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.meta.store.FakeSpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -128,28 +124,18 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     public void testHandleOneLoadGet() {
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+
                 @Override
-                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                    checkEquals(SPREADSHEET_ID, id, "id");
-                    return new FakeSpreadsheetStoreRepository() {
-                        @Override
-                        public SpreadsheetMetadataStore metadatas() {
-                            return new FakeSpreadsheetMetadataStore() {
-                                @Override
-                                public Optional<SpreadsheetMetadata> load(final SpreadsheetId id) {
-                                    return Optional.of(
-                                        SpreadsheetMetadata.EMPTY.set(
-                                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                            SPREADSHEET_ID
-                                        ).set(
-                                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                            AUDIT_INFO
-                                        )
-                                    );
-                                }
-                            };
-                        }
-                    };
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    return Optional.of(
+                        SpreadsheetMetadata.EMPTY.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SPREADSHEET_ID
+                        ).set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AUDIT_INFO
+                        )
+                    );
                 }
             },
             HttpMethod.GET,
@@ -172,34 +158,29 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     public void testHandleOneLoadGetAll() {
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
-
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return new FakeSpreadsheetMetadataStore() {
-
-                        @Override
-                        public List<SpreadsheetMetadata> values(final int offset,
-                                                                final int count) {
-                            checkEquals(0, offset, "offset");
-                            checkEquals(5, count, "count");
-                            return Lists.of(
-                                SpreadsheetMetadata.EMPTY.set(
-                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                    SpreadsheetId.with(1)
-                                ).set(
-                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                    AUDIT_INFO
-                                ),
-                                SpreadsheetMetadata.EMPTY.set(
-                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                    SpreadsheetId.with(2)
-                                ).set(
-                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                    AUDIT_INFO
-                                )
-                            );
-                        }
-                    };
+                public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                               final int offset,
+                                                                               final int count) {
+                    checkEquals("", name, "name");
+                    checkEquals(0, offset, "offset");
+                    checkEquals(5, count, "count");
+                    return Lists.of(
+                        SpreadsheetMetadata.EMPTY.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SpreadsheetId.with(1)
+                        ).set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AUDIT_INFO
+                        ),
+                        SpreadsheetMetadata.EMPTY.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SpreadsheetId.with(2)
+                        ).set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AUDIT_INFO
+                        )
+                    );
                 }
             },
             HttpMethod.GET,
@@ -235,36 +216,19 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetMetadataStore metadataStore() {
-                    return this.store;
-                }
-
-                @Override
-                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                    return this.store.save(
-                        metadata.set(
-                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                            SPREADSHEET_ID
-                        )
+                public SpreadsheetMetadata createMetadata(final EmailAddress user,
+                                                          final Optional<Locale> locale) {
+                    return SpreadsheetMetadata.EMPTY.set(
+                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                        SPREADSHEET_ID
+                    ).set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        AUDIT_INFO.setCreatedBy(user)
+                    ).setOrRemove(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        locale.orElse(null)
                     );
                 }
-
-                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                    @Override
-                    public SpreadsheetMetadata create(final EmailAddress creator,
-                                                      final Optional<Locale> locale) {
-                        return SpreadsheetMetadata.EMPTY.set(
-                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                            SPREADSHEET_ID
-                        ).set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AUDIT_INFO.setCreatedBy(creator)
-                        ).setOrRemove(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.orElse(null)
-                        );
-                    }
-                };
 
                 @Override
                 public Optional<EmailAddress> user() {
@@ -370,22 +334,15 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
-                @Override
-                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                    checkEquals(SPREADSHEET_ID, id, "id");
-                    return new FakeSpreadsheetStoreRepository() {
-                        @Override
-                        public SpreadsheetMetadataStore metadatas() {
-                            return new FakeSpreadsheetMetadataStore() {
 
-                                @Override
-                                public void delete(final SpreadsheetId id) {
-                                    checkEquals(SPREADSHEET_ID, id, "id");
-                                    SpreadsheetMetadataHateosResourceHandlersRouterTest.this.deleted = true;
-                                }
-                            };
-                        }
-                    };
+                @Override
+                public void deleteMetadata(final SpreadsheetId id) {
+                    checkEquals(
+                        SPREADSHEET_ID,
+                        id,
+                        "id"
+                    );
+                    SpreadsheetMetadataHateosResourceHandlersRouterTest.this.deleted = true;
                 }
             },
             HttpMethod.DELETE,

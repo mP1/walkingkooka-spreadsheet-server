@@ -25,8 +25,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -38,20 +37,11 @@ import java.util.function.Function;
  * A {@link Context} for spreadsheets.
  */
 public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
-    EnvironmentContext {
+    EnvironmentContext,
+    SpreadsheetContext {
 
     @Override
     SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
-
-    /**
-     * Saves the given {@link SpreadsheetMetadata}.
-     */
-    SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata);
-
-    /**
-     * Returns the {@link SpreadsheetMetadataStore}.
-     */
-    SpreadsheetMetadataStore metadataStore();
 
     /**
      * Returns a {@link Function} which knows the available {@link SpreadsheetProvider} for the given {@link SpreadsheetId}

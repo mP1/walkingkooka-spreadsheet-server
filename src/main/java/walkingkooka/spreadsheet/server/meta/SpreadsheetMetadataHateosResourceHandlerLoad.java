@@ -29,7 +29,6 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
-import walkingkooka.store.MissingStoreException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -59,13 +58,9 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Optional<SpreadsheetMetadata> loaded = context.storeRepository(id)
-            .metadatas()
-            .load(id);
-        if (!loaded.isPresent()) {
-            throw new MissingStoreException("Unable to load spreadsheet " + id);
-        }
-        return loaded;
+        return Optional.of(
+            context.loadMetadataOrFail(id)
+        );
     }
 
     @Override
@@ -85,14 +80,14 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
         all.addAll(
-            context.metadataStore()
-                .values(
-                    offset,
-                    Math.min(
-                        MAX_COUNT,
-                        count
-                    )
+            context.findMetadataBySpreadsheetName(
+                "",
+                offset,
+                Math.min(
+                    MAX_COUNT,
+                    count
                 )
+            )
         );
 
         return Optional.of(
@@ -119,10 +114,9 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkContext(context);
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
-        final SpreadsheetMetadataStore store = context.metadataStore();
 
         for (final SpreadsheetId id : ids) {
-            store.load(id)
+            context.loadMetadata(id)
                 .ifPresent(all::add);
         }
 

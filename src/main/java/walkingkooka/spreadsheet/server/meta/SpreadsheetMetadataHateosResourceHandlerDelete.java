@@ -57,9 +57,7 @@ final class SpreadsheetMetadataHateosResourceHandlerDelete extends SpreadsheetMe
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        context.storeRepository(id)
-            .metadatas()
-            .delete(id);
+        context.deleteMetadata(id);
         return Optional.empty();
     }
 

@@ -63,6 +63,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -134,23 +135,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 null,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullMetadataStoreFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                SERVER_URL,
-                null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -166,7 +150,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -182,7 +165,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -198,7 +180,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 null,
@@ -214,7 +195,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -230,7 +210,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 SERVER_URL,
-                METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -838,10 +817,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         this.checkEquals(
             updatedTimestamp,
-            context.metadataStore()
-                .loadOrFail(id)
-                .getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                    .modifiedTimestamp(),
+            context.loadMetadataOrFail(id)
+                .getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO).modifiedTimestamp(),
             () -> "Metadata " + SpreadsheetMetadataPropertyName.AUDIT_INFO + ".modifiedTimestamp not updated when cell saved"
         );
     }
@@ -961,13 +938,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     public void testSaveMetadata() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetMetadata metadata = context.metadataStore()
-            .create(
+        final SpreadsheetMetadata metadata = context.createMetadata(
                 USER,
-                Optional.empty()
-            ).set(
-                SpreadsheetMetadataPropertyName.LOCALE,
-                Locale.forLanguageTag("EN-AU")
+                Optional.of(
+                    Locale.forLanguageTag("EN-AU")
+                )
             );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetName> propertyName = SpreadsheetMetadataPropertyName.SPREADSHEET_NAME;
@@ -1010,7 +985,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     }
 
     @Test
-    public void testSaveMetadataViewportSelectionUnknownLabelCleared() {
+    public void testSaveMetadataViewportSelectionUnknownLabel() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
@@ -1026,11 +1001,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             selection
         );
 
-        final SpreadsheetMetadata saved = context.saveMetadata(updated);
-
-        this.checkEquals(
-            updated.remove(propertyName),
-            saved
+        this.saveMetadataAndCheck(
+            context,
+            updated,
+            updated
         );
     }
 
@@ -1087,30 +1061,15 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SERVER_URL,
-            METADATA_STORE,
             this::spreadsheetIdToSpreadsheetProvider,
             this::spreadsheetIdToRepository,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            new FakeSpreadsheetContext() {
-
-                @Override
-                public Locale locale() {
-                    return this.locale;
-                }
-
-                @Override
-                public SpreadsheetContext setLocale(final Locale locale) {
-                    this.locale = locale;
-                    return this;
-                }
-
-                private Locale locale = LOCALE;
-
-                @Override
-                public ProviderContext providerContext() {
-                    return providerContext;
-                }
-            },
+            SpreadsheetContexts.basic(
+                (u, dl) -> this.createMetadata(dl),
+                METADATA_STORE,
+                LOCALE_CONTEXT,
+                providerContext
+            ),
             SPREADSHEET_PROVIDER
         );
     }

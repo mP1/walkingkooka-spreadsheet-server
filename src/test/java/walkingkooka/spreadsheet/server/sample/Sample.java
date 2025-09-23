@@ -215,15 +215,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
         final Locale locale = Locale.forLanguageTag("en-AU");
 
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
-                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                AuditInfo.with(
-                    EmailAddress.parse("creator@example.com"),
-                    now,
-                    EmailAddress.parse("modified@example.com"),
-                    now
-                )
-            ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
+        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("DD/MM/YYYY hh:mm").spreadsheetFormatterSelector())
@@ -331,6 +323,20 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 )
             ),
             new FakeSpreadsheetContext() {
+
+                @Override
+                public SpreadsheetMetadata createMetadata(final EmailAddress user,
+                                                          final Optional<Locale> l) {
+                    return metadata.set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        AuditInfo.with(
+                            user,
+                            now,
+                            user,
+                            now
+                        )
+                    );
+                }
 
                 @Override
                 public ProviderContext providerContext() {
