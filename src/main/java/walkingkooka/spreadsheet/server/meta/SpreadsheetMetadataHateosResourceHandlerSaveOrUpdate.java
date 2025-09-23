@@ -99,6 +99,6 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
 
     @Override
     String operation() {
-        return "create/saveMetadata";
+        return "saveUpdateMetadata";
     }
 }
