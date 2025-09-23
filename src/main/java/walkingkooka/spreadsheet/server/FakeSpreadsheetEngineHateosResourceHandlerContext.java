@@ -125,6 +125,13 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                   final int offset,
+                                                                   final int count) {
+        throw new UnsupportedOperationException();
+    }
+
     // SpreadsheetEngineContext.........................................................................................
 
     @Override
