@@ -146,11 +146,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullMetadataStoreFails() {
-        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
+                SERVER_URL,
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -163,11 +162,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
-        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
+                SERVER_URL,
                 METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
@@ -180,11 +178,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSpreadsheetIdRepositoryFails() {
-        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
+                SERVER_URL,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
@@ -197,11 +194,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
-        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
+                SERVER_URL,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -214,11 +210,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSpreadsheetContextFails() {
-        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
+                SERVER_URL,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -231,11 +226,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullSystemSpreadsheetProviderFails() {
-        final AbsoluteUrl serverUrl = SERVER_URL;
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
+                SERVER_URL,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -771,7 +765,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.checkNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
 
             final HttpResponse response = HttpResponses.recording();
-            @SuppressWarnings("OptionalGetWithoutIsPresent") final HttpHandler httpHandler = mapped.get();
+            @SuppressWarnings("OptionalGetWithoutIsPresent")
+            final HttpHandler httpHandler = mapped.get();
             httpHandler.handle(
                 request,
                 response
@@ -834,14 +829,19 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     .setContentLength()
             );
 
-            this.checkEquals(expected, response, () -> "consumer: " + httpHandler + ", request: " + request);
+            this.checkEquals(
+                expected,
+                response,
+                () -> "consumer: " + httpHandler + ", request: " + request
+            );
         }
 
         this.checkEquals(
             updatedTimestamp,
             context.metadataStore()
                 .loadOrFail(id)
-                .getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO).modifiedTimestamp(),
+                .getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                    .modifiedTimestamp(),
             () -> "Metadata " + SpreadsheetMetadataPropertyName.AUDIT_INFO + ".modifiedTimestamp not updated when cell saved"
         );
     }
@@ -912,7 +912,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                             .setText("1+2")
                     )
             );
-        this.countAndCheck(repository.cells(), 1);
+        this.countAndCheck(
+            repository.cells(),
+            1
+        );
     }
 
     @Test
@@ -925,7 +928,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final SpreadsheetId id2 = SpreadsheetId.with(222);
         final SpreadsheetStoreRepository repository2 = context.storeRepository(id2);
-        this.checkNotEquals(null, repository2);
+        this.checkNotEquals(
+            null,
+            repository2
+        );
     }
 
     @Test
@@ -933,12 +939,20 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetId id1 = SpreadsheetId.with(111);
-        final SpreadsheetStoreRepository repository1 = context.storeRepository(id1);
-        assertSame(repository1, context.storeRepository(id1));
+        final SpreadsheetStoreRepository repository = context.storeRepository(id1);
+        assertSame(
+            repository,
+            context.storeRepository(id1)
+        );
     }
 
-    private void countAndCheck(final Store<?, ?> store, final int count) {
-        this.checkEquals(count, store.count(), () -> "" + store.all());
+    private void countAndCheck(final Store<?, ?> store,
+                               final int count) {
+        this.checkEquals(
+            count,
+            store.count(),
+            () -> "" + store.all()
+        );
     }
 
     // saveMetadata.....................................................................................................
