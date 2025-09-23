@@ -190,6 +190,21 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     }
 
     @Override
+    public void testFindMetadataBySpreadsheetNameWithNullNameFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testFindMetadataBySpreadsheetNameWithNegativeOffsetFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testFindMetadataBySpreadsheetNameWithNegativeCountFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testLoadMetadataWithNullIdFails() {
         throw new UnsupportedOperationException();
     }
