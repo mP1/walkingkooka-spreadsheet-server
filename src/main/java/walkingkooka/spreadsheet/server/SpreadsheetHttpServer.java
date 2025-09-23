@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlPath;
@@ -156,7 +155,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
                                              final MediaTypeDetector mediaTypeDetector,
-                                             final LocaleContext localeContext,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
@@ -168,7 +166,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return new SpreadsheetHttpServer(
             checkServerUrl(serverUrl),
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
-            Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
@@ -221,7 +218,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
                                   final MediaTypeDetector mediaTypeDetector,
-                                  final LocaleContext localeContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
@@ -233,8 +229,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         super();
 
         this.mediaTypeDetector = mediaTypeDetector;
-
-        this.localeContext = localeContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -255,7 +249,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
 
         this.localeHateosResourceHandlerContext = LocaleHateosResourceHandlerContexts.basic(
-            localeContext,
+            spreadsheetContext,
             hateosResourceHandlerContext
         );
 
@@ -515,8 +509,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private final MediaTypeDetector mediaTypeDetector;
-
-    private final LocaleContext localeContext;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
 

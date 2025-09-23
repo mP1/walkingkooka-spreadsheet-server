@@ -26,7 +26,6 @@ import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -318,7 +317,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 HostAddress.with("example.com")
             ),
             MediaTypeDetectors.fake(),
-            LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
             metadataStore,
             HateosResourceHandlerContexts.basic(
