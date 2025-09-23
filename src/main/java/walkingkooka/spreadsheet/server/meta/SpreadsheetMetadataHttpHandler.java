@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -57,7 +56,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
      * Creates a new {@link SpreadsheetMetadataHttpHandler} handler.
      */
     public static SpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
-                                                      final LocaleContext localeContext,
                                                       final SpreadsheetProvider systemSpreadsheetProvider,
                                                       final SpreadsheetMetadataStore metadataStore,
                                                       final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -66,7 +64,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
                                                       final SpreadsheetContext spreadsheetContext) {
         return new SpreadsheetMetadataHttpHandler(
             Objects.requireNonNull(serverUrl, "serverUrl"),
-            Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
@@ -80,7 +77,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
      * Private ctor
      */
     private SpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
-                                           final LocaleContext localeContext,
                                            final SpreadsheetProvider systemSpreadsheetProvider,
                                            final SpreadsheetMetadataStore metadataStore,
                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -93,7 +89,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
             serverUrl,
-            localeContext,
             metadataStore,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToStoreRepository,

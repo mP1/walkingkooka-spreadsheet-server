@@ -27,7 +27,6 @@ import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
@@ -109,8 +108,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(LOCALE);
-
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
@@ -135,7 +132,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 null,
-                LOCALE_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -145,25 +141,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             )
         );
     }
-
-    @Test
-    public void testWithNullLocaleContextFails() {
-        final AbsoluteUrl serverUrl = this.base();
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                null,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
-                SPREADSHEET_PROVIDER
-            )
-        );
-    }
-
 
     @Test
     public void testWithNullMetadataStoreFails() {
@@ -172,7 +149,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                LOCALE_CONTEXT,
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -190,7 +166,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                LOCALE_CONTEXT,
                 METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
@@ -208,7 +183,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                LOCALE_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
@@ -226,7 +200,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                LOCALE_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -244,7 +217,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                LOCALE_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -262,7 +234,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                LOCALE_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -1100,12 +1071,25 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             this.base(),
-            LOCALE_CONTEXT,
             METADATA_STORE,
             this::spreadsheetIdToSpreadsheetProvider,
             this::spreadsheetIdToRepository,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             new FakeSpreadsheetContext() {
+
+                @Override
+                public Locale locale() {
+                    return this.locale;
+                }
+
+                @Override
+                public SpreadsheetContext setLocale(final Locale locale) {
+                    this.locale = locale;
+                    return this;
+                }
+
+                private Locale locale = LOCALE;
+
                 @Override
                 public ProviderContext providerContext() {
                     return providerContext;

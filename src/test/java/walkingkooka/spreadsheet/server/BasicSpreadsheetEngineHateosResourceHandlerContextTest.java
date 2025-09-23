@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.Url;
@@ -31,6 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -39,6 +39,7 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,8 +69,21 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         },
         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
         ENVIRONMENT_CONTEXT,
-        LocaleContexts.jre(LOCALE),
         new FakeSpreadsheetContext() {
+
+            @Override
+            public Locale locale() {
+                return this.locale;
+            }
+
+            @Override
+            public SpreadsheetContext setLocale(final Locale locale) {
+                this.locale = locale;
+                return this;
+            }
+
+            private Locale locale = LOCALE;
+
             @Override
             public ProviderContext providerContext() {
                 return PROVIDER_CONTEXT;

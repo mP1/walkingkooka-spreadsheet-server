@@ -470,7 +470,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetMetadataHttpHandler.with(
             api,
-            this.localeContext,
             this.systemSpreadsheetProvider,
             this.metadataStore,
             this.spreadsheetIdToSpreadsheetProvider,

@@ -29,7 +29,11 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.RelativeUrl;
@@ -162,6 +166,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -13392,6 +13397,30 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             new FakeSpreadsheetContext() {
+
+                @Override
+                public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+                    return this.localeContext.dateTimeSymbolsForLocale(locale);
+                }
+
+                @Override
+                public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+                    return this.localeContext.decimalNumberSymbolsForLocale(locale);
+                }
+
+                @Override
+                public Locale locale() {
+                    return this.localeContext.locale();
+                }
+
+                @Override
+                public SpreadsheetContext setLocale(final Locale locale) {
+                    this.localeContext = this.localeContext.setLocale(locale);
+                    return this;
+                }
+
+                private LocaleContext localeContext = LocaleContexts.jre(LOCALE);
+
                 @Override
                 public ProviderContext providerContext() {
                     return ProviderContexts.basic(
