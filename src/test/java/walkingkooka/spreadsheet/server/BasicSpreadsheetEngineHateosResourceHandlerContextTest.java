@@ -25,12 +25,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.FakeSpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -69,7 +69,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         },
         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
         ENVIRONMENT_CONTEXT,
-        new FakeSpreadsheetContext() {
+        new FakeSpreadsheetGlobalContext() {
 
             @Override
             public Locale locale() {
@@ -77,7 +77,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             }
 
             @Override
-            public SpreadsheetContext setLocale(final Locale locale) {
+            public SpreadsheetGlobalContext setLocale(final Locale locale) {
                 this.locale = locale;
                 return this;
             }

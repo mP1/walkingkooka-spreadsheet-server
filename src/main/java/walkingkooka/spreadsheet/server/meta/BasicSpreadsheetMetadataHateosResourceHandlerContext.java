@@ -36,6 +36,8 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -43,8 +45,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
@@ -83,7 +83,7 @@ import java.util.function.Function;
 final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
     HateosResourceHandlerContextDelegator,
     EnvironmentContextDelegator,
-    SpreadsheetContextDelegator {
+    SpreadsheetGlobalContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -92,13 +92,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final SpreadsheetContext spreadsheetContext,
+                                                                     final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
-        Objects.requireNonNull(spreadsheetContext, "spreadsheetContext");
+        Objects.requireNonNull(spreadsheetGlobalContext, "spreadsheetGlobalContext");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
@@ -106,7 +106,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
             hateosResourceHandlerContext,
-            spreadsheetContext,
+            spreadsheetGlobalContext,
             systemSpreadsheetProvider
         );
     }
@@ -115,7 +115,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final SpreadsheetContext spreadsheetContext,
+                                                                 final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
 
@@ -126,7 +126,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
-        this.spreadsheetContext = spreadsheetContext;
+        this.spreadsheetGlobalContext = spreadsheetGlobalContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
@@ -173,11 +173,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
 
-        final SpreadsheetContext spreadsheetContext = this.spreadsheetContext;
+        final SpreadsheetGlobalContext spreadsheetGlobalContext = this.spreadsheetGlobalContext;
 
-        final SpreadsheetMetadata metadata = spreadsheetContext.loadMetadataOrFail(id);
+        final SpreadsheetMetadata metadata = spreadsheetGlobalContext.loadMetadataOrFail(id);
 
-        final ProviderContext providerContext = spreadsheetContext.providerContext();
+        final ProviderContext providerContext = spreadsheetGlobalContext.providerContext();
 
         final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.basic(
             this.serverUrl,
@@ -191,7 +191,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     providerContext.user() // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1860
                 )
             ),
-            spreadsheetContext,
+            spreadsheetGlobalContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
             ),
@@ -206,12 +206,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
     }
 
-    private final SpreadsheetContext spreadsheetContext;
+    private final SpreadsheetGlobalContext spreadsheetGlobalContext;
 
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-            this.spreadsheetContext.providerContext()
+            this.spreadsheetGlobalContext.providerContext()
                 .refreshModifiedAuditInfo(
                     metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
                 )
@@ -314,7 +314,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
                 after,
-                this.spreadsheetContext,
+                this.spreadsheetGlobalContext,
                 this.systemSpreadsheetProvider
             );
     }
@@ -365,14 +365,14 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // BasicSpreadsheetMetadataHateosResourceHandlerContext requires EnvironmentContext currently uses "global" ProviderContext
     @Override
     public EnvironmentContext environmentContext() {
-        return this.spreadsheetContext.providerContext();
+        return this.spreadsheetGlobalContext.providerContext();
     }
 
-    // SpreadsheetContextDelegator......................................................................................
+    // SpreadsheetGlobalContextDelegator................................................................................
 
     @Override
-    public SpreadsheetContext spreadsheetContext() {
-        return this.spreadsheetContext;
+    public SpreadsheetGlobalContext spreadsheetGlobalContext() {
+        return this.spreadsheetGlobalContext;
     }
 
     // Object...........................................................................................................

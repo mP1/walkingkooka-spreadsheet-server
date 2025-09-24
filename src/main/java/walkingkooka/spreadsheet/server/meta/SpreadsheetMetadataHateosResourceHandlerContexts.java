@@ -20,8 +20,8 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -38,14 +38,14 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                         final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                        final SpreadsheetContext spreadsheetContext,
+                                                                        final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             serverUrl,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
             hateosResourceHandlerContext,
-            spreadsheetContext,
+            spreadsheetGlobalContext,
             systemSpreadsheetProvider
         );
     }
