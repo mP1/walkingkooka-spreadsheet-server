@@ -947,9 +947,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final SpreadsheetMetadata metadata = context.createMetadata(
                 USER,
-                Optional.of(
-                    Locale.forLanguageTag("EN-AU")
-                )
+                Optional.of(LOCALE)
             );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetName> propertyName = SpreadsheetMetadataPropertyName.SPREADSHEET_NAME;
@@ -973,7 +971,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
 
         final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
         final AnchoredSpreadsheetSelection selection = SpreadsheetSelection.A1.setDefaultAnchor();
@@ -996,7 +994,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
 
@@ -1020,7 +1018,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ExistingLabel123");
         context.storeRepository(metadata.id().get())
@@ -1144,8 +1142,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
                 final LocalDateTime now = NOW.now();
 
-                final Locale locale = LOCALE;
-
                 store.save(
                     SpreadsheetMetadataTesting.METADATA_EN_AU
                         .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
@@ -1158,9 +1154,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                                 now
                             )
                         ).set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
-                        .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+                        .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
                         .loadFromLocale(
-                            LocaleContexts.jre(locale)
+                            LocaleContexts.jre(LOCALE)
                         ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
                         .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS, DECIMAL_NUMBER_SYMBOLS)
                         .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
