@@ -53,7 +53,10 @@ import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.FakeSpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -61,9 +64,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
-import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -129,7 +129,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         )
     );
 
-    private final static SpreadsheetContext SPREADSHEET_CONTEXT = new FakeSpreadsheetContext() {
+    private final static SpreadsheetGlobalContext SPREADSHEET_GLOBAL_CONTEXT = new FakeSpreadsheetGlobalContext() {
         @Override
         public ProviderContext providerContext() {
             return PROVIDER_CONTEXT;
@@ -145,7 +145,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_PROVIDER
             )
         );
@@ -160,7 +160,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_PROVIDER
             )
         );
@@ -175,7 +175,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_PROVIDER
             )
         );
@@ -190,14 +190,14 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 null,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_PROVIDER
             )
         );
     }
 
     @Test
-    public void testWithNullSpreadsheetContextFails() {
+    public void testWithNullSpreadsheetGlobalContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -220,7 +220,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 null
             )
         );
@@ -1073,7 +1073,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.spreadsheetIdToSpreadsheetProvider(metadataStore),
             this.spreadsheetIdToRepository(metadataStore),
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SpreadsheetContexts.basic(
+            SpreadsheetGlobalContexts.basic(
                 (u, dl) -> this.createMetadata(dl),
                 metadataStore,
                 LOCALE_CONTEXT,

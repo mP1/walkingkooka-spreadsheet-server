@@ -24,8 +24,8 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
@@ -47,7 +47,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final SpreadsheetContext spreadsheetContext) {
+                                                                     final SpreadsheetGlobalContext spreadsheetGlobalContext) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
             serverUrl,
             systemSpreadsheetProvider,
@@ -55,7 +55,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToStoreRepository,
             hateosResourceHandlerContext,
-            spreadsheetContext
+            spreadsheetGlobalContext
         );
     }
 
@@ -68,7 +68,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final SpreadsheetContext spreadsheetContext) {
+                                                                 final SpreadsheetGlobalContext spreadsheetGlobalContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -87,7 +87,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
-        this.spreadsheetContext = spreadsheetContext;
+        this.spreadsheetGlobalContext = spreadsheetGlobalContext;
     }
 
     // Router...........................................................................................................
@@ -114,7 +114,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,
-            this.spreadsheetContext,
+            this.spreadsheetGlobalContext,
             this.systemSpreadsheetProvider
         ).httpRouter(id);
     }
@@ -130,7 +130,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
-    private final SpreadsheetContext spreadsheetContext;
+    private final SpreadsheetGlobalContext spreadsheetGlobalContext;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
 

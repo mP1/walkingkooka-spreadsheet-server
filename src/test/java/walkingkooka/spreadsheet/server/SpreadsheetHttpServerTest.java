@@ -76,6 +76,9 @@ import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.FakeSpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
@@ -91,9 +94,6 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfoSet;
-import walkingkooka.spreadsheet.meta.FakeSpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -285,7 +285,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
 
-    private final static SpreadsheetContext SPREADSHEET_CONTEXT = new FakeSpreadsheetContext() {
+    private final static SpreadsheetGlobalContext SPREADSHEET_GLOBAL_CONTEXT = new FakeSpreadsheetGlobalContext() {
         @Override
         public ProviderContext providerContext() {
             return ProviderContexts.fake();
@@ -318,7 +318,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -337,7 +337,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -362,7 +362,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -387,7 +387,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -412,7 +412,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -431,7 +431,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 null,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -450,7 +450,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -469,7 +469,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 null,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -479,7 +479,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testWithNullSpreadsheetContextFails() {
+    public void testWithNullSpreadsheetGlobalContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
@@ -507,7 +507,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -526,7 +526,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
                 FILE_SERVER,
@@ -545,7 +545,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 null,
@@ -564,7 +564,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SYSTEM_SPREADSHEET_PROVIDER,
                 METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_CONTEXT,
+                SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
@@ -13358,7 +13358,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JSON_NODE_UNMARSHALL_CONTEXT
                 )
             ),
-            SpreadsheetContexts.basic(
+            SpreadsheetGlobalContexts.basic(
                 (ue, dl) -> this.createMetadata(),
                 this.metadataStore,
                 LOCALE_CONTEXT,

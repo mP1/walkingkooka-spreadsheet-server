@@ -42,12 +42,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
-import walkingkooka.spreadsheet.meta.SpreadsheetContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
@@ -158,7 +158,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final SpreadsheetProvider systemSpreadsheetProvider,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                             final SpreadsheetContext spreadsheetContext,
+                                             final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -169,7 +169,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-            Objects.requireNonNull(spreadsheetContext, "spreadsheetContext"),
+            Objects.requireNonNull(spreadsheetGlobalContext, "spreadsheetGlobalContext"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
             Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
             Objects.requireNonNull(fileServer, "fileServer"),
@@ -221,7 +221,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                  final SpreadsheetContext spreadsheetContext,
+                                  final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -236,7 +236,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
-        this.spreadsheetContext = spreadsheetContext;
+        this.spreadsheetGlobalContext = spreadsheetGlobalContext;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
 
@@ -244,12 +244,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.spreadsheetProviderHateosResourceHandlerContext = SpreadsheetProviderHateosResourceHandlerContexts.basic(
             systemSpreadsheetProvider,
-            spreadsheetContext.providerContext(),
+            spreadsheetGlobalContext.providerContext(),
             hateosResourceHandlerContext
         );
 
         this.localeHateosResourceHandlerContext = LocaleHateosResourceHandlerContexts.basic(
-            spreadsheetContext,
+            spreadsheetGlobalContext,
             hateosResourceHandlerContext
         );
 
@@ -468,7 +468,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,
-            this.spreadsheetContext
+            this.spreadsheetGlobalContext
         );
     }
 
@@ -485,7 +485,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
-        final SpreadsheetContext spreadsheetContext = this.spreadsheetContext;
+        final SpreadsheetGlobalContext spreadsheetGlobalContext = this.spreadsheetGlobalContext;
 
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             url,
@@ -494,7 +494,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             this.spreadsheetIdToSpreadsheetProvider,
             this.spreadsheetIdToStoreRepository,
             this.hateosResourceHandlerContext,
-            spreadsheetContext
+            spreadsheetGlobalContext
         );
     }
 
@@ -502,7 +502,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return PluginHttpHandler.with(
             apiPlugin,
             this.hateosResourceHandlerContext,
-            this.spreadsheetContext.providerContext(),
+            this.spreadsheetGlobalContext.providerContext(),
             this.mediaTypeDetector
         );
     }
@@ -521,7 +521,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
-    private final SpreadsheetContext spreadsheetContext;
+    private final SpreadsheetGlobalContext spreadsheetGlobalContext;
 
     // files............................................................................................................
 

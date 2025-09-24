@@ -102,7 +102,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
-    // SpreadsheetContext...............................................................................................
+    // SpreadsheetGlobalContext.........................................................................................
 
     @Override
     public SpreadsheetMetadata createMetadata(final EmailAddress user,
