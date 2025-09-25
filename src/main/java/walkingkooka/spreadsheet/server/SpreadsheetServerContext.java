@@ -25,6 +25,7 @@ import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -35,6 +36,7 @@ import java.util.Optional;
 public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     EnvironmentContext,
     LocaleContext,
+    SpreadsheetProvider,
     HasProviderContext {
 
     @Override
