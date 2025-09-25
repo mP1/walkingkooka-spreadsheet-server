@@ -20,11 +20,12 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.FakeSpreadsheetMetadataContext;
 
 import java.util.Locale;
 import java.util.Optional;
 
-public class FakeSpreadsheetServerContext implements SpreadsheetServerContext {
+public class FakeSpreadsheetServerContext extends FakeSpreadsheetMetadataContext implements SpreadsheetServerContext {
 
     public FakeSpreadsheetServerContext() {
         super();

@@ -20,8 +20,11 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextTestingTest.TestSpreadsheetServerContext;
+import walkingkooka.store.Store;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,6 +32,8 @@ import java.util.Optional;
 public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext> {
 
     static class TestSpreadsheetServerContext extends FakeSpreadsheetServerContext {
+
+        // SpreadsheetServerContext.....................................................................................
 
         @Override
         public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
@@ -45,6 +50,50 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
             throw new UnsupportedOperationException();
         }
+
+        // SpreadsheetMetadataContext...................................................................................
+
+        @Override
+        public SpreadsheetMetadata createMetadata(final EmailAddress user,
+                                                  final Optional<Locale> locale) {
+            Objects.requireNonNull(user, "user");
+            Objects.requireNonNull(locale, "locale");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+            Objects.requireNonNull(id, "id");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+            Objects.requireNonNull(metadata, "metadata");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void deleteMetadata(final SpreadsheetId id) {
+            Objects.requireNonNull(id, "id");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                       final int offset,
+                                                                       final int count) {
+            Objects.requireNonNull(name, "name");
+            Store.checkOffsetAndCount(offset, count);
+
+            throw new UnsupportedOperationException();
+        }
+
+        // Object.......................................................................................................
 
         @Override
         public String toString() {

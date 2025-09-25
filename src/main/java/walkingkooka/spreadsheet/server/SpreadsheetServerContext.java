@@ -21,6 +21,7 @@ import walkingkooka.Context;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -28,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link Context} that holds available {@link SpreadsheetContext}.
  */
-public interface SpreadsheetServerContext extends Context {
+public interface SpreadsheetServerContext extends SpreadsheetMetadataContext {
 
     /**
      * Creates a new {@link SpreadsheetContext} and spreadsheet.

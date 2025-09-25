@@ -18,11 +18,11 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTesting;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends ContextTesting<C>,
+public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetMetadataContextTesting<C>,
     TreePrintableTesting {
 
     // createSpreadsheetContext.........................................................................................
