@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
@@ -28,7 +30,17 @@ import java.util.Locale;
 import java.util.Optional;
 
 public interface SpreadsheetServerContextDelegator extends SpreadsheetServerContext,
-    SpreadsheetMetadataContextDelegator{
+    LocaleContextDelegator,
+    SpreadsheetMetadataContextDelegator {
+
+    // LocaleContextDelegator...........................................................................................
+
+    @Override
+    default LocaleContext localeContext() {
+        return this.spreadsheetServerContext();
+    }
+
+    // SpreadsheetMetadataContextDelegator..............................................................................
 
     @Override
     default SpreadsheetMetadataContext spreadsheetMetadataContext() {

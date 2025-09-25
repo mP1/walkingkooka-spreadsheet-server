@@ -17,20 +17,61 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.locale.FakeLocaleContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.FakeSpreadsheetMetadataContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public class FakeSpreadsheetServerContext extends FakeSpreadsheetMetadataContext implements SpreadsheetServerContext {
+public class FakeSpreadsheetServerContext extends FakeLocaleContext implements SpreadsheetServerContext {
 
     public FakeSpreadsheetServerContext() {
         super();
     }
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public SpreadsheetServerContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    // SpreadsheetMetadataContext.......................................................................................
+
+    @Override
+    public SpreadsheetMetadata createMetadata(final EmailAddress user,
+                                              final Optional<Locale> locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteMetadata(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
+                                                                   final int offset,
+                                                                   final int count) {
+        throw new UnsupportedOperationException();
+    }
+
+    // SpreadsheetServerContext.........................................................................................
 
     @Override
     public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
