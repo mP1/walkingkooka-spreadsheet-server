@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Context;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.HasProviderContext;
@@ -32,6 +33,7 @@ import java.util.Optional;
  * A {@link Context} that holds available {@link SpreadsheetContext}.
  */
 public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
+    EnvironmentContext,
     LocaleContext,
     HasProviderContext {
 

@@ -49,6 +49,11 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     final static class TestSpreadsheetServerContextDelegator implements SpreadsheetServerContextDelegator {
 
         @Override
+        public SpreadsheetServerContext cloneEnvironment() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public SpreadsheetServerContext setLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
             throw new UnsupportedOperationException();
