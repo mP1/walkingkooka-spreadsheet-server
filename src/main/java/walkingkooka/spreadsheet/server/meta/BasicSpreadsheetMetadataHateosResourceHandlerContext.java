@@ -185,6 +185,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             metadata,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             SpreadsheetContexts.basic(
+                id,
                 spreadsheetGlobalContext::createMetadata, // createMetadata
                 storeRepository, // storeRepository
                 metadata.spreadsheetProvider(spreadsheetProvider),

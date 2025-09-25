@@ -297,6 +297,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             METADATA,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             SpreadsheetContexts.basic(
+                METADATA.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID),
                 (e, l) -> {
                     throw new UnsupportedOperationException();
                 },
