@@ -27,6 +27,7 @@ import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.Url;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
@@ -37,6 +38,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -52,6 +54,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.MathContext;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -131,6 +134,12 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         @Override
         public LocaleContext localeContext() {
             return LOCALE_CONTEXT;
+        }
+
+        @Override
+        public SpreadsheetMetadata createMetadata(final EmailAddress user,
+                                                  final Optional<Locale> locale) {
+            throw new UnsupportedOperationException();
         }
 
         @Override
