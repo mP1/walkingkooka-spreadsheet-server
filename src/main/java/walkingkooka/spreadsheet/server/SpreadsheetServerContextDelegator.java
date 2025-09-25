@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -48,6 +49,12 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     default Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         return this.spreadsheetServerContext()
             .spreadsheetContext(id);
+    }
+
+    @Override
+    default ProviderContext providerContext() {
+        return this.spreadsheetServerContext()
+            .providerContext();
     }
 
     SpreadsheetServerContext spreadsheetServerContext();

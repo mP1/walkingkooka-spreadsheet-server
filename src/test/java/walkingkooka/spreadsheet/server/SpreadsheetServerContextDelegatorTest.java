@@ -50,7 +50,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
 
         @Override
         public SpreadsheetServerContext spreadsheetServerContext() {
-            return new SpreadsheetServerContext() {
+            return new FakeSpreadsheetServerContext() {
                 // SpreadsheetServerContext.............................................................................
 
                 @Override

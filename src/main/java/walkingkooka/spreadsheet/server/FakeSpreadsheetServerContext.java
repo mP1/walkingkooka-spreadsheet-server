@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.FakeSpreadsheetMetadataContext;
@@ -39,6 +40,13 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetMetadataContext
 
     @Override
     public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    // HasProviderContext...............................................................................................
+
+    @Override
+    public ProviderContext providerContext() {
         throw new UnsupportedOperationException();
     }
 }
