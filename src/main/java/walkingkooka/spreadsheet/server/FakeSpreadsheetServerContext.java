@@ -17,13 +17,15 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.locale.FakeLocaleContext;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +33,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public class FakeSpreadsheetServerContext extends FakeLocaleContext implements SpreadsheetServerContext {
+public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext {
 
     public FakeSpreadsheetServerContext() {
         super();
@@ -76,6 +78,38 @@ public class FakeSpreadsheetServerContext extends FakeLocaleContext implements S
     }
 
     // LocaleContext....................................................................................................
+
+    @Override
+    public Set<Locale> availableLocales() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<Locale> findByLocaleText(final String text,
+                                        final int offset,
+                                        final int count) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<String> localeText(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public SpreadsheetServerContext setLocale(final Locale locale) {
