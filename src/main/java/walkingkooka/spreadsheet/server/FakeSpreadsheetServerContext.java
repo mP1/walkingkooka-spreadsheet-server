@@ -17,21 +17,27 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.net.email.EmailAddress;
+import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetId;
 
-public final class SpreadsheetServerContexts implements PublicStaticHelper {
+import java.util.Locale;
+import java.util.Optional;
 
-    /**
-     * {@see FakeSpreadsheetServerContext}
-     */
-    public static SpreadsheetServerContext fake() {
-        return new FakeSpreadsheetServerContext();
+public class FakeSpreadsheetServerContext implements SpreadsheetServerContext {
+
+    public FakeSpreadsheetServerContext() {
+        super();
     }
 
-    /**
-     * Stop creation
-     */
-    private SpreadsheetServerContexts() {
+    @Override
+    public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
+                                                       final Optional<Locale> locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 }
