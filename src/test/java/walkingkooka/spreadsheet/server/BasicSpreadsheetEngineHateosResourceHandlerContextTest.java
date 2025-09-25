@@ -18,6 +18,12 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.Url;
@@ -25,17 +31,22 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.FakeSpreadsheetGlobalContext;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.MathContext;
@@ -61,37 +72,88 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
         Url.parseAbsolute("https://example.com"),
         METADATA_EN_AU,
-        new FakeSpreadsheetStoreRepository() {
+        SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+        new TestSpreadsheetContext(),
+        TERMINAL_CONTEXT
+    );
+
+    final static class TestSpreadsheetContext implements SpreadsheetContext,
+        EnvironmentContextDelegator,
+        LocaleContextDelegator,
+        SpreadsheetProviderDelegator,
+        SpreadsheetMetadataContextDelegator {
+
+        @Override
+        public SpreadsheetContext cloneEnvironment() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public <T> SpreadsheetContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                          final T value) {
+            this.environmentContext.setEnvironmentValue(
+                name,
+                value
+            );
+            return this;
+        }
+
+        @Override
+        public SpreadsheetContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+            this.environmentContext.removeEnvironmentValue(name);
+            return this;
+        }
+
+        @Override
+        public EnvironmentContext environmentContext() {
+            return this.environmentContext;
+        }
+
+        private final EnvironmentContext environmentContext = EnvironmentContexts.map(ENVIRONMENT_CONTEXT);
+
+        @Override
+        public Locale locale() {
+            return this.environmentContext.locale();
+        }
+
+        @Override
+        public SpreadsheetContext setLocale(final Locale locale) {
+            this.environmentContext.setLocale(locale);
+            return this;
+        }
+
+        @Override
+        public LocaleContext localeContext() {
+            return LOCALE_CONTEXT;
+        }
+
+        @Override
+        public SpreadsheetMetadataContext spreadsheetMetadataContext() {
+            return SpreadsheetMetadataContexts.fake();
+        }
+
+        @Override
+        public SpreadsheetProvider spreadsheetProvider() {
+            return SPREADSHEET_PROVIDER;
+        }
+
+        @Override
+        public SpreadsheetStoreRepository storeRepository() {
+            return this.storeRepository;
+        }
+
+        private final SpreadsheetStoreRepository storeRepository = new FakeSpreadsheetStoreRepository() {
             @Override
             public SpreadsheetLabelStore labels() {
                 return SpreadsheetLabelStores.fake();
             }
-        },
-        SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-        ENVIRONMENT_CONTEXT,
-        new FakeSpreadsheetGlobalContext() {
+        };
 
-            @Override
-            public Locale locale() {
-                return this.locale;
-            }
-
-            @Override
-            public SpreadsheetGlobalContext setLocale(final Locale locale) {
-                this.locale = locale;
-                return this;
-            }
-
-            private Locale locale = LOCALE;
-
-            @Override
-            public ProviderContext providerContext() {
-                return PROVIDER_CONTEXT;
-            }
-        },
-        TERMINAL_CONTEXT,
-        SPREADSHEET_PROVIDER
-    );
+        @Override
+        public ProviderContext providerContext() {
+            return PROVIDER_CONTEXT;
+        }
+    }
 
     // with.............................................................................................................
 
@@ -160,32 +222,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     }
 
     @Override
-    public void testDateTimeSymbolsForLocaleWithNullFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testDecimalNumberSymbolsForLocaleWithNullFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testDeleteMetadataWithNullFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testFindByLocaleTextWithNullTextFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testFindByLocaleTextWithNegativeOffsetFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testFindByLocaleTextWithInvalidCountFails() {
         throw new UnsupportedOperationException();
     }
 
@@ -206,11 +243,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
     @Override
     public void testLoadMetadataWithNullIdFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testLocaleTextWithNullFails() {
         throw new UnsupportedOperationException();
     }
 

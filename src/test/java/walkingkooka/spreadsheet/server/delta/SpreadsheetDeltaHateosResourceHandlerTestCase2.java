@@ -22,15 +22,15 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.spreadsheet.FakeSpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
+import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -91,7 +91,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -292,101 +291,88 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     }
 
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine,
-                                                              final SpreadsheetCellStore store) {
+                                                              final SpreadsheetCellStore cellStore) {
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
             Url.parseAbsolute("https://example.com"),
             METADATA,
-            new FakeSpreadsheetStoreRepository() {
-                @Override
-                public SpreadsheetCellStore cells() {
-                    return store;
-                }
-
-                @Override
-                public SpreadsheetCellReferencesStore cellReferences() {
-                    return this.cellReferences;
-                }
-
-                private final SpreadsheetCellReferencesStore cellReferences = SpreadsheetCellReferencesStores.treeMap();
-
-                @Override
-                public SpreadsheetColumnStore columns() {
-                    return this.columnStore;
-                }
-
-                private final SpreadsheetColumnStore columnStore = SpreadsheetColumnStores.treeMap();
-
-                @Override
-                public SpreadsheetLabelStore labels() {
-                    return this.labels;
-                }
-
-                private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
-
-                @Override
-                public SpreadsheetLabelReferencesStore labelReferences() {
-                    return this.labelReferences;
-                }
-
-                private final SpreadsheetLabelReferencesStore labelReferences = SpreadsheetLabelReferencesStores.treeMap();
-
-                @Override
-                public SpreadsheetMetadataStore metadatas() {
-                    return this.metadata;
-                }
-
-                private final SpreadsheetMetadataStore metadata = SpreadsheetMetadataStores.treeMap();
-
-                @Override
-                public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
-                    return this.rangeToCells;
-                }
-
-                private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
-
-                @Override
-                public SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules() {
-                    return this.rangeToConditionalFormattingRules;
-                }
-
-                private final SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = SpreadsheetCellRangeStores.treeMap();
-
-                @Override
-                public SpreadsheetRowStore rows() {
-                    return this.rowStore;
-                }
-
-                private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
-
-                @Override
-                public Storage<StorageExpressionEvaluationContext> storage() {
-                    return Storages.fake();
-                }
-            },
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-            ENVIRONMENT_CONTEXT,
-            new FakeSpreadsheetGlobalContext() {
+            SpreadsheetContexts.basic(
+                (e, l) -> {
+                    throw new UnsupportedOperationException();
+                },
+                new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetCellStore cells() {
+                        return cellStore;
+                    }
 
-                @Override
-                public Locale locale() {
-                    return this.locale;
-                }
+                    @Override
+                    public SpreadsheetCellReferencesStore cellReferences() {
+                        return this.cellReferences;
+                    }
 
-                @Override
-                public SpreadsheetGlobalContext setLocale(final Locale locale) {
-                    this.locale = locale;
-                    return this;
-                }
+                    private final SpreadsheetCellReferencesStore cellReferences = SpreadsheetCellReferencesStores.treeMap();
 
-                private Locale locale = LOCALE;
+                    @Override
+                    public SpreadsheetColumnStore columns() {
+                        return this.columnStore;
+                    }
 
-                @Override
-                public ProviderContext providerContext() {
-                    return PROVIDER_CONTEXT;
-                }
-            },
-            TERMINAL_CONTEXT,
-            SPREADSHEET_PROVIDER
+                    private final SpreadsheetColumnStore columnStore = SpreadsheetColumnStores.treeMap();
+
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return this.labels;
+                    }
+
+                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
+
+                    @Override
+                    public SpreadsheetLabelReferencesStore labelReferences() {
+                        return this.labelReferences;
+                    }
+
+                    private final SpreadsheetLabelReferencesStore labelReferences = SpreadsheetLabelReferencesStores.treeMap();
+
+                    @Override
+                    public SpreadsheetMetadataStore metadatas() {
+                        return this.metadata;
+                    }
+
+                    private final SpreadsheetMetadataStore metadata = SpreadsheetMetadataStores.treeMap();
+
+                    @Override
+                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
+                        return this.rangeToCells;
+                    }
+
+                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
+
+                    @Override
+                    public SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules() {
+                        return this.rangeToConditionalFormattingRules;
+                    }
+
+                    private final SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = SpreadsheetCellRangeStores.treeMap();
+
+                    @Override
+                    public SpreadsheetRowStore rows() {
+                        return this.rowStore;
+                    }
+
+                    private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
+
+                    @Override
+                    public Storage<StorageExpressionEvaluationContext> storage() {
+                        return Storages.fake();
+                    }
+                },
+                SPREADSHEET_PROVIDER,
+                EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+                LOCALE_CONTEXT,
+                PROVIDER_CONTEXT
+            ),
+            TERMINAL_CONTEXT
         );
 
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {

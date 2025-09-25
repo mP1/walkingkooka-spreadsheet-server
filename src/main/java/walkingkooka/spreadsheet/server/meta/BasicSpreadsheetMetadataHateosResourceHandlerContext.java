@@ -36,6 +36,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
+import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetGlobalContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -164,7 +165,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
      * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
      */
     private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
-        final SpreadsheetStoreRepository repository = this.storeRepository(id);
+        final SpreadsheetStoreRepository storeRepository = this.storeRepository(id);
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
             SpreadsheetEngines.basic(),
@@ -182,20 +183,24 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.basic(
             this.serverUrl,
             metadata,
-            repository,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-            EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    metadata.locale(),
-                    providerContext::now, // share ProviderContext#hasNow
-                    providerContext.user() // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1860
-                )
+            SpreadsheetContexts.basic(
+                spreadsheetGlobalContext::createMetadata, // createMetadata
+                storeRepository, // storeRepository
+                metadata.spreadsheetProvider(spreadsheetProvider),
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        metadata.locale(),
+                        providerContext::now, // share ProviderContext#hasNow
+                        providerContext.user() // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1860
+                    )
+                ), // EnvironmentContext
+                spreadsheetGlobalContext, // LocaleContext
+                providerContext // ProviderContext
             ),
-            spreadsheetGlobalContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
-            ),
-            metadata.spreadsheetProvider(spreadsheetProvider)
+            )
         );
 
         return this.mappings(
