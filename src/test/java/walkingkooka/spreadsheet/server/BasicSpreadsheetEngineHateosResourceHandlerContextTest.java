@@ -32,6 +32,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -82,6 +83,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         LocaleContextDelegator,
         SpreadsheetProviderDelegator,
         SpreadsheetMetadataContextDelegator {
+
+        @Override
+        public SpreadsheetId spreadsheetId() {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public SpreadsheetContext cloneEnvironment() {
