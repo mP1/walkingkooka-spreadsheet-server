@@ -17,6 +17,9 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.email.EmailAddress;
@@ -30,8 +33,47 @@ import java.util.Locale;
 import java.util.Optional;
 
 public interface SpreadsheetServerContextDelegator extends SpreadsheetServerContext,
+    EnvironmentContextDelegator,
     LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator {
+
+    // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    default Locale locale() {
+        return this.environmentContext()
+            .locale();
+    }
+
+    @Override
+    default SpreadsheetServerContext setLocale(final Locale locale) {
+        this.environmentContext()
+            .setLocale(locale);
+        return this;
+    }
+
+    @Override
+    default <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                             final T value) {
+        this.environmentContext()
+            .setEnvironmentValue(
+                name,
+                value
+            );
+        return this;
+    }
+
+    @Override
+    default SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.environmentContext()
+            .removeEnvironmentValue(name);
+        return this;
+    }
+
+    @Override
+    default EnvironmentContext environmentContext() {
+        return this.spreadsheetServerContext();
+    }
 
     // LocaleContextDelegator...........................................................................................
 

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.FakeLocaleContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
@@ -24,14 +25,54 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 public class FakeSpreadsheetServerContext extends FakeLocaleContext implements SpreadsheetServerContext {
 
     public FakeSpreadsheetServerContext() {
         super();
+    }
+
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetServerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                            final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
+        throw new UnsupportedOperationException();
     }
 
     // LocaleContext....................................................................................................
