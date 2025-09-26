@@ -187,7 +187,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             SpreadsheetContexts.basic(
                 id,
                 storeRepository, // storeRepository
-                metadata.spreadsheetProvider(spreadsheetProvider),
+                spreadsheetProvider,
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
                         metadata.locale(),
