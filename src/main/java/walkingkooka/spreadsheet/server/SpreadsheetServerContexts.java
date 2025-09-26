@@ -17,10 +17,43 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+
+import java.util.function.Supplier;
 
 public final class SpreadsheetServerContexts implements PublicStaticHelper {
 
+    /**
+     * {@see BasicSpreadsheetServerContext}
+     */
+    public static SpreadsheetServerContext basic(final AbsoluteUrl serverUrl,
+                                                 final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository,
+                                                 final SpreadsheetProvider spreadsheetProvider,
+                                                 final EnvironmentContext environmentContext,
+                                                 final LocaleContext localeContext,
+                                                 final SpreadsheetMetadataContext spreadsheetMetadataContext,
+                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                 final ProviderContext providerContext) {
+        return BasicSpreadsheetServerContext.with(
+            serverUrl,
+            spreadsheetStoreRepository,
+            spreadsheetProvider,
+            environmentContext,
+            localeContext,
+            spreadsheetMetadataContext,
+            hateosResourceHandlerContext,
+            providerContext
+        );
+    }
+    
     /**
      * {@see FakeSpreadsheetServerContext}
      */
