@@ -51,9 +51,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
 
         try {
             final SpreadsheetMetadataHateosResourceHandlerContext context = this.context;
-            final SpreadsheetMetadata loadAndPatched = context.storeRepository(id)
-                .metadatas()
-                .loadOrFail(id);
+            final SpreadsheetMetadata loadAndPatched = context.loadMetadataOrFail(id);
             final SpreadsheetMetadata saved = context.saveMetadata(
                 loadAndPatched
                     .patch(

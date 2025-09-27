@@ -29,8 +29,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
@@ -41,6 +39,7 @@ import walkingkooka.util.FunctionTesting;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,21 +67,10 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+
             @Override
-            public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                checkEquals(ID, id, "id");
-
-                return new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetMetadataStore metadatas() {
-                        return store;
-                    }
-
-                    @Override
-                    public String toString() {
-                        return this.metadatas().toString();
-                    }
-                };
+            public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                return store.load(id);
             }
         };
 
@@ -134,24 +122,17 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
             @Override
             public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                return metadata;
+                return store.save(metadata);
             }
 
             @Override
-            public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                checkEquals(ID, id, "id");
+            public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                return store.load(id);
+            }
 
-                return new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetMetadataStore metadatas() {
-                        return store;
-                    }
-
-                    @Override
-                    public String toString() {
-                        return this.metadatas().toString();
-                    }
-                };
+            @Override
+            public String toString() {
+                return store.toString();
             }
         };
 
