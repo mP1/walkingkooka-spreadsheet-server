@@ -316,7 +316,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 null,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -335,7 +334,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Url.parseAbsolute("https://example.com/path123"),
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -360,7 +358,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Url.parseAbsolute("https://example.com?path123"),
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -385,7 +382,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Url.parseAbsolute("https://example.com#fragment456"),
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -410,7 +406,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 null,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -428,26 +423,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> SpreadsheetHttpServer.with(
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                null,
-                METADATA_STORE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullMetadataStoreFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
@@ -467,7 +442,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 null,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -486,7 +460,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -505,7 +478,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 null,
@@ -524,7 +496,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -543,7 +514,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -562,7 +532,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                METADATA_STORE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_GLOBAL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -13349,7 +13318,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SPREADSHEET_PARSER_PROVIDER,
                 VALIDATOR_PROVIDER
             ),
-            this.metadataStore,
             HateosResourceHandlerContexts.basic(
                 INDENTATION,
                 LINE_ENDING,
