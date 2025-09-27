@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.locale;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -65,6 +67,16 @@ public class FakeLocaleHateosResourceHandlerContext extends FakeHateosResourceHa
 
     @Override
     public LocaleHateosResourceHandlerContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocaleHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocaleHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         throw new UnsupportedOperationException();
     }
 }

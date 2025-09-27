@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamp
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.List;
@@ -37,6 +38,11 @@ public class FakeSpreadsheetFormatterMenuContext extends FakeSpreadsheetFormatte
 
     @Override
     public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
         throw new UnsupportedOperationException();
     }
 

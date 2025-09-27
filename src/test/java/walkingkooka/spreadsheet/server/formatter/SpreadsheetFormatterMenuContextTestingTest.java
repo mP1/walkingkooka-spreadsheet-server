@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamp
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuContextTestingTest.TestSpreadsheetFormatterMenuContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
@@ -84,6 +85,11 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
 
         @Override
         public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
             throw new UnsupportedOperationException();
         }
 

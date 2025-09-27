@@ -19,10 +19,14 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 public interface SpreadsheetFormatterMenuContext extends SpreadsheetFormatterProvider,
     SpreadsheetFormatterProviderSamplesContext {
+
+    @Override
+    SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
 
     @Override
     SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);

@@ -21,6 +21,7 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Objects;
@@ -64,7 +65,20 @@ final class BasicLocaleHateosResourceHandlerContext implements LocaleHateosResou
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
     @Override
-    public HateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+    public LocaleHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            with(
+                this.localeContext,
+                after
+            );
+    }
+
+    @Override
+    public LocaleHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
         final HateosResourceHandlerContext after = before.setPreProcessor(processor);
 

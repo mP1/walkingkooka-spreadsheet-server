@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamp
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -167,6 +168,11 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
 
         @Override
         public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
             throw new UnsupportedOperationException();
         }
 

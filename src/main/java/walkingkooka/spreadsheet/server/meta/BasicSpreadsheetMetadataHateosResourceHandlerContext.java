@@ -69,6 +69,7 @@ import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
@@ -307,6 +308,23 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     @Override
     public LineEnding lineEnding() {
         return this.hateosResourceHandlerContext.lineEnding();
+    }
+
+    @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetMetadataHateosResourceHandlerContext(
+                this.serverUrl,
+                this.spreadsheetIdToSpreadsheetProvider,
+                this.spreadsheetIdToRepository,
+                after,
+                this.spreadsheetGlobalContext,
+                this.systemSpreadsheetProvider
+            );
     }
 
     @Override
