@@ -21,11 +21,14 @@ import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -36,6 +39,7 @@ import java.util.Optional;
 public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     EnvironmentContext,
     LocaleContext,
+    HateosResourceHandlerContext,
     SpreadsheetProvider,
     HasProviderContext {
 
@@ -52,4 +56,10 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
      * Returns the {@link SpreadsheetContext} for the given {@link SpreadsheetId}.
      */
     Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id);
+
+    @Override
+    SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
+
+    @Override
+    SpreadsheetServerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

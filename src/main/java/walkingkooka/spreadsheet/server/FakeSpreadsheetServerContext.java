@@ -21,17 +21,29 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonString;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext {
 
@@ -168,6 +180,161 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     @Override
     public ProviderContext providerContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    // HateosResourceHandlerContext.....................................................................................
+
+    @Override
+    public MediaType contentType() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Indentation indentation() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshall(final Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallEnumSet(final Set<? extends Enum<?>> enumSet) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallOptional(final Optional<?> value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallOptionalWithType(final Optional<?> value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallWithType(final Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallCollection(final Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallMap(final Map<?, ?> map) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallCollectionWithType(final Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode marshallMapWithType(final Map<?, ?> map) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetServerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> T unmarshall(final JsonNode json,
+                            final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T extends Enum<T>> Set<T> unmarshallEnumSet(final JsonNode json,
+                                                        final Class<T> type,
+                                                        final Function<String, T> function) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> unmarshallOptional(final JsonNode json,
+                                              final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> unmarshallOptionalWithType(final JsonNode json) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> List<T> unmarshallList(final JsonNode json,
+                                      final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Set<T> unmarshallSet(final JsonNode json,
+                                    final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <K, V> Map<K, V> unmarshallMap(final JsonNode json,
+                                          final Class<K> type,
+                                          final Class<V> type1) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> T unmarshallWithType(final JsonNode json) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> List<T> unmarshallListWithType(final JsonNode json) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Set<T> unmarshallSetWithType(final JsonNode json) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <K, V> Map<K, V> unmarshallMapWithType(final JsonNode json) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<Class<?>> registeredType(final JsonString string) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<JsonString> typeName(final Class<?> type) {
         throw new UnsupportedOperationException();
     }
 }

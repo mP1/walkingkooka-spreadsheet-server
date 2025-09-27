@@ -23,6 +23,8 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -35,7 +37,8 @@ import java.util.Optional;
 public interface SpreadsheetServerContextDelegator extends SpreadsheetServerContext,
     EnvironmentContextDelegator,
     LocaleContextDelegator,
-    SpreadsheetMetadataContextDelegator {
+    SpreadsheetMetadataContextDelegator,
+    HateosResourceHandlerContextDelegator {
 
     // EnvironmentContextDelegator......................................................................................
 
@@ -112,4 +115,11 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     SpreadsheetServerContext spreadsheetServerContext();
+
+    // HateosResourceHandlerContextDelegator............................................................................
+
+    @Override
+    default HateosResourceHandlerContext hateosResourceHandlerContext() {
+        return this.spreadsheetServerContext();
+    }
 }
