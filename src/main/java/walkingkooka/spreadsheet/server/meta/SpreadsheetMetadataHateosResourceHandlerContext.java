@@ -26,12 +26,10 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
-import java.util.function.Function;
 
 /**
  * A {@link Context} for spreadsheets.
@@ -45,11 +43,6 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosR
 
     @Override
     SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
-
-    /**
-     * Returns a {@link Function} which knows the available {@link SpreadsheetProvider} for the given {@link SpreadsheetId}
-     */
-    SpreadsheetProvider spreadsheetProvider(final SpreadsheetId id);
 
     /**
      * A {@link Router} that can handle http requests for the given identified spreadsheet.

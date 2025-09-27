@@ -135,15 +135,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
 
-    // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
-
-    @Override
-    public SpreadsheetProvider spreadsheetProvider(final SpreadsheetId id) {
-        return this.spreadsheetIdToSpreadsheetProvider.apply(id);
-    }
-
-    private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
-
     // hateosRouter.....................................................................................................
 
     /**
@@ -213,6 +204,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             this.systemSpreadsheetProvider
         );
     }
+
+    private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
 
     private final SpreadsheetGlobalContext spreadsheetGlobalContext;
 

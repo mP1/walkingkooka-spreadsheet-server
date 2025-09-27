@@ -29,7 +29,6 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
@@ -48,11 +47,6 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     implements SpreadsheetMetadataHateosResourceHandlerContext {
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
-
-    @Override
-    public SpreadsheetProvider spreadsheetProvider(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id) {
