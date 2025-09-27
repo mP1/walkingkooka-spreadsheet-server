@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.HasProviderContext;
@@ -42,6 +43,11 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     HateosResourceHandlerContext,
     SpreadsheetProvider,
     HasProviderContext {
+
+    /**
+     * The server url.
+     */
+    AbsoluteUrl serverUrl();
 
     @Override
     SpreadsheetServerContext setLocale(final Locale locale);

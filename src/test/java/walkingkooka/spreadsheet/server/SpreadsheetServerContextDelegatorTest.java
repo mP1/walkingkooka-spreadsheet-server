@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -57,6 +58,11 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     final static class TestSpreadsheetServerContextDelegator implements SpreadsheetServerContextDelegator,
         SpreadsheetProviderDelegator,
         HateosResourceHandlerContextDelegator {
+
+        @Override
+        public AbsoluteUrl serverUrl() {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public SpreadsheetServerContext cloneEnvironment() {
