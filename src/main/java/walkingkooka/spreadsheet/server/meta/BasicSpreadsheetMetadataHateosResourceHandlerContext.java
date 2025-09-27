@@ -168,7 +168,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
      * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
      */
     private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
-        final SpreadsheetStoreRepository storeRepository = this.storeRepository(id);
+        final SpreadsheetStoreRepository storeRepository = this.spreadsheetIdToRepository.apply(id);
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
             SpreadsheetEngines.basic(),
@@ -285,12 +285,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private final AbsoluteUrl serverUrl;
     private final SpreadsheetProvider systemSpreadsheetProvider;
-
-    @Override
-    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-        return this.spreadsheetIdToRepository.apply(id);
-    }
-
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository;
 
     @Override

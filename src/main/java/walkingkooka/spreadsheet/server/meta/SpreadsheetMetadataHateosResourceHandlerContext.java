@@ -27,7 +27,6 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -56,11 +55,6 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosR
      * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */
     Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id);
-
-    /**
-     * Factory that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}
-     */
-    SpreadsheetStoreRepository storeRepository(final SpreadsheetId id);
 
     @Override
     default SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {

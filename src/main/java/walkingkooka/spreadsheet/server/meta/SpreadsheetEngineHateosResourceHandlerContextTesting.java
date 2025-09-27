@@ -64,11 +64,6 @@ public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends 
         assertThrows(NullPointerException.class, () -> this.createContext().httpRouter(null));
     }
 
-    @Test
-    default void testStoreRepositoryNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().storeRepository(null));
-    }
-
     // TypeNameTesting..................................................................................................
 
     @Override
