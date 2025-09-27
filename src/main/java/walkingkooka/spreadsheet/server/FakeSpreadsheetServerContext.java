@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.DecimalNumberSymbols;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
@@ -49,6 +50,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     public FakeSpreadsheetServerContext() {
         super();
+    }
+
+    @Override
+    public AbsoluteUrl serverUrl() {
+        throw new UnsupportedOperationException();
     }
 
     // EnvironmentContext...............................................................................................
