@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.convert.CanConvert;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -175,6 +176,12 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
+        this.engineContext.setUser(user);
+        return this;
+    }
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {

@@ -64,6 +64,12 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
+        public SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
+            Objects.requireNonNull(user, "user");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public SpreadsheetProvider spreadsheetProvider() {
             return SpreadsheetProviders.fake();
         }

@@ -26,6 +26,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -75,6 +76,7 @@ import walkingkooka.validation.form.FormName;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -346,6 +348,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
+        Objects.requireNonNull(user, "user");
 
         throw new UnsupportedOperationException();
     }
