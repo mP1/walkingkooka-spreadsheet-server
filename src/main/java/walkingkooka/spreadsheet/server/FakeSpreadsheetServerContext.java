@@ -77,6 +77,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
+        throw new UnsupportedOperationException();
+    }
+
     // LocaleContext....................................................................................................
 
     @Override

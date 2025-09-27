@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -26,6 +27,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
@@ -55,6 +57,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale);
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);

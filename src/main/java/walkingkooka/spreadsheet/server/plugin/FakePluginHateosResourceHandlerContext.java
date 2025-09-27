@@ -58,6 +58,11 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
     }
 
     @Override
+    public PluginHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public PluginHateosResourceHandlerContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }

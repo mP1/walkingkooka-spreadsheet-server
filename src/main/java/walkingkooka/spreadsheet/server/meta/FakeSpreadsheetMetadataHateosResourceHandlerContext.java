@@ -163,6 +163,11 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     }
 
     @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
         throw new UnsupportedOperationException();
     }

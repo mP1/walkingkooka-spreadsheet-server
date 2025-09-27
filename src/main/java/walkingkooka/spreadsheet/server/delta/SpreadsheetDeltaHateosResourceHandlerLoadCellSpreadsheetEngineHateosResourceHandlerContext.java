@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.convert.CanConvert;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -178,6 +179,14 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {
         return this.context.systemSpreadsheetProvider();
+    }
+
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
+        this.context.setUser(user);
+        return this;
     }
 
     @Override
