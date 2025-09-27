@@ -49,7 +49,6 @@ import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
@@ -156,7 +155,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
                                              final MediaTypeDetector mediaTypeDetector,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
-                                             final SpreadsheetMetadataStore metadataStore,
                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
                                              final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -167,7 +165,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             checkServerUrl(serverUrl),
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
-            Objects.requireNonNull(metadataStore, "metadataStore"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(spreadsheetGlobalContext, "spreadsheetGlobalContext"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
@@ -219,7 +216,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
                                   final MediaTypeDetector mediaTypeDetector,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
-                                  final SpreadsheetMetadataStore metadataStore,
                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
                                   final SpreadsheetGlobalContext spreadsheetGlobalContext,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -231,8 +227,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.mediaTypeDetector = mediaTypeDetector;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-
-        this.metadataStore = metadataStore;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
@@ -509,8 +503,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final MediaTypeDetector mediaTypeDetector;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
-
-    private final SpreadsheetMetadataStore metadataStore;
 
     private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
 
