@@ -20,11 +20,11 @@ package walkingkooka.spreadsheet.server.locale;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContextTestingTest.TestLocaleHateosResourceHandlerContext;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
@@ -52,6 +52,11 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
 
     @Override
     public void testFindByLocaleTextWithInvalidCountFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetObjectPostProcessorSame() {
         throw new UnsupportedOperationException();
     }
 
@@ -125,7 +130,14 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
         }
 
         @Override
-        public HateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        public LocaleHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+            Objects.requireNonNull(processor, "processor");
+
+            return new TestLocaleHateosResourceHandlerContext();
+        }
+
+        @Override
+        public LocaleHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
             Objects.requireNonNull(processor, "processor");
 
             return new TestLocaleHateosResourceHandlerContext();

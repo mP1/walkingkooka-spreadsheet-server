@@ -22,6 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
@@ -44,6 +45,20 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.providerContext = providerContext;
     }
+
+    @Override
+    public PluginHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            new BasicPluginHateosResourceHandlerContext(
+                after,
+                this.providerContext
+            );
+    }
+
 
     @Override
     public PluginHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {

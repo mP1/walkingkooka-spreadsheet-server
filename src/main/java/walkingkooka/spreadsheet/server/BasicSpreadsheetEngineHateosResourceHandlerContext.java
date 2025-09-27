@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -101,20 +102,6 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext.resolveLabel(labelName);
     }
 
-    @Override
-    public BasicSpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetEngineHateosResourceHandlerContext(
-                this.spreadsheetEngine,
-                after,
-                this.engineContext,
-                this.systemSpreadsheetProvider
-            );
-    }
-
     // CanConvertDelegator..............................................................................................
 
     @Override
@@ -127,6 +114,34 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
         return this.hateosResourceHandlerContext;
+    }
+
+    @Override
+    public BasicSpreadsheetEngineHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                this.spreadsheetEngine,
+                after,
+                this.engineContext,
+                this.systemSpreadsheetProvider
+            );
+    }
+
+    @Override
+    public BasicSpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                this.spreadsheetEngine,
+                after,
+                this.engineContext,
+                this.systemSpreadsheetProvider
+            );
     }
 
     // HateosResourceHandlerContext.....................................................................................

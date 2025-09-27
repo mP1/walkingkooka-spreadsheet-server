@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
@@ -98,6 +99,19 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
     }
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
+
+    @Override
+    public SpreadsheetProviderHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetProviderHateosResourceHandlerContext(
+                this.spreadsheetProvider,
+                this.providerContext,
+                after
+            );
+    }
 
     @Override
     public SpreadsheetProviderHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
