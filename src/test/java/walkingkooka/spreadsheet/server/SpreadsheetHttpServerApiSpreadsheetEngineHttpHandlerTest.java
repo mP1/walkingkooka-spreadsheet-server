@@ -321,7 +321,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             Url.parseAbsolute(SERVER_URL + "/api"),
             systemSpreadsheetProvider(),
-            this.metadataStore,
             spreadsheetIdToSpreadsheetProvider(),
             spreadsheetIdToStoreRepository(),
             HateosResourceHandlerContexts.basic(
