@@ -17,8 +17,10 @@
 
 package walkingkooka.spreadsheet.server;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextTestingTest.TestSpreadsheetServerContext;
@@ -30,6 +32,29 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext> {
+
+    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
+
+    private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
+
+    // spreadsheetContextAndCheck.......................................................................................
+
+    @Test
+    public void testSpreadsheetContextAndCheckMissing() {
+        this.spreadsheetContextAndCheck(
+            new TestSpreadsheetServerContext(),
+            SpreadsheetId.with(404)
+        );
+    }
+
+    @Test
+    public void testSpreadsheetContextAndCheck() {
+        this.spreadsheetContextAndCheck(
+            new TestSpreadsheetServerContext(),
+            SPREADSHEET_ID,
+            SPREADSHEET_CONTEXT
+        );
+    }
 
     static class TestSpreadsheetServerContext extends FakeSpreadsheetServerContext {
 
@@ -48,7 +73,11 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
             Objects.requireNonNull(id, "id");
 
-            throw new UnsupportedOperationException();
+            return Optional.ofNullable(
+                id.equals(SPREADSHEET_ID) ?
+                    SPREADSHEET_CONTEXT :
+                    null
+            );
         }
 
         // SpreadsheetMetadataContext...................................................................................
