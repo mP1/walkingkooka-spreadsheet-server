@@ -19,14 +19,10 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
-import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegatorTest.TestSpreadsheetServerContextDelegator;
 import walkingkooka.store.Store;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
@@ -54,9 +50,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         return TestSpreadsheetServerContextDelegator.class;
     }
 
-    final static class TestSpreadsheetServerContextDelegator implements SpreadsheetServerContextDelegator,
-        SpreadsheetProviderDelegator,
-        HateosResourceHandlerContextDelegator {
+    final static class TestSpreadsheetServerContextDelegator implements SpreadsheetServerContextDelegator {
 
         @Override
         public SpreadsheetServerContext cloneEnvironment() {
@@ -73,11 +67,6 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         public SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
             Objects.requireNonNull(user, "user");
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SpreadsheetProvider spreadsheetProvider() {
-            return SpreadsheetProviders.fake();
         }
 
         @Override
