@@ -279,9 +279,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             MediaType.BINARY;
 
     private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
-
-    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
-
+    
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
 
     private final static SpreadsheetGlobalContext SPREADSHEET_GLOBAL_CONTEXT = new FakeSpreadsheetGlobalContext() {
