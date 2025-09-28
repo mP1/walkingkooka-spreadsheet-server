@@ -26,6 +26,8 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlFragment;
+import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -40,6 +42,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -67,8 +70,20 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                               final HateosResourceHandlerContext hateosResourceHandlerContext,
                                               final ProviderContext providerContext) {
+        Objects.requireNonNull(serverUrl, "serverUrl");
+
+        if (false == serverUrl.path().equals(walkingkooka.net.UrlPath.EMPTY)) {
+            throw reportServerUrlFail("path", serverUrl);
+        }
+        if (false == serverUrl.query().equals(UrlQueryString.EMPTY)) {
+            throw reportServerUrlFail("query string", serverUrl);
+        }
+        if (false == serverUrl.urlFragment().equals(UrlFragment.EMPTY)) {
+            throw reportServerUrlFail("fragment", serverUrl);
+        }
+
         return new BasicSpreadsheetServerContext(
-            Objects.requireNonNull(serverUrl, "serverUrl"),
+            serverUrl,
             Objects.requireNonNull(spreadsheetStoreRepository, "spreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(environmentContext, "environmentContext"),
@@ -76,6 +91,18 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             Objects.requireNonNull(spreadsheetMetadataContext, "spreadsheetMetadataContext"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(providerContext, "providerContext")
+        );
+    }
+
+    private static IllegalArgumentException reportServerUrlFail(final String property,
+                                                                final AbsoluteUrl serverUrl) {
+        return new IllegalArgumentException(
+            "Url must not have " +
+                property +
+                " got " +
+                CharSequences.quoteAndEscape(
+                    serverUrl.toString()
+                )
         );
     }
     
