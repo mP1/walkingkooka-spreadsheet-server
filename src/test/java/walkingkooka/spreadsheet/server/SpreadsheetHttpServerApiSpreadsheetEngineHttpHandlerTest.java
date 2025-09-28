@@ -73,7 +73,6 @@ import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.Storages;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -326,10 +325,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             HateosResourceHandlerContexts.basic(
                 INDENTATION,
                 EOL,
-                JsonNodeMarshallUnmarshallContexts.basic(
-                    JSON_NODE_MARSHALL_CONTEXT,
-                    JSON_NODE_UNMARSHALL_CONTEXT
-                )
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
             ),
             SpreadsheetGlobalContexts.basic(
                 (u, l) -> SpreadsheetMetadata.EMPTY,

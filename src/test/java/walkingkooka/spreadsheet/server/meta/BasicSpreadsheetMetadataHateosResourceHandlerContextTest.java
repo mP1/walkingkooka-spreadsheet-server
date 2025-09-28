@@ -90,7 +90,6 @@ import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
 import walkingkooka.storage.Storages;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -121,10 +120,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
         INDENTATION,
         EOL,
-        JsonNodeMarshallUnmarshallContexts.basic(
-            JSON_NODE_MARSHALL_CONTEXT,
-            JSON_NODE_UNMARSHALL_CONTEXT
-        )
+        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
     );
 
     private final static SpreadsheetGlobalContext SPREADSHEET_GLOBAL_CONTEXT = new FakeSpreadsheetGlobalContext() {

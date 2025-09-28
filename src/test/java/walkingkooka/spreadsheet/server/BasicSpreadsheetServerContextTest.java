@@ -39,7 +39,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderContexts;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.util.HasLocaleTesting;
 
 import java.time.LocalDateTime;
@@ -64,10 +63,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
     private final static ProviderContext PROVIDER_CONTEXT = SpreadsheetProviderContexts.basic(
         PluginStores.fake(),
-        JsonNodeMarshallUnmarshallContexts.basic(
-            JSON_NODE_MARSHALL_CONTEXT,
-            JSON_NODE_UNMARSHALL_CONTEXT
-        ),
+        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
         SpreadsheetMetadata.EMPTY.set(
             SpreadsheetMetadataPropertyName.LOCALE,
             LOCALE
