@@ -99,9 +99,9 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
             )
         );
     }
-    
+
     // spreadsheetContext...............................................................................................
-    
+
     @Test
     default void testSpreadsheetContextWithNullFails() {
         assertThrows(
@@ -112,8 +112,27 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
     }
 
     default void spreadsheetContextAndCheck(final C context,
+                                            final SpreadsheetId id) {
+        this.spreadsheetContextAndCheck(
+            context,
+            id,
+            Optional.empty()
+        );
+    }
+
+    default void spreadsheetContextAndCheck(final C context,
                                             final SpreadsheetId id,
                                             final SpreadsheetContext expected) {
+        this.spreadsheetContextAndCheck(
+            context,
+            id,
+            Optional.of(expected)
+        );
+    }
+
+    default void spreadsheetContextAndCheck(final C context,
+                                            final SpreadsheetId id,
+                                            final Optional<SpreadsheetContext> expected) {
         this.checkEquals(
             expected,
             context.spreadsheetContext(id),
