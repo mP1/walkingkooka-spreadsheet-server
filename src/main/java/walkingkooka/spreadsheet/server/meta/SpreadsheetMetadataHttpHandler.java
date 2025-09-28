@@ -55,14 +55,12 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
      * Creates a new {@link SpreadsheetMetadataHttpHandler} handler.
      */
     public static SpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
-                                                      final SpreadsheetProvider systemSpreadsheetProvider,
                                                       final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                       final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                       final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                       final SpreadsheetGlobalContext spreadsheetGlobalContext) {
         return new SpreadsheetMetadataHttpHandler(
             Objects.requireNonNull(serverUrl, "serverUrl"),
-            Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
             Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
@@ -74,7 +72,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
      * Private ctor
      */
     private SpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
-                                           final SpreadsheetProvider systemSpreadsheetProvider,
                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                            final HateosResourceHandlerContext hateosResourceHandlerContext,
