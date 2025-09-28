@@ -51,24 +51,20 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetEngine spreadsheetEngine,
                                                                    final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                   final SpreadsheetEngineContext engineContext,
-                                                                   final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                   final SpreadsheetEngineContext engineContext) {
         return new BasicSpreadsheetEngineHateosResourceHandlerContext(
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-            Objects.requireNonNull(engineContext, "engineContext"),
-            Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
+            Objects.requireNonNull(engineContext, "engineContext")
         );
     }
 
     private BasicSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngine spreadsheetEngine,
                                                                final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                               final SpreadsheetEngineContext engineContext,
-                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                               final SpreadsheetEngineContext engineContext) {
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.engineContext = engineContext;
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
 
     @Override
@@ -125,8 +121,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 this.spreadsheetEngine,
                 after,
-                this.engineContext,
-                this.systemSpreadsheetProvider
+                this.engineContext
             );
     }
 
@@ -139,8 +134,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 this.spreadsheetEngine,
                 after,
-                this.engineContext,
-                this.systemSpreadsheetProvider
+                this.engineContext
             );
     }
 
@@ -209,8 +203,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 this.spreadsheetEngine,
                 this.hateosResourceHandlerContext,
-                clone,
-                this.systemSpreadsheetProvider
+                clone
             );
     }
 
@@ -231,13 +224,4 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     private final SpreadsheetEngineContext engineContext;
-
-    // SpreadsheetEngineHateosResourceHandlerContext....................................................................
-
-    @Override
-    public SpreadsheetProvider systemSpreadsheetProvider() {
-        return this.systemSpreadsheetProvider;
-    }
-
-    private final SpreadsheetProvider systemSpreadsheetProvider;
 }

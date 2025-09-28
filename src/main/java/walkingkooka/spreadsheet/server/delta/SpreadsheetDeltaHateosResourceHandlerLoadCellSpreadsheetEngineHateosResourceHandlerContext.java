@@ -188,13 +188,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         return this.context;
     }
 
-    // SpreadsheetEngineHateosResourceHandlerContext..........................................................................
-
-    @Override
-    public SpreadsheetProvider systemSpreadsheetProvider() {
-        return this.context.systemSpreadsheetProvider();
-    }
-
     // EnvironmentContext...............................................................................................
 
     @Override
