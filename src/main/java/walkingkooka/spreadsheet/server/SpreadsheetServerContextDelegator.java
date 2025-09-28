@@ -22,6 +22,7 @@ import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -39,6 +40,14 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator,
     HateosResourceHandlerContextDelegator {
+
+    // SpreadsheetServerContext.........................................................................................
+
+    @Override
+    default AbsoluteUrl serverUrl() {
+        return this.spreadsheetServerContext()
+            .serverUrl();
+    }
 
     // EnvironmentContextDelegator......................................................................................
 
