@@ -20,13 +20,16 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -40,7 +43,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderContexts;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.util.HasLocaleTesting;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -50,7 +52,7 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting<BasicSpreadsheetServerContext>,
-    HasLocaleTesting,
+    EnvironmentContextTesting,
     ToStringTesting<BasicSpreadsheetServerContext>,
     SpreadsheetMetadataTesting {
 
@@ -62,49 +64,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = SpreadsheetMetadataContexts.fake();
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
-    private final static ProviderContext PROVIDER_CONTEXT = SpreadsheetProviderContexts.basic(
-        PluginStores.fake(),
-        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-        SpreadsheetMetadata.EMPTY.set(
-            SpreadsheetMetadataPropertyName.LOCALE,
-            LOCALE
-        ).set(
-            SpreadsheetMetadataPropertyName.DATE_FORMATTER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
-        ).set(
-            SpreadsheetMetadataPropertyName.DATE_PARSER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_PARSER)
-        ).set(
-            SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER)
-        ).set(
-            SpreadsheetMetadataPropertyName.DATE_TIME_PARSER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
-        ).set(
-            SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
-        ).set(
-            SpreadsheetMetadataPropertyName.NUMBER_FORMATTER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
-        ).set(
-            SpreadsheetMetadataPropertyName.NUMBER_PARSER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
-        ).set(
-            SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
-        ).set(
-            SpreadsheetMetadataPropertyName.TIME_FORMATTER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_FORMATTER)
-        ).set(
-            SpreadsheetMetadataPropertyName.TIME_PARSER,
-            METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
-        ).environmentContext(
-            EnvironmentContexts.map(
-                ENVIRONMENT_CONTEXT
-            )
-        ),
-        LOCALE_CONTEXT
-    );
+    private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
     // with.............................................................................................................
 
@@ -246,6 +206,54 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Override
     public BasicSpreadsheetServerContext createContext() {
+        return this.createContext(
+            SpreadsheetProviderContexts.basic(
+                PluginStores.fake(),
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                SpreadsheetMetadata.EMPTY.set(
+                    SpreadsheetMetadataPropertyName.LOCALE,
+                    LOCALE
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_TIME_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.NUMBER_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.NUMBER_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TIME_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TIME_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
+                ).environmentContext(
+                    EnvironmentContexts.map(
+                        ENVIRONMENT_CONTEXT
+                    )
+                ),
+                LOCALE_CONTEXT
+            )
+        );
+    }
+
+    private BasicSpreadsheetServerContext createContext(final ProviderContext providerContext) {
         final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
 
         return BasicSpreadsheetServerContext.with(
@@ -257,7 +265,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 }
             },
             SPREADSHEET_PROVIDER,
-            EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+            EnvironmentContexts.readOnly(
+                EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+            ),
             LOCALE_CONTEXT,
             SpreadsheetMetadataContexts.basic(
                 (u, l) -> {
@@ -279,7 +289,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SpreadsheetMetadataStores.treeMap()
             ),
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            PROVIDER_CONTEXT
+            providerContext
         );
     }
 
@@ -411,12 +421,74 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testLocale() {
+        final Locale locale = Locale.FRANCE;
+
         this.localeAndCheck(
-            this.createContext(),
-            LOCALE
+            this.createContext(
+                new FakeProviderContext() {
+                    @Override
+                    public Locale locale() {
+                        return locale;
+                    }
+                }
+            ),
+            locale
         );
     }
 
+    @Test
+    public void testSetLocale() {
+        final BasicSpreadsheetServerContext context = this.createContext();
+        this.localeAndCheck(
+            context,
+            LOCALE
+        );
+
+        final Locale locale = Locale.FRANCE;
+
+        this.localeAndCheck(
+            context.setLocale(locale),
+            locale
+        );
+    }
+
+    // user...........................................................................................................
+
+    @Test
+    public void testUser() {
+        final EmailAddress user = EmailAddress.parse("different@example.com");
+
+        this.userAndCheck(
+            this.createContext(
+                new FakeProviderContext() {
+                    @Override
+                    public Optional<EmailAddress> user() {
+                        return Optional.of(user);
+                    }
+                }
+            ),
+            user
+        );
+    }
+
+    @Test
+    public void testSetUser() {
+        final BasicSpreadsheetServerContext context = this.createContext();
+        this.userAndCheck(
+            context,
+            USER
+        );
+
+        final EmailAddress user = EmailAddress.parse("different@example.com");
+
+        this.userAndCheck(
+            context.setUser(
+                Optional.of(user)
+            ),
+            user
+        );
+    }
+    
     // toString.........................................................................................................
 
     @Test

@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
@@ -89,7 +90,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.serverUrl = serverUrl;
         this.spreadsheetStoreRepository = spreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
-        this.environmentContext = environmentContext;
+        this.environmentContext = EnvironmentContexts.readOnly(environmentContext); // safety
         this.localeContext = localeContext;
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
@@ -142,6 +143,11 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     private final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository;
 
+    /**
+     * The default or starting {@link EnvironmentContext} for each new spreadsheet.
+     */
+    private final EnvironmentContext environmentContext;
+
     @Override
     public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         Objects.requireNonNull(id, "id");
@@ -162,56 +168,54 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     @Override
     public <T> EnvironmentContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                       final T value) {
-        this.environmentContext.setEnvironmentValue(
-            name,
-            value
-        );
+        this.environmentContext()
+            .setEnvironmentValue(
+                name,
+                value
+            );
         return this;
     }
 
     @Override
     public EnvironmentContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext.removeEnvironmentValue(name);
+        this.environmentContext()
+            .removeEnvironmentValue(name);
         return this;
     }
 
     @Override
     public Locale locale() {
-        return this.localeContext.locale();
+        return this.environmentContext()
+            .locale();
     }
 
     @Override
     public SpreadsheetServerContext setLocale(final Locale locale) {
-        this.environmentContext.setLocale(locale);
+        this.environmentContext()
+            .setLocale(locale);
         return this;
     }
 
     @Override
-    public EnvironmentContext setUser(final Optional<EmailAddress> user) {
-        final EnvironmentContext context = this.environmentContext;
-
-        return context.user().equals(user) ?
-            this :
-            new BasicSpreadsheetServerContext(
-                this.serverUrl,
-                this.spreadsheetStoreRepository,
-                this.spreadsheetProvider,
-                context.cloneEnvironment().setUser(
-                    Objects.requireNonNull(user, "user")
-                ),
-                this.localeContext,
-                this.spreadsheetMetadataContext,
-                this.hateosResourceHandlerContext,
-                this.providerContext
-            );
+    public Optional<EmailAddress> user() {
+        return this.environmentContext()
+            .user();
     }
 
     @Override
-    public EnvironmentContext environmentContext() {
-        return this.environmentContext;
+    public EnvironmentContext setUser(final Optional<EmailAddress> user) {
+        this.environmentContext()
+            .setUser(user);
+        return this;
     }
 
-    private final EnvironmentContext environmentContext;
+    /**
+     * The {@link ProviderContext} holds the system or global environment.
+     */
+    @Override
+    public EnvironmentContext environmentContext() {
+        return this.providerContext;
+    }
 
     // LocaleContextDelegator...........................................................................................
 
