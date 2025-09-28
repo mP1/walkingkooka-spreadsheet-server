@@ -21,7 +21,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
 public final class SpreadsheetEngineHateosResourceHandlerContexts implements PublicStaticHelper {
 
@@ -30,13 +29,11 @@ public final class SpreadsheetEngineHateosResourceHandlerContexts implements Pub
      */
     public static SpreadsheetEngineHateosResourceHandlerContext basic(final SpreadsheetEngine spreadsheetEngine,
                                                                       final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                      final SpreadsheetEngineContext engineContext,
-                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                      final SpreadsheetEngineContext engineContext) {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
             spreadsheetEngine,
             hateosResourceHandlerContext,
-            engineContext,
-            systemSpreadsheetProvider
+            engineContext
         );
     }
 

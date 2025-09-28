@@ -22,7 +22,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -50,11 +49,6 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
      * Getter that returns a {@link SpreadsheetEngine}.
      */
     SpreadsheetEngine spreadsheetEngine();
-
-    /**
-     * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.
-     */
-    SpreadsheetProvider systemSpreadsheetProvider();
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale);

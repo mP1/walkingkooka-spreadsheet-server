@@ -62,7 +62,6 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelectorToken;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoader;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -506,13 +505,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public Optional<EmailAddress> user() {
-        throw new UnsupportedOperationException();
-    }
-
-    // SpreadsheetEngineHateosResourceHandlerContext..........................................................................
-
-    @Override
-    public SpreadsheetProvider systemSpreadsheetProvider() {
         throw new UnsupportedOperationException();
     }
 

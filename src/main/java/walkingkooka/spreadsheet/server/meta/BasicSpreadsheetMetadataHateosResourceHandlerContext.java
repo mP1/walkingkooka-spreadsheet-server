@@ -200,8 +200,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         return this.mappings(
             id,
             engine,
-            spreadsheetEngineContext,
-            this.systemSpreadsheetProvider
+            spreadsheetEngineContext
         );
     }
 
@@ -221,8 +220,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private Router<HttpRequestAttribute<?>, HttpHandler> mappings(final SpreadsheetId id,
                                                                   final SpreadsheetEngine engine,
-                                                                  final SpreadsheetEngineContext context,
-                                                                  final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                  final SpreadsheetEngineContext context) {
         final AbsoluteUrl serverUrl = this.serverUrl;
         final UrlPath deltaUrlPath = serverUrl.path()
             .append(
@@ -234,8 +232,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
             engine,
             this.hateosResourceHandlerContext,
-            context,
-            systemSpreadsheetProvider
+            context
         ).setPreProcessor(
             SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
                 context.storeRepository()

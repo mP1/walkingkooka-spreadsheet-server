@@ -186,8 +186,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_PROVIDER
+                SPREADSHEET_ENGINE_CONTEXT
             )
         );
     }
@@ -199,8 +198,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 SPREADSHEET_ENGINE,
                 null,
-                SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_PROVIDER
+                SPREADSHEET_ENGINE_CONTEXT
             )
         );
     }
@@ -212,20 +210,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 SPREADSHEET_ENGINE,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                null,
-                SPREADSHEET_PROVIDER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetProviderFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                SPREADSHEET_ENGINE,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_ENGINE_CONTEXT,
                 null
             )
         );
@@ -288,8 +272,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
             SPREADSHEET_ENGINE,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ENGINE_CONTEXT,
-            SPREADSHEET_PROVIDER
+            SPREADSHEET_ENGINE_CONTEXT
         );
     }
 
