@@ -371,7 +371,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             Url.parseAbsolute(SERVER_URL + "/api"),
-            systemSpreadsheetProvider(),
+            SPREADSHEET_PROVIDER,
             spreadsheetIdToSpreadsheetProvider(),
             spreadsheetIdToStoreRepository(),
             HateosResourceHandlerContexts.basic(
@@ -385,20 +385,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                 LOCALE_CONTEXT,
                 PROVIDER_CONTEXT
             )
-        );
-    }
-
-    private SpreadsheetProvider systemSpreadsheetProvider() {
-        return SpreadsheetProviders.basic(
-            CONVERTER_PROVIDER,
-            EXPRESSION_FUNCTION_PROVIDER,
-            SPREADSHEET_COMPARATOR_PROVIDER,
-            SPREADSHEET_EXPORTER_PROVIDER,
-            SPREADSHEET_FORMATTER_PROVIDER,
-            FORM_HANDLER_PROVIDER,
-            SPREADSHEET_IMPORTER_PROVIDER,
-            SPREADSHEET_PARSER_PROVIDER,
-            VALIDATOR_PROVIDER
         );
     }
 
