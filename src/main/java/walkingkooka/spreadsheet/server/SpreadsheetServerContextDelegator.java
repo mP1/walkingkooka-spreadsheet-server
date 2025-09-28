@@ -31,11 +31,14 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 
 import java.util.Locale;
 import java.util.Optional;
 
 public interface SpreadsheetServerContextDelegator extends SpreadsheetServerContext,
+    SpreadsheetProviderDelegator,
     EnvironmentContextDelegator,
     LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator,
@@ -47,6 +50,13 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     default AbsoluteUrl serverUrl() {
         return this.spreadsheetServerContext()
             .serverUrl();
+    }
+
+    // SpreadsheetProviderDelegator.....................................................................................
+
+    @Override
+    default SpreadsheetProvider spreadsheetProvider() {
+        return this.spreadsheetServerContext();
     }
 
     // EnvironmentContextDelegator......................................................................................
