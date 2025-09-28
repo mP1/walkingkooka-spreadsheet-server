@@ -96,22 +96,19 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final SpreadsheetGlobalContext spreadsheetGlobalContext,
-                                                                     final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                     final SpreadsheetGlobalContext spreadsheetGlobalContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
         Objects.requireNonNull(spreadsheetGlobalContext, "spreadsheetGlobalContext");
-        Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
             serverUrl,
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToRepository,
             hateosResourceHandlerContext,
-            spreadsheetGlobalContext,
-            systemSpreadsheetProvider
+            spreadsheetGlobalContext
         );
     }
 
@@ -119,8 +116,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final SpreadsheetGlobalContext spreadsheetGlobalContext,
-                                                                 final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                 final SpreadsheetGlobalContext spreadsheetGlobalContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -131,8 +127,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
         this.spreadsheetGlobalContext = spreadsheetGlobalContext;
-
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
 
     // hateosRouter.....................................................................................................
@@ -274,7 +268,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private final AbsoluteUrl serverUrl;
-    private final SpreadsheetProvider systemSpreadsheetProvider;
+
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository;
 
     @Override
@@ -306,8 +300,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
                 after,
-                this.spreadsheetGlobalContext,
-                this.systemSpreadsheetProvider
+                this.spreadsheetGlobalContext
             );
     }
 
@@ -323,8 +316,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
                 after,
-                this.spreadsheetGlobalContext,
-                this.systemSpreadsheetProvider
+                this.spreadsheetGlobalContext
             );
     }
 

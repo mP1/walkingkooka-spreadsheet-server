@@ -143,8 +143,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_PROVIDER
+                SPREADSHEET_GLOBAL_CONTEXT
             )
         );
     }
@@ -158,8 +157,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_PROVIDER
+                SPREADSHEET_GLOBAL_CONTEXT
             )
         );
     }
@@ -173,8 +171,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_PROVIDER
+                SPREADSHEET_GLOBAL_CONTEXT
             )
         );
     }
@@ -188,8 +185,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 null,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_PROVIDER
+                SPREADSHEET_GLOBAL_CONTEXT
             )
         );
     }
@@ -203,22 +199,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_TO_STORE_REPOSITORY,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                null,
-                SPREADSHEET_PROVIDER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSystemSpreadsheetProviderFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                SERVER_URL,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_TO_STORE_REPOSITORY,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
                 null
             )
         );
@@ -1006,8 +986,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 metadataStore,
                 LOCALE_CONTEXT,
                 providerContext
-            ),
-            SPREADSHEET_PROVIDER
+            )
         );
     }
 

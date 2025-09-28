@@ -88,8 +88,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             spreadsheetIdToSpreadsheetProvider,
             spreadsheetIdToStoreRepository,
             hateosResourceHandlerContext,
-            spreadsheetGlobalContext,
-            systemSpreadsheetProvider
+            spreadsheetGlobalContext
         );
 
         this.context = context;
