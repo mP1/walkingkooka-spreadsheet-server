@@ -61,10 +61,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
     @Test
     public void testHandleOneLoadUnknown404() {
-        final SpreadsheetId id = this.spreadsheetId();
-
         this.handleOneFails(
-            id,
+            SPREADSHEET_ID,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
@@ -81,7 +79,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
     @Test
     public void testHandleOneLoadExisting() {
-        final SpreadsheetId id = SpreadsheetId.with(111);
+        final SpreadsheetId id = SPREADSHEET_ID;
         final SpreadsheetMetadata metadata = this.metadata(id.value());
 
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
