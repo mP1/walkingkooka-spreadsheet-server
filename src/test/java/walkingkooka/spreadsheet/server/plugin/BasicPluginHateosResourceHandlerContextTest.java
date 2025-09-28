@@ -26,7 +26,6 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -39,10 +38,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
         INDENTATION,
         EOL,
-        JsonNodeMarshallUnmarshallContexts.basic(
-            JSON_NODE_MARSHALL_CONTEXT,
-            JSON_NODE_UNMARSHALL_CONTEXT
-        )
+        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
     );
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(), // CanConvert

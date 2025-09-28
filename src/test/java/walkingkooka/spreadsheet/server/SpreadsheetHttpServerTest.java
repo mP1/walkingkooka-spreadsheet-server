@@ -149,7 +149,6 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 import walkingkooka.validation.form.provider.FormHandlerInfo;
@@ -13321,10 +13320,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HateosResourceHandlerContexts.basic(
                 INDENTATION,
                 LINE_ENDING,
-                JsonNodeMarshallUnmarshallContexts.basic(
-                    JSON_NODE_MARSHALL_CONTEXT,
-                    JSON_NODE_UNMARSHALL_CONTEXT
-                )
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
             ),
             SpreadsheetGlobalContexts.basic(
                 (ue, dl) -> this.createMetadata(),

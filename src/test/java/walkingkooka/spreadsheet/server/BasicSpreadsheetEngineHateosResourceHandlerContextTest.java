@@ -50,7 +50,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.MathContext;
 import java.util.Locale;
@@ -68,10 +67,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
         INDENTATION,
         EOL,
-        JsonNodeMarshallUnmarshallContexts.basic(
-            JSON_NODE_MARSHALL_CONTEXT,
-            JSON_NODE_UNMARSHALL_CONTEXT
-        )
+        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
     );
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
