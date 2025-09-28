@@ -92,14 +92,22 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     @Test
     public void testRouteCellGetLoadCell() {
-        this.routeAndCheck(HttpMethod.GET, "/api/1/cell/A1", HttpStatusCode.OK);
+        this.routeAndCheck(
+            HttpMethod.GET,
+            "/api/1/cell/A1",
+            HttpStatusCode.OK
+        );
     }
 
     @Test
     public void testRouteCellPostSaveCell() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> this.route(HttpMethod.POST, "/api/1/cell/A1", "")
+            () -> this.route(
+                HttpMethod.POST,
+                "/api/1/cell/A1",
+                ""
+            )
         );
     }
 
@@ -131,7 +139,12 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testRouteCellGetLoadCellSpreadsheetEngineEvaluation() {
         for (SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
-            this.routeAndCheck(HttpMethod.GET, "/api/1/cell/A1/" + evaluation.toLinkRelation().toString(), HttpStatusCode.OK);
+            this.routeAndCheck(
+                HttpMethod.GET,
+                "/api/1/cell/A1/" + evaluation.toLinkRelation()
+                    .toString(),
+                HttpStatusCode.OK
+            );
         }
     }
 
@@ -139,51 +152,80 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     @Test
     public void testRouteColumnsGetFails() {
-        this.routeAndFail(HttpMethod.GET, "/api/1/column/A");
+        this.routeAndFail(
+            HttpMethod.GET,
+            "/api/1/column/A"
+        );
     }
 
     @Test
     public void testRouteColumnsPostFails() {
-        this.routeAndFail(HttpMethod.POST, "/api/1/column/A");
+        this.routeAndFail(
+            HttpMethod.POST,
+            "/api/1/column/A"
+        );
     }
 
     @Test
     public void testRouteColumnsPutFails() {
-        this.routeAndFail(HttpMethod.PUT, "/api/1/column/A");
+        this.routeAndFail(
+            HttpMethod.PUT,
+            "/api/1/column/A"
+        );
     }
 
     @Test
     public void testRouteColumnsDelete() {
-        this.routeAndCheck(HttpMethod.DELETE, "/api/1/column/A", HttpStatusCode.OK);
+        this.routeAndCheck(
+            HttpMethod.DELETE,
+            "/api/1/column/A",
+            HttpStatusCode.OK
+        );
     }
 
     // row..............................................................................................................
 
     @Test
     public void testRouteRowsGetFails() {
-        this.routeAndFail(HttpMethod.GET, "/api/1/row/1");
+        this.routeAndFail(
+            HttpMethod.GET,
+            "/api/1/row/1"
+        );
     }
 
     @Test
     public void testRouteRowsPostFails() {
-        this.routeAndFail(HttpMethod.POST, "/api/1/row/1");
+        this.routeAndFail(
+            HttpMethod.POST,
+            "/api/1/row/1"
+        );
     }
 
     @Test
     public void testRouteRowsPutFails() {
-        this.routeAndFail(HttpMethod.PUT, "/api/1/row/1");
+        this.routeAndFail(
+            HttpMethod.PUT,
+            "/api/1/row/1"
+        );
     }
 
     @Test
     public void testRouteRowsDelete() {
-        this.routeAndCheck(HttpMethod.DELETE, "/api/1/row/1", HttpStatusCode.OK);
+        this.routeAndCheck(
+            HttpMethod.DELETE,
+            "/api/1/row/1",
+            HttpStatusCode.OK
+        );
     }
 
     // fillCells........................................................................................................
 
     @Test
     public void testRouteFillCellsGetFails() {
-        this.routeAndFail(HttpMethod.GET, "/api/1/cell/A1:B2/fill");
+        this.routeAndFail(
+            HttpMethod.GET,
+            "/api/1/cell/A1:B2/fill"
+        );
     }
 
     @Test
@@ -209,12 +251,18 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     @Test
     public void testRouteFillCellsPutFails() {
-        this.routeAndFail(HttpMethod.PUT, "/api/1/cell/A1:B2/fill");
+        this.routeAndFail(
+            HttpMethod.PUT,
+            "/api/1/cell/A1:B2/fill"
+        );
     }
 
     @Test
     public void testRouteFillCellsDeleteFails() {
-        this.routeAndFail(HttpMethod.DELETE, "/api/1/cell/A1:B2/fill");
+        this.routeAndFail(
+            HttpMethod.DELETE,
+            "/api/1/cell/A1:B2/fill"
+        );
     }
 
     // labels...........................................................................................................
@@ -230,7 +278,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     @Test
     public void testRouteLabelGet() {
-        this.routeAndCheck(HttpMethod.GET, "/api/1/label/" + LABEL, HttpStatusCode.OK);
+        this.routeAndCheck(
+            HttpMethod.GET,
+            "/api/1/label/" + LABEL,
+            HttpStatusCode.OK
+        );
     }
 
     private void routeAndCheck(final HttpMethod method,
@@ -437,7 +489,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         );
     }
 
-    // ClassTesting.....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler> type() {
@@ -448,8 +500,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
-
-    // TypeNameTesting..................................................................................................
 
     @Override
     public String typeNamePrefix() {
