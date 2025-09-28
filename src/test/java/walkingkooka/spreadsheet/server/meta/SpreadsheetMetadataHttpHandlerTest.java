@@ -28,7 +28,6 @@ import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetGlobalContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.util.function.Function;
@@ -38,8 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting<SpreadsheetMetadataHttpHandler> {
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
-
-    private final static SpreadsheetProvider SYSTEM_PROVIDER = SpreadsheetProviders.fake();
 
     private final static Function<SpreadsheetId, SpreadsheetProvider> SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION = (id) -> {
         throw new UnsupportedOperationException();
@@ -59,22 +56,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 null,
-                SYSTEM_PROVIDER,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSystemProviderFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHttpHandler.with(
-                SERVER_URL,
-                null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -89,7 +70,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                SYSTEM_PROVIDER,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -105,7 +85,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                SYSTEM_PROVIDER,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -120,7 +99,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                SYSTEM_PROVIDER,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 null,
@@ -135,7 +113,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             NullPointerException.class,
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
-                SYSTEM_PROVIDER,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
@@ -155,7 +132,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
             SERVER_URL,
-            SYSTEM_PROVIDER,
             SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
             SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
