@@ -145,7 +145,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     @Override
     public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         Objects.requireNonNull(id, "id");
-        return Optional.of(
+        return Optional.ofNullable(
             this.spreadsheetIdToSpreadsheetContext.get(id)
         );
     }
