@@ -68,8 +68,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final HateosResourceHandlerContext hateosResourceHandlerContext,
                                               final ProviderContext providerContext) {
         return new BasicSpreadsheetServerContext(
-            Objects.requireNonNull(serverUrl, "spreadsheetStoreRepository"),
-            Objects.requireNonNull(spreadsheetStoreRepository, "serverUrl"),
+            Objects.requireNonNull(serverUrl, "serverUrl"),
+            Objects.requireNonNull(spreadsheetStoreRepository, "spreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(environmentContext, "environmentContext"),
             Objects.requireNonNull(localeContext, "localeContext"),
