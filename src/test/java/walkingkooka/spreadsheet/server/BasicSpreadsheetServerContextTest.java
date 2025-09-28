@@ -29,6 +29,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -370,6 +371,43 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         this.localeAndCheck(
             spreadsheetContext2,
             locale2
+        );
+    }
+
+    // spreadsheetContext...............................................................................................
+
+    @Test
+    public void testSpreadsheetContextWithMissingSpreadsheetId() {
+        final SpreadsheetServerContext context = this.createContext();
+
+        this.checkNotEquals(
+            null,
+            context.spreadsheetContext(
+                SpreadsheetId.with(404)
+            )
+        );
+    }
+
+    @Test
+    public void testSpreadsheetContext() {
+        final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
+
+        final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
+        final Locale locale1 = Locale.forLanguageTag("en-AU");
+
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createSpreadsheetContext(
+            user1,
+            Optional.of(locale1)
+        );
+        this.checkNotEquals(
+            null,
+            spreadsheetContext
+        );
+
+        this.spreadsheetContextAndCheck(
+            spreadsheetServerContext,
+            spreadsheetContext.spreadsheetId(),
+            spreadsheetContext
         );
     }
 
