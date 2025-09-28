@@ -86,6 +86,75 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     @Test
+    public void testWithServerUrlWithPathFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                Url.parseAbsolute("https://example.com/path123"),
+                REPO,
+                SPREADSHEET_PROVIDER,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT
+            )
+        );
+
+        this.checkEquals(
+            "Url must not have path got \"https://example.com/path123\"",
+            thrown.getMessage(),
+            "message"
+        );
+    }
+
+    @Test
+    public void testWithServerUrlWithQueryStringFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                Url.parseAbsolute("https://example.com?k=v"),
+                REPO,
+                SPREADSHEET_PROVIDER,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT
+            )
+        );
+
+        this.checkEquals(
+            "Url must not have query string got \"https://example.com?k=v\"",
+            thrown.getMessage(),
+            "message"
+        );
+    }
+
+    @Test
+    public void testWithServerUrlWithFragmentFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                Url.parseAbsolute("https://example.com#fragment123"),
+                REPO,
+                SPREADSHEET_PROVIDER,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT
+            )
+        );
+
+        this.checkEquals(
+            "Url must not have fragment got \"https://example.com#fragment123\"",
+            thrown.getMessage(),
+            "message"
+        );
+    }
+
+    @Test
     public void testWithNullSpreadsheetServerRepoFails() {
         assertThrows(
             NullPointerException.class,
