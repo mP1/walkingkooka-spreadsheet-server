@@ -103,67 +103,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
     }
 
     @Test
-    public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-            .set(
-                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                AUDIT_INFO
-            );
-
-        this.handleNoneFails(
-            Optional.empty(),
-            Maps.of(
-                HttpHeaderName.ACCEPT_LANGUAGE,
-                AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
-            ),
-            UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-
-                @Override
-                public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
-                                                                   final Optional<Locale> locale) {
-                    this.user = user;
-                    this.locale = locale;
-
-                    return new FakeSpreadsheetContext() {
-
-                        @Override
-                        public SpreadsheetId spreadsheetId() {
-                            return SPREADSHEET_ID;
-                        }
-                    };
-                }
-
-                @Override
-                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
-                    checkEquals(SPREADSHEET_ID, id);
-
-                    return Optional.of(
-                        metadata.set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                .setCreatedBy(this.user)
-                                .setModifiedBy(this.user)
-                        ).set(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.get()
-                        )
-                    );
-                }
-
-                private EmailAddress user;
-                private Optional<Locale> locale;
-
-                @Override
-                public Optional<EmailAddress> user() {
-                    return Optional.of(USER);
-                }
-            },
-            IllegalStateException.class
-        );
-    }
-
-    @Test
     public void testHandleNoneCreatesMetadataWithLocale() {
         final SpreadsheetMetadata metadata =
             SpreadsheetMetadata.EMPTY
@@ -184,40 +123,25 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                 @Override
                 public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
                                                                    final Optional<Locale> locale) {
-                    this.user = user;
-                    this.locale = locale;
-
                     return new FakeSpreadsheetContext() {
 
                         @Override
-                        public SpreadsheetId spreadsheetId() {
-                            return SPREADSHEET_ID;
+                        public SpreadsheetMetadata spreadsheetMetadata() {
+                            return metadata.set(
+                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                SPREADSHEET_ID
+                            ).set(
+                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                    .setCreatedBy(user)
+                                    .setModifiedBy(user)
+                            ).set(
+                                SpreadsheetMetadataPropertyName.LOCALE,
+                                locale.get()
+                            );
                         }
                     };
                 }
-
-                @Override
-                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
-                    checkEquals(SPREADSHEET_ID, id);
-
-                    return Optional.of(
-                        metadata.set(
-                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                            SPREADSHEET_ID
-                        ).set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                .setCreatedBy(this.user)
-                                .setModifiedBy(this.user)
-                        ).set(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.get()
-                        )
-                    );
-                }
-
-                private EmailAddress user;
-                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {
@@ -248,40 +172,25 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                 @Override
                 public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
                                                                    final Optional<Locale> locale) {
-                    this.user = user;
-                    this.locale = locale;
-
                     return new FakeSpreadsheetContext() {
 
                         @Override
-                        public SpreadsheetId spreadsheetId() {
-                            return SPREADSHEET_ID;
+                        public SpreadsheetMetadata spreadsheetMetadata() {
+                            return metadata.set(
+                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                SPREADSHEET_ID
+                            ).set(
+                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                    .setCreatedBy(user)
+                                    .setModifiedBy(user)
+                            ).setOrRemove(
+                                SpreadsheetMetadataPropertyName.LOCALE,
+                                locale.orElse(null)
+                            );
                         }
                     };
                 }
-
-                @Override
-                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
-                    checkEquals(SPREADSHEET_ID, id);
-
-                    return Optional.of(
-                        metadata.set(
-                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                            SPREADSHEET_ID
-                        ).set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                .setCreatedBy(this.user)
-                                .setModifiedBy(this.user)
-                        ).setOrRemove(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.orElse(null)
-                        )
-                    );
-                }
-
-                private EmailAddress user;
-                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {

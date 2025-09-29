@@ -220,37 +220,24 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 @Override
                 public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
                                                                    final Optional<Locale> locale) {
-                    this.user = user;
-                    this.locale = locale;
-
                     return new FakeSpreadsheetContext() {
 
                         @Override
-                        public SpreadsheetId spreadsheetId() {
-                            return SPREADSHEET_ID;
+                        public SpreadsheetMetadata spreadsheetMetadata() {
+                            return SpreadsheetMetadata.EMPTY.set(
+                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                SPREADSHEET_ID
+                            ).set(
+                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                AUDIT_INFO.setCreatedBy(user)
+                                    .setModifiedBy(user)
+                            ).setOrRemove(
+                                SpreadsheetMetadataPropertyName.LOCALE,
+                                locale.orElse(null)
+                            );
                         }
                     };
                 }
-
-                @Override
-                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId spreadsheetId) {
-                    return Optional.of(
-                        SpreadsheetMetadata.EMPTY.set(
-                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                            SPREADSHEET_ID
-                        ).set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AUDIT_INFO.setCreatedBy(this.user)
-                                .setModifiedBy(this.user)
-                        ).setOrRemove(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale.orElse(null)
-                        )
-                    );
-                }
-
-                private EmailAddress user;
-                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {

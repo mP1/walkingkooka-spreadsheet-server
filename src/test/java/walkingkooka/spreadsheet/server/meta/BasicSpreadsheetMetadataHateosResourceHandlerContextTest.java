@@ -841,9 +841,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             Optional.of(LOCALE)
         );
 
-        final SpreadsheetMetadata metadata = spreadsheetContext.loadMetadataOrFail(
-            spreadsheetContext.spreadsheetId()
-        ).set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
+        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata()
+            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
 
         final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
         final AnchoredSpreadsheetSelection selection = SpreadsheetSelection.A1.setDefaultAnchor();
@@ -870,9 +869,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             Optional.of(LOCALE)
         );
 
-        final SpreadsheetMetadata metadata = spreadsheetContext.loadMetadataOrFail(
-            spreadsheetContext.spreadsheetId()
-        ).set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
+        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata()
+            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
 
