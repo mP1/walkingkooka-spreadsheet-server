@@ -86,13 +86,9 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
                 .flatMap(this::preferredLocale)
         );
 
-        final SpreadsheetMetadata saved = context.loadMetadataOrFail(
-            spreadsheetContext.spreadsheetId()
+        return Optional.of(
+            spreadsheetContext.spreadsheetMetadata()
         );
-        saved.id()
-            .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
-
-        return Optional.of(saved);
     }
 
     private Optional<Locale> preferredLocale(final AcceptLanguage language) {

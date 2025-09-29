@@ -127,7 +127,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContext(id)
             .orElseThrow(() -> new IllegalStateException("Spreadsheet missing " + id));
 
-        final SpreadsheetMetadata metadata = spreadsheetServerContext.loadMetadataOrFail(id);
+        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata();
 
         final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.basic(
             spreadsheetServerContext.serverUrl(),
