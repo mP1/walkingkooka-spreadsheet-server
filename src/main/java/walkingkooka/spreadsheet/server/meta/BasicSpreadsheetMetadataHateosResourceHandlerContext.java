@@ -124,8 +124,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             this::stamp
         );
 
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContext(id)
-            .orElseThrow(() -> new IllegalStateException("Spreadsheet missing " + id));
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(id);
 
         final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata();
 
