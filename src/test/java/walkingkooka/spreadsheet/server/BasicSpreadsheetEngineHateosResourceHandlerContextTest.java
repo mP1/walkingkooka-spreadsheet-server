@@ -140,6 +140,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
+        public SpreadsheetMetadata spreadsheetMetadata() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public SpreadsheetMetadata createMetadata(final EmailAddress user,
                                                   final Optional<Locale> locale) {
             throw new UnsupportedOperationException();
