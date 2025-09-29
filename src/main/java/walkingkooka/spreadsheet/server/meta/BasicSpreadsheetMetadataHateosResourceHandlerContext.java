@@ -111,7 +111,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         return hateosRouter;
     }
 
-    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, HttpHandler>> spreadsheetIdToHateosRouter = Maps.sorted();
+    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, HttpHandler>> spreadsheetIdToHateosRouter = Maps.concurrent();
 
     /**
      * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
