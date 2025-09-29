@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -26,6 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -35,7 +35,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore#create(EmailAddress, Optional)}.
+ * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.server.SpreadsheetServerContext}
+ * methods to create, or save/update.
  */
 final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
@@ -79,10 +80,14 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetMetadata saved = context.createMetadata(
+        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
             context.userOrFail(),
             HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
                 .flatMap(this::preferredLocale)
+        );
+
+        final SpreadsheetMetadata saved = context.loadMetadataOrFail(
+            spreadsheetContext.spreadsheetId()
         );
         saved.id()
             .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));

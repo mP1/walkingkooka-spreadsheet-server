@@ -25,6 +25,8 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.spreadsheet.FakeSpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -118,18 +120,39 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadata createMetadata(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                    return metadata.set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                            .setCreatedBy(creator)
-                            .setModifiedBy(creator)
-                    ).setOrRemove(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        locale.orElse(null)
+                public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
+                                                                   final Optional<Locale> locale) {
+                    this.user = user;
+                    this.locale = locale;
+
+                    return new FakeSpreadsheetContext() {
+
+                        @Override
+                        public SpreadsheetId spreadsheetId() {
+                            return SPREADSHEET_ID;
+                        }
+                    };
+                }
+
+                @Override
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    checkEquals(SPREADSHEET_ID, id);
+
+                    return Optional.of(
+                        metadata.set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                .setCreatedBy(this.user)
+                                .setModifiedBy(this.user)
+                        ).set(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.get()
+                        )
                     );
                 }
+
+                private EmailAddress user;
+                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {
@@ -159,18 +182,42 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadata createMetadata(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                    return metadata.set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                            .setCreatedBy(creator)
-                            .setModifiedBy(creator)
-                    ).set(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        locale.get()
+                public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
+                                                                   final Optional<Locale> locale) {
+                    this.user = user;
+                    this.locale = locale;
+
+                    return new FakeSpreadsheetContext() {
+
+                        @Override
+                        public SpreadsheetId spreadsheetId() {
+                            return SPREADSHEET_ID;
+                        }
+                    };
+                }
+
+                @Override
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    checkEquals(SPREADSHEET_ID, id);
+
+                    return Optional.of(
+                        metadata.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SPREADSHEET_ID
+                        ).set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                .setCreatedBy(this.user)
+                                .setModifiedBy(this.user)
+                        ).set(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.get()
+                        )
                     );
                 }
+
+                private EmailAddress user;
+                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {
@@ -178,7 +225,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 }
             },
             Optional.of(
-                metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+                metadata.set(
+                    SpreadsheetMetadataPropertyName.LOCALE,
+                    locale
+                )
             )
         );
     }
@@ -196,18 +246,42 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadata createMetadata(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                    return metadata.set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                            .setCreatedBy(creator)
-                            .setModifiedBy(creator)
-                    ).setOrRemove(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        locale.orElse(null)
+                public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
+                                                                   final Optional<Locale> locale) {
+                    this.user = user;
+                    this.locale = locale;
+
+                    return new FakeSpreadsheetContext() {
+
+                        @Override
+                        public SpreadsheetId spreadsheetId() {
+                            return SPREADSHEET_ID;
+                        }
+                    };
+                }
+
+                @Override
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                    checkEquals(SPREADSHEET_ID, id);
+
+                    return Optional.of(
+                        metadata.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SPREADSHEET_ID
+                        ).set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                .setCreatedBy(this.user)
+                                .setModifiedBy(this.user)
+                        ).setOrRemove(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.orElse(null)
+                        )
                     );
                 }
+
+                private EmailAddress user;
+                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {

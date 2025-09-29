@@ -18,14 +18,12 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -34,9 +32,7 @@ import java.util.Locale;
 /**
  * A {@link Context} for spreadsheets.
  */
-public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
-    EnvironmentContext,
-    SpreadsheetGlobalContext {
+public interface SpreadsheetMetadataHateosResourceHandlerContext extends SpreadsheetServerContext {
 
     @Override
     SpreadsheetMetadataHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);

@@ -54,7 +54,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     void handle() {
         // verify spreadsheetId is present...
-        final Optional<UrlPathName> path = this.path(this.handler.spreadsheetIdPathComponent + 1);
+        final Optional<UrlPathName> path = this.path(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1);
         if (path.isPresent()) {
             this.handle0();
         } else {
@@ -63,7 +63,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
     }
 
     private void handle0() {
-        final Optional<UrlPathName> path = path(this.handler.spreadsheetIdPathComponent);
+        final Optional<UrlPathName> path = path(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT);
         if (path.isPresent()) {
             this.handleSpreadsheetId(path.get());
         } else {

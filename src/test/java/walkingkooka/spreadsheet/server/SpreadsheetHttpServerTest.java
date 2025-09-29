@@ -30,13 +30,10 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.HostAddress;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
-import walkingkooka.net.UrlScheme;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
@@ -64,7 +61,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.JarFileTesting;
@@ -76,9 +72,6 @@ import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.FakeSpreadsheetGlobalContext;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
@@ -95,6 +88,7 @@ import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -162,6 +156,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -267,8 +262,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // with.............................................................................................................
 
-    private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
-
     private final static Indentation INDENTATION = Indentation.SPACES2;
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
@@ -278,25 +271,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             MediaType.parse("text/java") :
             MediaType.BINARY;
 
-    private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
-    
-    private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
-
-    private final static SpreadsheetGlobalContext SPREADSHEET_GLOBAL_CONTEXT = new FakeSpreadsheetGlobalContext() {
-        @Override
-        public ProviderContext providerContext() {
-            return ProviderContexts.fake();
-        }
-    };
-
-    private final static Function<SpreadsheetId, SpreadsheetProvider> SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION = (id) -> {
-        throw new UnsupportedOperationException();
-    };
-
-    private final static Function<SpreadsheetId, SpreadsheetStoreRepository> SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION = (id) -> {
-        throw new UnsupportedOperationException();
-    };
-
     private final static Function<UrlPath, Either<WebFile, HttpStatus>> FILE_SERVER = (p) -> {
         throw new UnsupportedOperationException();
     };
@@ -305,200 +279,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         throw new UnsupportedOperationException();
     };
 
-    @Test
-    public void testWithNullServerUrlFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                null,
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithServerUrlNonEmptyPathFails() {
-        final IllegalArgumentException thrown = assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute("https://example.com/path123"),
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-
-        this.checkEquals(
-            "Url must not have path got \"https://example.com/path123\"",
-            thrown.getMessage(),
-            "message"
-        );
-    }
-
-    @Test
-    public void testWithServerUrlNonQueryStringFails() {
-        final IllegalArgumentException thrown = assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute("https://example.com?path123"),
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-
-        this.checkEquals(
-            "Url must not have query string got \"https://example.com?path123\"",
-            thrown.getMessage(),
-            "message"
-        );
-    }
-
-    @Test
-    public void testWithServerUrlNonFragmentFails() {
-        final IllegalArgumentException thrown = assertThrows(
-            IllegalArgumentException.class,
-            () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute("https://example.com#fragment456"),
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-
-        this.checkEquals(
-            "Url must not have fragment got \"https://example.com#fragment456\"",
-            thrown.getMessage(),
-            "message"
-        );
-    }
-
+    private final static SpreadsheetServerContext SPREADSHEET_SERVER_CONTEXT = SpreadsheetServerContexts.fake();
+    
     @Test
     public void testWithNullMediaTypeDetectorFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                null,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSystemSpreadsheetProviderFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                null,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullHateosResourceHandlerContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                null,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetGlobalContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                null,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                null,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToSpreadsheetStoreRepositoryFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
-                MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 null,
                 FILE_SERVER,
-                SERVER
+                SERVER,
+                SPREADSHEET_SERVER_CONTEXT
             )
         );
     }
@@ -508,15 +299,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 null,
-                SERVER
+                SERVER,
+                SPREADSHEET_SERVER_CONTEXT
             )
         );
     }
@@ -526,14 +312,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                SERVER_URL,
                 MEDIA_TYPE_DETECTOR,
-                SYSTEM_SPREADSHEET_PROVIDER,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_GLOBAL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
+                null,
+                SPREADSHEET_SERVER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetServerContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                MEDIA_TYPE_DETECTOR,
+                FILE_SERVER,
+                SERVER,
                 null
             )
         );
@@ -13299,31 +13093,55 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // helpers..........................................................................................................
 
     private TestHttpServer startServer() {
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+
         SpreadsheetHttpServer.with(
-            UrlScheme.HTTP.andHost(
-                HostAddress.with("example.com")
-            ),
             MEDIA_TYPE_DETECTOR,
-            SpreadsheetProviders.basic(
-                CONVERTER_PROVIDER,
-                EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
-                SPREADSHEET_COMPARATOR_PROVIDER,
-                SPREADSHEET_EXPORTER_PROVIDER,
-                SPREADSHEET_FORMATTER_PROVIDER,
-                FORM_HANDLER_PROVIDER,
-                SPREADSHEET_IMPORTER_PROVIDER,
-                SPREADSHEET_PARSER_PROVIDER,
-                VALIDATOR_PROVIDER
-            ),
-            HateosResourceHandlerContexts.basic(
-                INDENTATION,
-                LINE_ENDING,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
-            ),
-            SpreadsheetGlobalContexts.basic(
-                (ue, dl) -> this.createMetadata(),
-                this.metadataStore,
+            this::fileServer,
+            this::server,
+            SpreadsheetServerContexts.basic(
+                Url.parseAbsolute("https://example.com"),
+                () -> SpreadsheetStoreRepositories.basic(
+                    SpreadsheetCellStores.treeMap(),
+                    SpreadsheetCellReferencesStores.treeMap(),
+                    SpreadsheetColumnStores.treeMap(),
+                    SpreadsheetFormStores.treeMap(),
+                    SpreadsheetGroupStores.treeMap(),
+                    SpreadsheetLabelStores.treeMap(),
+                    SpreadsheetLabelReferencesStores.treeMap(),
+                    metadataStore,
+                    SpreadsheetCellRangeStores.treeMap(),
+                    SpreadsheetCellRangeStores.treeMap(),
+                    SpreadsheetRowStores.treeMap(),
+                    Storages.tree(),
+                    SpreadsheetUserStores.treeMap()
+                ), // Suppler<SpreadsheetStoreRepository>
+                SpreadsheetProviders.basic(
+                    CONVERTER_PROVIDER,
+                    EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
+                    SPREADSHEET_COMPARATOR_PROVIDER,
+                    SPREADSHEET_EXPORTER_PROVIDER,
+                    SPREADSHEET_FORMATTER_PROVIDER,
+                    FORM_HANDLER_PROVIDER,
+                    SPREADSHEET_IMPORTER_PROVIDER,
+                    SPREADSHEET_PARSER_PROVIDER,
+                    VALIDATOR_PROVIDER
+                ),
+                EnvironmentContexts.readOnly(
+                    EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+                ), // EnvironmentContext
                 LOCALE_CONTEXT,
+                SpreadsheetMetadataContexts.basic(
+                    (u, l) -> this.metadataStore.save(
+                        this.createMetadata()
+                    ),
+                    metadataStore
+                ),
+                HateosResourceHandlerContexts.basic(
+                    INDENTATION,
+                    LINE_ENDING,
+                    JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+                ),
                 ProviderContexts.basic(
                     ConverterContexts.fake(), // CanConvert
                     EnvironmentContexts.map(
@@ -13335,12 +13153,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     ),
                     SpreadsheetHttpServerTest.this.httpServer.pluginStore
                 )
-            ),
-            this::spreadsheetIdToSpreadsheetProvider,
-            this.spreadsheetIdToRepository,
-            this::fileServer,
-            this::server
+            )
         );
+
         this.httpServer.start();
         return this.httpServer;
     }
@@ -13366,10 +13181,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return server;
     }
 
-
     private SpreadsheetMetadata createMetadata() {
+        return this.createMetadata(LOCALE);
+    }
+
+    private SpreadsheetMetadata createMetadata(final Locale locale) {
         return SpreadsheetMetadataTesting.METADATA_EN_AU
-            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
+            .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy/mm/dd").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("yyyy/mm/dd").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("\"DateTime\" yyyy/mm/dd hh:mm").spreadsheetFormatterSelector())
@@ -13407,8 +13225,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = spreadsheetIdToRepository(Maps.concurrent(),
-        storeRepositorySupplier(this.metadataStore));
+//    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = spreadsheetIdToRepository(Maps.concurrent(),
+//        storeRepositorySupplier(this.metadataStore));
 
     /**
      * Retrieves from the cache or lazily creates a {@link SpreadsheetStoreRepository} for the given {@link SpreadsheetId}.
@@ -13423,27 +13241,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             }
             return repository;
         };
-    }
-
-    /**
-     * Creates a new {@link SpreadsheetStoreRepository} on demand
-     */
-    private static Supplier<SpreadsheetStoreRepository> storeRepositorySupplier(final SpreadsheetMetadataStore metadataStore) {
-        return () -> SpreadsheetStoreRepositories.basic(
-            SpreadsheetCellStores.treeMap(),
-            SpreadsheetCellReferencesStores.treeMap(),
-            SpreadsheetColumnStores.treeMap(),
-            SpreadsheetFormStores.treeMap(),
-            SpreadsheetGroupStores.treeMap(),
-            SpreadsheetLabelStores.treeMap(),
-            SpreadsheetLabelReferencesStores.treeMap(),
-            metadataStore,
-            SpreadsheetCellRangeStores.treeMap(),
-            SpreadsheetCellRangeStores.treeMap(),
-            SpreadsheetRowStores.treeMap(),
-            Storages.tree(),
-            SpreadsheetUserStores.treeMap()
-        );
     }
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {

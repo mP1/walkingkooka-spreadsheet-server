@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpEntity;
@@ -29,21 +28,17 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
+import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -52,43 +47,23 @@ import java.util.function.Predicate;
 public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
     /**
-     * Creates a new {@link SpreadsheetMetadataHttpHandler} handler.
+     * Creates a new {@link SpreadsheetMetadataHttpHandler} handler
      */
-    public static SpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
-                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                      final SpreadsheetGlobalContext spreadsheetGlobalContext) {
+    public static SpreadsheetMetadataHttpHandler with(final SpreadsheetServerContext context) {
         return new SpreadsheetMetadataHttpHandler(
-            Objects.requireNonNull(serverUrl, "serverUrl"),
-            Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
-            Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
-            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-            Objects.requireNonNull(spreadsheetGlobalContext, "spreadsheetGlobalContext")
+            Objects.requireNonNull(context, "context")
         );
     }
 
     /**
      * Private ctor
      */
-    private SpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
-                                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                           final SpreadsheetGlobalContext spreadsheetGlobalContext) {
+    private SpreadsheetMetadataHttpHandler(final SpreadsheetServerContext context) {
         super();
 
-        this.serverUrl = serverUrl;
+        final SpreadsheetMetadataHateosResourceHandlerContext spreadsheetMetadataHateosResourceHandlerContext = SpreadsheetMetadataHateosResourceHandlerContexts.basic(context);
 
-        final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
-            serverUrl,
-            spreadsheetIdToSpreadsheetProvider,
-            spreadsheetIdToStoreRepository,
-            hateosResourceHandlerContext,
-            spreadsheetGlobalContext
-        );
-
-        this.context = context;
+        this.context = spreadsheetMetadataHateosResourceHandlerContext;
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
@@ -97,8 +72,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             ).router()
             .then(
                 SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                    serverUrl.path(),
-                    context
+                    SpreadsheetHttpServer.API,
+                    spreadsheetMetadataHateosResourceHandlerContext
                 )
             );
     }
@@ -172,8 +147,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
     @Override
     public String toString() {
-        return this.serverUrl.toString();
+        return this.context.serverUrl()
+            .toString();
     }
-
-    private final AbsoluteUrl serverUrl;
 }
