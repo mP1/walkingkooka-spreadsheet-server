@@ -38,14 +38,14 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.server.SpreadsheetServerContext}
  * methods to create, or save/update.
  */
-final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
+final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
 
-    final static SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate INSTANCE = new SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate();
+    final static SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate INSTANCE = new SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate();
 
-    private SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate() {
+    private SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate() {
     }
 
     @Override
@@ -104,6 +104,6 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
 
     @Override
     String operation() {
-        return "saveUpdateMetadata";
+        return "createSaveUpdateMetadata";
     }
 }

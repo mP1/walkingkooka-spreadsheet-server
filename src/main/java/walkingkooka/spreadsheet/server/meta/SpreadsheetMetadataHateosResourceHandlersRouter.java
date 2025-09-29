@@ -84,7 +84,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
                     ).setHateosResourceHandler(
                         METADATA_LINK_RELATION,
                         HttpMethod.POST,
-                        SpreadsheetMetadataHateosResourceHandler.saveOrUpdate()
+                        SpreadsheetMetadataHateosResourceHandler.createSaveUpdate()
                     ).setHateosResourceHandler(
                         METADATA_LINK_RELATION,
                         HttpMethod.PATCH,

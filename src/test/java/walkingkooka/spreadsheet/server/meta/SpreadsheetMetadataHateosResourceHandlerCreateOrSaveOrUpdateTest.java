@@ -35,7 +35,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
-public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest extends SpreadsheetMetadataHateosResourceHandlersTestCase2<SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate> {
+public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest extends SpreadsheetMetadataHateosResourceHandlersTestCase2<SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate> {
 
     private final static AuditInfo AUDIT_INFO = AuditInfo.with(
         USER,
@@ -326,8 +326,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     }
 
     @Override
-    public SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate createHandler() {
-        return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate.INSTANCE;
+    public SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate createHandler() {
+        return SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate.INSTANCE;
     }
 
     @Override
@@ -335,7 +335,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
         return new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
             @Override
             public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest.this.metadata()
+                return SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.this.metadata()
                     .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
             }
 
@@ -352,14 +352,14 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "saveUpdateMetadata"
+            "createSaveUpdateMetadata"
         );
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate> type() {
-        return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate.class;
+    public Class<SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate> type() {
+        return SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate.class;
     }
 }

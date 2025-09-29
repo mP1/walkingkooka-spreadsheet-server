@@ -42,10 +42,10 @@ abstract class SpreadsheetMetadataHateosResourceHandler implements HateosResourc
     }
 
     /**
-     * {@see SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate}
+     * {@see SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate}
      */
-    static SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate saveOrUpdate() {
-        return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate.INSTANCE;
+    static SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate createSaveUpdate() {
+        return SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate.INSTANCE;
     }
 
     SpreadsheetMetadataHateosResourceHandler() {
