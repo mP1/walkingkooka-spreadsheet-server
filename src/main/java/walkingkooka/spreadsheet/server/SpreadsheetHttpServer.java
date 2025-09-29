@@ -20,10 +20,8 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpEntity;
@@ -42,15 +40,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
-import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
@@ -70,8 +65,6 @@ import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.text.CharSequences;
 import walkingkooka.validation.form.provider.FormHandlerName;
 import walkingkooka.validation.provider.ValidatorName;
 
@@ -152,52 +145,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
-    public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
-                                             final MediaTypeDetector mediaTypeDetector,
-                                             final SpreadsheetProvider systemSpreadsheetProvider,
-                                             final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                             final SpreadsheetGlobalContext spreadsheetGlobalContext,
-                                             final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                             final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+    public static SpreadsheetHttpServer with(final MediaTypeDetector mediaTypeDetector,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                             final Function<HttpHandler, HttpServer> server) {
+                                             final Function<HttpHandler, HttpServer> server,
+                                             final SpreadsheetServerContext context) {
         return new SpreadsheetHttpServer(
-            checkServerUrl(serverUrl),
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
-            Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
-            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-            Objects.requireNonNull(spreadsheetGlobalContext, "spreadsheetGlobalContext"),
-            Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
-            Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
             Objects.requireNonNull(fileServer, "fileServer"),
-            Objects.requireNonNull(server, "server")
-        );
-    }
-
-    private static AbsoluteUrl checkServerUrl(final AbsoluteUrl serverUrl) {
-        Objects.requireNonNull(serverUrl, "serverUrl");
-
-        if (false == serverUrl.path().equals(walkingkooka.net.UrlPath.EMPTY)) {
-            throw checkServerUrlFail("path", serverUrl);
-        }
-        if (false == serverUrl.query().equals(UrlQueryString.EMPTY)) {
-            throw checkServerUrlFail("query string", serverUrl);
-        }
-        if (false == serverUrl.urlFragment().equals(UrlFragment.EMPTY)) {
-            throw checkServerUrlFail("fragment", serverUrl);
-        }
-        return serverUrl;
-    }
-
-    private static IllegalArgumentException checkServerUrlFail(final String property,
-                                                               final AbsoluteUrl serverUrl) {
-        return new IllegalArgumentException(
-            "Url must not have " +
-                property +
-                " got " +
-                CharSequences.quoteAndEscape(
-                    serverUrl.toString()
-                )
+            Objects.requireNonNull(server, "server"),
+            Objects.requireNonNull(context, "context")
         );
     }
 
@@ -213,38 +169,23 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Private ctor use factory.
      */
-    private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
-                                  final MediaTypeDetector mediaTypeDetector,
-                                  final SpreadsheetProvider systemSpreadsheetProvider,
-                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                  final SpreadsheetGlobalContext spreadsheetGlobalContext,
-                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+    private SpreadsheetHttpServer(final MediaTypeDetector mediaTypeDetector,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                  final Function<HttpHandler, HttpServer> server) {
+                                  final Function<HttpHandler, HttpServer> server,
+                                  final SpreadsheetServerContext context) {
         super();
 
         this.mediaTypeDetector = mediaTypeDetector;
 
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-
-        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
-
-        this.spreadsheetGlobalContext = spreadsheetGlobalContext;
-
-        this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
-
-        this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
-
         this.spreadsheetProviderHateosResourceHandlerContext = SpreadsheetProviderHateosResourceHandlerContexts.basic(
-            systemSpreadsheetProvider,
-            spreadsheetGlobalContext.providerContext(),
-            hateosResourceHandlerContext
+            context, // SpreadsheetProvider
+            context.providerContext(),
+            context // HateosResourceHandlerContext
         );
 
         this.localeHateosResourceHandlerContext = LocaleHateosResourceHandlerContexts.basic(
-            spreadsheetGlobalContext,
-            hateosResourceHandlerContext
+            context, // LocaleContext
+            context //HateosResourceHandlerContext
         );
 
         this.server = server.apply(
@@ -256,6 +197,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 HttpHandlers.throwableTranslator()
             )
         );
+
+        this.context = context;
+
+        final AbsoluteUrl serverUrl = context.serverUrl();
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
@@ -311,9 +256,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 )
             ).add(
                 this.routing(API),
-                this.spreadsheetMetadataHttpHandler(
-                    serverUrl.setPath(API)
-                )
+                SpreadsheetMetadataHttpHandler.with(context)
             ).add(
                 this.fileServerRouting()
                     .build(),
@@ -455,16 +398,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
-        return SpreadsheetMetadataHttpHandler.with(
-            api,
-            this.spreadsheetIdToSpreadsheetProvider,
-            this.spreadsheetIdToStoreRepository,
-            this.hateosResourceHandlerContext,
-            this.spreadsheetGlobalContext
-        );
-    }
-
     /**
      * Require base url plus two more components to hold the service and its identifier, eg:
      * <pre>https://example.com/api-base/spreadsheet/spreadsheet-id-1234/cells/A1</pre>
@@ -478,40 +411,27 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
-        final SpreadsheetGlobalContext spreadsheetGlobalContext = this.spreadsheetGlobalContext;
-
-        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
-            url,
-            this.systemSpreadsheetProvider,
-            this.spreadsheetIdToSpreadsheetProvider,
-            this.spreadsheetIdToStoreRepository,
-            this.hateosResourceHandlerContext,
-            spreadsheetGlobalContext
+       return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
+            this.context
         );
     }
 
     private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
+        final SpreadsheetServerContext context = this.context;
+
         return PluginHttpHandler.with(
             apiPlugin,
-            this.hateosResourceHandlerContext,
-            this.spreadsheetGlobalContext.providerContext(),
+            context, // HateosResourceHandlerContext
+            context.providerContext(),
             this.mediaTypeDetector
         );
     }
 
     private final MediaTypeDetector mediaTypeDetector;
 
-    private final SpreadsheetProvider systemSpreadsheetProvider;
-
-    private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
-
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
-
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;
 
-    private final HateosResourceHandlerContext hateosResourceHandlerContext;
-
-    private final SpreadsheetGlobalContext spreadsheetGlobalContext;
+    private final SpreadsheetServerContext context;
 
     // files............................................................................................................
 

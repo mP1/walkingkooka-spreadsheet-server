@@ -38,6 +38,8 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.FakeSpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -216,19 +218,39 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetMetadata createMetadata(final EmailAddress user,
-                                                          final Optional<Locale> locale) {
-                    return SpreadsheetMetadata.EMPTY.set(
-                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                        SPREADSHEET_ID
-                    ).set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        AUDIT_INFO.setCreatedBy(user)
-                    ).setOrRemove(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        locale.orElse(null)
+                public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
+                                                                   final Optional<Locale> locale) {
+                    this.user = user;
+                    this.locale = locale;
+
+                    return new FakeSpreadsheetContext() {
+
+                        @Override
+                        public SpreadsheetId spreadsheetId() {
+                            return SPREADSHEET_ID;
+                        }
+                    };
+                }
+
+                @Override
+                public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId spreadsheetId) {
+                    return Optional.of(
+                        SpreadsheetMetadata.EMPTY.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SPREADSHEET_ID
+                        ).set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AUDIT_INFO.setCreatedBy(this.user)
+                                .setModifiedBy(this.user)
+                        ).setOrRemove(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.orElse(null)
+                        )
                     );
                 }
+
+                private EmailAddress user;
+                private Optional<Locale> locale;
 
                 @Override
                 public Optional<EmailAddress> user() {

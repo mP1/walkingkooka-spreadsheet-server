@@ -17,20 +17,15 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetGlobalContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
-import java.util.function.Function;
+import java.util.Objects;
 
 /**
  * A handler that routes all spreadsheet API calls.
@@ -40,48 +35,19 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     /**
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final AbsoluteUrl serverUrl,
-                                                                     final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                     final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final SpreadsheetGlobalContext spreadsheetGlobalContext) {
+    static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final SpreadsheetServerContext context) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
-            serverUrl,
-            systemSpreadsheetProvider,
-            spreadsheetIdToSpreadsheetProvider,
-            spreadsheetIdToStoreRepository,
-            hateosResourceHandlerContext,
-            spreadsheetGlobalContext
+            Objects.requireNonNull(context, "context")
         );
     }
 
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final AbsoluteUrl serverUrl,
-                                                                 final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                 final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final SpreadsheetGlobalContext spreadsheetGlobalContext) {
+    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final SpreadsheetServerContext context) {
         super();
 
-        this.serverUrl = serverUrl;
-
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-
-        this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
-
-        this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
-
-        this.spreadsheetIdPathComponent = serverUrl.path()
-            .namesList()
-            .size();
-
-        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
-
-        this.spreadsheetGlobalContext = spreadsheetGlobalContext;
+        this.context = context;
     }
 
     // Router...........................................................................................................
@@ -97,40 +63,26 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     }
 
     // shared with SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest
-    final int spreadsheetIdPathComponent;
+    final static int SPREADSHEET_ID_PATH_COMPONENT = SpreadsheetHttpServer.API_SPREADSHEET
+        .namesList()
+        .size();
 
     /**
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
     Router<HttpRequestAttribute<?>, HttpHandler> router(final SpreadsheetId id) {
         return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
-            this.serverUrl,
-            this.spreadsheetIdToSpreadsheetProvider,
-            this.spreadsheetIdToStoreRepository,
-            this.hateosResourceHandlerContext,
-            this.spreadsheetGlobalContext
+            this.context
         ).httpRouter(id);
     }
 
-    private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
-
-    /**
-     * A {@link Function} that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}.
-     */
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
-
-    private final HateosResourceHandlerContext hateosResourceHandlerContext;
-
-    private final SpreadsheetGlobalContext spreadsheetGlobalContext;
-
-    private final SpreadsheetProvider systemSpreadsheetProvider;
+    // @VisibleForTesting
+    final SpreadsheetServerContext context;
 
     // toString.........................................................................................................
 
     @Override
     public String toString() {
-        return this.serverUrl.toString();
+        return this.context.toString();
     }
-
-    private final AbsoluteUrl serverUrl;
 }
