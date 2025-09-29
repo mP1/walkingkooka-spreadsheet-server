@@ -63,6 +63,12 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
      */
     Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id);
 
+
+    default SpreadsheetContext spreadsheetContextOrFail(final SpreadsheetId id) {
+        return this.spreadsheetContext(id)
+            .orElseThrow(() -> new IllegalArgumentException("Missing Spreadsheet " + id));
+    }
+
     @Override
     SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
 
