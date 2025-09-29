@@ -344,7 +344,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                         stringValue = value.toString();
                         break;
                     case "TextStylePropertyName":
-                        stringValue = ((TextStylePropertyName)value).text();
+                        stringValue = ((TextStylePropertyName<?>)value).text();
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown placeholder: " + n);
