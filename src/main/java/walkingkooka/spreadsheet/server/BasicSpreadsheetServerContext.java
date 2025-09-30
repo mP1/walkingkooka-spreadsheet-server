@@ -146,6 +146,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final Optional<EmailAddress> user2 = Optional.of(user);
 
         final SpreadsheetContext context = SpreadsheetContexts.basic(
+            this.serverUrl,
             id,
             this.spreadsheetStoreRepository.get(), // SpreadsheetStoreRepository
             this.spreadsheetProvider,

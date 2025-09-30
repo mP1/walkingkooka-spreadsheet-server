@@ -26,6 +26,7 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -83,6 +84,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         LocaleContextDelegator,
         SpreadsheetProviderDelegator,
         SpreadsheetMetadataContextDelegator {
+
+        @Override
+        public AbsoluteUrl serverUrl() {
+            return Url.parseAbsolute("https://example.com");
+        }
 
         @Override
         public SpreadsheetId spreadsheetId() {

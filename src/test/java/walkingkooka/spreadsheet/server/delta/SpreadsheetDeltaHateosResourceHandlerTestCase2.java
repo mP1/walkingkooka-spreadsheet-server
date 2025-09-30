@@ -402,6 +402,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             METADATA,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             SpreadsheetContexts.basic(
+                Url.parseAbsolute("https://example.com"), // serverUrl
                 METADATA.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID),
                 repos,
                 SPREADSHEET_PROVIDER,
