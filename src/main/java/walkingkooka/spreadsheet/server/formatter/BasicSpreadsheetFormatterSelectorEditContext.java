@@ -55,35 +55,7 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
         this.providerContext = providerContext;
     }
 
-    // SpreadsheetFormatterContext......................................................................................
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
-        final SpreadsheetFormatterContext after = before.setObjectPostProcessor(processor);
-
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetFormatterSelectorEditContext(
-                after,
-                this.spreadsheetFormatterProvider,
-                this.providerContext
-            );
-    }
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
-        final SpreadsheetFormatterContext after = before.setPreProcessor(processor);
-
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetFormatterSelectorEditContext(
-                after,
-                this.spreadsheetFormatterProvider,
-                this.providerContext
-            );
-    }
+    // LocaleContext....................................................................................................
 
     @Override
     public Locale locale() {
@@ -96,6 +68,32 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
         this.localeContext()
             .setLocale(locale);
         return this;
+    }
+
+    // SpreadsheetFormatterContext......................................................................................
+
+    @Override
+    public SpreadsheetFormatterSelectorEditContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        return this.setSpreadsheetFormatterContext(
+            this.spreadsheetFormatterContext.setObjectPostProcessor(processor)
+        );
+    }
+
+    @Override
+    public SpreadsheetFormatterSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        return this.setSpreadsheetFormatterContext(
+            this.spreadsheetFormatterContext.setPreProcessor(processor)
+        );
+    }
+
+    private SpreadsheetFormatterSelectorEditContext setSpreadsheetFormatterContext(final SpreadsheetFormatterContext context) {
+        return this.spreadsheetFormatterContext.equals(context) ?
+            this :
+            with(
+                context,
+                this.spreadsheetFormatterProvider,
+                this.providerContext
+            );
     }
 
     @Override
