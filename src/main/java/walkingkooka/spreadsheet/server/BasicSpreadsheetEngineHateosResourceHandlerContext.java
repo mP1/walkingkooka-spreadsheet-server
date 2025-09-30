@@ -114,26 +114,24 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     @Override
     public BasicSpreadsheetEngineHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetEngineHateosResourceHandlerContext(
-                this.spreadsheetEngine,
-                after,
-                this.engineContext
-            );
+        return this.setHateosResourceHandlerContext(
+            this.hateosResourceHandlerContext.setObjectPostProcessor(processor)
+        );
     }
 
     @Override
     public BasicSpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
-        return before.equals(after) ?
+        return this.setHateosResourceHandlerContext(
+            this.hateosResourceHandlerContext.setPreProcessor(processor)
+        );
+    }
+
+    private BasicSpreadsheetEngineHateosResourceHandlerContext setHateosResourceHandlerContext(final HateosResourceHandlerContext context) {
+        return this.hateosResourceHandlerContext.equals(context) ?
             this :
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 this.spreadsheetEngine,
-                after,
+                context,
                 this.engineContext
             );
     }
