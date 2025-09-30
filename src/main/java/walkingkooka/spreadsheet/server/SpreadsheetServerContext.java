@@ -20,10 +20,10 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.HasProviderContext;
+import walkingkooka.spreadsheet.HasSpreadsheetServerUrl;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -39,15 +39,11 @@ import java.util.Optional;
  */
 public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     EnvironmentContext,
+    HasSpreadsheetServerUrl,
     LocaleContext,
     HateosResourceHandlerContext,
     SpreadsheetProvider,
     HasProviderContext {
-
-    /**
-     * The server url.
-     */
-    AbsoluteUrl serverUrl();
 
     @Override
     SpreadsheetServerContext setLocale(final Locale locale);

@@ -18,11 +18,12 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.HasProviderContextTesting;
+import walkingkooka.spreadsheet.HasSpreadsheetServerUrlTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -34,18 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetMetadataContextTesting<C>,
     HasProviderContextTesting,
+    HasSpreadsheetMetadataTesting,
+    HasSpreadsheetServerUrlTesting,
     TreePrintableTesting {
-
-    // serverUrl........................................................................................................
-
-    default void serverUrlAndCheck(final C context,
-                                   final AbsoluteUrl expected) {
-        this.checkEquals(
-            expected,
-            context.serverUrl(),
-            context::toString
-        );
-    }
 
     // createSpreadsheetContext.........................................................................................
 
