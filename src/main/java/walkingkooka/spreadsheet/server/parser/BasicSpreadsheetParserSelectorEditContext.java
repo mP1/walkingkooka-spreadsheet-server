@@ -71,29 +71,25 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
 
     @Override
     public SpreadsheetParserSelectorEditContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
-        final SpreadsheetFormatterContext after = before.setObjectPostProcessor(processor);
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetParserSelectorEditContext(
-                this.spreadsheetParserProvider,
-                this.spreadsheetParserContext,
-                after,
-                this.spreadsheetFormatterProvider,
-                this.providerContext
-            );
+        return this.setSpreadsheetFormatterContext(
+            this.spreadsheetFormatterContext.setObjectPostProcessor(processor)
+        );
     }
 
     @Override
     public SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
-        final SpreadsheetFormatterContext after = before.setPreProcessor(processor);
-        return before.equals(after) ?
+        return this.setSpreadsheetFormatterContext(
+            this.spreadsheetFormatterContext.setPreProcessor(processor)
+        );
+    }
+
+    private BasicSpreadsheetParserSelectorEditContext setSpreadsheetFormatterContext(final SpreadsheetFormatterContext context) {
+        return this.spreadsheetFormatterContext.equals(context) ?
             this :
             new BasicSpreadsheetParserSelectorEditContext(
                 this.spreadsheetParserProvider,
                 this.spreadsheetParserContext,
-                after,
+                context,
                 this.spreadsheetFormatterProvider,
                 this.providerContext
             );
