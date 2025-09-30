@@ -36,6 +36,7 @@ import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -130,7 +131,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.basic(
             metadata,
-            SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+            SpreadsheetEngineContextMode.FORMULA,
             spreadsheetContext,
             TerminalContexts.printer(
                 Printers.sink(LineEnding.NONE)
