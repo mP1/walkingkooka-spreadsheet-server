@@ -44,6 +44,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
@@ -72,7 +73,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     );
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
-        METADATA_EN_AU,
         SpreadsheetEngineContextMode.FORMULA,
         new TestSpreadsheetContext(),
         TERMINAL_CONTEXT
@@ -91,7 +91,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetId spreadsheetId() {
-            throw new UnsupportedOperationException();
+            return SpreadsheetId.with(1);
         }
 
         @Override
@@ -146,7 +146,10 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetMetadata spreadsheetMetadata() {
-            throw new UnsupportedOperationException();
+            return METADATA_EN_AU.set(
+                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                this.spreadsheetId()
+            );
         }
 
         @Override
