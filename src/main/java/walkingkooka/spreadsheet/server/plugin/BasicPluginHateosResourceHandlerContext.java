@@ -48,27 +48,24 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
 
     @Override
     public PluginHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
-
-        return before.equals(after) ?
-            this :
-            new BasicPluginHateosResourceHandlerContext(
-                after,
-                this.providerContext
-            );
+        return this.setHateosResourceHandlerContext(
+            this.hateosResourceHandlerContext.setObjectPostProcessor(processor)
+        );
     }
 
 
     @Override
     public PluginHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
+        return this.setHateosResourceHandlerContext(
+            this.hateosResourceHandlerContext.setPreProcessor(processor)
+        );
+    }
 
-        return before.equals(after) ?
+    private BasicPluginHateosResourceHandlerContext setHateosResourceHandlerContext(final HateosResourceHandlerContext context) {
+        return this.hateosResourceHandlerContext.equals(context) ?
             this :
             new BasicPluginHateosResourceHandlerContext(
-                after,
+                context,
                 this.providerContext
             );
     }
