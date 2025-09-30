@@ -217,22 +217,22 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final SpreadsheetServerContext before = this.context;
-        final SpreadsheetServerContext after = before.setObjectPostProcessor(processor);
-
-        return before.equals(after) ?
-            this :
-            with(after);
+        return this.setSpreadsheetServerContext(
+            this.context.setObjectPostProcessor(processor)
+        );
     }
 
     @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final SpreadsheetServerContext before = this.context;
-        final SpreadsheetServerContext after = before.setPreProcessor(processor);
+        return this.setSpreadsheetServerContext(
+            this.context.setPreProcessor(processor)
+        );
+    }
 
-        return before.equals(after) ?
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext setSpreadsheetServerContext(final SpreadsheetServerContext context) {
+        return this.context.equals(context) ?
             this :
-            with(after);
+            with(context);
     }
 
     // EnvironmentContext...............................................................................................
