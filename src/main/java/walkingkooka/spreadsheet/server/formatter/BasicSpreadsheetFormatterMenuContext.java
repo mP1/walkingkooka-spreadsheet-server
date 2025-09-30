@@ -63,27 +63,24 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
 
     @Override
     public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final SpreadsheetFormatterProviderSamplesContext before = this.spreadsheetFormatterProviderSamplesContext;
-        final SpreadsheetFormatterProviderSamplesContext after = before.setObjectPostProcessor(processor);
-
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetFormatterMenuContext(
-                this.spreadsheetFormatterProvider,
-                after
-            );
+        return this.setSpreadsheetFormatterProviderSamplesContext(
+            this.spreadsheetFormatterProviderSamplesContext.setObjectPostProcessor(processor)
+        );
     }
 
     @Override
     public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final SpreadsheetFormatterProviderSamplesContext before = this.spreadsheetFormatterProviderSamplesContext;
-        final SpreadsheetFormatterProviderSamplesContext after = before.setPreProcessor(processor);
+        return this.setSpreadsheetFormatterProviderSamplesContext(
+            this.spreadsheetFormatterProviderSamplesContext.setPreProcessor(processor)
+        );
+    }
 
-        return before.equals(after) ?
+    private SpreadsheetFormatterProviderSamplesContext setSpreadsheetFormatterProviderSamplesContext(final SpreadsheetFormatterProviderSamplesContext context) {
+        return this.spreadsheetFormatterProviderSamplesContext.equals(context) ?
             this :
-            new BasicSpreadsheetFormatterMenuContext(
+            with(
                 this.spreadsheetFormatterProvider,
-                after
+                context
             );
     }
 
