@@ -399,7 +399,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             .save(METADATA);
 
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
-            METADATA,
             SpreadsheetEngineContextMode.FORMULA,
             SpreadsheetContexts.basic(
                 Url.parseAbsolute("https://example.com"), // serverUrl
