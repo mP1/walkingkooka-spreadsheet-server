@@ -66,27 +66,24 @@ final class BasicLocaleHateosResourceHandlerContext implements LocaleHateosResou
 
     @Override
     public LocaleHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
-
-        return before.equals(after) ?
-            this :
-            with(
-                this.localeContext,
-                after
-            );
+        return this.setHateosResourceHandlerContext(
+            this.hateosResourceHandlerContext.setObjectPostProcessor(processor)
+        );
     }
 
     @Override
     public LocaleHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
-        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
+        return this.setHateosResourceHandlerContext(
+            this.hateosResourceHandlerContext.setPreProcessor(processor)
+        );
+    }
 
-        return before.equals(after) ?
+    private LocaleHateosResourceHandlerContext setHateosResourceHandlerContext(final HateosResourceHandlerContext context) {
+        return this.hateosResourceHandlerContext.equals(context) ?
             this :
             with(
                 this.localeContext,
-                after
+                context
             );
     }
 
