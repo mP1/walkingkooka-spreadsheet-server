@@ -54,6 +54,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 Url.parseAbsolute("https://example.com"),
                 () -> SpreadsheetStoreRepositories.fake(),
                 SPREADSHEET_PROVIDER,
+                null,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.fake(),

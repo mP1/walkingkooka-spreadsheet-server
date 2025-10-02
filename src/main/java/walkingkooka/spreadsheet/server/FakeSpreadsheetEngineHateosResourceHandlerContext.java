@@ -136,6 +136,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public SpreadsheetEngineContext spreadsheetEngineContext() {
+        throw new UnsupportedOperationException();
+    }
+
     // SpreadsheetEngineContext.........................................................................................
 
     @Override

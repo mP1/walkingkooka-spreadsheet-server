@@ -23,7 +23,11 @@ import walkingkooka.environment.AuditInfo;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.FakeSpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -69,8 +73,23 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
             @Override
-            public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
-                return store.load(id);
+            public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                return Optional.ofNullable(
+                    ID.equals(id) ?
+                        new FakeSpreadsheetContext() {
+
+                            @Override
+                            public SpreadsheetEngineContext spreadsheetEngineContext() {
+                                return new FakeSpreadsheetEngineContext() {
+                                    @Override
+                                    public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                                        return store.load(id);
+                                    }
+                                };
+                            }
+                        } :
+                        null
+                );
             }
         };
 
@@ -121,18 +140,33 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
             @Override
-            public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                return store.save(metadata);
-            }
+            public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                return Optional.ofNullable(
+                    ID.equals(id) ?
+                        new FakeSpreadsheetContext() {
 
-            @Override
-            public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
-                return store.load(id);
-            }
+                            @Override
+                            public SpreadsheetEngineContext spreadsheetEngineContext() {
+                                return new FakeSpreadsheetEngineContext() {
+                                    @Override
+                                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                                        return store.save(metadata);
+                                    }
 
-            @Override
-            public String toString() {
-                return store.toString();
+                                    @Override
+                                    public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                                        return store.load(id);
+                                    }
+                                };
+                            }
+
+                            @Override
+                            public String toString() {
+                                return store.toString();
+                            }
+                        } :
+                        null
+                );
             }
         };
 

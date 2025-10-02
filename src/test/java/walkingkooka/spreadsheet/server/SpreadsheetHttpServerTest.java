@@ -77,6 +77,8 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
@@ -13133,6 +13135,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     SPREADSHEET_IMPORTER_PROVIDER,
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
+                ),
+                (c) -> SpreadsheetEngineContexts.basic(
+                    SpreadsheetEngineContextMode.FORMULA,
+                    c,
+                    TERMINAL_CONTEXT
                 ),
                 EnvironmentContexts.readOnly(
                     EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
