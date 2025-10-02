@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -62,7 +63,7 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
 
     default SpreadsheetContext spreadsheetContextOrFail(final SpreadsheetId id) {
         return this.spreadsheetContext(id)
-            .orElseThrow(() -> new IllegalArgumentException("Missing Spreadsheet " + id));
+            .orElseThrow(() -> new MissingStoreException("Missing Spreadsheet " + id));
     }
 
     @Override

@@ -30,6 +30,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
@@ -398,19 +399,22 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         repos.metadatas()
             .save(METADATA);
 
-        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
-            SpreadsheetEngineContextMode.FORMULA,
-            SpreadsheetContexts.basic(
-                Url.parseAbsolute("https://example.com"), // serverUrl
-                METADATA.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID),
-                repos,
-                SPREADSHEET_PROVIDER,
-                EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
-                LOCALE_CONTEXT,
-                PROVIDER_CONTEXT
+        final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.basic(
+            Url.parseAbsolute("https://example.com"), // serverUrl
+            METADATA.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID),
+            repos,
+            SPREADSHEET_PROVIDER,
+            (SpreadsheetContext c) -> SpreadsheetEngineContexts.basic(
+                SpreadsheetEngineContextMode.FORMULA,
+                c,
+                TERMINAL_CONTEXT
             ),
-            TERMINAL_CONTEXT
+            EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+            LOCALE_CONTEXT,
+            PROVIDER_CONTEXT
         );
+
+        final SpreadsheetEngineContext engineContext = spreadsheetContext.spreadsheetEngineContext();
 
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
 

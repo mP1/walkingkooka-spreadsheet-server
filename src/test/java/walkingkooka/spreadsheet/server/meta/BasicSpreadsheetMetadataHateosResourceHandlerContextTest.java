@@ -58,6 +58,8 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -987,6 +989,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
                 ), // SpreadsheetProvider
+                (c) -> SpreadsheetEngineContexts.basic(
+                    SpreadsheetEngineContextMode.FORMULA,
+                    c,
+                    TERMINAL_CONTEXT
+                ),
                 EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(

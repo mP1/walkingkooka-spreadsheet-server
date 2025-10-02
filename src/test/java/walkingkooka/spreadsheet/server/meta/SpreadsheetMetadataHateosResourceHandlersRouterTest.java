@@ -41,6 +41,8 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -273,9 +275,24 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
 
                 @Override
-                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                    SpreadsheetMetadataHateosResourceHandlersRouterTest.this.saved = metadata;
-                    return metadata;
+                public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                    return Optional.ofNullable(
+                        0x12ef == id.id() ?
+                            new FakeSpreadsheetContext() {
+
+                                @Override
+                                public SpreadsheetEngineContext spreadsheetEngineContext() {
+                                    return new FakeSpreadsheetEngineContext() {
+                                        @Override
+                                        public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                                            SpreadsheetMetadataHateosResourceHandlersRouterTest.this.saved = metadata;
+                                            return metadata;
+                                        }
+                                    };
+                                }
+                            } :
+                            null
+                    );
                 }
             },
             HttpMethod.POST,

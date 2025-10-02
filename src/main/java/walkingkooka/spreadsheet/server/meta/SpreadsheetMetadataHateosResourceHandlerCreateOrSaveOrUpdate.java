@@ -66,7 +66,9 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
         }
 
         return Optional.of(
-            context.saveMetadata(metadata)
+            context.spreadsheetContextOrFail(metadataId)
+                .spreadsheetEngineContext()
+                .saveMetadata(metadata)
         );
     }
 

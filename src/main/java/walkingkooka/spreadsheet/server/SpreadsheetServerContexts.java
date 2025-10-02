@@ -23,10 +23,13 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class SpreadsheetServerContexts implements PublicStaticHelper {
@@ -37,6 +40,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
     public static SpreadsheetServerContext basic(final AbsoluteUrl serverUrl,
                                                  final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
+                                                 final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
                                                  final EnvironmentContext environmentContext,
                                                  final LocaleContext localeContext,
                                                  final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -46,6 +50,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
             serverUrl,
             spreadsheetStoreRepository,
             spreadsheetProvider,
+            spreadsheetEngineContextFunction,
             environmentContext,
             localeContext,
             spreadsheetMetadataContext,

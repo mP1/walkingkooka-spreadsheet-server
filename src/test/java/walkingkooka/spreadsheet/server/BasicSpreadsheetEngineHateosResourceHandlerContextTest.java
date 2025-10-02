@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
@@ -40,6 +41,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
@@ -48,10 +50,13 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
 import java.math.MathContext;
 import java.util.Locale;
@@ -72,11 +77,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
     );
 
-    private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
-        SpreadsheetEngineContextMode.FORMULA,
-        new TestSpreadsheetContext(),
-        TERMINAL_CONTEXT
-    );
+    private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.fake();
 
     final static class TestSpreadsheetContext implements SpreadsheetContext,
         EnvironmentContextDelegator,
@@ -93,6 +94,16 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         public SpreadsheetId spreadsheetId() {
             return SpreadsheetId.with(1);
         }
+
+        @Override
+        public SpreadsheetEngineContext spreadsheetEngineContext() {
+            return SpreadsheetEngineContexts.basic(
+                SpreadsheetEngineContextMode.FORMULA,
+                this,
+                TERMINAL_CONTEXT
+            );
+        }
+
 
         @Override
         public SpreadsheetContext setUser(final Optional<EmailAddress> user) {
@@ -165,7 +176,23 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetProvider spreadsheetProvider() {
-            return SPREADSHEET_PROVIDER;
+            return SpreadsheetProviders.basic(
+                CONVERTER_PROVIDER,
+                ExpressionFunctionProviders.basic(
+                    Url.parseAbsolute("https://example.com/functions"),
+                    SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY,
+                    Sets.of(
+                        ExpressionFunctions.typeName()
+                    )
+                ),
+                SPREADSHEET_COMPARATOR_PROVIDER,
+                SPREADSHEET_EXPORTER_PROVIDER,
+                SPREADSHEET_FORMATTER_PROVIDER,
+                FORM_HANDLER_PROVIDER,
+                SPREADSHEET_IMPORTER_PROVIDER,
+                SPREADSHEET_PARSER_PROVIDER,
+                VALIDATOR_PROVIDER
+            );
         }
 
         @Override
@@ -281,7 +308,8 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
             SPREADSHEET_ENGINE,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ENGINE_CONTEXT
+            new TestSpreadsheetContext()
+                .spreadsheetEngineContext()
         );
     }
 

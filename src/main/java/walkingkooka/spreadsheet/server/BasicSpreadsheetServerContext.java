@@ -36,6 +36,7 @@ import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -51,6 +52,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -65,6 +67,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     static BasicSpreadsheetServerContext with(final AbsoluteUrl serverUrl,
                                               final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
+                                              final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
                                               final EnvironmentContext environmentContext,
                                               final LocaleContext localeContext,
                                               final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -86,6 +89,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             serverUrl,
             Objects.requireNonNull(spreadsheetStoreRepository, "spreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
+            Objects.requireNonNull(spreadsheetEngineContextFunction, "spreadsheetEngineContextFunction"),
             Objects.requireNonNull(environmentContext, "environmentContext"),
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(spreadsheetMetadataContext, "spreadsheetMetadataContext"),
@@ -109,6 +113,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     private BasicSpreadsheetServerContext(final AbsoluteUrl serverUrl,
                                           final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
+                                          final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
                                           final EnvironmentContext environmentContext,
                                           final LocaleContext localeContext,
                                           final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -117,6 +122,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.serverUrl = serverUrl;
         this.spreadsheetStoreRepository = spreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
+
+        this.spreadsheetEngineContextFunction = spreadsheetEngineContextFunction;
+
         this.environmentContext = EnvironmentContexts.readOnly(environmentContext); // safety
         this.localeContext = localeContext;
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
@@ -150,6 +158,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             id,
             this.spreadsheetStoreRepository.get(), // SpreadsheetStoreRepository
             this.spreadsheetProvider,
+            this.spreadsheetEngineContextFunction,
             metadata.environmentContext(
                 this.environmentContext.cloneEnvironment()
                     .setUser(user2)
@@ -170,6 +179,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     private final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository;
+
+    private final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction;
 
     /**
      * The default or starting {@link EnvironmentContext} for each new spreadsheet.
@@ -325,6 +336,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.serverUrl,
                 this.spreadsheetStoreRepository,
                 this.spreadsheetProvider,
+                this.spreadsheetEngineContextFunction,
                 this.environmentContext,
                 this.localeContext,
                 this.spreadsheetMetadataContext,

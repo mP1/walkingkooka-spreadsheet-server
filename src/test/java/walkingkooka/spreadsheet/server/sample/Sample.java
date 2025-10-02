@@ -45,16 +45,32 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
+import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
+import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterProviders;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterAliasSet;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterAliasSet;
+import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
+import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserAliasSet;
+import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
@@ -72,9 +88,11 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.Storages;
+import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -82,8 +100,10 @@ import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 import walkingkooka.validation.form.provider.FormHandlerAliasSet;
+import walkingkooka.validation.form.provider.FormHandlerProviders;
 import walkingkooka.validation.form.provider.FormHandlerSelector;
 import walkingkooka.validation.provider.ValidatorAliasSet;
+import walkingkooka.validation.provider.ValidatorProviders;
 
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -147,6 +167,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"cellCharacterWidth\": 10,\n" +
+                    "  \"comparators\": \"\",\n" +
+                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, jsonTo, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
                     "  \"dateParser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
@@ -168,16 +190,22 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "  },\n" +
                     "  \"defaultFormHandler\": \"non-null\",\n" +
                     "  \"defaultYear\": 1900,\n" +
+                    "  \"exporters\": \"\",\n" +
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
                     "  \"formHandlers\": \"basic\",\n" +
+                    "  \"formatters\": \"simple\",\n" +
+                    "  \"formattingConverter\": \"simple\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, basic, spreadsheet-value)\",\n" +
                     "  \"formulaFunctions\": \"@\",\n" +
                     "  \"frozenColumns\": \"A:B\",\n" +
                     "  \"frozenRows\": \"1:2\",\n" +
+                    "  \"functions\": \"@\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"importers\": \"\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern #0.0\",\n" +
                     "  \"numberParser\": \"number-parse-pattern #\",\n" +
+                    "  \"parsers\": \"\",\n" +
                     "  \"precision\": 123,\n" +
                     "  \"roundingMode\": \"FLOOR\",\n" +
                     "  \"style\": {\n" +
@@ -207,6 +235,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.DOUBLE;
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
+            .set(SpreadsheetMetadataPropertyName.COMPARATORS, SpreadsheetComparatorAliasSet.EMPTY)
+            .set(SpreadsheetMetadataPropertyName.CONVERTERS, SpreadsheetConvertersConverterProviders.ALL.aliasSet())
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("DD/MM/YYYY hh:mm").spreadsheetFormatterSelector())
@@ -232,16 +262,22 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 SpreadsheetMetadataPropertyName.DEFAULT_FORM_HANDLER,
                 FormHandlerSelector.parse("non-null")
             ).set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
+            .set(SpreadsheetMetadataPropertyName.EXPORTERS, SpreadsheetExporterAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, expressionNumberKind)
             .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
+            .set(SpreadsheetMetadataPropertyName.FORMATTERS, SpreadsheetFormatterAliasSet.parse("simple"))
+            .set(SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER, ConverterSelector.parse("simple"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
+            .set(SpreadsheetMetadataPropertyName.FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
+            .set(SpreadsheetMetadataPropertyName.IMPORTERS, SpreadsheetImporterAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
             .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
+            .set(SpreadsheetMetadataPropertyName.PARSERS, SpreadsheetParserAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.PRECISION, 123)
             .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.FLOOR)
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, createdId)
@@ -259,6 +295,11 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatters();
+        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern(
+            spreadsheetFormatterProvider
+        );
 
         return SpreadsheetHttpServer.with(
             MediaTypeDetectors.fake(),
@@ -286,7 +327,31 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     Storages.tree(),
                     SpreadsheetUserStores.fake()
                 ),
-                SpreadsheetProviders.fake(),
+                SpreadsheetProviders.basic(
+                    SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                        (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale
+                        ).dateTimeConverter(
+                            spreadsheetFormatterProvider,
+                            spreadsheetParserProvider,
+                            p
+                        )
+                    ), // converterProvider
+                    ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
+                    SpreadsheetComparatorProviders.spreadsheetComparators(),
+                    SpreadsheetExporterProviders.spreadsheetExport(),
+                    spreadsheetFormatterProvider,
+                    FormHandlerProviders.validation(),
+                    SpreadsheetImporterProviders.spreadsheetImport(),
+                    spreadsheetParserProvider,
+                    ValidatorProviders.validators()
+                ),
+                (c) -> SpreadsheetEngineContexts.basic(
+                    SpreadsheetEngineContextMode.FORMULA,
+                    c,
+                    TerminalContexts.fake()
+                ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
                         locale,

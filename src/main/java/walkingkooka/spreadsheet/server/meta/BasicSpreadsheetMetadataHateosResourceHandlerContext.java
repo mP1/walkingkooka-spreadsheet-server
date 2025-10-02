@@ -36,8 +36,6 @@ import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -59,9 +57,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.terminal.TerminalContexts;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
@@ -127,18 +122,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(id);
 
-        final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.basic(
-            SpreadsheetEngineContextMode.FORMULA,
-            spreadsheetContext,
-            TerminalContexts.printer(
-                Printers.sink(LineEnding.NONE)
-            )
-        );
-
         return this.mappings(
             id,
             engine,
-            spreadsheetEngineContext
+            spreadsheetContext.spreadsheetEngineContext()
         );
     }
 

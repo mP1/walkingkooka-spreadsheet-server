@@ -28,6 +28,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 
@@ -226,8 +228,22 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                    return metadata;
+                public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId i) {
+                    return Optional.ofNullable(
+                        id.equals(i) ?
+                            new FakeSpreadsheetContext() {
+                                @Override
+                                public SpreadsheetEngineContext spreadsheetEngineContext() {
+                                    return new FakeSpreadsheetEngineContext() {
+                                        @Override
+                                        public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                                            return metadata;
+                                        }
+                                    };
+                                }
+                            } :
+                            null
+                    );
                 }
             },
             Optional.of(metadata)

@@ -33,6 +33,8 @@ import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -41,12 +43,16 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderContexts;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -58,9 +64,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
-    private final static Supplier<SpreadsheetStoreRepository> REPO = () -> {
-        throw new UnsupportedOperationException();
-    };
+    private final static Supplier<SpreadsheetStoreRepository> REPO = () -> SpreadsheetStoreRepositories.fake();
+
+    private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FUNCTION = (c) -> SpreadsheetEngineContexts.fake();;
 
     private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = SpreadsheetMetadataContexts.fake();
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
@@ -76,6 +82,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 null,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -93,6 +100,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 Url.parseAbsolute("https://example.com/path123"),
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -116,6 +124,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 Url.parseAbsolute("https://example.com?k=v"),
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -139,6 +148,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 Url.parseAbsolute("https://example.com#fragment123"),
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -162,6 +172,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 null,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -178,6 +189,25 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 SERVER_URL,
                 REPO,
+                null,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetEngineContextFactoryFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                SERVER_URL,
+                REPO,
+                SPREADSHEET_PROVIDER,
                 null,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
@@ -196,6 +226,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 null,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -213,6 +244,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 null,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -230,6 +262,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 null,
@@ -247,6 +280,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -264,6 +298,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -328,12 +363,19 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         return BasicSpreadsheetServerContext.with(
             SERVER_URL,
             () -> new FakeSpreadsheetStoreRepository() {
+
+                @Override
+                public SpreadsheetLabelStore labels() {
+                    return SpreadsheetLabelStores.fake();
+                }
+
                 @Override
                 public SpreadsheetMetadataStore metadatas() {
                     return spreadsheetMetadataStore;
                 }
             },
             SPREADSHEET_PROVIDER,
+            SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
             EnvironmentContexts.readOnly(
                 EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
             ),
@@ -567,6 +609,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SERVER_URL,
                 REPO,
                 SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
