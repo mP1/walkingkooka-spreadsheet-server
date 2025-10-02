@@ -17,7 +17,6 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
@@ -30,6 +29,7 @@ import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -55,15 +55,13 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
     /**
      * Builds a {@link Router} that handles all operations, using the given {@link HateosResourceHandler handlers}.
      */
-    static Router<HttpRequestAttribute<?>, HttpHandler> with(final UrlPath basePath,
-                                                             final SpreadsheetMetadataHateosResourceHandlerContext context) {
-        Objects.requireNonNull(basePath, "basePath");
+    static Router<HttpRequestAttribute<?>, HttpHandler> with(final SpreadsheetMetadataHateosResourceHandlerContext context) {
         Objects.requireNonNull(context, "context");
 
         // metadata GET, POST...........................................................................................
 
         return HateosResourceMappings.router(
-            basePath,
+            SpreadsheetHttpServer.API,
             Sets.of(
                 HateosResourceMappings.with(
                         SpreadsheetMetadata.HATEOS_RESOURCE_NAME,

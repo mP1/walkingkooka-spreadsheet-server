@@ -72,7 +72,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             ).router()
             .then(
                 SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                    SpreadsheetHttpServer.API,
                     spreadsheetMetadataHateosResourceHandlerContext
                 )
             );

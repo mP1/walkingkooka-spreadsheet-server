@@ -99,24 +99,10 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     }
 
     @Test
-    public void testWithNullBasePathFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                null,
-                CONTEXT
-            )
-        );
-    }
-
-    @Test
     public void testWithNullContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                BASE_PATH,
-                null
-            )
+            () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(null)
         );
     }
 
@@ -371,10 +357,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     private boolean deleted;
 
     private Router<HttpRequestAttribute<?>, HttpHandler> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
-        return SpreadsheetMetadataHateosResourceHandlersRouter.with(
-            BASE_PATH,
-            context
-        );
+        return SpreadsheetMetadataHateosResourceHandlersRouter.with(context);
     }
 
     private void routeAndCheck(final TestSpreadsheetMetadataHateosResourceHandlerContext context,
