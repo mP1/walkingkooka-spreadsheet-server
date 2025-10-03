@@ -261,7 +261,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.fileServerRouting()
                     .build(),
                 this.fileServerHttpHandler(
-                    UrlPath.ROOT,
                     fileServer
                 )
             ).router();
@@ -443,10 +442,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
             .path(UrlPath.parse("/*"));
     }
 
-    private HttpHandler fileServerHttpHandler(final UrlPath baseUrlPath,
-                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+    private HttpHandler fileServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         return HttpHandlers.webFile(
-            baseUrlPath.normalize(),
+            UrlPath.ROOT,
             fileServer
         );
     }
