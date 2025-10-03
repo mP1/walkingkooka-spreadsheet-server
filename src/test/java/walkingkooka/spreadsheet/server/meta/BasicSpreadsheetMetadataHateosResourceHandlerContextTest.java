@@ -26,7 +26,6 @@ import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
@@ -49,9 +48,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetContext;
@@ -566,47 +563,15 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final AtomicReference<LocalDateTime> now = new AtomicReference<>();
         now.set(NOW.now());
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
-            new FakeProviderContext() {
-                @Override
-                public LocalDateTime now() {
-                    return now.get();
-                }
-
-                @Override
-                public PluginStore pluginStore() {
-                    return PROVIDER_CONTEXT.pluginStore();
-                }
-
-                @Override
-                public Optional<EmailAddress> user() {
-                    return this.environmentContext.user();
-                }
-
-                @Override
-                public ProviderContext setUser(final Optional<EmailAddress> user) {
-                    this.environmentContext.setUser(user);
-                    return this;
-                }
-
-                @Override
-                public ProviderContext cloneEnvironment() {
-                    return this;
-                }
-
-                @Override
-                public <T> ProviderContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                               final T value) {
-                    this.environmentContext.setEnvironmentValue(
-                        name,
-                        value
-                    );
-                    return this;
-                }
-
-                private final EnvironmentContext environmentContext = EnvironmentContexts.map(
-                    PROVIDER_CONTEXT
-                );
-            }
+            EnvironmentContexts.map(
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LOCALE,
+                        now::get,
+                        Optional.of(USER)
+                    )
+                )
+            )
         );
 
         final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
@@ -938,10 +903,20 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Override
     public BasicSpreadsheetMetadataHateosResourceHandlerContext createContext() {
-        return this.createContext(PROVIDER_CONTEXT);
+        return this.createContext(
+            EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+            PROVIDER_CONTEXT);
     }
 
-    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final EnvironmentContext environmentContext) {
+        return this.createContext(
+            environmentContext,
+            PROVIDER_CONTEXT
+        );
+    }
+
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final EnvironmentContext environmentContext,
+                                                                               final ProviderContext providerContext) {
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -994,7 +969,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     c,
                     TERMINAL_CONTEXT
                 ),
-                EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+                environmentContext,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
                     (u, dl) -> this.createMetadata(
