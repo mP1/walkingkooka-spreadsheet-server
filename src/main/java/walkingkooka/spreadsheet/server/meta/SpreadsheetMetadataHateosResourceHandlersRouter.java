@@ -35,7 +35,11 @@ import walkingkooka.text.CharSequences;
 import java.util.Objects;
 
 /**
- * A collection of factory methods to create various {@link HateosResourceHandler}.
+ * A router that routes metadata requests.
+ * <pre>
+ * /api/spreadsheet/SpreadsheetId
+ * GET /api/spreadsheet/1
+ * </pre>
  */
 final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHelper {
 
