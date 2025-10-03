@@ -18,49 +18,20 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.net.UrlPath;
-import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.SpreadsheetRow;
-import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
-import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
-import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegator;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
-import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
-import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
-import walkingkooka.validation.form.Form;
-import walkingkooka.validation.form.FormName;
 
 import java.util.Locale;
 import java.util.Map;
@@ -117,73 +88,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(id);
 
-        return createHttpRouter0(
-            id,
+        return SpreadsheetIdRouter.create(
             spreadsheetContext.spreadsheetEngineContext(),
             spreadsheetServerContext // HateosResourceHandlerContext
-        );
-    }
-
-    private static Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter0(final SpreadsheetId id,
-                                                                                  final SpreadsheetEngineContext spreadsheetEngineContext,
-                                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext) {
-        final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
-                UrlPathName.with(
-                    id.toString()
-                )
-            );
-
-        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-            SpreadsheetEngines.basic(),
-            metadata -> metadata.set(
-                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                spreadsheetEngineContext.refreshModifiedAuditInfo(
-                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                )
-            )
-        );
-
-        final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
-            engine,
-            hateosResourceHandlerContext,
-            spreadsheetEngineContext
-        ).setPreProcessor(
-            SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                spreadsheetEngineContext.storeRepository()
-                    .labels()
-            )
-        );
-
-        final HateosResourceMappings<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell();
-
-        final HateosResourceMappings<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column();
-
-        final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form();
-
-        final HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetDeltaHttpMappings.label();
-
-        final HateosResourceMappings<SpreadsheetMetadataPropertyName<?>,
-            SpreadsheetMetadataPropertyNameHateosResource,
-            SpreadsheetMetadataPropertyNameHateosResource,
-            SpreadsheetMetadataPropertyNameHateosResource,
-            SpreadsheetEngineHateosResourceHandlerContext> metadata = SpreadsheetMetadataPropertyNameHateosResourceMappings.spreadsheetEngineHateosResourceHandlerContext();
-
-        final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.engine();
-
-        final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosResourceHandlerContext> row = SpreadsheetDeltaHttpMappings.row();
-
-        return HateosResourceMappings.router(
-            deltaUrlPath,
-            Sets.of(
-                cell,
-                column,
-                form,
-                label,
-                metadata,
-                parser, // /parser
-                row
-            ),
-            handlerContext
         );
     }
 
