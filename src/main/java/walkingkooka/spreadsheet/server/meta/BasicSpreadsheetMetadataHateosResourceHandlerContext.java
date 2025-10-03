@@ -26,6 +26,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -37,7 +38,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
@@ -117,30 +117,19 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
             SpreadsheetEngines.basic(),
-            this::stamp
+            metadata -> metadata.set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                spreadsheetServerContext.refreshModifiedAuditInfo(
+                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                )
+            )
         );
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(id);
 
-        return this.mappings(
-            id,
-            engine,
-            spreadsheetContext.spreadsheetEngineContext()
-        );
-    }
+        final HateosResourceHandlerContext hateosResourceHandlerContext = spreadsheetServerContext;
+        final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
 
-    private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
-        return metadata.set(
-            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-            this.context.refreshModifiedAuditInfo(
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-            )
-        );
-    }
-
-    private Router<HttpRequestAttribute<?>, HttpHandler> mappings(final SpreadsheetId id,
-                                                                  final SpreadsheetEngine engine,
-                                                                  final SpreadsheetEngineContext context) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
                 UrlPathName.with(
                     id.toString()
@@ -149,11 +138,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
             engine,
-            this.context, // HateosResourceHandlerContext
-            context
+            hateosResourceHandlerContext,
+            spreadsheetEngineContext
         ).setPreProcessor(
             SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                context.storeRepository()
+                spreadsheetEngineContext.storeRepository()
                     .labels()
             )
         );
