@@ -250,9 +250,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 httpHandler(this.validatorRouter())
             ).add(
                 this.spreadsheetEngineRouting(),
-                this.spreadsheetEngineHttpHandler(
-                    serverUrl.setPath(API_SPREADSHEET)
-                )
+                this.spreadsheetEngineHttpHandler()
             ).add(
                 this.routing(API),
                 SpreadsheetMetadataHttpHandler.with(context)
@@ -411,10 +409,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 .append(UrlPathName.WILDCARD)
         ).build();
 
-    private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
-       return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
-            this.context
-        );
+    private HttpHandler spreadsheetEngineHttpHandler() {
+       return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(this.context);
     }
 
     private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
