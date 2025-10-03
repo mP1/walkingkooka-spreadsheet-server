@@ -115,26 +115,33 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
         final SpreadsheetServerContext spreadsheetServerContext = this.context;
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-            SpreadsheetEngines.basic(),
-            metadata -> metadata.set(
-                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                spreadsheetServerContext.refreshModifiedAuditInfo(
-                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                )
-            )
-        );
-
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(id);
 
-        final HateosResourceHandlerContext hateosResourceHandlerContext = spreadsheetServerContext;
-        final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
+        return createHttpRouter0(
+            id,
+            spreadsheetContext.spreadsheetEngineContext(),
+            spreadsheetServerContext // HateosResourceHandlerContext
+        );
+    }
 
+    private static Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter0(final SpreadsheetId id,
+                                                                                  final SpreadsheetEngineContext spreadsheetEngineContext,
+                                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
                 UrlPathName.with(
                     id.toString()
                 )
             );
+
+        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
+            SpreadsheetEngines.basic(),
+            metadata -> metadata.set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                spreadsheetEngineContext.refreshModifiedAuditInfo(
+                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                )
+            )
+        );
 
         final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
             engine,
