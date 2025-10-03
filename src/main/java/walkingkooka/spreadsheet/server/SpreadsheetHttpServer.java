@@ -249,8 +249,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_VALIDATOR),
                 httpHandler(this.validatorRouter())
             ).add(
-                this.spreadsheetEngineRouting(API_SPREADSHEET)
-                    .build(),
+                this.spreadsheetEngineRouting(),
                 this.spreadsheetEngineHttpHandler(
                     serverUrl.setPath(API_SPREADSHEET)
                 )
@@ -401,13 +400,16 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Require base url plus two more components to hold the service and its identifier, eg:
      * <pre>https://example.com/api-base/spreadsheet/spreadsheet-id-1234/cells/A1</pre>
      */
-    private HttpRequestAttributeRouting spreadsheetEngineRouting(final UrlPath path) {
-        return HttpRequestAttributeRouting.empty()
-            .path(
-                path.append(UrlPathName.WILDCARD)
-                    .append(UrlPathName.WILDCARD)
-            );
+    private Map<HttpRequestAttribute<?>, Predicate<?>> spreadsheetEngineRouting() {
+        return SPREADSHEET_ENGINE_ROUTING;
     }
+
+    // /api/spreadsheet/*/*
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> SPREADSHEET_ENGINE_ROUTING = HttpRequestAttributeRouting.empty()
+        .path(
+            API_SPREADSHEET.append(UrlPathName.WILDCARD)
+                .append(UrlPathName.WILDCARD)
+        ).build();
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
