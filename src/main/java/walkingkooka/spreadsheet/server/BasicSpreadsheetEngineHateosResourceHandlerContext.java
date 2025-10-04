@@ -20,11 +20,8 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.convert.CanConvert;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
-import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
@@ -76,11 +73,6 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     private final SpreadsheetEngine spreadsheetEngine;
-
-    @Override
-    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter() {
-        throw new UnsupportedOperationException();
-    }
 
     // 4 methods immediately below are required due to clashes between XXXDelegators
 
