@@ -127,7 +127,6 @@ public class TestGwtTest extends GWTTestCase {
         );
     }
 
-    @Test
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
         spreadsheetHttpServer(httpServer);
