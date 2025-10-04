@@ -30,10 +30,13 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -104,6 +107,10 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             );
         }
 
+        @Override
+        public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter() {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public SpreadsheetContext setUser(final Optional<EmailAddress> user) {

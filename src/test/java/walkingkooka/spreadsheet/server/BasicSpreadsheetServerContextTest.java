@@ -25,16 +25,16 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -48,6 +48,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -66,10 +68,38 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static Supplier<SpreadsheetStoreRepository> REPO = () -> SpreadsheetStoreRepositories.fake();
 
-    private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FUNCTION = (c) -> SpreadsheetEngineContexts.fake();;
+    private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FUNCTION = (c) ->
+        new FakeSpreadsheetEngineContext() {
+            @Override
+            public SpreadsheetId spreadsheetId() {
+                return SpreadsheetId.with(1);
+            }
+
+            @Override
+            public SpreadsheetStoreRepository storeRepository() {
+                return new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return SpreadsheetLabelStores.fake();
+                    }
+                };
+            }
+        };
 
     private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = SpreadsheetMetadataContexts.fake();
-    private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
+
+    private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = new FakeHateosResourceHandlerContext() {
+        @Override
+        public HateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+            return this;
+        }
+
+        @Override
+        public HateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            return this;
+        }
+    };
+
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
     // with.............................................................................................................
