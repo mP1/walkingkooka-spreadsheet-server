@@ -42,6 +42,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
@@ -159,6 +160,10 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetStoreRepository.get(), // SpreadsheetStoreRepository
             this.spreadsheetProvider,
             this.spreadsheetEngineContextFunction,
+            (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
+                c,
+                this // HateosResourceHandlerContext
+            ),
             metadata.environmentContext(
                 this.environmentContext.cloneEnvironment()
                     .setUser(user2)

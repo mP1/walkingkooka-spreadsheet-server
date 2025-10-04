@@ -27,6 +27,8 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -67,6 +69,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStore;
@@ -90,6 +93,8 @@ import walkingkooka.storage.expression.function.StorageExpressionEvaluationConte
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
@@ -408,6 +413,20 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 SpreadsheetEngineContextMode.FORMULA,
                 c,
                 TERMINAL_CONTEXT
+            ),
+            (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
+                c,
+                new FakeHateosResourceHandlerContext() {
+                    @Override
+                    public HateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+                        return this;
+                    }
+
+                    @Override
+                    public HateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+                        return this;
+                    }
+                }
             ),
             EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
             LOCALE_CONTEXT,

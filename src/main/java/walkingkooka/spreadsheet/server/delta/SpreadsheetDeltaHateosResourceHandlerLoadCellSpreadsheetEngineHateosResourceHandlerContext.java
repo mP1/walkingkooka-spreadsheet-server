@@ -22,6 +22,9 @@ import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
@@ -170,6 +173,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public SpreadsheetEngineContext spreadsheetEngineContext() {
         return this.context;
+    }
+
+    @Override
+    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter() {
+        throw new UnsupportedOperationException();
     }
 
     // JsonNodeMarshallUnmarshallContextDelegator.......................................................................

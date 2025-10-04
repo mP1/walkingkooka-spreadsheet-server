@@ -17,14 +17,12 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegator;
@@ -34,7 +32,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcesso
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -60,38 +57,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.context = context;
     }
 
-    // hateosRouter.....................................................................................................
+    // SpreadsheetContext...............................................................................................
 
-    /**
-     * Lazily creates a {@link Router} using the {@link SpreadsheetId} to a cache.
-     */
     @Override
     public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id) {
-        Objects.requireNonNull(id, "id");
-
-        Router<HttpRequestAttribute<?>, HttpHandler> hateosRouter = this.spreadsheetIdToHateosRouter.get(id);
-        if (null == hateosRouter) {
-            hateosRouter = this.createHttpRouter(id);
-
-            this.spreadsheetIdToHateosRouter.put(id, hateosRouter);
-        }
-        return hateosRouter;
-    }
-
-    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, HttpHandler>> spreadsheetIdToHateosRouter = Maps.concurrent();
-
-    /**
-     * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
-     */
-    private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
-        final SpreadsheetServerContext spreadsheetServerContext = this.context;
-
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(id);
-
-        return SpreadsheetIdRouter.create(
-            spreadsheetContext.spreadsheetEngineContext(),
-            spreadsheetServerContext // HateosResourceHandlerContext
-        );
+        return this.context.spreadsheetContextOrFail(id)
+            .httpRouter();
     }
 
     @Override
