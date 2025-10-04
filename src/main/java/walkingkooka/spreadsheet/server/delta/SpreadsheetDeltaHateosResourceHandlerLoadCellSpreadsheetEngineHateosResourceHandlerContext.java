@@ -81,27 +81,25 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        final SpreadsheetEngineHateosResourceHandlerContext before = this.context;
-        final SpreadsheetEngineHateosResourceHandlerContext after = before.setObjectPostProcessor(processor);
-        return before.equals(after) ?
-            this :
-            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
-                this.metadata,
-                this.spreadsheetEngine,
-                after
-            );
+        return this.setSpreadsheetEngineHateosResourceHandlerContext(
+            this.context.setObjectPostProcessor(processor)
+        );
     }
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final SpreadsheetEngineHateosResourceHandlerContext before = this.context;
-        final SpreadsheetEngineHateosResourceHandlerContext after = before.setPreProcessor(processor);
-        return before.equals(after) ?
+        return this.setSpreadsheetEngineHateosResourceHandlerContext(
+            this.context.setPreProcessor(processor)
+        );
+    }
+
+    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext setSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return this.context.equals(context) ?
             this :
             new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
                 this.metadata,
                 this.spreadsheetEngine,
-                after
+                context
             );
     }
 
