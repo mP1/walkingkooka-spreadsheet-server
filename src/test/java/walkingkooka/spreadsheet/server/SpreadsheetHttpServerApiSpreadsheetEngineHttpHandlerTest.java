@@ -404,7 +404,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                     SpreadsheetLabelReferencesStores.treeMap(),
                     metadataStore,
                     SpreadsheetCellRangeStores.treeMap(),
-                    SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetRowStores.treeMap(),
                     Storages.tree(),
                     SpreadsheetUserStores.treeMap()

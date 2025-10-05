@@ -322,7 +322,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     SpreadsheetLabelReferencesStores.treeMap(),
                     metadataStore,
                     SpreadsheetCellRangeStores.treeMap(),
-                    SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetRowStores.treeMap(),
                     Storages.tree(),
                     SpreadsheetUserStores.fake()
