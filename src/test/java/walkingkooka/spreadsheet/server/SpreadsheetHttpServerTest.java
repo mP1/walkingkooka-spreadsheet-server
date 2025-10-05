@@ -13120,7 +13120,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     SpreadsheetLabelReferencesStores.treeMap(),
                     metadataStore,
                     SpreadsheetCellRangeStores.treeMap(),
-                    SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetRowStores.treeMap(),
                     Storages.tree(),
                     SpreadsheetUserStores.treeMap()
