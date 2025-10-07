@@ -68,7 +68,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
         return context.spreadsheetEngine()
             .loadCells(
                 cellRange,
-                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                SpreadsheetEngineEvaluation.SKIP_EVALUATE, // no point evaluating expressions or validating before patching.
                 CELL_AND_LABELS,
                 context
             );

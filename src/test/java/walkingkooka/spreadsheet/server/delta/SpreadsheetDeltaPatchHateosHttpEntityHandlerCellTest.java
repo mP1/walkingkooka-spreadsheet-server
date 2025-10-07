@@ -525,6 +525,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                     loadSelection,
                     "selection"
                 );
+                checkEquals(
+                    SpreadsheetEngineEvaluation.SKIP_EVALUATE,
+                    evaluation,
+                    "evaluation"
+                );
 
                 return SpreadsheetDelta.EMPTY
                     .setCells(loaded);
