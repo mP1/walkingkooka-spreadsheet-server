@@ -2940,7 +2940,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellPatchInvalidCellFails() {
+    public void testCellPatchInvalidCellReferenceFails() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2959,7 +2959,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellPatchWithFormula() {
+    public void testCellPatchFormula() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3170,7 +3170,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePatchCellUnknownLabelFails() {
+    public void testCellPatchUnknownLabelFails() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3193,7 +3193,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePatchCellLabel() {
+    public void testCellPatchUsingLabel() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ZZZ");
@@ -3689,7 +3689,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellFormatterPatch() {
+    public void testCellPatchFormatter() {
         final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
         server.handleAndCheck(
@@ -3774,7 +3774,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellLocalePatch() {
+    public void testCellPatchLocale() {
         final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
         server.handleAndCheck(
@@ -3859,7 +3859,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellParserPatch() {
+    public void testCellPatchParser() {
         final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
         server.handleAndCheck(
@@ -3918,7 +3918,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellStylePatch() {
+    public void testCellPatchStyle() {
         final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
         server.handleAndCheck(
@@ -4017,7 +4017,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellValidatorPatch() {
+    public void testCellPatchValidator() {
         final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
         server.handleAndCheck(
