@@ -1149,8 +1149,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
-                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -5626,8 +5626,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
-                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
                     "  \"valueSeparator\": \",\",\n" +
                     "  \"viewportHome\": \"A1\",\n" +
                     "  \"viewportSelection\": {\n" +
@@ -6098,8 +6098,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
-                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -6359,8 +6359,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
-                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list-expression\",\n" +
+                    "  \"validationValidators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
+                    "  \"validators\": \"absolute-url, collection, email-address, expression, non-null, text-length, text-mask, validation-choice-list\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -13021,7 +13021,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/text-length text-length\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/text-mask text-mask\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/validation-choice-list-expression validation-choice-list-expression\"\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/validation-choice-list validation-choice-list\"\n" +
                     "]",
                 ValidatorInfoSet.class.getSimpleName()
             )
