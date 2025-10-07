@@ -1358,7 +1358,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostDateTimeValue() {
+    public void testCellPostSaveDateTimeValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "2000/12/31 12:34",
             "{\n" +
@@ -1468,7 +1468,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostNumberValue() {
+    public void testCellPostSaveNumberValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "123.456",
             "{\n" +
@@ -1536,7 +1536,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostTimeValue() {
+    public void testCellPostSaveTimeValue() {
         this.createSpreadsheetSaveCellAndCheck(
             "12:34",
             "{\n" +
@@ -1604,7 +1604,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostExpressionString() {
+    public void testCellPostSaveExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
             "=\"Hello 123\"",
             "{\n" +
@@ -1681,7 +1681,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostExpressionNumber() {
+    public void testCellPostSaveExpressionNumber() {
         this.createSpreadsheetSaveCellAndCheck(
             "=1+2",
             "{\n" +
@@ -2165,7 +2165,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostThenSaveAnotherCellReferencingFirst() {
+    public void testCellPostSaveThenSaveAnotherCellReferencingFirst() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2426,7 +2426,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSavePostTwice() {
+    public void testCellPostSaveTwice() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2828,7 +2828,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // not a perfect validation that function names are case-insensitive
     @Test
-    public void testCellSavePostFormulaWithMixedCaseFunction() {
+    public void testCellPostSaveFormulaWithMixedCaseFunction() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -6484,7 +6484,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // save cell, save metadata, save cell..............................................................................
 
     @Test
-    public void testCellSavePostUpdateMetadataLoadCell() {
+    public void testCellPostSaveUpdateMetadataLoadCell() {
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
