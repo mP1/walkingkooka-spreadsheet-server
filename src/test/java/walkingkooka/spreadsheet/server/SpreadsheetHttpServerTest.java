@@ -1197,7 +1197,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testMetdataPatchFails() {
+    public void testMetadataPatchFails() {
         final TestHttpServer server = this.startServer();
 
         // patch metadata will fail with 204
