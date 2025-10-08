@@ -467,6 +467,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
+            public SpreadsheetEngineContext setSpreadsheetEngineContextMode(final SpreadsheetEngineContextMode mode) {
+                return this;
+            }
+
+            @Override
             public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<SpreadsheetCell> cell,
                                                                                                  final SpreadsheetExpressionReferenceLoader loader) {
                 return engineContext.spreadsheetExpressionEvaluationContext(

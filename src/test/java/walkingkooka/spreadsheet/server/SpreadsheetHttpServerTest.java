@@ -4076,11 +4076,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          }\n" +
                     "        },\n" +
                     "        \"value\": {\n" +
-                    "          \"type\": \"spreadsheet-error\",\n" +
-                    "          \"value\": {\n" +
-                    "            \"kind\": \"VALUE\",\n" +
-                    "            \"message\": \"Unknown validator Hello-validator\"\n" +
-                    "          }\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"999\"\n" +
+                    "        },\n" +
+                    "        \"error\": {\n" +
+                    "          \"kind\": \"VALIDATION\",\n" +
+                    "          \"message\": \"Unknown validator Hello-validator\"\n" +
                     "        }\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
