@@ -63,7 +63,7 @@ public final class PluginHateosResourceHandlerFilterTest
 
     private static Plugin plugin(final int n) {
         return Plugin.with(
-            PluginName.with("TestPlugin" + n * 111),
+            PluginName.with("test-plugin-" + n * 111),
             "plugin-" + n * 111 + ".jar",
             Binary.with("Hello".getBytes(Charset.defaultCharset())),
             USER,

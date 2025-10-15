@@ -42,6 +42,7 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.text.CaseKind;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -62,9 +63,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
     // hateos...........................................................................................................
 
-    private final static Plugin PLUGIN1 = plugin("TestPlugin111");
+    private final static Plugin PLUGIN1 = plugin("test-plugin-111");
 
-    private final static Plugin PLUGIN2 = plugin("TestPlugin222");
+    private final static Plugin PLUGIN2 = plugin("test-plugin-222");
 
     private static Plugin plugin(final String pluginName) {
         return Plugin.with(
@@ -186,9 +187,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         context.pluginStore()
             .save(
                 Plugin.with(
-                    PluginName.with("TestPlugin222"),
+                    PluginName.with("test-plugin-222"),
                     "old.jar",
-                    jarFile("TestPlugin222"),
+                    jarFile("test-plugin-222"),
                     USER,
                     NOW.now()
                 )
@@ -270,9 +271,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         context.pluginStore()
             .save(
                 Plugin.with(
-                    PluginName.with("TestPlugin222"),
+                    PluginName.with("test-plugin-222"),
                     "old.jar",
-                    jarFile("TestPlugin222"),
+                    jarFile("test-plugin-222"),
                     USER,
                     NOW.now()
                 )
@@ -304,7 +305,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         ).addHeader(
             HttpHeaderName.CONTENT_DISPOSITION,
             ContentDispositionType.ATTACHMENT.setFilename(
-                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                ContentDispositionFileName.notEncoded("test-plugin-222.jar")
             )
         ).setBodyText(
             Base64.getEncoder()
@@ -371,9 +372,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         context.pluginStore()
             .save(
                 Plugin.with(
-                    PluginName.with("TestPlugin222"),
+                    PluginName.with("test-plugin-222"),
                     "old.jar",
-                    jarFile("TestPlugin222"),
+                    jarFile("test-plugin-222"),
                     USER,
                     NOW.now()
                 )
@@ -405,7 +406,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         ).addHeader(
             HttpHeaderName.CONTENT_DISPOSITION,
             ContentDispositionType.ATTACHMENT.setFilename(
-                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                ContentDispositionFileName.notEncoded("test-plugin-222.jar")
             )
         ).setBody(
             PLUGIN2.archive()
@@ -465,7 +466,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
             MediaType.MULTIPART_FORM_DATA.setBoundary(MediaTypeBoundary.parse(boundary))
         ).setBodyText(
             "--delimiter12345\r\n" +
-                "Content-Disposition: form-data; name=\"field2\"; filename=\"TestPlugin222.jar\"\r\n" +
+                "Content-Disposition: form-data; name=\"field2\"; filename=\"test-plugin-222.jar\"\r\n" +
                 "\r\n" +
                 binaryToString(PLUGIN2.archive()) +
                 "\r\n" +
@@ -483,13 +484,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     private static Binary jarFile(final String pluginName) {
         final String manifest = (
             "Manifest-Version: 1.0\r\n" +
-                "plugin-name: PluginName\r\n" +
-                "plugin-provider-factory-className: example.PluginName\r\n"
-        )
-            .replace(
-                "PluginName",
-                pluginName
-            );
+                "plugin-name: " + pluginName + "\r\n" +
+                "plugin-provider-factory-className: example." + CaseKind.KEBAB.change(pluginName, CaseKind.CAMEL) + "\r\n"
+        );
 
         return Binary.with(
             JarFileTesting.jarFile(

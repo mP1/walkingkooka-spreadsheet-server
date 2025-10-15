@@ -91,7 +91,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            SpreadsheetImporterName.with("Unknown"),
+            SpreadsheetImporterName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,

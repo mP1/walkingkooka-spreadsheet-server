@@ -368,10 +368,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testPluginPostMultipartUpload() {
         final TestHttpServer server = this.startServer();
 
-        final PluginName pluginName = PluginName.with("TestPlugin111");
+        final PluginName pluginName = PluginName.with("test-plugin-111");
 
         final String manifest = "Manifest-Version: 1.0\r\n" +
-            "plugin-name: TestPlugin111\r\n" +
+            "plugin-name: test-plugin-111\r\n" +
             "plugin-provider-factory-className: example.TestPlugin111\r\n";
 
         final Binary jar = Binary.with(
@@ -424,10 +424,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testPluginPostBinaryUpload() {
         final TestHttpServer server = this.startServer();
 
-        final PluginName pluginName = PluginName.with("TestPlugin111");
+        final PluginName pluginName = PluginName.with("test-plugin-111");
 
         final String manifest = "Manifest-Version: 1.0\r\n" +
-            "plugin-name: TestPlugin111\r\n" +
+            "plugin-name: test-plugin-111\r\n" +
             "plugin-provider-factory-className: example.TestPlugin111\r\n";
 
         final Binary jar = Binary.with(
@@ -492,7 +492,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/plugin/UnknownPluginName123",
+            "/api/plugin/unknown-plugin-name-123",
             NO_HEADERS_TRANSACTION_ID,
             "",
             HttpStatusCode.NO_CONTENT.setMessage("No content"),
@@ -524,7 +524,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.DELETE,
-            "/api/plugin/UnknownPlugin123",
+            "/api/plugin/unknown-plugin-123",
             NO_HEADERS_TRANSACTION_ID,
             "",
             HttpStatusCode.NO_CONTENT.setMessage("No content"),
@@ -538,11 +538,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/plugin/TestPlugin111",
+            "/api/plugin/test-plugin-111",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 Plugin.with(
-                    PluginName.with("TestPlugin111"),
+                    PluginName.with("test-plugin-111"),
                     "plugin-TestPlugin111.jar",
                     Binary.with("Hello".getBytes(Charset.defaultCharset())),
                     USER,
@@ -558,7 +558,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"name\": \"TestPlugin111\",\n" +
+                    "  \"name\": \"test-plugin-111\",\n" +
                     "  \"filename\": \"plugin-TestPlugin111.jar\",\n" +
                     "  \"archive\": \"SGVsbG8=\",\n" +
                     "  \"user\": \"user@example.com\",\n" +
@@ -577,7 +577,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/download"),
+                Url.parseRelative("/api/plugin/test-plugin-111/download"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     SpreadsheetServerMediaTypes.BINARY.accept()
@@ -595,8 +595,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
-            PluginName.with("TestPlugin111"),
-            "TestPlugin111-download.jar",
+            PluginName.with("test-plugin-111"),
+            "test-plugin-111-download.jar",
             Binary.with(
                 JarFileTesting.jarFile(
                     "Manifest-Version: 1.0\r\n\rn",
@@ -616,7 +616,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/download"),
+                Url.parseRelative("/api/plugin/test-plugin-111/download"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     MediaType.ALL.accept()
@@ -628,7 +628,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     .addHeader(
                         HttpHeaderName.CONTENT_DISPOSITION,
                         ContentDispositionType.ATTACHMENT.setFilename(
-                            ContentDispositionFileName.notEncoded("TestPlugin111-download.jar")
+                            ContentDispositionFileName.notEncoded("test-plugin-111-download.jar")
                         )
                     ).addHeader(
                         JsonHttpHandlers.X_CONTENT_TYPE_NAME,
@@ -645,8 +645,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
-            PluginName.with("TestPlugin111"),
-            "TestPlugin111-download.jar",
+            PluginName.with("test-plugin-111"),
+            "test-plugin-111-download.jar",
             Binary.with(
                 JarFileTesting.jarFile(
                     "Manifest-Version: 1.0\r\n\rn",
@@ -666,7 +666,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/download"),
+                Url.parseRelative("/api/plugin/test-plugin-111/download"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     SpreadsheetServerMediaTypes.BINARY.accept()
@@ -678,7 +678,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     .addHeader(
                         HttpHeaderName.CONTENT_DISPOSITION,
                         ContentDispositionType.ATTACHMENT.setFilename(
-                            ContentDispositionFileName.notEncoded("TestPlugin111-download.jar")
+                            ContentDispositionFileName.notEncoded("test-plugin-111-download.jar")
                         )
                     ).addHeader(
                         JsonHttpHandlers.X_CONTENT_TYPE_NAME,
@@ -698,7 +698,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/list"),
+                Url.parseRelative("/api/plugin/test-plugin-111/list"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
@@ -716,8 +716,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
-            PluginName.with("TestPlugin111"),
-            "TestPlugin111-download.jar",
+            PluginName.with("test-plugin-111"),
+            "test-plugin-111-download.jar",
             Binary.with(
                 JarFileTesting.jarFile(
                     "Manifest-Version: 1.0\r\n" +
@@ -743,7 +743,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/list"),
+                Url.parseRelative("/api/plugin/test-plugin-111/list"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
@@ -794,7 +794,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/download/file-absent.txt"),
+                Url.parseRelative("/api/plugin/test-plugin-111/download/file-absent.txt"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY
             ),
@@ -812,8 +812,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final String fileContent = "Hello";
 
         final Plugin plugin = Plugin.with(
-            PluginName.with("TestPlugin111"),
-            "TestPlugin111-download.jar",
+            PluginName.with("test-plugin-111"),
+            "test-plugin-111-download.jar",
             Binary.with(
                 JarFileTesting.jarFile(
                     "Manifest-Version: 1.0\r\n\r\n",
@@ -835,7 +835,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/plugin/TestPlugin111/download/example/Example.java"),
+                Url.parseRelative("/api/plugin/test-plugin-111/download/example/Example.java"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     Accept.parse(contentType)
@@ -865,8 +865,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final String fileContent = "Hello";
 
         final Plugin plugin1 = Plugin.with(
-            PluginName.with("TestPlugin111"),
-            "TestPlugin111-archive.jar",
+            PluginName.with("test-plugin-111"),
+            "test-plugin-111-archive.jar",
             Binary.with(
                 JarFileTesting.jarFile(
                     "Manifest-Version: 1.0\r\n\r\n",
@@ -883,8 +883,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.pluginStore.save(plugin1);
 
         final Plugin plugin2 = Plugin.with(
-            PluginName.with("TestPlugin222"),
-            "TestPlugin222-archive.jar",
+            PluginName.with("test-plugin-222"),
+            "test-plugin-222-archive.jar",
             Binary.with(
                 JarFileTesting.jarFile(
                     "Manifest-Version: 1.0\r\n\r\n",
@@ -901,7 +901,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.pluginStore.save(plugin2);
 
         final Plugin plugin3 = Plugin.with(
-            PluginName.with("TestPlugin333"),
+            PluginName.with("test-plugin-333"),
             "TestPlugin333-archive.jar",
             Binary.with(
                 JarFileTesting.jarFile(
@@ -1036,7 +1036,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, jsonTo, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
+                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -4027,7 +4027,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "{\n" +
                 "  \"cells\": {\n" +
                 "     \"a1\": {\n" +
-                "      \"validator\": \"Hello-validator\"\n" +
+                "      \"validator\": \"hello-validator\"\n" +
                 "      }\n" +
                 "    }\n" +
                 "}",
@@ -4081,13 +4081,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "        },\n" +
                     "        \"error\": {\n" +
                     "          \"kind\": \"VALIDATION\",\n" +
-                    "          \"message\": \"Unknown validator Hello-validator\"\n" +
+                    "          \"message\": \"Unknown validator hello-validator\"\n" +
                     "        }\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
-                    "          \"badgeText\": \"Unknown validator Hello-validator\",\n" +
+                    "          \"badgeText\": \"Unknown validator hello-validator\",\n" +
                     "          \"children\": [\n" +
                     "            {\n" +
                     "              \"type\": \"text\",\n" +
@@ -4096,7 +4096,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          ]\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"validator\": \"Hello-validator\"\n" +
+                    "      \"validator\": \"hello-validator\"\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
@@ -5514,7 +5514,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, jsonTo, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
+                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5986,7 +5986,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, jsonTo, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
+                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -6247,7 +6247,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, jsonTo, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
+                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -9498,7 +9498,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-text-node has-text-node\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-validator-selector has-validator-selector\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/json json\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/jsonTo jsonTo\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/json-to json-to\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/locale locale\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/locale-to-text locale-to-text\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/net net\",\n" +

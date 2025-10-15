@@ -50,12 +50,12 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
 
     private final static FormHandlerInfo INFO1 = FormHandlerInfo.with(
         Url.parseAbsolute("https://example.com/1"),
-        FormHandlerName.with("formHandler-1")
+        FormHandlerName.with("form-handler-1")
     );
 
     private final static FormHandlerInfo INFO2 = FormHandlerInfo.with(
         Url.parseAbsolute("https://example.com/2"),
-        FormHandlerName.with("formHandler-2")
+        FormHandlerName.with("form-handler-2")
     );
 
     private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
@@ -91,7 +91,7 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            FormHandlerName.with("Unknown"),
+            FormHandlerName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
@@ -125,7 +125,7 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
 
     @Override
     public FormHandlerName id() {
-        return FormHandlerName.with("id-formHandler-name");
+        return FormHandlerName.with("id-form-handler-name");
     }
 
     @Override
@@ -139,7 +139,7 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
     @Override
     public Range<FormHandlerName> range() {
         return Range.singleton(
-            FormHandlerName.with("range-formHandler-name")
+            FormHandlerName.with("range-form-handler-name")
         );
     }
 

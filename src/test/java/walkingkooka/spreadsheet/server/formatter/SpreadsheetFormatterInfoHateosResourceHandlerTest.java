@@ -91,7 +91,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            SpreadsheetFormatterName.with("Unknown"),
+            SpreadsheetFormatterName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,

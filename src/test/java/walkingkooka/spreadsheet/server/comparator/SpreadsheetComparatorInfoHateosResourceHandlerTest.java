@@ -91,7 +91,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            SpreadsheetComparatorName.with("Unknown"),
+            SpreadsheetComparatorName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,

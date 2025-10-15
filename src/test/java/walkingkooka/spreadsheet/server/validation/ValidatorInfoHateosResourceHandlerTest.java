@@ -91,7 +91,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            ValidatorName.with("Unknown"),
+            ValidatorName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,

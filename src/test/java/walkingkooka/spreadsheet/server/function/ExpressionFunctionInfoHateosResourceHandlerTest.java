@@ -92,7 +92,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            SpreadsheetExpressionFunctions.name("Unknown"),
+            SpreadsheetExpressionFunctions.name("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,

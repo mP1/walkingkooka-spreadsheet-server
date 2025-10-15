@@ -61,7 +61,7 @@ public final class PluginHateosResourceHandlerDeleteTest
 
     private static Plugin plugin(final int n) {
         return Plugin.with(
-            PluginName.with("TestPlugin" + n * 111),
+            PluginName.with("test-plugin-" + n * 111),
             "plugin-" + n * 111 + ".jar",
             Binary.with("Hello".getBytes(Charset.defaultCharset())),
             USER,
@@ -117,7 +117,7 @@ public final class PluginHateosResourceHandlerDeleteTest
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            PluginName.with("Unknown"),
+            PluginName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,

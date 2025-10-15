@@ -91,7 +91,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            ConverterName.with("Unknown"),
+            ConverterName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
