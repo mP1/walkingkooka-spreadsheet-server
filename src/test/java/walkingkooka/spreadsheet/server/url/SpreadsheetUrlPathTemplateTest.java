@@ -216,7 +216,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         this.getAndCheck(
             "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell",
             "/api/spreadsheet/123/name/SpreadsheetName456/cell",
-            TemplateValueName.with("Unknown"),
+            TemplateValueName.with("unknown"),
             Function.identity(),
             Optional.empty()
         );

@@ -57,7 +57,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
 
     private final static AbsoluteUrl BASE = Url.parseAbsolute("https://example.com/api/plugin");
 
-    private final static PluginName PLUGIN_NAME = PluginName.with("TestPlugin123");
+    private final static PluginName PLUGIN_NAME = PluginName.with("test-plugin-123");
 
     private final static String CONTENT = "Hello";
 
@@ -79,7 +79,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
                 PLUGIN_NAME.equals(id) ?
                     Plugin.with(
                         id,
-                        "TestPlugin123.jar", // filename
+                        "test-plugin-123.jar", // filename
                         JAR_FILE,
                         USER,
                         NOW.now()
@@ -109,7 +109,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         .addHeader(
             HttpHeaderName.CONTENT_DISPOSITION,
             ContentDispositionType.ATTACHMENT.setFilename(
-                ContentDispositionFileName.notEncoded("TestPlugin123.jar")
+                ContentDispositionFileName.notEncoded("test-plugin-123.jar")
             )
         ).addHeader(
             JsonHttpHandlers.X_CONTENT_TYPE_NAME,
@@ -164,7 +164,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
 
         this.handleAndCheck(
-            "/api/plugin/UnknownPluginNotFound/download/dir111/sub111/file111.txt",
+            "/api/plugin/unknown-plugin-not-found/download/dir111/sub111/file111.txt",
             Accept.DEFAULT,
             response
         );
@@ -176,7 +176,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download/unknown-file",
+            "/api/plugin/test-plugin-123/download/unknown-file",
             Accept.DEFAULT,
             response
         );
@@ -189,7 +189,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HTTP_ENTITY_WITH_JAR);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download",
+            "/api/plugin/test-plugin-123/download",
             null, // accept missing
             response
         );
@@ -202,7 +202,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HTTP_ENTITY_WITH_JAR);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download",
+            "/api/plugin/test-plugin-123/download",
             Accept.DEFAULT,
             response
         );
@@ -215,7 +215,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HTTP_ENTITY_WITH_JAR);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download",
+            "/api/plugin/test-plugin-123/download",
             Accept.with(
                 Lists.of(JAR_CONTENT_TYPE)
             ),
@@ -230,7 +230,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download",
+            "/api/plugin/test-plugin-123/download",
             Accept.parse("image/jpg"),
             response
         );
@@ -242,7 +242,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download/",
+            "/api/plugin/test-plugin-123/download/",
             Accept.DEFAULT,
             response
         );
@@ -255,7 +255,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HTTP_ENTITY_WITH_FILE);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download/dir111/sub111/Example111.java",
+            "/api/plugin/test-plugin-123/download/dir111/sub111/Example111.java",
             null, // accept missing
             response
         );
@@ -268,7 +268,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HTTP_ENTITY_WITH_FILE);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download/dir111/sub111/Example111.java",
+            "/api/plugin/test-plugin-123/download/dir111/sub111/Example111.java",
             Accept.with(
                 Lists.of(FILE_CONTENT_TYPE)
             ),
@@ -283,7 +283,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
         response.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-            "/api/plugin/TestPlugin123/download/dir111/sub111/Example111.java",
+            "/api/plugin/test-plugin-123/download/dir111/sub111/Example111.java",
             Accept.parse("image/jpg"),
             response
         );

@@ -60,9 +60,9 @@ public final class PluginHateosHttpEntityHandlerListTest
 
     // hateos...........................................................................................................
 
-    private final static Plugin PLUGIN1 = plugin("TestPlugin111");
+    private final static Plugin PLUGIN1 = plugin("test-plugin-111");
 
-    private final static Plugin PLUGIN2 = plugin("TestPlugin222");
+    private final static Plugin PLUGIN2 = plugin("test-plugin-222");
 
     private static Plugin plugin(final String pluginName) {
         return Plugin.with(

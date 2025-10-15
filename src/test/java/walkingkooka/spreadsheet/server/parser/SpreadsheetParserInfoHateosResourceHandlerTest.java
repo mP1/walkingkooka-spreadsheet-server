@@ -91,7 +91,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-            SpreadsheetParserName.with("Unknown"),
+            SpreadsheetParserName.with("unknown"),
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
