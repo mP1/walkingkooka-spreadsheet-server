@@ -4349,7 +4349,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:1000.0:600.0\",\n" +
+                    "    \"rectangle\": \"A1:1000:600\",\n" +
                     "    \"anchoredSelection\": {\n" +
                     "      \"selection\": {\n" +
                     "        \"type\": \"spreadsheet-cell-reference\",\n" +
@@ -4680,7 +4680,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\"\n" +
+                    "    \"rectangle\": \"A1:200:100\"\n" +
                     "  },\n" +
                     "  \"cells\": {\n" +
                     "    \"A1\": {\n" +
@@ -4984,7 +4984,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\",\n" +
+                    "    \"rectangle\": \"A1:200:100\",\n" +
                     "    \"anchoredSelection\": {\n" +
                     "      \"selection\": {\n" +
                     "        \"type\": \"spreadsheet-cell-reference\",\n" +
@@ -5131,7 +5131,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\",\n" +
+                    "    \"rectangle\": \"A1:200:100\",\n" +
                     "    \"anchoredSelection\": {\n" +
                     "      \"selection\": {\n" +
                     "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
@@ -5279,7 +5279,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\",\n" +
+                    "    \"rectangle\": \"A1:200:100\",\n" +
                     "    \"anchoredSelection\": {\n" +
                     "      \"selection\": {\n" +
                     "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
@@ -5427,7 +5427,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\",\n" +
+                    "    \"rectangle\": \"A1:200:100\",\n" +
                     "    \"anchoredSelection\": {\n" +
                     "      \"selection\": {\n" +
                     "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
@@ -5768,7 +5768,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"viewport\": {\n" +
-                    "    \"rectangle\": \"A1:200.0:100.0\",\n" +
+                    "    \"rectangle\": \"A1:200:100\",\n" +
                     "    \"anchoredSelection\": {\n" +
                     "      \"selection\": {\n" +
                     "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
