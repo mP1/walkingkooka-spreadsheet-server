@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -28,7 +27,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -40,17 +38,6 @@ import java.util.Optional;
  * A handler that returns all available {@link SpreadsheetFormatterMenu}
  */
 final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
-
-    static {
-        SpreadsheetFormatterMenuList.with(
-            Lists.of(
-                SpreadsheetFormatterMenu.with(
-                    "Label123",
-                    SpreadsheetFormatterName.TEXT.setValueText("@")
-                )
-            )
-        ); // force json registry
-    }
 
     /**
      * Singleton

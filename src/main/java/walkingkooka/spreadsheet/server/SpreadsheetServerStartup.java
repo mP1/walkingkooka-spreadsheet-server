@@ -21,8 +21,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetStartup;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceSet;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenu;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuList;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
@@ -47,6 +49,11 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
 
         LocaleHateosResourceSet.EMPTY.size();
         LocaleTag.parse("en-AU");
+
+        SpreadsheetFormatterMenu.with(
+            "label",
+            SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
+        );
 
         SpreadsheetMetadataSet.with(
             Sets.empty()
