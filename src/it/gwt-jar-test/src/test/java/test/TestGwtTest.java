@@ -209,7 +209,7 @@ public class TestGwtTest extends GWTTestCase {
                     "  \"importers\": \"\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number #0.0\",\n" +
-                    "  \"numberParser\": \"number-parse-pattern #\",\n" +
+                    "  \"numberParser\": \"number #\",\n" +
                     "  \"parsers\": \"\",\n" +
                     "  \"precision\": 123,\n" +
                     "  \"roundingMode\": \"FLOOR\",\n" +
