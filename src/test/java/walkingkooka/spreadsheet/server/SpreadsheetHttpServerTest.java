@@ -1041,7 +1041,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"dateParser\": \"date yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
-                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeParser\": \"date-time yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeSymbols\": {\n" +
                     "    \"ampms\": [\n" +
                     "      \"am\",\n" +
@@ -1127,7 +1127,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -5519,7 +5519,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"dateParser\": \"date yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
-                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeParser\": \"date-time yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeSymbols\": {\n" +
                     "    \"ampms\": [\n" +
                     "      \"am\",\n" +
@@ -5605,7 +5605,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -5991,7 +5991,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"dateParser\": \"date yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
-                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeParser\": \"date-time yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeSymbols\": {\n" +
                     "    \"ampms\": [\n" +
                     "      \"am\",\n" +
@@ -6077,7 +6077,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6252,7 +6252,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"dateParser\": \"date yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
-                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeParser\": \"date-time yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeSymbols\": {\n" +
                     "    \"ampms\": [\n" +
                     "      \"am\",\n" +
@@ -6338,7 +6338,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -11722,7 +11722,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "[\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date date\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time-parse-pattern date-time-parse-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number-parse-pattern number-parse-pattern\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
                     "]",
