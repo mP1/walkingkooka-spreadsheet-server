@@ -62,7 +62,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
 
     @Override
     public SpreadsheetFormatterSelector createDifferentPluginSelector() {
-        return SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yyyy/mm");
+        return SpreadsheetFormatterName.DATE.setValueText("yyyy/mm");
     }
 
     // prepare..........................................................................................................
@@ -83,19 +83,19 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
             Lists.of(
                 SpreadsheetFormatterMenu.with(
                     "Short",
-                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d/m/yy")
+                    SpreadsheetFormatterName.DATE.setValueText("d/m/yy")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Medium",
-                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmm yyyy")
+                    SpreadsheetFormatterName.DATE.setValueText("d mmm yyyy")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Long",
-                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmmm yyyy")
+                    SpreadsheetFormatterName.DATE.setValueText("d mmmm yyyy")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Full",
-                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy")
+                    SpreadsheetFormatterName.DATE.setValueText("dddd, d mmmm yyyy")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Short",
