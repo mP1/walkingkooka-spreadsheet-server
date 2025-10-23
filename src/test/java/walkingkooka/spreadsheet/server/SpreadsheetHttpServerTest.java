@@ -10397,6 +10397,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "[\n" +
                     "  {\n" +
+                    "    \"label\": \"Currency\",\n" +
+                    "    \"selector\": \"currency\"\n" +
+                    "  },\n" +
+                    "  {\n" +
                     "    \"label\": \"Short\",\n" +
                     "    \"selector\": \"date d/m/yy\"\n" +
                     "  },\n" +
