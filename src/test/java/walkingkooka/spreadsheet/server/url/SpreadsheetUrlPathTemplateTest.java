@@ -388,7 +388,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     public void testSpreadsheetFormatterSelector() {
         this.spreadsheetFormatterSelectorAndCheck(
             "/api/spreadsheet/123/cell/A1/formatter/${SpreadsheetFormatterSelector}",
-            "/api/spreadsheet/123/cell/A1/formatter/text-format-pattern @",
+            "/api/spreadsheet/123/cell/A1/formatter/text @",
             SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
         );
     }
@@ -672,7 +672,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 .extract(
                     UrlPath.parse(
                         "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/skip-evaluate/column/B/row/2" +
-                            "/label/Label123/metadata/roundingMode/style/text-align/formatter/text-format-pattern @"
+                            "/label/Label123/metadata/roundingMode/style/text-align/formatter/text @"
                     )
                 )
         );
@@ -755,7 +755,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 }
             ),
             "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/skip-evaluate/column/B/row/2" +
-                "/label/Label123/metadata/roundingMode/style/text-align/formatter/text-format-pattern @"
+                "/label/Label123/metadata/roundingMode/style/text-align/formatter/text @"
         );
     }
 
@@ -812,7 +812,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         this.checkEquals(
             UrlPath.parse(
                 "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/localeTag/en-AU/column/B/row/2" +
-                    "/label/Label123/metadata/roundingMode/style/text-align/formatter/text-format-pattern @"),
+                    "/label/Label123/metadata/roundingMode/style/text-align/formatter/text @"),
             SpreadsheetUrlPathTemplate.parse(
                 "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell/${SpreadsheetExpressionReference}/localeTag/${LocaleTag}" +
                     "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +

@@ -115,7 +115,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Default",
-                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
+                    SpreadsheetFormatterName.TEXT.setValueText("@")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "General",
@@ -139,7 +139,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Default",
-                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
+                    SpreadsheetFormatterName.TEXT.setValueText("@")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Short",

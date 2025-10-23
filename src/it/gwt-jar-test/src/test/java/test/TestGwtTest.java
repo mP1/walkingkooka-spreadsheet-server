@@ -217,7 +217,7 @@ public class TestGwtTest extends GWTTestCase {
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"50px\"\n" +
                     "  },\n" +
-                    "  \"textFormatter\": \"text-format-pattern @@\",\n" +
+                    "  \"textFormatter\": \"text @@\",\n" +
                     "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
