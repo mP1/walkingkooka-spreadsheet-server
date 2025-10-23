@@ -123,19 +123,19 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Number",
-                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("\"#,##0.###\"")
+                    SpreadsheetFormatterName.NUMBER.setValueText("\"#,##0.###\"")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Integer",
-                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0")
+                    SpreadsheetFormatterName.NUMBER.setValueText("#,##0")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Percent",
-                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0%")
+                    SpreadsheetFormatterName.NUMBER.setValueText("#,##0%")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Currency",
-                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("$#,##0.00")
+                    SpreadsheetFormatterName.NUMBER.setValueText("$#,##0.00")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Default",

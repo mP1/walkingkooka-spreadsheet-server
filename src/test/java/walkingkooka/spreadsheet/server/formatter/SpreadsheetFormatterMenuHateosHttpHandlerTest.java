@@ -216,7 +216,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 1309\r\n" +
+                    "Content-Length: 1249\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
@@ -263,19 +263,19 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Number\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
+                    "    \"selector\": \"number #,##0.###\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Integer\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0\"\n" +
+                    "    \"selector\": \"number #,##0\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Percent\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0%\"\n" +
+                    "    \"selector\": \"number #,##0%\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Currency\",\n" +
-                    "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
+                    "    \"selector\": \"number $#,##0.00\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Default\",\n" +
