@@ -99,19 +99,19 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Short",
-                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d/m/yy, h:mm AM/PM")
+                    SpreadsheetFormatterName.DATE_TIME.setValueText("d/m/yy, h:mm AM/PM")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Medium",
-                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmm yyyy, h:mm:ss AM/PM")
+                    SpreadsheetFormatterName.DATE_TIME.setValueText("d mmm yyyy, h:mm:ss AM/PM")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Long",
-                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
+                    SpreadsheetFormatterName.DATE_TIME.setValueText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Full",
-                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
+                    SpreadsheetFormatterName.DATE_TIME.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Default",

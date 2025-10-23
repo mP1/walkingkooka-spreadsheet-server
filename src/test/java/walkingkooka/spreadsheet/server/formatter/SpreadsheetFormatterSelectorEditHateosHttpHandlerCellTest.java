@@ -540,7 +540,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
         this.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-edit/date-time-format-pattern%20dd/mm/yyyy%20hh/mm"),
+                Url.parseRelative("/api/spreadsheet/1/cell/A1/formatter-edit/date-time%20dd/mm/yyyy%20hh/mm"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     MediaType.APPLICATION_JSON.accept()
@@ -549,12 +549,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
             context,
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 3800\r\n" +
+                    "Content-Length: 3710\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
                     "\r\n" +
                     "{\n" +
-                    "  \"selector\": \"date-time-format-pattern dd/mm/yyyy hh/mm\",\n" +
+                    "  \"selector\": \"date-time dd/mm/yyyy hh/mm\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"dd\",\n" +
@@ -734,7 +734,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     "  \"samples\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Short\",\n" +
-                    "      \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\",\n" +
+                    "      \"selector\": \"date-time d/m/yy, h:mm AM/PM\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"1/1/70, 12:00 PM\"\n" +
@@ -742,7 +742,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Medium\",\n" +
-                    "      \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\",\n" +
+                    "      \"selector\": \"date-time d mmm yyyy, h:mm:ss AM/PM\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"1 Jan. 1970, 12:00:00 PM\"\n" +
@@ -750,7 +750,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Long\",\n" +
-                    "      \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\",\n" +
+                    "      \"selector\": \"date-time d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"1 January 1970 at 12:00:00 PM\"\n" +
@@ -758,7 +758,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Full\",\n" +
-                    "      \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\",\n" +
+                    "      \"selector\": \"date-time dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Thursday, 1 January 1970 at 12:00:00 PM\"\n" +
@@ -766,7 +766,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Sample\",\n" +
-                    "      \"selector\": \"date-time-format-pattern dd/mm/yyyy hh/mm\",\n" +
+                    "      \"selector\": \"date-time dd/mm/yyyy hh/mm\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"01/01/1970 12/00\"\n" +

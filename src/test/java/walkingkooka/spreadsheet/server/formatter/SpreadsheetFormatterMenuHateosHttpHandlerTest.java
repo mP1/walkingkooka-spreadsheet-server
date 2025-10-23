@@ -216,7 +216,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 1369\r\n" +
+                    "Content-Length: 1309\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
@@ -239,19 +239,19 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
+                    "    \"selector\": \"date-time d/m/yy, h:mm AM/PM\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\"\n" +
+                    "    \"selector\": \"date-time d mmm yyyy, h:mm:ss AM/PM\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                    "    \"selector\": \"date-time d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                    "    \"selector\": \"date-time dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Default\",\n" +
