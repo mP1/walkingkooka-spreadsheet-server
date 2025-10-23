@@ -1116,7 +1116,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -1125,7 +1125,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
@@ -5594,7 +5594,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -5603,7 +5603,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
@@ -6066,7 +6066,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6075,7 +6075,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
@@ -6327,7 +6327,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6336,7 +6336,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date, date-time, number-parse-pattern, time-parse-pattern\",\n" +
                     "  \"plugins\": \"\",\n" +
@@ -10029,7 +10029,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/default-text default-text\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/expression expression\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number-format-pattern number-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection spreadsheet-pattern-collection\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern text-format-pattern\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern time-format-pattern\"\n" +
@@ -10437,19 +10437,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Number\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
+                    "    \"selector\": \"number #,##0.###\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Integer\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0\"\n" +
+                    "    \"selector\": \"number #,##0\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Percent\",\n" +
-                    "    \"selector\": \"number-format-pattern #,##0%\"\n" +
+                    "    \"selector\": \"number #,##0%\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Currency\",\n" +
-                    "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
+                    "    \"selector\": \"number $#,##0.00\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Default\",\n" +

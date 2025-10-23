@@ -203,7 +203,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"numberFormatter\": \"number-format-pattern #0.0\",\n" +
+                    "  \"numberFormatter\": \"number #0.0\",\n" +
                     "  \"numberParser\": \"number-parse-pattern #\",\n" +
                     "  \"parsers\": \"\",\n" +
                     "  \"precision\": 123,\n" +
