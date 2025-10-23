@@ -40,7 +40,7 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
 
     private final static SpreadsheetFormatterMenu MENU1 = SpreadsheetFormatterMenu.with(
         "Short",
-        SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yy/mm")
+        SpreadsheetFormatterName.DATE.setValueText("yy/mm")
     );
 
     private final static SpreadsheetFormatterMenu MENU2 = SpreadsheetFormatterMenu.with(
@@ -150,7 +150,7 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
     private final static String JSON = "[\n" +
         "  {\n" +
         "    \"label\": \"Short\",\n" +
-        "    \"selector\": \"date-format-pattern yy/mm\"\n" +
+        "    \"selector\": \"date yy/mm\"\n" +
         "  },\n" +
         "  {\n" +
         "    \"label\": \"Long\",\n" +

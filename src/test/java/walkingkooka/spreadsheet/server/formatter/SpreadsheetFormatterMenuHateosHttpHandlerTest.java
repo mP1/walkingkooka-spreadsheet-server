@@ -216,26 +216,26 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 1429\r\n" +
+                    "Content-Length: 1369\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
                     "[\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
+                    "    \"selector\": \"date d/m/yy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
+                    "    \"selector\": \"date d mmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
+                    "    \"selector\": \"date d mmmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
+                    "    \"selector\": \"date dddd, d mmmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +

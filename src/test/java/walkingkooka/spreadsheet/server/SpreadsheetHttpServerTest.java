@@ -1037,7 +1037,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
-                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateFormatter\": \"date \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
@@ -1116,7 +1116,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date-format-pattern, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -5515,7 +5515,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
-                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateFormatter\": \"date \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
@@ -5594,7 +5594,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date-format-pattern, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -5987,7 +5987,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
-                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateFormatter\": \"date \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
@@ -6066,7 +6066,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date-format-pattern, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6248,7 +6248,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json, to-number, to-styleable, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
-                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateFormatter\": \"date \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
@@ -6327,7 +6327,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date-format-pattern, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time-format-pattern, default-text, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -10024,7 +10024,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic automatic\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/badge-error badge-error\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/collection collection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date date\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time-format-pattern date-time-format-pattern\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/default-text default-text\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/expression expression\",\n" +
@@ -10046,12 +10046,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/formatter/date-format-pattern",
+            "/api/formatter/date",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
                 HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\"",
+                "\"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date date\"",
                 SpreadsheetFormatterInfo.class.getSimpleName()
             )
         );
@@ -10081,13 +10081,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/cell/A1/formatter-edit/date-format-pattern%20yyyy/mm/ddd",
+            "/api/spreadsheet/1/cell/A1/formatter-edit/date%20yyyy/mm/ddd",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                    "  \"selector\": \"date yyyy/mm/ddd\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"yyyy\",\n" +
@@ -10183,7 +10183,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"samples\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Short\",\n" +
-                    "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "      \"selector\": \"date d/m/yy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31/12/99\"\n" +
@@ -10191,7 +10191,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Medium\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 Dec. 1999\"\n" +
@@ -10199,7 +10199,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Long\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 December 1999\"\n" +
@@ -10207,7 +10207,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Full\",\n" +
-                    "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date dddd, d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Friday, 31 December 1999\"\n" +
@@ -10215,7 +10215,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Sample\",\n" +
-                    "      \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                    "      \"selector\": \"date yyyy/mm/ddd\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"1999/12/Fri.\"\n" +
@@ -10235,13 +10235,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/metadata/dateTimeFormatter/edit/date-format-pattern%20yyyy/mm/ddd",
+            "/api/spreadsheet/1/metadata/dateTimeFormatter/edit/date%20yyyy/mm/ddd",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                    "  \"selector\": \"date yyyy/mm/ddd\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"yyyy\",\n" +
@@ -10337,7 +10337,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"samples\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Short\",\n" +
-                    "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "      \"selector\": \"date d/m/yy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31/12/99\"\n" +
@@ -10345,7 +10345,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Medium\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 Dec. 1999\"\n" +
@@ -10353,7 +10353,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Long\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 December 1999\"\n" +
@@ -10361,7 +10361,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Full\",\n" +
-                    "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date dddd, d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Friday, 31 December 1999\"\n" +
@@ -10369,7 +10369,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Sample\",\n" +
-                    "      \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                    "      \"selector\": \"date yyyy/mm/ddd\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"1999/12/Fri.\"\n" +
@@ -10397,19 +10397,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "[\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +
-                    "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
+                    "    \"selector\": \"date d/m/yy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Medium\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
+                    "    \"selector\": \"date d mmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Long\",\n" +
-                    "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
+                    "    \"selector\": \"date d mmmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Full\",\n" +
-                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
+                    "    \"selector\": \"date dddd, d mmmm yyyy\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +
@@ -11875,7 +11875,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"samples\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Short\",\n" +
-                    "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "      \"selector\": \"date d/m/yy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31/12/99\"\n" +
@@ -11883,7 +11883,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Medium\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 Dec. 1999\"\n" +
@@ -11891,7 +11891,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Long\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 December 1999\"\n" +
@@ -11899,7 +11899,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Full\",\n" +
-                    "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date dddd, d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Friday, 31 December 1999\"\n" +
@@ -11907,7 +11907,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Sample\",\n" +
-                    "      \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                    "      \"selector\": \"date yyyy/mm/ddd\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"1999/12/Fri.\"\n" +

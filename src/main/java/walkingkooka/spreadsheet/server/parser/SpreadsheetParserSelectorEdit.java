@@ -445,7 +445,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
      *   "samples": [
      *     {
      *       "label": "Short",
-     *       "selector": "date-format-pattern d/m/yy",
+     *       "selector": "date d/m/yy",
      *       "value": {
      *         "type": "text",
      *         "value": "31/12/99"
@@ -453,7 +453,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
      *     },
      *     {
      *       "label": "Medium",
-     *       "selector": "date-format-pattern d mmm yyyy",
+     *       "selector": "date d mmm yyyy",
      *       "value": {
      *         "type": "text",
      *         "value": "31 Dec. 1999"
@@ -461,7 +461,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
      *     },
      *     {
      *       "label": "Long",
-     *       "selector": "date-format-pattern d mmmm yyyy",
+     *       "selector": "date d mmmm yyyy",
      *       "value": {
      *         "type": "text",
      *         "value": "31 December 1999"
@@ -469,7 +469,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
      *     },
      *     {
      *       "label": "Full",
-     *       "selector": "date-format-pattern dddd, d mmmm yyyy",
+     *       "selector": "date dddd, d mmmm yyyy",
      *       "value": {
      *         "type": "text",
      *         "value": "Friday, 31 December 1999"

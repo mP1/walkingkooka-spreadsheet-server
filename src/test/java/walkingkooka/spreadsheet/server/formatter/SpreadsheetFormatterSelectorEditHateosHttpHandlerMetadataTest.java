@@ -69,7 +69,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                 .handle(
                     HttpRequests.get(
                         HttpTransport.UNSECURED,
-                        Url.parseRelative("/api/spreadsheet/1/metadata/formulaConverter/edit/date-format-pattern%20dd/mm/yyyy"),
+                        Url.parseRelative("/api/spreadsheet/1/metadata/formulaConverter/edit/date%20dd/mm/yyyy"),
                         HttpProtocolVersion.VERSION_1_0,
                         HttpEntity.EMPTY
                     ),
@@ -144,7 +144,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
         this.handleAndCheck(
             HttpRequests.get(
                 HttpTransport.UNSECURED,
-                Url.parseRelative("/api/spreadsheet/1/metadata/formulaConverter/edit/date-format-pattern%20dd/mm/yyyy"),
+                Url.parseRelative("/api/spreadsheet/1/metadata/formulaConverter/edit/date%20dd/mm/yyyy"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     MediaType.APPLICATION_JSON.accept()
@@ -153,12 +153,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
             this.context(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 2485\r\n" +
+                    "Content-Length: 2395\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterSelectorEdit\r\n" +
                     "\r\n" +
                     "{\n" +
-                    "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                    "  \"selector\": \"date dd/mm/yyyy\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +
                     "      \"label\": \"dd\",\n" +
@@ -262,7 +262,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     "  \"samples\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Short\",\n" +
-                    "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "      \"selector\": \"date d/m/yy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31/12/99\"\n" +
@@ -270,7 +270,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Medium\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 Dec. 1999\"\n" +
@@ -278,7 +278,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Long\",\n" +
-                    "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31 December 1999\"\n" +
@@ -286,7 +286,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Full\",\n" +
-                    "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "      \"selector\": \"date dddd, d mmmm yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Friday, 31 December 1999\"\n" +
@@ -294,7 +294,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     "    },\n" +
                     "    {\n" +
                     "      \"label\": \"Sample\",\n" +
-                    "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                    "      \"selector\": \"date dd/mm/yyyy\",\n" +
                     "      \"value\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"31/12/1999\"\n" +

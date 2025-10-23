@@ -94,10 +94,10 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         final String text = "";
 
         this.parseStringAndCheck(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.value(),
+            SpreadsheetFormatterName.DATE.value(),
             SpreadsheetFormatterSelectorEdit.with(
                 Optional.of(
-                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text)
+                    SpreadsheetFormatterName.DATE.setValueText(text)
                 ),
                 "Empty \"text\"",
                 Lists.empty(),
@@ -109,7 +109,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
 
     @Test
     public void testParseSpreadsheetFormatterNameInvalidPattern() {
-        final String selector = SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " !";
+        final String selector = SpreadsheetFormatterName.DATE + " !";
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetFormatterSelector.parse(selector)
@@ -119,7 +119,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.parseStringAndCheck(
             selector,
             SpreadsheetFormatterSelectorEdit.with(
-                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("!")),
+                Optional.of(SpreadsheetFormatterName.DATE.setValueText("!")),
                 thrown.getMessage(),
                 Lists.empty(),
                 Optional.empty(),
@@ -133,9 +133,9 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         final String text = "yyyy";
 
         this.parseStringAndCheck(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " " + text,
+            SpreadsheetFormatterName.DATE + " " + text,
             SpreadsheetFormatterSelectorEdit.with(
-                Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text)),
+                Optional.of(SpreadsheetFormatterName.DATE.setValueText(text)),
                 "",
                 Lists.of(
                     SpreadsheetFormatterSelectorToken.with(
@@ -200,7 +200,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
 
     private static List<SpreadsheetFormatterSample> dateFormatSamples(final String text) {
         return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText(text),
+            SpreadsheetFormatterName.DATE.setValueText(text),
             SpreadsheetFormatterProvider.INCLUDE_SAMPLES,
             SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
         );
@@ -233,10 +233,10 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     @Test
     public void testTreePrint() {
         this.treePrintAndCheck(
-            this.parseString(SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " yyyy/mm/dd"),
+            this.parseString(SpreadsheetFormatterName.DATE + " yyyy/mm/dd"),
             "SpreadsheetFormatterSelectorEdit\n" +
                 "  selector\n" +
-                "    date-format-pattern\n" +
+                "    date\n" +
                 "      \"yyyy/mm/dd\"\n" +
                 "  text-components\n" +
                 "    yyyy\n" +
@@ -284,23 +284,23 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "      yyyy\n" +
                 "  samples\n" +
                 "    Short\n" +
-                "      date-format-pattern\n" +
+                "      date\n" +
                 "        \"d/m/yy\"\n" +
                 "      Text \"31/12/99\"\n" +
                 "    Medium\n" +
-                "      date-format-pattern\n" +
+                "      date\n" +
                 "        \"d mmm yyyy\"\n" +
                 "      Text \"31 Dec. 1999\"\n" +
                 "    Long\n" +
-                "      date-format-pattern\n" +
+                "      date\n" +
                 "        \"d mmmm yyyy\"\n" +
                 "      Text \"31 December 1999\"\n" +
                 "    Full\n" +
-                "      date-format-pattern\n" +
+                "      date\n" +
                 "        \"dddd, d mmmm yyyy\"\n" +
                 "      Text \"Friday, 31 December 1999\"\n" +
                 "    Sample\n" +
-                "      date-format-pattern\n" +
+                "      date\n" +
                 "        \"yyyy/mm/dd\"\n" +
                 "      Text \"1999/12/31\"\n"
         );
@@ -313,7 +313,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.marshallAndCheck(
             this.createJsonNodeMarshallingValue(),
             "{\n" +
-                "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "  \"selector\": \"date dd/mm/yyyy\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
                 "      \"label\": \"dd\",\n" +
@@ -417,7 +417,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "  \"samples\": [\n" +
                 "    {\n" +
                 "      \"label\": \"Short\",\n" +
-                "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                "      \"selector\": \"date d/m/yy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31/12/99\"\n" +
@@ -425,7 +425,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Medium\",\n" +
-                "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                "      \"selector\": \"date d mmm yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31 Dec. 1999\"\n" +
@@ -433,7 +433,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Long\",\n" +
-                "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                "      \"selector\": \"date d mmmm yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31 December 1999\"\n" +
@@ -441,7 +441,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Full\",\n" +
-                "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                "      \"selector\": \"date dddd, d mmmm yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Friday, 31 December 1999\"\n" +
@@ -449,7 +449,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Sample\",\n" +
-                "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "      \"selector\": \"date dd/mm/yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31/12/1999\"\n" +
@@ -474,7 +474,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     public void testUnmarshall() {
         this.unmarshallAndCheck(
             "{\n" +
-                "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "  \"selector\": \"date dd/mm/yyyy\",\n" +
                 "  \"message\": \"\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
@@ -579,7 +579,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "  \"samples\": [\n" +
                 "    {\n" +
                 "      \"label\": \"Short\",\n" +
-                "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                "      \"selector\": \"date d/m/yy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31/12/99\"\n" +
@@ -587,7 +587,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Medium\",\n" +
-                "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                "      \"selector\": \"date d mmm yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31 Dec. 1999\"\n" +
@@ -595,7 +595,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Long\",\n" +
-                "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                "      \"selector\": \"date d mmmm yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31 December 1999\"\n" +
@@ -603,7 +603,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Full\",\n" +
-                "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                "      \"selector\": \"date dddd, d mmmm yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Friday, 31 December 1999\"\n" +
@@ -611,7 +611,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "    },\n" +
                 "    {\n" +
                 "      \"label\": \"Sample\",\n" +
-                "      \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "      \"selector\": \"date dd/mm/yyyy\",\n" +
                 "      \"value\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"31/12/1999\"\n" +
@@ -644,7 +644,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
 
     @Override
     public SpreadsheetFormatterSelectorEdit createJsonNodeMarshallingValue() {
-        return this.parseString(SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " dd/mm/yyyy");
+        return this.parseString(SpreadsheetFormatterName.DATE + " dd/mm/yyyy");
     }
 
     // class............................................................................................................
