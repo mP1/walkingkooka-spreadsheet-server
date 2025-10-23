@@ -1127,7 +1127,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -1145,7 +1145,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
-                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
@@ -5605,7 +5605,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -5623,7 +5623,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
-                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
@@ -6077,7 +6077,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6095,7 +6095,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
-                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
@@ -6338,7 +6338,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time-parse-pattern\",\n" +
+                    "  \"parsers\": \"date, date-time, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6356,7 +6356,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
-                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
@@ -11724,7 +11724,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date date\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number number\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time time\"\n" +
                     "]",
                 SpreadsheetParserInfoSet.class.getSimpleName()
             )
