@@ -110,7 +110,7 @@ public final class SpreadsheetFormatterMenuList extends AbstractList<Spreadsheet
      *   },
      *   {
      *     "label": "Long",
-     *     "selector": "text-format-pattern yyyy/mm/dd"
+     *     "selector": "text yyyy/mm/dd"
      *   }
      * ]
      * </pre>

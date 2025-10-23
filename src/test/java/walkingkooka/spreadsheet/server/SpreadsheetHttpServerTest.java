@@ -1110,13 +1110,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
+                    "  \"errorFormatter\": \"badge-error text @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -1143,7 +1143,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
@@ -3699,7 +3699,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "{\n" +
                 "  \"cells\": {\n" +
                 "     \"a1\": {\n" +
-                "      \"formatter\": \"text-format-pattern @\"\n" +
+                "      \"formatter\": \"text @\"\n" +
                 "      }\n" +
                 "    }\n" +
                 "}",
@@ -3752,7 +3752,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"value\": \"999\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formatter\": \"text-format-pattern @\",\n" +
+                    "      \"formatter\": \"text @\",\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"999\"\n" +
@@ -5588,13 +5588,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
+                    "  \"errorFormatter\": \"badge-error text @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -5621,7 +5621,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
@@ -6060,13 +6060,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
+                    "  \"errorFormatter\": \"badge-error text @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6093,7 +6093,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
@@ -6321,13 +6321,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"errorFormatter\": \"badge-error text-format-pattern @\",\n" +
+                    "  \"errorFormatter\": \"badge-error text @\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, date, date-time, default-text, expression, general, number, spreadsheet-pattern-collection, text, time-format-pattern\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6354,7 +6354,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
@@ -10031,7 +10031,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection spreadsheet-pattern-collection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern text-format-pattern\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text text\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern time-format-pattern\"\n" +
                     "]",
                 SpreadsheetFormatterInfoSet.class.getSimpleName()
@@ -10453,7 +10453,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Default\",\n" +
-                    "    \"selector\": \"text-format-pattern @\"\n" +
+                    "    \"selector\": \"text @\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +

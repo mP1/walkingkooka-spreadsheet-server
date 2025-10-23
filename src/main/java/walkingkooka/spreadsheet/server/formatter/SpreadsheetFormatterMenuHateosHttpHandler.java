@@ -46,7 +46,7 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
             Lists.of(
                 SpreadsheetFormatterMenu.with(
                     "Label123",
-                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
+                    SpreadsheetFormatterName.TEXT.setValueText("@")
                 )
             )
         ); // force json registry

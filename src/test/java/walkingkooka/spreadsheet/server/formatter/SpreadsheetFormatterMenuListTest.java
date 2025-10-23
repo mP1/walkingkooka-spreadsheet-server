@@ -45,7 +45,7 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
 
     private final static SpreadsheetFormatterMenu MENU2 = SpreadsheetFormatterMenu.with(
         "Long",
-        SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("yyyy/mm/dd")
+        SpreadsheetFormatterName.TEXT.setValueText("yyyy/mm/dd")
     );
 
     @Test
@@ -154,7 +154,7 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
         "  },\n" +
         "  {\n" +
         "    \"label\": \"Long\",\n" +
-        "    \"selector\": \"text-format-pattern yyyy/mm/dd\"\n" +
+        "    \"selector\": \"text yyyy/mm/dd\"\n" +
         "  }\n" +
         "]";
 
