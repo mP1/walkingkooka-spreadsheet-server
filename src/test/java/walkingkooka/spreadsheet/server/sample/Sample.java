@@ -214,7 +214,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "  },\n" +
                     "  \"textFormatter\": \"text @@\",\n" +
                     "  \"timeFormatter\": \"time hh:mm\",\n" +
-                    "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
+                    "  \"timeParser\": \"time hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
