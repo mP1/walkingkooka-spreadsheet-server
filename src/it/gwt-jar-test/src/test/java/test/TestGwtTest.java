@@ -178,7 +178,7 @@ public class TestGwtTest extends GWTTestCase {
                     "  \"dateParser\": \"date DD/MM/YYYYDDMMYYYY\",\n" +
                     "  \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"0\",\n" +
-                    "  \"dateTimeParser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                    "  \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
