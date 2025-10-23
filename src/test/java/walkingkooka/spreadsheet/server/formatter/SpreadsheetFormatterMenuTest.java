@@ -146,6 +146,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                     SpreadsheetFormatterName.PERCENT.setValueText("")
                 ),
                 SpreadsheetFormatterMenu.with(
+                    "Scientific",
+                    SpreadsheetFormatterName.SCIENTIFIC.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "Default",
                     SpreadsheetFormatterName.TEXT.setValueText("@")
                 ),
