@@ -143,11 +143,11 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Short",
-                    SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm AM/PM")
+                    SpreadsheetFormatterName.TIME.setValueText("h:mm AM/PM")
                 ),
                 SpreadsheetFormatterMenu.with(
                     "Long",
-                    SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm:ss AM/PM")
+                    SpreadsheetFormatterName.TIME.setValueText("h:mm:ss AM/PM")
                 )
             ),
             SpreadsheetFormatterMenu.prepare(
