@@ -276,7 +276,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
             },
             this.httpEntity(
                 "{\n" +
-                    "  \"selector\": \"date-parse-pattern dd/mm/yyyy\",\n" +
+                    "  \"selector\": \"date dd/mm/yyyy\",\n" +
                     "  \"message\": \"\",\n" +
                     "  \"tokens\": [\n" +
                     "    {\n" +

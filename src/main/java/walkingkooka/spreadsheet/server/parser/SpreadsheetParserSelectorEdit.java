@@ -340,7 +340,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
     /**
      * <pre>
      * {
-     *   "selector": "date-parse-pattern dd/mm/yyyy",
+     *   "selector": "date dd/mm/yyyy",
      *   "message": "",
      *   "tokens": [
      *     {
