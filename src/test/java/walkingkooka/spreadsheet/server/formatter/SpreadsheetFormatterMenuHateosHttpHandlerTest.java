@@ -216,11 +216,15 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 1189\r\n" +
+                    "Content-Length: 1250\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
                     "[\n" +
+                    "  {\n" +
+                    "    \"label\": \"Currency\",\n" +
+                    "    \"selector\": \"currency\"\n" +
+                    "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Short\",\n" +
                     "    \"selector\": \"date d/m/yy\"\n" +
