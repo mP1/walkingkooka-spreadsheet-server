@@ -213,7 +213,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "    \"width\": \"50px\"\n" +
                     "  },\n" +
                     "  \"textFormatter\": \"text @@\",\n" +
-                    "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
+                    "  \"timeFormatter\": \"time hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
                     "  \"validationFunctions\": \"@\",\n" +
