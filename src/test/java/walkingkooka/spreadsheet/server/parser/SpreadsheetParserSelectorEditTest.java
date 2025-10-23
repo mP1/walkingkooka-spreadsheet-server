@@ -237,10 +237,10 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     @Test
     public void testTreePrint() {
         this.treePrintAndCheck(
-            this.parseString("date-parse-pattern yyyy/mm/dd"),
+            this.parseString("date yyyy/mm/dd"),
             "SpreadsheetParserSelectorEdit\n" +
                 "  selector\n" +
-                "    date-parse-pattern\n" +
+                "    date\n" +
                 "      \"yyyy/mm/dd\"\n" +
                 "  text-components\n" +
                 "    yyyy\n" +
@@ -317,7 +317,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
         this.marshallAndCheck(
             this.createJsonNodeMarshallingValue(),
             "{\n" +
-                "  \"selector\": \"date-parse-pattern dd/mm/yyyy\",\n" +
+                "  \"selector\": \"date dd/mm/yyyy\",\n" +
                 "  \"message\": \"\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
@@ -469,7 +469,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     public void testUnmarshall() {
         this.unmarshallAndCheck(
             "{\n" +
-                "  \"selector\": \"date-parse-pattern dd/mm/yyyy\",\n" +
+                "  \"selector\": \"date dd/mm/yyyy\",\n" +
                 "  \"message\": \"\",\n" +
                 "  \"tokens\": [\n" +
                 "    {\n" +
@@ -629,7 +629,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
 
     @Override
     public SpreadsheetParserSelectorEdit createJsonNodeMarshallingValue() {
-        return this.parseString("date-parse-pattern dd/mm/yyyy");
+        return this.parseString("date dd/mm/yyyy");
     }
 
     // class............................................................................................................
