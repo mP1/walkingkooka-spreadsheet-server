@@ -122,6 +122,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                     SpreadsheetFormatterName.TEXT.setValueText("@")
                 ),
                 SpreadsheetFormatterMenu.with(
+                    "Full Date",
+                    SpreadsheetFormatterName.FULL_DATE.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "General",
                     SpreadsheetFormatterName.GENERAL.setValueText("")
                 ),
