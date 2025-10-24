@@ -216,7 +216,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 1374\r\n" +
+                    "Content-Length: 1439\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
@@ -288,6 +288,10 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                     "  {\n" +
                     "    \"label\": \"Scientific\",\n" +
                     "    \"selector\": \"scientific\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short Date\",\n" +
+                    "    \"selector\": \"short-date\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Default\",\n" +
