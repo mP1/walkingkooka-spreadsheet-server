@@ -126,6 +126,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                     SpreadsheetFormatterName.FULL_DATE.setValueText("")
                 ),
                 SpreadsheetFormatterMenu.with(
+                    "Full Date Time",
+                    SpreadsheetFormatterName.FULL_DATE_TIME.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "General",
                     SpreadsheetFormatterName.GENERAL.setValueText("")
                 ),
