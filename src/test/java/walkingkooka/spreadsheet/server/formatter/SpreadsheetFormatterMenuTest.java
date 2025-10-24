@@ -166,6 +166,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                     SpreadsheetFormatterName.SHORT_DATE.setValueText("")
                 ),
                 SpreadsheetFormatterMenu.with(
+                    "Short Date Time",
+                    SpreadsheetFormatterName.SHORT_DATE_TIME.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "Default",
                     SpreadsheetFormatterName.TEXT.setValueText("@")
                 ),
