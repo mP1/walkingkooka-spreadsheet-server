@@ -1116,7 +1116,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, medium-date-time, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -5594,7 +5594,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, medium-date-time, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6066,7 +6066,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, medium-date-time, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -6327,7 +6327,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
+                    "  \"formatters\": \"automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, general, long-date, medium-date, medium-date-time, number, percent, scientific, short-date, short-date-time, spreadsheet-pattern-collection, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
@@ -10033,6 +10033,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/long-date long-date\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/medium-date medium-date\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/medium-date-time medium-date-time\",\n" + 
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/percent percent\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/scientific scientific\",\n" +
@@ -10458,6 +10459,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  {\n" +
                     "    \"label\": \"Medium Date\",\n" +
                     "    \"selector\": \"medium-date\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium Date Time\",\n" +
+                    "    \"selector\": \"medium-date-time\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Number\",\n" +

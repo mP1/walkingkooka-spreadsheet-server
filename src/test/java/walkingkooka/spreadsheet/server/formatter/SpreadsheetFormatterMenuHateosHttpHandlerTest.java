@@ -216,7 +216,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
             },
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
-                    "Content-Length: 1707\r\n" +
+                    "Content-Length: 1784\r\n" +
                     "Content-Type: application/json; charset=UTF-8\r\n" +
                     "X-Content-Type-Name: SpreadsheetFormatterMenuList\r\n" +
                     "\r\n" +
@@ -276,6 +276,10 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                     "  {\n" +
                     "    \"label\": \"Medium Date\",\n" +
                     "    \"selector\": \"medium-date\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium Date Time\",\n" +
+                    "    \"selector\": \"medium-date-time\"\n" +
                     "  },\n" +
                     "  {\n" +
                     "    \"label\": \"Number\",\n" +
