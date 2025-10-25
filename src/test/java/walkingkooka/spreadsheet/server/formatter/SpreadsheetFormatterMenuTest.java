@@ -142,6 +142,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                     SpreadsheetFormatterName.LONG_DATE_TIME.setValueText("")
                 ),
                 SpreadsheetFormatterMenu.with(
+                    "Long Time",
+                    SpreadsheetFormatterName.LONG_TIME.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "Medium Date",
                     SpreadsheetFormatterName.MEDIUM_DATE.setValueText("")
                 ),
