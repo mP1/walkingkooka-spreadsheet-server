@@ -150,6 +150,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
                     SpreadsheetFormatterName.MEDIUM_DATE_TIME.setValueText("")
                 ),
                 SpreadsheetFormatterMenu.with(
+                    "Medium Time",
+                    SpreadsheetFormatterName.MEDIUM_TIME.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "Number",
                     SpreadsheetFormatterName.NUMBER.setValueText("\"#,##0.###\"")
                 ),
