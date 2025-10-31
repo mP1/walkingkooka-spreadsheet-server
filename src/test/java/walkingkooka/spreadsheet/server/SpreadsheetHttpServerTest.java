@@ -5420,7 +5420,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell&selection=A1&navigation=extend-right+column&includeFrozenColumnsRows=false",
+            "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell&selection=A1&navigation=move%26extend+right+column&includeFrozenColumnsRows=false",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -5761,7 +5761,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&navigation=extend-right+column&includeFrozenColumnsRows=false",
+            "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&navigation=move%26extend+right+column&includeFrozenColumnsRows=false",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(

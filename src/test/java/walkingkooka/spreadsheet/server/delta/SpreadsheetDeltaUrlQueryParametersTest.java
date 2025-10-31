@@ -476,7 +476,7 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
                 SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of("22"),
                 SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("row"),
                 SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of("3"),
-                SpreadsheetDeltaUrlQueryParameters.NAVIGATION, Lists.of("left column")
+                SpreadsheetDeltaUrlQueryParameters.NAVIGATION, Lists.of("move left column")
             ),
             true, // includeNavigation
             SpreadsheetSelection.parseCell("A123")
@@ -489,7 +489,7 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
                     )
                 ).setNavigations(
                     SpreadsheetViewportNavigationList.EMPTY.concat(
-                        SpreadsheetViewportNavigation.leftColumn()
+                        SpreadsheetViewportNavigation.moveLeft()
                     )
                 )
         );

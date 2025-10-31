@@ -956,13 +956,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     // load cells navigation...........................................................................................
 
     @Test
-    public void testLoadCellRangeNavigateCellLeft() {
+    public void testLoadCellRangeNavigateCellMoveLeft() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCell("B2")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.leftColumn()
+                SpreadsheetViewportNavigation.moveLeft()
             ),
             SpreadsheetSelection.parseCell("A2")
                 .setDefaultAnchor()
@@ -970,13 +970,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateCellRight() {
+    public void testLoadCellRangeNavigateCellMoveRightColumn() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCell("B2")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.rightColumn()
+                SpreadsheetViewportNavigation.moveRight()
             ),
             SpreadsheetSelection.parseCell("C2")
                 .setDefaultAnchor()
@@ -984,13 +984,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateColumnLeft() {
+    public void testLoadCellRangeNavigateColumnMoveLeft() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseColumn("C")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.leftColumn()
+                SpreadsheetViewportNavigation.moveLeft()
             ),
             SpreadsheetSelection.parseColumn("B")
                 .setDefaultAnchor()
@@ -998,13 +998,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateColumnDown() {
+    public void testLoadCellRangeNavigateColumnMoveDown() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseColumn("C")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.downRow()
+                SpreadsheetViewportNavigation.moveDown()
             ),
             SpreadsheetSelection.parseColumn("C")
                 .setDefaultAnchor()
@@ -1012,13 +1012,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateRowDown() {
+    public void testLoadCellRangeNavigateMoveDown() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseRow("3")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.downRow()
+                SpreadsheetViewportNavigation.moveDown()
             ),
             SpreadsheetSelection.parseRow("4")
                 .setDefaultAnchor()
@@ -1026,13 +1026,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateCellExtendRight() {
+    public void testLoadCellRangeNavigateCellExtendMoveRight() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCell("B2")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.extendRightColumn()
+                SpreadsheetViewportNavigation.extendMoveRight()
             ),
             SpreadsheetSelection.parseCellRange("B2:C2")
                 .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
@@ -1040,13 +1040,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateCellExtendLeft() {
+    public void testLoadCellRangeNavigateCellExtendMoveLeft() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCell("B2")
                 .setDefaultAnchor(),
             Lists.of(
-                SpreadsheetViewportNavigation.extendLeftColumn()
+                SpreadsheetViewportNavigation.extendMoveLeft()
             ),
             SpreadsheetSelection.parseCellRange("A2:B2")
                 .setAnchor(SpreadsheetViewportAnchor.BOTTOM_RIGHT)
@@ -1054,13 +1054,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateCellRangeExtendRight() {
+    public void testLoadCellRangeNavigateCellRangeExtendMoveRight() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCellRange("A2:B2")
                 .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
             Lists.of(
-                SpreadsheetViewportNavigation.extendRightColumn()
+                SpreadsheetViewportNavigation.extendMoveRight()
             ),
             SpreadsheetSelection.parseCellRange("A2:C2")
                 .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
@@ -1068,13 +1068,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateCellRangeExtendRightBecomesCell() {
+    public void testLoadCellRangeNavigateCellRangeExtendMoveRightBecomesCell() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCellRange("B2:C2")
                 .setAnchor(SpreadsheetViewportAnchor.TOP_RIGHT),
             Lists.of(
-                SpreadsheetViewportNavigation.extendRightColumn()
+                SpreadsheetViewportNavigation.extendMoveRight()
             ),
             SpreadsheetSelection.parseCell("C2")
                 .setDefaultAnchor()
@@ -1082,13 +1082,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigateCellRangeExtendUpBecomesCell() {
+    public void testLoadCellRangeNavigateCellRangeExtendMoveUpBecomesCell() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             SpreadsheetSelection.parseCellRange("C1:C2")
                 .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
             Lists.of(
-                SpreadsheetViewportNavigation.extendUpRow()
+                SpreadsheetViewportNavigation.extendMoveUp()
             ),
             SpreadsheetSelection.parseCell("C1")
                 .setDefaultAnchor()
@@ -1112,7 +1112,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigationRightPixelsWithSelection() {
+    public void testLoadCellRangeNavigationExtendScrollRightWithSelection() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             Optional.of(
@@ -1120,7 +1120,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
             ),
             Lists.of(
-                SpreadsheetViewportNavigation.extendRightPixel(401)
+                SpreadsheetViewportNavigation.extendScrollRight(401)
             ),
             "F1:J5", // window
             "F1", // expectedHome
@@ -1132,12 +1132,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeNavigationRightPixelsWithoutSelection() {
+    public void testLoadCellRangeNavigationExtendScrollRightWithoutSelection() {
         this.loadCellRangeNavigateAndCheck(
             "A1",
             Optional.empty(),
             Lists.of(
-                SpreadsheetViewportNavigation.extendRightPixel(401)
+                SpreadsheetViewportNavigation.extendScrollRight(401)
             ),
             "F1:J5", // window
             "F1", // expectedHome
