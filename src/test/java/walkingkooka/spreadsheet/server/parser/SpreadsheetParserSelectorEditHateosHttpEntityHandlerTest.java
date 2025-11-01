@@ -67,7 +67,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
     SpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
 
-    private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
+    private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE;
 
     @Test
     public void testHandleOneFails() {
@@ -144,7 +144,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
             ),
             this.parameters(),
             UrlPath.parse(
-                "/" + SpreadsheetParserName.DATE_PARSER_PATTERN + " dd/mm/yyyy"
+                "/" + SpreadsheetParserName.DATE + " dd/mm/yyyy"
             ),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override

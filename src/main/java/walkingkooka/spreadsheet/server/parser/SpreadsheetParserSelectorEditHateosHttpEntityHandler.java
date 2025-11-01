@@ -55,7 +55,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
     static {
         try {
             SpreadsheetParserSelectorEdit.parse(
-                SpreadsheetParserName.DATE_PARSER_PATTERN + " yyyy",
+                SpreadsheetParserName.DATE + " yyyy",
                 null
             ); // force json registry
         } catch (final NullPointerException ignore) {
