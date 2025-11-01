@@ -93,10 +93,10 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     @Test
     public void testParseOnlySpreadsheetParserName() {
         this.parseStringAndCheck(
-            SpreadsheetParserName.DATE_PARSER_PATTERN.value(),
+            SpreadsheetParserName.DATE.value(),
             SpreadsheetParserSelectorEdit.with(
                 Optional.of(
-                    SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("")
+                    SpreadsheetParserName.DATE.setValueText("")
                 ),
                 "Empty \"text\"",
                 Lists.empty(),
@@ -108,7 +108,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
 
     @Test
     public void testParseSpreadsheetParserNameInvalidPattern() {
-        final String selector = SpreadsheetParserName.DATE_PARSER_PATTERN + " !";
+        final String selector = SpreadsheetParserName.DATE + " !";
 
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
@@ -120,7 +120,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
             selector,
             SpreadsheetParserSelectorEdit.with(
                 Optional.of(
-                    SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("!")
+                    SpreadsheetParserName.DATE.setValueText("!")
                 ),
                 thrown.getMessage(),
                 Lists.empty(),
@@ -133,10 +133,10 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     @Test
     public void testParse() {
         this.parseStringAndCheck(
-            SpreadsheetParserName.DATE_PARSER_PATTERN + " yyyy",
+            SpreadsheetParserName.DATE + " yyyy",
             SpreadsheetParserSelectorEdit.with(
                 Optional.of(
-                    SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("yyyy")
+                    SpreadsheetParserName.DATE.setValueText("yyyy")
                 ),
                 "",
                 Lists.of(
