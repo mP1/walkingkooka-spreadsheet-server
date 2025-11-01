@@ -1127,7 +1127,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time\",\n" +
+                    "  \"parsers\": \"date, date-time, general, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -5605,7 +5605,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time\",\n" +
+                    "  \"parsers\": \"date, date-time, general, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6077,7 +6077,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time\",\n" +
+                    "  \"parsers\": \"date, date-time, general, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6338,7 +6338,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, number, time\",\n" +
+                    "  \"parsers\": \"date, date-time, general, number, time\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -11797,6 +11797,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "[\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date date\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time date-time\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/general general\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time time\"\n" +
                     "]",
