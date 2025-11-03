@@ -82,6 +82,10 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         this.checkEquals(
             Lists.of(
                 SpreadsheetFormatterMenu.with(
+                    "Accounting",
+                    SpreadsheetFormatterName.ACCOUNTING.setValueText("")
+                ),
+                SpreadsheetFormatterMenu.with(
                     "Currency",
                     SpreadsheetFormatterName.CURRENCY.setValueText("")
                 ),
