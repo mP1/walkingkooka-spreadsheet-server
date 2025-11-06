@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.ToStringTesting;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
@@ -66,6 +65,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelectionMaps;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
@@ -129,7 +129,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     final static double COLUMN_WIDTH = 100;
 
     static Map<SpreadsheetColumnReference, Double> columnWidths(final String columns) {
-        final Map<SpreadsheetColumnReference, Double> map = Maps.sorted();
+        final Map<SpreadsheetColumnReference, Double> map = SpreadsheetSelectionMaps.column();
 
         Arrays.stream(columns.split(","))
             .forEach(c ->
@@ -145,7 +145,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     final static double ROW_HEIGHT = 30;
 
     static Map<SpreadsheetRowReference, Double> rowHeights(final String rows) {
-        final Map<SpreadsheetRowReference, Double> map = Maps.sorted();
+        final Map<SpreadsheetRowReference, Double> map = SpreadsheetSelectionMaps.row();
 
         Arrays.stream(rows.split(","))
             .forEach(r ->
