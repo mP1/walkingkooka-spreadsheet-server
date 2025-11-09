@@ -69,7 +69,8 @@ final class PluginHateosResourceHandlerFilter implements HateosResourceHandler<P
                 new TreeSet<>(
                     context.pluginStore()
                         .filter(
-                            SpreadsheetUrlQueryParameters.QUERY.firstParameterValueOrFail(parameters), // query
+                            SpreadsheetUrlQueryParameters.QUERY.firstParameterValue(parameters)
+                                .orElse(""), // query
                             SpreadsheetUrlQueryParameters.offset(parameters)
                                 .orElse(0),
                             SpreadsheetUrlQueryParameters.count(parameters)
