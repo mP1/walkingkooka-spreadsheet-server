@@ -74,7 +74,7 @@ final class PluginHateosResourceHandlerFilter implements HateosResourceHandler<P
                             SpreadsheetUrlQueryParameters.offset(parameters)
                                 .orElse(0),
                             SpreadsheetUrlQueryParameters.count(parameters)
-                                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
+                                .orElse(20) // default count
                         )
                 )
             )
