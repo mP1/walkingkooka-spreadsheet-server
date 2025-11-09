@@ -86,6 +86,27 @@ public final class PluginHateosResourceHandlerFilterTest
     };
 
     @Test
+    public void testHandleAllMissingQueryParameter() {
+        this.handleAllAndCheck(
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
+                SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+            ), // parameters
+            this.path(),
+            this.context(),
+            Optional.of(
+                PluginSet.with(
+                    SortedSets.of(
+                        PLUGIN2,
+                        PLUGIN3
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
             Optional.empty(), // resource
