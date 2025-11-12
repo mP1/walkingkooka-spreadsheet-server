@@ -63,6 +63,8 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
             .orElseThrow(() -> new MissingStoreException("Missing Spreadsheet " + id));
     }
 
+    // EnvironmentContext...............................................................................................
+
     @Override
     SpreadsheetServerContext cloneEnvironment();
 
@@ -76,8 +78,12 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     @Override
     SpreadsheetServerContext setUser(final Optional<EmailAddress> optional);
 
+    // LocaleContext....................................................................................................
+
     @Override
     SpreadsheetServerContext setLocale(final Locale locale);
+
+    // JsonNodeMarshallUnmarshallContext................................................................................
 
     @Override
     SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
