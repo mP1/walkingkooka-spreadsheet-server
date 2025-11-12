@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -46,9 +47,6 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     SpreadsheetProvider,
     HasProviderContext {
 
-    @Override
-    SpreadsheetServerContext setLocale(final Locale locale);
-
     /**
      * Creates a new {@link SpreadsheetContext} and spreadsheet.
      */
@@ -65,6 +63,22 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
         return this.spreadsheetContext(id)
             .orElseThrow(() -> new MissingStoreException("Missing Spreadsheet " + id));
     }
+
+    @Override
+    SpreadsheetServerContext cloneEnvironment();
+
+    @Override
+    <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
+                                                     final T reference);
+
+    @Override
+    SpreadsheetServerContext removeEnvironmentValue(EnvironmentValueName<?> name);
+
+    @Override
+    SpreadsheetServerContext setUser(final Optional<EmailAddress> optional);
+
+    @Override
+    SpreadsheetServerContext setLocale(final Locale locale);
 
     @Override
     SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
