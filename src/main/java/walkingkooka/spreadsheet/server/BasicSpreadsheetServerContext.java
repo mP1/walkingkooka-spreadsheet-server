@@ -205,13 +205,13 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     // EnvironmentContextDelegator......................................................................................
 
     @Override
-    public EnvironmentContext cloneEnvironment() {
+    public SpreadsheetServerContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> EnvironmentContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                      final T value) {
+    public <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                            final T value) {
         this.environmentContext()
             .setEnvironmentValue(
                 name,
@@ -221,7 +221,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     @Override
-    public EnvironmentContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+    public SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.environmentContext()
             .removeEnvironmentValue(name);
         return this;
@@ -247,7 +247,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     @Override
-    public EnvironmentContext setUser(final Optional<EmailAddress> user) {
+    public SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
         this.environmentContext()
             .setUser(user);
         return this;
