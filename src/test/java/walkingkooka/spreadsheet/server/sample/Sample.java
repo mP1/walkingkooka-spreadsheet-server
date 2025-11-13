@@ -312,7 +312,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             },
             (user) -> SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
-                () -> SpreadsheetStoreRepositories.basic(
+                (id) -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
                     SpreadsheetCellReferencesStores.treeMap(),
                     SpreadsheetColumnStores.treeMap(),

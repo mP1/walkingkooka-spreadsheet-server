@@ -54,7 +54,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * A basic fully functional {@link SpreadsheetServerContext}
@@ -66,7 +65,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator {
 
     static BasicSpreadsheetServerContext with(final AbsoluteUrl serverUrl,
-                                              final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository,
+                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
                                               final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
                                               final EnvironmentContext environmentContext,
@@ -91,7 +90,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         return new BasicSpreadsheetServerContext(
             serverUrl,
-            Objects.requireNonNull(spreadsheetStoreRepository, "spreadsheetStoreRepository"),
+            Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(spreadsheetEngineContextFunction, "spreadsheetEngineContextFunction"),
             Objects.requireNonNull(environmentContext, "environmentContext"),
@@ -115,7 +114,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
     
     private BasicSpreadsheetServerContext(final AbsoluteUrl serverUrl,
-                                          final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository,
+                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
                                           final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
                                           final EnvironmentContext environmentContext,
@@ -124,7 +123,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                                           final ProviderContext providerContext) {
         this.serverUrl = serverUrl;
-        this.spreadsheetStoreRepository = spreadsheetStoreRepository;
+        this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
 
         this.spreadsheetEngineContextFunction = spreadsheetEngineContextFunction;
@@ -160,7 +159,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final SpreadsheetContext context = SpreadsheetContexts.basic(
             this.serverUrl,
             id,
-            this.spreadsheetStoreRepository.get(), // SpreadsheetStoreRepository
+            this.spreadsheetIdToSpreadsheetStoreRepository.apply(id),
             this.spreadsheetProvider,
             this.spreadsheetEngineContextFunction,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
@@ -186,7 +185,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return context;
     }
 
-    private final Supplier<SpreadsheetStoreRepository> spreadsheetStoreRepository;
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository;
 
     private final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction;
 
@@ -348,7 +347,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this :
             new BasicSpreadsheetServerContext(
                 this.serverUrl,
-                this.spreadsheetStoreRepository,
+                this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
                 this.spreadsheetEngineContextFunction,
                 this.environmentContext,

@@ -13370,7 +13370,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this::server,
             (user) -> SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
-                () -> SpreadsheetStoreRepositories.basic(
+                (id) -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
                     SpreadsheetCellReferencesStores.treeMap(),
                     SpreadsheetColumnStores.treeMap(),

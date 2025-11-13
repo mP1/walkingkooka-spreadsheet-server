@@ -394,7 +394,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             SpreadsheetServerContexts.basic(
                 Url.parseAbsolute(SERVER_URL),
-                () -> SpreadsheetStoreRepositories.basic(
+                (id) -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
                     SpreadsheetCellReferencesStores.treeMap(),
                     SpreadsheetColumnStores.treeMap(),
