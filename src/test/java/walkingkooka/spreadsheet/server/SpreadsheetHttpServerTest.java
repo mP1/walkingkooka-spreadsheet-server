@@ -29,11 +29,13 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
@@ -265,6 +267,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
+    private final static Function<HttpRequest, Optional<EmailAddress>> HTTP_REQUEST_DEFAULT_USER = (r) -> Optional.of(SpreadsheetMetadataTesting.USER);
+
     private final static MediaTypeDetector MEDIA_TYPE_DETECTOR = (filename, binary) ->
         filename.endsWith(".java") ?
             MediaType.parse("text/java") :
@@ -278,8 +282,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         throw new UnsupportedOperationException();
     };
 
-    private final static SpreadsheetServerContext SPREADSHEET_SERVER_CONTEXT = SpreadsheetServerContexts.fake();
-    
+    private final static Function<Optional<EmailAddress>, SpreadsheetServerContext> SPREADSHEET_SERVER_CONTEXT_FACTORY = (u) -> 
+        SpreadsheetServerContexts.fake();
+
     @Test
     public void testWithNullMediaTypeDetectorFails() {
         assertThrows(
@@ -288,7 +293,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 null,
                 FILE_SERVER,
                 SERVER,
-                SPREADSHEET_SERVER_CONTEXT
+                SPREADSHEET_SERVER_CONTEXT_FACTORY,
+                HTTP_REQUEST_DEFAULT_USER
             )
         );
     }
@@ -301,7 +307,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 null,
                 SERVER,
-                SPREADSHEET_SERVER_CONTEXT
+                SPREADSHEET_SERVER_CONTEXT_FACTORY,
+                HTTP_REQUEST_DEFAULT_USER
             )
         );
     }
@@ -314,7 +321,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 FILE_SERVER,
                 null,
-                SPREADSHEET_SERVER_CONTEXT
+                SPREADSHEET_SERVER_CONTEXT_FACTORY,
+                HTTP_REQUEST_DEFAULT_USER
             )
         );
     }
@@ -327,7 +335,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 MEDIA_TYPE_DETECTOR,
                 FILE_SERVER,
                 SERVER,
-                null
+                null,
+                HTTP_REQUEST_DEFAULT_USER
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullHttpRequestUserExtractorFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                MEDIA_TYPE_DETECTOR,
+                FILE_SERVER,
+                SERVER,
+                null,
+                HTTP_REQUEST_DEFAULT_USER
             )
         );
     }
@@ -988,6 +1011,156 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             () -> "spreadsheet metadata not created and saved: " + this.metadataStore
         );
     }
+
+    @Test
+    public void testMetadataPostCreate2() {
+        final EmailAddress user = EmailAddress.parse("different@example.com");
+
+        final TestHttpServer server = this.startServer(
+            (r) -> Optional.of(user)
+        );
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.createMetadata()
+                    .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
+                    .set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        AuditInfo.with(
+                            user,
+                            NOW.now(),
+                            user,
+                            NOW.now()
+                        )
+                    )
+            )
+        );
+
+        final SpreadsheetMetadata created = this.metadataStore.loadOrFail(SPREADSHEET_ID);
+
+        this.checkEquals(
+            AuditInfo.with(
+                user,
+                NOW.now(),
+                user,
+                NOW.now()
+            ),
+            created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
+            created::toString
+        );
+
+        this.checkNotEquals(
+            null,
+            created,
+            () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
+    }
+
+    @Test
+    public void testMetadataPostCreateDifferentUsers() {
+        final EmailAddress user = EmailAddress.parse("different@example.com");
+        this.currentUser = user;
+
+        final TestHttpServer server = this.startServer(
+            (r) -> Optional.ofNullable(this.currentUser)
+        );
+
+        {
+            server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                    HttpStatusCode.CREATED.status(),
+                    this.createMetadata()
+                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
+                        .set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AuditInfo.with(
+                                user,
+                                NOW.now(),
+                                user,
+                                NOW.now()
+                            )
+                        )
+                )
+            );
+
+            final SpreadsheetMetadata created = this.metadataStore.loadOrFail(SPREADSHEET_ID);
+
+            this.checkEquals(
+                AuditInfo.with(
+                    user,
+                    NOW.now(),
+                    user,
+                    NOW.now()
+                ),
+                created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
+                created::toString
+            );
+
+            this.checkNotEquals(
+                null,
+                created,
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+            );
+        }
+
+        final EmailAddress user2 = EmailAddress.parse("different-two@example.com");
+        this.currentUser = user2;
+
+        {
+            final SpreadsheetId differentId = SpreadsheetId.with(2);
+
+            server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                    HttpStatusCode.CREATED.status(),
+                    this.createMetadata()
+                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, differentId)
+                        .set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AuditInfo.with(
+                                user2,
+                                NOW.now(),
+                                user2,
+                                NOW.now()
+                            )
+                        )
+                )
+            );
+
+            final SpreadsheetMetadata created = this.metadataStore.loadOrFail(differentId);
+
+            this.checkEquals(
+                AuditInfo.with(
+                    user2,
+                    NOW.now(),
+                    user2,
+                    NOW.now()
+                ),
+                created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
+                created::toString
+            );
+
+            this.checkNotEquals(
+                null,
+                created,
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+            );
+        }
+    }
+    
+    private EmailAddress currentUser;
 
     @Test
     public void testMetadataPostCreateWithTransactionIdHeader() {
@@ -13185,13 +13358,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // helpers..........................................................................................................
 
     private TestHttpServer startServer() {
+        return this.startServer(HTTP_REQUEST_DEFAULT_USER);
+    }
+
+    private TestHttpServer startServer(final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         SpreadsheetHttpServer.with(
             MEDIA_TYPE_DETECTOR,
             this::fileServer,
             this::server,
-            SpreadsheetServerContexts.basic(
+            (user) -> SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
                 () -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
@@ -13225,11 +13402,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ),
                 EnvironmentContexts.readOnly(
                     EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+                        .setUser(user) // replace the "default" user with the given
                 ), // EnvironmentContext
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
                     (u, l) -> this.metadataStore.save(
                         this.createMetadata()
+                            .set(
+                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                AuditInfo.with(
+                                    u,
+                                    NOW.now(),
+                                    u,
+                                    NOW.now()
+                                )
+                            )
                     ),
                     metadataStore
                 ),
@@ -13244,12 +13431,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         EnvironmentContexts.empty(
                             LOCALE,
                             NOW,
-                            Optional.of(USER)
+                            user
                         )
                     ),
                     SpreadsheetHttpServerTest.this.httpServer.pluginStore
                 )
-            )
+            ),
+            httpRequestUserExtractor
         );
 
         this.httpServer.start();
@@ -13257,7 +13445,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private TestHttpServer startServerAndCreateEmptySpreadsheet() {
-        final TestHttpServer server = this.startServer();
+        return this.startServerAndCreateEmptySpreadsheet(HTTP_REQUEST_DEFAULT_USER);
+    }
+
+    private TestHttpServer startServerAndCreateEmptySpreadsheet(final Function<HttpRequest, Optional<EmailAddress>> currentUserExtractor) {
+        final TestHttpServer server = this.startServer(currentUserExtractor);
 
         // create spreadsheet
         server.handleAndCheck(
