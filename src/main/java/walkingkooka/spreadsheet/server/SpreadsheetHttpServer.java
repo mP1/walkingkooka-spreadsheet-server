@@ -84,7 +84,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public final static HttpHeaderName<String> TRANSACTION_ID = HttpHeaderName.with("X-transaction-id")
         .stringValues();
 
-    public final static UrlPath API = walkingkooka.net.UrlPath.parse("/api");
+    public final static UrlPath API = UrlPath.parse("/api");
 
     public final static UrlPath API_COMPARATOR = API.append(
         SpreadsheetComparatorName.HATEOS_RESOURCE_NAME.toUrlPathName()
