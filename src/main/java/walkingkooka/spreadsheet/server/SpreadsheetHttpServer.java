@@ -161,7 +161,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Reports a resource was not found as an empty response body and {@link HttpStatusCode#NO_CONTENT}.
      * This hopefully leaves 404 responses for only invalid resource urls.
      */
-    public static void notFound(final HttpRequest request, final HttpResponse response) {
+    public static void notFound(final HttpRequest request,
+                                final HttpResponse response) {
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
         response.setEntity(HttpEntity.EMPTY);
     }
@@ -277,7 +278,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Asks the router for a target default to {@link #notFound(HttpRequest, HttpResponse)} and dispatches the
      * given request/response.
      */
-    private void handler(final HttpRequest request, final HttpResponse response) {
+    private void handler(final HttpRequest request,
+                         final HttpResponse response) {
         this.router.route(
                 request.routerParameters()
             ).orElse(SpreadsheetHttpServer::notFound)
