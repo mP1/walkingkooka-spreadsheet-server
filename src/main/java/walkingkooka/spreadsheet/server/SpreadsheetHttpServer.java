@@ -298,13 +298,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> comparatorRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetComparatorHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> converterRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             ConverterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
@@ -322,31 +322,31 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> exporterRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetExporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> formatterRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetFormatterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> formHandlerRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             FormHandlerHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> functionRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             ExpressionFunctionHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> importerRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetImporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
@@ -358,13 +358,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> parserRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetParserHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> validatorRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContext(
+        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             ValidationHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
@@ -378,7 +378,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> spreadsheetProviderHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> spreadsheetProviderHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.spreadsheetProviderHateosResourceHandlerContext
