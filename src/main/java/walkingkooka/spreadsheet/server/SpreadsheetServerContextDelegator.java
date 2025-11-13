@@ -45,21 +45,6 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     SpreadsheetMetadataContextDelegator,
     HateosResourceHandlerContextDelegator {
 
-    // SpreadsheetServerContext.........................................................................................
-
-    @Override
-    default AbsoluteUrl serverUrl() {
-        return this.spreadsheetServerContext()
-            .serverUrl();
-    }
-
-    // SpreadsheetProviderDelegator.....................................................................................
-
-    @Override
-    default SpreadsheetProvider spreadsheetProvider() {
-        return this.spreadsheetServerContext();
-    }
-
     // EnvironmentContextDelegator......................................................................................
 
     @Override
@@ -105,6 +90,21 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
         return this.spreadsheetServerContext();
     }
 
+    // HasProviderContext...............................................................................................
+
+    @Override
+    default ProviderContext providerContext() {
+        return this.spreadsheetServerContext()
+            .providerContext();
+    }
+
+    // HateosResourceHandlerContextDelegator............................................................................
+
+    @Override
+    default HateosResourceHandlerContext hateosResourceHandlerContext() {
+        return this.spreadsheetServerContext();
+    }
+
     // SpreadsheetMetadataContextDelegator..............................................................................
 
     @Override
@@ -122,13 +122,20 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
             );
     }
 
+    // SpreadsheetProviderDelegator.....................................................................................
+
     @Override
-    default ProviderContext providerContext() {
-        return this.spreadsheetServerContext()
-            .providerContext();
+    default SpreadsheetProvider spreadsheetProvider() {
+        return this.spreadsheetServerContext();
     }
 
     // SpreadsheetServerContext.........................................................................................
+
+    @Override
+    default AbsoluteUrl serverUrl() {
+        return this.spreadsheetServerContext()
+            .serverUrl();
+    }
 
     @Override
     default Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
@@ -143,11 +150,4 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     SpreadsheetServerContext spreadsheetServerContext();
-
-    // HateosResourceHandlerContextDelegator............................................................................
-
-    @Override
-    default HateosResourceHandlerContext hateosResourceHandlerContext() {
-        return this.spreadsheetServerContext();
-    }
 }
