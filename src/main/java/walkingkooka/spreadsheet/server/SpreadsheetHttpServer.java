@@ -205,55 +205,55 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
-                this.routing(API_COMPARATOR),
+                routing(API_COMPARATOR),
                 httpHandler(this.comparatorRouter())
             ).add(
-                this.routing(API_CONVERTER),
+                routing(API_CONVERTER),
                 httpHandler(this.converterRouter())
             ).add(
-                this.routing(API_DATE_TIME_SYMBOLS),
+                routing(API_DATE_TIME_SYMBOLS),
                 httpHandler(
                     this.dateTimeSymbolsRouter()
                 )
             ).add(
-                this.routing(API_DECIMAL_NUMBER_SYMBOLS),
+                routing(API_DECIMAL_NUMBER_SYMBOLS),
                 httpHandler(
                     this.decimalNumberSymbolsRouter()
                 )
             ).add(
-                this.routing(API_EXPORTER),
+                routing(API_EXPORTER),
                 httpHandler(this.exporterRouter())
             ).add(
-                this.routing(API_FORMATTER),
+                routing(API_FORMATTER),
                 httpHandler(this.formatterRouter())
             ).add(
-                this.routing(API_FORM_HANDLER),
+                routing(API_FORM_HANDLER),
                 httpHandler(this.formHandlerRouter())
             ).add(
-                this.routing(API_FUNCTION),
+                routing(API_FUNCTION),
                 httpHandler(this.functionRouter())
             ).add(
-                this.routing(API_IMPORTER),
+                routing(API_IMPORTER),
                 httpHandler(this.importerRouter())
             ).add(
-                this.routing(API_LOCALE),
+                routing(API_LOCALE),
                 httpHandler(this.localeRouter())
             ).add(
-                this.routing(API_PARSER),
+                routing(API_PARSER),
                 httpHandler(this.parserRouter())
             ).add(
-                this.routing(API_PLUGIN),
+                routing(API_PLUGIN),
                 this.pluginHttpHandler(
                     serverUrl.setPath(API)
                 )
             ).add(
-                this.routing(API_VALIDATOR),
+                routing(API_VALIDATOR),
                 httpHandler(this.validatorRouter())
             ).add(
                 SPREADSHEET_ENGINE_ROUTING,
                 this.spreadsheetEngineHttpHandler()
             ).add(
-                this.routing(API),
+                routing(API),
                 SpreadsheetMetadataHttpHandler.with(context)
             ).add(
                 FILE_SERVER_ROUTING,
@@ -290,7 +290,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     // mappings.........................................................................................................
 
-    private Map<HttpRequestAttribute<?>, Predicate<?>> routing(final UrlPath path) {
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> routing(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
             .path(path)
             .build();
@@ -425,9 +425,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     // files............................................................................................................
 
-    private final static Map<HttpRequestAttribute<?>, Predicate<?>> FILE_SERVER_ROUTING = HttpRequestAttributeRouting.empty()
-        .path(UrlPath.parse("/*"))
-        .build();
+    private final static Map<HttpRequestAttribute<?>, Predicate<?>> FILE_SERVER_ROUTING = routing(UrlPath.parse("/*"));
 
     private HttpHandler fileServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         return HttpHandlers.webFile(
