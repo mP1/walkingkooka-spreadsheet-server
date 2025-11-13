@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -122,15 +123,23 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     @Override
+    default ProviderContext providerContext() {
+        return this.spreadsheetServerContext()
+            .providerContext();
+    }
+
+    // SpreadsheetServerContext.........................................................................................
+
+    @Override
     default Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         return this.spreadsheetServerContext()
             .spreadsheetContext(id);
     }
 
     @Override
-    default ProviderContext providerContext() {
+    default Optional<SpreadsheetStoreRepository> storeRepository(final SpreadsheetId id) {
         return this.spreadsheetServerContext()
-            .providerContext();
+            .storeRepository(id);
     }
 
     SpreadsheetServerContext spreadsheetServerContext();

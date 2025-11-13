@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegatorTest.TestSpreadsheetServerContextDelegator;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -85,6 +86,13 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
 
                 @Override
                 public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                    Objects.requireNonNull(id, "id");
+
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Optional<SpreadsheetStoreRepository> storeRepository(final SpreadsheetId id) {
                     Objects.requireNonNull(id, "id");
 
                     throw new UnsupportedOperationException();

@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextTestingTest.TestSpreadsheetServerContext;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
 
 import java.util.List;
@@ -78,6 +79,12 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
                     SPREADSHEET_CONTEXT :
                     null
             );
+        }
+
+        @Override
+        public Optional<SpreadsheetStoreRepository> storeRepository(final SpreadsheetId id) {
+            return this.spreadsheetContext(id)
+                .map(SpreadsheetContext::storeRepository);
         }
 
         // SpreadsheetMetadataContext...................................................................................
