@@ -397,7 +397,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     // /api/spreadsheet/*/*
-    private static Map<HttpRequestAttribute<?>, Predicate<?>> SPREADSHEET_ENGINE_ROUTING = HttpRequestAttributeRouting.empty()
+    private final static Map<HttpRequestAttribute<?>, Predicate<?>> SPREADSHEET_ENGINE_ROUTING = HttpRequestAttributeRouting.empty()
         .path(
             API_SPREADSHEET.append(UrlPathName.WILDCARD)
                 .append(UrlPathName.WILDCARD)
