@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
@@ -129,6 +130,46 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
             expected,
             context.spreadsheetContext(id),
             () -> context + " spreadsheetContext " + id
+        );
+    }
+
+    // storeRepository..................................................................................................
+
+    @Test
+    default void testStoreRepositoryWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .storeRepository(null)
+        );
+    }
+
+    default void storeRepositoryAndCheck(final C context,
+                                         final SpreadsheetId id) {
+        this.storeRepositoryAndCheck(
+            context,
+            id,
+            Optional.empty()
+        );
+    }
+
+    default void storeRepositoryAndCheck(final C context,
+                                         final SpreadsheetId id,
+                                         final SpreadsheetStoreRepository expected) {
+        this.storeRepositoryAndCheck(
+            context,
+            id,
+            Optional.of(expected)
+        );
+    }
+
+    default void storeRepositoryAndCheck(final C context,
+                                         final SpreadsheetId id,
+                                         final Optional<SpreadsheetStoreRepository> expected) {
+        this.checkEquals(
+            expected,
+            context.storeRepository(id),
+            () -> context + " storeRepository " + id
         );
     }
 
