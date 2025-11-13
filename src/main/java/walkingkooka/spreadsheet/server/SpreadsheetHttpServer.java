@@ -256,8 +256,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API),
                 SpreadsheetMetadataHttpHandler.with(context)
             ).add(
-                this.fileServerRouting()
-                    .build(),
+                FILE_SERVER_ROUTING,
                 this.fileServerHttpHandler(
                     fileServer
                 )
@@ -426,13 +425,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     // files............................................................................................................
 
-    /**
-     * This routing must be last as it matches everything and tries to find a file.
-     */
-    private HttpRequestAttributeRouting fileServerRouting() {
-        return HttpRequestAttributeRouting.empty()
-            .path(UrlPath.parse("/*"));
-    }
+    private final static Map<HttpRequestAttribute<?>, Predicate<?>> FILE_SERVER_ROUTING = HttpRequestAttributeRouting.empty()
+        .path(UrlPath.parse("/*"))
+        .build();
 
     private HttpHandler fileServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         return HttpHandlers.webFile(
