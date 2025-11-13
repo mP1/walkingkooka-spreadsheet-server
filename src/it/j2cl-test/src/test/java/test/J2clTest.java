@@ -312,7 +312,7 @@ public class J2clTest {
                 httpServer.handler = handler;
                 return httpServer;
             },
-            SpreadsheetServerContexts.basic(
+            (user) -> SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
                 () -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
@@ -357,9 +357,7 @@ public class J2clTest {
                     EnvironmentContexts.empty(
                         locale,
                         () -> now,
-                        Optional.of(
-                            EmailAddress.parse("user@example.com")
-                        )
+                        user
                     )
                 ),
                 LocaleContexts.jre(locale),
@@ -394,13 +392,14 @@ public class J2clTest {
                         EnvironmentContexts.empty(
                             locale,
                             LocalDateTime::now,
-                            Optional.of(
-                                EmailAddress.parse("user@example.com")
-                            )
+                            user
                         )
                     ),
                     PluginStores.treeMap()
                 )
+            ),
+            (r) -> Optional.of(
+                EmailAddress.parse("user@example.com")
             )
         );
     }

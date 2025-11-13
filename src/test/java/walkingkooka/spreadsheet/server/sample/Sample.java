@@ -310,7 +310,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 httpServer.handler = handler;
                 return httpServer;
             },
-            SpreadsheetServerContexts.basic(
+            (user) -> SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
                 () -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
@@ -355,9 +355,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     EnvironmentContexts.empty(
                         locale,
                         () -> now,
-                        Optional.of(
-                            EmailAddress.parse("user@example.com")
-                        )
+                        user
                     )
                 ),
                 LocaleContexts.jre(locale),
@@ -392,13 +390,14 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         EnvironmentContexts.empty(
                             locale,
                             LocalDateTime::now,
-                            Optional.of(
-                                EmailAddress.parse("user@example.com")
-                            )
+                            user
                         )
                     ),
                     PluginStores.treeMap()
                 )
+            ),
+            (r) -> Optional.of(
+                EmailAddress.parse("user@example.com")
             )
         );
     }
