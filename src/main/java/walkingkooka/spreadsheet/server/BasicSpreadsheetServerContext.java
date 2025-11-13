@@ -159,7 +159,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final SpreadsheetContext context = SpreadsheetContexts.basic(
             this.serverUrl,
             id,
-            this.spreadsheetIdToSpreadsheetStoreRepository.apply(id),
+            this.spreadsheetIdToSpreadsheetStoreRepository,
             this.spreadsheetProvider,
             this.spreadsheetEngineContextFunction,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
