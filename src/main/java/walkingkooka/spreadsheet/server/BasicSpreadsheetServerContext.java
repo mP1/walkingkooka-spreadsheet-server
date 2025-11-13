@@ -76,6 +76,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final ProviderContext providerContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
 
+        if (false == serverUrl.credentials().isEmpty()) {
+            throw reportServerUrlFail("credentials", serverUrl);
+        }
         if (false == serverUrl.path().equals(walkingkooka.net.UrlPath.EMPTY)) {
             throw reportServerUrlFail("path", serverUrl);
         }
