@@ -250,11 +250,13 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)");
 
+    final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
+
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
         .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
         .loadFromLocale(
             LocaleContexts.jre(LOCALE)
-        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
         .set(
             SpreadsheetMetadataPropertyName.AUDIT_INFO,
             AuditInfo.with(
@@ -399,7 +401,10 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.basic(
             Url.parseAbsolute("https://example.com"), // serverUrl
             METADATA.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID),
-            repos,
+            (id) -> {
+                checkEquals(SPREADSHEET_ID, id);
+                return repos;
+            },
             SPREADSHEET_PROVIDER,
             (SpreadsheetContext c) -> SpreadsheetEngineContexts.basic(
                 SpreadsheetEngineContextMode.FORMULA,
