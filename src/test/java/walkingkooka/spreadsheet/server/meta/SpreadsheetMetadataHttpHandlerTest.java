@@ -52,7 +52,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
         return SpreadsheetMetadataHttpHandler.with(
             SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
-                () -> SpreadsheetStoreRepositories.fake(),
+                (id) -> SpreadsheetStoreRepositories.fake(),
                 SPREADSHEET_PROVIDER,
                 null,
                 ENVIRONMENT_CONTEXT,

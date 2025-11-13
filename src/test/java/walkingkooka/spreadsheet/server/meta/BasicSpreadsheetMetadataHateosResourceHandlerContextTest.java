@@ -922,7 +922,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
                 SERVER_URL,
-                () -> SpreadsheetStoreRepositories.basic(
+                (id) -> SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
                     SpreadsheetCellReferencesStores.treeMap(),
                     SpreadsheetColumnStores.treeMap(),

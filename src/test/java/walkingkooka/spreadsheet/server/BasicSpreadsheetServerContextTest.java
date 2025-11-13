@@ -56,7 +56,6 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -67,7 +66,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
-    private final static Supplier<SpreadsheetStoreRepository> REPO = () -> SpreadsheetStoreRepositories.fake();
+    private final static Function<SpreadsheetId, SpreadsheetStoreRepository> REPO = (i) -> SpreadsheetStoreRepositories.fake();
 
     private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FUNCTION = (c) ->
         new FakeSpreadsheetEngineContext() {
@@ -225,7 +224,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     @Test
-    public void testWithNullSpreadsheetServerRepoFails() {
+    public void testWithNullSpreadsheetIdToSpreadsheetServerRepositoryFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
@@ -422,7 +421,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         return BasicSpreadsheetServerContext.with(
             SERVER_URL,
-            () -> new FakeSpreadsheetStoreRepository() {
+            (id) -> new FakeSpreadsheetStoreRepository() {
 
                 @Override
                 public SpreadsheetLabelStore labels() {
