@@ -249,7 +249,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_VALIDATOR),
                 httpHandler(this.validatorRouter())
             ).add(
-                this.spreadsheetEngineRouting(),
+                SPREADSHEET_ENGINE_ROUTING,
                 this.spreadsheetEngineHttpHandler()
             ).add(
                 this.routing(API),
@@ -392,14 +392,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             Sets.of(mappings),
             context
         );
-    }
-
-    /**
-     * Require base url plus two more components to hold the service and its identifier, eg:
-     * <pre>https://example.com/api-base/spreadsheet/spreadsheet-id-1234/cells/A1</pre>
-     */
-    private Map<HttpRequestAttribute<?>, Predicate<?>> spreadsheetEngineRouting() {
-        return SPREADSHEET_ENGINE_ROUTING;
     }
 
     // /api/spreadsheet/*/*
