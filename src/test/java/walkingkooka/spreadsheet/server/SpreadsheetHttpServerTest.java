@@ -97,7 +97,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -125,7 +124,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
@@ -163,7 +161,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13305,42 +13302,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             );
     }
 
-    private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
-        return this.metadataStore.loadOrFail(id)
-            .spreadsheetProvider(
-                SpreadsheetProviders.basic(
-                    CONVERTER_PROVIDER,
-                    EXPRESSION_FUNCTION_PROVIDER,
-                    SPREADSHEET_COMPARATOR_PROVIDER,
-                    SPREADSHEET_EXPORTER_PROVIDER,
-                    SPREADSHEET_FORMATTER_PROVIDER,
-                    FORM_HANDLER_PROVIDER,
-                    SPREADSHEET_IMPORTER_PROVIDER,
-                    SPREADSHEET_PARSER_PROVIDER,
-                    VALIDATOR_PROVIDER
-                )
-            );
-    }
-
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-
-//    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = spreadsheetIdToRepository(Maps.concurrent(),
-//        storeRepositorySupplier(this.metadataStore));
-
-    /**
-     * Retrieves from the cache or lazily creates a {@link SpreadsheetStoreRepository} for the given {@link SpreadsheetId}.
-     */
-    static Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository(final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                                         final Supplier<SpreadsheetStoreRepository> repositoryFactory) {
-        return (id) -> {
-            SpreadsheetStoreRepository repository = spreadsheetIdToRepository.get(id);
-            if (null == repository) {
-                repository = repositoryFactory.get();
-                spreadsheetIdToRepository.put(id, repository); // TODO add locks etc.
-            }
-            return repository;
-        };
-    }
+    
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {
         return path.normalize().equals(FILE) ?
