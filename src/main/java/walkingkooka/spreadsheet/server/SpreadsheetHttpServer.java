@@ -310,13 +310,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
-        return this.localeHateosResourceHandlerContext(
+        return this.localeHateosResourceHandlerContextRouter(
             DateTimeSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
-        return this.localeHateosResourceHandlerContext(
+        return this.localeHateosResourceHandlerContextRouter(
             DecimalNumberSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
@@ -352,7 +352,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
-        return this.localeHateosResourceHandlerContext(
+        return this.localeHateosResourceHandlerContextRouter(
             LocaleHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
@@ -369,7 +369,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> localeHateosResourceHandlerContext(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> localeHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.localeHateosResourceHandlerContext
