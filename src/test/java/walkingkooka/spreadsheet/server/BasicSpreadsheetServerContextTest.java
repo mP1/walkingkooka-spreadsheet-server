@@ -24,6 +24,7 @@ import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlCredentials;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -119,6 +120,35 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
                 PROVIDER_CONTEXT
             )
+        );
+    }
+
+    @Test
+    public void testWithServerUrlWithCredentialsFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                Url.parseAbsolute("https://example.com")
+                    .setCredentials(
+                        Optional.of(
+                            UrlCredentials.with("user1", "pass1")
+                        )
+                    ),
+                REPO,
+                SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT
+            )
+        );
+
+        this.checkEquals(
+            "Url must not have credentials got \"https://user1:pass1@example.com\"",
+            thrown.getMessage(),
+            "message"
         );
     }
 
