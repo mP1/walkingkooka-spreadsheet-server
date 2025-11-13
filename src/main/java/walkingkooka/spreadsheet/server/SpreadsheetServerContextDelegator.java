@@ -112,6 +112,15 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
         return this.spreadsheetServerContext();
     }
 
+    // SpreadsheetProviderDelegator.....................................................................................
+
+    @Override
+    default SpreadsheetProvider spreadsheetProvider() {
+        return this.spreadsheetServerContext();
+    }
+
+    // SpreadsheetServerContext.........................................................................................
+
     @Override
     default SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
                                                         final Optional<Locale> locale) {
@@ -121,15 +130,6 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
                 locale
             );
     }
-
-    // SpreadsheetProviderDelegator.....................................................................................
-
-    @Override
-    default SpreadsheetProvider spreadsheetProvider() {
-        return this.spreadsheetServerContext();
-    }
-
-    // SpreadsheetServerContext.........................................................................................
 
     @Override
     default AbsoluteUrl serverUrl() {
