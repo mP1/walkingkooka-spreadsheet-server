@@ -22,6 +22,7 @@ import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
@@ -70,6 +71,20 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         this.metadata = metadata;
         this.spreadsheetEngine = spreadsheetEngine;
         this.context = context;
+    }
+
+    @Override
+    public SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        final SpreadsheetEngineHateosResourceHandlerContext before = this.context;
+        final SpreadsheetEngineHateosResourceHandlerContext after = before.setSpreadsheetId(spreadsheetId);
+
+        return before.equals(after) ?
+            this :
+            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+                context.loadMetadataOrFail(spreadsheetId),
+                this.spreadsheetEngine,
+                after
+            );
     }
 
     @Override

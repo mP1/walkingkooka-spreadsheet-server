@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.tree.expression.ExpressionNumber;
@@ -34,6 +35,9 @@ import java.util.Optional;
  */
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
     SpreadsheetEngineContext {
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment();

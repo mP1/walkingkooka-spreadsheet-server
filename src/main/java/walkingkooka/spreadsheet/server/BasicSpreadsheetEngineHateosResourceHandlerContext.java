@@ -22,6 +22,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
@@ -65,6 +66,20 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.engineContext = engineContext;
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        final SpreadsheetEngineContext before = this.engineContext;
+        final SpreadsheetEngineContext after = before.setSpreadsheetId(spreadsheetId);
+
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                this.spreadsheetEngine,
+                this.hateosResourceHandlerContext,
+                after
+            );
     }
 
     @Override

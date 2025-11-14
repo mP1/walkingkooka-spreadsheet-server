@@ -72,6 +72,8 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
+    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
+
     private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
@@ -95,7 +97,17 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetId spreadsheetId() {
-            return SpreadsheetId.with(1);
+            return SPREADSHEET_ID;
+        }
+
+        @Override
+        public TestSpreadsheetContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+            Objects.requireNonNull(spreadsheetId, "spreadsheetId");
+
+            if (SPREADSHEET_ID.equals(spreadsheetId)) {
+                return this;
+            }
+            throw new UnsupportedOperationException();
         }
 
         @Override

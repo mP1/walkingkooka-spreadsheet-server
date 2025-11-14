@@ -117,6 +117,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetMetadata createMetadata(final EmailAddress user,
                                               final Optional<Locale> locale) {
         throw new UnsupportedOperationException();
