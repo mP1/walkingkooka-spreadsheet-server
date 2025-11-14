@@ -62,7 +62,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x12ef);
+    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x12ef);
 
     private final static AuditInfo AUDIT_INFO = AuditInfo.with(
         USER,
@@ -214,7 +214,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                         public SpreadsheetMetadata spreadsheetMetadata() {
                             return SpreadsheetMetadata.EMPTY.set(
                                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SPREADSHEET_ID
+                                SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID
                             ).set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 AUDIT_INFO.setCreatedBy(user)

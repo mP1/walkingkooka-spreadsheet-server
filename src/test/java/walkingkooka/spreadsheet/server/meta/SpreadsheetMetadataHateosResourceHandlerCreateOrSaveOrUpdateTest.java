@@ -131,7 +131,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                         public SpreadsheetMetadata spreadsheetMetadata() {
                             return metadata.set(
                                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SPREADSHEET_ID
+                                SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.SPREADSHEET_ID
                             ).set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
@@ -180,7 +180,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                         public SpreadsheetMetadata spreadsheetMetadata() {
                             return metadata.set(
                                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SPREADSHEET_ID
+                                SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.SPREADSHEET_ID
                             ).set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)

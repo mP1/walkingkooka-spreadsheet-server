@@ -97,14 +97,14 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetId spreadsheetId() {
-            return SPREADSHEET_ID;
+            return BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID;
         }
 
         @Override
         public TestSpreadsheetContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
             Objects.requireNonNull(spreadsheetId, "spreadsheetId");
 
-            if (SPREADSHEET_ID.equals(spreadsheetId)) {
+            if (this.spreadsheetId().equals(spreadsheetId)) {
                 return this;
             }
             throw new UnsupportedOperationException();
@@ -156,7 +156,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             return this.environmentContext;
         }
 
-        private final EnvironmentContext environmentContext = EnvironmentContexts.map(ENVIRONMENT_CONTEXT);
+        private final EnvironmentContext environmentContext = EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+            .setEnvironmentValue(
+                SPREADSHEET_ID,
+                BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID
+            );
 
         @Override
         public Locale locale() {
