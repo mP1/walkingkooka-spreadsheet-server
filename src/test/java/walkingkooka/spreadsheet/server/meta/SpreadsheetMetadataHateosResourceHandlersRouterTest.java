@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
-import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.HttpHeaderName;
@@ -72,8 +71,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     );
 
     private final static String URL = "https://example.com/api";
-
-    private final static UrlPath BASE_PATH = UrlPath.parse("/api");
 
     private final TestSpreadsheetMetadataHateosResourceHandlerContext CONTEXT = new TestSpreadsheetMetadataHateosResourceHandlerContext();
 
