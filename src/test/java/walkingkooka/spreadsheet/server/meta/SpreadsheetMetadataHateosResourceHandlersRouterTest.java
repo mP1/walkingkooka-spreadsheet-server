@@ -226,7 +226,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
                 @Override
                 public Optional<EmailAddress> user() {
-                    return Optional.of(USER);
+                    return Optional.of(SpreadsheetMetadataHateosResourceHandlersRouterTest.USER);
                 }
             },
             HttpMethod.POST,

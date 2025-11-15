@@ -147,7 +147,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
 
                 @Override
                 public Optional<EmailAddress> user() {
-                    return Optional.of(USER);
+                    return Optional.of(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER);
                 }
             },
             Optional.of(
@@ -196,7 +196,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
 
                 @Override
                 public Optional<EmailAddress> user() {
-                    return Optional.of(USER);
+                    return Optional.of(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER);
                 }
             },
             Optional.of(metadata)
@@ -266,7 +266,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
 
             @Override
             public Optional<EmailAddress> user() {
-                return Optional.of(USER);
+                return Optional.of(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER);
             }
         };
     }

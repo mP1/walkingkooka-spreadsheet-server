@@ -408,7 +408,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
 
             @Override
             public Locale locale() {
-                return LOCALE;
+                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.LOCALE;
             }
 
             @Override
