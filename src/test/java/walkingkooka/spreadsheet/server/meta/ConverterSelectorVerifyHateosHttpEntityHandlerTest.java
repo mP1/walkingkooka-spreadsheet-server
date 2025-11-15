@@ -146,7 +146,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public Locale locale() {
-                return LOCALE;
+                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.LOCALE;
             }
 
             @Override

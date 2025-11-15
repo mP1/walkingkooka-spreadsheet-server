@@ -276,7 +276,7 @@ public final class PluginHateosHttpEntityHandlerListTest
 
         @Override
         public Optional<EmailAddress> user() {
-            return Optional.of(USER);
+            return Optional.of(PluginHateosHttpEntityHandlerListTest.USER);
         }
 
         @Override

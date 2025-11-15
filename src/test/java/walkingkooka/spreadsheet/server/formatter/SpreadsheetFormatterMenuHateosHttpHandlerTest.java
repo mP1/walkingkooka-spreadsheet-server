@@ -196,7 +196,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
 
                 @Override
                 public Locale locale() {
-                    return LOCALE;
+                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.LOCALE;
                 }
 
                 @Override

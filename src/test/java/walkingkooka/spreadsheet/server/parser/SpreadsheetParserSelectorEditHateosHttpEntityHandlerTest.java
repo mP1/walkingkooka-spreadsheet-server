@@ -261,7 +261,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                 @Override
                 public Locale locale() {
-                    return LOCALE;
+                    return SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.LOCALE;
                 }
 
                 @Override
