@@ -886,6 +886,16 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 //        );
 //    }
 
+    @Override
+    public void testEnvironmentValueLocaleEqualsLocale() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    public void testSetLocaleWithDifferent() {
+        throw new UnsupportedOperationException();
+    }
+    
     // toString.........................................................................................................
 
     @Test
