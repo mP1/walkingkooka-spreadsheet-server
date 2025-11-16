@@ -18,10 +18,12 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlCredentials;
@@ -599,6 +601,14 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                     @Override
                     public Locale locale() {
                         return locale;
+                    }
+
+                    @Override
+                    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+                        checkEquals(LOCALE, name);
+                        return Optional.of(
+                            Cast.to(locale)
+                        );
                     }
                 }
             ),
