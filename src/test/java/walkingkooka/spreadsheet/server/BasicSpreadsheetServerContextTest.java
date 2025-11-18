@@ -372,7 +372,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Override
     public BasicSpreadsheetServerContext createContext() {
         return this.createContext(
-            SpreadsheetProviderContexts.basic(
+            SpreadsheetProviderContexts.spreadsheet(
                 PluginStores.fake(),
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.LOCALE,
