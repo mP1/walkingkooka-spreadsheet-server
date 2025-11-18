@@ -374,7 +374,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         return this.createContext(
             SpreadsheetProviderContexts.basic(
                 PluginStores.fake(),
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.LOCALE,
                     LOCALE
@@ -413,6 +412,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                         ENVIRONMENT_CONTEXT
                     )
                 ),
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
