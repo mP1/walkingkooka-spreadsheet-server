@@ -645,6 +645,15 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                     public Optional<EmailAddress> user() {
                         return Optional.of(user);
                     }
+
+                    @Override
+                    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+                        return name.equals(USER) ?
+                            Cast.to(
+                                this.user()
+                            ) :
+                            Optional.empty();
+                    }
                 }
             ),
             user
