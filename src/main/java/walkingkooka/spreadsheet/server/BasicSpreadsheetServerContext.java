@@ -44,6 +44,8 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.terminal.server.TerminalServerContext;
+import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -72,7 +74,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final LocaleContext localeContext,
                                               final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                               final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                              final ProviderContext providerContext) {
+                                              final ProviderContext providerContext,
+                                              final TerminalServerContext terminalServerContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
 
         if (false == serverUrl.credentials().isEmpty()) {
@@ -97,7 +100,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(spreadsheetMetadataContext, "spreadsheetMetadataContext"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-            Objects.requireNonNull(providerContext, "providerContext")
+            Objects.requireNonNull(providerContext, "providerContext"),
+            Objects.requireNonNull(terminalServerContext, "terminalServerContext")
         );
     }
 
@@ -121,7 +125,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final LocaleContext localeContext,
                                           final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                          final ProviderContext providerContext) {
+                                          final ProviderContext providerContext,
+                                          final TerminalServerContext terminalServerContext) {
         this.serverUrl = serverUrl;
         this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
@@ -133,6 +138,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.providerContext = providerContext;
+        this.terminalServerContext = terminalServerContext;
     }
 
     // SpreadsheetServerContext.........................................................................................
@@ -156,6 +162,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final Optional<EmailAddress> user2 = Optional.of(user);
 
+        final EnvironmentContext environmentContext = this.environmentContext.cloneEnvironment()
+            .setUser(user2);
+
         final SpreadsheetContext context = SpreadsheetContexts.basic(
             this.serverUrl,
             id,
@@ -166,14 +175,17 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 c,
                 this // HateosResourceHandlerContext
             ),
-            metadata.environmentContext(
-                this.environmentContext.cloneEnvironment()
-                    .setUser(user2)
-            ),
+            metadata.environmentContext(environmentContext),
             LocaleContexts.readOnly(this.localeContext),
             ProviderContexts.readOnly(
                 this.providerContext.cloneEnvironment()
                     .setUser(user2)
+            ),
+            TerminalServerContexts.userFiltered(
+                (u) -> u.equals(
+                    environmentContext.user()
+                ),
+                this.terminalServerContext
             )
         );
 
@@ -193,6 +205,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
      * The default or starting {@link EnvironmentContext} for each new spreadsheet.
      */
     private final EnvironmentContext environmentContext;
+
+    private final TerminalServerContext terminalServerContext;
 
     @Override
     public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
@@ -354,7 +368,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.localeContext,
                 this.spreadsheetMetadataContext,
                 Objects.requireNonNull(context, "hateosResourceHandlerContext"),
-                this.providerContext
+                this.providerContext,
+                this.terminalServerContext
             );
     }
 

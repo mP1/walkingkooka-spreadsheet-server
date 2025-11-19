@@ -89,6 +89,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.Storages;
 import walkingkooka.terminal.TerminalContexts;
+import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -394,7 +395,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         )
                     ),
                     PluginStores.treeMap()
-                )
+                ),
+                TerminalServerContexts.fake()
             ),
             (r) -> Optional.of(
                 EmailAddress.parse("user@example.com")

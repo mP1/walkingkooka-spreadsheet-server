@@ -13437,7 +13437,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         )
                     ),
                     SpreadsheetHttpServerTest.this.httpServer.pluginStore
-                )
+                ),
+                TERMINAL_SERVER_CONTEXT
             ),
             httpRequestUserExtractor
         );

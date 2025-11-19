@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
@@ -51,11 +52,17 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.terminal.TerminalContext;
+import walkingkooka.terminal.TerminalId;
+import walkingkooka.terminal.server.FakeTerminalServerContext;
+import walkingkooka.terminal.server.TerminalServerContext;
+import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -119,7 +126,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -142,7 +150,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
 
@@ -166,7 +175,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
 
@@ -190,7 +200,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
 
@@ -214,7 +225,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
 
@@ -238,7 +250,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -256,7 +269,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -274,7 +288,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -292,7 +307,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -310,7 +326,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 null,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -328,7 +345,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 null,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -346,7 +364,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 null,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
@@ -364,6 +383,26 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
+                null,
+                TERMINAL_SERVER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullTerminalServerContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                SERVER_URL,
+                REPO,
+                SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
                 null
             )
         );
@@ -461,7 +500,26 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SpreadsheetMetadataStores.treeMap()
             ),
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            providerContext
+            providerContext,
+            new FakeTerminalServerContext() {
+                @Override
+                public TerminalContext createTerminalContext(final EnvironmentContext context) {
+                    Objects.requireNonNull(context, "context");
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Optional<TerminalContext> terminalContext(final TerminalId id) {
+                    Objects.requireNonNull(id, "id");
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public TerminalServerContext removeTerminalContext(final TerminalId id) {
+                    Objects.requireNonNull(id, "id");
+                    throw new UnsupportedOperationException();
+                }
+            }
         );
     }
 
@@ -692,7 +750,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TerminalServerContexts.fake()
             ),
             "https://example.com {} JRE en-AU [https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection-to collection-to, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection-to-list collection-to-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/color color, https://github.com/mP1/walkingkooka-spreadsheet/Converter/color-to-color color-to-color, https://github.com/mP1/walkingkooka-spreadsheet/Converter/color-to-number color-to-number, https://github.com/mP1/walkingkooka-spreadsheet/Converter/date-time date-time, https://github.com/mP1/walkingkooka-spreadsheet/Converter/date-time-symbols date-time-symbols, https://github.com/mP1/walkingkooka-spreadsheet/Converter/decimal-number-symbols decimal-number-symbols, https://github.com/mP1/walkingkooka-spreadsheet/Converter/environment environment, https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing, https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-error error-to-error, https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number, https://github.com/mP1/walkingkooka-spreadsheet/Converter/expression expression, https://github.com/mP1/walkingkooka-spreadsheet/Converter/form-and-validation form-and-validation, https://github.com/mP1/walkingkooka-spreadsheet/Converter/format-pattern-to-string format-pattern-to-string, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-formatter-selector has-formatter-selector, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-host-address has-host-address, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-parser-selector has-parser-selector, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-spreadsheet-selection has-spreadsheet-selection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-style has-style, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-text-node has-text-node, https://github.com/mP1/walkingkooka-spreadsheet/Converter/has-validator-selector has-validator-selector, https://github.com/mP1/walkingkooka-spreadsheet/Converter/json json, https://github.com/mP1/walkingkooka-spreadsheet/Converter/json-to json-to, https://github.com/mP1/walkingkooka-spreadsheet/Converter/locale locale, https://github.com/mP1/walkingkooka-spreadsheet/Converter/locale-to-text locale-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/net net, https://github.com/mP1/walkingkooka-spreadsheet/Converter/null-to-number null-to-number, https://github.com/mP1/walkingkooka-spreadsheet/Converter/number number, https://github.com/mP1/walkingkooka-spreadsheet/Converter/number-to-color number-to-color, https://github.com/mP1/walkingkooka-spreadsheet/Converter/number-to-number number-to-number, https://github.com/mP1/walkingkooka-spreadsheet/Converter/number-to-text number-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/optional-to optional-to, https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugins plugins, https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-set spreadsheet-cell-set, https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-metadata spreadsheet-metadata, https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-selection-to-spreadsheet-selection spreadsheet-selection-to-spreadsheet-selection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-selection-to-text spreadsheet-selection-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-value spreadsheet-value, https://github.com/mP1/walkingkooka-spreadsheet/Converter/style style, https://github.com/mP1/walkingkooka-spreadsheet/Converter/system system, https://github.com/mP1/walkingkooka-spreadsheet/Converter/template template, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-node text-node, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-boolean-list text-to-boolean-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-color text-to-color, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-csv-string-list text-to-csv-string-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-date-list text-to-date-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-date-time-list text-to-date-time-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-email-address text-to-email-address, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-environment-value-name text-to-environment-value-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-error text-to-error, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-expression text-to-expression, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-form-name text-to-form-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-has-host-address text-to-has-host-address, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-host-address text-to-host-address, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-json text-to-json, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-locale text-to-locale, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-number-list text-to-number-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-object text-to-object, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-color-name text-to-spreadsheet-color-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-formatter-selector text-to-spreadsheet-formatter-selector, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-id text-to-spreadsheet-id, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata text-to-spreadsheet-metadata, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-color text-to-spreadsheet-metadata-color, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-property-name text-to-spreadsheet-metadata-property-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-name text-to-spreadsheet-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-selection text-to-spreadsheet-selection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-text text-to-spreadsheet-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-string-list text-to-string-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-template-value-name text-to-template-value-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text text-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-node text-to-text-node, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style text-to-text-style, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style-property-name text-to-text-style-property-name, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-time-list text-to-time-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-url text-to-url, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-url-fragment text-to-url-fragment, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-url-query-string text-to-url-query-string, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validation-error text-to-validation-error, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validator-selector text-to-validator-selector, https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-value-type text-to-value-type, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-boolean to-boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-json to-json, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-number to-number, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-styleable to-styleable, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-validation-checkbox to-validation-checkbox, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-validation-choice to-validation-choice, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-validation-choice-list to-validation-choice-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-validation-error-list to-validation-error-list, https://github.com/mP1/walkingkooka-spreadsheet/Converter/url url, https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-hyperlink url-to-hyperlink, https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-image url-to-image] [] [https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date-time date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month day-of-month, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-week day-of-week, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-am-pm hour-of-am-pm, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-day hour-of-day, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/minute-of-hour minute-of-hour, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/month-of-year month-of-year, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/nano-of-second nano-of-second, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/number number, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/seconds-of-minute seconds-of-minute, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text text, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text-case-insensitive text-case-insensitive, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year] [https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/accounting accounting, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic automatic, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/badge-error badge-error, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/currency currency, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/default-text default-text, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/expression expression, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/full-date full-date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/full-date-time full-date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/full-time full-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/long-date long-date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/long-date-time long-date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/long-time long-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/medium-date medium-date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/medium-date-time medium-date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/medium-time medium-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number number, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/percent percent, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/scientific scientific, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/short-date short-date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/short-date-time short-date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/short-time short-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text text, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time time] [] [https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/empty empty, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/json json] [https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date date, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time date-time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/general general, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number number, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time time, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/whole-number whole-number] [https://github.com/mP1/walkingkooka-validation/Validator/absolute-url absolute-url, https://github.com/mP1/walkingkooka-validation/Validator/checkbox checkbox, https://github.com/mP1/walkingkooka-validation/Validator/choice-list choice-list, https://github.com/mP1/walkingkooka-validation/Validator/collection collection, https://github.com/mP1/walkingkooka-validation/Validator/email-address email-address, https://github.com/mP1/walkingkooka-validation/Validator/expression expression, https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null, https://github.com/mP1/walkingkooka-validation/Validator/text-length text-length, https://github.com/mP1/walkingkooka-validation/Validator/text-mask text-mask]"
         );

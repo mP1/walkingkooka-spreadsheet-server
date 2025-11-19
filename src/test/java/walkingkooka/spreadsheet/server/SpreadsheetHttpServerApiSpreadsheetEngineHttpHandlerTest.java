@@ -465,7 +465,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                     EOL,
                     JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
                 ),
-                PROVIDER_CONTEXT.cloneEnvironment()
+                PROVIDER_CONTEXT.cloneEnvironment(),
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }

@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.terminal.TerminalId;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -73,4 +74,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
         return this.spreadsheetMetadata()
             .missingCellNumberValue();
     }
+
+    // TerminalServerContext............................................................................................
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext removeTerminalContext(final TerminalId id);
 }
