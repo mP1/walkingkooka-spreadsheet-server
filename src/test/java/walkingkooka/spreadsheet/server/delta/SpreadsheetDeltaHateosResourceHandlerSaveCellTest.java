@@ -45,7 +45,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.text.TextNode;
-import walkingkooka.validation.ValueTypeName;
+import walkingkooka.validation.ValueType;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -166,7 +166,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
 
                         @Override
                         public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
-                                                                final ValueTypeName valueType,
+                                                                final ValueType valueType,
                                                                 final Expression expression,
                                                                 final SpreadsheetEngineContext context) {
                             return cells;

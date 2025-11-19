@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.validation.ValueTypeName;
+import walkingkooka.validation.ValueType;
 
 import java.util.Map;
 import java.util.Objects;
@@ -41,7 +41,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#findCells(SpreadsheetCellRangeReference, SpreadsheetCellRangeReferencePath, int, int, ValueTypeName, Expression, Set, SpreadsheetEngineContext)}.
+ * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#findCells(SpreadsheetCellRangeReference, SpreadsheetCellRangeReferencePath, int, int, ValueType, Expression, Set, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
@@ -136,7 +136,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
     final static Integer DEFAULT_OFFSET = 0;
 
-    final static ValueTypeName DEFAULT_VALUE_TYPE = SpreadsheetValueType.ANY;
+    final static ValueType DEFAULT_VALUE_TYPE = SpreadsheetValueType.ANY;
 
     final static int DEFAULT_COUNT = 50;
 

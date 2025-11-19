@@ -68,7 +68,7 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
-import walkingkooka.validation.ValueTypeName;
+import walkingkooka.validation.ValueType;
 
 import java.util.List;
 import java.util.Map;
@@ -236,7 +236,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
                         @Override
                         public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
-                                                                final ValueTypeName valueType,
+                                                                final ValueType valueType,
                                                                 final Expression expression,
                                                                 final SpreadsheetEngineContext context) {
                             return cells;
@@ -381,7 +381,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
                         @Override
                         public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
-                                                                final ValueTypeName valueType,
+                                                                final ValueType valueType,
                                                                 final Expression expression,
                                                                 final SpreadsheetEngineContext context) {
                             return cells.stream()
