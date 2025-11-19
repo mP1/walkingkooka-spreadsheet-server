@@ -890,7 +890,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     public void testEnvironmentValueLocaleEqualsLocale() {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     public void testSetLocaleWithDifferent() {
         throw new UnsupportedOperationException();
@@ -989,7 +989,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     metadataStore
                 ),
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                providerContext
+                providerContext,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }

@@ -427,7 +427,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             ),
             EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
             LOCALE_CONTEXT,
-            PROVIDER_CONTEXT
+            PROVIDER_CONTEXT,
+            TERMINAL_SERVER_CONTEXT
         );
 
         final SpreadsheetEngineContext engineContext = spreadsheetContext.spreadsheetEngineContext();

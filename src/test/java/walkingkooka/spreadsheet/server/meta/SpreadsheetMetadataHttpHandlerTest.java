@@ -59,7 +59,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.fake(),
                 HateosResourceHandlerContexts.fake(),
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
             )
         );
     }
