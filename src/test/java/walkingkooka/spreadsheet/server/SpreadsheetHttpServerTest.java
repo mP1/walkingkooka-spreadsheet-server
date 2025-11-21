@@ -105,8 +105,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
-import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
@@ -118,18 +116,9 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
-import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
-import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
-import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
-import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStores;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
-import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
-import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
-import walkingkooka.storage.Storages;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -13372,20 +13361,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this::server,
             (user) -> SpreadsheetServerContexts.basic(
                 Url.parseAbsolute("https://example.com"),
-                (id) -> SpreadsheetStoreRepositories.basic(
-                    SpreadsheetCellStores.treeMap(),
-                    SpreadsheetCellReferencesStores.treeMap(),
-                    SpreadsheetColumnStores.treeMap(),
-                    SpreadsheetFormStores.treeMap(),
-                    SpreadsheetGroupStores.treeMap(),
-                    SpreadsheetLabelStores.treeMap(),
-                    SpreadsheetLabelReferencesStores.treeMap(),
-                    metadataStore,
-                    SpreadsheetCellRangeStores.treeMap(),
-                    SpreadsheetRowStores.treeMap(),
-                    Storages.tree(),
-                    SpreadsheetUserStores.treeMap()
-                ), // Suppler<SpreadsheetStoreRepository>
+                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore), // Suppler<SpreadsheetStoreRepository>
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
