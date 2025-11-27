@@ -99,6 +99,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
 
@@ -536,6 +537,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     // ServerTerminalContext............................................................................................
+
+    @Override
+    public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public TerminalContext createTerminalContext(final EnvironmentContext context) {
