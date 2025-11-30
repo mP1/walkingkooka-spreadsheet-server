@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.LineEnding;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -44,8 +45,21 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator,
     HateosResourceHandlerContextDelegator {
-
+    
     // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    default LineEnding lineEnding() {
+        return this.environmentContext()
+            .lineEnding();
+    }
+
+    @Override
+    default SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+        this.environmentContext()
+            .setLineEnding(lineEnding);
+        return this;
+    }
 
     @Override
     default Locale locale() {

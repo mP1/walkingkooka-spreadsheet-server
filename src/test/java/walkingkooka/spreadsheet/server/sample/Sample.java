@@ -291,6 +291,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             spreadsheetFormatterProvider
         );
 
+        final LineEnding lineEnding = LineEnding.NL;
+
         return SpreadsheetHttpServer.with(
             MediaTypeDetectors.fake(),
             (url) -> {
@@ -330,6 +332,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        lineEnding,
                         locale,
                         () -> now,
                         user
@@ -352,7 +355,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 ),
                 HateosResourceHandlerContexts.basic(
                     Indentation.SPACES2,
-                    LineEnding.NL,
+                    lineEnding,
                     JsonNodeMarshallUnmarshallContexts.basic(
                         JsonNodeMarshallContexts.basic(),
                         JsonNodeUnmarshallContexts.basic(
@@ -365,6 +368,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     ConverterContexts.fake(), // CanConvert
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
+                            lineEnding,
                             locale,
                             LocalDateTime::now,
                             user

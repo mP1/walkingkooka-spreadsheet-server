@@ -28,6 +28,7 @@ import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -47,6 +48,7 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
         ConverterContexts.fake(),
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                LineEnding.NL,
                 Locale.FRANCE,
                 LocalDateTime::now,
                 EnvironmentContext.ANONYMOUS

@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -65,6 +66,17 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
     @Override
     public SpreadsheetProviderHateosResourceHandlerContext cloneEnvironment() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.hateosResourceHandlerContext.lineEnding();
+    }
+
+    @Override
+    public SpreadsheetProviderHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+        this.providerContext.setLineEnding(lineEnding);
+        return this;
     }
 
     @Override

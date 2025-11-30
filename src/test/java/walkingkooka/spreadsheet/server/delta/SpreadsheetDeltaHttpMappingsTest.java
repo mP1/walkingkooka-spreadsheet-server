@@ -498,7 +498,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
             @Override
             public LineEnding lineEnding() {
-                return LINE_ENDING;
+                return SpreadsheetDeltaHttpMappingsTest.LINE_ENDING;
             }
 
             @Override

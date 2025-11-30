@@ -22,6 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -80,6 +81,17 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.hateosResourceHandlerContext.lineEnding();
+    }
+
+    @Override
+    public PluginHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+        this.providerContext.setLineEnding(lineEnding);
+        return this;
     }
 
     @Override

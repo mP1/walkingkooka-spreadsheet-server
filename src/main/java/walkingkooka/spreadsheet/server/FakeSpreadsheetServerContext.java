@@ -87,6 +87,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
+    public SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public LocalDateTime now() {
         throw new UnsupportedOperationException();
     }

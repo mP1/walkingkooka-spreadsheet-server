@@ -296,6 +296,8 @@ public class TestGwtTest extends GWTTestCase {
             spreadsheetFormatterProvider
         );
 
+        final LineEnding lineEnding = LineEnding.NL;
+
         return SpreadsheetHttpServer.with(
             MediaTypeDetectors.fake(),
             (url) -> {
@@ -335,6 +337,7 @@ public class TestGwtTest extends GWTTestCase {
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        lineEnding,
                         locale,
                         () -> now,
                         user
@@ -357,7 +360,7 @@ public class TestGwtTest extends GWTTestCase {
                 ),
                 HateosResourceHandlerContexts.basic(
                     Indentation.SPACES2,
-                    LineEnding.NL,
+                    lineEnding,
                     JsonNodeMarshallUnmarshallContexts.basic(
                         JsonNodeMarshallContexts.basic(),
                         JsonNodeUnmarshallContexts.basic(
@@ -370,6 +373,7 @@ public class TestGwtTest extends GWTTestCase {
                     ConverterContexts.fake(), // CanConvert
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
+                            lineEnding,
                             locale,
                             LocalDateTime::now,
                             user

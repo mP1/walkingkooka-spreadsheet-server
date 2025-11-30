@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.terminal.TerminalId;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -54,6 +55,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
      * Getter that returns a {@link SpreadsheetEngine}.
      */
     SpreadsheetEngine spreadsheetEngine();
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale);

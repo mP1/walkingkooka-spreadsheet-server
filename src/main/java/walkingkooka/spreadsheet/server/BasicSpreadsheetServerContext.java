@@ -47,6 +47,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
 import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -224,6 +225,21 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             .map(SpreadsheetContext::storeRepository);
     }
 
+    // HasLineEnding....................................................................................................
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.environmentContext()
+            .lineEnding();
+    }
+
+    @Override
+    public SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+        this.environmentContext()
+            .setLineEnding(lineEnding);
+        return this;
+    }
+    
     // EnvironmentContextDelegator......................................................................................
 
     @Override

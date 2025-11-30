@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.terminal.TerminalId;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
@@ -163,6 +164,17 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     // SpreadsheetEngineContextDelegator................................................................................
 
+    @Override
+    public LineEnding lineEnding() {
+        return this.engineContext.lineEnding();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+        this.engineContext.setLineEnding(lineEnding);
+        return this;
+    }
+    
     @Override
     public Locale locale() {
         return this.engineContext.locale();
