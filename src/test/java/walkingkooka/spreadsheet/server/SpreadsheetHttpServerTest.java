@@ -13408,6 +13408,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     ConverterContexts.fake(), // CanConvert
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
+                            LINE_ENDING,
                             LOCALE,
                             NOW,
                             user

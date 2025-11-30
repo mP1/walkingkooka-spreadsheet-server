@@ -293,6 +293,8 @@ public class J2clTest {
             spreadsheetFormatterProvider
         );
 
+        final LineEnding lineEnding = LineEnding.NL;
+
         return SpreadsheetHttpServer.with(
             MediaTypeDetectors.fake(),
             (url) -> {
@@ -332,6 +334,7 @@ public class J2clTest {
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        lineEnding,
                         locale,
                         () -> now,
                         user
@@ -354,7 +357,7 @@ public class J2clTest {
                 ),
                 HateosResourceHandlerContexts.basic(
                     Indentation.SPACES2,
-                    LineEnding.NL,
+                    lineEnding,
                     JsonNodeMarshallUnmarshallContexts.basic(
                         JsonNodeMarshallContexts.basic(),
                         JsonNodeUnmarshallContexts.basic(
@@ -367,6 +370,7 @@ public class J2clTest {
                     ConverterContexts.fake(), // CanConvert
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
+                            lineEnding,
                             locale,
                             LocalDateTime::now,
                             user

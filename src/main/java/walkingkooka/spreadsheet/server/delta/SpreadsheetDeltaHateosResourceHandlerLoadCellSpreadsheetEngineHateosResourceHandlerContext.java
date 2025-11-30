@@ -173,6 +173,12 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     // SpreadsheetEngineContext.........................................................................................
 
     @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+        this.context.setLineEnding(lineEnding);
+        return this;
+    }
+    
+    @Override
     public Locale locale() {
         return this.context.locale();
     }

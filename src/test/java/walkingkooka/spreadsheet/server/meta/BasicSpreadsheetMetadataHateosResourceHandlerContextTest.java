@@ -555,6 +555,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             EnvironmentContexts.map(
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        LINE_ENDING,
                         LOCALE,
                         now::get,
                         Optional.of(USER)

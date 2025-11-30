@@ -60,6 +60,7 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
@@ -165,6 +166,17 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
                 BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID
             );
 
+        @Override
+        public LineEnding lineEnding() {
+            return this.environmentContext.lineEnding();
+        }
+
+        @Override
+        public SpreadsheetContext setLineEnding(final LineEnding lineEnding) {
+            this.environmentContext.setLineEnding(lineEnding);
+            return this;
+        }
+        
         @Override
         public Locale locale() {
             return this.environmentContext.locale();

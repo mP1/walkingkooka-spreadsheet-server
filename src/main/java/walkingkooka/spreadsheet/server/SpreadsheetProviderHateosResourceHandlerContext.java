@@ -20,10 +20,14 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 public interface SpreadsheetProviderHateosResourceHandlerContext extends ProviderContext, HateosResourceHandlerContext {
+
+    @Override
+    SpreadsheetProviderHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding);
 
     SpreadsheetProvider spreadsheetProvider();
 

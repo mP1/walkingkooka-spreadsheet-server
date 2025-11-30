@@ -243,6 +243,11 @@ public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakePro
     }
 
     @Override
+    public SpreadsheetProviderHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }

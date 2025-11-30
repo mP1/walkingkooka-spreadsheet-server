@@ -44,6 +44,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
         ConverterContexts.fake(), // CanConvert
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                LINE_ENDING,
                 LOCALE,
                 LocalDateTime::now,
                 Optional.empty() // user
