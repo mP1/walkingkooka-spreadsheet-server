@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
@@ -502,11 +501,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             providerContext,
             new FakeTerminalServerContext() {
-                @Override
-                public TerminalContext createTerminalContext(final EnvironmentContext context) {
-                    Objects.requireNonNull(context, "context");
-                    throw new UnsupportedOperationException();
-                }
 
                 @Override
                 public Optional<TerminalContext> terminalContext(final TerminalId id) {
