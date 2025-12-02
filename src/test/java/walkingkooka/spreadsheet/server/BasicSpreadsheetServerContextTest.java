@@ -486,9 +486,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                         l.get()
                     ).set(
                         SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        AuditInfo.with(
-                            u,
-                            LocalDateTime.MIN,
+                        AuditInfo.create(
                             u,
                             LocalDateTime.MIN
                         )

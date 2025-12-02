@@ -63,9 +63,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x12ef);
 
-    private final static AuditInfo AUDIT_INFO = AuditInfo.with(
-        USER,
-        NOW.now(),
+    private final static AuditInfo AUDIT_INFO = AuditInfo.create(
         USER,
         NOW.now()
     );

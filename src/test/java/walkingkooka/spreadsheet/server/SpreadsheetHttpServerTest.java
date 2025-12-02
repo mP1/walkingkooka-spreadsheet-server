@@ -1033,9 +1033,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final SpreadsheetMetadata created = this.metadataStore.loadOrFail(SPREADSHEET_ID);
 
         this.checkEquals(
-            AuditInfo.with(
-                user,
-                NOW.now(),
+            AuditInfo.create(
                 user,
                 NOW.now()
             ),
@@ -1071,9 +1069,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                         .set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AuditInfo.with(
-                                user,
-                                NOW.now(),
+                            AuditInfo.create(
                                 user,
                                 NOW.now()
                             )
@@ -1084,9 +1080,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             final SpreadsheetMetadata created = this.metadataStore.loadOrFail(SPREADSHEET_ID);
 
             this.checkEquals(
-                AuditInfo.with(
-                    user,
-                    NOW.now(),
+                AuditInfo.create(
                     user,
                     NOW.now()
                 ),
@@ -1118,9 +1112,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, differentId)
                         .set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AuditInfo.with(
-                                user2,
-                                NOW.now(),
+                            AuditInfo.create(
                                 user2,
                                 NOW.now()
                             )
@@ -1131,9 +1123,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             final SpreadsheetMetadata created = this.metadataStore.loadOrFail(differentId);
 
             this.checkEquals(
-                AuditInfo.with(
-                    user2,
-                    NOW.now(),
+                AuditInfo.create(
                     user2,
                     NOW.now()
                 ),
@@ -13389,9 +13379,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         this.createMetadata()
                             .set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                AuditInfo.with(
-                                    u,
-                                    NOW.now(),
+                                AuditInfo.create(
                                     u,
                                     NOW.now()
                                 )

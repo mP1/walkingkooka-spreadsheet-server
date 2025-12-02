@@ -343,9 +343,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     (e, dl) -> metadataStore.save(
                         metadata.set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AuditInfo.with(
-                                e,
-                                now,
+                            AuditInfo.create(
                                 e,
                                 now
                             )

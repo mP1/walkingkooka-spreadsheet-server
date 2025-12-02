@@ -980,9 +980,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         SpreadsheetMetadata metadata = SpreadsheetMetadataTesting.METADATA_EN_AU
             .set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                AuditInfo.with(
-                    user,
-                    now,
+                AuditInfo.create(
                     user,
                     now
                 )
@@ -1013,9 +1011,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("\"Time\" ss hh").spreadsheetParserSelector())
             .set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                AuditInfo.with(
-                    user,
-                    now,
+                AuditInfo.create(
                     user,
                     now
                 )
