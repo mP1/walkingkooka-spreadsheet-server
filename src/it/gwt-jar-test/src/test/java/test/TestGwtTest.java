@@ -348,9 +348,7 @@ public class TestGwtTest extends GWTTestCase {
                     (e, dl) -> metadataStore.save(
                         metadata.set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AuditInfo.with(
-                                e,
-                                now,
+                            AuditInfo.create(
                                 e,
                                 now
                             )

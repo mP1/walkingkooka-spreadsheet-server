@@ -421,9 +421,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                             ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
                             .set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                AuditInfo.with(
-                                    USER,
-                                    now,
+                                AuditInfo.create(
                                     USER,
                                     now
                                 )

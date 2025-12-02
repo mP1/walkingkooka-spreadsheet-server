@@ -138,9 +138,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     private SpreadsheetMetadata metadataWithDefaults() {
         return SpreadsheetMetadata.EMPTY.set(
             SpreadsheetMetadataPropertyName.AUDIT_INFO,
-            AuditInfo.with(
-                USER,
-                LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+            AuditInfo.create(
                 USER,
                 LocalDateTime.of(1999, 12, 31, 12, 58, 59)
             )
