@@ -24,7 +24,6 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.AbsoluteUrl;
@@ -551,11 +550,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public TerminalContext createTerminalContext(final EnvironmentContext context) {
         throw new UnsupportedOperationException();
     }
 
