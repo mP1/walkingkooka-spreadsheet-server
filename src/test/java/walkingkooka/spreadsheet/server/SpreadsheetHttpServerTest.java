@@ -1020,9 +1020,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                     .set(
                         SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        AuditInfo.with(
-                            user,
-                            NOW.now(),
+                        AuditInfo.create(
                             user,
                             NOW.now()
                         )
