@@ -65,7 +65,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private final static AuditInfo AUDIT_INFO = AuditInfo.create(
         USER,
-        NOW.now()
+        HAS_NOW.now()
     );
 
     private final static String URL = "https://example.com/api";

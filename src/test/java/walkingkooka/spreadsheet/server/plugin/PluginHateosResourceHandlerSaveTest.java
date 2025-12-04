@@ -66,7 +66,7 @@ public final class PluginHateosResourceHandlerSaveTest
             "plugin-" + n * 111 + ".jar",
             Binary.with("Hello".getBytes(Charset.defaultCharset())),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
     }
 

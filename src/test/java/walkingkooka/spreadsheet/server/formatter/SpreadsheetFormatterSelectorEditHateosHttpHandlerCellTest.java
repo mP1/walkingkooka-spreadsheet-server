@@ -329,7 +329,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
 
         this.checkNotEquals(
             value,
-            NOW.now(),
+            HAS_NOW.now(),
             "value must be different from NOW"
         );
 
@@ -523,7 +523,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
 
         this.checkNotEquals(
             value,
-            NOW.now(),
+            HAS_NOW.now(),
             "value must be different from NOW"
         );
 
@@ -885,7 +885,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
 
             @Override
             public LocalDateTime now() {
-                return NOW.now();
+                return HAS_NOW.now();
             }
 
             @Override

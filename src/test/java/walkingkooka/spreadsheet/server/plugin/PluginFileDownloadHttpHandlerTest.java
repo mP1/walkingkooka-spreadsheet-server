@@ -82,7 +82,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
                         "test-plugin-123.jar", // filename
                         JAR_FILE,
                         USER,
-                        NOW.now()
+                        HAS_NOW.now()
                     ) :
                     null
             );
