@@ -252,7 +252,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final ProviderContext before = this.providerContext;
         final ProviderContext after = before.setEnvironmentContext(environmentContext);
 
-        return before.equals(after) ?
+        return before == after ?
             this :
             new BasicSpreadsheetServerContext(
                 this.serverUrl,

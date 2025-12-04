@@ -111,7 +111,7 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
         final ProviderContext before = this.providerContext;
         final ProviderContext after = before.setEnvironmentContext(environmentContext);
 
-        return before.equals(after) ?
+        return before == after ?
             this :
             new BasicPluginHateosResourceHandlerContext(
                 this.hateosResourceHandlerContext,

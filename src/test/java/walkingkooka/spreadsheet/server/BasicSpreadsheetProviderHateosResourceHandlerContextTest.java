@@ -111,6 +111,11 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
     }
 
     @Override
+    public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public BasicSpreadsheetProviderHateosResourceHandlerContext createContext() {
         return BasicSpreadsheetProviderHateosResourceHandlerContext.with(
             SPREADSHEET_PROVIDER,
