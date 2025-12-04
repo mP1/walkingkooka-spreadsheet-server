@@ -239,7 +239,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         final SpreadsheetEngineContext before = this.engineContext;
         final SpreadsheetEngineContext after = before.setEnvironmentContext(environmentContext);
 
-        return before.equals(after) ?
+        return before == after ?
             this :
             new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 this.spreadsheetEngine,

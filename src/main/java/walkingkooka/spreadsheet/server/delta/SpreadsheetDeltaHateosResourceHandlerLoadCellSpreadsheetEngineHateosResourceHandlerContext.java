@@ -237,7 +237,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         final SpreadsheetEngineHateosResourceHandlerContext before = this.context;
         final SpreadsheetEngineHateosResourceHandlerContext after = before.setEnvironmentContext(environmentContext);
 
-        return before.equals(after) ?
+        return before == after ?
             this :
             new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
                 this.metadata,
