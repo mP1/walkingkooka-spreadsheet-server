@@ -140,6 +140,12 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
+        public SpreadsheetContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+            Objects.requireNonNull(environmentContext, "environmentContext");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public <T> SpreadsheetContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                           final T value) {
             this.environmentContext.setEnvironmentValue(

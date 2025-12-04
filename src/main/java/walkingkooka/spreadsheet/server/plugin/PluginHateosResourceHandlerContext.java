@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
@@ -29,6 +30,11 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
  */
 public interface PluginHateosResourceHandlerContext extends HateosResourceHandlerContext,
     ProviderContext {
+
+    @Override
+    default PluginHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     PluginHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding);

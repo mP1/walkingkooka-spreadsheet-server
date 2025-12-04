@@ -80,6 +80,9 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
     SpreadsheetServerContext cloneEnvironment();
 
     @Override
+    SpreadsheetServerContext setEnvironmentContext(final EnvironmentContext environmentContext);
+
+    @Override
     <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
                                                      final T reference);
 

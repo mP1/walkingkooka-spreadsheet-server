@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -65,6 +66,11 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
 
     @Override
     public SpreadsheetProviderHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetProviderHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext context) {
         throw new UnsupportedOperationException();
     }
 
