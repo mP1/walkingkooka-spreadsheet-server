@@ -73,7 +73,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
             pluginName + ".jar",
             jarFile(pluginName),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
     }
 
@@ -191,7 +191,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                     "old.jar",
                     jarFile("test-plugin-222"),
                     USER,
-                    NOW.now()
+                    HAS_NOW.now()
                 )
             );
 
@@ -275,7 +275,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                     "old.jar",
                     jarFile("test-plugin-222"),
                     USER,
-                    NOW.now()
+                    HAS_NOW.now()
                 )
             );
 
@@ -376,7 +376,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                     "old.jar",
                     jarFile("test-plugin-222"),
                     USER,
-                    NOW.now()
+                    HAS_NOW.now()
                 )
             );
 
@@ -520,7 +520,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         @Override
         public LocalDateTime now() {
-            return NOW.now();
+            return HAS_NOW.now();
         }
 
         @Override

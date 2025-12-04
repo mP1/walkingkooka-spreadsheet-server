@@ -550,7 +550,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private void hateosRouterThenSaveThenLoadAndCheck(final SpreadsheetEngineEvaluation evaluation,
                                                       final String expectedBody) {
         final AtomicReference<LocalDateTime> now = new AtomicReference<>();
-        now.set(NOW.now());
+        now.set(HAS_NOW.now());
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
             EnvironmentContexts.map(
                 EnvironmentContexts.map(
@@ -980,7 +980,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private SpreadsheetMetadata createMetadata(final EmailAddress user,
                                                final Optional<Locale> locale,
                                                final SpreadsheetMetadataStore store) {
-        final LocalDateTime now = NOW.now();
+        final LocalDateTime now = HAS_NOW.now();
 
         SpreadsheetMetadata metadata = SpreadsheetMetadataTesting.METADATA_EN_AU
             .set(

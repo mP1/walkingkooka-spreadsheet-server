@@ -410,7 +410,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
                     (u, l) -> {
-                        final LocalDateTime now = NOW.now();
+                        final LocalDateTime now = HAS_NOW.now();
 
                         final Locale locale = Locale.forLanguageTag("EN-AU");
 

@@ -201,7 +201,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
 
                 @Override
                 public LocalDateTime now() {
-                    return NOW.now();
+                    return HAS_NOW.now();
                 }
 
                 @Override

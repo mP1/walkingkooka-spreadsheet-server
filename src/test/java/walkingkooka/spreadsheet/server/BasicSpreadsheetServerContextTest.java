@@ -650,7 +650,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final EnvironmentContext environmentContext = EnvironmentContexts.empty(
             LineEnding.NL,
             LOCALE,
-            NOW,
+            HAS_NOW,
             EnvironmentContext.ANONYMOUS
         );
 

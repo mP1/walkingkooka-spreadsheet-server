@@ -421,7 +421,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "TestPlugin111.jar",
                                 jar,
                                 USER,
-                                NOW.now()
+                                HAS_NOW.now()
                             )
                         )
                     ).setContentLength()
@@ -473,7 +473,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "TestPlugin111.jar",
                                 jar,
                                 USER,
-                                NOW.now()
+                                HAS_NOW.now()
                             )
                         )
                     ).setContentLength()
@@ -616,7 +616,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin);
@@ -666,7 +666,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin);
@@ -743,7 +743,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin);
@@ -833,7 +833,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin);
@@ -886,7 +886,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin1);
@@ -904,7 +904,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin2);
@@ -922,7 +922,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
             ),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
 
         server.pluginStore.save(plugin3);
@@ -1022,7 +1022,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetMetadataPropertyName.AUDIT_INFO,
                         AuditInfo.create(
                             user,
-                            NOW.now()
+                            HAS_NOW.now()
                         )
                     )
             )
@@ -1033,7 +1033,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         this.checkEquals(
             AuditInfo.create(
                 user,
-                NOW.now()
+                HAS_NOW.now()
             ),
             created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
             created::toString
@@ -1069,7 +1069,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
                                 user,
-                                NOW.now()
+                                HAS_NOW.now()
                             )
                         )
                 )
@@ -1080,7 +1080,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.checkEquals(
                 AuditInfo.create(
                     user,
-                    NOW.now()
+                    HAS_NOW.now()
                 ),
                 created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
                 created::toString
@@ -1112,7 +1112,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
                                 user2,
-                                NOW.now()
+                                HAS_NOW.now()
                             )
                         )
                 )
@@ -1123,7 +1123,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.checkEquals(
                 AuditInfo.create(
                     user2,
-                    NOW.now()
+                    HAS_NOW.now()
                 ),
                 created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
                 created::toString
@@ -13379,7 +13379,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 AuditInfo.create(
                                     u,
-                                    NOW.now()
+                                    HAS_NOW.now()
                                 )
                             )
                     ),
@@ -13396,7 +13396,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         EnvironmentContexts.empty(
                             LINE_ENDING,
                             LOCALE,
-                            NOW,
+                            HAS_NOW,
                             user
                         )
                     ),

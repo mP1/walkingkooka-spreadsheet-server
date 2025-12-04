@@ -70,7 +70,7 @@ public final class PluginHateosHttpEntityHandlerListTest
             pluginName + ".jar",
             jarFile(pluginName),
             USER,
-            NOW.now()
+            HAS_NOW.now()
         );
     }
 
@@ -264,7 +264,7 @@ public final class PluginHateosHttpEntityHandlerListTest
 
         @Override
         public LocalDateTime now() {
-            return NOW.now();
+            return HAS_NOW.now();
         }
 
         @Override
