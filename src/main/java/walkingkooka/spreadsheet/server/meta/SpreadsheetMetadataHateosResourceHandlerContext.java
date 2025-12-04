@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -44,6 +45,16 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends Spreads
      * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */
     Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id);
+
+    @Override
+    default SpreadsheetMetadataHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    default SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     default SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {

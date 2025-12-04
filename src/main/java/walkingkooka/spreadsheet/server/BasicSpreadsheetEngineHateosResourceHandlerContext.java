@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.convert.CanConvert;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -230,6 +231,20 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
                 this.spreadsheetEngine,
                 this.hateosResourceHandlerContext,
                 clone
+            );
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        final SpreadsheetEngineContext before = this.engineContext;
+        final SpreadsheetEngineContext after = before.setEnvironmentContext(environmentContext);
+
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                this.spreadsheetEngine,
+                this.hateosResourceHandlerContext,
+                after
             );
     }
 

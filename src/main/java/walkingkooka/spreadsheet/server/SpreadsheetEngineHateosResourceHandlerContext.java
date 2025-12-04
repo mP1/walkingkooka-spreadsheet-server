@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -43,6 +44,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment();
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext);
 
     @Override
     <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,

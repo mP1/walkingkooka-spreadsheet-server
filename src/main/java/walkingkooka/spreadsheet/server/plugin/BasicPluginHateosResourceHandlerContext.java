@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -103,6 +104,19 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     @Override
     public PluginHateosResourceHandlerContext cloneEnvironment() {
         return this; // ProviderContext.cloneEnvironment always returns this
+    }
+
+    @Override
+    public PluginHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        final ProviderContext before = this.providerContext;
+        final ProviderContext after = before.setEnvironmentContext(environmentContext);
+
+        return before.equals(after) ?
+            this :
+            new BasicPluginHateosResourceHandlerContext(
+                this.hateosResourceHandlerContext,
+                Objects.requireNonNull(after, "environmentContext")
+            );
     }
 
     @Override
