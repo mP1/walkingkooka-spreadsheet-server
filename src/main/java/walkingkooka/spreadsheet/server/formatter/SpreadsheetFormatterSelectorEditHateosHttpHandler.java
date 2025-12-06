@@ -29,7 +29,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
+import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
@@ -117,7 +117,7 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
                         cell,
-                        (final Optional<Object> v) -> context.setSpreadsheetEngineContextMode(SpreadsheetEngineContextMode.FORMATTING)
+                        (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                             .spreadsheetExpressionEvaluationContext(
                                 cell,
                                 SpreadsheetExpressionReferenceLoaders.fake()
