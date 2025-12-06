@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.HasProviderContextTesting;
 import walkingkooka.spreadsheet.HasSpreadsheetServerUrlTesting;
@@ -35,6 +36,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetMetadataContextTesting<C>,
+    EnvironmentContextTesting2<C>,
     HasProviderContextTesting,
     HasSpreadsheetMetadataTesting,
     HasSpreadsheetServerUrlTesting,

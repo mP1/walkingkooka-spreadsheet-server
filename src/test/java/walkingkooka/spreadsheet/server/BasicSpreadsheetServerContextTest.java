@@ -24,7 +24,6 @@ import walkingkooka.convert.CanConvert;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.AbsoluteUrl;
@@ -72,7 +71,6 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting<BasicSpreadsheetServerContext>,
-    EnvironmentContextTesting,
     ToStringTesting<BasicSpreadsheetServerContext>,
     SpreadsheetMetadataTesting {
 
