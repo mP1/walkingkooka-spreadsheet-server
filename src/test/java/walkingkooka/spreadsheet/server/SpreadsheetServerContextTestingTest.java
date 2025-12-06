@@ -18,21 +18,41 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.MediaType;
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextTestingTest.TestSpreadsheetServerContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext> {
+public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext>,
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
 
@@ -57,9 +77,23 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         );
     }
 
-    static class TestSpreadsheetServerContext extends FakeSpreadsheetServerContext {
+    @Override
+    public void testSetLocaleWithDifferent() {
+        throw new UnsupportedOperationException();
+    }
+
+    final static class TestSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
+        EnvironmentContextDelegator,
+        JsonNodeMarshallUnmarshallContextDelegator,
+        LocaleContextDelegator,
+        ProviderContextDelegator {
 
         // SpreadsheetServerContext.....................................................................................
+
+        @Override
+        public AbsoluteUrl serverUrl() {
+            return Url.parseAbsolute("http://example.com/");
+        }
 
         @Override
         public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
@@ -129,11 +163,131 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
             throw new UnsupportedOperationException();
         }
 
+        // EnvironmentContextDelegator..................................................................................
+
+        @Override
+        public TestSpreadsheetServerContext cloneEnvironment() {
+            return new TestSpreadsheetServerContext();
+        }
+
+        @Override
+        public TestSpreadsheetServerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+            Objects.requireNonNull(environmentContext, "environmentContext");
+
+            return ENVIRONMENT_CONTEXT.equals(environmentContext) ?
+                this :
+                new TestSpreadsheetServerContext();
+        }
+
+        @Override
+        public <T> TestSpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                    final T value) {
+            Objects.requireNonNull(name, "name");
+            Objects.requireNonNull(value, "value");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public TestSpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+            Objects.requireNonNull(name, "name");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return SpreadsheetMetadataTesting.LINE_ENDING;
+        }
+
+        @Override
+        public TestSpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+            Objects.requireNonNull(lineEnding, "lineEnding");
+
+            return this;
+        }
+
+        @Override
+        public Locale locale() {
+            return SpreadsheetMetadataTesting.LOCALE;
+        }
+
+        @Override
+        public TestSpreadsheetServerContext setLocale(final Locale locale) {
+            Objects.requireNonNull(locale, "locale");
+
+            return this;
+        }
+
+        @Override
+        public TestSpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
+            Objects.requireNonNull(user, "user");
+
+            return this;
+        }
+
+        @Override
+        public EnvironmentContext environmentContext() {
+            return EnvironmentContexts.map(
+                EnvironmentContexts.empty(
+                    SpreadsheetMetadataTesting.LINE_ENDING,
+                    SpreadsheetMetadataTesting.LOCALE,
+                    SpreadsheetMetadataTesting.HAS_NOW,
+                    Optional.of(
+                        SpreadsheetMetadataTesting.USER
+                    )
+                )
+            );
+        }
+
+        // HateosResourceHandlerContext.................................................................................
+
+        @Override
+        public MediaType contentType() {
+            return MediaType.APPLICATION_JSON;
+        }
+
+        @Override
+        public Indentation indentation() {
+            return Indentation.SPACES2;
+        }
+
+        // JsonNodeMarshallUnmarshallContextDelegator...................................................................
+
+        @Override
+        public SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+            return new TestSpreadsheetServerContext();
+        }
+
+        @Override
+        public SpreadsheetServerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            return new TestSpreadsheetServerContext();
+        }
+
+        @Override
+        public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
+            return JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT;
+        }
+
+        // LocaleContextDelegator.......................................................................................
+
+        @Override
+        public LocaleContext localeContext() {
+            return LOCALE_CONTEXT;
+        }
+
+        // ProviderContextDelegator.....................................................................................
+
+        @Override
+        public ProviderContext providerContext() {
+            return PROVIDER_CONTEXT;
+        }
+
         // Object.......................................................................................................
 
         @Override
         public String toString() {
-            return this.getClass().getSimpleName();
+            return this.getClass().getSimpleName() + "@" + Integer.toHexString(hashCode());
         }
     }
 
