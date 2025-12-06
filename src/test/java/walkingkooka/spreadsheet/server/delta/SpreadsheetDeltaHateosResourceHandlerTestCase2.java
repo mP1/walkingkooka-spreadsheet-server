@@ -39,8 +39,8 @@ import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterP
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
@@ -407,7 +407,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             },
             SPREADSHEET_PROVIDER,
             (SpreadsheetContext c) -> SpreadsheetEngineContexts.basic(
-                SpreadsheetEngineContextMode.FORMULA,
+                SpreadsheetMetadataMode.FORMULA,
                 c,
                 TERMINAL_CONTEXT
             ),
@@ -473,7 +473,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public SpreadsheetEngineContext setSpreadsheetEngineContextMode(final SpreadsheetEngineContextMode mode) {
+            public SpreadsheetEngineContext setSpreadsheetMetadataMode(final SpreadsheetMetadataMode mode) {
                 return this;
             }
 

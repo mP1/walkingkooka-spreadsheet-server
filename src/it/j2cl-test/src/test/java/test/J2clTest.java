@@ -55,8 +55,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterProviders;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
@@ -328,7 +328,7 @@ public class J2clTest {
                     ValidatorProviders.validators()
                 ),
                 (c) -> SpreadsheetEngineContexts.basic(
-                    SpreadsheetEngineContextMode.FORMULA,
+                    SpreadsheetMetadataMode.FORMULA,
                     c,
                     TerminalContexts.fake()
                 ),

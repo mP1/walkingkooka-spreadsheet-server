@@ -30,7 +30,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
+import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
@@ -105,7 +105,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 ), // SpreadsheetParserContext,
                 metadata.spreadsheetFormatterContext(
                     SpreadsheetMetadata.NO_CELL,
-                    (final Optional<Object> v) -> context.setSpreadsheetEngineContextMode(SpreadsheetEngineContextMode.FORMATTING)
+                    (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                         .spreadsheetExpressionEvaluationContext(
                             SpreadsheetMetadata.NO_CELL,
                             SpreadsheetExpressionReferenceLoaders.empty()

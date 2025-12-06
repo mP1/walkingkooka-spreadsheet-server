@@ -41,9 +41,9 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextMode;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -117,7 +117,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         @Override
         public SpreadsheetEngineContext spreadsheetEngineContext() {
             return SpreadsheetEngineContexts.basic(
-                SpreadsheetEngineContextMode.FORMULA,
+                SpreadsheetMetadataMode.FORMULA,
                 this,
                 TERMINAL_CONTEXT
             );
