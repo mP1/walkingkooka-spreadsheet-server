@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -88,6 +89,9 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
 
     @Override
     SpreadsheetServerContext removeEnvironmentValue(EnvironmentValueName<?> name);
+
+    @Override
+    SpreadsheetServerContext setLineEnding(final LineEnding lineEnding);
 
     @Override
     SpreadsheetServerContext setUser(final Optional<EmailAddress> optional);

@@ -75,6 +75,13 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     @Override
+    default SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
+        this.environmentContext()
+            .setUser(user);
+        return this;
+    }
+
+    @Override
     default <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
                                                              final T value) {
         this.environmentContext()
