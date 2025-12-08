@@ -305,7 +305,6 @@ public class J2clTest {
                 return httpServer;
             },
             (user) -> SpreadsheetServerContexts.basic(
-                Url.parseAbsolute("https://example.com"),
                 (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                 SpreadsheetProviders.basic(
                     SpreadsheetConvertersConverterProviders.spreadsheetConverters(
@@ -332,12 +331,17 @@ public class J2clTest {
                     c,
                     TerminalContexts.fake()
                 ),
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        lineEnding,
-                        locale,
-                        () -> now,
-                        user
+                SpreadsheetEnvironmentContexts.basic(
+                    EnvironmentContexts.map(
+                        EnvironmentContexts.empty(
+                            lineEnding,
+                            locale,
+                            () -> now,
+                            user
+                        )
+                    ).setEnvironmentValue(
+                        SpreadsheetEnvironmentContext.SERVER_URL,
+                        Url.parseAbsolute("https://example.com")
                     )
                 ),
                 LocaleContexts.jre(locale),

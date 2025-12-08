@@ -54,6 +54,8 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterProviders;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
@@ -303,7 +305,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 return httpServer;
             },
             (user) -> SpreadsheetServerContexts.basic(
-                Url.parseAbsolute("https://example.com"),
                 (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                 SpreadsheetProviders.basic(
                     SpreadsheetConvertersConverterProviders.spreadsheetConverters(
@@ -330,12 +331,17 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     c,
                     TerminalContexts.fake()
                 ),
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        lineEnding,
-                        locale,
-                        () -> now,
-                        user
+                SpreadsheetEnvironmentContexts.basic(
+                    EnvironmentContexts.map(
+                        EnvironmentContexts.empty(
+                            lineEnding,
+                            locale,
+                            () -> now,
+                            user
+                        )
+                    ).setEnvironmentValue(
+                        SpreadsheetEnvironmentContext.SERVER_URL,
+                        Url.parseAbsolute("https://example.com")
                     )
                 ),
                 LocaleContexts.jre(locale),

@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
@@ -51,7 +50,6 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
             SpreadsheetServerContexts.basic(
-                Url.parseAbsolute("https://example.com"),
                 (id) -> SpreadsheetStoreRepositories.fake(),
                 SPREADSHEET_PROVIDER,
                 null,
