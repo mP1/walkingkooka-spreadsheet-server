@@ -13368,7 +13368,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     TERMINAL_CONTEXT
                 ),
                 EnvironmentContexts.readOnly(
-                    EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+                    EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
                         .setUser(user) // replace the "default" user with the given
                 ), // EnvironmentContext
                 LOCALE_CONTEXT,

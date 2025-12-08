@@ -167,7 +167,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             return this.environmentContext;
         }
 
-        private final EnvironmentContext environmentContext = EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+        private final EnvironmentContext environmentContext = EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
             .setEnvironmentValue(
                 SPREADSHEET_ID,
                 BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID

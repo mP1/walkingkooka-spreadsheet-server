@@ -914,8 +914,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     @Override
     public BasicSpreadsheetMetadataHateosResourceHandlerContext createContext() {
         return this.createContext(
-            EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
-            PROVIDER_CONTEXT);
+            EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT),
+            PROVIDER_CONTEXT
+        );
     }
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final EnvironmentContext environmentContext) {

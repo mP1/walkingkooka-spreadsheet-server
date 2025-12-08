@@ -169,7 +169,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         public TestSpreadsheetServerContextDelegator setEnvironmentContext(final EnvironmentContext environmentContext) {
             Objects.requireNonNull(environmentContext, "environmentContext");
 
-            return ENVIRONMENT_CONTEXT.equals(environmentContext) ?
+            return SPREADSHEET_ENVIRONMENT_CONTEXT.equals(environmentContext) ?
                 this :
                 new TestSpreadsheetServerContextDelegator();
         }
