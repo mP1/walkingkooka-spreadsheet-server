@@ -23,7 +23,6 @@ import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
-import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
@@ -426,11 +425,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 }
             ),
             SpreadsheetEnvironmentContexts.with(
-                EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+                EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
                     .setEnvironmentValue(
-                        SpreadsheetEnvironmentContext.SERVER_URL,
-                        Url.parseAbsolute("https://example.com")
-                    ).setEnvironmentValue(
                         SpreadsheetEnvironmentContext.SPREADSHEET_ID,
                         SPREADSHEET_ID
                     )

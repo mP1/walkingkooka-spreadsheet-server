@@ -55,7 +55,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 (id) -> SpreadsheetStoreRepositories.fake(),
                 SPREADSHEET_PROVIDER,
                 null,
-                ENVIRONMENT_CONTEXT,
+                SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.fake(),
                 HateosResourceHandlerContexts.fake(),

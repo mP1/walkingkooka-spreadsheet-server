@@ -406,7 +406,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                     c,
                     TERMINAL_CONTEXT
                 ),
-                EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+                EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT),
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
                     (u, l) -> {
