@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
@@ -382,7 +381,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             SpreadsheetServerContexts.basic(
-                Url.parseAbsolute(SERVER_URL),
                 (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
@@ -406,7 +404,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                     c,
                     TERMINAL_CONTEXT
                 ),
-                EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT),
+                SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
                     (u, l) -> {

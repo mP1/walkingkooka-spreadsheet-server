@@ -17,15 +17,14 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -38,22 +37,20 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
     /**
      * {@see BasicSpreadsheetServerContext}
      */
-    public static SpreadsheetServerContext basic(final AbsoluteUrl serverUrl,
-                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+    public static SpreadsheetServerContext basic(final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
                                                  final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
-                                                 final EnvironmentContext environmentContext,
+                                                 final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                                  final LocaleContext localeContext,
                                                  final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                  final ProviderContext providerContext,
                                                  final TerminalServerContext terminalServerContext) {
         return BasicSpreadsheetServerContext.with(
-            serverUrl,
             spreadsheetIdToSpreadsheetStoreRepository,
             spreadsheetProvider,
             spreadsheetEngineContextFunction,
-            environmentContext,
+            spreadsheetEnvironmentContext,
             localeContext,
             spreadsheetMetadataContext,
             hateosResourceHandlerContext,

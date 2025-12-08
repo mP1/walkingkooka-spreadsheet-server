@@ -24,10 +24,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -58,6 +56,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -90,8 +90,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetMetadataHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
-
-    private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -552,7 +550,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final AtomicReference<LocalDateTime> now = new AtomicReference<>();
         now.set(HAS_NOW.now());
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
-            EnvironmentContexts.map(
+            SpreadsheetEnvironmentContexts.basic(
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
                         LINE_ENDING,
@@ -560,6 +558,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                         now::get,
                         Optional.of(USER)
                     )
+                ).setEnvironmentValue(
+                    SpreadsheetEnvironmentContext.SERVER_URL,
+                    SERVER_URL
                 )
             )
         );
@@ -914,25 +915,24 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     @Override
     public BasicSpreadsheetMetadataHateosResourceHandlerContext createContext() {
         return this.createContext(
-            EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT),
+            SPREADSHEET_ENVIRONMENT_CONTEXT,
             PROVIDER_CONTEXT
         );
     }
 
-    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final EnvironmentContext environmentContext) {
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
         return this.createContext(
-            environmentContext,
+            spreadsheetEnvironmentContext,
             PROVIDER_CONTEXT
         );
     }
 
-    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final EnvironmentContext environmentContext,
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                                                                final ProviderContext providerContext) {
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
-                SERVER_URL,
                 (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore), // SpreadsheetStoreRepository
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
@@ -966,7 +966,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     c,
                     TERMINAL_CONTEXT
                 ),
-                environmentContext,
+                spreadsheetEnvironmentContext,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
                     (u, dl) -> this.createMetadata(

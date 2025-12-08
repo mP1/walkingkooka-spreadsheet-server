@@ -81,6 +81,7 @@ import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
@@ -13349,7 +13350,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this::fileServer,
             this::server,
             (user) -> SpreadsheetServerContexts.basic(
-                Url.parseAbsolute("https://example.com"),
                 (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore), // Suppler<SpreadsheetStoreRepository>
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
@@ -13367,8 +13367,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     c,
                     TERMINAL_CONTEXT
                 ),
-                EnvironmentContexts.readOnly(
-                    EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
+                SpreadsheetEnvironmentContexts.readOnly(
+                    SPREADSHEET_ENVIRONMENT_CONTEXT
+                        .cloneEnvironment()
                         .setUser(user) // replace the "default" user with the given
                 ), // EnvironmentContext
                 LOCALE_CONTEXT,
