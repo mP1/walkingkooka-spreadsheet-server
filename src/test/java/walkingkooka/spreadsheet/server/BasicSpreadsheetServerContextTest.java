@@ -447,7 +447,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 ).set(
                     SpreadsheetMetadataPropertyName.TIME_PARSER,
                     METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
-                ).environmentContext(
+                ).spreadsheetEnvironmentContext(
                     EnvironmentContexts.map(
                         ENVIRONMENT_CONTEXT
                     )
