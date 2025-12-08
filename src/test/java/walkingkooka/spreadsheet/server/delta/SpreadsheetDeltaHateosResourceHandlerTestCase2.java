@@ -424,7 +424,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                     }
                 }
             ),
-            SpreadsheetEnvironmentContexts.with(
+            SpreadsheetEnvironmentContexts.basic(
                 EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
                     .setEnvironmentValue(
                         SpreadsheetEnvironmentContext.SPREADSHEET_ID,
