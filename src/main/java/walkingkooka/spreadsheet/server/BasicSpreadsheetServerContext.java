@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -161,14 +162,16 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final SpreadsheetId id = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
 
-        final Optional<EmailAddress> user2 = Optional.of(user);
+        final Optional<EmailAddress> optionalUser = Optional.of(user);
 
         final EnvironmentContext environmentContext = this.environmentContext.cloneEnvironment()
-            .setUser(user2);
+            .setUser(optionalUser)
+            .setEnvironmentValue(
+                SpreadsheetEnvironmentContext.SERVER_URL,
+                this.serverUrl
+            );
 
         final SpreadsheetContext context = SpreadsheetContexts.basic(
-            this.serverUrl,
-            id,
             this.spreadsheetIdToSpreadsheetStoreRepository,
             this.spreadsheetProvider,
             this.spreadsheetEngineContextFunction,
@@ -176,11 +179,11 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 c,
                 this // HateosResourceHandlerContext
             ),
-            metadata.environmentContext(environmentContext),
+            metadata.spreadsheetEnvironmentContext(environmentContext),
             LocaleContexts.readOnly(this.localeContext),
             ProviderContexts.readOnly(
                 this.providerContext.cloneEnvironment()
-                    .setUser(user2)
+                    .setUser(optionalUser)
             ),
             TerminalServerContexts.userFiltered(
                 (u) -> u.equals(

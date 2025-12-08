@@ -41,6 +41,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
@@ -399,8 +401,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             .save(METADATA);
 
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.basic(
-            Url.parseAbsolute("https://example.com"), // serverUrl
-            METADATA.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID),
             (id) -> {
                 checkEquals(SPREADSHEET_ID, id);
                 return repos;
@@ -425,7 +425,16 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                     }
                 }
             ),
-            EnvironmentContexts.map(ENVIRONMENT_CONTEXT),
+            SpreadsheetEnvironmentContexts.with(
+                EnvironmentContexts.map(ENVIRONMENT_CONTEXT)
+                    .setEnvironmentValue(
+                        SpreadsheetEnvironmentContext.SERVER_URL,
+                        Url.parseAbsolute("https://example.com")
+                    ).setEnvironmentValue(
+                        SpreadsheetEnvironmentContext.SPREADSHEET_ID,
+                        SPREADSHEET_ID
+                    )
+            ),
             LOCALE_CONTEXT,
             PROVIDER_CONTEXT,
             TERMINAL_SERVER_CONTEXT
