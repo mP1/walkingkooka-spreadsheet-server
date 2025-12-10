@@ -86,7 +86,7 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
 
     @Override
     public LineEnding lineEnding() {
-        return this.hateosResourceHandlerContext.lineEnding();
+        return this.providerContext.lineEnding();
     }
 
     @Override

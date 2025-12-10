@@ -40,14 +40,17 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
         EOL,
         JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
     );
+
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(), // CanConvert
-        EnvironmentContexts.map(
-            EnvironmentContexts.empty(
-                LINE_ENDING,
-                LOCALE,
-                LocalDateTime::now,
-                Optional.empty() // user
+        EnvironmentContexts.readOnly(
+            EnvironmentContexts.map(
+                EnvironmentContexts.empty(
+                    LINE_ENDING,
+                    LOCALE,
+                    LocalDateTime::now,
+                    Optional.empty() // user
+                )
             )
         ),
         PluginStores.treeMap()
@@ -84,7 +87,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     public BasicPluginHateosResourceHandlerContext createContext() {
         return BasicPluginHateosResourceHandlerContext.with(
             HATEOS_RESOURCE_HANDLER_CONTEXT,
-            PROVIDER_CONTEXT
+            PROVIDER_CONTEXT.cloneEnvironment()
         );
     }
 
