@@ -129,9 +129,14 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
+        public Optional<EmailAddress> user() {
+            return this.environmentContext.user();
+        }
+
+        @Override
         public SpreadsheetContext setUser(final Optional<EmailAddress> user) {
-            Objects.requireNonNull(user, "user");
-            throw new UnsupportedOperationException();
+            this.environmentContext.setUser(user);
+            return this;
         }
 
         @Override

@@ -46,12 +46,14 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(),
-        EnvironmentContexts.map(
-            EnvironmentContexts.empty(
-                LineEnding.NL,
-                Locale.FRANCE,
-                LocalDateTime::now,
-                EnvironmentContext.ANONYMOUS
+        EnvironmentContexts.readOnly(
+            EnvironmentContexts.map(
+                EnvironmentContexts.empty(
+                    LineEnding.NL,
+                    Locale.FRANCE,
+                    LocalDateTime::now,
+                    EnvironmentContext.ANONYMOUS
+                )
             )
         ),
         PluginStores.treeMap()
@@ -116,10 +118,25 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
     }
 
     @Override
+    public void testSetLineEndingWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetLocaleWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetUserWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public BasicSpreadsheetProviderHateosResourceHandlerContext createContext() {
         return BasicSpreadsheetProviderHateosResourceHandlerContext.with(
             SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
+            PROVIDER_CONTEXT.cloneEnvironment(),
             HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
