@@ -55,12 +55,6 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
-    @Override
-    public MathContext mathContext() {
-        return this.spreadsheetConverterContext()
-            .mathContext();
-    }
-
     // locale...........................................................................................................
 
     @Test
@@ -72,6 +66,18 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     }
 
     // DecimalNumberContextDelegator....................................................................................
+
+    @Override
+    public int decimalNumberDigitCount() {
+        return this.spreadsheetConverterContext()
+            .decimalNumberDigitCount();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.spreadsheetConverterContext()
+            .mathContext();
+    }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
