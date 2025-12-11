@@ -144,6 +144,11 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        return SPREADSHEET_FORMATTER_CONTEXT.decimalNumberDigitCount();
+    }
+
+    @Override
     public MathContext mathContext() {
         return SPREADSHEET_FORMATTER_CONTEXT.mathContext();
     }
