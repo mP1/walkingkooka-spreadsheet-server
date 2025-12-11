@@ -268,7 +268,10 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             )
         ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
         .set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, 0L)
-        .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
+        .set(
+            SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_DIGIT_COUNT,
+            8
+        ).set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
         .set(
             SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
             SpreadsheetFormatterSelector.parse(
@@ -278,7 +281,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, CONVERTER)
         .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
         .set(SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER, CONVERTER)
-        .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
         .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
         .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
         .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)

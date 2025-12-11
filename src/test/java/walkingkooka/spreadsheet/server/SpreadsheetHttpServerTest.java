@@ -1242,6 +1242,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"Sat.\"\n" +
                     "    ]\n" +
                     "  },\n" +
+                    "  \"decimalNumberDigitCount\": 8,\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -1270,7 +1271,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
@@ -5720,6 +5720,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"Sat.\"\n" +
                     "    ]\n" +
                     "  },\n" +
+                    "  \"decimalNumberDigitCount\": 8,\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -5748,7 +5749,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
@@ -6192,6 +6192,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"Sat.\"\n" +
                     "    ]\n" +
                     "  },\n" +
+                    "  \"decimalNumberDigitCount\": 8,\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -6220,7 +6221,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
@@ -6453,6 +6453,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"Sat.\"\n" +
                     "    ]\n" +
                     "  },\n" +
+                    "  \"decimalNumberDigitCount\": 8,\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -6481,7 +6482,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
