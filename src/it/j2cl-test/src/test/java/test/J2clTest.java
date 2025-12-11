@@ -115,7 +115,6 @@ public class J2clTest {
     private final static LineEnding EOL = LineEnding.NL;
 
     @Test
-    @Test
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
         spreadsheetHttpServer(httpServer);
@@ -168,6 +167,7 @@ public class J2clTest {
                     "  \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"0\",\n" +
                     "  \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                    "  \"decimalNumberDigitCount\": 8,\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -194,7 +194,6 @@ public class J2clTest {
                     "  \"frozenColumns\": \"A:B\",\n" +
                     "  \"frozenRows\": \"1:2\",\n" +
                     "  \"functions\": \"@\",\n" +
-                    "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"importers\": \"\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number #0.0\",\n" +
@@ -237,6 +236,9 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM").spreadsheetParserSelector())
             .set(
+                SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_DIGIT_COUNT,
+                8
+            ).set(
                 SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS,
                 DecimalNumberSymbols.with(
                     '-',
@@ -269,7 +271,6 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.IMPORTERS, SpreadsheetImporterAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
             .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
-            .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.PARSERS, SpreadsheetParserAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.PRECISION, 123)

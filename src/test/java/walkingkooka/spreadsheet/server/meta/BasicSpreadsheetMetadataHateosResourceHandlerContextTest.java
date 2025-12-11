@@ -1017,11 +1017,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             ).loadFromLocale(
                 LocaleContexts.jre(LOCALE)
             ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+            .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS, DECIMAL_NUMBER_SYMBOLS)
             .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)"))
-            .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
             .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
             .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))
