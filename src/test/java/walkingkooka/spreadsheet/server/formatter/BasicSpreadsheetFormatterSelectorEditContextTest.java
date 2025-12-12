@@ -99,7 +99,6 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             this::numberToColor,
             this::nameToColor,
             1, // cellCharacterWidth
-            8, // default general-format-number-digit-count
             SpreadsheetFormatters.fake(), // should never be called
             (final Optional<Object> value) -> {
                 Objects.requireNonNull(value, "value");
