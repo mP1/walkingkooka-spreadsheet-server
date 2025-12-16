@@ -77,8 +77,11 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
 
     // EnvironmentContext...............................................................................................
 
+    /**
+     * Only the {@link EnvironmentContext} should be cloned not the entire {@link SpreadsheetServerContext}.
+     */
     @Override
-    SpreadsheetServerContext cloneEnvironment();
+    EnvironmentContext cloneEnvironment();
 
     @Override
     SpreadsheetServerContext setEnvironmentContext(final EnvironmentContext environmentContext);

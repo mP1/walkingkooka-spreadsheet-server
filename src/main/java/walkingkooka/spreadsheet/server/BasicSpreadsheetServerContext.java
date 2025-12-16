@@ -206,8 +206,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     // EnvironmentContextDelegator......................................................................................
 
     @Override
-    public SpreadsheetServerContext cloneEnvironment() {
-        throw new UnsupportedOperationException();
+    public EnvironmentContext cloneEnvironment() {
+        return this.environmentContext()
+            .cloneEnvironment();
     }
 
     @Override

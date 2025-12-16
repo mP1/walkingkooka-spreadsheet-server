@@ -97,7 +97,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // EnvironmentContext...............................................................................................
 
     @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext cloneEnvironment() {
+    public EnvironmentContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 

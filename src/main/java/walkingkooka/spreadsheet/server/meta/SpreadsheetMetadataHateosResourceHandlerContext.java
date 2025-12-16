@@ -47,7 +47,7 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends Spreads
     Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id);
 
     @Override
-    default SpreadsheetMetadataHateosResourceHandlerContext cloneEnvironment() {
+    default EnvironmentContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 
