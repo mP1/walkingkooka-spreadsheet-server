@@ -63,7 +63,7 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     // EnvironmentContext...............................................................................................
 
     @Override
-    public SpreadsheetServerContext cloneEnvironment() {
+    public EnvironmentContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 
