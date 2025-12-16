@@ -19,12 +19,14 @@ package walkingkooka.spreadsheet.server.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContextTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -35,11 +37,15 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.terminal.TerminalContexts;
 
 import java.lang.reflect.Field;
 import java.math.MathContext;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvaluationContextTest implements SpreadsheetExpressionEvaluationContextTesting<SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvaluationContext>,
+    ToStringTesting<SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvaluationContext>,
     SpreadsheetMetadataTesting {
 
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
@@ -91,6 +97,46 @@ public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressi
     }
 
     private final static SpreadsheetEnvironmentContext SPREADSHEET_ENVIRONMENT_CONTEXT2;
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullSpreadsheetEnvironmentContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvaluationContext.with(
+                null,
+                SpreadsheetServerContexts.fake(),
+                TerminalContexts.fake()
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetServerContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvaluationContext.with(
+                SpreadsheetEnvironmentContexts.fake(),
+                null,
+                TerminalContexts.fake()
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullTerminalContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvaluationContext.with(
+                SpreadsheetEnvironmentContexts.fake(),
+                SpreadsheetServerContexts.fake(),
+                null
+            )
+        );
+    }
+
+    // SpreadsheetExpressionEvaluationContext...........................................................................
 
     @Override
     public void testEvaluateExpressionUnknownFunctionNameFails() {
@@ -237,6 +283,16 @@ public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressi
     @Override
     public char zeroDigit() {
         return DECIMAL_NUMBER_SYMBOLS.zeroDigit();
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            this.createContext(),
+            SPREADSHEET_ENVIRONMENT_CONTEXT2.toString()
+        );
     }
 
     // class............................................................................................................
