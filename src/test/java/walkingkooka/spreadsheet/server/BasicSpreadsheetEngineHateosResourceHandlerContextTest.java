@@ -116,7 +116,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetEngineContext spreadsheetEngineContext() {
-            return SpreadsheetEngineContexts.basic(
+            return SpreadsheetEngineContexts.spreadsheetContext(
                 SpreadsheetMetadataMode.FORMULA,
                 this,
                 TERMINAL_CONTEXT

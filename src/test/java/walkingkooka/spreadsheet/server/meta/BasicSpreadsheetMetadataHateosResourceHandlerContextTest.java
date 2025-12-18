@@ -976,7 +976,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
                 ), // SpreadsheetProvider
-                (c) -> SpreadsheetEngineContexts.basic(
+                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
                     SpreadsheetMetadataMode.FORMULA,
                     c,
                     TERMINAL_CONTEXT
