@@ -407,7 +407,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 return repos;
             },
             SPREADSHEET_PROVIDER,
-            (SpreadsheetContext c) -> SpreadsheetEngineContexts.basic(
+            (SpreadsheetContext c) -> SpreadsheetEngineContexts.spreadsheetContext(
                 SpreadsheetMetadataMode.FORMULA,
                 c,
                 TERMINAL_CONTEXT

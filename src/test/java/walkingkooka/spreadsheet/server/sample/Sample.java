@@ -328,7 +328,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     spreadsheetParserProvider,
                     ValidatorProviders.validators()
                 ),
-                (c) -> SpreadsheetEngineContexts.basic(
+                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
                     SpreadsheetMetadataMode.FORMULA,
                     c,
                     TerminalContexts.fake()

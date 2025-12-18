@@ -13362,7 +13362,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
                 ),
-                (c) -> SpreadsheetEngineContexts.basic(
+                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
                     SpreadsheetMetadataMode.FORMULA,
                     c,
                     TERMINAL_CONTEXT

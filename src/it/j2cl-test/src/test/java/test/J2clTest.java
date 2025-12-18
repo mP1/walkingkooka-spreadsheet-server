@@ -329,7 +329,7 @@ public class J2clTest {
                     spreadsheetParserProvider,
                     ValidatorProviders.validators()
                 ),
-                (c) -> SpreadsheetEngineContexts.basic(
+                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
                     SpreadsheetMetadataMode.FORMULA,
                     c,
                     TerminalContexts.fake()

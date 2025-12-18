@@ -333,7 +333,7 @@ public class TestGwtTest extends GWTTestCase {
                     spreadsheetParserProvider,
                     ValidatorProviders.validators()
                 ),
-                (c) -> SpreadsheetEngineContexts.basic(
+                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
                     SpreadsheetMetadataMode.FORMULA,
                     c,
                     TerminalContexts.fake()
