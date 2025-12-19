@@ -26,6 +26,7 @@ import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextFactory;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContextTesting;
@@ -54,7 +55,7 @@ public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressi
         try {
             SpreadsheetEnvironmentContext context = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
-            for (final Field field : SpreadsheetExpressionEvaluationContext.class.getDeclaredFields()) {
+            for (final Field field : SpreadsheetEnvironmentContextFactory.class.getDeclaredFields()) {
                 if (false == FieldAttributes.STATIC.is(field)) {
                     continue;
                 }
@@ -80,12 +81,12 @@ public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressi
             }
 
             SPREADSHEET_ENVIRONMENT_CONTEXT2 = context.setEnvironmentValue(
-                SpreadsheetExpressionEvaluationContext.CONVERTER,
+                SpreadsheetEnvironmentContextFactory.CONVERTER,
                 METADATA_EN_AU.getOrFail(
                     SpreadsheetMetadataPropertyName.VALIDATION_CONVERTER
                 )
             ).setEnvironmentValue(
-                SpreadsheetExpressionEvaluationContext.DECIMAL_NUMBER_DIGIT_COUNT,
+                SpreadsheetEnvironmentContextFactory.DECIMAL_NUMBER_DIGIT_COUNT,
                 DECIMAL_NUMBER_DIGIT_COUNT
             ).setEnvironmentValue(
                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID.toEnvironmentValueName(),
