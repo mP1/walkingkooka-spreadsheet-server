@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
-import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -40,7 +39,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.TerminalContexts;
 
-import java.lang.reflect.Field;
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,49 +50,35 @@ public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressi
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
 
     static {
-        try {
-            SpreadsheetEnvironmentContext context = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        SpreadsheetEnvironmentContext context = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
-            for (final Field field : SpreadsheetEnvironmentContextFactory.class.getDeclaredFields()) {
-                if (false == FieldAttributes.STATIC.is(field)) {
-                    continue;
-                }
-                if (EnvironmentValueName.class != field.getType()) {
-                    continue;
-                }
-                final EnvironmentValueName<?> name = Cast.to(
-                    field.get(null)
-                );
-
-                if(name.equals(SpreadsheetExpressionEvaluationContext.CONVERTER)) {
-                    continue;
-                }
-
-                context = context.setEnvironmentValue(
-                    name,
-                    Cast.to(
-                        METADATA_EN_AU.getOrFail(
-                            SpreadsheetMetadataPropertyName.fromEnvironmentValueName(name)
-                        )
-                    )
-                );
+        for (final EnvironmentValueName<?> name : SpreadsheetEnvironmentContextFactory.ENVIRONMENT_VALUE_NAMES) {
+            if (name.equals(SpreadsheetExpressionEvaluationContext.CONVERTER)) {
+                continue;
             }
 
-            SPREADSHEET_ENVIRONMENT_CONTEXT2 = context.setEnvironmentValue(
-                SpreadsheetEnvironmentContextFactory.CONVERTER,
-                METADATA_EN_AU.getOrFail(
-                    SpreadsheetMetadataPropertyName.VALIDATION_CONVERTER
+            context = context.setEnvironmentValue(
+                name,
+                Cast.to(
+                    METADATA_EN_AU.getOrFail(
+                        SpreadsheetMetadataPropertyName.fromEnvironmentValueName(name)
+                    )
                 )
-            ).setEnvironmentValue(
-                SpreadsheetEnvironmentContextFactory.DECIMAL_NUMBER_DIGIT_COUNT,
-                DECIMAL_NUMBER_DIGIT_COUNT
-            ).setEnvironmentValue(
-                SpreadsheetMetadataPropertyName.SPREADSHEET_ID.toEnvironmentValueName(),
-                SPREADSHEET_ID
             );
-        } catch (final Exception cause) {
-            throw new RuntimeException(cause);
         }
+
+        SPREADSHEET_ENVIRONMENT_CONTEXT2 = context.setEnvironmentValue(
+            SpreadsheetEnvironmentContextFactory.CONVERTER,
+            METADATA_EN_AU.getOrFail(
+                SpreadsheetMetadataPropertyName.VALIDATION_CONVERTER
+            )
+        ).setEnvironmentValue(
+            SpreadsheetEnvironmentContextFactory.DECIMAL_NUMBER_DIGIT_COUNT,
+            DECIMAL_NUMBER_DIGIT_COUNT
+        ).setEnvironmentValue(
+            SpreadsheetMetadataPropertyName.SPREADSHEET_ID.toEnvironmentValueName(),
+            SPREADSHEET_ID
+        );
     }
 
     private final static SpreadsheetEnvironmentContext SPREADSHEET_ENVIRONMENT_CONTEXT2;
