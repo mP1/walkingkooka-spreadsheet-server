@@ -53,7 +53,7 @@ public final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressi
         SpreadsheetEnvironmentContext context = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         for (final EnvironmentValueName<?> name : SpreadsheetEnvironmentContextFactory.ENVIRONMENT_VALUE_NAMES) {
-            if (name.equals(SpreadsheetExpressionEvaluationContext.CONVERTER)) {
+            if (name.equals(SpreadsheetEnvironmentContextFactory.CONVERTER)) {
                 continue;
             }
 
