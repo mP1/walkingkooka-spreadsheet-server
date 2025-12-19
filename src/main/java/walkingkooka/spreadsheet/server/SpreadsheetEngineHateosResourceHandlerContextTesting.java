@@ -31,11 +31,6 @@ public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends 
     }
 
     @Override
-    default C createSpreadsheetProvider() {
-        return this.createContext();
-    }
-
-    @Override
     default String typeNameSuffix() {
         return HateosResourceHandlerContextTesting.super.typeNameSuffix();
     }
