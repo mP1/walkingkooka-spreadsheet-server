@@ -165,7 +165,7 @@ final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvalu
                     this.spreadsheetExpressionEvaluationContext = SpreadsheetExpressionEvaluationContexts.spreadsheetContext(
                         SpreadsheetMetadataMode.SCRIPTING,
                         SpreadsheetExpressionEvaluationContext.NO_CELL,
-                        SpreadsheetExpressionReferenceLoaders.basic(),
+                        SpreadsheetExpressionReferenceLoaders.empty(),
                         SpreadsheetLabelNameResolvers.labelStore(
                             spreadsheetContext.storeRepository()
                                 .labels()
