@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
-import walkingkooka.terminal.TerminalId;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -259,14 +258,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.context.removeEnvironmentValue(name);
-        return this;
-    }
-
-    // TerminalServerContext............................................................................................
-
-    @Override
-    public SpreadsheetEngineHateosResourceHandlerContext removeTerminalContext(final TerminalId id) {
-        this.context.removeTerminalContext(id);
         return this;
     }
 

@@ -58,8 +58,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.terminal.TerminalContext;
-import walkingkooka.terminal.TerminalId;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
@@ -68,7 +66,6 @@ import java.math.MathContext;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -260,23 +257,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         @Override
         public ProviderContext providerContext() {
             return PROVIDER_CONTEXT;
-        }
-
-        @Override
-        public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Optional<TerminalContext> terminalContext(final TerminalId id) {
-            Objects.requireNonNull(id, "id");
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SpreadsheetEngineHateosResourceHandlerContext removeTerminalContext(final TerminalId id) {
-            Objects.requireNonNull(id, "id");
-            throw new UnsupportedOperationException();
         }
     }
 

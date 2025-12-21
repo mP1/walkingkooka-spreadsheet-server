@@ -71,8 +71,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
-import walkingkooka.terminal.TerminalContext;
-import walkingkooka.terminal.TerminalId;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
@@ -101,7 +99,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
 
@@ -560,23 +557,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public ProviderContext providerContext() {
-        throw new UnsupportedOperationException();
-    }
-
-    // ServerTerminalContext............................................................................................
-
-    @Override
-    public TerminalContext addTerminalContext(final Function<TerminalId, TerminalContext> terminalContextFactory) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<TerminalContext> terminalContext(final TerminalId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetEngineHateosResourceHandlerContext removeTerminalContext(final TerminalId id) {
         throw new UnsupportedOperationException();
     }
 }
