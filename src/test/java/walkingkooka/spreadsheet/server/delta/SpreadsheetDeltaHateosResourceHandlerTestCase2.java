@@ -401,12 +401,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         repos.metadatas()
             .save(METADATA);
 
-        final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.basic(
-            (id) -> {
-                checkEquals(SPREADSHEET_ID, id);
-                return repos;
-            },
-            SPREADSHEET_PROVIDER,
+        final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
+            repos,
             (SpreadsheetContext c) -> SpreadsheetEngineContexts.spreadsheetContext(
                 SpreadsheetMetadataMode.FORMULA,
                 c,
@@ -434,8 +430,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                     )
             ),
             LOCALE_CONTEXT,
-            PROVIDER_CONTEXT,
-            TERMINAL_SERVER_CONTEXT
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT
         );
 
         final SpreadsheetEngineContext engineContext = spreadsheetContext.spreadsheetEngineContext();

@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
-import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -131,9 +130,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final SpreadsheetEnvironmentContext environmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment()
             .setUser(optionalUser);
 
-        final SpreadsheetContext context = SpreadsheetContexts.basic(
-            this.spreadsheetIdToSpreadsheetStoreRepository,
-            this.spreadsheetProvider,
+        final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+            this.spreadsheetIdToSpreadsheetStoreRepository.apply(id),
             this.spreadsheetEngineContextFunction,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
                 c,
@@ -141,15 +139,10 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             ),
             metadata.spreadsheetEnvironmentContext(environmentContext),
             LocaleContexts.readOnly(this.localeContext),
+            this.spreadsheetProvider,
             ProviderContexts.readOnly(
                 this.providerContext.cloneEnvironment()
                     .setUser(optionalUser)
-            ),
-            TerminalServerContexts.userFiltered(
-                (u) -> u.equals(
-                    environmentContext.user()
-                ),
-                this.terminalServerContext
             )
         );
 
