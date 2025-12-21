@@ -21,12 +21,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.HasProviderContextTesting;
-import walkingkooka.spreadsheet.HasSpreadsheetServerUrlTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
+import walkingkooka.spreadsheet.net.HasSpreadsheetServerUrlTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
