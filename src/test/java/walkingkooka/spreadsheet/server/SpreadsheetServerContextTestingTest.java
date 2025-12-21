@@ -30,6 +30,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -304,8 +305,20 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         return new TestSpreadsheetServerContext();
     }
 
+    // class............................................................................................................
+
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public Class<TestSpreadsheetServerContext> type() {
         return TestSpreadsheetServerContext.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

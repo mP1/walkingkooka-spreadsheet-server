@@ -34,6 +34,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -659,5 +660,10 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Override
     public Class<BasicSpreadsheetServerContext> type() {
         return BasicSpreadsheetServerContext.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -29,6 +29,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -86,9 +87,21 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         return new TestSpreadsheetServerContextDelegator();
     }
 
+    // class............................................................................................................
+
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public Class<TestSpreadsheetServerContextDelegator> type() {
         return TestSpreadsheetServerContextDelegator.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     final static class TestSpreadsheetServerContextDelegator extends FakeSpreadsheetProvider implements SpreadsheetServerContext,

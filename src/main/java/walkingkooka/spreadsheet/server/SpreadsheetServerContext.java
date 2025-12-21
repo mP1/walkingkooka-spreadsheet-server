@@ -25,11 +25,10 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
-import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.SpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.net.HasSpreadsheetServerUrl;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.store.MissingStoreException;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -40,7 +39,8 @@ import java.util.Optional;
 /**
  * A {@link Context} that holds available {@link SpreadsheetContext}.
  */
-public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
+public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
+    SpreadsheetMetadataContext,
     EnvironmentContext,
     HasSpreadsheetServerUrl,
     LocaleContext,
@@ -53,16 +53,6 @@ public interface SpreadsheetServerContext extends SpreadsheetMetadataContext,
      */
     SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
                                                 final Optional<Locale> locale);
-
-    /**
-     * Returns the {@link SpreadsheetContext} for the given {@link SpreadsheetId}.
-     */
-    Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id);
-
-    default SpreadsheetContext spreadsheetContextOrFail(final SpreadsheetId id) {
-        return this.spreadsheetContext(id)
-            .orElseThrow(() -> new MissingStoreException("Missing Spreadsheet " + id));
-    }
 
     // EnvironmentContext...............................................................................................
 
