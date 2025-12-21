@@ -36,7 +36,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegatorTest.TestSpreadsheetServerContextDelegator;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -123,12 +122,6 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
                     SPREADSHEET_CONTEXT :
                     null
             );
-        }
-
-        @Override
-        public Optional<SpreadsheetStoreRepository> storeRepository(final SpreadsheetId id) {
-            return this.spreadsheetContext(id)
-                .map(SpreadsheetContext::storeRepository);
         }
 
         // SpreadsheetMetadataContext...................................................................................
