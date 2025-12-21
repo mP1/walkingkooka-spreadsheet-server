@@ -22,7 +22,7 @@ import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.HasProviderContextTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
-import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.SpreadsheetContextSupplierTesting;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
@@ -34,7 +34,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetMetadataContextTesting<C>,
+public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetContextSupplierTesting<C>,
+    SpreadsheetMetadataContextTesting<C>,
     EnvironmentContextTesting2<C>,
     HasProviderContextTesting,
     HasSpreadsheetMetadataTesting,
@@ -94,44 +95,11 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
         );
     }
 
-    // spreadsheetContext...............................................................................................
+    // SpreadsheetContextSupplierTesting................................................................................
 
-    @Test
-    default void testSpreadsheetContextWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .spreadsheetContext(null)
-        );
-    }
-
-    default void spreadsheetContextAndCheck(final C context,
-                                            final SpreadsheetId id) {
-        this.spreadsheetContextAndCheck(
-            context,
-            id,
-            Optional.empty()
-        );
-    }
-
-    default void spreadsheetContextAndCheck(final C context,
-                                            final SpreadsheetId id,
-                                            final SpreadsheetContext expected) {
-        this.spreadsheetContextAndCheck(
-            context,
-            id,
-            Optional.of(expected)
-        );
-    }
-
-    default void spreadsheetContextAndCheck(final C context,
-                                            final SpreadsheetId id,
-                                            final Optional<SpreadsheetContext> expected) {
-        this.checkEquals(
-            expected,
-            context.spreadsheetContext(id),
-            () -> context + " spreadsheetContext " + id
-        );
+    @Override
+    default C createSpreadsheetContextSupplier() {
+        return null;
     }
 
     // class............................................................................................................
