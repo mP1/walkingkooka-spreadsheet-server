@@ -187,21 +187,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return this.spreadsheetContext(id)
             .map(SpreadsheetContext::storeRepository);
     }
-
-    // HasLineEnding....................................................................................................
-
-    @Override
-    public LineEnding lineEnding() {
-        return this.environmentContext()
-            .lineEnding();
-    }
-
-    @Override
-    public SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext()
-            .setLineEnding(lineEnding);
-        return this;
-    }
     
     // EnvironmentContextDelegator......................................................................................
 
@@ -246,6 +231,19 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     public SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.environmentContext()
             .removeEnvironmentValue(name);
+        return this;
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.environmentContext()
+            .lineEnding();
+    }
+
+    @Override
+    public SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+        this.environmentContext()
+            .setLineEnding(lineEnding);
         return this;
     }
 
