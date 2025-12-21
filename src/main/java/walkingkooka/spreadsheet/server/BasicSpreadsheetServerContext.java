@@ -174,12 +174,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     private final Map<SpreadsheetId, SpreadsheetContext> spreadsheetIdToSpreadsheetContext = Maps.concurrent();
-
-    @Override
-    public Optional<SpreadsheetStoreRepository> storeRepository(final SpreadsheetId id) {
-        return this.spreadsheetContext(id)
-            .map(SpreadsheetContext::storeRepository);
-    }
     
     // EnvironmentContextDelegator......................................................................................
 
