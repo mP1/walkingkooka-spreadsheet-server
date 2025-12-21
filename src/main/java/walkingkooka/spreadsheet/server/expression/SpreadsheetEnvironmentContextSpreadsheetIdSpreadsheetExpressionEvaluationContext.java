@@ -71,6 +71,7 @@ final class SpreadsheetEnvironmentContextSpreadsheetIdSpreadsheetExpressionEvalu
         this.spreadsheetServerContext = spreadsheetServerContext;
 
         this.environment = SpreadsheetExpressionEvaluationContexts.spreadsheetEnvironmentContext(
+            spreadsheetServerContext, // SpreadsheetContextSupplier
             spreadsheetServerContext, // LocaleContext
             spreadsheetEnvironmentContext, // SpreadsheetEnvironmentContext
             terminalContext, // TerminalContext
