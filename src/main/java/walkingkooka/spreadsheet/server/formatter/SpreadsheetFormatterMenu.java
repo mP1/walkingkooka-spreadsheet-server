@@ -35,7 +35,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Represents a single menu item for a {@link SpreadsheetFormatterSelector}. A {@link SpreadsheetFormatterName#DATE_FORMAT_PATTERN},
+ * Represents a single menu item for a {@link SpreadsheetFormatterSelector}. A {@link SpreadsheetFormatterName#DATE},
  * might include three items one for SHORT, MEDIUM and LONG patterns.
  */
 public final class SpreadsheetFormatterMenu implements PluginSelectorMenuLike<SpreadsheetFormatterSelector, SpreadsheetFormatterName> {
