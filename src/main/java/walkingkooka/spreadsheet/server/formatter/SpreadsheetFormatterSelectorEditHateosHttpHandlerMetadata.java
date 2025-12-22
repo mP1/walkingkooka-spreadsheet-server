@@ -21,12 +21,13 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.url.SpreadsheetUrlPathTemplate;
+import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.template.TemplateValueName;
 
 import java.util.Map;
 
 /**
- * A handler returns the {@link SpreadsheetFormatterSelectorEdit} with no {@link walkingkooka.spreadsheet.SpreadsheetCell} in the context.
+ * A handler returns the {@link SpreadsheetFormatterSelectorEdit} with no {@link SpreadsheetCell} in the context.
  */
 final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata extends SpreadsheetFormatterSelectorEditHateosHttpHandler {
 

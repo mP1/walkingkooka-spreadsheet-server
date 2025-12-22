@@ -25,12 +25,13 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.url.SpreadsheetUrlPathTemplate;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.template.TemplateValueName;
 
 import java.util.Map;
 
 /**
- * A handler that returns a {@link SpreadsheetFormatterSelectorEdit} loading the cell in the URL so the {@link walkingkooka.spreadsheet.SpreadsheetCell} value
+ * A handler that returns a {@link SpreadsheetFormatterSelectorEdit} loading the cell in the URL so the {@link SpreadsheetCell} value
  * can be used when generating samples.
  */
 final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCell extends SpreadsheetFormatterSelectorEditHateosHttpHandler {
