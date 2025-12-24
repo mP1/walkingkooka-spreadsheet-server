@@ -41,7 +41,7 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.text.CaseKind;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;

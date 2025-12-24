@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.net;
 
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;

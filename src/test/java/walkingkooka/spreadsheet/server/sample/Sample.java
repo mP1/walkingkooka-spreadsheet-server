@@ -77,7 +77,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
-import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.server.TerminalServerContexts;

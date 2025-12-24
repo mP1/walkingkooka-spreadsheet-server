@@ -34,7 +34,7 @@ import walkingkooka.plugin.PluginArchiveManifest;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 
 import java.util.Base64;
 import java.util.Map;

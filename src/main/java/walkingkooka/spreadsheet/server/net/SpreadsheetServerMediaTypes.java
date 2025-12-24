@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.net;
 
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
