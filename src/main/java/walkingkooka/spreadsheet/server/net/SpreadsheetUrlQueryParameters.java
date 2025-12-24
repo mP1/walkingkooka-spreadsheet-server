@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.url;
+package walkingkooka.spreadsheet.server.net;
 
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;

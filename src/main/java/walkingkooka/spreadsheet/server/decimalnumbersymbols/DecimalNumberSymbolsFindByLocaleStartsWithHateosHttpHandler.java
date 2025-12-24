@@ -31,7 +31,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
-import walkingkooka.spreadsheet.server.url.SpreadsheetUrlQueryParameters;
+import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.List;
 import java.util.Locale;

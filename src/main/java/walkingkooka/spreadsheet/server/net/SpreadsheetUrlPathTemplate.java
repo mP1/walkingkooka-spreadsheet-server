@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.url;
+package walkingkooka.spreadsheet.server.net;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPath;
