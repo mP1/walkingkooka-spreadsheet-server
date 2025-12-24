@@ -31,7 +31,7 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
 final class PluginHttpMappings implements StaticHelper {
 
