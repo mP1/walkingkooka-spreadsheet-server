@@ -36,7 +36,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
 import java.io.IOException;
 import java.util.List;

@@ -24,8 +24,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
 public final class SpreadsheetMetadataPropertyNameHateosResourceMappings implements PublicStaticHelper {
 
