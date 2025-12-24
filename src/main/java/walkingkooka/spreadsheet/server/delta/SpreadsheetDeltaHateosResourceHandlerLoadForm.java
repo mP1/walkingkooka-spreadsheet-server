@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
+import walkingkooka.spreadsheet.server.url.SpreadsheetUrlQueryParameters;
 import walkingkooka.validation.form.FormName;
 
 import java.util.Map;

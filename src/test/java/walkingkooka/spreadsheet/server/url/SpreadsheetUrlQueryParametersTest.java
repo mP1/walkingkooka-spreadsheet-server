@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.url;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
