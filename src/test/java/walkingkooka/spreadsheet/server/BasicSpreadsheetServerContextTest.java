@@ -39,7 +39,6 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -338,9 +337,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             },
             SPREADSHEET_PROVIDER,
             SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
-            SpreadsheetEnvironmentContexts.readOnly(
-                SPREADSHEET_ENVIRONMENT_CONTEXT
-            ),
+            SPREADSHEET_ENVIRONMENT_CONTEXT,
             LOCALE_CONTEXT,
             SpreadsheetMetadataContexts.basic(
                 (u, l) -> {
