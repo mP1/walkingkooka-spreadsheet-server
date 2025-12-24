@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.url.SpreadsheetUrlPathTemplate;
+import walkingkooka.spreadsheet.server.net.SpreadsheetUrlPathTemplate;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.template.TemplateValueName;
 

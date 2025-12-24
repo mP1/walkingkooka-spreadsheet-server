@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.url;
+package walkingkooka.spreadsheet.server.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
