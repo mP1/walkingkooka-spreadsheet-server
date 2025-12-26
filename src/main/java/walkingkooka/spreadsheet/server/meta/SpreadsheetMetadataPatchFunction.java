@@ -17,8 +17,8 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;

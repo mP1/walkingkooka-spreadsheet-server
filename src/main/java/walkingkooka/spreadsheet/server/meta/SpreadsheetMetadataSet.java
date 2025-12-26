@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * A read only {@link Set} of {@link SpreadsheetMetadata} sorted by {@link walkingkooka.spreadsheet.SpreadsheetId}.
+ * A read only {@link Set} of {@link SpreadsheetMetadata} sorted by {@link walkingkooka.spreadsheet.meta.SpreadsheetId}.
  */
 public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadata> {
 
