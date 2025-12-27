@@ -135,7 +135,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetEngineContextFunction,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
                 c,
-                this // HateosResourceHandlerContext
+                this.hateosResourceHandlerContext
             ),
             metadata.spreadsheetEnvironmentContext(environmentContext),
             LocaleContexts.readOnly(this.localeContext),
