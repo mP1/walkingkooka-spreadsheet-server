@@ -51,7 +51,7 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
                 EnvironmentContexts.empty(
                     LineEnding.NL,
                     Locale.FRANCE,
-                    LocalDateTime::now,
+                    () -> LocalDateTime.MIN,
                     EnvironmentContext.ANONYMOUS
                 )
             )
