@@ -27,7 +27,6 @@ import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +47,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
                 EnvironmentContexts.empty(
                     LINE_ENDING,
                     LOCALE,
-                    LocalDateTime::now,
+                    HAS_NOW,
                     Optional.empty() // user
                 )
             )
