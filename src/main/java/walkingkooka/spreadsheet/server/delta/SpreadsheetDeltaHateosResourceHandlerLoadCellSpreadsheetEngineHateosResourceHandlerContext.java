@@ -17,7 +17,7 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.convert.CanConvert;
+import walkingkooka.convert.ConverterLike;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
@@ -129,7 +129,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     // SpreadsheetEngineHateosResourceHandlerContext.........................................................................
 
     @Override
-    public CanConvert canConvert() {
+    public ConverterLike converterLike() {
         return this.context;
     }
 

@@ -119,7 +119,7 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         }
 
         @Override
-        public ConverterContext canConvert() {
+        public ConverterContext converterLike() {
             return SPREADSHEET_FORMATTER_CONTEXT;
         }
 

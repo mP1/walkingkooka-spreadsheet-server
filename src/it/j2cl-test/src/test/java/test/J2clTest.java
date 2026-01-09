@@ -372,7 +372,7 @@ public class J2clTest {
                     )
                 ),
                 ProviderContexts.basic(
-                    ConverterContexts.fake(), // CanConvert
+                    ConverterContexts.fake(), // ConverterLike
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
                             lineEnding,

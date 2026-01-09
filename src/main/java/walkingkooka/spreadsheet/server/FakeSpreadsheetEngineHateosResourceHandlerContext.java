@@ -476,7 +476,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
-    // CanConvert.......................................................................................................
+    // ConverterLike....................................................................................................
 
     @Override
     public boolean canConvert(final Object value,

@@ -376,7 +376,7 @@ public class TestGwtTest extends GWTTestCase {
                     )
                 ),
                 ProviderContexts.basic(
-                    ConverterContexts.fake(), // CanConvert
+                    ConverterContexts.fake(), // ConverterLike
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
                             lineEnding,

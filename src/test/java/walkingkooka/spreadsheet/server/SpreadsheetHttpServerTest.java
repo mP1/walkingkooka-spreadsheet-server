@@ -13395,7 +13395,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
                 ),
                 ProviderContexts.basic(
-                    ConverterContexts.fake(), // CanConvert
+                    ConverterContexts.fake(), // ConverterLike
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
                             LINE_ENDING,

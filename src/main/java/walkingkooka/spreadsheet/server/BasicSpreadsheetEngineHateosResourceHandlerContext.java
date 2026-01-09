@@ -17,7 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.convert.CanConvert;
+import walkingkooka.convert.ConverterLike;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
@@ -115,10 +115,10 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext.resolveLabel(labelName);
     }
 
-    // CanConvertDelegator..............................................................................................
+    // ConvertLikeDelegator.............................................................................................
 
     @Override
-    public CanConvert canConvert() {
+    public ConverterLike converterLike() {
         return this.engineContext;
     }
 

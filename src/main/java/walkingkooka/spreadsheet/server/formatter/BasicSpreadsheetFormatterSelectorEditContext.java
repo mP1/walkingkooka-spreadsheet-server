@@ -17,7 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.convert.CanConvert;
+import walkingkooka.convert.ConverterLike;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -102,7 +102,7 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     }
 
     @Override
-    public CanConvert canConvert() {
+    public ConverterLike converterLike() {
         return this.spreadsheetFormatterContext;
     }
 

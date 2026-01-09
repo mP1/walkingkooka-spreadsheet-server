@@ -261,7 +261,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         }
 
         @Override
-        public ConverterContext canConvert() {
+        public ConverterContext converterLike() {
             return SPREADSHEET_FORMATTER_CONTEXT;
         }
 
