@@ -371,7 +371,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     )
                 ),
                 ProviderContexts.basic(
-                    ConverterContexts.fake(), // CanConvert
+                    ConverterContexts.fake(), // ConverterLike
                     EnvironmentContexts.map(
                         EnvironmentContexts.empty(
                             lineEnding,

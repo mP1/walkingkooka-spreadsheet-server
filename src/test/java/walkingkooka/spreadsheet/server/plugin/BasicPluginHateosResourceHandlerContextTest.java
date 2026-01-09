@@ -41,7 +41,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     );
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
-        ConverterContexts.fake(), // CanConvert
+        ConverterContexts.fake(), // ConverterLike
         EnvironmentContexts.readOnly(
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(

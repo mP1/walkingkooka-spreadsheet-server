@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
-import walkingkooka.convert.CanConvert;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
@@ -510,7 +509,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             EnvironmentContext.ANONYMOUS
         );
 
-        final CanConvert canConvert = ConverterContexts.fake();
         final PluginStore pluginStore = PluginStores.fake();
 
         final SpreadsheetServerContext before = BasicSpreadsheetServerContext.with(
@@ -522,7 +520,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             SPREADSHEET_METADATA_CONTEXT,
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             ProviderContexts.basic(
-                canConvert,
+                ConverterContexts.fake(),
                 environmentContext,
                 pluginStore
             ),
