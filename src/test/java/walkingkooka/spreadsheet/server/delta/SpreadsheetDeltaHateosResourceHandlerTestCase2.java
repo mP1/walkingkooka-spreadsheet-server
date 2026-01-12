@@ -89,7 +89,6 @@ import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.Storages;
-import walkingkooka.storage.expression.function.StorageExpressionEvaluationContext;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -394,7 +393,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
 
             @Override
-            public Storage<StorageExpressionEvaluationContext> storage() {
+            public Storage storage() {
                 return Storages.fake();
             }
         };
