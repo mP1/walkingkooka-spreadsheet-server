@@ -79,6 +79,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.storage.Storages;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.Indentation;
@@ -307,7 +308,10 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 return httpServer;
             },
             (user) -> SpreadsheetServerContexts.basic(
-                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                (id) -> SpreadsheetStoreRepositories.treeMap(
+                    metadataStore,
+                    Storages.fake()
+                ),
                 SpreadsheetProviders.basic(
                     SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                         (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
