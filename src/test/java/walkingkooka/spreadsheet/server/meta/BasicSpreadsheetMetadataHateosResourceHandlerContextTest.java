@@ -75,6 +75,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
+import walkingkooka.storage.Storages;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 
@@ -958,7 +959,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
-                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore), // SpreadsheetStoreRepository
+                (id) -> SpreadsheetStoreRepositories.treeMap(
+                    metadataStore,
+                    Storages.fake()
+                ), // SpreadsheetStoreRepository
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     new FakeExpressionFunctionProvider<>() {

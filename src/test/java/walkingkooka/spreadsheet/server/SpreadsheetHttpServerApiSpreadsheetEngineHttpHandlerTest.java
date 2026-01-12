@@ -59,6 +59,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.storage.Storages;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
@@ -381,7 +382,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             SpreadsheetServerContexts.basic(
-                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                (id) -> SpreadsheetStoreRepositories.treeMap(
+                    metadataStore,
+                    Storages.fake()
+                ),
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     ExpressionFunctionProviders.basic(
