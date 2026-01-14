@@ -39,7 +39,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
      */
     public static SpreadsheetServerContext basic(final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
-                                                 final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFunction,
+                                                 final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                                  final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                                  final LocaleContext localeContext,
                                                  final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -49,7 +49,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
         return BasicSpreadsheetServerContext.with(
             spreadsheetIdToSpreadsheetStoreRepository,
             spreadsheetProvider,
-            spreadsheetEngineContextFunction,
+            spreadsheetEngineContextFactory,
             spreadsheetEnvironmentContext,
             localeContext,
             spreadsheetMetadataContext,

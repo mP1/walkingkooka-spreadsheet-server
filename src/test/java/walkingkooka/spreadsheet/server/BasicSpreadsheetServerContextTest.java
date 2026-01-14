@@ -73,7 +73,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static Function<SpreadsheetId, SpreadsheetStoreRepository> REPO = (i) -> SpreadsheetStoreRepositories.fake();
 
-    private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FUNCTION = (c) ->
+    private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FACTORY = (c) ->
         new FakeSpreadsheetEngineContext() {
             @Override
             public SpreadsheetId spreadsheetId() {
@@ -116,7 +116,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 null,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -134,7 +134,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 null,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -170,7 +170,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 null,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -188,7 +188,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 null,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -206,7 +206,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 null,
@@ -224,7 +224,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -242,7 +242,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -260,7 +260,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -335,7 +335,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 }
             },
             SPREADSHEET_PROVIDER,
-            SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+            SPREADSHEET_ENGINE_CONTEXT_FACTORY,
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             LOCALE_CONTEXT,
             SpreadsheetMetadataContexts.basic(
@@ -514,7 +514,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final SpreadsheetServerContext before = BasicSpreadsheetServerContext.with(
             REPO,
             SPREADSHEET_PROVIDER,
-            SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+            SPREADSHEET_ENGINE_CONTEXT_FACTORY,
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             LOCALE_CONTEXT,
             SPREADSHEET_METADATA_CONTEXT,
@@ -638,7 +638,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             BasicSpreadsheetServerContext.with(
                 REPO,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FUNCTION,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
