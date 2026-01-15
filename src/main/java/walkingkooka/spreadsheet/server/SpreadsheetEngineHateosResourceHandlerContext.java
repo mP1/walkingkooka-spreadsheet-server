@@ -18,18 +18,13 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
-
-import java.util.Optional;
 
 /**
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
@@ -41,28 +36,15 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
     SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId);
 
     @Override
-    SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment();
-
-    @Override
     SpreadsheetEngineHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext);
 
     @Override
-    <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                          final T value);
-
-    @Override
-    SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name);
+    SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment();
 
     /**
      * Getter that returns a {@link SpreadsheetEngine}.
      */
     SpreadsheetEngine spreadsheetEngine();
-
-    @Override
-    SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);

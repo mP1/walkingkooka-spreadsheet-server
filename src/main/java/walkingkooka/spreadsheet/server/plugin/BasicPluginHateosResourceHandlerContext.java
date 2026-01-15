@@ -90,9 +90,8 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     }
 
     @Override
-    public PluginHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         this.providerContext.setLineEnding(lineEnding);
-        return this;
     }
 
     @Override
@@ -119,19 +118,17 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     }
 
     @Override
-    public <T> PluginHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                      final T value) {
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
         this.providerContext.setEnvironmentValue(
             name,
             value
         );
-        return this;
     }
 
     @Override
-    public PluginHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.providerContext.removeEnvironmentValue(name);
-        return this;
     }
 
     private final ProviderContext providerContext;

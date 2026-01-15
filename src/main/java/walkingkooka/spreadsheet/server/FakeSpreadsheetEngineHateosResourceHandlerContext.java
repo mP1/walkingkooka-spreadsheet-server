@@ -493,21 +493,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     // EnvironmentContext...............................................................................................
 
     @Override
-    public LineEnding lineEnding() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
@@ -523,18 +508,33 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                 final T value) {
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setUser(final Optional<EmailAddress> user) {
         throw new UnsupportedOperationException();
     }
 

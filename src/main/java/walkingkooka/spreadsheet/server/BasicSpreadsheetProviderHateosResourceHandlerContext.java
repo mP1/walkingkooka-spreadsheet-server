@@ -75,14 +75,22 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
     }
 
     @Override
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
+        this.providerContext.setEnvironmentValue(
+            name,
+            value
+        );
+    }
+
+    @Override
     public LineEnding lineEnding() {
         return this.hateosResourceHandlerContext.lineEnding();
     }
 
     @Override
-    public SpreadsheetProviderHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         this.providerContext.setLineEnding(lineEnding);
-        return this;
     }
 
     @Override
@@ -90,15 +98,6 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
         this.providerContext.setLocale(locale);
     }
 
-    @Override
-    public <T> SpreadsheetProviderHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                   final T value) {
-        this.providerContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
     // ProviderContextDelegator.........................................................................................
 
     @Override

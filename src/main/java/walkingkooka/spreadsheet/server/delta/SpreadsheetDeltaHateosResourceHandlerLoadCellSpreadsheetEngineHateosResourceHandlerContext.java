@@ -173,9 +173,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     // SpreadsheetEngineContext.........................................................................................
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         this.context.setLineEnding(lineEnding);
-        return this;
     }
     
     @Override
@@ -210,12 +209,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     // EnvironmentContext...............................................................................................
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
-        this.context.setUser(user);
-        return this;
-    }
-
-    @Override
     public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
         final SpreadsheetEngineHateosResourceHandlerContext context = this.context;
         final SpreadsheetEngineHateosResourceHandlerContext clone = context.cloneEnvironment();
@@ -245,19 +238,22 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                 final T value) {
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
         this.context.setEnvironmentValue(
             name,
             value
         );
-        return this;
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.context.removeEnvironmentValue(name);
-        return this;
+    }
+
+    @Override
+    public void setUser(final Optional<EmailAddress> user) {
+        this.context.setUser(user);
     }
 
     private final SpreadsheetEngineHateosResourceHandlerContext context;

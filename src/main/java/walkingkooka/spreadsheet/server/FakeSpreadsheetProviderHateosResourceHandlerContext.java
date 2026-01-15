@@ -243,7 +243,7 @@ public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakePro
     }
 
     @Override
-    public SpreadsheetProviderHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         throw new UnsupportedOperationException();
     }
 

@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleContexts;
@@ -127,8 +126,11 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final Optional<EmailAddress> optionalUser = Optional.of(user);
 
-        final SpreadsheetEnvironmentContext environmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment()
-            .setUser(optionalUser);
+        final SpreadsheetEnvironmentContext environmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
+        environmentContext.setUser(optionalUser);
+
+        final ProviderContext providerContext = this.providerContext.cloneEnvironment();
+        providerContext.setUser(optionalUser);
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(id),
@@ -140,10 +142,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             metadata.spreadsheetEnvironmentContext(environmentContext),
             LocaleContexts.readOnly(this.localeContext),
             this.spreadsheetProvider,
-            ProviderContexts.readOnly(
-                this.providerContext.cloneEnvironment()
-                    .setUser(optionalUser)
-            )
+            ProviderContexts.readOnly(providerContext)
         );
 
         this.spreadsheetIdToSpreadsheetContext.put(
@@ -204,34 +203,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     @Override
-    public <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                            final T value) {
-        this.environmentContext()
-            .setEnvironmentValue(
-                name,
-                value
-            );
-        return this;
-    }
-
-    @Override
-    public SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext()
-            .removeEnvironmentValue(name);
-        return this;
-    }
-
-    @Override
     public LineEnding lineEnding() {
         return this.environmentContext()
             .lineEnding();
-    }
-
-    @Override
-    public SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext()
-            .setLineEnding(lineEnding);
-        return this;
     }
 
     @Override
@@ -244,19 +218,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     public void setLocale(final Locale locale) {
         this.environmentContext()
             .setLocale(locale);
-    }
-
-    @Override
-    public Optional<EmailAddress> user() {
-        return this.environmentContext()
-            .user();
-    }
-
-    @Override
-    public SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
-        this.environmentContext()
-            .setUser(user);
-        return this;
     }
 
     /**

@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -29,7 +28,6 @@ import walkingkooka.spreadsheet.SpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.net.HasSpreadsheetServerUrl;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -64,19 +62,6 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
 
     @Override
     SpreadsheetServerContext setEnvironmentContext(final EnvironmentContext environmentContext);
-
-    @Override
-    <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
-                                                     final T reference);
-
-    @Override
-    SpreadsheetServerContext removeEnvironmentValue(EnvironmentValueName<?> name);
-
-    @Override
-    SpreadsheetServerContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    SpreadsheetServerContext setUser(final Optional<EmailAddress> optional);
 
     // JsonNodeMarshallUnmarshallContext................................................................................
 

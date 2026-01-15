@@ -18,9 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.environment.EnvironmentValueWatcher;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -29,9 +27,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetServerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
-
-import java.util.Locale;
-import java.util.Optional;
 
 public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeSpreadsheetServerContext
     implements SpreadsheetMetadataHateosResourceHandlerContext {
@@ -71,27 +66,6 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeSpr
 
     @Override
     public SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext context) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                   final T value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
         throw new UnsupportedOperationException();
     }
 

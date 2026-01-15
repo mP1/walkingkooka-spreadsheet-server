@@ -22,7 +22,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
@@ -58,7 +57,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
@@ -126,17 +124,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
-        public Optional<EmailAddress> user() {
-            return this.environmentContext.user();
-        }
-
-        @Override
-        public SpreadsheetContext setUser(final Optional<EmailAddress> user) {
-            this.environmentContext.setUser(user);
-            return this;
-        }
-
-        @Override
         public SpreadsheetContext cloneEnvironment() {
             throw new UnsupportedOperationException();
         }
@@ -149,43 +136,20 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
-        public <T> SpreadsheetContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                          final T value) {
-            this.environmentContext.setEnvironmentValue(
-                name,
-                value
-            );
-            return this;
-        }
-
-        @Override
-        public SpreadsheetContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-            this.environmentContext.removeEnvironmentValue(name);
-            return this;
-        }
-
-        @Override
         public EnvironmentContext environmentContext() {
             return this.environmentContext;
         }
 
-        private final EnvironmentContext environmentContext = EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
-            .setEnvironmentValue(
+        {
+            this.environmentContext = EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT);
+            this.environmentContext.setEnvironmentValue(
                 SPREADSHEET_ID,
                 BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID
             );
-
-        @Override
-        public LineEnding lineEnding() {
-            return this.environmentContext.lineEnding();
         }
 
-        @Override
-        public SpreadsheetContext setLineEnding(final LineEnding lineEnding) {
-            this.environmentContext.setLineEnding(lineEnding);
-            return this;
-        }
-        
+        private final EnvironmentContext environmentContext;
+
         @Override
         public Locale locale() {
             return this.environmentContext.locale();

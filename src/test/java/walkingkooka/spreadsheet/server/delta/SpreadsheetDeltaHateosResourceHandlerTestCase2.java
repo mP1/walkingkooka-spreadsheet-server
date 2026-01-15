@@ -21,6 +21,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.email.EmailAddress;
@@ -401,6 +402,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         repos.metadatas()
             .save(METADATA);
 
+        final EnvironmentContext environmentContext = EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT);
+        environmentContext.setEnvironmentValue(
+            SpreadsheetEnvironmentContext.SPREADSHEET_ID,
+            SPREADSHEET_ID
+        );
+
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
             repos,
             (SpreadsheetContext c) -> SpreadsheetEngineContexts.spreadsheetContext(
@@ -422,13 +429,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                     }
                 }
             ),
-            SpreadsheetEnvironmentContexts.basic(
-                EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
-                    .setEnvironmentValue(
-                        SpreadsheetEnvironmentContext.SPREADSHEET_ID,
-                        SPREADSHEET_ID
-                    )
-            ),
+            SpreadsheetEnvironmentContexts.basic(environmentContext),
             LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT

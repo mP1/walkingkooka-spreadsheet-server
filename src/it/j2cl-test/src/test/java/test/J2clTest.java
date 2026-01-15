@@ -27,6 +27,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberSymbols;
@@ -308,87 +309,90 @@ public class J2clTest {
                 httpServer.handler = handler;
                 return httpServer;
             },
-            (user) -> SpreadsheetServerContexts.basic(
-                (id) -> SpreadsheetStoreRepositories.treeMap(
-                    metadataStore,
-                    Storages.fake()
-                ),
-                SpreadsheetProviders.basic(
-                    SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                        (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            locale
-                        ).dateTimeConverter(
-                            spreadsheetFormatterProvider,
-                            spreadsheetParserProvider,
-                            p
-                        )
-                    ), // converterProvider
-                    ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
-                    SpreadsheetComparatorProviders.spreadsheetComparators(),
-                    SpreadsheetExporterProviders.spreadsheetExport(),
-                    spreadsheetFormatterProvider,
-                    FormHandlerProviders.validation(),
-                    SpreadsheetImporterProviders.spreadsheetImport(),
-                    spreadsheetParserProvider,
-                    ValidatorProviders.validators()
-                ),
-                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
-                    SpreadsheetMetadataMode.FORMULA,
-                    c,
-                    TerminalContexts.fake()
-                ),
-                SpreadsheetEnvironmentContexts.basic(
-                    EnvironmentContexts.map(
-                        EnvironmentContexts.empty(
-                            lineEnding,
-                            locale,
-                            () -> now,
-                            user
-                        )
-                    ).setEnvironmentValue(
-                        SpreadsheetEnvironmentContext.SERVER_URL,
-                        Url.parseAbsolute("https://example.com")
+            (user) -> {
+                final EnvironmentContext environmentContext = EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        lineEnding,
+                        locale,
+                        () -> now,
+                        user
                     )
-                ),
-                LocaleContexts.jre(locale),
-                SpreadsheetMetadataContexts.basic(
-                    (e, dl) -> metadataStore.save(
-                        metadata.set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            AuditInfo.create(
-                                e,
-                                now
+                );
+                environmentContext.setEnvironmentValue(
+                    SpreadsheetEnvironmentContext.SERVER_URL,
+                    Url.parseAbsolute("https://example.com")
+                );
+
+                return SpreadsheetServerContexts.basic(
+                    (id) -> SpreadsheetStoreRepositories.treeMap(
+                        metadataStore,
+                        Storages.fake()
+                    ),
+                    SpreadsheetProviders.basic(
+                        SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                            (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
+                                SpreadsheetMetadataPropertyName.LOCALE,
+                                locale
+                            ).dateTimeConverter(
+                                spreadsheetFormatterProvider,
+                                spreadsheetParserProvider,
+                                p
+                            )
+                        ), // converterProvider
+                        ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
+                        SpreadsheetComparatorProviders.spreadsheetComparators(),
+                        SpreadsheetExporterProviders.spreadsheetExport(),
+                        spreadsheetFormatterProvider,
+                        FormHandlerProviders.validation(),
+                        SpreadsheetImporterProviders.spreadsheetImport(),
+                        spreadsheetParserProvider,
+                        ValidatorProviders.validators()
+                    ),
+                    (c) -> SpreadsheetEngineContexts.spreadsheetContext(
+                        SpreadsheetMetadataMode.FORMULA,
+                        c,
+                        TerminalContexts.fake()
+                    ),
+                    SpreadsheetEnvironmentContexts.basic(environmentContext),
+                    LocaleContexts.jre(locale),
+                    SpreadsheetMetadataContexts.basic(
+                        (e, dl) -> metadataStore.save(
+                            metadata.set(
+                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                AuditInfo.create(
+                                    e,
+                                    now
+                                )
+                            )
+                        ),
+                        metadataStore
+                    ),
+                    HateosResourceHandlerContexts.basic(
+                        Indentation.SPACES2,
+                        lineEnding,
+                        JsonNodeMarshallUnmarshallContexts.basic(
+                            JsonNodeMarshallContexts.basic(),
+                            JsonNodeUnmarshallContexts.basic(
+                                expressionNumberKind,
+                                MathContext.DECIMAL32
                             )
                         )
                     ),
-                    metadataStore
-                ),
-                HateosResourceHandlerContexts.basic(
-                    Indentation.SPACES2,
-                    lineEnding,
-                    JsonNodeMarshallUnmarshallContexts.basic(
-                        JsonNodeMarshallContexts.basic(),
-                        JsonNodeUnmarshallContexts.basic(
-                            expressionNumberKind,
-                            MathContext.DECIMAL32
-                        )
-                    )
-                ),
-                ProviderContexts.basic(
-                    ConverterContexts.fake(), // ConverterLike
-                    EnvironmentContexts.map(
-                        EnvironmentContexts.empty(
-                            lineEnding,
-                            locale,
-                            LocalDateTime::now,
-                            user
-                        )
+                    ProviderContexts.basic(
+                        ConverterContexts.fake(), // ConverterLike
+                        EnvironmentContexts.map(
+                            EnvironmentContexts.empty(
+                                lineEnding,
+                                locale,
+                                LocalDateTime::now,
+                                user
+                            )
+                        ),
+                        PluginStores.treeMap()
                     ),
-                    PluginStores.treeMap()
-                ),
-                TerminalServerContexts.fake()
-            ),
+                    TerminalServerContexts.fake()
+                );
+            },
             (r) -> Optional.of(
                 EmailAddress.parse("user@example.com")
             )

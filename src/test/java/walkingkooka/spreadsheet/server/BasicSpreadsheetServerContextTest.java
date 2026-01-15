@@ -527,8 +527,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             TERMINAL_SERVER_CONTEXT
         );
 
-        final EnvironmentContext differentEnvironmentContext = environmentContext.cloneEnvironment()
-            .setLineEnding(LineEnding.CRNL);
+        final EnvironmentContext differentEnvironmentContext = environmentContext.cloneEnvironment();
+        differentEnvironmentContext.setLineEnding(LineEnding.CRNL);
+
         this.checkNotEquals(
             environmentContext,
             differentEnvironmentContext
@@ -623,10 +624,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         final EmailAddress user = EmailAddress.parse("different@example.com");
 
-        this.userAndCheck(
-            context.setUser(
-                Optional.of(user)
-            ),
+        this.setUserAndCheck(
+            context,
             user
         );
     }
