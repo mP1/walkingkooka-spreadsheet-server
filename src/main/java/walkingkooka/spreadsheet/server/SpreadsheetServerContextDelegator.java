@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
@@ -54,10 +53,9 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     @Override
-    default SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+    default void setLineEnding(final LineEnding lineEnding) {
         this.environmentContext()
             .setLineEnding(lineEnding);
-        return this;
     }
 
     @Override
@@ -73,28 +71,9 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     @Override
-    default SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
+    default void setUser(final Optional<EmailAddress> user) {
         this.environmentContext()
             .setUser(user);
-        return this;
-    }
-
-    @Override
-    default <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                             final T value) {
-        this.environmentContext()
-            .setEnvironmentValue(
-                name,
-                value
-            );
-        return this;
-    }
-
-    @Override
-    default SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext()
-            .removeEnvironmentValue(name);
-        return this;
     }
 
     @Override

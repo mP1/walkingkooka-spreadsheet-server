@@ -24,6 +24,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.RelativeUrl;
@@ -550,20 +551,22 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                                                       final String expectedBody) {
         final AtomicReference<LocalDateTime> now = new AtomicReference<>();
         now.set(HAS_NOW.now());
-        final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
-            SpreadsheetEnvironmentContexts.basic(
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        LINE_ENDING,
-                        LOCALE,
-                        now::get,
-                        Optional.of(USER)
-                    )
-                ).setEnvironmentValue(
-                    SpreadsheetEnvironmentContext.SERVER_URL,
-                    SERVER_URL
-                )
+
+        final EnvironmentContext environmentContext = EnvironmentContexts.map(
+            EnvironmentContexts.empty(
+                LINE_ENDING,
+                LOCALE,
+                now::get,
+                Optional.of(USER)
             )
+        );
+        environmentContext.setEnvironmentValue(
+            SpreadsheetEnvironmentContext.SERVER_URL,
+            SERVER_URL
+        );
+
+        final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
+            SpreadsheetEnvironmentContexts.basic(environmentContext)
         );
 
         final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(

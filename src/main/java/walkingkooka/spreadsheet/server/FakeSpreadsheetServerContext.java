@@ -82,18 +82,18 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
-    public <T> SpreadsheetServerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                            final T value) {
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SpreadsheetServerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SpreadsheetServerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         throw new UnsupportedOperationException();
     }
 
@@ -108,7 +108,7 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
-    public SpreadsheetServerContext setUser(final Optional<EmailAddress> user) {
+    public void setUser(final Optional<EmailAddress> user) {
         throw new UnsupportedOperationException();
     }
 

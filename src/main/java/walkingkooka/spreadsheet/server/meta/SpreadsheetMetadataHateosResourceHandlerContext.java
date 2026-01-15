@@ -57,18 +57,18 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends Spreads
     }
 
     @Override
+    default <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                         final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    default void removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     default void setLocale(final Locale locale) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    default <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                    final T value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    default SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
         throw new UnsupportedOperationException();
     }
 }

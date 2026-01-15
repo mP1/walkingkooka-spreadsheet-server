@@ -206,8 +206,8 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
-        public <T> TestSpreadsheetServerContextDelegator setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                                        final T value) {
+        public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                            final T value) {
             Objects.requireNonNull(name, "name");
             Objects.requireNonNull(value, "value");
 
@@ -215,7 +215,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
-        public TestSpreadsheetServerContextDelegator removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
             Objects.requireNonNull(name, "name");
 
             throw new UnsupportedOperationException();
@@ -227,10 +227,8 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
-        public TestSpreadsheetServerContextDelegator setLineEnding(final LineEnding lineEnding) {
+        public void setLineEnding(final LineEnding lineEnding) {
             Objects.requireNonNull(lineEnding, "lineEnding");
-
-            return this;
         }
 
         @Override
@@ -244,10 +242,8 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
-        public TestSpreadsheetServerContextDelegator setUser(final Optional<EmailAddress> user) {
+        public void setUser(final Optional<EmailAddress> user) {
             Objects.requireNonNull(user, "user");
-
-            return this;
         }
 
         @Override

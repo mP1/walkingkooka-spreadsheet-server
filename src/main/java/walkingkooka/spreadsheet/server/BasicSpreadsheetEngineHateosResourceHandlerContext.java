@@ -170,9 +170,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         this.engineContext.setLineEnding(lineEnding);
-        return this;
     }
     
     @Override
@@ -212,12 +211,6 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     // EnvironmentContext...............................................................................................
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
-        this.engineContext.setUser(user);
-        return this;
-    }
-
-    @Override
     public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
         final SpreadsheetEngineContext engineContext = this.engineContext;
         final SpreadsheetEngineContext clone = engineContext.cloneEnvironment();
@@ -247,19 +240,22 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public <T> SpreadsheetEngineHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                 final T value) {
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
         this.engineContext.setEnvironmentValue(
             name,
             value
         );
-        return this;
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.engineContext.removeEnvironmentValue(name);
-        return this;
+    }
+
+    @Override
+    public void setUser(final Optional<EmailAddress> user) {
+        this.engineContext.setUser(user);
     }
 
     private final SpreadsheetEngineContext engineContext;

@@ -51,15 +51,41 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
     }
 
     @Override
+    public PluginHateosResourceHandlerContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public LineEnding lineEnding() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public PluginHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding) {
+    public void setLineEnding(final LineEnding lineEnding) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     public Locale locale() {
         throw new UnsupportedOperationException();
@@ -71,33 +97,7 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
     }
 
     @Override
-    public PluginHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PluginHateosResourceHandlerContext cloneEnvironment() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> PluginHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                      final T value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PluginHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Set<EnvironmentValueName<?>> environmentValueNames() {
+    public void setUser(final Optional<EmailAddress> user) {
         throw new UnsupportedOperationException();
     }
 

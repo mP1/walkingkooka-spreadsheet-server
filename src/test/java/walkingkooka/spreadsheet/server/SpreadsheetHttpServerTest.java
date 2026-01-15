@@ -80,6 +80,7 @@ import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfoSet;
@@ -13354,65 +13355,66 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             MEDIA_TYPE_DETECTOR,
             this::fileServer,
             this::server,
-            (user) -> SpreadsheetServerContexts.basic(
-                (id) -> SpreadsheetStoreRepositories.treeMap(
-                    metadataStore,
-                    Storages.fake()
-                ), // Suppler<SpreadsheetStoreRepository>
-                SpreadsheetProviders.basic(
-                    CONVERTER_PROVIDER,
-                    EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
-                    SPREADSHEET_COMPARATOR_PROVIDER,
-                    SPREADSHEET_EXPORTER_PROVIDER,
-                    SPREADSHEET_FORMATTER_PROVIDER,
-                    FORM_HANDLER_PROVIDER,
-                    SPREADSHEET_IMPORTER_PROVIDER,
-                    SPREADSHEET_PARSER_PROVIDER,
-                    VALIDATOR_PROVIDER
-                ),
-                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
-                    SpreadsheetMetadataMode.FORMULA,
-                    c,
-                    TERMINAL_CONTEXT
-                ),
-                SpreadsheetEnvironmentContexts.readOnly(
-                    SPREADSHEET_ENVIRONMENT_CONTEXT
-                        .cloneEnvironment()
-                        .setUser(user) // replace the "default" user with the given
-                ), // EnvironmentContext
-                LOCALE_CONTEXT,
-                SpreadsheetMetadataContexts.basic(
-                    (u, l) -> this.metadataStore.save(
-                        this.createMetadata()
-                            .set(
-                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                AuditInfo.create(
-                                    u,
-                                    HAS_NOW.now()
+            (user) -> {
+                final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+                spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
+
+                return SpreadsheetServerContexts.basic(
+                    (id) -> SpreadsheetStoreRepositories.treeMap(
+                        metadataStore,
+                        Storages.fake()
+                    ), // Suppler<SpreadsheetStoreRepository>
+                    SpreadsheetProviders.basic(
+                        CONVERTER_PROVIDER,
+                        EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
+                        SPREADSHEET_COMPARATOR_PROVIDER,
+                        SPREADSHEET_EXPORTER_PROVIDER,
+                        SPREADSHEET_FORMATTER_PROVIDER,
+                        FORM_HANDLER_PROVIDER,
+                        SPREADSHEET_IMPORTER_PROVIDER,
+                        SPREADSHEET_PARSER_PROVIDER,
+                        VALIDATOR_PROVIDER
+                    ),
+                    (c) -> SpreadsheetEngineContexts.spreadsheetContext(
+                        SpreadsheetMetadataMode.FORMULA,
+                        c,
+                        TERMINAL_CONTEXT
+                    ),
+                    SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
+                    LOCALE_CONTEXT,
+                    SpreadsheetMetadataContexts.basic(
+                        (u, l) -> this.metadataStore.save(
+                            this.createMetadata()
+                                .set(
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    AuditInfo.create(
+                                        u,
+                                        HAS_NOW.now()
+                                    )
                                 )
+                        ),
+                        metadataStore
+                    ),
+                    HateosResourceHandlerContexts.basic(
+                        INDENTATION,
+                        LINE_ENDING,
+                        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+                    ),
+                    ProviderContexts.basic(
+                        ConverterContexts.fake(), // ConverterLike
+                        EnvironmentContexts.map(
+                            EnvironmentContexts.empty(
+                                LINE_ENDING,
+                                LOCALE,
+                                HAS_NOW,
+                                user
                             )
+                        ),
+                        SpreadsheetHttpServerTest.this.httpServer.pluginStore
                     ),
-                    metadataStore
-                ),
-                HateosResourceHandlerContexts.basic(
-                    INDENTATION,
-                    LINE_ENDING,
-                    JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
-                ),
-                ProviderContexts.basic(
-                    ConverterContexts.fake(), // ConverterLike
-                    EnvironmentContexts.map(
-                        EnvironmentContexts.empty(
-                            LINE_ENDING,
-                            LOCALE,
-                            HAS_NOW,
-                            user
-                        )
-                    ),
-                    SpreadsheetHttpServerTest.this.httpServer.pluginStore
-                ),
-                TERMINAL_SERVER_CONTEXT
-            ),
+                    TERMINAL_SERVER_CONTEXT
+                );
+            },
             httpRequestUserExtractor
         );
 

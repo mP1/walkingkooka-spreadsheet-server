@@ -107,6 +107,22 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     @Override
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(value, "value");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        Objects.requireNonNull(name, "name");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Locale locale() {
         throw new UnsupportedOperationException();
     }
@@ -119,24 +135,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext setUser(final Optional<EmailAddress> user) {
+    public void setUser(final Optional<EmailAddress> user) {
         Objects.requireNonNull(user, "user");
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> SpreadsheetMetadataHateosResourceHandlerContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                   final T value) {
-        Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(value, "value");
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        Objects.requireNonNull(name, "name");
 
         throw new UnsupportedOperationException();
     }
