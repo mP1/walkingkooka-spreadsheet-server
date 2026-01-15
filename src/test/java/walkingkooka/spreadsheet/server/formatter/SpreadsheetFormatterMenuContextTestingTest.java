@@ -89,7 +89,7 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         }
 
         @Override
-        public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             throw new UnsupportedOperationException();
         }
 

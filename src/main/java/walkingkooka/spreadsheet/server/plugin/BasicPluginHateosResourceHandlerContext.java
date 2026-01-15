@@ -96,9 +96,8 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
     }
 
     @Override
-    public PluginHateosResourceHandlerContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.providerContext.setLocale(locale);
-        return this;
     }
 
     @Override

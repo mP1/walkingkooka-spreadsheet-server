@@ -239,10 +239,8 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
-        public TestSpreadsheetServerContextDelegator setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
-
-            return this;
         }
 
         @Override

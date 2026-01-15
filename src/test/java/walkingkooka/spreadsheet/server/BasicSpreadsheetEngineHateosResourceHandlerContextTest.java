@@ -192,9 +192,8 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
-        public SpreadsheetContext setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             this.environmentContext.setLocale(locale);
-            return this;
         }
 
         @Override

@@ -29,7 +29,6 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -61,9 +60,6 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setUser(final Optional<EmailAddress> user);

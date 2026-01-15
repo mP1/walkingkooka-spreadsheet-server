@@ -78,11 +78,6 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     @Override
     SpreadsheetServerContext setUser(final Optional<EmailAddress> optional);
 
-    // LocaleContext....................................................................................................
-
-    @Override
-    SpreadsheetServerContext setLocale(final Locale locale);
-
     // JsonNodeMarshallUnmarshallContext................................................................................
 
     @Override

@@ -157,7 +157,7 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
-    public SpreadsheetServerContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

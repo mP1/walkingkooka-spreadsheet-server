@@ -66,7 +66,7 @@ public class FakeLocaleHateosResourceHandlerContext extends FakeHateosResourceHa
     }
 
     @Override
-    public LocaleHateosResourceHandlerContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

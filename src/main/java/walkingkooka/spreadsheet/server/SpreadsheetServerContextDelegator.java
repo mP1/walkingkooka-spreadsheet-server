@@ -67,10 +67,9 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     @Override
-    default SpreadsheetServerContext setLocale(final Locale locale) {
+    default void setLocale(final Locale locale) {
         this.environmentContext()
             .setLocale(locale);
-        return this;
     }
 
     @Override

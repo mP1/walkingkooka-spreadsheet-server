@@ -57,7 +57,7 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends Spreads
     }
 
     @Override
-    default SpreadsheetMetadataHateosResourceHandlerContext setLocale(final Locale locale) {
+    default void setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

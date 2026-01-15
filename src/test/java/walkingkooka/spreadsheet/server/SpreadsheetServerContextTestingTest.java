@@ -232,10 +232,8 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         }
 
         @Override
-        public TestSpreadsheetServerContext setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
-
-            return this;
         }
 
         @Override

@@ -48,7 +48,7 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
     // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
-    public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

@@ -21,12 +21,7 @@ import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 
-import java.util.Locale;
-
 public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
     HasProviderContext {
-
-    @Override
-    SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale);
 }
