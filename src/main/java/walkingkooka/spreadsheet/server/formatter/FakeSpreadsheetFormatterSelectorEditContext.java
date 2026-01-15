@@ -28,7 +28,6 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetFormatterSelectorEditContext {
@@ -59,13 +58,6 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
 
     @Override
     public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
-        throw new UnsupportedOperationException();
-    }
-
-    // LocaleContext....................................................................................................
-
-    @Override
-    public SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

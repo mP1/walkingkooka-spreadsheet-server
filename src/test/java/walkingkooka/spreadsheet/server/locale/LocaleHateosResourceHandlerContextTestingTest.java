@@ -109,6 +109,12 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
         }
 
         @Override
+        public void setLocale(final Locale locale) {
+            Objects.requireNonNull(locale, "locale");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public Optional<String> localeText(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
             throw new UnsupportedOperationException();

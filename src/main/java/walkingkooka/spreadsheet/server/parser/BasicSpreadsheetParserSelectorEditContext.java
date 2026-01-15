@@ -146,9 +146,8 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
 
     @Override
-    public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.providerContext.setLocale(locale);
-        return this;
     }
 
     // HasProviderContext...............................................................................................

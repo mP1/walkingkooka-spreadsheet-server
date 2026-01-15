@@ -24,16 +24,11 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProvider;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.util.Locale;
-
 public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserProvider,
     SpreadsheetParserContext,
     SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
     HasProviderContext {
-
-    @Override
-    SpreadsheetParserSelectorEditContext setLocale(final Locale locale);
 
     @Override
     SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);

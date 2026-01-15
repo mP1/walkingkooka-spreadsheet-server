@@ -577,9 +577,10 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         );
 
         final Locale locale = Locale.FRANCE;
+        context.setLocale(locale);
 
         this.localeAndCheck(
-            context.setLocale(locale),
+            context,
             locale
         );
     }

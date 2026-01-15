@@ -22,17 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.util.Locale;
-import java.util.Objects;
-
 public interface LocaleHateosResourceHandlerContext extends LocaleContext, HateosResourceHandlerContext {
-
-    @Override
-    default LocaleHateosResourceHandlerContext setLocale(final Locale locale) {
-        Objects.requireNonNull(locale, "locale");
-
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     LocaleHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);

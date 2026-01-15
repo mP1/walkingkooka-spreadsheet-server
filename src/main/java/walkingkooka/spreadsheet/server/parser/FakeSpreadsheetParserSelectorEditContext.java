@@ -37,7 +37,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public
@@ -45,11 +44,6 @@ class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterC
 
     public FakeSpreadsheetParserSelectorEditContext() {
         super();
-    }
-
-    @Override
-    public SpreadsheetParserSelectorEditContext setLocale(final Locale locale) {
-        throw new UnsupportedOperationException();
     }
 
     @Override 

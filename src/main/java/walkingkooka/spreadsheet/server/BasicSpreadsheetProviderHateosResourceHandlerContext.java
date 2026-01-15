@@ -86,9 +86,8 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
     }
 
     @Override
-    public SpreadsheetProviderHateosResourceHandlerContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.providerContext.setLocale(locale);
-        return this;
     }
 
     @Override

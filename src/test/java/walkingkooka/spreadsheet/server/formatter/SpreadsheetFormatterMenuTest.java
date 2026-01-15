@@ -231,7 +231,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         }
 
         @Override
-        public SpreadsheetFormatterMenuContext setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             throw new UnsupportedOperationException();
         }
 

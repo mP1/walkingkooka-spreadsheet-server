@@ -64,10 +64,9 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     }
 
     @Override
-    public SpreadsheetFormatterSelectorEditContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.localeContext()
             .setLocale(locale);
-        return this;
     }
 
     // SpreadsheetFormatterContext......................................................................................

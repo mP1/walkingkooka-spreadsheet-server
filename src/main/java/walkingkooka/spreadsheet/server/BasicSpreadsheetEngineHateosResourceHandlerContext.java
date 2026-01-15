@@ -181,9 +181,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.engineContext.setLocale(locale);
-        return this;
     }
 
     @Override

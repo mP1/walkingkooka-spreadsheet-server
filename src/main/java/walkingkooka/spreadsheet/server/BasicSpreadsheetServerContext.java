@@ -241,10 +241,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     @Override
-    public SpreadsheetServerContext setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.environmentContext()
             .setLocale(locale);
-        return this;
     }
 
     @Override
