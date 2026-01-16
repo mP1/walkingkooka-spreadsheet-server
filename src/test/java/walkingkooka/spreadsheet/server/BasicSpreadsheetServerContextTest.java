@@ -310,7 +310,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                     SpreadsheetMetadataPropertyName.TIME_PARSER,
                     METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
                 ).spreadsheetEnvironmentContext(
-                    EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT)
+                    EnvironmentContexts.map(
+                        SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
+                    )
                 ),
                 JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
                 LOCALE_CONTEXT

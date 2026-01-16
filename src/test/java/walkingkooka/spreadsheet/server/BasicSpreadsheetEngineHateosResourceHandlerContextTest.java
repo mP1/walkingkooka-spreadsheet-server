@@ -140,7 +140,9 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         {
-            this.environmentContext = EnvironmentContexts.map(SPREADSHEET_ENVIRONMENT_CONTEXT);
+            this.environmentContext = EnvironmentContexts.map(
+                SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
+            );
             this.environmentContext.setEnvironmentValue(
                 SPREADSHEET_ID,
                 BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID
