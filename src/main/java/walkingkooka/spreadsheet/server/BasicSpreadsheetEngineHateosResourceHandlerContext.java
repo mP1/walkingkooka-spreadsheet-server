@@ -27,7 +27,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
@@ -68,20 +67,6 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.engineContext = engineContext;
-    }
-
-    @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
-        final SpreadsheetEngineContext before = this.engineContext;
-        final SpreadsheetEngineContext after = before.setSpreadsheetId(spreadsheetId);
-
-        return before.equals(after) ?
-            this :
-            new BasicSpreadsheetEngineHateosResourceHandlerContext(
-                this.spreadsheetEngine,
-                this.hateosResourceHandlerContext,
-                after
-            );
     }
 
     @Override

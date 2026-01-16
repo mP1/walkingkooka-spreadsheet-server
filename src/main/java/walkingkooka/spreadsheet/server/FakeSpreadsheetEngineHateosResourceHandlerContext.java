@@ -120,7 +120,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+    public void setSpreadsheetId(final SpreadsheetId spreadsheetId) {
         throw new UnsupportedOperationException();
     }
 
