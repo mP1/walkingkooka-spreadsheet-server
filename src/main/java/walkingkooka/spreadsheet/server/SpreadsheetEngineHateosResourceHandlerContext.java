@@ -21,7 +21,6 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -31,9 +30,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
  */
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
     SpreadsheetEngineContext {
-
-    @Override
-    SpreadsheetEngineHateosResourceHandlerContext setSpreadsheetId(final SpreadsheetId spreadsheetId);
 
     @Override
     SpreadsheetEngineHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext);

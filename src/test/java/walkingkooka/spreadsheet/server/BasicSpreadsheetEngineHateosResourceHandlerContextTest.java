@@ -100,13 +100,12 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
-        public TestSpreadsheetContext setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        public void setSpreadsheetId(final SpreadsheetId spreadsheetId) {
             Objects.requireNonNull(spreadsheetId, "spreadsheetId");
 
-            if (this.spreadsheetId().equals(spreadsheetId)) {
-                return this;
+            if (false == this.spreadsheetId().equals(spreadsheetId)) {
+                throw new UnsupportedOperationException();
             }
-            throw new UnsupportedOperationException();
         }
 
         @Override
