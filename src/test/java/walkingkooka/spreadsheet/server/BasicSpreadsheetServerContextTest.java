@@ -37,7 +37,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -311,11 +310,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                     SpreadsheetMetadataPropertyName.TIME_PARSER,
                     METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
                 ).spreadsheetEnvironmentContext(
-                    SpreadsheetEnvironmentContexts.basic(
-                        EnvironmentContexts.map(
-                            SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
-                        )
-                    )
+                    SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
                 ),
                 JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
                 LOCALE_CONTEXT

@@ -352,7 +352,10 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         c,
                         TerminalContexts.fake()
                     ),
-                    SpreadsheetEnvironmentContexts.basic(environmentContext),
+                    SpreadsheetEnvironmentContexts.basic(
+                        Storages.fake(),
+                        environmentContext
+                    ),
                     LocaleContexts.jre(locale),
                     SpreadsheetMetadataContexts.basic(
                         (e, dl) -> metadataStore.save(
