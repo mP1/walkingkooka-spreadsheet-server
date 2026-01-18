@@ -566,7 +566,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         );
 
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
-            SpreadsheetEnvironmentContexts.basic(environmentContext)
+            SpreadsheetEnvironmentContexts.basic(
+                STORAGE,
+                environmentContext
+            )
         );
 
         final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
