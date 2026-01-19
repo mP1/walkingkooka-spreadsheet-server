@@ -328,10 +328,7 @@ public class TestGwtTest extends GWTTestCase {
                 );
 
                 return SpreadsheetServerContexts.basic(
-                    (id) -> SpreadsheetStoreRepositories.treeMap(
-                        metadataStore,
-                        Storages.fake()
-                    ),
+                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(

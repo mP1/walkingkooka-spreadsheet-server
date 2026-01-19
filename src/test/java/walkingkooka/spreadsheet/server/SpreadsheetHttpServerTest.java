@@ -122,7 +122,6 @@ import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
-import walkingkooka.storage.Storages;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -13360,10 +13359,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
                 return SpreadsheetServerContexts.basic(
-                    (id) -> SpreadsheetStoreRepositories.treeMap(
-                        metadataStore,
-                        Storages.fake()
-                    ), // Suppler<SpreadsheetStoreRepository>
+                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                     SpreadsheetProviders.basic(
                         CONVERTER_PROVIDER,
                         EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
