@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.text.LineEnding;
@@ -47,6 +48,7 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(),
         EnvironmentContexts.readOnly(
+            Predicates.always(), // all values read-only
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
                     LineEnding.NL,
