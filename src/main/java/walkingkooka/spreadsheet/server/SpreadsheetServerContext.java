@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * A {@link Context} that holds available {@link SpreadsheetContext}.
+ * A {@link Context} that holds ALL available {@link SpreadsheetContext} for a single user.
  */
 public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     SpreadsheetMetadataContext,
