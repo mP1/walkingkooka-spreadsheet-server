@@ -36,7 +36,9 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -70,6 +72,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting<BasicSpreadsheetServerContext>,
     ToStringTesting<BasicSpreadsheetServerContext>,
     SpreadsheetMetadataTesting {
+
+    private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
 
     private final static Function<SpreadsheetId, SpreadsheetStoreRepository> REPO = (i) -> SpreadsheetStoreRepositories.fake();
 
@@ -110,10 +114,30 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     // with.............................................................................................................
 
     @Test
+    public void testWithNullSpreadsheetEngineFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                null,
+                REPO,
+                SPREADSHEET_PROVIDER,
+                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
+                SPREADSHEET_ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
+            )
+        );
+    }
+
+    @Test
     public void testWithNullSpreadsheetIdToSpreadsheetServerRepositoryFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -132,6 +156,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 null,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -150,6 +175,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 null,
@@ -168,6 +194,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -186,6 +213,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -204,6 +232,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -222,6 +251,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -240,6 +270,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -258,6 +289,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -322,6 +354,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
 
         return BasicSpreadsheetServerContext.with(
+            SPREADSHEET_ENGINE,
             (id) -> new FakeSpreadsheetStoreRepository() {
 
                 @Override
@@ -512,6 +545,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final PluginStore pluginStore = PluginStores.fake();
 
         final SpreadsheetServerContext before = BasicSpreadsheetServerContext.with(
+            SPREADSHEET_ENGINE,
             REPO,
             SPREADSHEET_PROVIDER,
             SPREADSHEET_ENGINE_CONTEXT_FACTORY,
@@ -636,6 +670,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testToString() {
         this.toStringAndCheck(
             BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
                 REPO,
                 SPREADSHEET_PROVIDER,
                 SPREADSHEET_ENGINE_CONTEXT_FACTORY,

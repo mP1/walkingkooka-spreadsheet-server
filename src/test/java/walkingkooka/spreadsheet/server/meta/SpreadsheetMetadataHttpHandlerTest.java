@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
@@ -50,6 +51,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
             SpreadsheetServerContexts.basic(
+                SpreadsheetEngines.fake(),
                 (id) -> SpreadsheetStoreRepositories.fake(),
                 SPREADSHEET_PROVIDER,
                 null,
