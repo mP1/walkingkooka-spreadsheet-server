@@ -227,6 +227,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         };
 
         @Override
+        public SpreadsheetEngine spreadsheetEngine() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public ProviderContext providerContext() {
             return PROVIDER_CONTEXT;
         }
