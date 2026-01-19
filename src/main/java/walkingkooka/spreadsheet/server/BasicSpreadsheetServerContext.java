@@ -31,6 +31,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
@@ -63,7 +64,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     HateosResourceHandlerContextDelegator,
     SpreadsheetProviderDelegator {
 
-    static BasicSpreadsheetServerContext with(final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+    static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
+                                              Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
                                               final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
@@ -73,6 +75,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final ProviderContext providerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
+            Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(spreadsheetEngineContextFactory, "spreadsheetEngineContextFactory"),
@@ -85,7 +88,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
     }
     
-    private BasicSpreadsheetServerContext(final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+    private BasicSpreadsheetServerContext(final SpreadsheetEngine spreadsheetEngine,
+                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
                                           final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                           final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
@@ -94,6 +98,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                                           final ProviderContext providerContext,
                                           final TerminalServerContext terminalServerContext) {
+        this.spreadsheetEngine = spreadsheetEngine;
         this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
 
@@ -133,6 +138,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         providerContext.setUser(optionalUser);
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+            this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(id),
             this.spreadsheetEngineContextFactory,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
@@ -152,6 +158,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         return context;
     }
+
+    private final SpreadsheetEngine spreadsheetEngine;
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository;
 
@@ -190,6 +198,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return before == after ?
             this :
             new BasicSpreadsheetServerContext(
+                this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
                 this.spreadsheetEngineContextFactory,
@@ -305,6 +314,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return this.hateosResourceHandlerContext.equals(context) ?
             this :
             new BasicSpreadsheetServerContext(
+                this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
                 this.spreadsheetEngineContextFactory,

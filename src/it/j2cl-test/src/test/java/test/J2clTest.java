@@ -55,6 +55,7 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -324,6 +325,7 @@ public class J2clTest {
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    SpreadsheetEngines.fake(),
                     (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(

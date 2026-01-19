@@ -53,6 +53,7 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
@@ -323,6 +324,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    SpreadsheetEngines.fake(),
                     (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(

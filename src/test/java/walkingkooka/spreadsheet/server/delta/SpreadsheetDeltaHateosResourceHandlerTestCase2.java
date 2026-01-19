@@ -36,6 +36,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
@@ -398,6 +399,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         );
 
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
+            SpreadsheetEngines.basic(),
             repos,
             (SpreadsheetContext c) -> SpreadsheetEngineContexts.spreadsheetContext(
                 SpreadsheetMetadataMode.FORMULA,
