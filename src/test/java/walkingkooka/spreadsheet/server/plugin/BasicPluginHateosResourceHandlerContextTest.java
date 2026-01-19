@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import java.util.Optional;
@@ -43,6 +44,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
         ConverterContexts.fake(), // ConverterLike
         EnvironmentContexts.readOnly(
+            Predicates.always(), // all values read-only
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
                     LINE_ENDING,
