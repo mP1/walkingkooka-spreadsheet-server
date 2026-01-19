@@ -324,10 +324,7 @@ public class J2clTest {
                 );
 
                 return SpreadsheetServerContexts.basic(
-                    (id) -> SpreadsheetStoreRepositories.treeMap(
-                        metadataStore,
-                        Storages.fake()
-                    ),
+                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
