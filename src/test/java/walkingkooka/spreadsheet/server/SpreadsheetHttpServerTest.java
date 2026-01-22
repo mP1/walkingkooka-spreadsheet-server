@@ -1297,7 +1297,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
+                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template, json)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
                     "  \"validators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -5775,7 +5775,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
+                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template, json)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
                     "  \"validators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -6247,7 +6247,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
+                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template, json)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
                     "  \"validators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -6508,7 +6508,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template)\",\n" +
+                    "  \"validationConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, environment, error-throwing, expression, form-and-validation, locale, plugins, template, json)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
                     "  \"validators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
