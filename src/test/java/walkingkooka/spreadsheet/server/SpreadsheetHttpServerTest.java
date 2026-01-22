@@ -1270,7 +1270,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
+                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, template, net, json)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -5748,7 +5748,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
+                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, template, net, json)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -6220,7 +6220,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
+                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, template, net, json)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -6481,7 +6481,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
                     "  \"formattingConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, plugins, style, text-node, template, net)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, json, locale, template, net)\",\n" +
+                    "  \"formulaConverter\": \"collection(text, number, date-time, basic, spreadsheet-value, boolean, error-throwing, color, expression, environment, locale, template, net, json)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
