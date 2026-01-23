@@ -123,13 +123,12 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final SpreadsheetId id = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
 
-        final Optional<EmailAddress> optionalUser = Optional.of(user);
-
         final SpreadsheetEnvironmentContext environmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
-        environmentContext.setUser(optionalUser);
 
         final ProviderContext providerContext = this.providerContext.cloneEnvironment();
-        providerContext.setUser(optionalUser);
+        providerContext.setUser(
+            Optional.of(user)
+        );
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.spreadsheetEngine,
