@@ -121,9 +121,10 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             locale
         );
 
-        final SpreadsheetId id = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+        final SpreadsheetId spreadsheetId = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
 
-        final SpreadsheetEnvironmentContext environmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
+        spreadsheetEnvironmentContext.setSpreadsheetId(spreadsheetId);
 
         final ProviderContext providerContext = this.providerContext.cloneEnvironment();
         providerContext.setUser(
@@ -132,20 +133,20 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.spreadsheetEngine,
-            this.spreadsheetIdToSpreadsheetStoreRepository.apply(id),
+            this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId),
             this.spreadsheetEngineContextFactory,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
                 c,
                 this.hateosResourceHandlerContext
             ),
-            metadata.spreadsheetEnvironmentContext(environmentContext),
+            metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),
             this.localeContext,
             this.spreadsheetProvider,
             ProviderContexts.readOnly(providerContext)
         );
 
         this.spreadsheetIdToSpreadsheetContext.put(
-            id,
+            spreadsheetId,
             context
         );
 

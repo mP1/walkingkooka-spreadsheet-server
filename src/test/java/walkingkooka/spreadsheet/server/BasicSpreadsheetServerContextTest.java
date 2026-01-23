@@ -458,6 +458,60 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     @Test
+    public void testCreateEmptySpreadsheetEnvironmentValueSpreadsheetIdReplaced() {
+        final SpreadsheetId spreadsheetId = SpreadsheetId.with(0x9999);
+
+        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        environmentContext.setEnvironmentValue(
+            SpreadsheetEnvironmentContext.SPREADSHEET_ID,
+            spreadsheetId
+        );
+
+        final SpreadsheetServerContext spreadsheetServerContext = this.createContext(
+            SpreadsheetEnvironmentContexts.basic(
+                STORAGE,
+                environmentContext
+            )
+        );
+
+        final Locale locale = Locale.forLanguageTag("en-AU");
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
+            Optional.of(locale)
+        );
+        this.checkNotEquals(
+            null,
+            spreadsheetContext
+        );
+
+        this.spreadsheetIdAndCheck(
+            spreadsheetContext,
+            SpreadsheetId.with(1)
+        );
+
+        // original EnvironmentContext and SpreadsheetServerContext not changed.
+        this.environmentValueAndCheck(
+            environmentContext,
+            SpreadsheetEnvironmentContext.SPREADSHEET_ID,
+            spreadsheetId
+        );
+
+        this.spreadsheetIdAndCheck(
+            spreadsheetServerContext,
+            spreadsheetId
+        );
+
+        this.userAndCheck(
+            spreadsheetContext,
+            USER
+        );
+
+        this.localeAndCheck(
+            spreadsheetContext,
+            locale
+        );
+    }
+
+    @Test
     public void testCreateEmptySpreadsheetTwice() {
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(user1);
