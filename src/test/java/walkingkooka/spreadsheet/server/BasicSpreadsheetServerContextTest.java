@@ -420,12 +420,12 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     // createSpreadsheetContext.........................................................................................
 
     @Test
-    public void testCreateSpreadsheetContext() {
+    public void testCreateEmptySpreadsheet() {
         final EmailAddress user = EmailAddress.parse("spreadsheet-user1@example.com");
         final Locale locale = Locale.forLanguageTag("en-AU");
 
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
                 user,
                 Optional.of(locale)
             );
@@ -446,13 +446,13 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     @Test
-    public void testCreateSpreadsheetContextTwice() {
+    public void testCreateEmptySpreadsheetTwice() {
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
 
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final Locale locale1 = Locale.forLanguageTag("en-AU");
         
-        final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(
             user1,
             Optional.of(locale1)
         );
@@ -464,7 +464,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final EmailAddress user2 = EmailAddress.parse("spreadsheet-user2@example.com");
         final Locale locale2 = Locale.forLanguageTag("en-AU");
 
-        final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createEmptySpreadsheet(
             user2,
             Optional.of(locale2)
         );
@@ -515,7 +515,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final Locale locale1 = Locale.forLanguageTag("en-AU");
 
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
             user1,
             Optional.of(locale1)
         );

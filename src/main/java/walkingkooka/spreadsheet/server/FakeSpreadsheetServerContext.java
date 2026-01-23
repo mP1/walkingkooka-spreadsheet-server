@@ -194,8 +194,8 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     // SpreadsheetServerContext.........................................................................................
 
     @Override
-    public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
-                                                       final Optional<Locale> locale) {
+    public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
+                                                     final Optional<Locale> locale) {
         throw new UnsupportedOperationException();
     }
 

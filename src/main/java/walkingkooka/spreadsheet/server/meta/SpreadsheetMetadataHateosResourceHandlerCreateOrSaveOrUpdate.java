@@ -82,7 +82,7 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             context.userOrFail(),
             HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
                 .flatMap(this::preferredLocale)
