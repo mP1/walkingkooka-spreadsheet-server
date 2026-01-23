@@ -18,10 +18,10 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.plugin.HasProviderContextTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContextSupplierTesting;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting2;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetContextSupplierTesting<C>,
     SpreadsheetMetadataContextTesting<C>,
-    EnvironmentContextTesting2<C>,
+    SpreadsheetEnvironmentContextTesting2<C>,
     HasProviderContextTesting,
     HasSpreadsheetMetadataTesting,
     HasSpreadsheetServerUrlTesting,

@@ -19,12 +19,10 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
@@ -34,7 +32,6 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegator;
-import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -211,7 +208,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public LineEnding lineEnding() {
-            return SpreadsheetMetadataTesting.LINE_ENDING;
+            return SpreadsheetServerContextTestingTest.LINE_ENDING;
         }
 
         @Override
@@ -221,7 +218,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public Locale locale() {
-            return SpreadsheetMetadataTesting.LOCALE;
+            return SpreadsheetServerContextTestingTest.LOCALE;
         }
 
         @Override
@@ -231,7 +228,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public AbsoluteUrl serverUrl() {
-            return Url.parseAbsolute("http://example.com/");
+            return SpreadsheetServerContextTestingTest.SERVER_URL;
         }
 
         @Override
@@ -246,19 +243,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
-            return SpreadsheetEnvironmentContexts.basic(
-                STORAGE,
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        SpreadsheetMetadataTesting.LINE_ENDING,
-                        SpreadsheetMetadataTesting.LOCALE,
-                        SpreadsheetMetadataTesting.HAS_NOW,
-                        Optional.of(
-                            SpreadsheetMetadataTesting.USER
-                        )
-                    )
-                )
-            );
+            return SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
         }
 
         // HateosResourceHandlerContext.................................................................................
