@@ -47,7 +47,7 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     HasProviderContext {
 
     /**
-     * Creates a new {@link SpreadsheetContext} and spreadsheet.
+     * Creates a new empty spreadsheet {@link SpreadsheetContext} for the given {@link EmailAddress user}.
      */
     SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
                                                 final Optional<Locale> locale);
