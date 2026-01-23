@@ -105,7 +105,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.spreadsheetEngineContextFactory = spreadsheetEngineContextFactory;
 
         this.spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext); // safety
-        this.localeContext = localeContext;
+        this.localeContext = LocaleContexts.readOnly(localeContext);
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.providerContext = providerContext;
@@ -146,7 +146,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.hateosResourceHandlerContext
             ),
             metadata.spreadsheetEnvironmentContext(environmentContext),
-            LocaleContexts.readOnly(this.localeContext),
+            this.localeContext,
             this.spreadsheetProvider,
             ProviderContexts.readOnly(providerContext)
         );
