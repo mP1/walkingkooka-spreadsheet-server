@@ -27,9 +27,12 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
+import walkingkooka.storage.Storage;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -54,15 +57,10 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
         super();
     }
 
-    @Override
-    public AbsoluteUrl serverUrl() {
-        throw new UnsupportedOperationException();
-    }
-
     // EnvironmentContext...............................................................................................
 
     @Override
-    public EnvironmentContext cloneEnvironment() {
+    public SpreadsheetEnvironmentContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 
@@ -103,6 +101,21 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
+    public AbsoluteUrl serverUrl() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetId spreadsheetId() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
@@ -119,6 +132,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     @Override
     public Runnable addEventValueWatcherOnce(final EnvironmentValueWatcher watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Storage<SpreadsheetStorageContext> storage() {
         throw new UnsupportedOperationException();
     }
 

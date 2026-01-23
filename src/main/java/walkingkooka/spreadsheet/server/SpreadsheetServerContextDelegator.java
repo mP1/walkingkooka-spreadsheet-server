@@ -17,8 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
@@ -27,6 +25,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
@@ -39,7 +39,7 @@ import java.util.Optional;
 
 public interface SpreadsheetServerContextDelegator extends SpreadsheetServerContext,
     SpreadsheetProviderDelegator,
-    EnvironmentContextDelegator,
+    SpreadsheetEnvironmentContextDelegator,
     LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator,
     HateosResourceHandlerContextDelegator {
@@ -48,36 +48,36 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
 
     @Override
     default LineEnding lineEnding() {
-        return this.environmentContext()
+        return this.spreadsheetEnvironmentContext()
             .lineEnding();
     }
 
     @Override
     default void setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext()
+        this.spreadsheetEnvironmentContext()
             .setLineEnding(lineEnding);
     }
 
     @Override
     default Locale locale() {
-        return this.environmentContext()
+        return this.spreadsheetEnvironmentContext()
             .locale();
     }
 
     @Override
     default void setLocale(final Locale locale) {
-        this.environmentContext()
+        this.spreadsheetEnvironmentContext()
             .setLocale(locale);
     }
 
     @Override
     default void setUser(final Optional<EmailAddress> user) {
-        this.environmentContext()
+        this.spreadsheetEnvironmentContext()
             .setUser(user);
     }
 
     @Override
-    default EnvironmentContext environmentContext() {
+    default SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
         return this.spreadsheetServerContext();
     }
 

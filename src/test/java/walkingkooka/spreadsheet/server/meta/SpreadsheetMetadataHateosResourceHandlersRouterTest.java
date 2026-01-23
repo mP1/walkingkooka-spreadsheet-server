@@ -115,7 +115,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                     return Optional.of(
                         SpreadsheetMetadata.EMPTY.set(
                             SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                            SPREADSHEET_ID
+                            SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID
                         ).set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AUDIT_INFO
@@ -345,7 +345,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 @Override
                 public void deleteMetadata(final SpreadsheetId id) {
                     checkEquals(
-                        SPREADSHEET_ID,
+                        SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID,
                         id,
                         "id"
                     );

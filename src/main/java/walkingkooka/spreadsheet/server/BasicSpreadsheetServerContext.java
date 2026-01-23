@@ -19,11 +19,9 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleContexts;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -34,7 +32,7 @@ import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
-import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -59,7 +57,7 @@ import java.util.function.Function;
  * A basic fully functional {@link SpreadsheetServerContext}
  */
 final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
-    EnvironmentContextDelegator,
+    SpreadsheetEnvironmentContextDelegator,
     LocaleContextDelegator,
     HateosResourceHandlerContextDelegator,
     SpreadsheetProviderDelegator {
@@ -104,7 +102,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         this.spreadsheetEngineContextFactory = spreadsheetEngineContextFactory;
 
-        this.spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext); // safety
+        this.spreadsheetEnvironmentContext = spreadsheetEnvironmentContext;
         this.localeContext = LocaleContexts.readOnly(localeContext);
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
@@ -113,11 +111,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     // SpreadsheetServerContext.........................................................................................
-
-    @Override
-    public AbsoluteUrl serverUrl() {
-        return this.spreadsheetEnvironmentContext.serverUrl();
-    }
 
     @Override
     public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
@@ -185,8 +178,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     // EnvironmentContextDelegator......................................................................................
 
     @Override
-    public EnvironmentContext cloneEnvironment() {
-        return this.environmentContext()
+    public SpreadsheetEnvironmentContext cloneEnvironment() {
+        return this.spreadsheetEnvironmentContext()
             .cloneEnvironment();
     }
 
@@ -213,28 +206,25 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public LineEnding lineEnding() {
-        return this.environmentContext()
+        return this.spreadsheetEnvironmentContext()
             .lineEnding();
     }
 
     @Override
     public Locale locale() {
-        return this.environmentContext()
+        return this.spreadsheetEnvironmentContext()
             .locale();
     }
 
     @Override
     public void setLocale(final Locale locale) {
-        this.environmentContext()
+        this.spreadsheetEnvironmentContext()
             .setLocale(locale);
     }
 
-    /**
-     * The {@link ProviderContext} holds the system or global environment.
-     */
     @Override
-    public EnvironmentContext environmentContext() {
-        return this.providerContext;
+    public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
+        return this.spreadsheetEnvironmentContext;
     }
 
     // LocaleContextDelegator...........................................................................................

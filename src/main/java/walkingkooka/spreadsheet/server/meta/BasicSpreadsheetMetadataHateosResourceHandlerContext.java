@@ -24,11 +24,14 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegator;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
+import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.storage.Storage;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -97,7 +100,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // EnvironmentContext...............................................................................................
 
     @Override
-    public EnvironmentContext cloneEnvironment() {
+    public SpreadsheetEnvironmentContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 
@@ -135,10 +138,27 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     @Override
+    public SpreadsheetId spreadsheetId() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        Objects.requireNonNull(spreadsheetId, "spreadsheetId");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void setUser(final Optional<EmailAddress> user) {
         Objects.requireNonNull(user, "user");
 
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Storage<SpreadsheetStorageContext> storage() {
+        return this.context.storage();
     }
 
     // SpreadsheetServerContextDelegator................................................................................

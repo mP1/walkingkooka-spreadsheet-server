@@ -23,6 +23,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
@@ -47,7 +48,7 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends Spreads
     Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id);
 
     @Override
-    default EnvironmentContext cloneEnvironment() {
+    default SpreadsheetEnvironmentContext cloneEnvironment() {
         throw new UnsupportedOperationException();
     }
 

@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.HasProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContextSupplier;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.net.HasSpreadsheetServerUrl;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -39,7 +40,7 @@ import java.util.Optional;
  */
 public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     SpreadsheetMetadataContext,
-    EnvironmentContext,
+    SpreadsheetEnvironmentContext,
     HasSpreadsheetServerUrl,
     LocaleContext,
     HateosResourceHandlerContext,
@@ -56,10 +57,10 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     // EnvironmentContext...............................................................................................
 
     /**
-     * Only the {@link EnvironmentContext} should be cloned not the entire {@link SpreadsheetServerContext}.
+     * Only the {@link SpreadsheetEnvironmentContext} should be cloned not the entire {@link SpreadsheetServerContext}.
      */
     @Override
-    EnvironmentContext cloneEnvironment();
+    SpreadsheetEnvironmentContext cloneEnvironment();
 
     @Override
     SpreadsheetServerContext setEnvironmentContext(final EnvironmentContext environmentContext);
