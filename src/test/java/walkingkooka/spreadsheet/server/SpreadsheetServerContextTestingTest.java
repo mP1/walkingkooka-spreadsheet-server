@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
@@ -33,6 +32,9 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegator;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -108,17 +110,12 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
     }
 
     final static class TestSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
-        EnvironmentContextDelegator,
+        SpreadsheetEnvironmentContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator,
         LocaleContextDelegator,
         ProviderContextDelegator {
 
         // SpreadsheetServerContext.....................................................................................
-
-        @Override
-        public AbsoluteUrl serverUrl() {
-            return Url.parseAbsolute("http://example.com/");
-        }
 
         @Override
         public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
@@ -134,7 +131,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
             Objects.requireNonNull(id, "id");
 
             return Optional.ofNullable(
-                id.equals(SPREADSHEET_ID) ?
+                id.equals(SpreadsheetServerContextTestingTest.SPREADSHEET_ID) ?
                     SPREADSHEET_CONTEXT :
                     null
             );
@@ -235,19 +232,32 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         }
 
         @Override
+        public AbsoluteUrl serverUrl() {
+            return Url.parseAbsolute("http://example.com/");
+        }
+
+        @Override
         public void setUser(final Optional<EmailAddress> user) {
             Objects.requireNonNull(user, "user");
         }
 
         @Override
         public EnvironmentContext environmentContext() {
-            return EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    SpreadsheetMetadataTesting.LINE_ENDING,
-                    SpreadsheetMetadataTesting.LOCALE,
-                    SpreadsheetMetadataTesting.HAS_NOW,
-                    Optional.of(
-                        SpreadsheetMetadataTesting.USER
+            return this.spreadsheetEnvironmentContext();
+        }
+
+        @Override
+        public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
+            return SpreadsheetEnvironmentContexts.basic(
+                STORAGE,
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        SpreadsheetMetadataTesting.LINE_ENDING,
+                        SpreadsheetMetadataTesting.LOCALE,
+                        SpreadsheetMetadataTesting.HAS_NOW,
+                        Optional.of(
+                            SpreadsheetMetadataTesting.USER
+                        )
                     )
                 )
             );

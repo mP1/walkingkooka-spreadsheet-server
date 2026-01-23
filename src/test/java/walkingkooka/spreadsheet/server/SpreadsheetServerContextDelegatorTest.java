@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
@@ -32,6 +31,9 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegator;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -115,7 +117,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     }
 
     final static class TestSpreadsheetServerContextDelegator extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
-        EnvironmentContextDelegator,
+        SpreadsheetEnvironmentContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator,
         LocaleContextDelegator,
         ProviderContextDelegator {
@@ -248,13 +250,21 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
 
         @Override
         public EnvironmentContext environmentContext() {
-            return EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    SpreadsheetMetadataTesting.LINE_ENDING,
-                    SpreadsheetMetadataTesting.LOCALE,
-                    SpreadsheetMetadataTesting.HAS_NOW,
-                    Optional.of(
-                        SpreadsheetMetadataTesting.USER
+            return this.spreadsheetEnvironmentContext();
+        }
+
+        @Override
+        public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
+            return SpreadsheetEnvironmentContexts.basic(
+                STORAGE,
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        SpreadsheetMetadataTesting.LINE_ENDING,
+                        SpreadsheetMetadataTesting.LOCALE,
+                        SpreadsheetMetadataTesting.HAS_NOW,
+                        Optional.of(
+                            SpreadsheetMetadataTesting.USER
+                        )
                     )
                 )
             );

@@ -28,7 +28,6 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStore;
@@ -39,6 +38,9 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.environment.FakeSpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -306,6 +308,52 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Override
     public BasicSpreadsheetServerContext createContext() {
         return this.createContext(
+            SpreadsheetEnvironmentContexts.basic(
+                STORAGE,
+                ENVIRONMENT_CONTEXT.cloneEnvironment()
+            )
+        );
+    }
+
+    private BasicSpreadsheetServerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
+        final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
+
+        return BasicSpreadsheetServerContext.with(
+            SPREADSHEET_ENGINE,
+            (id) -> new FakeSpreadsheetStoreRepository() {
+
+                @Override
+                public SpreadsheetLabelStore labels() {
+                    return SpreadsheetLabelStores.fake();
+                }
+
+                @Override
+                public SpreadsheetMetadataStore metadatas() {
+                    return spreadsheetMetadataStore;
+                }
+            },
+            SPREADSHEET_PROVIDER,
+            SPREADSHEET_ENGINE_CONTEXT_FACTORY,
+            spreadsheetEnvironmentContext,
+            LOCALE_CONTEXT,
+            SpreadsheetMetadataContexts.basic(
+                (u, l) -> {
+                    final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        l.get()
+                    ).set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        AuditInfo.create(
+                            u,
+                            LocalDateTime.MIN
+                        )
+                    );
+                    spreadsheetMetadataStore.save(metadata);
+                    return metadata;
+                },
+                SpreadsheetMetadataStores.treeMap()
+            ),
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
             SpreadsheetProviderContexts.spreadsheet(
                 PluginStores.fake(),
                 SpreadsheetMetadata.EMPTY.set(
@@ -346,50 +394,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 ),
                 JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
                 LOCALE_CONTEXT
-            )
-        );
-    }
-
-    private BasicSpreadsheetServerContext createContext(final ProviderContext providerContext) {
-        final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
-
-        return BasicSpreadsheetServerContext.with(
-            SPREADSHEET_ENGINE,
-            (id) -> new FakeSpreadsheetStoreRepository() {
-
-                @Override
-                public SpreadsheetLabelStore labels() {
-                    return SpreadsheetLabelStores.fake();
-                }
-
-                @Override
-                public SpreadsheetMetadataStore metadatas() {
-                    return spreadsheetMetadataStore;
-                }
-            },
-            SPREADSHEET_PROVIDER,
-            SPREADSHEET_ENGINE_CONTEXT_FACTORY,
-            SPREADSHEET_ENVIRONMENT_CONTEXT,
-            LOCALE_CONTEXT,
-            SpreadsheetMetadataContexts.basic(
-                (u, l) -> {
-                    final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        l.get()
-                    ).set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        AuditInfo.create(
-                            u,
-                            LocalDateTime.MIN
-                        )
-                    );
-                    spreadsheetMetadataStore.save(metadata);
-                    return metadata;
-                },
-                SpreadsheetMetadataStores.treeMap()
             ),
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            providerContext,
             new FakeTerminalServerContext() {
 
                 @Override
@@ -584,7 +589,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.localeAndCheck(
             this.createContext(
-                new FakeProviderContext() {
+                new FakeSpreadsheetEnvironmentContext() {
                     @Override
                     public Locale locale() {
                         return locale;
@@ -625,25 +630,16 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Test
     public void testUser() {
         final EmailAddress user = EmailAddress.parse("different@example.com");
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
+            STORAGE,
+            ENVIRONMENT_CONTEXT.cloneEnvironment()
+        );
+        spreadsheetEnvironmentContext.setUser(
+            Optional.of(user)
+        );
 
         this.userAndCheck(
-            this.createContext(
-                new FakeProviderContext() {
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return Optional.of(user);
-                    }
-
-                    @Override
-                    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-                        return name.equals(USER) ?
-                            Cast.to(
-                                this.user()
-                            ) :
-                            Optional.empty();
-                    }
-                }
-            ),
+            this.createContext(spreadsheetEnvironmentContext),
             user
         );
     }
