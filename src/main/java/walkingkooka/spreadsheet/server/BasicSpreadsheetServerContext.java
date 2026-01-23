@@ -65,7 +65,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator {
 
     static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
-                                              Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
                                               final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
