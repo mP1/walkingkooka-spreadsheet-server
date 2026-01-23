@@ -42,14 +42,14 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
     HasSpreadsheetServerUrlTesting,
     TreePrintableTesting {
 
-    // createSpreadsheetContext.........................................................................................
+    // createEmptySpreadsheet...........................................................................................
 
     @Test
-    default void testCreateSpreadsheetContextWithNullUserFails() {
+    default void testCreateEmptySpreadsheetWithNullUserFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
-                .createSpreadsheetContext(
+                .createEmptySpreadsheet(
                     null,
                     Optional.empty()
                 )
@@ -57,38 +57,38 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
     }
 
     @Test
-    default void testCreateSpreadsheetContextWithNullLocaleFails() {
+    default void testCreateEmptySpreadsheetWithNullLocaleFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
-                .createSpreadsheetContext(
+                .createEmptySpreadsheet(
                     EmailAddress.parse("user@example.com"),
                     null // locale
                 )
         );
     }
 
-    default void createSpreadsheetContextAndCheck(final C context,
-                                                  final EmailAddress user,
-                                                  final Optional<Locale> locale,
-                                                  final SpreadsheetMetadata expected) {
+    default void createEmptySpreadsheetAndCheck(final C context,
+                                                final EmailAddress user,
+                                                final Optional<Locale> locale,
+                                                final SpreadsheetMetadata expected) {
         this.checkEquals(
             expected,
-            context.createSpreadsheetContext(
+            context.createEmptySpreadsheet(
                 user,
                 locale
             ),
-            "createSpreadsheetContext " + user + " " + locale.orElse(null)
+            "createEmptySpreadsheet " + user + " " + locale.orElse(null)
         );
     }
 
-    default void createSpreadsheetContextAndCheck(final C context,
-                                                  final EmailAddress user,
-                                                  final Optional<Locale> locale,
-                                                  final SpreadsheetContext expected) {
+    default void createEmptySpreadsheetAndCheck(final C context,
+                                                final EmailAddress user,
+                                                final Optional<Locale> locale,
+                                                final SpreadsheetContext expected) {
         this.checkEquals(
             expected,
-            context.createSpreadsheetContext(
+            context.createEmptySpreadsheet(
                 user,
                 locale
             )

@@ -201,8 +201,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
-                                                                   final Optional<Locale> locale) {
+                public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
+                                                                 final Optional<Locale> locale) {
                     return new FakeSpreadsheetContext() {
 
                         @Override

@@ -116,7 +116,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     public void testHateosRouter() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             USER,
             Optional.of(LOCALE)
         );
@@ -571,7 +571,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             )
         );
 
-        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             USER,
             Optional.of(LOCALE)
         );
@@ -725,7 +725,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     public void testHateosRouterAndRouteInvalidRequest() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             USER,
             Optional.of(LOCALE)
         );
@@ -800,7 +800,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     public void testSaveMetadataSelectionCell() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             USER,
             Optional.of(LOCALE)
         );
@@ -828,7 +828,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     public void testSaveMetadataViewportSelectionUnknownLabel() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             USER,
             Optional.of(LOCALE)
         );

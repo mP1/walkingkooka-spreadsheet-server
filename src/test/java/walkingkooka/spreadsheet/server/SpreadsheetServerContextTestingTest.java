@@ -121,8 +121,8 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         }
 
         @Override
-        public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
-                                                           final Optional<Locale> locale) {
+        public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
+                                                         final Optional<Locale> locale) {
             Objects.requireNonNull(user, "user");
             Objects.requireNonNull(locale, "locale");
 

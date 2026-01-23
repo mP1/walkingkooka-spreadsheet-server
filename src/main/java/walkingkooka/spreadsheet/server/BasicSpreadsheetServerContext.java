@@ -120,8 +120,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     @Override
-    public SpreadsheetContext createSpreadsheetContext(final EmailAddress user,
-                                                       final Optional<Locale> locale) {
+    public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
+                                                     final Optional<Locale> locale) {
         final SpreadsheetMetadata metadata = this.spreadsheetMetadataContext.createMetadata(
             user,
             locale

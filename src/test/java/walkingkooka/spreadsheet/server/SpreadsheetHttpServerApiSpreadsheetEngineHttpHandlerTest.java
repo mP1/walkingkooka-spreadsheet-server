@@ -357,7 +357,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     private void handleRequest(final HttpRequest request,
                                final HttpResponse response) {
         final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler = this.createHttpHandler();
-        final SpreadsheetContext spreadsheetContext = handler.context.createSpreadsheetContext(
+        final SpreadsheetContext spreadsheetContext = handler.context.createEmptySpreadsheet(
             USER,
             Optional.of(LOCALE)
         );
