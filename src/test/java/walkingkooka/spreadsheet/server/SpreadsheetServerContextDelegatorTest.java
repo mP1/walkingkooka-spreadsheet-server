@@ -130,9 +130,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
-        public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
-                                                         final Optional<Locale> locale) {
-            Objects.requireNonNull(user, "user");
+        public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
             Objects.requireNonNull(locale, "locale");
 
             throw new UnsupportedOperationException();

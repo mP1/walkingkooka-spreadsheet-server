@@ -120,13 +120,9 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     // SpreadsheetServerContext.........................................................................................
 
     @Override
-    default SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
-                                                      final Optional<Locale> locale) {
+    default SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
         return this.spreadsheetServerContext()
-            .createEmptySpreadsheet(
-                user,
-                locale
-            );
+            .createEmptySpreadsheet(locale);
     }
 
     @Override

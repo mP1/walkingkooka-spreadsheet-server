@@ -117,7 +117,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            USER,
             Optional.of(LOCALE)
         );
 
@@ -572,7 +571,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         );
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            USER,
             Optional.of(LOCALE)
         );
 
@@ -726,7 +724,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            USER,
             Optional.of(LOCALE)
         );
 
@@ -801,7 +798,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            USER,
             Optional.of(LOCALE)
         );
 
@@ -829,7 +825,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            USER,
             Optional.of(LOCALE)
         );
 

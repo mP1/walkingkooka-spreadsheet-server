@@ -123,8 +123,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
-                                                                 final Optional<Locale> locale) {
+                public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
                     return new FakeSpreadsheetContext() {
 
                         @Override
@@ -135,8 +134,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                             ).set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                    .setCreatedBy(user)
-                                    .setModifiedBy(user)
+                                    .setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                    .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
                             ).set(
                                 SpreadsheetMetadataPropertyName.LOCALE,
                                 locale.get()
@@ -172,8 +171,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
-                                                                 final Optional<Locale> locale) {
+                public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
                     return new FakeSpreadsheetContext() {
 
                         @Override
@@ -184,8 +182,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                             ).set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                    .setCreatedBy(user)
-                                    .setModifiedBy(user)
+                                    .setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                    .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
                             ).setOrRemove(
                                 SpreadsheetMetadataPropertyName.LOCALE,
                                 locale.orElse(null)
