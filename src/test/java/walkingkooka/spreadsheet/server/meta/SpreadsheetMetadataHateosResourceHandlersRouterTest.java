@@ -201,8 +201,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.routeAndCheck(
             new TestSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
-                                                                 final Optional<Locale> locale) {
+                public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
                     return new FakeSpreadsheetContext() {
 
                         @Override
@@ -212,8 +211,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                                 SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID
                             ).set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                AUDIT_INFO.setCreatedBy(user)
-                                    .setModifiedBy(user)
+                                AUDIT_INFO.setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                    .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
                             ).setOrRemove(
                                 SpreadsheetMetadataPropertyName.LOCALE,
                                 locale.orElse(null)

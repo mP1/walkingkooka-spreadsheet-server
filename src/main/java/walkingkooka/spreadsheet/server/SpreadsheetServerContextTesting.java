@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContextTesting2;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.HasProviderContextTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContextSupplierTesting;
@@ -45,53 +44,34 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
     // createEmptySpreadsheet...........................................................................................
 
     @Test
-    default void testCreateEmptySpreadsheetWithNullUserFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .createEmptySpreadsheet(
-                    null,
-                    Optional.empty()
-                )
-        );
-    }
-
-    @Test
     default void testCreateEmptySpreadsheetWithNullLocaleFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
                 .createEmptySpreadsheet(
-                    EmailAddress.parse("user@example.com"),
                     null // locale
                 )
         );
     }
 
     default void createEmptySpreadsheetAndCheck(final C context,
-                                                final EmailAddress user,
                                                 final Optional<Locale> locale,
                                                 final SpreadsheetMetadata expected) {
         this.checkEquals(
             expected,
             context.createEmptySpreadsheet(
-                user,
                 locale
             ),
-            "createEmptySpreadsheet " + user + " " + locale.orElse(null)
+            "createEmptySpreadsheet " + locale.orElse(null)
         );
     }
 
     default void createEmptySpreadsheetAndCheck(final C context,
-                                                final EmailAddress user,
                                                 final Optional<Locale> locale,
                                                 final SpreadsheetContext expected) {
         this.checkEquals(
             expected,
-            context.createEmptySpreadsheet(
-                user,
-                locale
-            )
+            context.createEmptySpreadsheet(locale)
         );
     }
 

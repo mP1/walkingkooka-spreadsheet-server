@@ -48,11 +48,10 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     HasProviderContext {
 
     /**
-     * Creates a new empty spreadsheet {@link SpreadsheetContext} for the given {@link EmailAddress user}.
+     * Creates a new empty spreadsheet {@link SpreadsheetContext} for this given {@link EmailAddress user}.
      * The environment will have a new generated/unique {@link walkingkooka.spreadsheet.meta.SpreadsheetId}.
      */
-    SpreadsheetContext createEmptySpreadsheet(final EmailAddress user,
-                                              final Optional<Locale> locale);
+    SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale);
 
     // EnvironmentContext...............................................................................................
 

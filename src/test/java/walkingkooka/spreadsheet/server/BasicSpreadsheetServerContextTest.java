@@ -307,10 +307,19 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Override
     public BasicSpreadsheetServerContext createContext() {
+        return this.createContext(USER);
+    }
+
+    private BasicSpreadsheetServerContext createContext(final EmailAddress user) {
+        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        environmentContext.setUser(
+            Optional.of(user)
+        );
+
         return this.createContext(
             SpreadsheetEnvironmentContexts.basic(
                 STORAGE,
-                ENVIRONMENT_CONTEXT.cloneEnvironment()
+                environmentContext
             )
         );
     }
@@ -426,13 +435,11 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testCreateEmptySpreadsheet() {
-        final EmailAddress user = EmailAddress.parse("spreadsheet-user1@example.com");
         final Locale locale = Locale.forLanguageTag("en-AU");
 
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-                user,
-                Optional.of(locale)
+            Optional.of(locale)
             );
         this.checkNotEquals(
             null,
@@ -440,7 +447,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         );
 
         this.checkEquals(
-            Optional.of(user),
+            Optional.of(USER),
             spreadsheetContext.user()
         );
 
@@ -452,13 +459,12 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testCreateEmptySpreadsheetTwice() {
-        final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
-
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
+        final SpreadsheetServerContext spreadsheetServerContext = this.createContext(user1);
+
         final Locale locale1 = Locale.forLanguageTag("en-AU");
         
         final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(
-            user1,
             Optional.of(locale1)
         );
         this.checkNotEquals(
@@ -467,10 +473,12 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         );
 
         final EmailAddress user2 = EmailAddress.parse("spreadsheet-user2@example.com");
+        spreadsheetServerContext.setUser(
+            Optional.of(user2)
+        );
         final Locale locale2 = Locale.forLanguageTag("en-AU");
 
         final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createEmptySpreadsheet(
-            user2,
             Optional.of(locale2)
         );
         this.checkNotEquals(
@@ -521,7 +529,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final Locale locale1 = Locale.forLanguageTag("en-AU");
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            user1,
             Optional.of(locale1)
         );
         this.checkNotEquals(
