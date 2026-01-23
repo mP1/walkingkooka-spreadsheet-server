@@ -446,9 +446,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             spreadsheetContext
         );
 
-        this.checkEquals(
-            Optional.of(USER),
-            spreadsheetContext.user()
+        this.userAndCheck(
+            spreadsheetContext,
+            USER
         );
 
         this.localeAndCheck(
@@ -486,9 +486,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             spreadsheetContext2
         );
 
-        this.checkEquals(
-            Optional.of(user1),
-            spreadsheetContext1.user()
+        this.userAndCheck(
+            spreadsheetContext1,
+            user1
         );
 
         this.localeAndCheck(
@@ -496,9 +496,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             locale1
         );
 
-        this.checkEquals(
-            Optional.of(user2),
-            spreadsheetContext2.user()
+        this.userAndCheck(
+            spreadsheetContext2,
+            user2
         );
 
         this.localeAndCheck(
