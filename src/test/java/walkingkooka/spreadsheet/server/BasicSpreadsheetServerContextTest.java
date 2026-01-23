@@ -579,7 +579,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testSpreadsheetContext() {
         final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
 
-        final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final Locale locale1 = Locale.forLanguageTag("en-AU");
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
