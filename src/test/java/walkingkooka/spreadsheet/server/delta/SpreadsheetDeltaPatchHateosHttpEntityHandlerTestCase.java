@@ -200,7 +200,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
         @Override
         public Indentation indentation() {
-            return INDENTATION;
+            return SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase.INDENTATION;
         }
 
         @Override

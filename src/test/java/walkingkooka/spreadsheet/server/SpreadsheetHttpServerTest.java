@@ -13402,6 +13402,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                INDENTATION,
                                 LINE_ENDING,
                                 LOCALE,
                                 HAS_NOW,

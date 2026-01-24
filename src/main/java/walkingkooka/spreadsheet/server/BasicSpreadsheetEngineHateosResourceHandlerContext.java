@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
@@ -148,6 +149,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
     // SpreadsheetEngineContextDelegator................................................................................
+
+    @Override
+    public Indentation indentation() {
+        return this.engineContext.indentation();
+    }
 
     @Override
     public LineEnding lineEnding() {

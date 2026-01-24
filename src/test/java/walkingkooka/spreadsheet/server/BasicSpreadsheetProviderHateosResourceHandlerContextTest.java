@@ -29,6 +29,7 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -51,6 +52,7 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
             Predicates.always(), // all values read-only
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
+                    Indentation.SPACES4,
                     LineEnding.NL,
                     Locale.FRANCE,
                     () -> LocalDateTime.MIN,
@@ -116,6 +118,11 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
 
     @Override
     public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 

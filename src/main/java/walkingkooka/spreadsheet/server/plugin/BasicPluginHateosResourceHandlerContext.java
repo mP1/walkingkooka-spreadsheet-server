@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -84,6 +85,16 @@ final class BasicPluginHateosResourceHandlerContext implements PluginHateosResou
         return this.providerContext;
     }
 
+    @Override
+    public Indentation indentation() {
+        return this.providerContext.indentation();
+    }
+
+    @Override
+    public void setIndentation(final Indentation indentation) {
+        this.providerContext.setIndentation(indentation);
+    }
+    
     @Override
     public LineEnding lineEnding() {
         return this.providerContext.lineEnding();

@@ -552,6 +552,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final EnvironmentContext environmentContext = EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                INDENTATION,
                 LINE_ENDING,
                 LOCALE,
                 now::get,
@@ -900,6 +901,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Override
     public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 

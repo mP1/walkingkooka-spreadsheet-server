@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
 import java.util.Locale;
@@ -45,6 +46,12 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     HateosResourceHandlerContextDelegator {
     
     // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    default Indentation indentation() {
+        return this.spreadsheetEnvironmentContext()
+            .indentation();
+    }
 
     @Override
     default LineEnding lineEnding() {

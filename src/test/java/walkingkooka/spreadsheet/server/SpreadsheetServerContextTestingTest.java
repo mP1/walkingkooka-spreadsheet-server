@@ -87,6 +87,11 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
     }
 
     @Override
+    public void testSetIndentationWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetLineEndingWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }

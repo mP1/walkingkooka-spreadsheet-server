@@ -493,7 +493,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
             @Override
             public Indentation indentation() {
-                return INDENTATION;
+                return SpreadsheetDeltaHttpMappingsTest.INDENTATION;
             }
 
             @Override

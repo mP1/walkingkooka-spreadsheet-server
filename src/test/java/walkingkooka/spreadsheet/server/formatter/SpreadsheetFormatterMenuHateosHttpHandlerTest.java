@@ -109,7 +109,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
 
                 @Override
                 public Indentation indentation() {
-                    return INDENTATION;
+                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.INDENTATION;
                 }
 
                 @Override

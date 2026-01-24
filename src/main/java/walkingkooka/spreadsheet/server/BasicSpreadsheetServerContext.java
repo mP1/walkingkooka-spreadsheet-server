@@ -42,6 +42,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -203,6 +204,12 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 after,
                 this.terminalServerContext
             );
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.spreadsheetEnvironmentContext()
+            .indentation();
     }
 
     @Override

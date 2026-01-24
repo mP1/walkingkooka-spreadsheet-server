@@ -47,6 +47,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
             Predicates.always(), // all values read-only
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
+                    INDENTATION,
                     LINE_ENDING,
                     LOCALE,
                     HAS_NOW,
