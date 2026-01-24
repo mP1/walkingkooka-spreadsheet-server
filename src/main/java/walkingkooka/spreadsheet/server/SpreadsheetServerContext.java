@@ -53,6 +53,11 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
      */
     SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale);
 
+    /**
+     * Creates a new {@link SpreadsheetContext}, cloning environment values. Mostly useful for new terminal shells.
+     */
+    SpreadsheetContext createSpreadsheetContext();
+
     // EnvironmentContext...............................................................................................
 
     /**

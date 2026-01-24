@@ -133,6 +133,12 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     }
 
     @Override
+    default SpreadsheetContext createSpreadsheetContext() {
+        return this.spreadsheetServerContext()
+            .createSpreadsheetContext();
+    }
+
+    @Override
     default AbsoluteUrl serverUrl() {
         return this.spreadsheetServerContext()
             .serverUrl();
