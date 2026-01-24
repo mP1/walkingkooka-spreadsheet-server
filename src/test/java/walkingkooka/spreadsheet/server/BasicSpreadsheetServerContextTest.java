@@ -69,6 +69,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting<BasicSpreadsheetServerContext>,
@@ -112,6 +113,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     };
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
+
+    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(123);
 
     // with.............................................................................................................
 
@@ -314,6 +317,10 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
         environmentContext.setUser(
             Optional.of(user)
+        );
+        environmentContext.setEnvironmentValue(
+            SpreadsheetEnvironmentContext.SPREADSHEET_ID,
+            SPREADSHEET_ID
         );
 
         return this.createContext(
@@ -558,6 +565,32 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         this.localeAndCheck(
             spreadsheetContext2,
             locale2
+        );
+    }
+
+    // createSpreadsheetContext.........................................................................................
+
+    @Test
+    public void testCreateSpreadsheetContext() {
+        final BasicSpreadsheetServerContext context = this.createContext();
+
+        final SpreadsheetContext spreadsheetContext1 = context.createSpreadsheetContext();
+
+        this.spreadsheetIdAndCheck(
+            spreadsheetContext1,
+            SPREADSHEET_ID
+        );
+
+        final SpreadsheetContext spreadsheetContext2 = context.createSpreadsheetContext();
+
+        this.spreadsheetIdAndCheck(
+            spreadsheetContext2,
+            SPREADSHEET_ID
+        );
+
+        assertNotSame(
+            spreadsheetContext1,
+            spreadsheetContext2
         );
     }
 

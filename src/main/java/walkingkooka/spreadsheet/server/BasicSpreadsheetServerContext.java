@@ -154,6 +154,20 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return context;
     }
 
+    @Override
+    public SpreadsheetContext createSpreadsheetContext() {
+        return SpreadsheetContexts.mutableSpreadsheetId(
+            this.spreadsheetEngine,
+            this.spreadsheetIdToSpreadsheetStoreRepository::apply,
+            this.spreadsheetMetadataContext,
+            this.spreadsheetEngineContextFactory,
+            this.spreadsheetEnvironmentContext.cloneEnvironment(),
+            this.localeContext,
+            this.spreadsheetProvider,
+            ProviderContexts.readOnly(this.providerContext)
+        );
+    }
+
     private final SpreadsheetEngine spreadsheetEngine;
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository;

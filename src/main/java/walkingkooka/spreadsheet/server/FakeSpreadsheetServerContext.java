@@ -222,6 +222,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
+    public SpreadsheetContext createSpreadsheetContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }

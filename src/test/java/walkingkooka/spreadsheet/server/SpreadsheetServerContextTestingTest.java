@@ -127,6 +127,11 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         }
 
         @Override
+        public SpreadsheetContext createSpreadsheetContext() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
             Objects.requireNonNull(id, "id");
 
