@@ -155,67 +155,67 @@ public class J2clTest {
                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
             ).setBodyText(
                 "{\n" +
-                    "  \"spreadsheetId\": \"1\",\n" +
-                    "  \"auditInfo\": {\n" +
-                    "    \"createdBy\": \"user@example.com\",\n" +
-                    "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                    "    \"modifiedBy\": \"user@example.com\",\n" +
-                    "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
-                    "  },\n" +
-                    "  \"cellCharacterWidth\": 10,\n" +
-                    "  \"comparators\": \"\",\n" +
-                    "  \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, optional-to, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, storage, storage-value-info-list-to-text, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-line-ending, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-storage-path, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json-node, to-json-text, to-number, to-styleable, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
-                    "  \"dateFormatter\": \"date DD/MM/YYYY\",\n" +
-                    "  \"dateParser\": \"date DD/MM/YYYYDDMMYYYY\",\n" +
-                    "  \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
-                    "  \"dateTimeOffset\": \"0\",\n" +
-                    "  \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                    "  \"decimalNumberDigitCount\": 8,\n" +
-                    "  \"decimalNumberSymbols\": {\n" +
-                    "    \"negativeSign\": \"-\",\n" +
-                    "    \"positiveSign\": \"+\",\n" +
-                    "    \"zeroDigit\": \"0\",\n" +
-                    "    \"currencySymbol\": \"$AUD\",\n" +
-                    "    \"decimalSeparator\": \".\",\n" +
-                    "    \"exponentSymbol\": \"E\",\n" +
-                    "    \"groupSeparator\": \",\",\n" +
-                    "    \"infinitySymbol\": \"Infinity!\",\n" +
-                    "    \"monetaryDecimalSeparator\": \".\",\n" +
-                    "    \"nanSymbol\": \"Nan!\",\n" +
-                    "    \"percentSymbol\": \"%\",\n" +
-                    "    \"permillSymbol\": \"^\"\n" +
-                    "  },\n" +
-                    "  \"defaultFormHandler\": \"non-null\",\n" +
-                    "  \"defaultYear\": 1900,\n" +
-                    "  \"exporters\": \"\",\n" +
-                    "  \"expressionNumberKind\": \"DOUBLE\",\n" +
-                    "  \"formHandlers\": \"basic\",\n" +
-                    "  \"formatters\": \"simple\",\n" +
-                    "  \"formattingConverter\": \"simple\",\n" +
-                    "  \"formulaConverter\": \"collection(text, number, basic, spreadsheet-value)\",\n" +
-                    "  \"formulaFunctions\": \"@\",\n" +
-                    "  \"frozenColumns\": \"A:B\",\n" +
-                    "  \"frozenRows\": \"1:2\",\n" +
-                    "  \"functions\": \"@\",\n" +
-                    "  \"importers\": \"\",\n" +
-                    "  \"locale\": \"en-AU\",\n" +
-                    "  \"numberFormatter\": \"number #0.0\",\n" +
-                    "  \"numberParser\": \"number #\",\n" +
-                    "  \"parsers\": \"\",\n" +
-                    "  \"precision\": 123,\n" +
-                    "  \"roundingMode\": \"FLOOR\",\n" +
-                    "  \"style\": {\n" +
-                    "    \"height\": \"50px\",\n" +
-                    "    \"width\": \"50px\"\n" +
-                    "  },\n" +
-                    "  \"textFormatter\": \"text @@\",\n" +
-                    "  \"timeFormatter\": \"time hh:mm\",\n" +
-                    "  \"timeParser\": \"time hh:mmhh:mm:ss.000\",\n" +
-                    "  \"twoDigitYear\": 31,\n" +
-                    "  \"validationFunctions\": \"@\",\n" +
-                    "  \"validationValidators\": \"\",\n" +
-                    "  \"validators\": \"\",\n" +
-                    "  \"valueSeparator\": \",\"\n" +
+                    "    \"spreadsheetId\": \"1\",\n" +
+                    "    \"auditInfo\": {\n" +
+                    "        \"createdBy\": \"user@example.com\",\n" +
+                    "        \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
+                    "        \"modifiedBy\": \"user@example.com\",\n" +
+                    "        \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
+                    "    },\n" +
+                    "    \"cellCharacterWidth\": 10,\n" +
+                    "    \"comparators\": \"\",\n" +
+                    "    \"converters\": \"basic, boolean, boolean-to-text, collection, collection-to, collection-to-list, color, color-to-color, color-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-host-address, has-parser-selector, has-spreadsheet-selection, has-style, has-text-node, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-number, number-to-text, optional-to, plugins, spreadsheet-cell-set, spreadsheet-metadata, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, storage, storage-value-info-list-to-text, style, system, template, text, text-node, text-to-boolean-list, text-to-color, text-to-csv-string-list, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-json, text-to-line-ending, text-to-locale, text-to-number-list, text-to-object, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-storage-path, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-boolean, to-json-node, to-json-text, to-number, to-styleable, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, url, url-to-hyperlink, url-to-image\",\n" +
+                    "    \"dateFormatter\": \"date DD/MM/YYYY\",\n" +
+                    "    \"dateParser\": \"date DD/MM/YYYYDDMMYYYY\",\n" +
+                    "    \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
+                    "    \"dateTimeOffset\": \"0\",\n" +
+                    "    \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                    "    \"decimalNumberDigitCount\": 8,\n" +
+                    "    \"decimalNumberSymbols\": {\n" +
+                    "        \"negativeSign\": \"-\",\n" +
+                    "        \"positiveSign\": \"+\",\n" +
+                    "        \"zeroDigit\": \"0\",\n" +
+                    "        \"currencySymbol\": \"$AUD\",\n" +
+                    "        \"decimalSeparator\": \".\",\n" +
+                    "        \"exponentSymbol\": \"E\",\n" +
+                    "        \"groupSeparator\": \",\",\n" +
+                    "        \"infinitySymbol\": \"Infinity!\",\n" +
+                    "        \"monetaryDecimalSeparator\": \".\",\n" +
+                    "        \"nanSymbol\": \"Nan!\",\n" +
+                    "        \"percentSymbol\": \"%\",\n" +
+                    "        \"permillSymbol\": \"^\"\n" +
+                    "    },\n" +
+                    "    \"defaultFormHandler\": \"non-null\",\n" +
+                    "    \"defaultYear\": 1900,\n" +
+                    "    \"exporters\": \"\",\n" +
+                    "    \"expressionNumberKind\": \"DOUBLE\",\n" +
+                    "    \"formHandlers\": \"basic\",\n" +
+                    "    \"formatters\": \"simple\",\n" +
+                    "    \"formattingConverter\": \"simple\",\n" +
+                    "    \"formulaConverter\": \"collection(text, number, basic, spreadsheet-value)\",\n" +
+                    "    \"formulaFunctions\": \"@\",\n" +
+                    "    \"frozenColumns\": \"A:B\",\n" +
+                    "    \"frozenRows\": \"1:2\",\n" +
+                    "    \"functions\": \"@\",\n" +
+                    "    \"importers\": \"\",\n" +
+                    "    \"locale\": \"en-AU\",\n" +
+                    "    \"numberFormatter\": \"number #0.0\",\n" +
+                    "    \"numberParser\": \"number #\",\n" +
+                    "    \"parsers\": \"\",\n" +
+                    "    \"precision\": 123,\n" +
+                    "    \"roundingMode\": \"FLOOR\",\n" +
+                    "    \"style\": {\n" +
+                    "        \"height\": \"50px\",\n" +
+                    "        \"width\": \"50px\"\n" +
+                    "    },\n" +
+                    "    \"textFormatter\": \"text @@\",\n" +
+                    "    \"timeFormatter\": \"time hh:mm\",\n" +
+                    "    \"timeParser\": \"time hh:mmhh:mm:ss.000\",\n" +
+                    "    \"twoDigitYear\": 31,\n" +
+                    "    \"validationFunctions\": \"@\",\n" +
+                    "    \"validationValidators\": \"\",\n" +
+                    "    \"validators\": \"\",\n" +
+                    "    \"valueSeparator\": \",\"\n" +
                     "}"
             ).setContentLength(),
             response.entity(),
@@ -313,6 +313,7 @@ public class J2clTest {
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Indentation.SPACES4,
                         lineEnding,
                         locale,
                         () -> now,
@@ -384,6 +385,7 @@ public class J2clTest {
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                Indentation.SPACES4,
                                 lineEnding,
                                 locale,
                                 LocalDateTime::now,

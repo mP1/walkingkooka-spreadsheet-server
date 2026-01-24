@@ -131,7 +131,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public Indentation indentation() {
-                return INDENTATION;
+                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.INDENTATION;
             }
 
             @Override

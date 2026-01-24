@@ -254,7 +254,7 @@ public final class PluginHateosHttpEntityHandlerListTest
 
         @Override
         public Indentation indentation() {
-            return INDENTATION;
+            return PluginHateosHttpEntityHandlerListTest.INDENTATION;
         }
 
         @Override

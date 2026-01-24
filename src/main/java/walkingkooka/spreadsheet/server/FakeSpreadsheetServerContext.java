@@ -91,6 +91,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
+    public void setIndentation(final Indentation indentation) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void setLineEnding(final LineEnding lineEnding) {
         throw new UnsupportedOperationException();
     }

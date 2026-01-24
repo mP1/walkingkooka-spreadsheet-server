@@ -321,7 +321,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
 
             @Override
             public Indentation indentation() {
-                return INDENTATION;
+                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.INDENTATION;
             }
 
             @Override

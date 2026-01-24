@@ -154,7 +154,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                 @Override
                 public Indentation indentation() {
-                    return INDENTATION;
+                    return SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION;
                 }
 
                 @Override
@@ -245,7 +245,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
-                            INDENTATION,
+                            SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION,
                             SpreadsheetLabelNameResolvers.fake(),
                             SpreadsheetMetadataTesting.LINE_ENDING,
                             LOCALE_CONTEXT,

@@ -24,6 +24,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -81,6 +82,11 @@ final class BasicSpreadsheetProviderHateosResourceHandlerContext implements Spre
             name,
             value
         );
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.hateosResourceHandlerContext.indentation();
     }
 
     @Override
