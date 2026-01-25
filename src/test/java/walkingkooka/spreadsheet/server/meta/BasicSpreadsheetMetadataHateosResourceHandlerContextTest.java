@@ -123,7 +123,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         this.checkNotEquals(
             null,
             context.httpRouter(
-                spreadsheetContext.spreadsheetId()
+                spreadsheetContext.spreadsheetIdOrFail()
             )
         );
     }
@@ -575,7 +575,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             Optional.of(LOCALE)
         );
 
-        final SpreadsheetId id = spreadsheetContext.spreadsheetId();
+        final SpreadsheetId id = spreadsheetContext.spreadsheetIdOrFail();
 
         final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(id);
 
@@ -729,7 +729,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         );
 
         final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(
-            spreadsheetContext.spreadsheetId()
+            spreadsheetContext.spreadsheetIdOrFail()
         );
 
         final HttpRequest request = new TestHttpRequest() {

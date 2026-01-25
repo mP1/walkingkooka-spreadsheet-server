@@ -85,6 +85,11 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     }
 
     @Override
+    public void testSetSpreadsheetIdWithSame() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetUserWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }

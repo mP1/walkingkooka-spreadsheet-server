@@ -57,7 +57,7 @@ public final class SpreadsheetIdRouter implements PublicStaticHelper {
                                                                       final HateosResourceHandlerContext hateosResourceHandlerContext) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
             UrlPathName.with(
-                spreadsheetEngineContext.spreadsheetId()
+                spreadsheetEngineContext.spreadsheetIdOrFail()
                     .toString()
             )
         );
