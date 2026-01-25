@@ -83,8 +83,10 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FACTORY = (c) ->
         new FakeSpreadsheetEngineContext() {
             @Override
-            public SpreadsheetId spreadsheetId() {
-                return SpreadsheetId.with(1);
+            public Optional<SpreadsheetId> spreadsheetId() {
+                return Optional.of(
+                    SpreadsheetId.with(1)
+                );
             }
 
             @Override
@@ -624,7 +626,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.spreadsheetContextAndCheck(
             spreadsheetServerContext,
-            spreadsheetContext.spreadsheetId(),
+            spreadsheetContext.spreadsheetIdOrFail(),
             spreadsheetContext
         );
     }

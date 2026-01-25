@@ -111,12 +111,12 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
-    public SpreadsheetId spreadsheetId() {
+    public Optional<SpreadsheetId> spreadsheetId() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+    public void setSpreadsheetId(final Optional<SpreadsheetId> spreadsheetId) {
         throw new UnsupportedOperationException();
     }
 

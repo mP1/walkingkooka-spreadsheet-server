@@ -361,7 +361,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             Optional.of(LOCALE)
         );
 
-        final SpreadsheetId spreadsheetId = spreadsheetContext.spreadsheetId();
+        final SpreadsheetId spreadsheetId = spreadsheetContext.spreadsheetIdOrFail();
 
         this.checkEquals(
             1L,

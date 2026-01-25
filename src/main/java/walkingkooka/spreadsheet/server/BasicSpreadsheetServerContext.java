@@ -125,7 +125,9 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final SpreadsheetId spreadsheetId = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
 
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
-        spreadsheetEnvironmentContext.setSpreadsheetId(spreadsheetId);
+        spreadsheetEnvironmentContext.setSpreadsheetId(
+            Optional.of(spreadsheetId)
+        );
 
         final ProviderContext providerContext = this.providerContext.cloneEnvironment();
         providerContext.setUser(

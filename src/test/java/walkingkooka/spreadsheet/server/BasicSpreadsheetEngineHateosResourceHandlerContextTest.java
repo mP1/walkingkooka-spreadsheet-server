@@ -98,12 +98,14 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         }
 
         @Override
-        public SpreadsheetId spreadsheetId() {
-            return BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID;
+        public Optional<SpreadsheetId> spreadsheetId() {
+            return Optional.of(
+                BasicSpreadsheetEngineHateosResourceHandlerContextTest.SPREADSHEET_ID
+            );
         }
 
         @Override
-        public void setSpreadsheetId(final SpreadsheetId spreadsheetId) {
+        public void setSpreadsheetId(final Optional<SpreadsheetId> spreadsheetId) {
             Objects.requireNonNull(spreadsheetId, "spreadsheetId");
 
             if (false == this.spreadsheetId().equals(spreadsheetId)) {
@@ -176,9 +178,10 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public SpreadsheetMetadata spreadsheetMetadata() {
-            return METADATA_EN_AU.set(
+            return METADATA_EN_AU.setOrRemove(
                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                 this.spreadsheetId()
+                    .orElse(null)
             );
         }
 
