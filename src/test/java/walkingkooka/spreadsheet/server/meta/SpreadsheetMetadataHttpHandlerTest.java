@@ -21,11 +21,15 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.FakeSpreadsheetContextSupplier;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -52,7 +56,12 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
         return SpreadsheetMetadataHttpHandler.with(
             SpreadsheetServerContexts.basic(
                 SpreadsheetEngines.fake(),
-                (id) -> SpreadsheetStoreRepositories.fake(),
+                new FakeSpreadsheetContextSupplier() {
+                    @Override
+                    public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                        throw new UnsupportedOperationException();
+                    }
+                },
                 SPREADSHEET_PROVIDER,
                 null,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,

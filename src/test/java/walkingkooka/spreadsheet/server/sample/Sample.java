@@ -49,6 +49,9 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.spreadsheet.FakeSpreadsheetContext;
+import walkingkooka.spreadsheet.FakeSpreadsheetContextSupplier;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
@@ -81,6 +84,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.storage.Storages;
 import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.server.TerminalServerContexts;
@@ -326,7 +330,19 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
                 return SpreadsheetServerContexts.basic(
                     SpreadsheetEngines.fake(),
-                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                    new FakeSpreadsheetContextSupplier() {
+                        @Override
+                        public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                            return Optional.of(
+                                new FakeSpreadsheetContext() {
+                                    @Override
+                                    public SpreadsheetStoreRepository storeRepository() {
+                                        return SpreadsheetStoreRepositories.treeMap(metadataStore);
+                                    }
+                                }
+                            );
+                        }
+                    },
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(

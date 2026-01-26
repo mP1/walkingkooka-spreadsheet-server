@@ -74,6 +74,9 @@ import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.FakeSpreadsheetContext;
+import walkingkooka.spreadsheet.FakeSpreadsheetContextSupplier;
+import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
@@ -120,6 +123,7 @@ import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.CaseSensitivity;
@@ -13361,7 +13365,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
                 return SpreadsheetServerContexts.basic(
                     SPREADSHEET_ENGINE,
-                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                    new FakeSpreadsheetContextSupplier() {
+                        @Override
+                        public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+                            return Optional.of(
+                                new FakeSpreadsheetContext() {
+                                    @Override
+                                    public SpreadsheetStoreRepository storeRepository() {
+                                        return SpreadsheetStoreRepositories.treeMap(metadataStore);
+                                    }
+                                }
+                            );
+                        }
+                    },
                     SpreadsheetProviders.basic(
                         CONVERTER_PROVIDER,
                         EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
