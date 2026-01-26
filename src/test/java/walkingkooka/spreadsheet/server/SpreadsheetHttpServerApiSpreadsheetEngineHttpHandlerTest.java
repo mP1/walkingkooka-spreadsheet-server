@@ -40,8 +40,6 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.spreadsheet.FakeSpreadsheetContext;
-import walkingkooka.spreadsheet.FakeSpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -62,7 +60,6 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
@@ -385,19 +382,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             SpreadsheetServerContexts.basic(
                 SpreadsheetEngines.basic(),
-                new FakeSpreadsheetContextSupplier() {
-                    @Override
-                    public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
-                        return Optional.of(
-                            new FakeSpreadsheetContext() {
-                                @Override
-                                public SpreadsheetStoreRepository storeRepository() {
-                                    return SpreadsheetStoreRepositories.treeMap(metadataStore);
-                                }
-                            }
-                        );
-                    }
-                },
+                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     ExpressionFunctionProviders.basic(

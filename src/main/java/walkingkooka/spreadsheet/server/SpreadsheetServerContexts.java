@@ -22,12 +22,13 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetContext;
-import walkingkooka.spreadsheet.SpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
 
 import java.util.function.Function;
@@ -38,7 +39,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
      * {@see BasicSpreadsheetServerContext}
      */
     public static SpreadsheetServerContext basic(final SpreadsheetEngine spreadsheetEngine,
-                                                 final SpreadsheetContextSupplier spreadsheetContextSupplier,
+                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
                                                  final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                                  final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
@@ -49,7 +50,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
                                                  final TerminalServerContext terminalServerContext) {
         return BasicSpreadsheetServerContext.with(
             spreadsheetEngine,
-            spreadsheetContextSupplier,
+            spreadsheetIdToSpreadsheetStoreRepository,
             spreadsheetProvider,
             spreadsheetEngineContextFactory,
             spreadsheetEnvironmentContext,
