@@ -42,10 +42,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -399,11 +397,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                     SPREADSHEET_IMPORTER_PROVIDER,
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
-                ),
-                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
-                    SpreadsheetMetadataMode.FORMULA,
-                    c,
-                    TERMINAL_CONTEXT
                 ),
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,

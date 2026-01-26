@@ -66,7 +66,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
-                                              final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                               final LocaleContext localeContext,
                                               final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -77,7 +76,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
-            Objects.requireNonNull(spreadsheetEngineContextFactory, "spreadsheetEngineContextFactory"),
             Objects.requireNonNull(spreadsheetEnvironmentContext, "spreadsheetEnvironmentContext"),
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(spreadsheetMetadataContext, "spreadsheetMetadataContext"),
@@ -90,7 +88,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     private BasicSpreadsheetServerContext(final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
-                                          final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                           final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                           final LocaleContext localeContext,
                                           final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -100,8 +97,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.spreadsheetEngine = spreadsheetEngine;
         this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
-
-        this.spreadsheetEngineContextFactory = spreadsheetEngineContextFactory;
 
         this.spreadsheetEnvironmentContext = spreadsheetEnvironmentContext;
         this.localeContext = LocaleContexts.readOnly(localeContext);
@@ -137,7 +132,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId),
-            this.spreadsheetEngineContextFactory,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
                 c,
                 this.hateosResourceHandlerContext
@@ -162,7 +156,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
             this.spreadsheetMetadataContext,
-            this.spreadsheetEngineContextFactory,
             this.spreadsheetEnvironmentContext.cloneEnvironment(),
             this.localeContext,
             this.spreadsheetProvider,
@@ -173,8 +166,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     private final SpreadsheetEngine spreadsheetEngine;
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository;
-
-    private final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory;
 
     /**
      * The default or starting {@link SpreadsheetEnvironmentContext} for each new spreadsheet.
@@ -212,7 +203,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
-                this.spreadsheetEngineContextFactory,
                 this.spreadsheetEnvironmentContext,
                 this.localeContext,
                 this.spreadsheetMetadataContext,
@@ -331,7 +321,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
-                this.spreadsheetEngineContextFactory,
                 this.spreadsheetEnvironmentContext,
                 this.localeContext,
                 this.spreadsheetMetadataContext,

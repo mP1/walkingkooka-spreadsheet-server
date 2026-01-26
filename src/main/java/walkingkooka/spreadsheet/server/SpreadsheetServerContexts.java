@@ -21,9 +21,7 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
@@ -41,7 +39,6 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
     public static SpreadsheetServerContext basic(final SpreadsheetEngine spreadsheetEngine,
                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
-                                                 final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                                  final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                                  final LocaleContext localeContext,
                                                  final SpreadsheetMetadataContext spreadsheetMetadataContext,
@@ -52,7 +49,6 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
             spreadsheetEngine,
             spreadsheetIdToSpreadsheetStoreRepository,
             spreadsheetProvider,
-            spreadsheetEngineContextFactory,
             spreadsheetEnvironmentContext,
             localeContext,
             spreadsheetMetadataContext,
