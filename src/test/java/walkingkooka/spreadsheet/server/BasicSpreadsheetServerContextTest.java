@@ -34,9 +34,7 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.environment.FakeSpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -80,26 +78,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static Function<SpreadsheetId, SpreadsheetStoreRepository> SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY = (i) -> SpreadsheetStoreRepositories.fake();
 
-    private final static Function<SpreadsheetContext, SpreadsheetEngineContext> SPREADSHEET_ENGINE_CONTEXT_FACTORY = (c) ->
-        new FakeSpreadsheetEngineContext() {
-            @Override
-            public Optional<SpreadsheetId> spreadsheetId() {
-                return Optional.of(
-                    SpreadsheetId.with(1)
-                );
-            }
-
-            @Override
-            public SpreadsheetStoreRepository storeRepository() {
-                return new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return SpreadsheetLabelStores.fake();
-                    }
-                };
-            }
-        };
-
     private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = SpreadsheetMetadataContexts.fake();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = new FakeHateosResourceHandlerContext() {
@@ -128,7 +106,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 null,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -147,7 +124,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -165,26 +141,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
-                null,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
-                SPREADSHEET_ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT,
-                SPREADSHEET_METADATA_CONTEXT,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT,
-                TERMINAL_SERVER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetEngineContextFactoryFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
-                SPREADSHEET_ENGINE,
-                SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
-                SPREADSHEET_PROVIDER,
                 null,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
@@ -204,7 +160,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 null,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -223,7 +178,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 null,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -242,7 +196,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 null,
@@ -261,7 +214,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -280,7 +232,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -299,7 +250,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -351,7 +301,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 }
             },
             SPREADSHEET_PROVIDER,
-            SPREADSHEET_ENGINE_CONTEXT_FACTORY,
             spreadsheetEnvironmentContext,
             LOCALE_CONTEXT,
             SpreadsheetMetadataContexts.basic(
@@ -649,7 +598,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             SPREADSHEET_ENGINE,
             SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
             SPREADSHEET_PROVIDER,
-            SPREADSHEET_ENGINE_CONTEXT_FACTORY,
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             LOCALE_CONTEXT,
             SPREADSHEET_METADATA_CONTEXT,
@@ -765,7 +713,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
-                SPREADSHEET_ENGINE_CONTEXT_FACTORY,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,

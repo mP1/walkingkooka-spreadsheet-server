@@ -78,8 +78,6 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
-import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfo;
@@ -13372,11 +13370,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SPREADSHEET_IMPORTER_PROVIDER,
                         SPREADSHEET_PARSER_PROVIDER,
                         VALIDATOR_PROVIDER
-                    ),
-                    (c) -> SpreadsheetEngineContexts.spreadsheetContext(
-                        SpreadsheetMetadataMode.FORMULA,
-                        c,
-                        TERMINAL_CONTEXT
                     ),
                     SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
                     LOCALE_CONTEXT,

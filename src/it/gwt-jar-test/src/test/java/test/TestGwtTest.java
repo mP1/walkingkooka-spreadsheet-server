@@ -54,8 +54,6 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
-import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterAliasSet;
@@ -83,7 +81,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.storage.Storages;
-import walkingkooka.terminal.TerminalContexts;
 import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -351,11 +348,6 @@ public class TestGwtTest extends GWTTestCase {
                         SpreadsheetImporterProviders.spreadsheetImport(),
                         spreadsheetParserProvider,
                         ValidatorProviders.validators()
-                    ),
-                    (c) -> SpreadsheetEngineContexts.spreadsheetContext(
-                        SpreadsheetMetadataMode.FORMULA,
-                        c,
-                        TerminalContexts.fake()
                     ),
                     SpreadsheetEnvironmentContexts.basic(
                         Storages.fake(),

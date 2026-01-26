@@ -51,9 +51,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
@@ -994,11 +992,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
                 ), // SpreadsheetProvider
-                (c) -> SpreadsheetEngineContexts.spreadsheetContext(
-                    SpreadsheetMetadataMode.FORMULA,
-                    c,
-                    TERMINAL_CONTEXT
-                ),
                 spreadsheetEnvironmentContext,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(
