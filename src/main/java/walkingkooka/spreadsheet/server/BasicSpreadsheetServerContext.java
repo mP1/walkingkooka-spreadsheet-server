@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -40,7 +41,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -64,7 +64,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator {
 
     static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
-                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+                                              final SpreadsheetContextSupplier spreadsheetContextSupplier,
                                               final SpreadsheetProvider spreadsheetProvider,
                                               final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
@@ -75,7 +75,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
-            Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
+            Objects.requireNonNull(spreadsheetContextSupplier, "spreadsheetContextSupplier"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(spreadsheetEngineContextFactory, "spreadsheetEngineContextFactory"),
             Objects.requireNonNull(spreadsheetEnvironmentContext, "spreadsheetEnvironmentContext"),
@@ -88,7 +88,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
     
     private BasicSpreadsheetServerContext(final SpreadsheetEngine spreadsheetEngine,
-                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+                                          final SpreadsheetContextSupplier spreadsheetContextSupplier,
                                           final SpreadsheetProvider spreadsheetProvider,
                                           final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory,
                                           final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
@@ -98,7 +98,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final ProviderContext providerContext,
                                           final TerminalServerContext terminalServerContext) {
         this.spreadsheetEngine = spreadsheetEngine;
-        this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
+        this.spreadsheetContextSupplier = spreadsheetContextSupplier;
         this.spreadsheetProvider = spreadsheetProvider;
 
         this.spreadsheetEngineContextFactory = spreadsheetEngineContextFactory;
@@ -136,7 +136,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.spreadsheetEngine,
-            this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId),
+            this.spreadsheetContextSupplier.spreadsheetContextOrFail(spreadsheetId)
+                .storeRepository(),
             this.spreadsheetEngineContextFactory,
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
                 c,
@@ -160,7 +161,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     public SpreadsheetContext createSpreadsheetContext() {
         return SpreadsheetContexts.mutableSpreadsheetId(
             this.spreadsheetEngine,
-            this.spreadsheetIdToSpreadsheetStoreRepository::apply,
+            this.spreadsheetContextSupplier,
             this.spreadsheetMetadataContext,
             this.spreadsheetEngineContextFactory,
             this.spreadsheetEnvironmentContext.cloneEnvironment(),
@@ -172,7 +173,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     private final SpreadsheetEngine spreadsheetEngine;
 
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository;
+    private final SpreadsheetContextSupplier spreadsheetContextSupplier;
 
     private final Function<SpreadsheetContext, SpreadsheetEngineContext> spreadsheetEngineContextFactory;
 
@@ -210,7 +211,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this :
             new BasicSpreadsheetServerContext(
                 this.spreadsheetEngine,
-                this.spreadsheetIdToSpreadsheetStoreRepository,
+                this.spreadsheetContextSupplier,
                 this.spreadsheetProvider,
                 this.spreadsheetEngineContextFactory,
                 this.spreadsheetEnvironmentContext,
@@ -329,7 +330,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this :
             new BasicSpreadsheetServerContext(
                 this.spreadsheetEngine,
-                this.spreadsheetIdToSpreadsheetStoreRepository,
+                this.spreadsheetContextSupplier,
                 this.spreadsheetProvider,
                 this.spreadsheetEngineContextFactory,
                 this.spreadsheetEnvironmentContext,
