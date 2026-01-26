@@ -49,8 +49,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.FakeSpreadsheetContext;
-import walkingkooka.spreadsheet.FakeSpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -76,7 +74,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -969,19 +966,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
                 SPREADSHEET_ENGINE,
-                new FakeSpreadsheetContextSupplier() {
-                    @Override
-                    public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
-                        return Optional.of(
-                            new FakeSpreadsheetContext() {
-                                @Override
-                                public SpreadsheetStoreRepository storeRepository() {
-                                    return SpreadsheetStoreRepositories.treeMap(metadataStore);
-                                }
-                            }
-                        );
-                    }
-                },
+                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     new FakeExpressionFunctionProvider<>() {

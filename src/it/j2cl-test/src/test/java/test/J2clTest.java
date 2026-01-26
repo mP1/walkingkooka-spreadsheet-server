@@ -52,14 +52,11 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
-import walkingkooka.spreadsheet.FakeSpreadsheetContext;
-import walkingkooka.spreadsheet.FakeSpreadsheetContextSupplier;
-import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
@@ -331,19 +328,7 @@ public class J2clTest {
 
                 return SpreadsheetServerContexts.basic(
                     SpreadsheetEngines.fake(),
-                    new FakeSpreadsheetContextSupplier() {
-                        @Override
-                        public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
-                            return Optional.of(
-                                new FakeSpreadsheetContext() {
-                                    @Override
-                                    public SpreadsheetStoreRepository storeRepository() {
-                                        return SpreadsheetStoreRepositories.treeMap(metadataStore);
-                                    }
-                                }
-                            );
-                        }
-                    },
+                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
