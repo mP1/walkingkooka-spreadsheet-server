@@ -969,14 +969,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testMetadataGetUnknownNotFound() {
         final TestHttpServer server = this.startServer();
 
+        final String message = SpreadsheetId.with(0x99)
+            .missingSpreadsheetException()
+            .getMessage();
+
         server.handleAndCheck(
             HttpMethod.GET,
             "/api/spreadsheet/99",
             NO_HEADERS_TRANSACTION_ID,
             "",
             HttpStatusCode.NO_CONTENT.status()
-                .setMessage("SpreadsheetMetadata: Missing 99"),
-            "SpreadsheetMetadata: Missing 99"
+                .setMessage(message),
+            message
         );
     }
 
