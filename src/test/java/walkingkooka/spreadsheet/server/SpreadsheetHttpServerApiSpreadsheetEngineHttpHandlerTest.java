@@ -380,7 +380,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             SpreadsheetServerContexts.basic(
                 SpreadsheetEngines.basic(),
-                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                (id) -> Optional.of(
+                    SpreadsheetStoreRepositories.treeMap(metadataStore)
+                ),
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     ExpressionFunctionProviders.basic(

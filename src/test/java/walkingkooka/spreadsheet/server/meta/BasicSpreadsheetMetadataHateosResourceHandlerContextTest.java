@@ -964,7 +964,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
                 SPREADSHEET_ENGINE,
-                (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                (id) -> Optional.of(
+                    SpreadsheetStoreRepositories.treeMap(metadataStore)
+                ),
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
                     new FakeExpressionFunctionProvider<>() {

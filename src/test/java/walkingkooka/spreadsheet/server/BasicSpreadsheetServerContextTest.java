@@ -76,7 +76,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
 
-    private final static Function<SpreadsheetId, SpreadsheetStoreRepository> SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY = (i) -> SpreadsheetStoreRepositories.fake();
+    private final static Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY = (i) -> Optional.of(SpreadsheetStoreRepositories.fake());
 
     private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = SpreadsheetMetadataContexts.fake();
 
@@ -288,18 +288,20 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         return BasicSpreadsheetServerContext.with(
             SPREADSHEET_ENGINE,
-            (id) -> new FakeSpreadsheetStoreRepository() {
+            (id) -> Optional.of(
+                new FakeSpreadsheetStoreRepository() {
 
-                @Override
-                public SpreadsheetLabelStore labels() {
-                    return SpreadsheetLabelStores.fake();
-                }
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return SpreadsheetLabelStores.fake();
+                    }
 
-                @Override
-                public SpreadsheetMetadataStore metadatas() {
-                    return spreadsheetMetadataStore;
+                    @Override
+                    public SpreadsheetMetadataStore metadatas() {
+                        return spreadsheetMetadataStore;
+                    }
                 }
-            },
+            ),
             SPREADSHEET_PROVIDER,
             spreadsheetEnvironmentContext,
             LOCALE_CONTEXT,

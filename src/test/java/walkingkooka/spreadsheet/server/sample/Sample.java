@@ -323,7 +323,9 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
                 return SpreadsheetServerContexts.basic(
                     SpreadsheetEngines.fake(),
-                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                    (id) -> Optional.of(
+                        SpreadsheetStoreRepositories.treeMap(metadataStore)
+                    ),
                     SpreadsheetProviders.basic(
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(

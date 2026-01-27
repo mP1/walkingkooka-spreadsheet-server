@@ -13363,7 +13363,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
                 return SpreadsheetServerContexts.basic(
                     SPREADSHEET_ENGINE,
-                    (id) -> SpreadsheetStoreRepositories.treeMap(metadataStore),
+                    (id) -> Optional.of(
+                        SpreadsheetStoreRepositories.treeMap(metadataStore)
+                    ),
                     SpreadsheetProviders.basic(
                         CONVERTER_PROVIDER,
                         EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above

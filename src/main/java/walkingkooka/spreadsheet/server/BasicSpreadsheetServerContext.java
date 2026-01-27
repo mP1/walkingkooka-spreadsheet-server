@@ -64,7 +64,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator {
 
     static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
-                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+                                              final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                               final LocaleContext localeContext,
@@ -86,7 +86,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     private BasicSpreadsheetServerContext(final SpreadsheetEngine spreadsheetEngine,
-                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository,
+                                          final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
                                           final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                           final LocaleContext localeContext,
@@ -131,7 +131,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.spreadsheetEngine,
-            this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId),
+            this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
+                .orElseThrow(spreadsheetId::missingSpreadsheetException),
             (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
                 c,
                 this.hateosResourceHandlerContext
@@ -165,7 +166,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     private final SpreadsheetEngine spreadsheetEngine;
 
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToSpreadsheetStoreRepository;
+    private final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository;
 
     /**
      * The default or starting {@link SpreadsheetEnvironmentContext} for each new spreadsheet.
