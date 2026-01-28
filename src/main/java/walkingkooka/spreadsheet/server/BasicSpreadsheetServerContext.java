@@ -42,8 +42,11 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
+import walkingkooka.text.CaseKind;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -61,7 +64,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetEnvironmentContextDelegator,
     LocaleContextDelegator,
     HateosResourceHandlerContextDelegator,
-    SpreadsheetProviderDelegator {
+    SpreadsheetProviderDelegator,
+    TreePrintable {
 
     static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
@@ -354,5 +358,76 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     @Override
     public String toString() {
         return this.spreadsheetEnvironmentContext + " " + this.localeContext + " " + this.spreadsheetProvider;
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+        printer.indent();
+        {
+            this.printTreeWithLabel(
+                printer,
+                SpreadsheetEnvironmentContext.class.getSimpleName(),
+                this.spreadsheetEnvironmentContext
+            );
+
+            this.printTreeWithLabel(
+                printer,
+                LocaleContext.class.getSimpleName(),
+                this.localeContext
+            );
+
+            this.printTreeWithLabel(
+                printer,
+                SpreadsheetMetadataContext.class.getSimpleName(),
+                this.spreadsheetMetadataContext
+            );
+
+            this.printTreeWithLabel(
+                printer,
+                HateosResourceHandlerContext.class.getSimpleName(),
+                this.hateosResourceHandlerContext
+            );
+
+            this.printTreeWithLabel(
+                printer,
+                SpreadsheetProvider.class.getSimpleName(),
+                this.spreadsheetProvider
+            );
+
+            this.printTreeWithLabel(
+                printer,
+                ProviderContext.class.getSimpleName(),
+                this.providerContext
+            );
+
+            this.printTreeWithLabel(
+                printer,
+                TerminalServerContext.class.getSimpleName(),
+                this.terminalServerContext
+            );
+        }
+        printer.outdent();
+    }
+
+    private void printTreeWithLabel(final IndentingPrinter printer,
+                                    final String label,
+                                    final Object print) {
+        printer.println(
+            CaseKind.PASCAL.change(
+                label,
+                CaseKind.CAMEL
+            )
+        );
+        printer.indent();
+        {
+            TreePrintable.printTreeOrToString(
+                print,
+                printer
+            );
+        }
+        printer.outdent();
     }
 }
