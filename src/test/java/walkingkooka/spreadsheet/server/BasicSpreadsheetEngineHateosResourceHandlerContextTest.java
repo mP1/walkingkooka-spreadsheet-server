@@ -42,6 +42,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -59,6 +60,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.storage.Storage;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.Storages;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
@@ -156,6 +158,19 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         private final EnvironmentContext environmentContext;
 
+        @Override
+        public Optional<StoragePath> currentWorkingDirectory() {
+            return this.environmentContext.environmentValue(SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY);
+        }
+
+        @Override
+        public void setCurrentWorkingDirectory(final Optional<StoragePath> currentWorkingDirectory) {
+            this.environmentContext.setOrRemoveEnvironmentValue(
+                SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY,
+                currentWorkingDirectory
+            );
+        }
+        
         @Override
         public Locale locale() {
             return this.environmentContext.locale();

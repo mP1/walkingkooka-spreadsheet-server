@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
 import walkingkooka.storage.Storage;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -87,6 +88,16 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     @Override
     public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<StoragePath> currentWorkingDirectory() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCurrentWorkingDirectory(final Optional<StoragePath> currentWorkingDirectory) {
         throw new UnsupportedOperationException();
     }
 
