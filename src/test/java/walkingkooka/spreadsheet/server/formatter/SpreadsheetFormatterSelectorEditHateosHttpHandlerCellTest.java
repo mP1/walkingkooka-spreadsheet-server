@@ -53,6 +53,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -789,6 +790,11 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;
+            }
+
+            @Override
+            public Optional<StoragePath> currentWorkingDirectory() {
+                return SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest.CURRENT_WORKING_DIRECTORY;
             }
 
             @Override

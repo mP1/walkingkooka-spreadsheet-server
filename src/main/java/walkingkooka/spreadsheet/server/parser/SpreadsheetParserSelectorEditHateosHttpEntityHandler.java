@@ -113,6 +113,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                             SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
                             v
                         ),
+                    context.currentWorkingDirectory(),
                     context.indentation(),
                     SpreadsheetLabelNameResolvers.empty(),
                     context.lineEnding(),

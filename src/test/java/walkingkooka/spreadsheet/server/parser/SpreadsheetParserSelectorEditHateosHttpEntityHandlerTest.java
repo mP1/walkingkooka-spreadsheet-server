@@ -50,6 +50,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -153,6 +154,11 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 }
 
                 @Override
+                public Optional<StoragePath> currentWorkingDirectory() {
+                    return SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY;
+                }
+
+                @Override
                 public Indentation indentation() {
                     return SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION;
                 }
@@ -245,6 +251,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
+                            SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY,
                             SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION,
                             SpreadsheetLabelNameResolvers.fake(),
                             SpreadsheetMetadataTesting.LINE_ENDING,
