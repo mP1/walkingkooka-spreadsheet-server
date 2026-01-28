@@ -260,127 +260,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         );
     }
 
-    @Override
-    public BasicSpreadsheetServerContext createContext() {
-        return this.createContext(USER);
-    }
-
-    private BasicSpreadsheetServerContext createContext(final EmailAddress user) {
-        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
-        environmentContext.setUser(
-            Optional.of(user)
-        );
-        environmentContext.setEnvironmentValue(
-            SpreadsheetEnvironmentContext.SPREADSHEET_ID,
-            SPREADSHEET_ID
-        );
-
-        return this.createContext(
-            SpreadsheetEnvironmentContexts.basic(
-                STORAGE,
-                environmentContext
-            )
-        );
-    }
-
-    private BasicSpreadsheetServerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
-        final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
-
-        return BasicSpreadsheetServerContext.with(
-            SPREADSHEET_ENGINE,
-            (id) -> Optional.of(
-                new FakeSpreadsheetStoreRepository() {
-
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return SpreadsheetLabelStores.fake();
-                    }
-
-                    @Override
-                    public SpreadsheetMetadataStore metadatas() {
-                        return spreadsheetMetadataStore;
-                    }
-                }
-            ),
-            SPREADSHEET_PROVIDER,
-            spreadsheetEnvironmentContext,
-            LOCALE_CONTEXT,
-            SpreadsheetMetadataContexts.basic(
-                (u, l) -> {
-                    final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        l.get()
-                    ).set(
-                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                        AuditInfo.create(
-                            u,
-                            LocalDateTime.MIN
-                        )
-                    );
-                    spreadsheetMetadataStore.save(metadata);
-                    return metadata;
-                },
-                SpreadsheetMetadataStores.treeMap()
-            ),
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SpreadsheetProviderContexts.spreadsheet(
-                PluginStores.fake(),
-                SpreadsheetMetadata.EMPTY.set(
-                    SpreadsheetMetadataPropertyName.LOCALE,
-                    LOCALE
-                ).set(
-                    SpreadsheetMetadataPropertyName.DATE_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.DATE_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_PARSER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.DATE_TIME_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.NUMBER_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.NUMBER_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.TIME_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_FORMATTER)
-                ).set(
-                    SpreadsheetMetadataPropertyName.TIME_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
-                ).spreadsheetEnvironmentContext(
-                    SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
-                ),
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-                LOCALE_CONTEXT
-            ),
-            new FakeTerminalServerContext() {
-
-                @Override
-                public Optional<TerminalContext> terminalContext(final TerminalId id) {
-                    Objects.requireNonNull(id, "id");
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public TerminalServerContext removeTerminalContext(final TerminalId id) {
-                    Objects.requireNonNull(id, "id");
-                    throw new UnsupportedOperationException();
-                }
-            }
-        );
-    }
-
     // serverUrl........................................................................................................
 
     @Test
@@ -705,7 +584,128 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             user
         );
     }
-    
+
+    @Override
+    public BasicSpreadsheetServerContext createContext() {
+        return this.createContext(USER);
+    }
+
+    private BasicSpreadsheetServerContext createContext(final EmailAddress user) {
+        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        environmentContext.setUser(
+            Optional.of(user)
+        );
+        environmentContext.setEnvironmentValue(
+            SpreadsheetEnvironmentContext.SPREADSHEET_ID,
+            SPREADSHEET_ID
+        );
+
+        return this.createContext(
+            SpreadsheetEnvironmentContexts.basic(
+                STORAGE,
+                environmentContext
+            )
+        );
+    }
+
+    private BasicSpreadsheetServerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
+        final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
+
+        return BasicSpreadsheetServerContext.with(
+            SPREADSHEET_ENGINE,
+            (id) -> Optional.of(
+                new FakeSpreadsheetStoreRepository() {
+
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return SpreadsheetLabelStores.fake();
+                    }
+
+                    @Override
+                    public SpreadsheetMetadataStore metadatas() {
+                        return spreadsheetMetadataStore;
+                    }
+                }
+            ),
+            SPREADSHEET_PROVIDER,
+            spreadsheetEnvironmentContext,
+            LOCALE_CONTEXT,
+            SpreadsheetMetadataContexts.basic(
+                (u, l) -> {
+                    final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        l.get()
+                    ).set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        AuditInfo.create(
+                            u,
+                            LocalDateTime.MIN
+                        )
+                    );
+                    spreadsheetMetadataStore.save(metadata);
+                    return metadata;
+                },
+                SpreadsheetMetadataStores.treeMap()
+            ),
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            SpreadsheetProviderContexts.spreadsheet(
+                PluginStores.fake(),
+                SpreadsheetMetadata.EMPTY.set(
+                    SpreadsheetMetadataPropertyName.LOCALE,
+                    LOCALE
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.DATE_TIME_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.NUMBER_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.NUMBER_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TIME_FORMATTER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TIME_PARSER,
+                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
+                ).spreadsheetEnvironmentContext(
+                    SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
+                ),
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                LOCALE_CONTEXT
+            ),
+            new FakeTerminalServerContext() {
+
+                @Override
+                public Optional<TerminalContext> terminalContext(final TerminalId id) {
+                    Objects.requireNonNull(id, "id");
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public TerminalServerContext removeTerminalContext(final TerminalId id) {
+                    Objects.requireNonNull(id, "id");
+                    throw new UnsupportedOperationException();
+                }
+            }
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
