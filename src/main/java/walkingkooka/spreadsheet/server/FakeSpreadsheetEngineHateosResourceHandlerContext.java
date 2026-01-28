@@ -73,6 +73,7 @@ import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.Storage;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -116,6 +117,16 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     // SpreadsheetContext...............................................................................................
+
+    @Override
+    public Optional<StoragePath> currentWorkingDirectory() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCurrentWorkingDirectory(final Optional<StoragePath> currentWorkingDirectory) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public Optional<SpreadsheetId> spreadsheetId() {
