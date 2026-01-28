@@ -71,6 +71,7 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
                             },
+                            context.currentWorkingDirectory(),
                             context.indentation(),
                             context, // SpreadsheetLabelNameResolver
                             context.lineEnding(),

@@ -42,6 +42,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -128,6 +129,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public Optional<StoragePath> currentWorkingDirectory() {
+                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY;
+            }
 
             @Override
             public Indentation indentation() {
