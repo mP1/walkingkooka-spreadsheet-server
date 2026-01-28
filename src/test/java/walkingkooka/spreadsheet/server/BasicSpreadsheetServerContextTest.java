@@ -646,10 +646,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                             LocalDateTime.MIN
                         )
                     );
-                    spreadsheetMetadataStore.save(metadata);
-                    return metadata;
+                    return spreadsheetMetadataStore.save(metadata);
                 },
-                SpreadsheetMetadataStores.treeMap()
+                spreadsheetMetadataStore
             ),
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SpreadsheetProviderContexts.spreadsheet(
