@@ -29,6 +29,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcesso
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
@@ -104,6 +105,16 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
 
     @Override
     public void setLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ZoneOffset timeOffset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setTimeOffset(final ZoneOffset timeOffset) {
         throw new UnsupportedOperationException();
     }
 

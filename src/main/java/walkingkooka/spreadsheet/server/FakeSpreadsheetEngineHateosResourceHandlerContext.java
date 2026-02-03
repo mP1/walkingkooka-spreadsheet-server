@@ -99,6 +99,7 @@ import walkingkooka.validation.provider.ValidatorName;
 import walkingkooka.validation.provider.ValidatorSelector;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -559,6 +560,16 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public void setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ZoneOffset timeOffset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setTimeOffset(final ZoneOffset timeOffset) {
         throw new UnsupportedOperationException();
     }
 
