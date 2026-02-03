@@ -44,6 +44,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -128,6 +129,16 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     @Override
     public void setSpreadsheetId(final Optional<SpreadsheetId> spreadsheetId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ZoneOffset timeOffset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setTimeOffset(final ZoneOffset timeOffset) {
         throw new UnsupportedOperationException();
     }
 
