@@ -130,6 +130,16 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public Optional<StoragePath> homeDirectory() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setHomeDirectory(final Optional<StoragePath> homeDirectory) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<SpreadsheetId> spreadsheetId() {
         throw new UnsupportedOperationException();
     }

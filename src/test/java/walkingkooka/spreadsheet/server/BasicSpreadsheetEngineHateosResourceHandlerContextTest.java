@@ -170,6 +170,19 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
                 currentWorkingDirectory
             );
         }
+
+        @Override
+        public Optional<StoragePath> homeDirectory() {
+            return this.environmentContext.environmentValue(SpreadsheetEnvironmentContext.HOME_DIRECTORY);
+        }
+
+        @Override
+        public void setHomeDirectory(final Optional<StoragePath> homeDirectory) {
+            this.environmentContext.setOrRemoveEnvironmentValue(
+                SpreadsheetEnvironmentContext.HOME_DIRECTORY,
+                homeDirectory
+            );
+        }
         
         @Override
         public Locale locale() {

@@ -251,7 +251,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
-                            SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY,
+                            HAS_USER_DIRECTORIES,
                             SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION,
                             SpreadsheetLabelNameResolvers.fake(),
                             SpreadsheetMetadataTesting.LINE_ENDING,

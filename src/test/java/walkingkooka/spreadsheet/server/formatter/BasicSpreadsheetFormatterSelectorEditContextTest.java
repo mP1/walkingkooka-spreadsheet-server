@@ -39,6 +39,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
+import walkingkooka.storage.HasUserDirectorieses;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -116,7 +117,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
         final Locale locale = Locale.forLanguageTag("EN-AU");
 
         return SpreadsheetConverterContexts.basic(
-            SpreadsheetConverterContext.NO_CURRENT_WORKING_DIRECTORY,
+            HasUserDirectorieses.fake(),
             SpreadsheetConverterContexts.NO_METADATA,
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
