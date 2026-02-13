@@ -38,6 +38,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,6 +53,7 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
             Predicates.always(), // all values read-only
             EnvironmentContexts.map(
                 EnvironmentContexts.empty(
+                    Currency.getInstance("AUD"),
                     Indentation.SPACES4,
                     LineEnding.NL,
                     Locale.FRANCE,

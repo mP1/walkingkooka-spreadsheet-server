@@ -103,6 +103,7 @@ import walkingkooka.validation.provider.ValidatorProviders;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -310,6 +311,7 @@ public class J2clTest {
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Currency.getInstance("AUD"),
                         Indentation.SPACES4,
                         lineEnding,
                         locale,
@@ -379,6 +381,7 @@ public class J2clTest {
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                Currency.getInstance("AUD"),
                                 Indentation.SPACES4,
                                 lineEnding,
                                 locale,

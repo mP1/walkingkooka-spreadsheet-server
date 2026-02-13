@@ -65,6 +65,11 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     }
 
     @Override
+    public void testSetCurrencyWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
