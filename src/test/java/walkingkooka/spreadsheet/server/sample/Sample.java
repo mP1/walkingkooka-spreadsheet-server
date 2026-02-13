@@ -100,6 +100,7 @@ import walkingkooka.validation.provider.ValidatorProviders;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -309,6 +310,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Currency.getInstance("AUD"),
                         Indentation.SPACES4,
                         lineEnding,
                         locale,
@@ -378,6 +380,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                Currency.getInstance("AUD"),
                                 Indentation.SPACES4,
                                 lineEnding,
                                 locale,

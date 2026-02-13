@@ -550,6 +550,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final EnvironmentContext environmentContext = EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                CURRENCY,
                 INDENTATION,
                 LINE_ENDING,
                 LOCALE,
@@ -899,6 +900,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Override
     public void testSetEnvironmentContextWithEqualEnvironmentContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetCurrencyWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
