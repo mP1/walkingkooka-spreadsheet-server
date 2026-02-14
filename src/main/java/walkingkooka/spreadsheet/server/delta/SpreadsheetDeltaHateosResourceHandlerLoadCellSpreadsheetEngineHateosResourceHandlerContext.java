@@ -42,6 +42,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -170,6 +171,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public void setLocale(final Locale locale) {
         this.context.setLocale(locale);
+    }
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        return this.context.currencyForCurrencyCode(currencyCode);
     }
 
     @Override

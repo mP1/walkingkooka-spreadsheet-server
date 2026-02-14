@@ -414,6 +414,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                     }
                 }
             ),
+            CURRENCY_CONTEXT,
             spreadsheetEnvironmentContext,
             LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,

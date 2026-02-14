@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.currency.CurrencyContexts;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
@@ -353,6 +354,7 @@ public class TestGwtTest extends GWTTestCase {
                         spreadsheetParserProvider,
                         ValidatorProviders.validators()
                     ),
+                    CurrencyContexts.fake(),
                     SpreadsheetEnvironmentContexts.basic(
                         Storages.fake(),
                         environmentContext
