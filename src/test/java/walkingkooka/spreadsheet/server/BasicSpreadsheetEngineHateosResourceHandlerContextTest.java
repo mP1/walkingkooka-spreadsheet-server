@@ -19,6 +19,8 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.currency.CurrencyContext;
+import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentContexts;
@@ -66,6 +68,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
 import java.math.MathContext;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -90,6 +93,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
     final static class TestSpreadsheetContext implements SpreadsheetContext,
         EnvironmentContextDelegator,
+        CurrencyContextDelegator,
         LocaleContextDelegator,
         SpreadsheetProviderDelegator,
         SpreadsheetMetadataContextDelegator {
@@ -159,6 +163,16 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         private final EnvironmentContext environmentContext;
 
         @Override
+        public Currency currency() {
+            return this.environmentContext.currency();
+        }
+
+        @Override
+        public void setCurrency(final Currency currency) {
+            this.environmentContext.setCurrency(currency);
+        }
+        
+        @Override
         public Optional<StoragePath> currentWorkingDirectory() {
             return this.environmentContext.environmentValue(SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY);
         }
@@ -199,6 +213,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             return Storages.fake();
         }
 
+        @Override
+        public CurrencyContext currencyContext() {
+            return CURRENCY_CONTEXT;
+        }
+        
         @Override
         public LocaleContext localeContext() {
             return LOCALE_CONTEXT;

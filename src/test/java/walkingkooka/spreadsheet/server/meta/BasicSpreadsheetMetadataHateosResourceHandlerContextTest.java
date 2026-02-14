@@ -1005,6 +1005,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     SPREADSHEET_PARSER_PROVIDER,
                     VALIDATOR_PROVIDER
                 ), // SpreadsheetProvider
+                CURRENCY_CONTEXT,
                 spreadsheetEnvironmentContext,
                 LOCALE_CONTEXT,
                 SpreadsheetMetadataContexts.basic(

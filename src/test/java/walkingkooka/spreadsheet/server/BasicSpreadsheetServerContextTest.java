@@ -110,6 +110,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 null,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -128,6 +129,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -145,6 +147,26 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             () -> BasicSpreadsheetServerContext.with(
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
+                null,
+                CURRENCY_CONTEXT,
+                SPREADSHEET_ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullCurrencyContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                SPREADSHEET_ENGINE,
+                SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
+                SPREADSHEET_PROVIDER,
                 null,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
@@ -164,6 +186,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 null,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -182,6 +205,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 null,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -200,6 +224,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 null,
@@ -218,6 +243,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -236,6 +262,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -254,6 +281,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -484,6 +512,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             SPREADSHEET_ENGINE,
             SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
             SPREADSHEET_PROVIDER,
+            CURRENCY_CONTEXT,
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             LOCALE_CONTEXT,
             SPREADSHEET_METADATA_CONTEXT,
@@ -633,6 +662,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 }
             ),
             SPREADSHEET_PROVIDER,
+            CURRENCY_CONTEXT,
             spreadsheetEnvironmentContext,
             LOCALE_CONTEXT,
             SpreadsheetMetadataContexts.basic(
@@ -719,6 +749,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 SPREADSHEET_METADATA_CONTEXT,
@@ -739,6 +770,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
+                CURRENCY_CONTEXT,
                 SPREADSHEET_ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT,
                 new TestSpreadsheetMetadataContext(),
@@ -747,6 +779,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 new TestTerminalServerContext()
             ),
             "BasicSpreadsheetServerContext\n" +
+                "  currencyContext\n" +
+                "    JDK (walkingkooka.currency.ReadOnlyCurrencyContext)\n" +
                 "  spreadsheetEnvironmentContext\n" +
                 "    BasicSpreadsheetEnvironmentContext\n" +
                 "      environment\n" +

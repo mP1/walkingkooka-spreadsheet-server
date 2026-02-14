@@ -42,6 +42,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -176,6 +177,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        return this.engineContext.currencyForCurrencyCode(currencyCode);
+    }
+
+    @Override
     public SpreadsheetMetadata spreadsheetMetadata() {
         return this.engineContext.spreadsheetMetadata();
     }
@@ -242,6 +248,16 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.engineContext.removeEnvironmentValue(name);
+    }
+
+    @Override
+    public Currency currency() {
+        return this.engineContext.currency();
+    }
+
+    @Override
+    public void setCurrency(final Currency currency) {
+        this.engineContext.setCurrency(currency);
     }
 
     @Override
