@@ -152,31 +152,6 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     // SpreadsheetEngineContextDelegator................................................................................
 
     @Override
-    public Indentation indentation() {
-        return this.engineContext.indentation();
-    }
-
-    @Override
-    public LineEnding lineEnding() {
-        return this.engineContext.lineEnding();
-    }
-
-    @Override
-    public void setLineEnding(final LineEnding lineEnding) {
-        this.engineContext.setLineEnding(lineEnding);
-    }
-    
-    @Override
-    public Locale locale() {
-        return this.engineContext.locale();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        this.engineContext.setLocale(locale);
-    }
-
-    @Override
     public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
         return this.engineContext.currencyForCurrencyCode(currencyCode);
     }
@@ -258,6 +233,31 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public void setCurrency(final Currency currency) {
         this.engineContext.setCurrency(currency);
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.engineContext.indentation();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.engineContext.lineEnding();
+    }
+
+    @Override
+    public void setLineEnding(final LineEnding lineEnding) {
+        this.engineContext.setLineEnding(lineEnding);
+    }
+
+    @Override
+    public Locale locale() {
+        return this.engineContext.locale();
+    }
+
+    @Override
+    public void setLocale(final Locale locale) {
+        this.engineContext.setLocale(locale);
     }
 
     @Override
