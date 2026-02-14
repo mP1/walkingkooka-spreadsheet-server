@@ -124,16 +124,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         return SpreadsheetServerMediaTypes.CONTENT_TYPE;
     }
 
-    @Override
-    public Indentation indentation() {
-        return this.context.indentation();
-    }
-
-    @Override
-    public LineEnding lineEnding() {
-        return this.context.lineEnding();
-    }
-
     // must be overridden because of clashes between various XXXDelegators
 
     @Override
@@ -157,21 +147,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     // SpreadsheetEngineContext.........................................................................................
-
-    @Override
-    public void setLineEnding(final LineEnding lineEnding) {
-        this.context.setLineEnding(lineEnding);
-    }
-    
-    @Override
-    public Locale locale() {
-        return this.context.locale();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        this.context.setLocale(locale);
-    }
 
     @Override
     public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
@@ -240,6 +215,31 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
         this.context.removeEnvironmentValue(name);
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.context.indentation();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.context.lineEnding();
+    }
+
+    @Override
+    public void setLineEnding(final LineEnding lineEnding) {
+        this.context.setLineEnding(lineEnding);
+    }
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
+    }
+
+    @Override
+    public void setLocale(final Locale locale) {
+        this.context.setLocale(locale);
     }
 
     @Override
