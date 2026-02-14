@@ -33,6 +33,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -154,6 +155,9 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
             return JsonNodeMarshallUnmarshallContexts.basic(
                 JsonNodeMarshallContexts.basic(),
                 JsonNodeUnmarshallContexts.basic(
+                    (String cc) -> Optional.ofNullable(
+                        Currency.getInstance(cc)
+                    ),
                     ExpressionNumberKind.BIG_DECIMAL,
                     MathContext.UNLIMITED
                 )
