@@ -371,6 +371,9 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         JsonNodeMarshallUnmarshallContexts.basic(
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(
+                                (String cc) -> Optional.ofNullable(
+                                    Currency.getInstance(cc)
+                                ),
                                 expressionNumberKind,
                                 MathContext.DECIMAL32
                             )

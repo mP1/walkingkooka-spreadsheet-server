@@ -40,6 +40,7 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -71,6 +72,9 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
         JsonNodeMarshallUnmarshallContexts.basic(
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(
+                (String cc) -> Optional.ofNullable(
+                    Currency.getInstance(cc)
+                ),
                 ExpressionNumberKind.BIG_DECIMAL,
                 MathContext.DECIMAL32
             )

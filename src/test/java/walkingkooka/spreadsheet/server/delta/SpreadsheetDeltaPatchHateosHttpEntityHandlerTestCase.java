@@ -60,6 +60,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
+import java.util.Currency;
 import java.util.Map;
 import java.util.Optional;
 
@@ -230,6 +231,9 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         public <T> T unmarshall(final JsonNode json,
                                 final Class<T> type) {
             return JsonNodeUnmarshallContexts.basic(
+                (String cc) -> Optional.ofNullable(
+                    Currency.getInstance(cc)
+                ),
                 ExpressionNumberKind.DEFAULT,
                 MathContext.UNLIMITED
             ).unmarshall(

@@ -36,6 +36,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -205,6 +206,11 @@ public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakePro
 
     @Override 
     public Optional<JsonString> typeName(final Class<?> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
         throw new UnsupportedOperationException();
     }
 

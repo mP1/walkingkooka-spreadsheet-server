@@ -435,4 +435,9 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     public Optional<JsonString> typeName(final Class<?> type) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        throw new UnsupportedOperationException();
+    }
 }
