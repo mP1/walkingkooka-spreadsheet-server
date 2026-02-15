@@ -780,7 +780,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             ),
             "BasicSpreadsheetServerContext\n" +
                 "  currencyContext\n" +
-                "    JDK (walkingkooka.currency.ReadOnlyCurrencyContext)\n" +
+                "    JRE (walkingkooka.currency.ReadOnlyCurrencyContext)\n" +
                 "  spreadsheetEnvironmentContext\n" +
                 "    BasicSpreadsheetEnvironmentContext\n" +
                 "      environment\n" +
