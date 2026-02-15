@@ -4236,6 +4236,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"message\": \"Unknown validator hello-validator\"\n" +
                     "        }\n" +
                     "      },\n" +
+                    "      \"validator\": \"hello-validator\",\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
@@ -4247,8 +4248,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        }\n" +
-                    "      },\n" +
-                    "      \"validator\": \"hello-validator\"\n" +
+                    "      }\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
