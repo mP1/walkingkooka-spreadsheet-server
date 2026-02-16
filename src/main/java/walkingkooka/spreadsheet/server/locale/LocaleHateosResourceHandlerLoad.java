@@ -125,7 +125,10 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
 
     private static Stream<LocaleHateosResource> fromLocale(final Locale locale,
                                                            final LocaleContext context) {
-        final Optional<String> text = context.localeText(locale);
+        final Optional<String> text = context.localeText(
+            locale,
+            context.locale()
+        );
 
         // Optional#stream not supported by GWT JRE's Locale
         return text.isPresent() ?

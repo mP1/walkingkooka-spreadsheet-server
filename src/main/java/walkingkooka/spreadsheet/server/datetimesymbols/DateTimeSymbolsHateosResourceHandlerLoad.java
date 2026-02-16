@@ -69,7 +69,8 @@ final class DateTimeSymbolsHateosResourceHandlerLoad implements HateosResourceHa
             d -> DateTimeSymbolsHateosResource.with(
                 id,
                 context.localeTextOrFail(
-                    id.value()
+                    id.value(),
+                    context.locale()
                 ),
                 d
             )
