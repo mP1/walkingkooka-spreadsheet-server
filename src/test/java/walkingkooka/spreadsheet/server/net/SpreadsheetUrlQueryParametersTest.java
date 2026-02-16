@@ -18,12 +18,19 @@
 package walkingkooka.spreadsheet.server.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.locale.FakeLocaleContext;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.OptionalInt;
 
 public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelperTesting<SpreadsheetUrlQueryParameters> {
@@ -50,6 +57,65 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
                     Lists.of("123")
                 )
             )
+        );
+    }
+
+    // locale...........................................................................................................
+
+    private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
+
+    @Test
+    public void testLocaleQueryParameterMissing() {
+        this.localeAndCheck(
+            Optional.empty(), // no query parameters
+            LOCALE,
+            LOCALE
+        );
+    }
+
+    @Test
+    public void testLocale() {
+        this.localeAndCheck(
+            Optional.of(LOCALE),
+            Locale.FRENCH,
+            LOCALE
+        );
+    }
+
+    private void localeAndCheck(final Optional<Locale> parameters,
+                                final Locale context,
+                                final Locale expected) {
+        this.localeAndCheck(
+            Cast.to(
+                parameters.map(
+                    l -> Maps.of(
+                        SpreadsheetUrlQueryParameters.LOCALE,
+                        Lists.of(
+                            l.toLanguageTag()
+                        )
+                    )
+                ).orElse(Maps.empty())
+            ),
+            new FakeLocaleContext() {
+                @Override
+                public Locale locale() {
+                    return context;
+                }
+            },
+            expected
+        );
+    }
+
+    private void localeAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final LocaleContext context,
+                                final Locale expected) {
+        this.checkEquals(
+            expected,
+            SpreadsheetUrlQueryParameters.locale(
+                parameters,
+                context
+            ),
+            () -> parameters.toString() + " " + context
         );
     }
 
