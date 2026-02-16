@@ -310,8 +310,14 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
             @Override
             public Set<Locale> findByLocaleText(final String text,
                                                 final int offset,
-                                                final int count) {
-                return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
+                                                final int count,
+                                                final Locale locale) {
+                return LOCALE_CONTEXT.findByLocaleText(
+                    text,
+                    offset,
+                    count,
+                    locale
+                );
             }
 
             @Override
