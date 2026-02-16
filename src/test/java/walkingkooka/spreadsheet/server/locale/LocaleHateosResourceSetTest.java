@@ -139,8 +139,7 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
         }
 
         @Override
-        public Optional<String> localeText(final Locale locale,
-                                           final Locale requestedLocale) {
+        public Optional<String> localeText(final Locale locale) {
             return Optional.ofNullable(
                 ENAU.equals(locale) ?
                     ENGLISH_AUSTRALIA_TEXT :
@@ -150,11 +149,6 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
                             FRENCH_TEXT :
                             null
             );
-        }
-
-        @Override
-        public Locale locale() {
-            return ENAU;
         }
     };
 

@@ -77,8 +77,6 @@ final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements Ha
         final int count = SpreadsheetUrlQueryParameters.count(request.routerParameters())
             .orElse(DEFAULT_COUNT);
 
-        final Locale requestedLocale = context.locale();
-
         for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
             final DateTimeSymbols dateTimeSymbols = context.dateTimeSymbolsForLocale(locale)
                 .orElse(null);
@@ -87,10 +85,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements Ha
                 all.add(
                     DateTimeSymbolsHateosResource.with(
                         LocaleTag.with(locale),
-                        context.localeTextOrFail(
-                            locale,
-                            requestedLocale
-                        ),
+                        context.localeTextOrFail(locale),
                         dateTimeSymbols
                     )
                 );
