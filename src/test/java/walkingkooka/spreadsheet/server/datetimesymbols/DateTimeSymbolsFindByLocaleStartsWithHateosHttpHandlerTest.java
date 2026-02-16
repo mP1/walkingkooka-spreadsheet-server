@@ -298,6 +298,11 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
             }
 
             @Override
+            public Locale locale() {
+                return LOCALE;
+            }
+
+            @Override
             public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
                 return LOCALE_CONTEXT.dateTimeSymbolsForLocale(locale);
             }
@@ -310,8 +315,12 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
             }
 
             @Override
-            public Optional<String> localeText(final Locale locale) {
-                return LOCALE_CONTEXT.localeText(locale);
+            public Optional<String> localeText(final Locale locale,
+                                               final Locale requestedLocale) {
+                return LOCALE_CONTEXT.localeText(
+                    locale,
+                    requestedLocale
+                );
             }
 
             @Override

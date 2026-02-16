@@ -69,7 +69,8 @@ final class DecimalNumberSymbolsHateosResourceHandlerLoad implements HateosResou
             d -> DecimalNumberSymbolsHateosResource.with(
                 id,
                 context.localeTextOrFail(
-                    id.value()
+                    id.value(),
+                    context.locale()
                 ),
                 d
             )
