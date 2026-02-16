@@ -65,20 +65,11 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Locale requestedLocale = SpreadsheetUrlQueryParameters.locale(
-            parameters,
-            context
-        );
-
         return context.availableLocales()
             .stream()
             .filter((final Locale l) -> l.toLanguageTag().equals(id.toString()))
-            .flatMap((Locale l) -> fromLocale(
-                    l,
-                    requestedLocale,
-                    context
-                )
-            ).findFirst();
+            .flatMap((Locale l) -> fromLocale(l, context))
+            .findFirst();
     }
 
     @Override
@@ -96,21 +87,11 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         final int count = SpreadsheetUrlQueryParameters.count(parameters)
             .orElse(DEFAULT_COUNT);
 
-        final Locale requestedLocale = SpreadsheetUrlQueryParameters.locale(
-            parameters,
-            context
-        );
-
         final SortedSet<LocaleHateosResource> all = SortedSets.tree();
         context.availableLocales()
             .stream()
-            .flatMap(
-                (Locale l) -> fromLocale(
-                    l,
-                    requestedLocale,
-                    context
-                )
-            ).skip(offset)
+            .flatMap((Locale l) -> fromLocale(l, context))
+            .skip(offset)
             .limit(count)
             .forEach(all::add);
 
@@ -131,35 +112,20 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Locale requestedLocale = SpreadsheetUrlQueryParameters.locale(
-            parameters,
-            context
-        );
-
         return Optional.of(
             LocaleHateosResourceSet.with(
                 context.availableLocales()
                     .stream()
                     .filter((Locale l) -> ids.contains(LocaleTag.with(l)))
-                    .flatMap(
-                        (Locale l) ->
-                            fromLocale(
-                                l,
-                                requestedLocale,
-                                context
-                            )
-                    ).collect(Collectors.toCollection(SortedSets::tree))
+                    .flatMap((Locale l) -> fromLocale(l, context))
+                    .collect(Collectors.toCollection(SortedSets::tree))
             )
         );
     }
 
     private static Stream<LocaleHateosResource> fromLocale(final Locale locale,
-                                                           final Locale requestedLocale,
                                                            final LocaleContext context) {
-        final Optional<String> text = context.localeText(
-            locale,
-            requestedLocale
-        );
+        final Optional<String> text = context.localeText(locale);
 
         // Optional#stream not supported by GWT JRE's Locale
         return text.isPresent() ?

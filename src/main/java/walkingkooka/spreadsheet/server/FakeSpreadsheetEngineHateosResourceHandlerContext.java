@@ -546,8 +546,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<String> localeText(final Locale locale,
-                                       final Locale requestedLocale) {
+    public Optional<String> localeText(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

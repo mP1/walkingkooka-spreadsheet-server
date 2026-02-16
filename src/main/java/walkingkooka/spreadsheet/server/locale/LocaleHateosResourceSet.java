@@ -71,10 +71,8 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
             0,
             Integer.MAX_VALUE
         )) {
-            final String localeText = context.localeText(
-                    locale,
-                    context.locale()
-                ).orElse(null);
+            final String localeText = context.localeText(locale)
+                .orElse(null);
 
             if (null != localeText && (LocaleContexts.CASE_SENSITIVITY.startsWith(localeText, startsWith) || LocaleContexts.CASE_SENSITIVITY.equals(localeText, startsWith))) {
                 matched.add(

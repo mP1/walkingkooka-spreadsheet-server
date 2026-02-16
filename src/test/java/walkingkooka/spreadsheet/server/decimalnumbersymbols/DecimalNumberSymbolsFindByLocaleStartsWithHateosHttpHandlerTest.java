@@ -184,11 +184,6 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
             }
 
             @Override
-            public Locale locale() {
-                return LOCALE;
-            }
-
-            @Override
             public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
                 return LOCALE_CONTEXT.decimalNumberSymbolsForLocale(locale);
             }
@@ -201,12 +196,8 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
             }
 
             @Override
-            public Optional<String> localeText(final Locale locale,
-                                               final Locale requestedLocale) {
-                return LOCALE_CONTEXT.localeText(
-                    locale,
-                    requestedLocale
-                );
+            public Optional<String> localeText(final Locale locale) {
+                return LOCALE_CONTEXT.localeText(locale);
             }
 
             @Override
