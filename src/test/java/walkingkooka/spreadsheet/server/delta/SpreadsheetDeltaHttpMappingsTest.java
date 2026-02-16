@@ -107,14 +107,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     // cell.............................................................................................................
 
-//    SpreadsheetDeltaHttpMappings.cell(
-//    engine,
-//    DEFAULT_MAX,
-//    INDENTATION,
-//    LINE_ENDING,
-//    context
-//            )
-
     @Test
     public void testRouteCellInvalidFails() {
         this.routeCellAndCheck(
