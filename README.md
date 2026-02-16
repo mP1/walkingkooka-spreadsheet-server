@@ -186,10 +186,10 @@ These end points are mostly used by the label management dialog.
 
 #### [Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
 
-End points to query available Locales.
+End points to query available Locales. The locale query parameter is optional
 
-- **GET** /api/locale/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
-- **GET** /api/locale/*?offset=0&count=1
+- **GET** /api/locale/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)?locale=en-AU
+- **GET** /api/locale/*?offset=0&count=1&locale=en-AU
 
 #### [Parser](https://github.com/mP1/walkingkooka-text-cursor-parser/blob/master/src/main/java/walkingkooka/text/cursor/parser/Parser.java)
 
