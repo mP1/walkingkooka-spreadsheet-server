@@ -78,7 +78,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler implemen
         final int count = SpreadsheetUrlQueryParameters.count(request.routerParameters())
             .orElse(DEFAULT_COUNT);
 
-        for (final Locale locale : context.findByLocaleText(startsWith, offset, count, context.locale())) {
+        for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
             final DecimalNumberSymbols decimalNumberSymbols = context.decimalNumberSymbolsForLocale(locale)
                 .orElse(null);
 
