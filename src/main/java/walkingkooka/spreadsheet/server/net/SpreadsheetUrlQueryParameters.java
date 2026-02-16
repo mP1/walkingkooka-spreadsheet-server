@@ -17,11 +17,13 @@
 
 package walkingkooka.spreadsheet.server.net;
 
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CharSequences;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.OptionalInt;
 
@@ -42,6 +44,16 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
 
     // @VisibleForTesting
     public final static UrlParameterName COUNT = UrlParameterName.with("count");
+
+    public static Locale locale(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final LocaleContext context) {
+        return LOCALE.firstParameterValue(parameters)
+            .map((Locale::forLanguageTag))
+            .orElse(context.locale());
+    }
+
+    // @VisibleForTesting
+    public final static UrlParameterName LOCALE = UrlParameterName.with("locale");
 
     /**
      * Returns the offset parameter as an integer.
