@@ -11,8 +11,9 @@ Each module contains minimal logic and is mostly concerned with unmarshalling/ma
 
 ## REST
 
-GET methods require no BODY and always return a BODY POST, PUT methods require and return a BODY DELETE methods require
-no body and return a BODY
+- **GET** methods require no BODY and always return a BODY
+- **POST**, **PUT** methods require and return a BODY 
+- **DELETE** methods require no body and return a BODY
 
 A swagger-ui is available at:
 
