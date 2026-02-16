@@ -496,8 +496,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<String> currencyText(final Currency currency,
-                                         final Locale locale) {
+    public Optional<String> currencyText(final Currency currency) {
         throw new UnsupportedOperationException();
     }
 
