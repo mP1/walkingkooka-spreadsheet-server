@@ -196,14 +196,8 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
             @Override
             public Set<Locale> findByLocaleText(final String text,
                                                 final int offset,
-                                                final int count,
-                                                final Locale locale) {
-                return LOCALE_CONTEXT.findByLocaleText(
-                    text,
-                    offset,
-                    count,
-                    locale
-                );
+                                                final int count) {
+                return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
             }
 
             @Override

@@ -69,8 +69,7 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
         for (final Locale locale : context.findByLocaleText(
             startsWith,
             0,
-            Integer.MAX_VALUE,
-            context.locale()
+            Integer.MAX_VALUE
         )) {
             final String localeText = context.localeText(
                     locale,

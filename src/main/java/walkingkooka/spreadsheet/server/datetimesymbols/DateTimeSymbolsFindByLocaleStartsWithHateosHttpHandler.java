@@ -79,7 +79,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements Ha
 
         final Locale requestedLocale = context.locale();
 
-        for (final Locale locale : context.findByLocaleText(startsWith, offset, count, context.locale())) {
+        for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
             final DateTimeSymbols dateTimeSymbols = context.dateTimeSymbolsForLocale(locale)
                 .orElse(null);
 
