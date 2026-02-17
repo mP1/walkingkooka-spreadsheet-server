@@ -24,7 +24,6 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamp
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.util.Locale;
 import java.util.Objects;
 
 final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
@@ -46,11 +45,6 @@ final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatter
     }
 
     // SpreadsheetFormatterProvider.....................................................................................
-
-    @Override
-    public void setLocale(final Locale locale) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {

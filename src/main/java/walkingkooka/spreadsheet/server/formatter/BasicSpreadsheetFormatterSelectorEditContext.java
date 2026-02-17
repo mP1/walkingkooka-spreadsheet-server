@@ -26,7 +26,6 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderDele
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -53,20 +52,6 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
         this.spreadsheetFormatterContext = spreadsheetFormatterContext;
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
         this.providerContext = providerContext;
-    }
-
-    // LocaleContext....................................................................................................
-
-    @Override
-    public Locale locale() {
-        return this.localeContext()
-            .locale();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        this.localeContext()
-            .setLocale(locale);
     }
 
     // SpreadsheetFormatterContext......................................................................................
