@@ -71,6 +71,11 @@ public class FakeLocaleHateosResourceHandlerContext extends FakeHateosResourceHa
     }
 
     @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public LocaleHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
         throw new UnsupportedOperationException();
     }
