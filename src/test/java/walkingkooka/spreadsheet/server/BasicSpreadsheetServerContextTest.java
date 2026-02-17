@@ -684,6 +684,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SpreadsheetProviderContexts.spreadsheet(
                 PluginStores.fake(),
+                CURRENCY_CONTEXT,
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.LOCALE,
                     LOCALE

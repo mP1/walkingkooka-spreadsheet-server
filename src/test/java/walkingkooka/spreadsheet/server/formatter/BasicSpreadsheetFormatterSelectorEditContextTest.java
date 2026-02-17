@@ -127,6 +127,10 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                     Converters.fake(),
                     ConverterContexts.basic(
                         (l) -> {
+                            Objects.requireNonNull(l, "locale");
+                            throw new UnsupportedOperationException();
+                        }, // canCurrencyForLocale
+                        (l) -> {
                             throw new UnsupportedOperationException();
                         }, // canDateTimeSymbolsForLocale
                         (l) -> {
