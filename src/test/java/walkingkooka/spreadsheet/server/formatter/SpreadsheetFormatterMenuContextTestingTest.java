@@ -89,11 +89,6 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         }
 
         @Override
-        public void setLocale(final Locale locale) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
         public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
             throw new UnsupportedOperationException();
         }

@@ -231,11 +231,6 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         }
 
         @Override
-        public void setLocale(final Locale locale) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
         public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
             throw new UnsupportedOperationException();
         }
