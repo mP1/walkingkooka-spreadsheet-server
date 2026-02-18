@@ -130,16 +130,6 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                             Objects.requireNonNull(l, "locale");
                             throw new UnsupportedOperationException();
                         }, // canCurrencyForLocale
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canDateTimeSymbolsForLocale
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canDecimalNumberSymbolsForLocale
-                        (lt) -> {
-                            Objects.requireNonNull(lt, "languageTag");
-                            throw new UnsupportedOperationException();
-                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
                         Indentation.SPACES2,
@@ -157,7 +147,8 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         ),
                         DecimalNumberContexts.american(
                             MathContext.DECIMAL32
-                        )
+                        ),
+                        LocaleContexts.jre(locale)
                     ),
                     ExpressionNumberKind.BIG_DECIMAL
                 ),
