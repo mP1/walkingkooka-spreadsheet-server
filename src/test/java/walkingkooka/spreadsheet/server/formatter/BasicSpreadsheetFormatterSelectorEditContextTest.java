@@ -136,6 +136,10 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         (l) -> {
                             throw new UnsupportedOperationException();
                         }, // canDecimalNumberSymbolsForLocale
+                        (lt) -> {
+                            Objects.requireNonNull(lt, "languageTag");
+                            throw new UnsupportedOperationException();
+                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
                         Indentation.SPACES2,
