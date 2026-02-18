@@ -210,6 +210,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             }
 
             @Override
+            public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                return LOCALE_CONTEXT.localeForLanguageTag(languageTag);
+            }
+
+            @Override
             public ProviderContext providerContext() {
                 return PROVIDER_CONTEXT;
             }
