@@ -286,6 +286,11 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     // LocaleContextDelegator...........................................................................................
 
     @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.localeContext.localeForLanguageTag(languageTag);
+    }
+
+    @Override
     public LocaleContext localeContext() {
         return this.localeContext;
     }

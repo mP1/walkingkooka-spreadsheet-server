@@ -24,7 +24,9 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 final class BasicLocaleHateosResourceHandlerContext implements LocaleHateosResourceHandlerContext,
     LocaleContextDelegator,
@@ -47,6 +49,11 @@ final class BasicLocaleHateosResourceHandlerContext implements LocaleHateosResou
     }
 
     // LocaleContextDelegator...........................................................................................
+
+    @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.localeContext.localeForLanguageTag(languageTag);
+    }
 
     @Override
     public LocaleContext localeContext() {

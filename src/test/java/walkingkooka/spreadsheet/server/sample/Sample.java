@@ -376,6 +376,9 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                                 (String cc) -> Optional.ofNullable(
                                     Currency.getInstance(cc)
                                 ),
+                                (String lt) -> Optional.of(
+                                    Locale.forLanguageTag(lt)
+                                ),
                                 expressionNumberKind,
                                 MathContext.DECIMAL32
                             )

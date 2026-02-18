@@ -24,6 +24,11 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextTesting;
 public interface LocaleHateosResourceHandlerContextTesting<C extends LocaleHateosResourceHandlerContext> extends LocaleContextTesting2<C>, HateosResourceHandlerContextTesting<C> {
 
     @Override
+    default C createCanLocaleForLanguageTag() {
+        return this.createContext();
+    }
+
+    @Override
     default String typeNameSuffix() {
         return HateosResourceHandlerContext.class.getSimpleName();
     }

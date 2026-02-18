@@ -61,6 +61,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.util.Currency;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -233,6 +234,9 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
             return JsonNodeUnmarshallContexts.basic(
                 (String cc) -> Optional.ofNullable(
                     Currency.getInstance(cc)
+                ),
+                (String lt) -> Optional.of(
+                    Locale.forLanguageTag(lt)
                 ),
                 ExpressionNumberKind.DEFAULT,
                 MathContext.UNLIMITED

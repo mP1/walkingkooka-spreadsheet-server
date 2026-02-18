@@ -149,6 +149,14 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
+    // LocaleContext....................................................................................................
+
+    @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.localeContext()
+            .localeForLanguageTag(languageTag);
+    }
+
     // SpreadsheetEngineContextDelegator................................................................................
 
     @Override
