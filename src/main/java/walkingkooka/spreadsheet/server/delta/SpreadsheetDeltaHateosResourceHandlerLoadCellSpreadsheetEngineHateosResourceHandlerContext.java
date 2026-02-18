@@ -154,6 +154,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.context.localeForLanguageTag(languageTag);
+    }
+
+    @Override
     public SpreadsheetEngineContext spreadsheetEngineContext() {
         return this.context;
     }

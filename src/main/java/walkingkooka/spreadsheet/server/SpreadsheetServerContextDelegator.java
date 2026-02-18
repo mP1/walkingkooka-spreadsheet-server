@@ -44,6 +44,12 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator,
     HateosResourceHandlerContextDelegator {
+
+    @Override
+    default Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.localeContext()
+            .localeForLanguageTag(languageTag);
+    }
     
     // EnvironmentContextDelegator......................................................................................
 

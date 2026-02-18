@@ -381,6 +381,9 @@ public class TestGwtTest extends GWTTestCase {
                                 (String cc) -> Optional.ofNullable(
                                     Currency.getInstance(cc)
                                 ),
+                                (String lt) -> Optional.of(
+                                    Locale.forLanguageTag(lt)
+                                ),
                                 expressionNumberKind,
                                 MathContext.DECIMAL32
                             )

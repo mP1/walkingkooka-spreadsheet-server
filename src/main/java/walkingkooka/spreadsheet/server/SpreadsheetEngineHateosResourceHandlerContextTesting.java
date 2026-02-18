@@ -31,6 +31,11 @@ public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends 
     }
 
     @Override
+    default C createCanLocaleForLanguageTag() {
+        return this.createContext();
+    }
+
+    @Override
     default String typeNameSuffix() {
         return HateosResourceHandlerContextTesting.super.typeNameSuffix();
     }

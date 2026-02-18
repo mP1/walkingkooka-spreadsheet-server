@@ -377,6 +377,9 @@ public class J2clTest {
                                 (String cc) -> Optional.ofNullable(
                                     Currency.getInstance(cc)
                                 ),
+                                (String lt) -> Optional.of(
+                                    Locale.forLanguageTag(lt)
+                                ),
                                 expressionNumberKind,
                                 MathContext.DECIMAL32
                             )

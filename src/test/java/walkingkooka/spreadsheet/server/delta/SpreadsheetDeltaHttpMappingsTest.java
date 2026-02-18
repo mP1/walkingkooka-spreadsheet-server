@@ -89,6 +89,7 @@ import java.math.MathContext;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -579,6 +580,9 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                 return JsonNodeUnmarshallContexts.basic(
                     (String cc) -> Optional.ofNullable(
                         Currency.getInstance(cc)
+                    ),
+                    (String lt) -> Optional.of(
+                        Locale.forLanguageTag(lt)
                     ),
                     ExpressionNumberKind.DEFAULT,
                     MathContext.UNLIMITED
