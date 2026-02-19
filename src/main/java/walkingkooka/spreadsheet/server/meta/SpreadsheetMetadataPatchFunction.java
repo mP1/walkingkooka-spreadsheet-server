@@ -51,14 +51,18 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
         final SpreadsheetId id = this.id;
 
         try {
-            final SpreadsheetEngineContext context = this.context.spreadsheetContextOrFail(id)
+            final SpreadsheetMetadataHateosResourceHandlerContext context = this.context;
+            final SpreadsheetEngineContext engineContext = context.spreadsheetContextOrFail(id)
                 .spreadsheetEngineContext();
-            final SpreadsheetMetadata loadAndPatched = context.loadMetadataOrFail(id);
-            final SpreadsheetMetadata saved = context.saveMetadata(
+            final SpreadsheetMetadata loadAndPatched = engineContext.loadMetadataOrFail(id);
+            final SpreadsheetMetadata saved = engineContext.saveMetadata(
                 loadAndPatched
                     .patch(
                         json,
-                        loadAndPatched.jsonNodeUnmarshallContext()
+                        loadAndPatched.jsonNodeUnmarshallContext(
+                            context, // CanCurrencyForCurrencyCode
+                            context // CanLocaleForLanguageTag
+                        )
                     )
             );
             return saved.jsonNodeMarshallContext()
