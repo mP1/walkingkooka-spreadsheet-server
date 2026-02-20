@@ -412,7 +412,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                             .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
                             .loadFromLocale(
-                                LocaleContexts.jre(locale)
+                                CURRENCY_CONTEXT.setLocaleContext(
+                                    LocaleContexts.jre(locale)
+                                )
                             ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
                             .set(
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,

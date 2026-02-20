@@ -21,7 +21,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
@@ -251,7 +250,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
         .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
         .loadFromLocale(
-            LocaleContexts.jre(LOCALE)
+            CURRENCY_LOCALE_CONTEXT
         ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
         .set(
             SpreadsheetMetadataPropertyName.AUDIT_INFO,

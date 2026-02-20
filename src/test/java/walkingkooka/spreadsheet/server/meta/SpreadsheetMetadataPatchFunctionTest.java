@@ -133,7 +133,9 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                 .loadFromLocale(
-                    LocaleContexts.jre(locale)
+                    CURRENCY_CONTEXT.setLocaleContext(
+                        LocaleContexts.jre(locale)
+                    )
                 )
         );
 
