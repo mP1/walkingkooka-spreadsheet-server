@@ -26,7 +26,6 @@ import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -1040,7 +1039,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SpreadsheetMetadataPropertyName.LOCALE,
                 locale.orElse(LOCALE)
             ).loadFromLocale(
-                LocaleContexts.jre(LOCALE)
+                CURRENCY_LOCALE_CONTEXT
             ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
             .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS, DECIMAL_NUMBER_SYMBOLS)
