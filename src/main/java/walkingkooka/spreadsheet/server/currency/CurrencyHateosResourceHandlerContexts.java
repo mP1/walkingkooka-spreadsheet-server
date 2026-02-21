@@ -22,6 +22,13 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class CurrencyHateosResourceHandlerContexts implements PublicStaticHelper {
 
     /**
+     * {@see FakeCurrencyHateosResourceHandlerContext}
+     */
+    public static FakeCurrencyHateosResourceHandlerContext fake() {
+        return new FakeCurrencyHateosResourceHandlerContext();
+    }
+
+    /**
      * Stop creation
      */
     private CurrencyHateosResourceHandlerContexts() {
