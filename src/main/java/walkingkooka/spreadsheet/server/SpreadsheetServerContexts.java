@@ -17,8 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.currency.CurrencyContext;
-import walkingkooka.locale.LocaleContext;
+import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -41,9 +40,8 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
     public static SpreadsheetServerContext basic(final SpreadsheetEngine spreadsheetEngine,
                                                  final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
-                                                 final CurrencyContext currencyContext,
+                                                 final CurrencyLocaleContext currencyLocaleContext,
                                                  final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
-                                                 final LocaleContext localeContext,
                                                  final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                  final ProviderContext providerContext,
@@ -52,9 +50,8 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
             spreadsheetEngine,
             spreadsheetIdToSpreadsheetStoreRepository,
             spreadsheetProvider,
-            currencyContext,
+            currencyLocaleContext,
             spreadsheetEnvironmentContext,
-            localeContext,
             spreadsheetMetadataContext,
             hateosResourceHandlerContext,
             providerContext,

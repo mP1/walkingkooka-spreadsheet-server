@@ -18,12 +18,10 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.currency.CurrencyContext;
-import walkingkooka.currency.CurrencyContextDelegator;
+import walkingkooka.currency.CurrencyLocaleContext;
+import walkingkooka.currency.CurrencyLocaleContextDelegator;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -64,9 +62,8 @@ import java.util.function.Function;
  * A basic fully functional {@link SpreadsheetServerContext}
  */
 final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
-    CurrencyContextDelegator,
+    CurrencyLocaleContextDelegator,
     SpreadsheetEnvironmentContextDelegator,
-    LocaleContextDelegator,
     HateosResourceHandlerContextDelegator,
     SpreadsheetProviderDelegator,
     TreePrintable {
@@ -74,9 +71,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
-                                              final CurrencyContext currencyContext,
+                                              final CurrencyLocaleContext currencyLocaleContext,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
-                                              final LocaleContext localeContext,
                                               final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                               final HateosResourceHandlerContext hateosResourceHandlerContext,
                                               final ProviderContext providerContext,
@@ -85,9 +81,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
-            Objects.requireNonNull(currencyContext, "currencyContext"),
+            Objects.requireNonNull(currencyLocaleContext, "currencyLocaleContext"),
             Objects.requireNonNull(spreadsheetEnvironmentContext, "spreadsheetEnvironmentContext"),
-            Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(spreadsheetMetadataContext, "spreadsheetMetadataContext"),
             Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
             Objects.requireNonNull(providerContext, "providerContext"),
@@ -98,9 +93,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     private BasicSpreadsheetServerContext(final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
-                                          final CurrencyContext currencyContext,
+                                          final CurrencyLocaleContext currencyLocaleContext,
                                           final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
-                                          final LocaleContext localeContext,
                                           final SpreadsheetMetadataContext spreadsheetMetadataContext,
                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                                           final ProviderContext providerContext,
@@ -109,9 +103,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
 
-        this.currencyContext = currencyContext;
+        this.currencyLocaleContext = CurrencyLocaleContexts.readOnly(currencyLocaleContext);
         this.spreadsheetEnvironmentContext = spreadsheetEnvironmentContext;
-        this.localeContext = LocaleContexts.readOnly(localeContext);
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.providerContext = providerContext;
@@ -149,7 +142,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 c,
                 this.hateosResourceHandlerContext
             ),
-            this.currencyContext.setLocaleContext(this.localeContext),
+            this.currencyLocaleContext,
             metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),
             this.spreadsheetProvider,
             ProviderContexts.readOnly(providerContext)
@@ -169,7 +162,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
             this.spreadsheetMetadataContext,
-            this.currencyContext.setLocaleContext(this.localeContext),
+            this.currencyLocaleContext,
             this.spreadsheetEnvironmentContext.cloneEnvironment(),
             this.spreadsheetProvider,
             ProviderContexts.readOnly(this.providerContext)
@@ -197,19 +190,24 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     private final Map<SpreadsheetId, SpreadsheetContext> spreadsheetIdToSpreadsheetContext = Maps.concurrent();
 
-    // CurrencyContextDelegator.........................................................................................
+    // CurrencyLocaleContextDelegator...................................................................................
 
     @Override
     public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
-        return this.currencyContext.currencyForCurrencyCode(currencyCode);
+        return this.currencyLocaleContext.currencyForCurrencyCode(currencyCode);
     }
 
     @Override
-    public CurrencyContext currencyContext() {
-        return this.currencyContext;
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.currencyLocaleContext.localeForLanguageTag(languageTag);
     }
 
-    private final CurrencyContext currencyContext;
+    @Override
+    public CurrencyLocaleContext currencyLocaleContext() {
+        return this.currencyLocaleContext;
+    }
+
+    private final CurrencyLocaleContext currencyLocaleContext;
     
     // EnvironmentContextDelegator......................................................................................
 
@@ -230,9 +228,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
-                this.currencyContext,
+                this.currencyLocaleContext,
                 this.spreadsheetEnvironmentContext,
-                this.localeContext,
                 this.spreadsheetMetadataContext,
                 this.hateosResourceHandlerContext,
                 after,
@@ -280,20 +277,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
         return this.spreadsheetEnvironmentContext;
     }
-
-    // LocaleContextDelegator...........................................................................................
-
-    @Override
-    public Optional<Locale> localeForLanguageTag(final String languageTag) {
-        return this.localeContext.localeForLanguageTag(languageTag);
-    }
-
-    @Override
-    public LocaleContext localeContext() {
-        return this.localeContext;
-    }
-
-    private final LocaleContext localeContext;
 
     // SpreadsheetMetadataContext.......................................................................................
 
@@ -366,9 +349,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
-                this.currencyContext,
+                this.currencyLocaleContext,
                 this.spreadsheetEnvironmentContext,
-                this.localeContext,
                 this.spreadsheetMetadataContext,
                 Objects.requireNonNull(context, "hateosResourceHandlerContext"),
                 this.providerContext,
@@ -398,7 +380,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public String toString() {
-        return this.spreadsheetEnvironmentContext + " " + this.localeContext + " " + this.spreadsheetProvider;
+        return this.spreadsheetEnvironmentContext + " " + this.currencyLocaleContext + " " + this.spreadsheetProvider;
     }
 
     // TreePrintable....................................................................................................
@@ -410,20 +392,14 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         {
             this.printTreeWithLabel(
                 printer,
-                CurrencyContext.class.getSimpleName(),
-                this.currencyContext
+                CurrencyLocaleContext.class.getSimpleName(),
+                this.currencyLocaleContext
             );
 
             this.printTreeWithLabel(
                 printer,
                 SpreadsheetEnvironmentContext.class.getSimpleName(),
                 this.spreadsheetEnvironmentContext
-            );
-
-            this.printTreeWithLabel(
-                printer,
-                LocaleContext.class.getSimpleName(),
-                this.localeContext
             );
 
             this.printTreeWithLabel(

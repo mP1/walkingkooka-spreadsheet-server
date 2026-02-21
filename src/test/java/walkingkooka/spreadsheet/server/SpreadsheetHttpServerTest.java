@@ -13385,9 +13385,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SPREADSHEET_PARSER_PROVIDER,
                         VALIDATOR_PROVIDER
                     ),
-                    CURRENCY_CONTEXT,
+                    CURRENCY_LOCALE_CONTEXT,
                     SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
-                    LOCALE_CONTEXT,
                     SpreadsheetMetadataContexts.basic(
                         (u, l) -> this.metadataStore.save(
                             this.createMetadata()

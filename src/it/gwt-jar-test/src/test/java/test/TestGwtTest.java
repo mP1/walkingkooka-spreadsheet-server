@@ -354,12 +354,14 @@ public class TestGwtTest extends GWTTestCase {
                         spreadsheetParserProvider,
                         ValidatorProviders.validators()
                     ),
-                    CurrencyContexts.fake(),
+                    CurrencyContexts.fake()
+                        .setLocaleContext(
+                            LocaleContexts.jre(locale)
+                        ),
                     SpreadsheetEnvironmentContexts.basic(
                         Storages.fake(),
                         environmentContext
                     ),
-                    LocaleContexts.jre(locale),
                     SpreadsheetMetadataContexts.basic(
                         (e, dl) -> metadataStore.save(
                             metadata.set(
