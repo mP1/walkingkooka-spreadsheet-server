@@ -149,9 +149,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 c,
                 this.hateosResourceHandlerContext
             ),
-            this.currencyContext,
+            this.currencyContext.setLocaleContext(this.localeContext),
             metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),
-            this.localeContext,
             this.spreadsheetProvider,
             ProviderContexts.readOnly(providerContext)
         );
@@ -170,9 +169,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
             this.spreadsheetMetadataContext,
-            this.currencyContext,
+            this.currencyContext.setLocaleContext(this.localeContext),
             this.spreadsheetEnvironmentContext.cloneEnvironment(),
-            this.localeContext,
             this.spreadsheetProvider,
             ProviderContexts.readOnly(this.providerContext)
         );
