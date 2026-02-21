@@ -17,8 +17,8 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.currency.CurrencyLocaleContext;
+import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -35,13 +35,14 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 
 public interface SpreadsheetServerContextDelegator extends SpreadsheetServerContext,
     SpreadsheetProviderDelegator,
+    CurrencyLocaleContextDelegator,
     SpreadsheetEnvironmentContextDelegator,
-    LocaleContextDelegator,
     SpreadsheetMetadataContextDelegator,
     HateosResourceHandlerContextDelegator {
 
@@ -53,6 +54,18 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     
     // EnvironmentContextDelegator......................................................................................
 
+    @Override
+    default Currency currency() {
+        return this.spreadsheetEnvironmentContext()
+            .currency();
+    }
+
+    @Override
+    default void setCurrency(final Currency currency) {
+        this.spreadsheetEnvironmentContext()
+            .setCurrency(currency);
+    }
+    
     @Override
     default Indentation indentation() {
         return this.spreadsheetEnvironmentContext()
@@ -94,10 +107,16 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
         return this.spreadsheetServerContext();
     }
 
-    // LocaleContextDelegator...........................................................................................
+    // CurrencyLocaleContextDelegator...................................................................................
 
     @Override
-    default LocaleContext localeContext() {
+    default Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        return this.spreadsheetServerContext()
+            .currencyForCurrencyCode(currencyCode);
+    }
+
+    @Override
+    default CurrencyLocaleContext currencyLocaleContext() {
         return this.spreadsheetServerContext();
     }
 
