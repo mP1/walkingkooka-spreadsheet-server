@@ -17,9 +17,22 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.currency.CurrencyContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.reflect.PublicStaticHelper;
 
 public final class CurrencyHateosResourceHandlerContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicCurrencyHateosResourceHandlerContext}
+     */
+    public static CurrencyHateosResourceHandlerContext basic(final CurrencyContext currencyContext,
+                                                             final HateosResourceHandlerContext hateosResourceHandlerContext) {
+        return BasicCurrencyHateosResourceHandlerContext.with(
+            currencyContext,
+            hateosResourceHandlerContext
+        );
+    }
 
     /**
      * {@see FakeCurrencyHateosResourceHandlerContext}
