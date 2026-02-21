@@ -18,8 +18,8 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Context;
+import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.HasProviderContext;
@@ -42,7 +42,7 @@ public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     SpreadsheetMetadataContext,
     SpreadsheetEnvironmentContext,
     HasSpreadsheetServerUrl,
-    LocaleContext,
+    CurrencyLocaleContext,
     HateosResourceHandlerContext,
     SpreadsheetProvider,
     HasProviderContext {

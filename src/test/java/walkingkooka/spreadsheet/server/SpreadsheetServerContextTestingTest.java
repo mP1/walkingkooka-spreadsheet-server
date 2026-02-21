@@ -18,10 +18,10 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.currency.CurrencyLocaleContext;
+import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
@@ -45,6 +45,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -129,7 +130,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
     final static class TestSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
         SpreadsheetEnvironmentContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator,
-        LocaleContextDelegator,
+        CurrencyLocaleContextDelegator,
         ProviderContextDelegator {
 
         // SpreadsheetServerContext.....................................................................................
@@ -232,6 +233,16 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         }
 
         @Override
+        public Currency currency() {
+            return SpreadsheetServerContextTestingTest.CURRENCY;
+        }
+
+        @Override
+        public void setCurrency(final Currency currency) {
+            Objects.requireNonNull(currency, "currency");
+        }
+        
+        @Override
         public LineEnding lineEnding() {
             return SpreadsheetServerContextTestingTest.LINE_ENDING;
         }
@@ -300,16 +311,21 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
             return JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT;
         }
 
-        // LocaleContextDelegator.......................................................................................
+        // CurrencyLocaleContextDelegator...............................................................................
 
         @Override
-        public Optional<Locale> localeForLanguageTag(final String languageTag) {
-            return LOCALE_CONTEXT.localeForLanguageTag(languageTag);
+        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+            return CURRENCY_LOCALE_CONTEXT.currencyForCurrencyCode(currencyCode);
         }
 
         @Override
-        public LocaleContext localeContext() {
-            return LOCALE_CONTEXT;
+        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+            return CURRENCY_LOCALE_CONTEXT.localeForLanguageTag(languageTag);
+        }
+
+        @Override
+        public CurrencyLocaleContext currencyLocaleContext() {
+            return CURRENCY_LOCALE_CONTEXT;
         }
 
         // ProviderContextDelegator.....................................................................................

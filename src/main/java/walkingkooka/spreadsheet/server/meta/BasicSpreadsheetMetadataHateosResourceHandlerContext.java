@@ -35,6 +35,7 @@ import walkingkooka.storage.Storage;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -126,6 +127,18 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     @Override
+    public Currency currency() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCurrency(final Currency currency) {
+        Objects.requireNonNull(currency, "currency");
+
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
     public Locale locale() {
         throw new UnsupportedOperationException();
     }
@@ -162,6 +175,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     // SpreadsheetServerContextDelegator................................................................................
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        return this.context.currencyForCurrencyCode(currencyCode);
+    }
 
     @Override
     public SpreadsheetServerContext spreadsheetServerContext() {

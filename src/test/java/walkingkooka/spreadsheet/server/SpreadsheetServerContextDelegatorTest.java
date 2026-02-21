@@ -17,10 +17,10 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.currency.CurrencyLocaleContext;
+import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
@@ -44,6 +44,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -134,7 +135,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     final static class TestSpreadsheetServerContextDelegator extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
         SpreadsheetEnvironmentContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator,
-        LocaleContextDelegator,
+        CurrencyLocaleContextDelegator,
         ProviderContextDelegator {
 
         // SpreadsheetServerContext.....................................................................................
@@ -242,6 +243,16 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         @Override
+        public Currency currency() {
+            return SpreadsheetMetadataTesting.CURRENCY;
+        }
+
+        @Override
+        public void setCurrency(final Currency currency) {
+            Objects.requireNonNull(currency, "currency");
+        }
+        
+        @Override
         public LineEnding lineEnding() {
             return SpreadsheetMetadataTesting.LINE_ENDING;
         }
@@ -305,16 +316,21 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
             return JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT;
         }
 
-        // LocaleContextDelegator.......................................................................................
+        // CurrencyLocaleContextDelegator...............................................................................
 
         @Override
-        public Optional<Locale> localeForLanguageTag(final String languageTag) {
-            return LOCALE_CONTEXT.localeForLanguageTag(languageTag);
+        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+            return CURRENCY_LOCALE_CONTEXT.currencyForCurrencyCode(currencyCode);
         }
 
         @Override
-        public LocaleContext localeContext() {
-            return LOCALE_CONTEXT;
+        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+            return CURRENCY_LOCALE_CONTEXT.localeForLanguageTag(languageTag);
+        }
+
+        @Override
+        public CurrencyLocaleContext currencyLocaleContext() {
+            return CURRENCY_LOCALE_CONTEXT;
         }
 
         // ProviderContextDelegator.....................................................................................
