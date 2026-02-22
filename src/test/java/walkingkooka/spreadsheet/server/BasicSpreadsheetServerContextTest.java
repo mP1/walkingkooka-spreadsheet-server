@@ -775,7 +775,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "          readOnlyNames\n" +
                 "            * (walkingkooka.predicate.AlwaysPredicate)\n" +
                 "      storage\n" +
-                "         (walkingkooka.storage.EmptyStorage)\n" +
+                "         (walkingkooka.storage.StorageSharedEmpty)\n" +
                 "    spreadsheetMetadataContext\n" +
                 "      TestSpreadsheetMetadataContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestSpreadsheetMetadataContext)\n" +
                 "    hateosResourceHandlerContext\n" +
