@@ -105,6 +105,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosResource;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceSet;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
@@ -9803,6 +9805,58 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // Currency.........................................................................................................
+
+    @Test
+    public void testCurrencyByCurrencyCodeGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/currency/AUD",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"currencyCode\": \"AUD\",\n" +
+                    "  \"text\": \"Australian Dollar\"\n" +
+                    "}",
+                CurrencyHateosResource.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testCurrencyListGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/currency/*?offset=1&count=3",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  {\n" +
+                    "    \"currencyCode\": \"AED\",\n" +
+                    "    \"text\": \"United Arab Emirates Dirham\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"currencyCode\": \"AFA\",\n" +
+                    "    \"text\": \"Afghan Afghani (1927–2002)\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"currencyCode\": \"AFN\",\n" +
+                    "    \"text\": \"Afghan Afghani\"\n" +
+                    "  }\n" +
+                    "]",
+                CurrencyHateosResourceSet.class.getSimpleName()
+            )
+        );
+    }
+    
     // DateTimeSymbols..................................................................................................
 
     @Test

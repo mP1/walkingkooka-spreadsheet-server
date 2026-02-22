@@ -43,6 +43,7 @@ import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
@@ -74,6 +75,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_CONVERTER = API.append(
         ConverterHateosResourceMappings.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_CURRENCY = API.append(
+        CurrencyHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_DATE_TIME_SYMBOLS = API.append(
