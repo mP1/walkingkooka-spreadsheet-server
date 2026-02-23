@@ -252,8 +252,8 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
 
     @Test
     public void testMarshallUnmarshallAllAvailableCurrencyHateosResources() {
-        final SortedSet<CurrencyHateosResource> locales = SortedSets.tree();
-        locales.addAll(
+        final SortedSet<CurrencyHateosResource> currencies = SortedSets.tree();
+        currencies.addAll(
             Currency.getAvailableCurrencies()
                 .stream()
                 .map(CurrencyHateosResource::fromCurrency)
@@ -262,11 +262,11 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
 
         this.checkNotEquals(
             SortedSets.empty(),
-            locales
+            currencies
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            CurrencyHateosResourceSet.with(locales)
+            CurrencyHateosResourceSet.with(currencies)
         );
     }
 
