@@ -117,8 +117,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                     context.indentation(),
                     SpreadsheetLabelNameResolvers.empty(),
                     context.lineEnding(),
-                    context, // CurrencyContext
-                    context, // LocaleContext
+                    context, // CurrencyLocaleContext
                     context, // SpreadsheetProvider
                     providerContext // ProviderContext
                 ),
