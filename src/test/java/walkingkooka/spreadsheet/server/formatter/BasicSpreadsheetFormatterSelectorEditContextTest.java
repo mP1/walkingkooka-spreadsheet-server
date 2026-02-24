@@ -21,8 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
@@ -50,6 +52,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -115,6 +118,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         final Locale locale = Locale.forLanguageTag("EN-AU");
+        final LocaleContext localeContext = LocaleContexts.jre(locale);
 
         return SpreadsheetConverterContexts.basic(
             HasUserDirectorieses.fake(),
@@ -126,16 +130,20 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                 ExpressionNumberConverterContexts.basic(
                     Converters.fake(),
                     ConverterContexts.basic(
-                        (l) -> {
-                            Objects.requireNonNull(l, "locale");
-                            throw new UnsupportedOperationException();
-                        }, // canCurrencyForLocale
                         false, // canNumbersHaveGroupSeparator
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
                         Indentation.SPACES2,
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.objectToString(),
+                        new FakeCurrencyContext() {
+                            @Override
+                            public Optional<Currency> currencyForLocale(final Locale locale) {
+                                return Optional.of(
+                                    Currency.getInstance(locale)
+                                );
+                            }
+                        }.setLocaleContext(localeContext),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
                                 new DateFormatSymbols(locale)
@@ -147,14 +155,13 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         ),
                         DecimalNumberContexts.american(
                             MathContext.DECIMAL32
-                        ),
-                        LocaleContexts.jre(locale)
+                        )
                     ),
                     ExpressionNumberKind.BIG_DECIMAL
                 ),
                 JsonNodeMarshallUnmarshallContexts.fake()
             ),
-            LocaleContexts.jre(locale)
+            localeContext
         );
     }
 
