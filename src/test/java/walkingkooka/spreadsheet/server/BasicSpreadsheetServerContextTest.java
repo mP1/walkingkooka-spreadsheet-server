@@ -654,7 +654,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SpreadsheetProviderContexts.spreadsheet(
                 PluginStores.fake(),
-                CURRENCY_CONTEXT,
+                CURRENCY_LOCALE_CONTEXT,
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.LOCALE,
                     LOCALE
@@ -691,8 +691,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 ).spreadsheetEnvironmentContext(
                     SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
                 ),
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-                LOCALE_CONTEXT
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
             ),
             new FakeTerminalServerContext() {
 
