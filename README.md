@@ -117,6 +117,13 @@ These end points may be used to work with available [ConverterInfoSet](https://g
 - **GET** /api/converter
 - **GET** /api/converter/[ConverterName](https://github.com/mP1/walkingkooka-convert-provider/blob/master/src/main/java/walkingkooka/convert/provider/ConverterName.java)
 
+#### [Currency](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/currency/CurrencyCode.java)
+
+End points to query available Currencies.
+
+- **GET** /api/currency/[CurrencyCode](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/currency/CurrencyCide.java)
+- **GET** /api/currency/*?offset=0&count=1
+
 #### [DateTimeSymbols](https://github.com/mP1/walkingkooka-datetime/blob/master/src/main/java/walkingkooka/datetime/DateTimeSymbols.java)
 
 End points to fetch `DateTimeSymbols` for a given `Locale`.
