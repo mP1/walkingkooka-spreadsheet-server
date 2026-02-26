@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.currency.CurrencyCode;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
 import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateContexts;
@@ -44,6 +45,7 @@ import walkingkooka.template.TemplateTesting2;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.tree.text.TextStylePropertyName;
 
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -57,9 +59,15 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
 
     private final static SpreadsheetId ID = SpreadsheetId.with(0x123);
     private final static SpreadsheetName NAME = SpreadsheetName.with("SpreadsheetName456");
-    private final LocaleTag LOCALE_TAG = LocaleTag.with(
-        Locale.forLanguageTag("en-AU")
+
+    private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
+
+    private final CurrencyCode CURRENCY_CODE = CurrencyCode.with(
+        Currency.getInstance(LOCALE)
     );
+
+    private final LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+
     private final static SpreadsheetEngineEvaluation SPREADSHEET_ENGINE_EVALUATION = SpreadsheetEngineEvaluation.SKIP_EVALUATE;
     private final static SpreadsheetExpressionReference CELL = SpreadsheetSelection.A1;
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
@@ -251,6 +259,19 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         );
     }
 
+    // currencyCode.....................................................................................................
+
+    @Test
+    public void testCurrencyCode() {
+        this.checkEquals(
+            CURRENCY_CODE,
+            SpreadsheetUrlPathTemplate.parse("/api/currency/${CurrencyCode}/")
+                .currencyCode(
+                    UrlPath.parse("/api/currency/AUD/")
+                )
+        );
+    }
+    
     // localeTag..................................................................................................
 
     @Test
