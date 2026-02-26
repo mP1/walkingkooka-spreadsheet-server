@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.currency.CurrencyCode;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
 import walkingkooka.template.Template;
 import walkingkooka.template.TemplateContext;
@@ -50,6 +51,8 @@ import java.util.function.Function;
  * A {@link Template} that supports extracting well known named parameters having values path components automatically converted.
  */
 public final class SpreadsheetUrlPathTemplate implements Template {
+
+    public final static TemplateValueName CURRENCY_CODE = TemplateValueName.with("CurrencyCode");
 
     public final static TemplateValueName LOCALE_TAG = TemplateValueName.with("LocaleTag");
 
@@ -83,6 +86,16 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         this.template = template;
     }
 
+    public CurrencyCode currencyCode(final UrlPath path) {
+        return getOrFail(
+            path,
+            CURRENCY_CODE,
+            removeSlashFirstAndParse(
+                CurrencyCode::parse
+            )
+        );
+    }
+    
     public LocaleTag localeTag(final UrlPath path) {
         return getOrFail(
             path,
