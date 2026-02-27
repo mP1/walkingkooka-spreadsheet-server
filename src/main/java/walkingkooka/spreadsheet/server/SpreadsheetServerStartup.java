@@ -22,6 +22,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetStartup;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
+import walkingkooka.spreadsheet.server.currency.CurrencyCode;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceSet;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceSet;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenu;
@@ -34,6 +36,8 @@ import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 
+import java.util.Currency;
+
 /**
  * Used to force all values types to register their {@link JsonNodeContext#register}
  */
@@ -41,6 +45,11 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
 
     static {
         SpreadsheetStartup.init();
+
+        CurrencyHateosResourceSet.EMPTY.size();
+        CurrencyCode.with(
+            Currency.getInstance("AUD")
+        );
 
         DateTimeSymbolsHateosResourceSet.EMPTY.size();
         DecimalNumberSymbolsHateosResourceSet.EMPTY.size();
