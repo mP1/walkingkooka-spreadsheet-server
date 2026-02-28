@@ -233,15 +233,15 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
             this.createJsonNodeMarshallingValue(),
             "[\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en\",\n" +
+                "    \"locale\": \"en\",\n" +
                 "    \"text\": \"English\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-AU\",\n" +
+                "    \"locale\": \"en-AU\",\n" +
                 "    \"text\": \"English (Australia)\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"locale\": \"en-NZ\",\n" +
                 "    \"text\": \"English (New Zealand)\"\n" +
                 "  }\n" +
                 "]"
@@ -253,15 +253,15 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
         this.unmarshallAndCheck(
             "[\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en\",\n" +
+                "    \"locale\": \"en\",\n" +
                 "    \"text\": \"English\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-AU\",\n" +
+                "    \"locale\": \"en-AU\",\n" +
                 "    \"text\": \"English (Australia)\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"locale\": \"en-NZ\",\n" +
                 "    \"text\": \"English (New Zealand)\"\n" +
                 "  }\n" +
                 "]",

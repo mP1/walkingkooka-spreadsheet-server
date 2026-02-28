@@ -161,7 +161,7 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
-                case LOCALE_TAG_PROPERTY_STRING:
+                case LOCALE_PROPERTY_STRING:
                     localeTag = context.unmarshall(
                         child,
                         LocaleTag.class
@@ -180,7 +180,7 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
         }
 
         if (null == localeTag) {
-            JsonNodeUnmarshallContext.missingProperty(LOCALE_TAG_PROPERTY, node);
+            JsonNodeUnmarshallContext.missingProperty(LOCALE_PROPERTY, node);
         }
         if (null == text) {
             JsonNodeUnmarshallContext.missingProperty(TEXT_PROPERTY, node);
@@ -194,14 +194,14 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
-            .set(LOCALE_TAG_PROPERTY, context.marshall(this.localeTag))
+            .set(LOCALE_PROPERTY, context.marshall(this.localeTag))
             .set(TEXT_PROPERTY, context.marshall(this.text));
     }
 
-    private final static String LOCALE_TAG_PROPERTY_STRING = "localeTag";
+    private final static String LOCALE_PROPERTY_STRING = "locale";
     private final static String TEXT_PROPERTY_STRING = "text";
 
-    private final static JsonPropertyName LOCALE_TAG_PROPERTY = JsonPropertyName.with(LOCALE_TAG_PROPERTY_STRING);
+    private final static JsonPropertyName LOCALE_PROPERTY = JsonPropertyName.with(LOCALE_PROPERTY_STRING);
     private final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_PROPERTY_STRING);
 
 
