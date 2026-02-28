@@ -18,6 +18,8 @@
 package walkingkooka.spreadsheet.server.locale;
 
 import walkingkooka.Value;
+import walkingkooka.compare.Comparators;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -27,41 +29,47 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * An id that uniquely identifies a {@link Locale} for a {@link walkingkooka.net.http.server.hateos.HateosResourceHandler}.
+ * An id that uniquely identifies a {@link Locale} using its language-tag such as EN, EN-AU for a {@link walkingkooka.net.http.server.hateos.HateosResourceHandler}.
  */
-public final class LocaleTag implements Comparable<LocaleTag>, Value<Locale> {
+public final class LocaleTag implements Comparable<LocaleTag>, Value<String> {
 
-    public static LocaleTag parse(final String text) {
-        return with(
-            Locale.forLanguageTag(text)
-        );
-    }
+    public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
-    public static LocaleTag with(final Locale locale) {
+    public static LocaleTag fromLocale(final Locale locale) {
         return new LocaleTag(
-            Objects.requireNonNull(locale)
+            Objects.requireNonNull(locale, "locale")
+                .toLanguageTag()
         );
     }
 
-    private LocaleTag(final Locale locale) {
+    public static LocaleTag parse(final String languageTag) {
+        return new LocaleTag(
+            Objects.requireNonNull(languageTag)
+        );
+    }
+
+    private LocaleTag(final String languageTag) {
         super();
-        this.locale = locale;
+
+        this.languageTag = languageTag;
     }
 
     // Value............................................................................................................
 
     @Override
-    public Locale value() {
-        return this.locale;
+    public String value() {
+        return this.languageTag;
     }
 
-    private final Locale locale;
+    private final String languageTag;
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return this.locale.hashCode();
+        return CASE_SENSITIVITY.hash(
+            this.languageTag
+        );
     }
 
     @Override
@@ -72,43 +80,44 @@ public final class LocaleTag implements Comparable<LocaleTag>, Value<Locale> {
     }
 
     private boolean equals0(final LocaleTag other) {
-        return this.locale.equals(other.locale);
+        return this.compareTo(other) == Comparators.EQUAL;
     }
 
     @Override
     public String toString() {
-        return this.locale.toLanguageTag();
+        return this.languageTag;
     }
 
     // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final LocaleTag other) {
-        return this.locale.toLanguageTag()
-            .compareTo(other.locale.toLanguageTag());
+        return CASE_SENSITIVITY.comparator()
+            .compare(
+                this.languageTag,
+                other.languageTag
+            );
     }
 
     // json.............................................................................................................
 
-    static LocaleTag unmarshall(final JsonNode node, 
+    static LocaleTag unmarshall(final JsonNode node,
                                 final JsonNodeUnmarshallContext context) {
-        return with(
-                context.unmarshall(
-                    node,
-                    Locale.class
-                )
+        return parse(
+            context.unmarshall(
+                node,
+                String.class
+            )
         );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return context.marshall(
-            this.locale
+            this.languageTag
         );
     }
 
     static {
-        Locale.getDefault();
-
         JsonNodeContext.register(
             JsonNodeContext.computeTypeName(LocaleTag.class),
             LocaleTag::unmarshall,

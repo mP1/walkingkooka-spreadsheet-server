@@ -53,27 +53,28 @@ final class DecimalNumberSymbolsHateosResourceHandlerLoad implements HateosResou
 
     @Override
     public Optional<DecimalNumberSymbolsHateosResource> handleOne(final LocaleTag id,
-                                                             final Optional<DecimalNumberSymbolsHateosResource> resource,
-                                                             final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                             final UrlPath path,
-                                                             final LocaleHateosResourceHandlerContext context) {
+                                                                  final Optional<DecimalNumberSymbolsHateosResource> resource,
+                                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                  final UrlPath path,
+                                                                  final LocaleHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        return context.decimalNumberSymbolsForLocale(
+        final Locale locale = context.localeForLanguageTagOrFail(
             id.value()
-        ).map(
-            d -> DecimalNumberSymbolsHateosResource.with(
-                id,
-                context.localeTextOrFail(
-                    id.value()
-                ),
-                d
-            )
         );
+
+        return context.decimalNumberSymbolsForLocale(locale)
+            .map(
+                d -> DecimalNumberSymbolsHateosResource.with(
+                    id,
+                    context.localeTextOrFail(locale),
+                    d
+                )
+            );
     }
 
     // Object...........................................................................................................

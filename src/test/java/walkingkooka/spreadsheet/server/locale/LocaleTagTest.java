@@ -35,23 +35,23 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     ClassTesting2<LocaleTag>,
     ParseStringTesting<LocaleTag> {
 
-    private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
+    private final static String LOCALE = "en-AU";
 
     @Test
     public void testWithNullLocaleFails() {
         assertThrows(
             NullPointerException.class,
-            () -> LocaleTag.with(null)
+            () -> LocaleTag.parse(null)
         );
     }
 
     @Test
     public void testWith() {
-        final Locale locale = Locale.forLanguageTag("en-AU");
+        final String languageTag = "en-AU";
 
-        final LocaleTag localeTag = LocaleTag.with(locale);
+        final LocaleTag localeTag = LocaleTag.parse(languageTag);
         this.checkEquals(
-            locale,
+            languageTag,
             localeTag.value()
         );
     }
@@ -67,7 +67,7 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     public void testParse() {
         this.parseStringAndCheck(
             "en-AU",
-            LocaleTag.with(LOCALE)
+            LocaleTag.parse(LOCALE)
         );
     }
 
@@ -91,15 +91,23 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     @Test
     public void testComparableLess() {
         this.compareToAndCheckLess(
-            LocaleTag.with(
-                Locale.FRANCE
+            LocaleTag.parse(
+                Locale.FRANCE.toLanguageTag()
             )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentCase() {
+        this.compareToAndCheckEquals(
+            LocaleTag.parse("en-AU"),
+            LocaleTag.parse("EN-AU")
         );
     }
 
     @Override
     public LocaleTag createComparable() {
-        return LocaleTag.with(LOCALE);
+        return LocaleTag.parse(LOCALE);
     }
 
     // json.............................................................................................................
@@ -115,7 +123,7 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
 
     @Override
     public LocaleTag createJsonNodeMarshallingValue() {
-        return LocaleTag.with(LOCALE);
+        return LocaleTag.parse(LOCALE);
     }
 
     // class............................................................................................................

@@ -43,7 +43,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
-    private final static LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+    private final static LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
 
     private final static String LOCALE_TEXT = "English (Australia)";
 
@@ -186,9 +186,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
         this.compareToAndCheckLess(
             DecimalNumberSymbolsHateosResource.with(
-                LocaleTag.with(
-                    locale
-                ),
+                LocaleTag.fromLocale(locale),
                 locale.getDisplayName(),
                 DecimalNumberSymbols.fromDecimalFormatSymbols(
                     '+',

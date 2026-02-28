@@ -43,7 +43,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
-    private final static LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+    private final static LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
 
     private final static String LOCALE_TEXT = "English (Australia)";
 
@@ -204,9 +204,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
 
         this.compareToAndCheckLess(
             DateTimeSymbolsHateosResource.with(
-                LocaleTag.with(
-                    locale
-                ),
+                LocaleTag.fromLocale(locale),
                 locale.getDisplayName(),
                 DateTimeSymbols.fromDateFormatSymbols(
                     new DateFormatSymbols(locale)
