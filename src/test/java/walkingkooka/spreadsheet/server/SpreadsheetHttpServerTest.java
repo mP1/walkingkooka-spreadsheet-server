@@ -9877,7 +9877,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"locale\": \"en-AU\",\n" +
                     "  \"text\": \"English (Australia)\",\n" +
                     "  \"dateTimeSymbols\": {\n" +
                     "    \"ampms\": [\n" +
@@ -9950,7 +9950,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "[\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"locale\": \"en-AU\",\n" +
                     "    \"text\": \"English (Australia)\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +

@@ -268,7 +268,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
         this.unmarshallAndCheck(
             "[\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en\",\n" +
+                "    \"locale\": \"en\",\n" +
                 "    \"text\": \"English\",\n" +
                 "    \"dateTimeSymbols\": {\n" +
                 "      \"ampms\": [\n" +
@@ -324,7 +324,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-AU\",\n" +
+                "    \"locale\": \"en-AU\",\n" +
                 "    \"text\": \"English (Australia)\",\n" +
                 "    \"dateTimeSymbols\": {\n" +
                 "      \"ampms\": [\n" +
@@ -380,7 +380,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"locale\": \"en-NZ\",\n" +
                 "    \"text\": \"English (New Zealand)\",\n" +
                 "    \"dateTimeSymbols\": {\n" +
                 "      \"ampms\": [\n" +
