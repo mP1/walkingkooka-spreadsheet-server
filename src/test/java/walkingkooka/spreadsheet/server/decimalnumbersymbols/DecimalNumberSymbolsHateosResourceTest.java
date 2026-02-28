@@ -212,7 +212,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
         this.marshallAndCheck(
             this.createJsonNodeMarshallingValue(),
             "{\n" +
-                "  \"localeTag\": \"en-AU\",\n" +
+                "  \"locale\": \"en-AU\",\n" +
                 "  \"text\": \"English (Australia)\",\n" +
                 "  \"decimalNumberSymbols\": {\n" +
                 "    \"negativeSign\": \"-\",\n" +

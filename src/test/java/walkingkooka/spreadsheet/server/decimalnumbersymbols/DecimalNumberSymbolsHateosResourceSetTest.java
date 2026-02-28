@@ -208,7 +208,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
             this.createJsonNodeMarshallingValue(),
             "[\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en\",\n" +
+                "    \"locale\": \"en\",\n" +
                 "    \"text\": \"English\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
@@ -226,7 +226,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-AU\",\n" +
+                "    \"locale\": \"en-AU\",\n" +
                 "    \"text\": \"English (Australia)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
@@ -244,7 +244,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"locale\": \"en-NZ\",\n" +
                 "    \"text\": \"English (New Zealand)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
@@ -270,7 +270,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
         this.unmarshallAndCheck(
             "[\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en\",\n" +
+                "    \"locale\": \"en\",\n" +
                 "    \"text\": \"English\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
@@ -288,7 +288,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-AU\",\n" +
+                "    \"locale\": \"en-AU\",\n" +
                 "    \"text\": \"English (Australia)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
@@ -306,7 +306,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"localeTag\": \"en-NZ\",\n" +
+                "    \"locale\": \"en-NZ\",\n" +
                 "    \"text\": \"English (New Zealand)\",\n" +
                 "    \"decimalNumberSymbols\": {\n" +
                 "      \"negativeSign\": \"-\",\n" +
