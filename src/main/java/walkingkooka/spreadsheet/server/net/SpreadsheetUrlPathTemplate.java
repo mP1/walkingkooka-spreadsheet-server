@@ -54,7 +54,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
 
     public final static TemplateValueName CURRENCY_CODE = TemplateValueName.with("CurrencyCode");
 
-    public final static TemplateValueName LOCALE_TAG = TemplateValueName.with("LocaleLanguageTag");
+    public final static TemplateValueName LOCALE_LANGUAGE_TAG = TemplateValueName.with("LocaleLanguageTag");
 
     public final static TemplateValueName SPREADSHEET_COLUMN_REFERENCE_OR_RANGE = TemplateValueName.with(SpreadsheetColumnReferenceOrRange.class.getSimpleName());
 
@@ -96,10 +96,10 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         );
     }
     
-    public LocaleLanguageTag localeTag(final UrlPath path) {
+    public LocaleLanguageTag languageLocaleTag(final UrlPath path) {
         return getOrFail(
             path,
-            LOCALE_TAG,
+            LOCALE_LANGUAGE_TAG,
             removeSlashFirstAndParse(
                 LocaleLanguageTag::parse
             )

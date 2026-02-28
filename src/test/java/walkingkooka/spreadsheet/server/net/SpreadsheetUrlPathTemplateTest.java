@@ -66,7 +66,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         Currency.getInstance(LOCALE)
     );
 
-    private final LocaleLanguageTag LOCALE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
+    private final LocaleLanguageTag LOCALE_LANGUAGE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static SpreadsheetEngineEvaluation SPREADSHEET_ENGINE_EVALUATION = SpreadsheetEngineEvaluation.SKIP_EVALUATE;
     private final static SpreadsheetExpressionReference CELL = SpreadsheetSelection.A1;
@@ -202,9 +202,9 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         this.getAndCheck(
             "/api/dateTimeSymbols/${LocaleLanguageTag}/*",
             "/api/dateTimeSymbols/en-AU/*",
-            SpreadsheetUrlPathTemplate.LOCALE_TAG,
+            SpreadsheetUrlPathTemplate.LOCALE_LANGUAGE_TAG,
             LocaleLanguageTag::parse,
-            Optional.of(LOCALE_TAG)
+            Optional.of(LOCALE_LANGUAGE_TAG)
         );
     }
 
@@ -277,9 +277,9 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     @Test
     public void testLocaleLanguageTag() {
         this.checkEquals(
-            LOCALE_TAG,
+            LOCALE_LANGUAGE_TAG,
             SpreadsheetUrlPathTemplate.parse("/api/locale/${LocaleLanguageTag}/")
-                .localeTag(
+                .languageLocaleTag(
                     UrlPath.parse("/api/locale/en-AU/"
                     )
                 )
@@ -814,8 +814,8 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             LABEL
         );
         values.put(
-            SpreadsheetUrlPathTemplate.LOCALE_TAG,
-            LOCALE_TAG
+            SpreadsheetUrlPathTemplate.LOCALE_LANGUAGE_TAG,
+            LOCALE_LANGUAGE_TAG
         );
         values.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_METADATA_PROPERTY_NAME,
@@ -832,10 +832,10 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
 
         this.checkEquals(
             UrlPath.parse(
-                "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/localeTag/en-AU/column/B/row/2" +
+                "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/locale/en-AU/column/B/row/2" +
                     "/label/Label123/metadata/roundingMode/style/text-align/formatter/text @"),
             SpreadsheetUrlPathTemplate.parse(
-                "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell/${SpreadsheetExpressionReference}/localeTag/${LocaleLanguageTag}" +
+                "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell/${SpreadsheetExpressionReference}/locale/${LocaleLanguageTag}" +
                     "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +
                     "/label/${SpreadsheetLabelName}/metadata/roundingMode/style/${TextStylePropertyName}" +
                     "/formatter/${SpreadsheetFormatterSelector}"
