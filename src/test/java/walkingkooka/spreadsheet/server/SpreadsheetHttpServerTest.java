@@ -11501,7 +11501,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"locale\": \"en-AU\",\n" +
                     "  \"text\": \"English (Australia)\"\n" +
                     "}",
                 LocaleHateosResource.class.getSimpleName()
@@ -11522,15 +11522,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "[\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"el-GR\",\n" +
+                    "    \"locale\": \"el-GR\",\n" +
                     "    \"text\": \"Greek (Greece)\"\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en\",\n" +
+                    "    \"locale\": \"en\",\n" +
                     "    \"text\": \"English\"\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en-001\",\n" +
+                    "    \"locale\": \"en-001\",\n" +
                     "    \"text\": \"English (World)\"\n" +
                     "  }\n" +
                     "]",

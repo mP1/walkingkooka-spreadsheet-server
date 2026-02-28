@@ -157,7 +157,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
         this.marshallAndCheck(
             this.createJsonNodeMarshallingValue(),
             "{\n" +
-                "  \"localeTag\": \"en-AU\",\n" +
+                "  \"locale\": \"en-AU\",\n" +
                 "  \"text\": \"Australian English\"\n" +
                 "}"
         );
