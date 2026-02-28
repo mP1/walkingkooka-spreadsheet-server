@@ -77,7 +77,7 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
             if (null != currencyText && (CurrencyContexts.CASE_SENSITIVITY.startsWith(currencyText, startsWith) || CurrencyContexts.CASE_SENSITIVITY.equals(currencyText, startsWith))) {
                 matched.add(
                     CurrencyHateosResource.with(
-                        CurrencyCode.with(currency),
+                        CurrencyCode.fromCurrency(currency),
                         currencyText
                     )
                 );

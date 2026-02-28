@@ -130,11 +130,15 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
             Optional.of(
                 CurrencyHateosResourceSet.EMPTY.concat(
                     CurrencyHateosResource.fromCurrency(
-                        AUD.value()
+                        Currency.getInstance(
+                            AUD.value()
+                        )
                     )
                 ).concat(
                     CurrencyHateosResource.fromCurrency(
-                        NZD.value()
+                        Currency.getInstance(
+                            NZD.value()
+                        )
                     )
                 )
             )

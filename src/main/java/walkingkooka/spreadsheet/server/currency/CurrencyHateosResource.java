@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.currency;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
-import walkingkooka.currency.HasCurrency;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.text.CharSequences;
@@ -40,8 +39,7 @@ import java.util.Optional;
  * A proxy for a {@link Currency} holding the unique currency tag and label or text for display
  */
 public final class CurrencyHateosResource implements HateosResource<CurrencyCode>,
-    Value<String>,
-    HasCurrency,
+    Value<CurrencyCode>,
     HasText,
     Comparable<CurrencyHateosResource>,
     TreePrintable {
@@ -55,7 +53,7 @@ public final class CurrencyHateosResource implements HateosResource<CurrencyCode
         final String displayName = CurrencyHateosResourceGetDisplay.getDisplay(currency);
 
         return with(
-            CurrencyCode.with(currency),
+            CurrencyCode.fromCurrency(currency),
             displayName.isEmpty() ?
                 currency.getCurrencyCode() :
                 displayName
@@ -87,16 +85,11 @@ public final class CurrencyHateosResource implements HateosResource<CurrencyCode
     }
 
     @Override
-    public Currency currency() {
-        return this.currencyCode.value();
+    public CurrencyCode value() {
+        return this.currencyCode;
     }
 
     private final CurrencyCode currencyCode;
-
-    @Override
-    public String value() {
-        return this.text;
-    }
 
     // HasText..........................................................................................................
 
