@@ -38,18 +38,18 @@ public final class CurrencyCodeTest implements ComparableTesting2<CurrencyCode>,
     private final static Currency CURRENCY = Currency.getInstance("AUD");
 
     @Test
-    public void testWithNullCurrencyFails() {
+    public void testFromCurrencyNullCurrencyFails() {
         assertThrows(
             NullPointerException.class,
-            () -> CurrencyCode.with(null)
+            () -> CurrencyCode.fromCurrency(null)
         );
     }
 
     @Test
-    public void testWith() {
-        final CurrencyCode currencyCode = CurrencyCode.with(CURRENCY);
+    public void testFromCurrency() {
+        final CurrencyCode currencyCode = CurrencyCode.fromCurrency(CURRENCY);
         this.checkEquals(
-            CURRENCY,
+            CURRENCY.getCurrencyCode(),
             currencyCode.value()
         );
     }
@@ -65,7 +65,7 @@ public final class CurrencyCodeTest implements ComparableTesting2<CurrencyCode>,
     public void testParse() {
         this.parseStringAndCheck(
             "AUD",
-            CurrencyCode.with(CURRENCY)
+            CurrencyCode.fromCurrency(CURRENCY)
         );
     }
 
@@ -89,7 +89,7 @@ public final class CurrencyCodeTest implements ComparableTesting2<CurrencyCode>,
     @Test
     public void testComparableLess() {
         this.compareToAndCheckLess(
-            CurrencyCode.with(
+            CurrencyCode.fromCurrency(
                 Currency.getInstance("NZD")
             )
         );
@@ -97,7 +97,7 @@ public final class CurrencyCodeTest implements ComparableTesting2<CurrencyCode>,
 
     @Override
     public CurrencyCode createComparable() {
-        return CurrencyCode.with(CURRENCY);
+        return CurrencyCode.fromCurrency(CURRENCY);
     }
 
     // json.............................................................................................................
@@ -113,7 +113,7 @@ public final class CurrencyCodeTest implements ComparableTesting2<CurrencyCode>,
 
     @Override
     public CurrencyCode createJsonNodeMarshallingValue() {
-        return CurrencyCode.with(CURRENCY);
+        return CurrencyCode.fromCurrency(CURRENCY);
     }
 
     // class............................................................................................................

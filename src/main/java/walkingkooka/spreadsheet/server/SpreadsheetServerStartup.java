@@ -47,7 +47,7 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
         SpreadsheetStartup.init();
 
         CurrencyHateosResourceSet.EMPTY.size();
-        CurrencyCode.with(
+        CurrencyCode.fromCurrency(
             Currency.getInstance("AUD")
         );
 

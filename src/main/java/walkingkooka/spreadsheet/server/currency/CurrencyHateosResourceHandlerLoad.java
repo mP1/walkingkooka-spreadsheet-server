@@ -67,7 +67,6 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
 
         return context.currencyForCurrencyCode(
             id.value()
-                .getCurrencyCode()
         ).flatMap(
             c -> fromCurrencyOptional(
                 c,
@@ -120,7 +119,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
             CurrencyHateosResourceSet.with(
                 context.availableCurrencies()
                     .stream()
-                    .filter((Currency l) -> ids.contains(CurrencyCode.with(l)))
+                    .filter((Currency l) -> ids.contains(CurrencyCode.fromCurrency(l)))
                     .flatMap((Currency l) -> fromCurrency(l, context))
                     .collect(Collectors.toCollection(SortedSets::tree))
             )
@@ -135,7 +134,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
         return text.isPresent() ?
             Stream.of(
                 CurrencyHateosResource.with(
-                    CurrencyCode.with(currency),
+                    CurrencyCode.fromCurrency(currency),
                     text.get()
                 )
             ) :
@@ -148,7 +147,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
             .map(
                 t ->
                     CurrencyHateosResource.with(
-                        CurrencyCode.with(currency),
+                        CurrencyCode.fromCurrency(currency),
                         t
                     )
             );

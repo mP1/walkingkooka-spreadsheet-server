@@ -62,7 +62,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
 
     private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
 
-    private final CurrencyCode CURRENCY_CODE = CurrencyCode.with(
+    private final CurrencyCode CURRENCY_CODE = CurrencyCode.fromCurrency(
         Currency.getInstance(LOCALE)
     );
 

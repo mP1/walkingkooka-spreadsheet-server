@@ -161,7 +161,7 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
             "Australia",
             CONTEXT,
             CurrencyHateosResource.with(
-                CurrencyCode.with(AUD_CURRENCY),
+                CurrencyCode.fromCurrency(AUD_CURRENCY),
                 AUD_TEXT
             )
         );
@@ -173,7 +173,7 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
             EUR_TEXT,
             CONTEXT,
             CurrencyHateosResource.with(
-                CurrencyCode.with(EUR_CURRENCY),
+                CurrencyCode.fromCurrency(EUR_CURRENCY),
                 EUR_TEXT
             )
         );

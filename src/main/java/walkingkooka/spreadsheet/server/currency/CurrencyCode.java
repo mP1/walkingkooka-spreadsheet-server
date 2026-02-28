@@ -17,7 +17,10 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.Value;
+import walkingkooka.compare.Comparators;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -29,39 +32,47 @@ import java.util.Objects;
 /**
  * An id that uniquely identifies a {@link Currency} for a {@link walkingkooka.net.http.server.hateos.HateosResourceHandler}.
  */
-public final class CurrencyCode implements Comparable<CurrencyCode>, Value<Currency> {
+public final class CurrencyCode implements Comparable<CurrencyCode>, Value<String> {
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     public static CurrencyCode parse(final String text) {
-        return with(
-            Currency.getInstance(text)
+        return new CurrencyCode(
+            InvalidTextLengthException.throwIfFail(
+                "currencyCode",
+                text,
+                3,
+                3
+            )
         );
     }
 
-    public static CurrencyCode with(final Currency currency) {
+    public static CurrencyCode fromCurrency(final Currency currency) {
         return new CurrencyCode(
             Objects.requireNonNull(currency)
+                .getCurrencyCode()
         );
     }
 
-    private CurrencyCode(final Currency currency) {
+    private CurrencyCode(final String code) {
         super();
-        this.currency = currency;
+        this.code = code;
     }
 
     // Value............................................................................................................
 
     @Override
-    public Currency value() {
-        return this.currency;
+    public String value() {
+        return this.code;
     }
 
-    private final Currency currency;
+    private final String code;
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return this.currency.hashCode();
+        return CASE_SENSITIVITY.hash(this.code);
     }
 
     @Override
@@ -72,38 +83,39 @@ public final class CurrencyCode implements Comparable<CurrencyCode>, Value<Curre
     }
 
     private boolean equals0(final CurrencyCode other) {
-        return this.currency.equals(other.currency);
+        return this.compareTo(other) == Comparators.EQUAL;
     }
 
     @Override
     public String toString() {
-        return this.currency.getCurrencyCode();
+        return this.code;
     }
 
     // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final CurrencyCode other) {
-        return this.currency.getCurrencyCode()
-            .compareTo(other.currency.getCurrencyCode());
+        return CASE_SENSITIVITY.comparator()
+            .compare(
+                this.code,
+                other.code
+            );
     }
 
     // json.............................................................................................................
 
     static CurrencyCode unmarshall(final JsonNode node,
                                    final JsonNodeUnmarshallContext context) {
-        return with(
+        return parse(
             context.unmarshall(
                 node,
-                Currency.class
+                String.class
             )
         );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return context.marshall(
-            this.currency
-        );
+        return context.marshall(this.code);
     }
 
     static {

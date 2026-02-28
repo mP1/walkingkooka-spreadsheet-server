@@ -41,7 +41,7 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
 
     private final static Currency CURRENCY = Currency.getInstance("AUD");
 
-    private final static CurrencyCode CURRENCY_CODE = CurrencyCode.with(CURRENCY);
+    private final static CurrencyCode CURRENCY_CODE = CurrencyCode.fromCurrency(CURRENCY);
 
     private final static String TEXT = "Australian Dollar";
 
@@ -85,8 +85,9 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
             CURRENCY_CODE,
             TEXT
         );
+
         this.checkEquals(
-            TEXT,
+            CurrencyCode.fromCurrency(CURRENCY),
             resource.value()
         );
 
@@ -98,11 +99,6 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
         this.textAndCheck(
             resource,
             TEXT
-        );
-
-        this.currencyAndCheck(
-            resource,
-            CURRENCY
         );
     }
 
@@ -139,7 +135,7 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
     public void testComparableLess() {
         this.compareToAndCheckLess(
             CurrencyHateosResource.with(
-                CurrencyCode.with(
+                CurrencyCode.fromCurrency(
                     Currency.getInstance("NZD")
                 ),
                 "New Zealand ...."
