@@ -38,7 +38,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.currency.CurrencyCode;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateContexts;
 import walkingkooka.template.TemplateTesting2;
@@ -66,7 +66,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         Currency.getInstance(LOCALE)
     );
 
-    private final LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
+    private final LocaleLanguageTag LOCALE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static SpreadsheetEngineEvaluation SPREADSHEET_ENGINE_EVALUATION = SpreadsheetEngineEvaluation.SKIP_EVALUATE;
     private final static SpreadsheetExpressionReference CELL = SpreadsheetSelection.A1;
@@ -198,12 +198,12 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     }
 
     @Test
-    public void testGetLocaleTagExisting() {
+    public void testGetLocaleLanguageTagExisting() {
         this.getAndCheck(
-            "/api/dateTimeSymbols/${LocaleTag}/*",
+            "/api/dateTimeSymbols/${LocaleLanguageTag}/*",
             "/api/dateTimeSymbols/en-AU/*",
             SpreadsheetUrlPathTemplate.LOCALE_TAG,
-            LocaleTag::parse,
+            LocaleLanguageTag::parse,
             Optional.of(LOCALE_TAG)
         );
     }
@@ -275,10 +275,10 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     // localeTag..................................................................................................
 
     @Test
-    public void testLocaleTag() {
+    public void testLocaleLanguageTag() {
         this.checkEquals(
             LOCALE_TAG,
-            SpreadsheetUrlPathTemplate.parse("/api/locale/${LocaleTag}/")
+            SpreadsheetUrlPathTemplate.parse("/api/locale/${LocaleLanguageTag}/")
                 .localeTag(
                     UrlPath.parse("/api/locale/en-AU/"
                     )
@@ -835,7 +835,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 "/api/spreadsheet/123/name/SpreadsheetName456/cell/A1/localeTag/en-AU/column/B/row/2" +
                     "/label/Label123/metadata/roundingMode/style/text-align/formatter/text @"),
             SpreadsheetUrlPathTemplate.parse(
-                "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell/${SpreadsheetExpressionReference}/localeTag/${LocaleTag}" +
+                "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}/cell/${SpreadsheetExpressionReference}/localeTag/${LocaleLanguageTag}" +
                     "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +
                     "/label/${SpreadsheetLabelName}/metadata/roundingMode/style/${TextStylePropertyName}" +
                     "/formatter/${SpreadsheetFormatterSelector}"

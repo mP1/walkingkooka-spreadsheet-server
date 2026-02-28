@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.currency.CurrencyCode;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.template.Template;
 import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateValueName;
@@ -54,7 +54,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
 
     public final static TemplateValueName CURRENCY_CODE = TemplateValueName.with("CurrencyCode");
 
-    public final static TemplateValueName LOCALE_TAG = TemplateValueName.with("LocaleTag");
+    public final static TemplateValueName LOCALE_TAG = TemplateValueName.with("LocaleLanguageTag");
 
     public final static TemplateValueName SPREADSHEET_COLUMN_REFERENCE_OR_RANGE = TemplateValueName.with(SpreadsheetColumnReferenceOrRange.class.getSimpleName());
 
@@ -96,12 +96,12 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         );
     }
     
-    public LocaleTag localeTag(final UrlPath path) {
+    public LocaleLanguageTag localeTag(final UrlPath path) {
         return getOrFail(
             path,
             LOCALE_TAG,
             removeSlashFirstAndParse(
-                LocaleTag::parse
+                LocaleLanguageTag::parse
             )
         );
     }
@@ -279,8 +279,8 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                 final String without = removeRootSlashIfNecessary(s);
                 
                 switch (name.value()) {
-                    case "LocaleTag":
-                        v = LocaleTag.parse(without);
+                    case "LocaleLanguageTag":
+                        v = LocaleLanguageTag.parse(without);
                         break;
                     case "SpreadsheetColumnReferenceOrRange":
                         v = SpreadsheetSelection.parseColumnOrColumnRange(without);
@@ -333,7 +333,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                 final String stringValue;
 
                 switch (n.value()) {
-                    case "LocaleTag":
+                    case "LocaleLanguageTag":
                         stringValue = value.toString();
                         break;
                     case "SpreadsheetEngineEvaluation":

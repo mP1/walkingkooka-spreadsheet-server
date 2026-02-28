@@ -27,7 +27,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 
 import java.util.Locale;
 import java.util.Map;
@@ -36,12 +36,12 @@ import java.util.Optional;
 /**
  * A {@link HateosResourceHandler} that invokes {@link LocaleContext#dateTimeSymbolsForLocale(Locale)}.
  */
-final class DateTimeSymbolsHateosResourceHandlerLoad implements HateosResourceHandler<LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleAll<LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleOne<LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
+final class DateTimeSymbolsHateosResourceHandlerLoad implements HateosResourceHandler<LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleAll<LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleOne<LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -52,7 +52,7 @@ final class DateTimeSymbolsHateosResourceHandlerLoad implements HateosResourceHa
     }
 
     @Override
-    public Optional<DateTimeSymbolsHateosResource> handleOne(final LocaleTag id,
+    public Optional<DateTimeSymbolsHateosResource> handleOne(final LocaleLanguageTag id,
                                                              final Optional<DateTimeSymbolsHateosResource> resource,
                                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                                              final UrlPath path,

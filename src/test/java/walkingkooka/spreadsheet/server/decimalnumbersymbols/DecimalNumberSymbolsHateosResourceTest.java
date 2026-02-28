@@ -22,7 +22,7 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -43,7 +43,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
-    private final static LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
+    private final static LocaleLanguageTag LOCALE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static String LOCALE_TEXT = "English (Australia)";
 
@@ -53,7 +53,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
     );
 
     @Test
-    public void testWithNullLocaleTagFails() {
+    public void testWithNullLocaleLanguageTagFails() {
         assertThrows(
             NullPointerException.class,
             () -> DecimalNumberSymbolsHateosResource.with(
@@ -186,7 +186,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
         this.compareToAndCheckLess(
             DecimalNumberSymbolsHateosResource.with(
-                LocaleTag.fromLocale(locale),
+                LocaleLanguageTag.fromLocale(locale),
                 locale.getDisplayName(),
                 DecimalNumberSymbols.fromDecimalFormatSymbols(
                     '+',

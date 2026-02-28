@@ -30,7 +30,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.List;
@@ -85,7 +85,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler implemen
             if (null != decimalNumberSymbols) {
                 all.add(
                     DecimalNumberSymbolsHateosResource.with(
-                        LocaleTag.fromLocale(locale),
+                        LocaleLanguageTag.fromLocale(locale),
                         context.localeTextOrFail(locale),
                         decimalNumberSymbols
                     )

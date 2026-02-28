@@ -77,7 +77,7 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
             if (null != localeText && (LocaleContexts.CASE_SENSITIVITY.startsWith(localeText, startsWith) || LocaleContexts.CASE_SENSITIVITY.equals(localeText, startsWith))) {
                 matched.add(
                     LocaleHateosResource.with(
-                        LocaleTag.parse(
+                        LocaleLanguageTag.parse(
                             locale.toLanguageTag()
                         ),
                         localeText

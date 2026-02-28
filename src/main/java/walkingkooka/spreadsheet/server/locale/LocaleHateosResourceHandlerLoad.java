@@ -37,9 +37,9 @@ import java.util.stream.Stream;
 /**
  * A {@link HateosResourceHandler} that invokes {@link LocaleContext#availableLocales()} to supply the requested {@link LocaleHateosResource}.
  */
-final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<LocaleTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<LocaleTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<LocaleTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
+final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
     private final static int DEFAULT_COUNT = 20;
 
@@ -54,7 +54,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
     }
 
     @Override
-    public Optional<LocaleHateosResource> handleOne(final LocaleTag id,
+    public Optional<LocaleHateosResource> handleOne(final LocaleLanguageTag id,
                                                     final Optional<LocaleHateosResource> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final UrlPath path,
@@ -69,7 +69,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             .stream()
             .filter((final Locale l) ->
                 id.equals(
-                    LocaleTag.fromLocale(l)
+                    LocaleLanguageTag.fromLocale(l)
                 )
             ).flatMap((Locale l) -> fromLocale(l, context))
             .findFirst();
@@ -104,7 +104,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
     }
 
     @Override
-    public Optional<LocaleHateosResourceSet> handleMany(final Set<LocaleTag> ids,
+    public Optional<LocaleHateosResourceSet> handleMany(final Set<LocaleLanguageTag> ids,
                                                         final Optional<LocaleHateosResourceSet> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                                         final UrlPath path,
@@ -120,7 +120,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
                 context.availableLocales()
                     .stream()
                     .filter((Locale l) -> ids.contains(
-                            LocaleTag.fromLocale(l)
+                            LocaleLanguageTag.fromLocale(l)
                         )
                     ).flatMap((Locale l) -> fromLocale(l, context))
                     .collect(Collectors.toCollection(SortedSets::tree))
@@ -136,7 +136,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         return text.isPresent() ?
             Stream.of(
                 LocaleHateosResource.with(
-                    LocaleTag.fromLocale(locale),
+                    LocaleLanguageTag.fromLocale(locale),
                     text.get()
                 )
             ) :
