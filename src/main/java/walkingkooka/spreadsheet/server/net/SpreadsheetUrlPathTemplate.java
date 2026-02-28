@@ -96,7 +96,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         );
     }
     
-    public LocaleLanguageTag languageLocaleTag(final UrlPath path) {
+    public LocaleLanguageTag localeLanguageTag(final UrlPath path) {
         return getOrFail(
             path,
             LOCALE_LANGUAGE_TAG,

@@ -279,7 +279,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         this.checkEquals(
             LOCALE_LANGUAGE_TAG,
             SpreadsheetUrlPathTemplate.parse("/api/locale/${LocaleLanguageTag}/")
-                .languageLocaleTag(
+                .localeLanguageTag(
                     UrlPath.parse("/api/locale/en-AU/"
                     )
                 )
