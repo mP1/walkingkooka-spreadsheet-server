@@ -229,7 +229,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
         this.marshallAndCheck(
             this.createJsonNodeMarshallingValue(),
             "{\n" +
-                "  \"localeTag\": \"en-AU\",\n" +
+                "  \"locale\": \"en-AU\",\n" +
                 "  \"text\": \"English (Australia)\",\n" +
                 "  \"dateTimeSymbols\": {\n" +
                 "    \"ampms\": [\n" +

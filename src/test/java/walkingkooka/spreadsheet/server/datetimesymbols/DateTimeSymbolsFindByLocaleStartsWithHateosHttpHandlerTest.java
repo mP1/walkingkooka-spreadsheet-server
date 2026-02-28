@@ -59,7 +59,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
             ).setBodyText(
                 "[\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en\",\n" +
+                    "    \"locale\": \"en\",\n" +
                     "    \"text\": \"English\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +
@@ -115,7 +115,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                     "    }\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en-001\",\n" +
+                    "    \"locale\": \"en-001\",\n" +
                     "    \"text\": \"English (World)\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +
@@ -201,7 +201,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
             ).setBodyText(
                 "[\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"locale\": \"en-AU\",\n" +
                     "    \"text\": \"English (Australia)\",\n" +
                     "    \"dateTimeSymbols\": {\n" +
                     "      \"ampms\": [\n" +
