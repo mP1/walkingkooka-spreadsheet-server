@@ -272,7 +272,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         );
     }
     
-    // localeTag..................................................................................................
+    // localeLanguageTag................................................................................................
 
     @Test
     public void testLocaleLanguageTag() {
