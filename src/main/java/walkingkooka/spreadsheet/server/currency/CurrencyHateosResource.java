@@ -168,7 +168,7 @@ public final class CurrencyHateosResource implements HateosResource<CurrencyCode
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
-                case CURRENCY_TAG_PROPERTY_STRING:
+                case CURRENCY_CODE_PROPERTY_STRING:
                     currencyCode = context.unmarshall(
                         child,
                         CurrencyCode.class
@@ -187,7 +187,7 @@ public final class CurrencyHateosResource implements HateosResource<CurrencyCode
         }
 
         if (null == currencyCode) {
-            JsonNodeUnmarshallContext.missingProperty(CURRENCY_TAG_PROPERTY, node);
+            JsonNodeUnmarshallContext.missingProperty(CURRENCY_CODE_PROPERTY, node);
         }
         if (null == text) {
             JsonNodeUnmarshallContext.missingProperty(TEXT_PROPERTY, node);
@@ -201,14 +201,14 @@ public final class CurrencyHateosResource implements HateosResource<CurrencyCode
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
-            .set(CURRENCY_TAG_PROPERTY, context.marshall(this.currencyCode))
+            .set(CURRENCY_CODE_PROPERTY, context.marshall(this.currencyCode))
             .set(TEXT_PROPERTY, context.marshall(this.text));
     }
 
-    private final static String CURRENCY_TAG_PROPERTY_STRING = "currencyCode";
+    private final static String CURRENCY_CODE_PROPERTY_STRING = "currencyCode";
     private final static String TEXT_PROPERTY_STRING = "text";
 
-    private final static JsonPropertyName CURRENCY_TAG_PROPERTY = JsonPropertyName.with(CURRENCY_TAG_PROPERTY_STRING);
+    private final static JsonPropertyName CURRENCY_CODE_PROPERTY = JsonPropertyName.with(CURRENCY_CODE_PROPERTY_STRING);
     private final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_PROPERTY_STRING);
 
 
