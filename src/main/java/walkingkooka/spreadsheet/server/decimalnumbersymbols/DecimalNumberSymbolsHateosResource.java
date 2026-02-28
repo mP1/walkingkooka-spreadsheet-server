@@ -182,7 +182,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         for (final JsonNode child : node.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
-                case LOCALE_TAG_PROPERTY_STRING:
+                case LOCALE_PROPERTY_STRING:
                     localeTag = context.unmarshall(
                         child,
                         LocaleTag.class
@@ -207,7 +207,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         }
 
         if (null == localeTag) {
-            JsonNodeUnmarshallContext.missingProperty(LOCALE_TAG_PROPERTY, node);
+            JsonNodeUnmarshallContext.missingProperty(LOCALE_PROPERTY, node);
         }
         if (null == decimalNumberSymbols) {
             JsonNodeUnmarshallContext.missingProperty(DECIMAL_NUMBER_SYMBOLS_PROPERTY, node);
@@ -222,16 +222,16 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
-            .set(LOCALE_TAG_PROPERTY, context.marshall(this.localeTag))
+            .set(LOCALE_PROPERTY, context.marshall(this.localeTag))
             .set(TEXT_PROPERTY, context.marshall(this.localeText))
             .set(DECIMAL_NUMBER_SYMBOLS_PROPERTY, context.marshall(this.decimalNumberSymbols));
     }
 
-    private final static String LOCALE_TAG_PROPERTY_STRING = "localeTag";
+    private final static String LOCALE_PROPERTY_STRING = "locale";
     private final static String TEXT_PROPERTY_STRING = "text";
     private final static String DECIMAL_NUMBER_SYMBOLS_PROPERTY_STRING = "decimalNumberSymbols";
 
-    private final static JsonPropertyName LOCALE_TAG_PROPERTY = JsonPropertyName.with(LOCALE_TAG_PROPERTY_STRING);
+    private final static JsonPropertyName LOCALE_PROPERTY = JsonPropertyName.with(LOCALE_PROPERTY_STRING);
     private final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_PROPERTY_STRING);
     private final static JsonPropertyName DECIMAL_NUMBER_SYMBOLS_PROPERTY = JsonPropertyName.with(DECIMAL_NUMBER_SYMBOLS_PROPERTY_STRING);
 

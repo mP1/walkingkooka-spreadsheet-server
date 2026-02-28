@@ -59,7 +59,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
             ).setBodyText(
                 "[\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en\",\n" +
+                    "    \"locale\": \"en\",\n" +
                     "    \"text\": \"English\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
@@ -77,7 +77,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                     "    }\n" +
                     "  },\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en-001\",\n" +
+                    "    \"locale\": \"en-001\",\n" +
                     "    \"text\": \"English (World)\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
@@ -125,7 +125,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
             ).setBodyText(
                 "[\n" +
                     "  {\n" +
-                    "    \"localeTag\": \"en-AU\",\n" +
+                    "    \"locale\": \"en-AU\",\n" +
                     "    \"text\": \"English (Australia)\",\n" +
                     "    \"decimalNumberSymbols\": {\n" +
                     "      \"negativeSign\": \"-\",\n" +
