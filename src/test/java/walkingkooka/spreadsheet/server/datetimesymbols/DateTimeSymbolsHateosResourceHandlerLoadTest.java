@@ -31,18 +31,18 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DateTimeSymbolsHateosResourceHandlerLoad, LocaleTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
+public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DateTimeSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
-    private final static LocaleTag EN_AU = LocaleTag.parse("en-AU");
+    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
 
-    private final static LocaleTag EN_NZ = LocaleTag.parse("en-NZ");
+    private final static LocaleLanguageTag EN_NZ = LocaleLanguageTag.parse("en-NZ");
 
     @Test
     public void testHandleOneLocaleEnAu() {
@@ -66,12 +66,12 @@ public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements Hateo
     }
 
     @Override
-    public LocaleTag id() {
+    public LocaleLanguageTag id() {
         return EN_AU;
     }
 
     @Override
-    public Set<LocaleTag> manyIds() {
+    public Set<LocaleLanguageTag> manyIds() {
         return Sets.of(
             EN_AU,
             EN_NZ
@@ -79,7 +79,7 @@ public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements Hateo
     }
 
     @Override
-    public Range<LocaleTag> range() {
+    public Range<LocaleLanguageTag> range() {
         return Range.with(
             RangeBound.inclusive(
                 EN_AU

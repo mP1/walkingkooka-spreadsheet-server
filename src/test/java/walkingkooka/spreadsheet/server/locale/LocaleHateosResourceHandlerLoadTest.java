@@ -39,11 +39,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
+public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
-    private final static LocaleTag EN_AU = LocaleTag.parse("en-AU");
+    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
 
-    private final static LocaleTag EN_NZ = LocaleTag.parse("EN-NZ");
+    private final static LocaleLanguageTag EN_NZ = LocaleLanguageTag.parse("EN-NZ");
 
     @Test
     public void testHandleOneLocaleEnAu() {
@@ -142,12 +142,12 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
     }
 
     @Override
-    public LocaleTag id() {
+    public LocaleLanguageTag id() {
         return EN_AU;
     }
 
     @Override
-    public Set<LocaleTag> manyIds() {
+    public Set<LocaleLanguageTag> manyIds() {
         return Set.of(
             EN_AU,
             EN_NZ
@@ -155,7 +155,7 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
     }
 
     @Override
-    public Range<LocaleTag> range() {
+    public Range<LocaleLanguageTag> range() {
         return Range.with(
             RangeBound.inclusive(
                 EN_AU

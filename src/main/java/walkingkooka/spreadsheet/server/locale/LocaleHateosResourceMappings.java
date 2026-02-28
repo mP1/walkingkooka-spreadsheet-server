@@ -25,7 +25,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 
 public final class LocaleHateosResourceMappings implements PublicStaticHelper {
 
-    public static HateosResourceMappings<LocaleTag,
+    public static HateosResourceMappings<LocaleLanguageTag,
         LocaleHateosResource,
         LocaleHateosResourceSet,
         LocaleHateosResource,
@@ -45,9 +45,9 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
         );
     }
 
-    private static HateosResourceSelection<LocaleTag> parseSelection(final String text,
-                                                                     final LocaleHateosResourceHandlerContext context) {
-        final HateosResourceSelection<LocaleTag> selection;
+    private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
+                                                                             final LocaleHateosResourceHandlerContext context) {
+        final HateosResourceSelection<LocaleLanguageTag> selection;
 
         switch (text) {
             case HateosResourceSelection.NONE:
@@ -58,7 +58,7 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
                 break;
             default:
                 selection = HateosResourceSelection.one(
-                    LocaleTag.parse(text)
+                    LocaleLanguageTag.parse(text)
                 );
                 break;
         }

@@ -30,10 +30,10 @@ import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
-    JsonNodeMarshallingTesting<LocaleTag>,
-    ClassTesting2<LocaleTag>,
-    ParseStringTesting<LocaleTag> {
+public final class LocaleLanguageTagTest implements ComparableTesting2<LocaleLanguageTag>,
+    JsonNodeMarshallingTesting<LocaleLanguageTag>,
+    ClassTesting2<LocaleLanguageTag>,
+    ParseStringTesting<LocaleLanguageTag> {
 
     private final static String LOCALE = "en-AU";
 
@@ -41,7 +41,7 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     public void testWithNullLocaleFails() {
         assertThrows(
             NullPointerException.class,
-            () -> LocaleTag.parse(null)
+            () -> LocaleLanguageTag.parse(null)
         );
     }
 
@@ -49,10 +49,10 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     public void testWith() {
         final String languageTag = "en-AU";
 
-        final LocaleTag localeTag = LocaleTag.parse(languageTag);
+        final LocaleLanguageTag localeLanguageTag = LocaleLanguageTag.parse(languageTag);
         this.checkEquals(
             languageTag,
-            localeTag.value()
+            localeLanguageTag.value()
         );
     }
 
@@ -67,13 +67,13 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     public void testParse() {
         this.parseStringAndCheck(
             "en-AU",
-            LocaleTag.parse(LOCALE)
+            LocaleLanguageTag.parse(LOCALE)
         );
     }
 
     @Override
-    public LocaleTag parseString(final String text) {
-        return LocaleTag.parse(text);
+    public LocaleLanguageTag parseString(final String text) {
+        return LocaleLanguageTag.parse(text);
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     @Test
     public void testComparableLess() {
         this.compareToAndCheckLess(
-            LocaleTag.parse(
+            LocaleLanguageTag.parse(
                 Locale.FRANCE.toLanguageTag()
             )
         );
@@ -100,37 +100,37 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     @Test
     public void testEqualsDifferentCase() {
         this.compareToAndCheckEquals(
-            LocaleTag.parse("en-AU"),
-            LocaleTag.parse("EN-AU")
+            LocaleLanguageTag.parse("en-AU"),
+            LocaleLanguageTag.parse("EN-AU")
         );
     }
 
     @Override
-    public LocaleTag createComparable() {
-        return LocaleTag.parse(LOCALE);
+    public LocaleLanguageTag createComparable() {
+        return LocaleLanguageTag.parse(LOCALE);
     }
 
     // json.............................................................................................................
 
     @Override
-    public LocaleTag unmarshall(final JsonNode node,
-                                final JsonNodeUnmarshallContext context) {
-        return LocaleTag.unmarshall(
+    public LocaleLanguageTag unmarshall(final JsonNode node,
+                                        final JsonNodeUnmarshallContext context) {
+        return LocaleLanguageTag.unmarshall(
             node,
             context
         );
     }
 
     @Override
-    public LocaleTag createJsonNodeMarshallingValue() {
-        return LocaleTag.parse(LOCALE);
+    public LocaleLanguageTag createJsonNodeMarshallingValue() {
+        return LocaleLanguageTag.parse(LOCALE);
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<LocaleTag> type() {
-        return LocaleTag.class;
+    public Class<LocaleLanguageTag> type() {
+        return LocaleLanguageTag.class;
     }
 
     @Override

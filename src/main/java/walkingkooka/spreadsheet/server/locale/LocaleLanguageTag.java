@@ -31,24 +31,24 @@ import java.util.Objects;
 /**
  * An id that uniquely identifies a {@link Locale} using its language-tag such as EN, EN-AU for a {@link walkingkooka.net.http.server.hateos.HateosResourceHandler}.
  */
-public final class LocaleTag implements Comparable<LocaleTag>, Value<String> {
+public final class LocaleLanguageTag implements Comparable<LocaleLanguageTag>, Value<String> {
 
     public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
-    public static LocaleTag fromLocale(final Locale locale) {
-        return new LocaleTag(
+    public static LocaleLanguageTag fromLocale(final Locale locale) {
+        return new LocaleLanguageTag(
             Objects.requireNonNull(locale, "locale")
                 .toLanguageTag()
         );
     }
 
-    public static LocaleTag parse(final String languageTag) {
-        return new LocaleTag(
+    public static LocaleLanguageTag parse(final String languageTag) {
+        return new LocaleLanguageTag(
             Objects.requireNonNull(languageTag)
         );
     }
 
-    private LocaleTag(final String languageTag) {
+    private LocaleLanguageTag(final String languageTag) {
         super();
 
         this.languageTag = languageTag;
@@ -75,11 +75,11 @@ public final class LocaleTag implements Comparable<LocaleTag>, Value<String> {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            (other instanceof LocaleTag &&
-                this.equals0((LocaleTag) other));
+            (other instanceof LocaleLanguageTag &&
+                this.equals0((LocaleLanguageTag) other));
     }
 
-    private boolean equals0(final LocaleTag other) {
+    private boolean equals0(final LocaleLanguageTag other) {
         return this.compareTo(other) == Comparators.EQUAL;
     }
 
@@ -91,7 +91,7 @@ public final class LocaleTag implements Comparable<LocaleTag>, Value<String> {
     // Comparable.......................................................................................................
 
     @Override
-    public int compareTo(final LocaleTag other) {
+    public int compareTo(final LocaleLanguageTag other) {
         return CASE_SENSITIVITY.comparator()
             .compare(
                 this.languageTag,
@@ -101,8 +101,8 @@ public final class LocaleTag implements Comparable<LocaleTag>, Value<String> {
 
     // json.............................................................................................................
 
-    static LocaleTag unmarshall(final JsonNode node,
-                                final JsonNodeUnmarshallContext context) {
+    static LocaleLanguageTag unmarshall(final JsonNode node,
+                                        final JsonNodeUnmarshallContext context) {
         return parse(
             context.unmarshall(
                 node,
@@ -119,10 +119,10 @@ public final class LocaleTag implements Comparable<LocaleTag>, Value<String> {
 
     static {
         JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(LocaleTag.class),
-            LocaleTag::unmarshall,
-            LocaleTag::marshall,
-            LocaleTag.class
+            JsonNodeContext.computeTypeName(LocaleLanguageTag.class),
+            LocaleLanguageTag::unmarshall,
+            LocaleLanguageTag::marshall,
+            LocaleLanguageTag.class
         );
     }
 }

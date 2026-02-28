@@ -22,7 +22,7 @@ import walkingkooka.Value;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
@@ -38,7 +38,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class DecimalNumberSymbolsHateosResource implements HateosResource<LocaleTag>,
+public final class DecimalNumberSymbolsHateosResource implements HateosResource<LocaleLanguageTag>,
     Value<DecimalNumberSymbols>,
     HasText,
     Comparable<DecimalNumberSymbolsHateosResource>,
@@ -51,7 +51,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         Objects.requireNonNull(locale, "locale");
 
         return with(
-            LocaleTag.fromLocale(locale),
+            LocaleLanguageTag.fromLocale(locale),
             locale.getDisplayName(),
             DecimalNumberSymbols.fromDecimalFormatSymbols(
                 '+',
@@ -60,35 +60,35 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         );
     }
     
-    public static DecimalNumberSymbolsHateosResource with(final LocaleTag localeTag,
+    public static DecimalNumberSymbolsHateosResource with(final LocaleLanguageTag localeLanguageTag,
                                                           final String localeText,
                                                           final DecimalNumberSymbols decimalNumberSymbols) {
         return new DecimalNumberSymbolsHateosResource(
-            Objects.requireNonNull(localeTag, "localeTag"),
+            Objects.requireNonNull(localeLanguageTag, "localeLanguageTag"),
             CharSequences.failIfNullOrEmpty(localeText, "localeText"),
             Objects.requireNonNull(decimalNumberSymbols, "decimalNumberSymbols")
         );
     }
 
-    private DecimalNumberSymbolsHateosResource(final LocaleTag localeTag,
+    private DecimalNumberSymbolsHateosResource(final LocaleLanguageTag localeLanguageTag,
                                                final String localeText,
                                                final DecimalNumberSymbols decimalNumberSymbols) {
-        this.localeTag = localeTag;
+        this.localeLanguageTag = localeLanguageTag;
         this.localeText = localeText;
         this.decimalNumberSymbols = decimalNumberSymbols;
     }
 
     @Override
-    public Optional<LocaleTag> id() {
-        return Optional.of(this.localeTag);
+    public Optional<LocaleLanguageTag> id() {
+        return Optional.of(this.localeLanguageTag);
     }
 
     @Override
     public String hateosLinkId() {
-        return this.localeTag.toString();
+        return this.localeLanguageTag.toString();
     }
 
-    private final LocaleTag localeTag;
+    private final LocaleLanguageTag localeLanguageTag;
 
     // Hext.............................................................................................................
 
@@ -116,7 +116,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
     @Override
     public int hashCode() {
         return Objects.hash(
-            this.localeTag,
+            this.localeLanguageTag,
             this.localeText,
             this.decimalNumberSymbols
         );
@@ -130,28 +130,28 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
     }
 
     private boolean equals0(final DecimalNumberSymbolsHateosResource other) {
-        return this.localeTag.equals(other.localeTag) &&
+        return this.localeLanguageTag.equals(other.localeLanguageTag) &&
             this.localeText.equals(other.localeText) &&
             this.decimalNumberSymbols.equals(other.decimalNumberSymbols);
     }
 
     @Override
     public String toString() {
-        return this.localeTag + " " + localeText + " " + this.decimalNumberSymbols;
+        return this.localeLanguageTag + " " + localeText + " " + this.decimalNumberSymbols;
     }
 
     // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final DecimalNumberSymbolsHateosResource other) {
-        return this.localeTag.compareTo(other.localeTag);
+        return this.localeLanguageTag.compareTo(other.localeLanguageTag);
     }
 
     // TreePrintable.....................................................................................................
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        printer.println(this.localeTag.toString());
+        printer.println(this.localeLanguageTag.toString());
 
         printer.indent();
         {
@@ -175,7 +175,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
                                                          final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
-        LocaleTag localeTag = null;
+        LocaleLanguageTag localeLanguageTag = null;
         String localeText = null;
         DecimalNumberSymbols decimalNumberSymbols = null;
 
@@ -183,9 +183,9 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
             final JsonPropertyName name = child.name();
             switch (name.value()) {
                 case LOCALE_PROPERTY_STRING:
-                    localeTag = context.unmarshall(
+                    localeLanguageTag = context.unmarshall(
                         child,
-                        LocaleTag.class
+                        LocaleLanguageTag.class
                     );
                     break;
                 case TEXT_PROPERTY_STRING:
@@ -206,7 +206,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
             }
         }
 
-        if (null == localeTag) {
+        if (null == localeLanguageTag) {
             JsonNodeUnmarshallContext.missingProperty(LOCALE_PROPERTY, node);
         }
         if (null == decimalNumberSymbols) {
@@ -214,7 +214,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         }
 
         return with(
-            localeTag,
+            localeLanguageTag,
             localeText,
             decimalNumberSymbols
         );
@@ -222,7 +222,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
-            .set(LOCALE_PROPERTY, context.marshall(this.localeTag))
+            .set(LOCALE_PROPERTY, context.marshall(this.localeLanguageTag))
             .set(TEXT_PROPERTY, context.marshall(this.localeText))
             .set(DECIMAL_NUMBER_SYMBOLS_PROPERTY, context.marshall(this.decimalNumberSymbols));
     }

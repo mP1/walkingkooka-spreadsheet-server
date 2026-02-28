@@ -23,12 +23,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleTag;
+import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
 public final class DecimalNumberSymbolsHateosResourceMappings implements PublicStaticHelper {
 
-    public static HateosResourceMappings<LocaleTag,
+    public static HateosResourceMappings<LocaleLanguageTag,
         DecimalNumberSymbolsHateosResource,
         DecimalNumberSymbolsHateosResourceSet,
         DecimalNumberSymbolsHateosResource,
@@ -52,9 +52,9 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
         );
     }
 
-    private static HateosResourceSelection<LocaleTag> parseSelection(final String text,
-                                                                     final LocaleHateosResourceHandlerContext context) {
-        final HateosResourceSelection<LocaleTag> selection;
+    private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
+                                                                             final LocaleHateosResourceHandlerContext context) {
+        final HateosResourceSelection<LocaleLanguageTag> selection;
 
         switch (text) {
             case HateosResourceSelection.NONE:
@@ -65,7 +65,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
                 break;
             default:
                 selection = HateosResourceSelection.one(
-                    LocaleTag.parse(text)
+                    LocaleLanguageTag.parse(text)
                 );
                 break;
         }

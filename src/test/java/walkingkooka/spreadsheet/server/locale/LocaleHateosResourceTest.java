@@ -41,12 +41,12 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
-    private final static LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
+    private final static LocaleLanguageTag LOCALE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static String TEXT = "Australian English";
 
     @Test
-    public void testWithNullLocaleTagFails() {
+    public void testWithNullLocaleLanguageTagFails() {
         assertThrows(
             NullPointerException.class,
             () -> LocaleHateosResource.with(
@@ -134,7 +134,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     public void testComparableLess() {
         this.compareToAndCheckLess(
             LocaleHateosResource.with(
-                LocaleTag.fromLocale(
+                LocaleLanguageTag.fromLocale(
                     Locale.FRANCE
                 ),
                 "France ...."
