@@ -51,7 +51,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
         Objects.requireNonNull(locale, "locale");
 
         return with(
-            LocaleTag.with(locale),
+            LocaleTag.fromLocale(locale),
             locale.getDisplayName(),
             DecimalNumberSymbols.fromDecimalFormatSymbols(
                 '+',

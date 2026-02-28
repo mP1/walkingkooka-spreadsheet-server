@@ -166,11 +166,11 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
             "English",
             CONTEXT,
             LocaleHateosResource.with(
-                LocaleTag.with(ENAU),
+                LocaleTag.fromLocale(ENAU),
                 ENGLISH_AUSTRALIA_TEXT
             ),
             LocaleHateosResource.with(
-                LocaleTag.with(ENNZ),
+                LocaleTag.fromLocale(ENNZ),
                 ENGLISH_NEW_ZEALAND_TEXT
             )
         );
@@ -182,7 +182,7 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
             FRENCH_TEXT,
             CONTEXT,
             LocaleHateosResource.with(
-                LocaleTag.with(FR),
+                LocaleTag.fromLocale(FR),
                 FRENCH_TEXT
             )
         );

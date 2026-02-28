@@ -66,7 +66,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         Currency.getInstance(LOCALE)
     );
 
-    private final LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+    private final LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
 
     private final static SpreadsheetEngineEvaluation SPREADSHEET_ENGINE_EVALUATION = SpreadsheetEngineEvaluation.SKIP_EVALUATE;
     private final static SpreadsheetExpressionReference CELL = SpreadsheetSelection.A1;

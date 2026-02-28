@@ -51,7 +51,9 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
         Objects.requireNonNull(locale, "locale");
 
         return with(
-            LocaleTag.with(locale),
+            LocaleTag.parse(
+                locale.toLanguageTag()
+            ),
             locale.getDisplayName(),
             DateTimeSymbols.fromDateFormatSymbols(
                 new DateFormatSymbols(locale)

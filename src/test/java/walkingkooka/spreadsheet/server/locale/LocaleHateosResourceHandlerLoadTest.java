@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 
 public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
-    private final static LocaleTag EN_AU = LocaleTag.parse("EN-AU");
+    private final static LocaleTag EN_AU = LocaleTag.parse("en-AU");
 
     private final static LocaleTag EN_NZ = LocaleTag.parse("EN-NZ");
 
@@ -55,7 +55,9 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             this.context(),
             Optional.of(
                 LocaleHateosResource.fromLocale(
-                    EN_AU.value()
+                    Locale.forLanguageTag(
+                        EN_AU.value()
+                    )
                 )
             )
         );
@@ -119,11 +121,15 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             Optional.of(
                 LocaleHateosResourceSet.EMPTY.concat(
                     LocaleHateosResource.fromLocale(
-                        EN_AU.value()
+                        Locale.forLanguageTag(
+                            EN_AU.value()
+                        )
                     )
                 ).concat(
                     LocaleHateosResource.fromLocale(
-                        EN_NZ.value()
+                        Locale.forLanguageTag(
+                            EN_NZ.value()
+                        )
                     )
                 )
             )

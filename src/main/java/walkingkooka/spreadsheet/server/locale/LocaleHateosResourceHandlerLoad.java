@@ -67,8 +67,11 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
 
         return context.availableLocales()
             .stream()
-            .filter((final Locale l) -> l.toLanguageTag().equals(id.toString()))
-            .flatMap((Locale l) -> fromLocale(l, context))
+            .filter((final Locale l) ->
+                id.equals(
+                    LocaleTag.fromLocale(l)
+                )
+            ).flatMap((Locale l) -> fromLocale(l, context))
             .findFirst();
     }
 
@@ -116,8 +119,10 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             LocaleHateosResourceSet.with(
                 context.availableLocales()
                     .stream()
-                    .filter((Locale l) -> ids.contains(LocaleTag.with(l)))
-                    .flatMap((Locale l) -> fromLocale(l, context))
+                    .filter((Locale l) -> ids.contains(
+                            LocaleTag.fromLocale(l)
+                        )
+                    ).flatMap((Locale l) -> fromLocale(l, context))
                     .collect(Collectors.toCollection(SortedSets::tree))
             )
         );
@@ -131,10 +136,10 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         return text.isPresent() ?
             Stream.of(
                 LocaleHateosResource.with(
-                    LocaleTag.with(locale),
+                    LocaleTag.fromLocale(locale),
                     text.get()
                 )
-            ):
+            ) :
             Stream.empty();
     }
 

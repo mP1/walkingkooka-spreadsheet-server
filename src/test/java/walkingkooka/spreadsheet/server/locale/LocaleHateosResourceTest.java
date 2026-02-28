@@ -41,7 +41,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
-    private final static LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+    private final static LocaleTag LOCALE_TAG = LocaleTag.fromLocale(LOCALE);
 
     private final static String TEXT = "Australian English";
 
@@ -99,11 +99,6 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
             resource,
             TEXT
         );
-
-        this.localeAndCheck(
-            resource,
-            LOCALE
-        );
     }
 
     // HasText..........................................................................................................
@@ -139,7 +134,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     public void testComparableLess() {
         this.compareToAndCheckLess(
             LocaleHateosResource.with(
-                LocaleTag.with(
+                LocaleTag.fromLocale(
                     Locale.FRANCE
                 ),
                 "France ...."

@@ -33,15 +33,16 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.locale.LocaleTag;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DecimalNumberSymbolsHateosResourceHandlerLoad, LocaleTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
 
-    private final static LocaleTag EN_AU = LocaleTag.parse("EN-AU");
+    private final static LocaleTag EN_AU = LocaleTag.parse("en-AU");
 
-    private final static LocaleTag EN_NZ = LocaleTag.parse("EN-NZ");
+    private final static LocaleTag EN_NZ = LocaleTag.parse("en-NZ");
 
     @Test
     public void testHandleOneLocaleEnAu() {
@@ -53,7 +54,9 @@ public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements 
             this.context(),
             Optional.of(
                 DecimalNumberSymbolsHateosResource.fromLocale(
-                    EN_AU.value()
+                    Locale.forLanguageTag(
+                        EN_AU.value()
+                    )
                 )
             )
         );
@@ -113,7 +116,9 @@ public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements 
     public LocaleHateosResourceHandlerContext context() {
         return LocaleHateosResourceHandlerContexts.basic(
             LocaleContexts.jre(
-                EN_AU.value()
+                Locale.forLanguageTag(
+                    EN_AU.value()
+                )
             ),
             HateosResourceHandlerContexts.fake()
         );

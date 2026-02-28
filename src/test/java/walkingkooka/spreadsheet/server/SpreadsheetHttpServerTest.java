@@ -9871,7 +9871,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/dateTimeSymbols/EN-AU",
+            "/api/dateTimeSymbols/en-AU",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -10036,7 +10036,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/decimalNumberSymbols/EN-AU",
+            "/api/decimalNumberSymbols/en-AU",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
