@@ -128,7 +128,7 @@ End points to query available Currencies.
 
 End points to fetch `DateTimeSymbols` for a given `Locale`.
 
-- **GET** /api/dateTimeSymbols/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+- **GET** /api/dateTimeSymbols/[LocaleLanguageTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleLanguageTag.java)
 - **GET** /api/dateTimeSymbols/*/localeStartsWith/LOCALE
 
 #### [DecimalNumberSymbols](https://github.com/mP1/walkingkooka-math/blob/master/src/main/java/walkingkooka/math/DecimalNumberSymbols.java)
@@ -136,7 +136,7 @@ End points to fetch `DateTimeSymbols` for a given `Locale`.
 End points to fetch `DecimalNumberSymbols` for a given `Locale`.
 
 - **GET** /api/decimalNumberSymbols/*/localeStartsWith/LOCALE
-- **GET** /api/decimalNumberSymbols/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+- **GET** /api/decimalNumberSymbols/[LocaleLanguageTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleLanguageTag.java)
 
 #### [Exporter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/export/SpreadsheetExporter.java)
 
@@ -192,11 +192,11 @@ These end points are mostly used by the label management dialog.
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/label/[spreadsheetLabelName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/spreadsheetLabelName.java)
 - **DELETE** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/label/[spreadsheetLabelName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/spreadsheetLabelName.java)
 
-#### [Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+#### [Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleLanguageTag.java)
 
 End points to query available Locales. The locale query parameter is optional
 
-- **GET** /api/locale/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)?locale=en-AU
+- **GET** /api/locale/[LocaleLanguageTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleLanguageTag.java)?locale=en-AU
 - **GET** /api/locale/*?offset=0&count=1&locale=en-AU
 
 #### [Parser](https://github.com/mP1/walkingkooka-text-cursor-parser/blob/master/src/main/java/walkingkooka/text/cursor/parser/Parser.java)
