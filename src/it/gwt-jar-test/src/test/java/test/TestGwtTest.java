@@ -25,6 +25,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.currency.CurrencyContexts;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
@@ -380,13 +381,8 @@ public class TestGwtTest extends GWTTestCase {
                         JsonNodeMarshallUnmarshallContexts.basic(
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(
-                                (String cc) -> Optional.ofNullable(
-                                    Currency.getInstance(cc)
-                                ),
-                                (String lt) -> Optional.of(
-                                    Locale.forLanguageTag(lt)
-                                ),
                                 expressionNumberKind,
+                                CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )
                         )

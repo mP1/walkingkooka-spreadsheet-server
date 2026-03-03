@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -72,13 +73,22 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
         JsonNodeMarshallUnmarshallContexts.basic(
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(
-                (String cc) -> Optional.ofNullable(
-                    Currency.getInstance(cc)
-                ),
-                (String lt) -> Optional.of(
-                    Locale.forLanguageTag(lt)
-                ),
                 ExpressionNumberKind.BIG_DECIMAL,
+                new CurrencyCodeLanguageTagContext() {
+                    @Override
+                    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                        return Optional.ofNullable(
+                            Currency.getInstance(currencyCode)
+                        );
+                    }
+
+                    @Override
+                    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                        return Optional.of(
+                            Locale.forLanguageTag(languageTag)
+                        );
+                    }
+                },
                 MathContext.DECIMAL32
             )
         )

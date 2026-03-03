@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.header.MediaType;
@@ -161,13 +162,22 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
             return JsonNodeMarshallUnmarshallContexts.basic(
                 JsonNodeMarshallContexts.basic(),
                 JsonNodeUnmarshallContexts.basic(
-                    (String cc) -> Optional.ofNullable(
-                        Currency.getInstance(cc)
-                    ),
-                    (String lt) -> Optional.of(
-                        Locale.forLanguageTag(lt)
-                    ),
                     ExpressionNumberKind.BIG_DECIMAL,
+                    new CurrencyCodeLanguageTagContext() {
+                        @Override
+                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                            return Optional.ofNullable(
+                                Currency.getInstance(currencyCode)
+                            );
+                        }
+
+                        @Override
+                        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                            return Optional.of(
+                                Locale.forLanguageTag(languageTag)
+                            );
+                        }
+                    },
                     MathContext.UNLIMITED
                 )
             );
