@@ -59,10 +59,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
                 loadAndPatched
                     .patch(
                         json,
-                        loadAndPatched.jsonNodeUnmarshallContext(
-                            context, // CanCurrencyForCurrencyCode
-                            context // CanLocaleForLanguageTag
-                        )
+                        loadAndPatched.jsonNodeUnmarshallContext(context)
                     )
             );
             return saved.jsonNodeMarshallContext()
