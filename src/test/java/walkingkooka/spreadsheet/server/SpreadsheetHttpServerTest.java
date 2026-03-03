@@ -1282,7 +1282,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, full-date, general, long-date, medium-date, number, short-date, time, whole-number\",\n" +
+                    "  \"parsers\": \"date, date-time, full-date, full-date-time, general, long-date, long-date-time, medium-date, medium-date-time, number, short-date, short-date-time, time, whole-number\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -5761,7 +5761,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, full-date, general, long-date, medium-date, number, short-date, time, whole-number\",\n" +
+                    "  \"parsers\": \"date, date-time, full-date, full-date-time, general, long-date, long-date-time, medium-date, medium-date-time, number, short-date, short-date-time, time, whole-number\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6234,7 +6234,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, full-date, general, long-date, medium-date, number, short-date, time, whole-number\",\n" +
+                    "  \"parsers\": \"date, date-time, full-date, full-date-time, general, long-date, long-date-time, medium-date, medium-date-time, number, short-date, short-date-time, time, whole-number\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -6496,7 +6496,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"numberFormatter\": \"number \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number 000.000\",\n" +
-                    "  \"parsers\": \"date, date-time, full-date, general, long-date, medium-date, number, short-date, time, whole-number\",\n" +
+                    "  \"parsers\": \"date, date-time, full-date, full-date-time, general, long-date, long-date-time, medium-date, medium-date-time, number, short-date, short-date-time, time, whole-number\",\n" +
                     "  \"plugins\": \"\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
@@ -12030,11 +12030,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date date\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/full-date full-date\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/full-date-time full-date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/general general\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/long-date long-date\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/long-date-time long-date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/medium-date medium-date\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/medium-date-time medium-date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/short-date short-date\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/short-date-time short-date-time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time time\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/whole-number whole-number\"\n" +
                     "]",
