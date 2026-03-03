@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -578,13 +579,22 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             public <T> T unmarshall(final JsonNode json,
                                     final Class<T> type) {
                 return JsonNodeUnmarshallContexts.basic(
-                    (String cc) -> Optional.ofNullable(
-                        Currency.getInstance(cc)
-                    ),
-                    (String lt) -> Optional.of(
-                        Locale.forLanguageTag(lt)
-                    ),
                     ExpressionNumberKind.DEFAULT,
+                    new CurrencyCodeLanguageTagContext() {
+                        @Override
+                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                            return Optional.ofNullable(
+                                Currency.getInstance(currencyCode)
+                            );
+                        }
+
+                        @Override
+                        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                            return Optional.of(
+                                Locale.forLanguageTag(languageTag)
+                            );
+                        }
+                    },
                     MathContext.UNLIMITED
                 ).unmarshall(
                     json,

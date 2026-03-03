@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.net.header.MediaType;
@@ -109,13 +110,22 @@ public final class CurrencyHateosResourceHandlerContextTestingTest implements Cu
             return JsonNodeMarshallUnmarshallContexts.basic(
                 JsonNodeMarshallContexts.basic(),
                 JsonNodeUnmarshallContexts.basic(
-                    (String cc) -> Optional.ofNullable(
-                        Currency.getInstance(cc)
-                    ),
-                    (String lt) -> Optional.of(
-                        Locale.forLanguageTag(lt)
-                    ),
                     ExpressionNumberKind.BIG_DECIMAL,
+                    new CurrencyCodeLanguageTagContext() {
+                        @Override
+                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                            return Optional.ofNullable(
+                                Currency.getInstance(currencyCode)
+                            );
+                        }
+
+                        @Override
+                        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                            return Optional.of(
+                                Locale.forLanguageTag(languageTag)
+                            );
+                        }
+                    },
                     MathContext.UNLIMITED
                 )
             );
