@@ -651,12 +651,12 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Runnable addEventValueWatcher(final EnvironmentValueWatcher watcher) {
+    public Runnable addEnvironmentValueWatcher(final EnvironmentValueWatcher watcher) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Runnable addEventValueWatcherOnce(final EnvironmentValueWatcher watcher) {
+    public Runnable addEnvironmentValueWatcherOnce(final EnvironmentValueWatcher watcher) {
         throw new UnsupportedOperationException();
     }
 
