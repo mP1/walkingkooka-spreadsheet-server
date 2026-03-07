@@ -4039,7 +4039,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"spreadsheet-error\",\n" +
                     "          \"value\": {\n" +
                     "            \"kind\": \"ERROR\",\n" +
-                    "            \"message\": \"Invalid character '=' at (1,1) expected \\\"###\\\"\"\n" +
+                    "            \"message\": \"Invalid character '=' at 0 expected \\\"###\\\"\"\n" +
                     "          }\n" +
                     "        }\n" +
                     "      },\n" +
@@ -4047,7 +4047,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
-                    "          \"badgeText\": \"Invalid character '=' at (1,1) expected \\\"###\\\"\",\n" +
+                    "          \"badgeText\": \"Invalid character '=' at 0 expected \\\"###\\\"\",\n" +
                     "          \"children\": [\n" +
                     "            {\n" +
                     "              \"type\": \"text\",\n" +
