@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.CurrencyContexts;
+import walkingkooka.currency.FakeCanCurrencyExchangeRate;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -202,9 +203,7 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
         return CurrencyHateosResourceHandlerContexts.basic(
             CurrencyContexts.jre(
                 Currency.getInstance(locale),
-                (Currency from, Currency to) -> {
-                    throw new UnsupportedOperationException();
-                },
+                new FakeCanCurrencyExchangeRate(),
                 LocaleContexts.jre(locale)
             ),
             HateosResourceHandlerContexts.fake()
