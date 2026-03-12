@@ -28,8 +28,8 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
@@ -46,10 +46,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteFormTest extends S
     public void testHandleOne() {
         final FormName formName = this.id();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(formName)
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(formName)
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
