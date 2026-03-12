@@ -31,9 +31,9 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
@@ -50,10 +50,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     @Test
     public void testHandleOneLoad() {
         final FormName formName = this.id();
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(formName)
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(formName)
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -78,19 +78,19 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     public void testHandleAll() {
         final SpreadsheetFormStore store = SpreadsheetFormStores.treeMap();
 
-        final Form<SpreadsheetExpressionReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
+        final Form<SpreadsheetValidationReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
         store.save(form1);
 
-        final Form<SpreadsheetExpressionReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
+        final Form<SpreadsheetValidationReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("B2").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("B2"))
                         .setLabel("FieldLabel2")
                 )
             );
@@ -116,37 +116,37 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     public void testHandleAllWithOffsetAndCount() {
         final SpreadsheetFormStore store = SpreadsheetFormStores.treeMap();
 
-        final Form<SpreadsheetExpressionReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
+        final Form<SpreadsheetValidationReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
         store.save(form1);
 
-        final Form<SpreadsheetExpressionReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
+        final Form<SpreadsheetValidationReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("B2").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("B2"))
                         .setLabel("FieldLabel2")
                 )
             );
         store.save(form2);
 
-        final Form<SpreadsheetExpressionReference> form3 = SpreadsheetForms.form(FormName.with("Form3"))
+        final Form<SpreadsheetValidationReference> form3 = SpreadsheetForms.form(FormName.with("Form3"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("C3").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("C3"))
                         .setLabel("FieldLabel3")
                 )
             );
         store.save(form3);
 
-        final Form<SpreadsheetExpressionReference> form4 = SpreadsheetForms.form(FormName.with("Form4"))
+        final Form<SpreadsheetValidationReference> form4 = SpreadsheetForms.form(FormName.with("Form4"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("D4").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("D4"))
                         .setLabel("FieldLabel4")
                 )
             );
@@ -216,7 +216,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
             public SpreadsheetDelta loadForms(final int offset,
                                               final int count,
                                               final SpreadsheetEngineContext context) {
-                final SortedSet<Form<SpreadsheetExpressionReference>> forms = SortedSets.tree(Form.nameComparator());
+                final SortedSet<Form<SpreadsheetValidationReference>> forms = SortedSets.tree(Form.nameComparator());
                 forms.addAll(
                     context.storeRepository()
                         .forms()

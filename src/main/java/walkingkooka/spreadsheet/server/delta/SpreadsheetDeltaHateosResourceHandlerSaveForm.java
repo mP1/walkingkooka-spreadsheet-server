@@ -26,8 +26,8 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
@@ -65,10 +65,10 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Set<Form<SpreadsheetExpressionReference>> forms = delta.forms();
+        final Set<Form<SpreadsheetValidationReference>> forms = delta.forms();
         final int count = forms.size();
 
-        final Form<SpreadsheetExpressionReference> form;
+        final Form<SpreadsheetValidationReference> form;
 
         switch (count) {
             case 0:

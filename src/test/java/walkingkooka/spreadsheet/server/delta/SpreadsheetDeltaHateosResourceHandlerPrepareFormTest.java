@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
@@ -46,12 +47,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerPrepareFormTest extends 
 
     private final static SpreadsheetCellReference CELLS = SpreadsheetSelection.A1;
 
-    private final static FormField<SpreadsheetExpressionReference> FIELD = SpreadsheetForms.field(CELLS);
+    private final static FormField<SpreadsheetValidationReference> FIELD = SpreadsheetForms.field(CELLS);
 
     @Test
     public void testHandleOne() {
         final FormName formName = this.id();
-        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(formName)
+        final Form<SpreadsheetValidationReference> form = Form.<SpreadsheetValidationReference>with(formName)
             .setFields(
                 Lists.of(FIELD)
             );

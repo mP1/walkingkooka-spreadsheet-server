@@ -101,7 +101,6 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -120,6 +119,7 @@ import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.CaseSensitivity;
@@ -10842,10 +10842,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormLoadsWithOffsetAndCount() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
+        final Form<SpreadsheetValidationReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -10886,10 +10886,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
 
-        final Form<SpreadsheetExpressionReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
+        final Form<SpreadsheetValidationReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel2")
                 )
             );
@@ -10930,10 +10930,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
 
-        final Form<SpreadsheetExpressionReference> form3 = SpreadsheetForms.form(FormName.with("Form3"))
+        final Form<SpreadsheetValidationReference> form3 = SpreadsheetForms.form(FormName.with("Form3"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel3")
                 )
             );
@@ -11002,10 +11002,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormSave() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form1"))
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -11055,10 +11055,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormUpdate() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form1"))
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -11108,10 +11108,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormLoad() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form123"))
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(FormName.with("Form123"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -11183,10 +11183,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormDelete() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form123"))
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(FormName.with("Form123"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -11272,10 +11272,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormPrepare() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form123"))
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(FormName.with("Form123"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );
@@ -11347,10 +11347,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormSubmit() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form123"))
+        final Form<SpreadsheetValidationReference> form = SpreadsheetForms.form(FormName.with("Form123"))
             .setFields(
                 Lists.of(
-                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1)
                         .setLabel("FieldLabel1")
                 )
             );

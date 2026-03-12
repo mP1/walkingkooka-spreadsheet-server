@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
@@ -75,7 +76,7 @@ final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosH
                     final HateosResourceMappings<FormName,
                         SpreadsheetDelta,
                         SpreadsheetDelta,
-                        Form<SpreadsheetExpressionReference>,
+                        Form<SpreadsheetValidationReference>,
                         SpreadsheetEngineHateosResourceHandlerContext> mappings = HateosResourceMappings.with(
                         FormName.HATEOS_RESOURCE_NAME,
                         SpreadsheetDeltaHttpMappings::parseForm,

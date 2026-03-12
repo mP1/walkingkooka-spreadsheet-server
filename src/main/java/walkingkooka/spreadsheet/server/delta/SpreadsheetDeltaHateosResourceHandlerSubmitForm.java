@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
@@ -71,7 +72,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSubmitForm extends SpreadsheetD
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Form<SpreadsheetExpressionReference> form = delta.form(formName)
+        final Form<SpreadsheetValidationReference> form = delta.form(formName)
             .orElseThrow(() -> new IllegalArgumentException("Missing form " + formName));
 
         return Optional.of(
