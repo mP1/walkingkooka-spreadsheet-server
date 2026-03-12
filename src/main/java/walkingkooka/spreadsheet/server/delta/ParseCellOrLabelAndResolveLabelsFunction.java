@@ -18,9 +18,9 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -43,10 +43,10 @@ final class ParseCellOrLabelAndResolveLabelsFunction implements Function<String,
 
     @Override
     public SpreadsheetCellReference apply(final String cellOrLabelText) {
-        final SpreadsheetExpressionReference cellOrLabel = SpreadsheetSelection.parseCellOrLabel(cellOrLabelText);
+        final SpreadsheetValidationReference cellOrLabel = SpreadsheetSelection.parseValidationReference(cellOrLabelText);
 
         return cellOrLabel.isLabelName() ?
-            labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel) :
+            this.labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel) :
             (SpreadsheetCellReference) cellOrLabel;
     }
 
