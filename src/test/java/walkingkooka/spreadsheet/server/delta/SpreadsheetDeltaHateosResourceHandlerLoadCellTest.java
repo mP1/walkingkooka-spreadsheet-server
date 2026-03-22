@@ -154,13 +154,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testHandleOneLoadCellWithHighlightingAndFindQuery() {
+    public void testHandleOneLoadCellWithHighlightingAndQuery() {
         this.handleOneLoadCellAndCheck(
             "cells",
             null, // window
             null, // query
             METADATA.set(
-                SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING,
+                SpreadsheetMetadataPropertyName.QUERY_HIGHLIGHTING,
                 true
             ).set(
                 SpreadsheetMetadataPropertyName.QUERY,
