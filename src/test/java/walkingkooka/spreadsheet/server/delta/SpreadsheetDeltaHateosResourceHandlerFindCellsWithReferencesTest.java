@@ -26,7 +26,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellQueryRequest;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -62,8 +62,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
             a1, // reference
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of("" + COUNT)
             ), // parameters
             UrlPath.EMPTY,
             this.context(
@@ -135,8 +135,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
             b2c3.range(), // reference
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of("" + COUNT)
             ), // parameters
             UrlPath.EMPTY,
             this.context(
@@ -171,8 +171,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
         this.handleAllAndCheck(
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of("" + COUNT)
             ), // parameters
             UrlPath.EMPTY,
             this.context(

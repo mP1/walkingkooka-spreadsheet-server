@@ -26,8 +26,8 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellQuery;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellQueryRequest;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -194,7 +194,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             parameters.put(SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(window));
         }
         if (null != query) {
-            parameters.put(SpreadsheetCellFindQuery.QUERY, Lists.of(query));
+            parameters.put(SpreadsheetCellQueryRequest.QUERY, Lists.of(query));
         }
 
         this.handleOneAndCheck(
