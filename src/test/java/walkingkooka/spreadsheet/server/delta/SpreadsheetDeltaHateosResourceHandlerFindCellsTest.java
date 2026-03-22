@@ -27,7 +27,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellQueryRequest;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -87,11 +87,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             b2, // reference
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
-                SpreadsheetCellFindQuery.OFFSET, Lists.of(String.valueOf(offset)),
-                SpreadsheetCellFindQuery.COUNT, Lists.of(String.valueOf(count)),
-                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of(valueType.value()),
-                SpreadsheetCellFindQuery.QUERY, Lists.of(String.valueOf(expression))
+                SpreadsheetCellQueryRequest.CELL_RANGE_PATH, Lists.of(path.name()),
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of(String.valueOf(offset)),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of(String.valueOf(count)),
+                SpreadsheetCellQueryRequest.VALUE_TYPE, Lists.of(valueType.value()),
+                SpreadsheetCellQueryRequest.QUERY, Lists.of(String.valueOf(expression))
             ), // parameters
             UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
@@ -182,11 +182,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             range.range(), // reference
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + count),
-                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
-                SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
+                SpreadsheetCellQueryRequest.CELL_RANGE_PATH, Lists.of(path.name()),
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of("" + offset),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of("" + count),
+                SpreadsheetCellQueryRequest.VALUE_TYPE, Lists.of("" + valueType),
+                SpreadsheetCellQueryRequest.QUERY, Lists.of("" + expression)
             ), // parameters
             UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
@@ -277,11 +277,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             range.range(), // reference
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + count),
-                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
-                SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
+                SpreadsheetCellQueryRequest.CELL_RANGE_PATH, Lists.of(path.name()),
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of("" + offset),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of("" + count),
+                SpreadsheetCellQueryRequest.VALUE_TYPE, Lists.of("" + valueType),
+                SpreadsheetCellQueryRequest.QUERY, Lists.of("" + expression)
             ), // parameters
             UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
@@ -439,7 +439,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(
-            SpreadsheetCellFindQuery.QUERY, Lists.of("true")
+            SpreadsheetCellQueryRequest.QUERY, Lists.of("true")
         );
     }
 

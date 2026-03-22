@@ -25,7 +25,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellQueryRequest;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -58,8 +58,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByNameTest ext
         this.handleAllAndCheck(
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
+                SpreadsheetCellQueryRequest.OFFSET, Lists.of("" + OFFSET),
+                SpreadsheetCellQueryRequest.COUNT, Lists.of("" + COUNT)
             ), // parameters
             UrlPath.parse("/" + text),
             this.context(
