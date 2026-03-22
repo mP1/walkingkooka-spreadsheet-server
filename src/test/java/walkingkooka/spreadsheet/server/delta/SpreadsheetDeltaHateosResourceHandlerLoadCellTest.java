@@ -163,7 +163,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING,
                 true
             ).set(
-                SpreadsheetMetadataPropertyName.FIND_QUERY,
+                SpreadsheetMetadataPropertyName.QUERY,
                 SpreadsheetCellQuery.parse("true()")
             ),
             SpreadsheetDelta.EMPTY

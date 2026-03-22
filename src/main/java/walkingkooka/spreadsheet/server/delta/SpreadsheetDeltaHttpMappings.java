@@ -471,7 +471,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
     /**
      * Helper which attempts to read the {@link SpreadsheetCellQuery} from the given parameters and if that is missing
-     * then tries if highlighting is enabled {@link SpreadsheetMetadataPropertyName#FIND_QUERY}.
+     * then tries if highlighting is enabled {@link SpreadsheetMetadataPropertyName#QUERY}.
      */
     private static Optional<SpreadsheetCellQuery> extractOrMetadataFindHighlightingAndQuery(final Map<HttpRequestAttribute<?>, Object> parameters,
                                                                                             final SpreadsheetEngineContext context) {
@@ -479,7 +479,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         if (false == query.isPresent()) {
             final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
             if (metadata.get(SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING).orElse(false)) {
-                query = metadata.get(SpreadsheetMetadataPropertyName.FIND_QUERY);
+                query = metadata.get(SpreadsheetMetadataPropertyName.QUERY);
             }
         }
 
