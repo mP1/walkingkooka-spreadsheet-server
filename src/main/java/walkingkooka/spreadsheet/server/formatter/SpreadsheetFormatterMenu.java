@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.plugin.PluginSelectorMenu;
 import walkingkooka.plugin.PluginSelectorMenuLike;
@@ -32,7 +33,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Represents a single menu item for a {@link SpreadsheetFormatterSelector}. A {@link SpreadsheetFormatterName#DATE},
@@ -50,7 +50,7 @@ public final class SpreadsheetFormatterMenu implements PluginSelectorMenuLike<Sp
             context.spreadsheetFormatterInfos()
                 .stream()
                 .flatMap(i -> menus(i, context).stream())
-                .collect(Collectors.toList())
+                .collect(ImmutableList.collector())
         );
     }
 
@@ -67,7 +67,7 @@ public final class SpreadsheetFormatterMenu implements PluginSelectorMenuLike<Sp
                 ).stream()
                 .map(s -> SpreadsheetFormatterMenu.with(s.label(), s.selector()))
                 .distinct()
-                .collect(Collectors.toList());
+                .collect(ImmutableList.collector());
         } catch (final RuntimeException ignore) {
             // ignore failed samples
             menus = Lists.empty();
