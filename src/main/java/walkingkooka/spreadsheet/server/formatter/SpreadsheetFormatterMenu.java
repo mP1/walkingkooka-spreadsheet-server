@@ -68,6 +68,8 @@ public final class SpreadsheetFormatterMenu implements PluginSelectorMenuLike<Sp
                 .map(s -> SpreadsheetFormatterMenu.with(s.label(), s.selector()))
                 .distinct()
                 .collect(ImmutableList.collector());
+        } catch (final UnsupportedOperationException rethrow) {
+            throw rethrow;
         } catch (final RuntimeException ignore) {
             // ignore failed samples
             menus = Lists.empty();
