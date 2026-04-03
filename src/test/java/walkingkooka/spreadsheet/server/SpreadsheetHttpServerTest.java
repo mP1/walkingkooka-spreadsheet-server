@@ -11435,6 +11435,108 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testFormFindByName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final FormName formName1 = FormName.with("Form111");
+        final Form<SpreadsheetValidationReference> form1 = SpreadsheetForms.form(formName1);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/form/Form111",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setForms(
+                    Sets.of(form1)
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(form1)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        final FormName formName2 = FormName.with("Form222");
+        final Form<SpreadsheetValidationReference> form2 = SpreadsheetForms.form(formName2);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/form/Form222",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setForms(
+                    Sets.of(form2)
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(form2)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        final FormName formName3 = FormName.with("Form333");
+        final Form<SpreadsheetValidationReference> form3 = SpreadsheetForms.form(formName3);
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/form/Form333",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setForms(
+                    Sets.of(form3)
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(form3)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/form/*/findByName/Form?offset=1&count=1",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(form2)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
     // importers........................................................................................................
 
     @Test

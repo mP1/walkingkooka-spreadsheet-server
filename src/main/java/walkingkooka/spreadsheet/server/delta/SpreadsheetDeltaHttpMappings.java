@@ -323,6 +323,10 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             FORM_LINK_RELATION,
             HttpMethod.DELETE,
             SpreadsheetDeltaHateosResourceHandlerDeleteForm.INSTANCE
+        ).setHateosResourceHandler(
+            FIND_BY_NAME,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerFindFormsByName.INSTANCE
         );
     }
 
