@@ -19,10 +19,10 @@ package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
