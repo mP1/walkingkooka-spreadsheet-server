@@ -23,6 +23,7 @@ import walkingkooka.collect.RangeBound;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContexts;
 import walkingkooka.currency.FakeCanCurrencyExchangeRate;
 import walkingkooka.locale.LocaleContexts;

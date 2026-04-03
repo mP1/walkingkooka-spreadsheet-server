@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.currency;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.text.CharSequences;

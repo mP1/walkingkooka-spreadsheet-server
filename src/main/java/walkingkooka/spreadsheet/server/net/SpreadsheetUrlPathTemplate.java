@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.net;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
@@ -29,7 +30,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceOrRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.currency.CurrencyCode;
 import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.template.Template;
 import walkingkooka.template.TemplateContext;

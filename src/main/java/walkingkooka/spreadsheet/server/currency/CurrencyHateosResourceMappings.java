@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
