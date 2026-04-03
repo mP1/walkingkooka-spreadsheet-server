@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.currency;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.HasCurrencyTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;

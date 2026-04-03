@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.currency;
 
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
