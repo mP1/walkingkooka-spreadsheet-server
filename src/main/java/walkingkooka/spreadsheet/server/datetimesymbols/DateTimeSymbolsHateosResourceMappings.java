@@ -17,13 +17,13 @@
 
 package walkingkooka.spreadsheet.server.datetimesymbols;
 
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
 public final class DateTimeSymbolsHateosResourceMappings implements PublicStaticHelper {

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -30,7 +31,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.List;

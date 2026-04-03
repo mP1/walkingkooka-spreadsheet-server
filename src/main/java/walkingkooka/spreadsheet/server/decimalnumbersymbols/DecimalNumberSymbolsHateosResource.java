@@ -19,10 +19,10 @@ package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
-import walkingkooka.spreadsheet.server.locale.LocaleLanguageTag;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
