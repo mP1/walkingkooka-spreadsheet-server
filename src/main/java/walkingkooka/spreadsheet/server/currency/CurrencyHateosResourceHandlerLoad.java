@@ -66,14 +66,13 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        return context.currencyForCurrencyCode(
-            id.value()
-        ).flatMap(
-            c -> fromCurrencyOptional(
-                c,
-                context
-            )
-        );
+        return context.currencyForCurrencyCode(id)
+            .flatMap(
+                c -> fromCurrencyOptional(
+                    c,
+                    context
+                )
+            );
     }
 
     @Override

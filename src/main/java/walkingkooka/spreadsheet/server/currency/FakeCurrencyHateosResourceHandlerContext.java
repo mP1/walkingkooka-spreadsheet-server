@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -49,7 +50,7 @@ public class FakeCurrencyHateosResourceHandlerContext extends FakeHateosResource
     }
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         throw new UnsupportedOperationException();
     }
 

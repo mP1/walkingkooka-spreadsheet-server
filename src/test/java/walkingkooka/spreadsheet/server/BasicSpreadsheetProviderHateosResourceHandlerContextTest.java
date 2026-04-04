@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
@@ -76,9 +77,11 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
                 ExpressionNumberKind.BIG_DECIMAL,
                 new CurrencyCodeLanguageTagContext() {
                     @Override
-                    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
                         return Optional.ofNullable(
-                            Currency.getInstance(currencyCode)
+                            Currency.getInstance(
+                                currencyCode.value()
+                            )
                         );
                     }
 

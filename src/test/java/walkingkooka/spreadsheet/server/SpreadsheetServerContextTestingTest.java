@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
@@ -314,7 +315,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         // CurrencyLocaleContextDelegator...............................................................................
 
         @Override
-        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
             return CURRENCY_LOCALE_CONTEXT.currencyForCurrencyCode(currencyCode);
         }
 

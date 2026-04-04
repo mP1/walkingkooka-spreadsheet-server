@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
@@ -197,7 +198,7 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         throw new UnsupportedOperationException();
     }
 

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberSymbols;
@@ -165,9 +166,11 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
                     ExpressionNumberKind.BIG_DECIMAL,
                     new CurrencyCodeLanguageTagContext() {
                         @Override
-                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
                             return Optional.ofNullable(
-                                Currency.getInstance(currencyCode)
+                                Currency.getInstance(
+                                    currencyCode.value()
+                                )
                             );
                         }
 

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.convert.ConverterLike;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
@@ -160,7 +161,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     // SpreadsheetEngineContextDelegator................................................................................
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         return this.engineContext.currencyForCurrencyCode(currencyCode);
     }
 
