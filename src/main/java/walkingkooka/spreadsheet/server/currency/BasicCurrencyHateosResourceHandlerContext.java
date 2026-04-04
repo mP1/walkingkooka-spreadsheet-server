@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -51,7 +52,7 @@ final class BasicCurrencyHateosResourceHandlerContext implements CurrencyHateosR
     // CurrencyContextDelegator.........................................................................................
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         return this.currencyContext.currencyForCurrencyCode(currencyCode);
     }
 

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -193,7 +194,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     // CurrencyLocaleContextDelegator...................................................................................
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         return this.currencyLocaleContext.currencyForCurrencyCode(currencyCode);
     }
 

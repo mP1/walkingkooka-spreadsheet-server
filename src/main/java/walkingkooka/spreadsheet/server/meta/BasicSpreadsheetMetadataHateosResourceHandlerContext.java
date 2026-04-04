@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
@@ -177,7 +178,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // SpreadsheetServerContextDelegator................................................................................
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         return this.context.currencyForCurrencyCode(currencyCode);
     }
 

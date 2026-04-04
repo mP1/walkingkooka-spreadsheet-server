@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
@@ -211,7 +212,7 @@ public class FakeSpreadsheetProviderHateosResourceHandlerContext extends FakePro
     }
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         throw new UnsupportedOperationException();
     }
 

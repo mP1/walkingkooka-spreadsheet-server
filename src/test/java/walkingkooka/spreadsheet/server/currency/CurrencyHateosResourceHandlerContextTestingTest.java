@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
@@ -67,7 +68,7 @@ public final class CurrencyHateosResourceHandlerContextTestingTest implements Cu
         JsonNodeMarshallUnmarshallContextDelegator {
 
         @Override
-        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
             return CurrencyContextDelegator.super.currencyForCurrencyCode(currencyCode);
         }
 
@@ -113,9 +114,11 @@ public final class CurrencyHateosResourceHandlerContextTestingTest implements Cu
                     ExpressionNumberKind.BIG_DECIMAL,
                     new CurrencyCodeLanguageTagContext() {
                         @Override
-                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
                             return Optional.ofNullable(
-                                Currency.getInstance(currencyCode)
+                                Currency.getInstance(
+                                    currencyCode.value()
+                                )
                             );
                         }
 

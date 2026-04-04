@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
@@ -236,9 +237,11 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
                 ExpressionNumberKind.DEFAULT,
                 new CurrencyCodeLanguageTagContext() {
                     @Override
-                    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
                         return Optional.ofNullable(
-                            Currency.getInstance(currencyCode)
+                            Currency.getInstance(
+                                currencyCode.value()
+                            )
                         );
                     }
 
