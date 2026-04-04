@@ -21,6 +21,7 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceHandlerContextTestingTest.TestCurrencyHateosResourceHandlerContext;
@@ -123,9 +124,11 @@ public final class CurrencyHateosResourceHandlerContextTestingTest implements Cu
                         }
 
                         @Override
-                        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
                             return Optional.of(
-                                Locale.forLanguageTag(languageTag)
+                                Locale.forLanguageTag(
+                                    languageTag.value()
+                                )
                             );
                         }
                     },

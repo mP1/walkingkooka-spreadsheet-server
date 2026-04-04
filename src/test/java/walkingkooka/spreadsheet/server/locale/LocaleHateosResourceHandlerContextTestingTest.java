@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.locale;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContextTestingTest.TestLocaleHateosResourceHandlerContext;
@@ -118,7 +119,7 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
         }
 
         @Override
-        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
             Objects.requireNonNull(languageTag, "languageTag");
             throw new UnsupportedOperationException();
         }
@@ -175,9 +176,11 @@ public final class LocaleHateosResourceHandlerContextTestingTest implements Loca
                         }
 
                         @Override
-                        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
                             return Optional.of(
-                                Locale.forLanguageTag(languageTag)
+                                Locale.forLanguageTag(
+                                    languageTag.value()
+                                )
                             );
                         }
                     },

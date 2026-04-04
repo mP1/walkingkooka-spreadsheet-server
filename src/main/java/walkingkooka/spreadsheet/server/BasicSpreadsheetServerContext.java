@@ -23,6 +23,7 @@ import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -199,7 +200,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     @Override
-    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.currencyLocaleContext.localeForLanguageTag(languageTag);
     }
 

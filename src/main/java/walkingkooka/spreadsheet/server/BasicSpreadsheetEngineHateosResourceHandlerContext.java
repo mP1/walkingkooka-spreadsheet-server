@@ -21,6 +21,7 @@ import walkingkooka.convert.ConverterLike;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
@@ -153,7 +154,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     // LocaleContext....................................................................................................
 
     @Override
-    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.localeContext()
             .localeForLanguageTag(languageTag);
     }
