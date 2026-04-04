@@ -23,6 +23,7 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
@@ -86,9 +87,11 @@ public final class BasicSpreadsheetProviderHateosResourceHandlerContextTest impl
                     }
 
                     @Override
-                    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
                         return Optional.of(
-                            Locale.forLanguageTag(languageTag)
+                            Locale.forLanguageTag(
+                                languageTag.value()
+                            )
                         );
                     }
                 },

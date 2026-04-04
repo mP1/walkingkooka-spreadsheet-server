@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -48,7 +49,7 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     HateosResourceHandlerContextDelegator {
 
     @Override
-    default Optional<Locale> localeForLanguageTag(final String languageTag) {
+    default Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.localeContext()
             .localeForLanguageTag(languageTag);
     }

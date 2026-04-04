@@ -26,6 +26,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpEntity;
@@ -210,7 +211,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             }
 
             @Override
-            public Optional<Locale> localeForLanguageTag(final String languageTag) {
+            public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
                 return LOCALE_CONTEXT.localeForLanguageTag(languageTag);
             }
 

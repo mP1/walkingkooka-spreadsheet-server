@@ -63,9 +63,7 @@ final class DecimalNumberSymbolsHateosResourceHandlerLoad implements HateosResou
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Locale locale = context.localeForLanguageTagOrFail(
-            id.value()
-        );
+        final Locale locale = context.localeForLanguageTagOrFail(id);
 
         return context.decimalNumberSymbolsForLocale(locale)
             .map(

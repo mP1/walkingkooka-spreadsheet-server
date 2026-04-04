@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
@@ -246,9 +247,11 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
                     }
 
                     @Override
-                    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
                         return Optional.of(
-                            Locale.forLanguageTag(languageTag)
+                            Locale.forLanguageTag(
+                                languageTag.value()
+                            )
                         );
                     }
                 },

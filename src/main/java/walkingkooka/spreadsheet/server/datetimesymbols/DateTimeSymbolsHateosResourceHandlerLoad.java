@@ -63,9 +63,7 @@ final class DateTimeSymbolsHateosResourceHandlerLoad implements HateosResourceHa
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final Locale locale = context.localeForLanguageTagOrFail(
-            id.value()
-        );
+        final Locale locale = context.localeForLanguageTagOrFail(id);
 
         return context.dateTimeSymbolsForLocale(locale)
             .map(
