@@ -60,7 +60,7 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
     public static final CharacterConstant SEPARATOR = CharacterConstant.COMMA;
 
     /**
-     * Handy filter that creates a {@link CurrencyHateosResource} for each locale that starts with that given text
+     * Handy filter that creates a {@link CurrencyHateosResource} for each {@link Currency} that starts with that given text
      */
     public static Set<CurrencyHateosResource> filter(final String startsWith,
                                                      final CurrencyContext context) {
