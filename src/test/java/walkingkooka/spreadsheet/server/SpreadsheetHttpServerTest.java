@@ -4172,6 +4172,112 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testCellPatchStyleWildcard() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "     \"a1\": {\n" +
+                "      \"style\": {\n" +
+                "            \"color\": \"#123456\"\n" +
+                "          }\n" +
+                "      }\n" +
+                "    }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {},\n" +
+                    "      \"style\": {\n" +
+                    "        \"color\": \"#123456\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text-style-node\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"styles\": {\n" +
+                    "            \"color\": \"#123456\"\n" +
+                    "          },\n" +
+                    "          \"children\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"text\",\n" +
+                    "              \"value\": \"Text \"\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        }\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // response cell.style must not contain "color".
+        server.handleAndCheck(
+            HttpMethod.PATCH,
+            "/api/spreadsheet/1/cell/A1",
+            NO_HEADERS_TRANSACTION_ID,
+            "{\n" +
+                "  \"style\": {\n" +
+                "    \"*\": {\n" +
+                "      \"textAlign\": \"LEFT\"\n" +
+                "    }\n" +
+                "  }\n" +
+                "}",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {},\n" +
+                    "      \"style\": {\n" +
+                    "        \"textAlign\": \"LEFT\"\n" +
+                    "      },\n" +
+                    "      \"formattedValue\": {\n" +
+                    "        \"type\": \"text-style-node\",\n" +
+                    "        \"value\": {\n" +
+                    "          \"styles\": {\n" +
+                    "            \"textAlign\": \"LEFT\"\n" +
+                    "          },\n" +
+                    "          \"children\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"text\",\n" +
+                    "              \"value\": \"Text \"\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        }\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 1\n" +
+                    "}",
+                DELTA
+            )
+        );
+    }
+
+    @Test
     public void testCellPatchValidator() {
         final TestHttpServer server = this.createSpreadsheetAndSaveCell();
 
