@@ -25,7 +25,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContexts;
-import walkingkooka.currency.FakeCanCurrencyExchangeRate;
+import walkingkooka.currency.FakeCurrencyExchangeRater;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -204,7 +204,7 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
         return CurrencyHateosResourceHandlerContexts.basic(
             CurrencyContexts.jre(
                 Currency.getInstance(locale),
-                new FakeCanCurrencyExchangeRate(),
+                new FakeCurrencyExchangeRater(),
                 LocaleContexts.jre(locale)
             ),
             HateosResourceHandlerContexts.fake()
