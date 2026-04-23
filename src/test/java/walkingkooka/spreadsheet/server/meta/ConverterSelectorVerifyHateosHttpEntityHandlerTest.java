@@ -134,6 +134,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
+            public Currency currency() {
+                return Currency.getInstance("AUD");
+            }
+
+            @Override
             public Optional<StoragePath> currentWorkingDirectory() {
                 return ConverterSelectorVerifyHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY;
             }
