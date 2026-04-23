@@ -25,6 +25,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
@@ -50,6 +51,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.MathContext;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -198,6 +200,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
                 return METADATA_EN_AU;
+            }
+
+            @Override
+            public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
+                return CURRENCY_CONTEXT.currencyForCurrencyCode(currencyCode);
             }
 
             @Override
