@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.currency;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
@@ -40,7 +40,7 @@ import java.util.Optional;
  * A proxy for a {@link Currency} holding the unique currency tag and label or text for display
  */
 public final class CurrencyHateosResource implements HateosResource<CurrencyCode>,
-    Value<CurrencyCode>,
+    HasValue<CurrencyCode>,
     HasText,
     Comparable<CurrencyHateosResource>,
     TreePrintable {

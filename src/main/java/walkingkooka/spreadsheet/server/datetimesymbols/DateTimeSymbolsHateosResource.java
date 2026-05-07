@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.datetimesymbols;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.http.server.hateos.HateosResource;
@@ -39,7 +39,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class DateTimeSymbolsHateosResource implements HateosResource<LocaleLanguageTag>,
-    Value<DateTimeSymbols>,
+    HasValue<DateTimeSymbols>,
     HasText,
     Comparable<DateTimeSymbolsHateosResource>,
     TreePrintable {
