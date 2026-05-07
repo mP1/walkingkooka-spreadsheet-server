@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.http.server.hateos.HateosResource;
@@ -39,7 +39,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class DecimalNumberSymbolsHateosResource implements HateosResource<LocaleLanguageTag>,
-    Value<DecimalNumberSymbols>,
+    HasValue<DecimalNumberSymbols>,
     HasText,
     Comparable<DecimalNumberSymbolsHateosResource>,
     TreePrintable {
