@@ -194,7 +194,7 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
 
     @Override
-    public Set<Currency> availableCurrencies() {
+    public Set<CurrencyCode> availableCurrencies() {
         throw new UnsupportedOperationException();
     }
 
