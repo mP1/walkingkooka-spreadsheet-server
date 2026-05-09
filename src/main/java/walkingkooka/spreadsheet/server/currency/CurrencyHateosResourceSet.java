@@ -67,19 +67,18 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
 
         final Set<CurrencyHateosResource> matched = Sets.ordered();
 
-        for (final Currency currency : context.findByCurrencyText(
+        for (final CurrencyCode currencyCode : context.findByCurrencyText(
             startsWith,
             0,
             Integer.MAX_VALUE
         )) {
-            final String currencyText = context.currencyText(
-                    CurrencyCode.fromCurrency(currency)
-                ).orElse(null);
+            final String currencyText = context.currencyText(currencyCode)
+                .orElse(null);
 
             if (null != currencyText && (CurrencyContexts.CASE_SENSITIVITY.startsWith(currencyText, startsWith) || CurrencyContexts.CASE_SENSITIVITY.equals(currencyText, startsWith))) {
                 matched.add(
                     CurrencyHateosResource.with(
-                        CurrencyCode.fromCurrency(currency),
+                        currencyCode,
                         currencyText
                     )
                 );
