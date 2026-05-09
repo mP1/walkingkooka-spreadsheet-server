@@ -93,7 +93,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
         final SortedSet<CurrencyHateosResource> all = SortedSets.tree();
         context.availableCurrencies()
             .stream()
-            .flatMap((Currency l) -> fromCurrency(l, context))
+            .flatMap((CurrencyCode currencyCode) -> fromCurrencyCode(currencyCode, context))
             .skip(offset)
             .limit(count)
             .forEach(all::add);
@@ -119,22 +119,26 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
             CurrencyHateosResourceSet.with(
                 context.availableCurrencies()
                     .stream()
-                    .filter((Currency l) -> ids.contains(CurrencyCode.fromCurrency(l)))
-                    .flatMap((Currency l) -> fromCurrency(l, context))
+                    .filter(ids::contains)
+                    .flatMap((CurrencyCode currencyCode) -> fromCurrencyCode(currencyCode, context))
                     .collect(Collectors.toCollection(SortedSets::tree))
             )
         );
     }
 
-    private static Stream<CurrencyHateosResource> fromCurrency(final Currency currency,
-                                                               final CurrencyContext context) {
-        final Optional<String> text = context.currencyText(currency);
+    private static Stream<CurrencyHateosResource> fromCurrencyCode(final CurrencyCode currencyCode,
+                                                                   final CurrencyContext context) {
+        final Optional<String> text = context.currencyText(
+            Currency.getInstance(
+                currencyCode.value()
+            )
+        );
 
         // Optional#stream not supported by GWT JRE's Currency
         return text.isPresent() ?
             Stream.of(
                 CurrencyHateosResource.with(
-                    CurrencyCode.fromCurrency(currency),
+                    currencyCode,
                     text.get()
                 )
             ) :

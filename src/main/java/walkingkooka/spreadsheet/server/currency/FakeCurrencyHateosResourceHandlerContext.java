@@ -45,7 +45,7 @@ public class FakeCurrencyHateosResourceHandlerContext extends FakeHateosResource
     }
 
     @Override
-    public Set<Currency> availableCurrencies() {
+    public Set<CurrencyCode> availableCurrencies() {
         throw new UnsupportedOperationException();
     }
 
