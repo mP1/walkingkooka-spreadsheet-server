@@ -72,8 +72,9 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
             0,
             Integer.MAX_VALUE
         )) {
-            final String currencyText = context.currencyText(currency)
-                .orElse(null);
+            final String currencyText = context.currencyText(
+                    CurrencyCode.fromCurrency(currency)
+                ).orElse(null);
 
             if (null != currencyText && (CurrencyContexts.CASE_SENSITIVITY.startsWith(currencyText, startsWith) || CurrencyContexts.CASE_SENSITIVITY.equals(currencyText, startsWith))) {
                 matched.add(
