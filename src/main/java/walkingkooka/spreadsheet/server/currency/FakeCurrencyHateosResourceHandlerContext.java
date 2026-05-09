@@ -78,6 +78,11 @@ public class FakeCurrencyHateosResourceHandlerContext extends FakeHateosResource
     }
 
     @Override
+    public Set<CurrencyExchange> currencyExchanges() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<Number> exchangeRate(final CurrencyExchange currencyExchange,
                                          final Optional<LocalDateTime> dateTime) {
         throw new UnsupportedOperationException();
