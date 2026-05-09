@@ -124,13 +124,13 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
     private final static CurrencyContext CONTEXT = new FakeCurrencyContext() {
 
         @Override
-        public Set<Currency> findByCurrencyText(final String text,
-                                                final int offset,
-                                                final int count) {
+        public Set<CurrencyCode> findByCurrencyText(final String text,
+                                                    final int offset,
+                                                    final int count) {
             return Sets.of(
-                AUD_CURRENCY,
-                NZD_CURRENCY,
-                EUR_CURRENCY
+                CurrencyCode.fromCurrency(AUD_CURRENCY),
+                CurrencyCode.fromCurrency(NZD_CURRENCY),
+                CurrencyCode.fromCurrency(EUR_CURRENCY)
             );
         }
 
