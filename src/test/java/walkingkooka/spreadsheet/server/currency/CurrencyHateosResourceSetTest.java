@@ -135,16 +135,22 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
         }
 
         @Override
-        public Optional<String> currencyText(final Currency currency) {
+        public Optional<String> currencyText(final CurrencyCode currencyCode) {
             return Optional.ofNullable(
-                AUD_CURRENCY.equals(currency) ?
+                equals(AUD_CURRENCY, currencyCode) ?
                     AUD_TEXT :
-                    NZD_CURRENCY.equals(currency) ?
+                    equals(NZD_CURRENCY, currencyCode) ?
                         NZD_TEXT :
-                        EUR_CURRENCY.equals(currency) ?
+                        equals(EUR_CURRENCY, currencyCode) ?
                             EUR_TEXT :
                             null
             );
+        }
+
+        private boolean equals(final Currency left,
+                               final CurrencyCode right) {
+            return left.getCurrencyCode()
+                .equals(right.value());
         }
     };
 

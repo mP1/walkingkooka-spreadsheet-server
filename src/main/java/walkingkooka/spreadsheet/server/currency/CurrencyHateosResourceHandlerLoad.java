@@ -128,11 +128,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
 
     private static Stream<CurrencyHateosResource> fromCurrencyCode(final CurrencyCode currencyCode,
                                                                    final CurrencyContext context) {
-        final Optional<String> text = context.currencyText(
-            Currency.getInstance(
-                currencyCode.value()
-            )
-        );
+        final Optional<String> text = context.currencyText(currencyCode);
 
         // Optional#stream not supported by GWT JRE's Currency
         return text.isPresent() ?
@@ -147,8 +143,9 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
 
     private static Optional<CurrencyHateosResource> fromCurrencyOptional(final Currency currency,
                                                                          final CurrencyContext context) {
-        return context.currencyText(currency)
-            .map(
+        return context.currencyText(
+                CurrencyCode.fromCurrency(currency)
+            ).map(
                 t ->
                     CurrencyHateosResource.with(
                         CurrencyCode.fromCurrency(currency),
