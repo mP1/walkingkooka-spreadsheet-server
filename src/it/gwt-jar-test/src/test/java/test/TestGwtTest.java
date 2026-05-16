@@ -21,6 +21,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
@@ -331,6 +332,7 @@ public class TestGwtTest extends GWTTestCase {
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
                         SpreadsheetStoreRepositories.treeMap(metadataStore)

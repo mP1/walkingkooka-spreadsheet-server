@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -130,6 +131,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             JsonNodeConverterContexts.basic(
                 ExpressionNumberConverterContexts.basic(
                     Converters.fake(),
+                    Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ExpressionNumberConverterContext>
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
@@ -137,6 +139,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.objectToString(),
+                        Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ConverterContext>
                         new FakeCurrencyContext() {
 
                             @Override

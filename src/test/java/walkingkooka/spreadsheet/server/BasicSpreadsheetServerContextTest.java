@@ -103,10 +103,30 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     // with.............................................................................................................
 
     @Test
+    public void testWithNullMultiplierFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetServerContext.with(
+                null,
+                SPREADSHEET_ENGINE,
+                SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
+                SPREADSHEET_PROVIDER,
+                CURRENCY_LOCALE_CONTEXT,
+                SPREADSHEET_ENVIRONMENT_CONTEXT,
+                SPREADSHEET_METADATA_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                TERMINAL_SERVER_CONTEXT
+            )
+        );
+    }
+
+    @Test
     public void testWithNullSpreadsheetEngineFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 null,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -125,6 +145,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_PROVIDER,
@@ -143,6 +164,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 null,
@@ -161,6 +183,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -179,6 +202,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -197,6 +221,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -215,6 +240,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -233,6 +259,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -251,6 +278,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -481,6 +509,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final PluginStore pluginStore = PluginStores.fake();
 
         final SpreadsheetServerContext before = BasicSpreadsheetServerContext.with(
+            MULTIPLIER,
             SPREADSHEET_ENGINE,
             SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
             SPREADSHEET_PROVIDER,
@@ -617,6 +646,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
 
         return BasicSpreadsheetServerContext.with(
+            MULTIPLIER,
             SPREADSHEET_ENGINE,
             (id) -> Optional.of(
                 new FakeSpreadsheetStoreRepository() {
@@ -653,6 +683,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             ),
             HATEOS_RESOURCE_HANDLER_CONTEXT,
             SpreadsheetProviderContexts.spreadsheet(
+                MULTIPLIER,
                 PluginStores.fake(),
                 CURRENCY_LOCALE_CONTEXT,
                 SpreadsheetMetadata.EMPTY.set(
@@ -716,6 +747,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testToString() {
         this.toStringAndCheck(
             BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,
@@ -736,6 +768,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testPrintTree() {
         this.treePrintAndCheck(
             BasicSpreadsheetServerContext.with(
+                MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
                 SPREADSHEET_PROVIDER,

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
@@ -35,6 +36,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
@@ -169,6 +171,11 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 }
 
                 @Override
+                public BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier() {
+                    return MULTIPLIER;
+                }
+
+                @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
                     return SpreadsheetMetadataTesting.METADATA_EN_AU;
                 }
@@ -255,6 +262,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION,
                             SpreadsheetLabelNameResolvers.fake(),
                             SpreadsheetMetadataTesting.LINE_ENDING,
+                            MULTIPLIER,
                             CURRENCY_LOCALE_CONTEXT,
                             SPREADSHEET_PROVIDER,
                             PROVIDER_CONTEXT

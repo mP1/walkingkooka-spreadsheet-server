@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
@@ -35,6 +36,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosHttpHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
@@ -121,6 +123,11 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
                 @Override
                 public LineEnding lineEnding() {
                     return LineEnding.NL;
+                }
+
+                @Override
+                public BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier() {
+                    return MULTIPLIER;
                 }
 
                 @Override

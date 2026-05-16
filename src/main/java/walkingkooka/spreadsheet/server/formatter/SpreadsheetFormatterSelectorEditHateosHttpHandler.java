@@ -129,6 +129,7 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                         context.indentation(),
                         SpreadsheetLabelNameResolvers.empty(),
                         context.lineEnding(),
+                        context.multiplier(),
                         context, // CurrencyLocaleContext
                         context, // // SpreadsheetProvider
                         providerContext // ProviderContext
