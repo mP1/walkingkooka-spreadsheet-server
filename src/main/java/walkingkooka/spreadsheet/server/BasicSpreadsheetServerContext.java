@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
@@ -31,6 +32,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -70,7 +72,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator,
     TreePrintable {
 
-    static BasicSpreadsheetServerContext with(final SpreadsheetEngine spreadsheetEngine,
+    static BasicSpreadsheetServerContext with(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+                                              final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
                                               final CurrencyLocaleContext currencyLocaleContext,
@@ -80,6 +83,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final ProviderContext providerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
+            Objects.requireNonNull(multiplier, "multiplier"),
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
@@ -92,7 +96,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
     }
 
-    private BasicSpreadsheetServerContext(final SpreadsheetEngine spreadsheetEngine,
+    private BasicSpreadsheetServerContext(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+                                          final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
                                           final CurrencyLocaleContext currencyLocaleContext,
@@ -101,6 +106,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                                           final ProviderContext providerContext,
                                           final TerminalServerContext terminalServerContext) {
+        this.multiplier = multiplier;
+
         this.spreadsheetEngine = spreadsheetEngine;
         this.spreadsheetIdToSpreadsheetStoreRepository = spreadsheetIdToSpreadsheetStoreRepository;
         this.spreadsheetProvider = spreadsheetProvider;
@@ -137,6 +144,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+            this.multiplier,
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
                 .orElseThrow(spreadsheetId::missingSpreadsheetException),
@@ -161,6 +169,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     @Override
     public SpreadsheetContext createSpreadsheetContext() {
         return SpreadsheetContexts.mutableSpreadsheetId(
+            this.multiplier,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
             this.spreadsheetMetadataContext,
@@ -170,6 +179,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             ProviderContexts.readOnly(this.providerContext)
         );
     }
+
+    private final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier;
 
     private final SpreadsheetEngine spreadsheetEngine;
 
@@ -227,6 +238,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return before == after ?
             this :
             new BasicSpreadsheetServerContext(
+                this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,
@@ -348,6 +360,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return this.hateosResourceHandlerContext.equals(context) ?
             this :
             new BasicSpreadsheetServerContext(
+                this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
                 this.spreadsheetProvider,

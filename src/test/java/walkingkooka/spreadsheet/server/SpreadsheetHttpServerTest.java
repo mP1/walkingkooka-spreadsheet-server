@@ -13667,6 +13667,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
                 return SpreadsheetServerContexts.basic(
+                    MULTIPLIER,
                     SPREADSHEET_ENGINE,
                     (id) -> Optional.of(
                         SpreadsheetStoreRepositories.treeMap(metadataStore)

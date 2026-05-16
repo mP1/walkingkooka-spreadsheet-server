@@ -75,6 +75,7 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                             context.indentation(),
                             context, // SpreadsheetLabelNameResolver
                             context.lineEnding(),
+                            context.multiplier(),
                             context, // CurrencyLocaleContext
                             context, // SpreadsheetProvider
                             providerContext // ProviderContext

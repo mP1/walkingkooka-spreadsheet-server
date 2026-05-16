@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
@@ -39,6 +40,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -131,6 +133,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         @Override
         public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter() {
             throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier() {
+            return MULTIPLIER;
         }
 
         @Override

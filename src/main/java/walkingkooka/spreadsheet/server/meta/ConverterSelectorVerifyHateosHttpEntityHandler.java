@@ -106,6 +106,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                         context.indentation(),
                         SpreadsheetLabelNameResolvers.empty(),
                         context.lineEnding(),
+                        context.multiplier(),
                         context, // ConverterProvider
                         context, // CurrencyLocaleContext
                         providerContext // ProviderContext
