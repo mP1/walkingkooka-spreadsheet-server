@@ -27,6 +27,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
@@ -53,6 +54,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -138,6 +140,12 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             @Override
             public Currency currency() {
                 return Currency.getInstance("AUD");
+            }
+
+            @Override
+            public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
+                                                         final Optional<LocalDateTime> dateTime) {
+                return Optional.of(2.0);
             }
 
             @Override
