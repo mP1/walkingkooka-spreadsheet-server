@@ -48,6 +48,7 @@ import walkingkooka.storage.HasUserDirectorieses;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.convert.ExpressionNumberBinaryNumberConverterFunctions;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -128,6 +129,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             SpreadsheetConverterContexts.NO_METADATA,
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
+            ExpressionNumberBinaryNumberConverterFunctions.multiply(), // multiplier
             SpreadsheetLabelNameResolvers.fake(),
             JsonNodeConverterContexts.basic(
                 ExpressionNumberConverterContexts.basic(
