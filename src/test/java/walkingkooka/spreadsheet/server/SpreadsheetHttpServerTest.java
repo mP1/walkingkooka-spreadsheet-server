@@ -13976,7 +13976,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         headers2.put(
             HttpHeaderName.ACCEPT_CHARSET,
             Lists.of(
-                AcceptCharset.parse(CHARSET.toHeaderText())
+                AcceptCharset.parse(CHARSET.text())
             )
         );
         headers2.put(
