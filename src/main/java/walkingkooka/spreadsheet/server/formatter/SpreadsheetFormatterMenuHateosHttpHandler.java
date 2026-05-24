@@ -68,6 +68,7 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
                     context.spreadsheetMetadata()
                         .spreadsheetFormatterContext(
                             SpreadsheetMetadata.NO_CELL,
+                            context.charset(),
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
                             },

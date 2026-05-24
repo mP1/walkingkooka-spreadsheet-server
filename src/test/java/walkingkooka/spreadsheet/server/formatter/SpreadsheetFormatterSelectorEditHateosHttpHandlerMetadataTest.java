@@ -53,6 +53,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.text.TextNode;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -317,6 +318,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public Charset charset() {
+                return CHARSET;
+            }
+
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;

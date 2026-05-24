@@ -973,6 +973,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
+                CHARSET,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 (id) -> Optional.of(

@@ -103,6 +103,7 @@ import walkingkooka.validation.provider.ValidatorProviders;
 
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -332,6 +333,7 @@ public class TestGwtTest extends GWTTestCase {
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    StandardCharsets.UTF_8,
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(

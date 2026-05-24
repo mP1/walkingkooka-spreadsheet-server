@@ -397,6 +397,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         );
 
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
+            CHARSET,
             MULTIPLIER,
             SpreadsheetEngines.basic(),
             repos,

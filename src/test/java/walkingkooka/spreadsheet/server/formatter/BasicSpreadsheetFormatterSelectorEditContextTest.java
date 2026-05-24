@@ -137,6 +137,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                     Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ExpressionNumberConverterContext>
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
+                        CHARSET,
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
                         Indentation.SPACES2,
                         LineEnding.NL,

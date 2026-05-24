@@ -103,6 +103,7 @@ import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
 import walkingkooka.validation.provider.ValidatorSelector;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Currency;
@@ -112,6 +113,11 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
+
+    @Override
+    public Charset charset() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public SpreadsheetEngine spreadsheetEngine() {

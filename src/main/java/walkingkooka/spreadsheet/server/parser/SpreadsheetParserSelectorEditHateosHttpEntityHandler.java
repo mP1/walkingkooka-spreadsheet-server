@@ -105,6 +105,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 ), // SpreadsheetParserContext,
                 metadata.spreadsheetFormatterContext(
                     SpreadsheetMetadata.NO_CELL,
+                    context.charset(),
                     (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                         .spreadsheetExpressionEvaluationContext(
                             SpreadsheetMetadata.NO_CELL,
