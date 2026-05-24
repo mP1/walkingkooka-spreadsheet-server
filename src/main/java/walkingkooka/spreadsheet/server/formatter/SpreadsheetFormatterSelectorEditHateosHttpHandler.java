@@ -117,6 +117,7 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements Hate
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
                         cell,
+                        context.charset(),
                         (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                             .spreadsheetExpressionEvaluationContext(
                                 cell,

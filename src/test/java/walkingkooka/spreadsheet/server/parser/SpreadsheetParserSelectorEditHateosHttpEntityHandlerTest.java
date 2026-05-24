@@ -59,6 +59,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -150,6 +151,12 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 "/" + SpreadsheetParserName.DATE + " dd/mm/yyyy"
             ),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public Charset charset() {
+                    return CHARSET;
+                }
+
                 @Override
                 public MediaType contentType() {
                     return MediaType.APPLICATION_JSON;
@@ -255,6 +262,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         value,
                         SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
                             Optional.of(cell),
+                            CHARSET,
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },

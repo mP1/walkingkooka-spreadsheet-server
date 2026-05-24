@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
 
+import java.nio.charset.Charset;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -39,7 +40,8 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
     /**
      * {@see BasicSpreadsheetServerContext}
      */
-    public static SpreadsheetServerContext basic(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+    public static SpreadsheetServerContext basic(final Charset charset,
+                                                 BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                                  final SpreadsheetEngine spreadsheetEngine,
                                                  final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
@@ -50,6 +52,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
                                                  final ProviderContext providerContext,
                                                  final TerminalServerContext terminalServerContext) {
         return BasicSpreadsheetServerContext.with(
+            charset,
             multiplier,
             spreadsheetEngine,
             spreadsheetIdToSpreadsheetStoreRepository,

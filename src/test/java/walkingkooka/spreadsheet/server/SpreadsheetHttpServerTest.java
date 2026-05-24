@@ -164,14 +164,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     JarFileTesting,
     TreePrintableTesting {
 
-    private final static CharsetName CHARSET = CharsetName.UTF_8;
+    private final static Charset CHARSET = StandardCharsets.UTF_8;
+
+    private final static CharsetName CHARSET_NAME = CharsetName.UTF_8;
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final static MediaType CONTENT_TYPE_UTF8 = CONTENT_TYPE.setCharset(CHARSET);
+    private final static MediaType CONTENT_TYPE_UTF8 = CONTENT_TYPE.setCharset(CHARSET_NAME);
 
     private final static UrlPath FILE = UrlPath.parse("/file.txt");
-    private final static MediaType FILE_CONTENT_TYPE = MediaType.parse("text/custom-file;charset=" + CHARSET.value());
+    private final static MediaType FILE_CONTENT_TYPE = MediaType.parse("text/custom-file;charset=" + CHARSET_NAME.value());
     private final static LocalDateTime FILE_LAST_MODIFIED = LocalDateTime.of(2000, 12, 31, 12, 28, 29);
     private final static Binary FILE_BINARY = Binary.with(bytes("abc123", FILE_CONTENT_TYPE));
     private final static HttpStatus FILE_NOT_FOUND = HttpStatusCode.NOT_FOUND.setMessage("File not found custom message");
@@ -13669,6 +13671,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
                 return SpreadsheetServerContexts.basic(
+                    CHARSET,
                     MULTIPLIER,
                     SPREADSHEET_ENGINE,
                     (id) -> Optional.of(
@@ -13976,7 +13979,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         headers2.put(
             HttpHeaderName.ACCEPT_CHARSET,
             Lists.of(
-                AcceptCharset.parse(CHARSET.text())
+                AcceptCharset.parse(
+                    CHARSET_NAME.text()
+                )
             )
         );
         headers2.put(

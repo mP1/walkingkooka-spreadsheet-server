@@ -54,6 +54,7 @@ import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.nio.charset.Charset;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +73,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator,
     TreePrintable {
 
-    static BasicSpreadsheetServerContext with(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+    static BasicSpreadsheetServerContext with(final Charset charset,
+                                              final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                               final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
@@ -83,6 +85,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final ProviderContext providerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
+            Objects.requireNonNull(charset, "charset"),
             Objects.requireNonNull(multiplier, "multiplier"),
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
@@ -96,7 +99,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
     }
 
-    private BasicSpreadsheetServerContext(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+    private BasicSpreadsheetServerContext(final Charset charset,
+                                          final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                           final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
@@ -106,6 +110,10 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                                           final ProviderContext providerContext,
                                           final TerminalServerContext terminalServerContext) {
+        super();
+
+        this.charset = charset;
+
         this.multiplier = multiplier;
 
         this.spreadsheetEngine = spreadsheetEngine;
@@ -144,6 +152,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+            this.charset,
             this.multiplier,
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
@@ -169,6 +178,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     @Override
     public SpreadsheetContext createSpreadsheetContext() {
         return SpreadsheetContexts.mutableSpreadsheetId(
+            this.charset,
             this.multiplier,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
@@ -179,6 +189,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             ProviderContexts.readOnly(this.providerContext)
         );
     }
+
+    private final Charset charset;
 
     private final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier;
 
@@ -238,6 +250,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return before == after ?
             this :
             new BasicSpreadsheetServerContext(
+                this.charset,
                 this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
@@ -360,6 +373,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return this.hateosResourceHandlerContext.equals(context) ?
             this :
             new BasicSpreadsheetServerContext(
+                this.charset,
                 this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
@@ -395,7 +409,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public String toString() {
-        return this.spreadsheetEnvironmentContext + " " + this.currencyLocaleContext + " " + this.spreadsheetProvider;
+        return this.charset + " " + this.spreadsheetEnvironmentContext + " " + this.currencyLocaleContext + " " + this.spreadsheetProvider;
     }
 
     // TreePrintable....................................................................................................
@@ -405,6 +419,12 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         printer.println(this.getClass().getSimpleName());
         printer.indent();
         {
+            this.printTreeWithLabel(
+                printer,
+                Charset.class.getSimpleName(),
+                this.charset
+            );
+
             this.printTreeWithLabel(
                 printer,
                 CurrencyLocaleContext.class.getSimpleName(),

@@ -70,6 +70,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
@@ -119,6 +120,11 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             if (false == this.spreadsheetId().equals(spreadsheetId)) {
                 throw new UnsupportedOperationException();
             }
+        }
+
+        @Override
+        public Charset charset() {
+            return CHARSET;
         }
 
         @Override

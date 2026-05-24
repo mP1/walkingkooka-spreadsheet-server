@@ -54,6 +54,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.List;
@@ -136,6 +137,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public Charset charset() {
+                return CHARSET;
+            }
 
             @Override
             public Currency currency() {
