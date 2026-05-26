@@ -41,7 +41,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
      * {@see BasicSpreadsheetServerContext}
      */
     public static SpreadsheetServerContext basic(final Charset charset,
-                                                 BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+                                                 final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                                  final SpreadsheetEngine spreadsheetEngine,
                                                  final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                                  final SpreadsheetProvider spreadsheetProvider,
