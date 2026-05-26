@@ -1288,7 +1288,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"queryConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, locale, properties, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"queryFunctions\": \"@\",\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
-                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, text-to-line-ending, template, net)\",\n" +
+                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net)\",\n" +
                     "  \"scriptingFunctions\": \"@\",\n" +
                     "  \"showFormulaEditor\": true,\n" +
                     "  \"showFormulas\": false,\n" +
@@ -5873,7 +5873,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"queryConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, locale, properties, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"queryFunctions\": \"@\",\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
-                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, text-to-line-ending, template, net)\",\n" +
+                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net)\",\n" +
                     "  \"scriptingFunctions\": \"@\",\n" +
                     "  \"showFormulaEditor\": true,\n" +
                     "  \"showFormulas\": false,\n" +
@@ -6346,7 +6346,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"queryConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, locale, properties, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"queryFunctions\": \"@\",\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
-                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, text-to-line-ending, template, net)\",\n" +
+                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net)\",\n" +
                     "  \"scriptingFunctions\": \"@\",\n" +
                     "  \"showFormulaEditor\": true,\n" +
                     "  \"showFormulas\": false,\n" +
@@ -6608,7 +6608,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"queryConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, locale, properties, spreadsheet-metadata, style, text-node, template, net)\",\n" +
                     "  \"queryFunctions\": \"@\",\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
-                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, text-to-line-ending, template, net)\",\n" +
+                    "  \"scriptingConverter\": \"collection(text, boolean, number, date-time, basic, spreadsheet-value, error-throwing, color, expression, environment, json, locale, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net)\",\n" +
                     "  \"scriptingFunctions\": \"@\",\n" +
                     "  \"showFormulaEditor\": true,\n" +
                     "  \"showFormulas\": false,\n" +
