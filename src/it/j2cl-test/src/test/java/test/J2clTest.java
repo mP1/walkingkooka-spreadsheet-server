@@ -301,6 +301,7 @@ public class J2clTest {
             spreadsheetFormatterProvider
         );
 
+        final Charset charset = StandardCharsets.UTF_8;
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
@@ -315,6 +316,7 @@ public class J2clTest {
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        charset,
                         Currency.getInstance("AUD"),
                         Indentation.SPACES4,
                         lineEnding,
@@ -329,7 +331,6 @@ public class J2clTest {
                 );
 
                 return SpreadsheetServerContexts.basic(
-                    StandardCharsets.UTF_8,
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
@@ -391,6 +392,7 @@ public class J2clTest {
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                charset,
                                 Currency.getInstance("AUD"),
                                 Indentation.SPACES4,
                                 lineEnding,

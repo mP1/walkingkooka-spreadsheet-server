@@ -13674,7 +13674,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
                 return SpreadsheetServerContexts.basic(
-                    CHARSET,
                     MULTIPLIER,
                     SPREADSHEET_ENGINE,
                     (id) -> Optional.of(
@@ -13715,6 +13714,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                CHARSET,
                                 CURRENCY,
                                 INDENTATION,
                                 LINE_ENDING,

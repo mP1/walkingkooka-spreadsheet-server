@@ -140,7 +140,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public Charset charset() {
-                return CHARSET;
+                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.CHARSET;
             }
 
             @Override

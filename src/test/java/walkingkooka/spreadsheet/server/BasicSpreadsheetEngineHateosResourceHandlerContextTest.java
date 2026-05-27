@@ -124,7 +124,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
 
         @Override
         public Charset charset() {
-            return CHARSET;
+            return BasicSpreadsheetEngineHateosResourceHandlerContextTest.CHARSET;
         }
 
         @Override

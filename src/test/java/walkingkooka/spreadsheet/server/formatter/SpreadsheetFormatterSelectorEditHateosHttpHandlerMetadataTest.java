@@ -321,7 +321,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
 
             @Override
             public Charset charset() {
-                return CHARSET;
+                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.CHARSET;
             }
 
             @Override

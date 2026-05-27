@@ -103,6 +103,7 @@ import walkingkooka.validation.provider.ValidatorProviders;
 
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -305,6 +306,7 @@ public class TestGwtTest extends GWTTestCase {
             spreadsheetFormatterProvider
         );
 
+        final Charset charset = StandardCharsets.UTF_8;
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
@@ -319,6 +321,7 @@ public class TestGwtTest extends GWTTestCase {
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        charset,
                         Currency.getInstance("AUD"),
                         Indentation.SPACES4,
                         lineEnding,
@@ -333,7 +336,6 @@ public class TestGwtTest extends GWTTestCase {
                 );
 
                 return SpreadsheetServerContexts.basic(
-                    StandardCharsets.UTF_8,
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
@@ -395,6 +397,7 @@ public class TestGwtTest extends GWTTestCase {
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                charset,
                                 Currency.getInstance("AUD"),
                                 Indentation.SPACES4,
                                 lineEnding,

@@ -109,7 +109,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements Hate
 
                 @Override
                 public Charset charset() {
-                    return CHARSET;
+                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.CHARSET;
                 }
 
                 @Override

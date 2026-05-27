@@ -102,6 +102,7 @@ import walkingkooka.validation.provider.ValidatorProviders;
 
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -300,6 +301,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             spreadsheetFormatterProvider
         );
 
+        final Charset charset = StandardCharsets.UTF_8;
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
@@ -314,6 +316,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        charset,
                         Currency.getInstance("AUD"),
                         Indentation.SPACES4,
                         lineEnding,
@@ -328,7 +331,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 );
 
                 return SpreadsheetServerContexts.basic(
-                    StandardCharsets.UTF_8,
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
@@ -390,6 +392,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
                             EnvironmentContexts.empty(
+                                charset,
                                 Currency.getInstance("AUD"),
                                 Indentation.SPACES4,
                                 lineEnding,
