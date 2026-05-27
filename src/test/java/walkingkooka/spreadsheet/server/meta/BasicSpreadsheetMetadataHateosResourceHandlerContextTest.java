@@ -549,6 +549,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final EnvironmentContext environmentContext = EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                CHARSET,
                 CURRENCY,
                 INDENTATION,
                 LINE_ENDING,
@@ -973,7 +974,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
-                CHARSET,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 (id) -> Optional.of(

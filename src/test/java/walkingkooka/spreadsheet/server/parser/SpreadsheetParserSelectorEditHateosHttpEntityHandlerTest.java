@@ -51,6 +51,7 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
@@ -154,7 +155,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                 @Override
                 public Charset charset() {
-                    return CHARSET;
+                    return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest.CHARSET;
                 }
 
                 @Override
@@ -262,7 +263,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         value,
                         SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
                             Optional.of(cell),
-                            CHARSET,
+                            SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.CHARSET,
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },

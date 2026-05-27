@@ -46,6 +46,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcesso
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Collection;
@@ -93,6 +94,16 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     @Override
     public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Charset charset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCharset(final Charset charset) {
         throw new UnsupportedOperationException();
     }
 

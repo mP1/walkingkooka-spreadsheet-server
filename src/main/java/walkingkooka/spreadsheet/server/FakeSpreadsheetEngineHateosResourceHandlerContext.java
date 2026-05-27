@@ -115,11 +115,6 @@ import java.util.Set;
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
 
     @Override
-    public Charset charset() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public SpreadsheetEngine spreadsheetEngine() {
         throw new UnsupportedOperationException();
     }
@@ -627,6 +622,16 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Charset charset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCharset(final Charset charset) {
         throw new UnsupportedOperationException();
     }
 
