@@ -379,6 +379,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
             SpreadsheetServerContexts.basic(
+                MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SpreadsheetEngines.basic(),
                 (id) -> Optional.of(

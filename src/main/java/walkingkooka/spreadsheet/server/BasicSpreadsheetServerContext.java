@@ -26,6 +26,7 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
@@ -72,7 +73,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     SpreadsheetProviderDelegator,
     TreePrintable {
 
-    static BasicSpreadsheetServerContext with(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+    static BasicSpreadsheetServerContext with(final MediaTypeDetector mediaTypeDetector,
+                                              final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                               final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                               final SpreadsheetProvider spreadsheetProvider,
@@ -83,6 +85,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final ProviderContext providerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
+            Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
             Objects.requireNonNull(multiplier, "multiplier"),
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
@@ -96,7 +99,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
     }
 
-    private BasicSpreadsheetServerContext(final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
+    private BasicSpreadsheetServerContext(final MediaTypeDetector mediaTypeDetector,
+                                          final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                           final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
                                           final SpreadsheetProvider spreadsheetProvider,
@@ -107,6 +111,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final ProviderContext providerContext,
                                           final TerminalServerContext terminalServerContext) {
         super();
+
+        this.mediaTypeDetector = mediaTypeDetector;
 
         this.multiplier = multiplier;
 
@@ -146,6 +152,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+            this.mediaTypeDetector,
             this.multiplier,
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
@@ -171,6 +178,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     @Override
     public SpreadsheetContext createSpreadsheetContext() {
         return SpreadsheetContexts.mutableSpreadsheetId(
+            this.mediaTypeDetector,
             this.multiplier,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
@@ -181,6 +189,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             ProviderContexts.readOnly(this.providerContext)
         );
     }
+
+    private final MediaTypeDetector mediaTypeDetector;
 
     private final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier;
 
@@ -240,6 +250,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return before == after ?
             this :
             new BasicSpreadsheetServerContext(
+                this.mediaTypeDetector,
                 this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
@@ -362,6 +373,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return this.hateosResourceHandlerContext.equals(context) ?
             this :
             new BasicSpreadsheetServerContext(
+                this.mediaTypeDetector,
                 this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
@@ -397,7 +409,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public String toString() {
-        return this.spreadsheetEnvironmentContext + " " + this.currencyLocaleContext + " " + this.spreadsheetProvider;
+        return this.mediaTypeDetector + " " + this.spreadsheetEnvironmentContext + " " + this.currencyLocaleContext + " " + this.spreadsheetProvider;
     }
 
     // TreePrintable....................................................................................................
@@ -407,6 +419,12 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         printer.println(this.getClass().getSimpleName());
         printer.indent();
         {
+            this.printTreeWithLabel(
+                printer,
+                MediaTypeDetector.class.getSimpleName(),
+                this.mediaTypeDetector
+            );
+
             this.printTreeWithLabel(
                 printer,
                 CurrencyLocaleContext.class.getSimpleName(),

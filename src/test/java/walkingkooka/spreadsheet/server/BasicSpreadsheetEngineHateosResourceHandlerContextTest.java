@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.currency.CurrencyContext;
@@ -32,6 +33,7 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -125,6 +127,15 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         @Override
         public Charset charset() {
             return BasicSpreadsheetEngineHateosResourceHandlerContextTest.CHARSET;
+        }
+
+        @Override
+        public MediaType detect(final String filename,
+                                final Binary content) {
+            return MEDIA_TYPE_DETECTOR.detect(
+                filename,
+                content
+            );
         }
 
         @Override

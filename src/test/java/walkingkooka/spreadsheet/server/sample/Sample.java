@@ -331,6 +331,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    MediaTypeDetectors.fake(),
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
