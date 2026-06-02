@@ -331,6 +331,7 @@ public class J2clTest {
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    MediaTypeDetectors.fake(),
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(

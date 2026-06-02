@@ -336,6 +336,7 @@ public class TestGwtTest extends GWTTestCase {
                 );
 
                 return SpreadsheetServerContexts.basic(
+                    MediaTypeDetectors.fake(),
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
