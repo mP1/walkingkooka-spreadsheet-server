@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.currency.CurrencyCode;
@@ -409,7 +410,30 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public String toString() {
-        return this.mediaTypeDetector + " " + this.spreadsheetEnvironmentContext + " " + this.currencyLocaleContext + " " + this.spreadsheetProvider;
+        return ToStringBuilder.empty()
+            .label("mediaTypeDetector")
+            .value(this.mediaTypeDetector)
+            .label("multiplier")
+            .value(this.multiplier)
+            .label("spreadsheetEngine")
+            .value(this.spreadsheetEngine)
+            .label("spreadsheetIdToSpreadsheetContext")
+            .value(this.spreadsheetIdToSpreadsheetContext)
+            .label("currencyLocaleContext")
+            .value(this.currencyLocaleContext)
+            .label("spreadsheetEnvironmentContext")
+            .value(this.spreadsheetEnvironmentContext)
+            .label("spreadsheetMetadataContext")
+            .value(this.spreadsheetMetadataContext)
+            .label("hateosResourceHandlerContext")
+            .value(this.hateosResourceHandlerContext)
+            .label("spreadsheetProvider")
+            .value(this.spreadsheetProvider)
+            .label("providerContext")
+            .value(this.providerContext)
+            .label("terminalServerContext")
+            .value(this.terminalServerContext)
+            .build();
     }
 
     // TreePrintable....................................................................................................
