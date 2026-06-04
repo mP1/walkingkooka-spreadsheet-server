@@ -35,8 +35,8 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.environment.FakeSpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
@@ -78,11 +78,21 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     SpreadsheetMetadataTesting,
     TreePrintableTesting {
 
-    private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
+    private final static SpreadsheetEngine SPREADSHEET_ENGINE = new FakeSpreadsheetEngine() {
+        @Override
+        public String toString() {
+            return FakeSpreadsheetEngine.class.getSimpleName();
+        }
+    };
 
     private final static Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY = (i) -> Optional.of(SpreadsheetStoreRepositories.fake());
 
-    private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = SpreadsheetMetadataContexts.fake();
+    private final static SpreadsheetMetadataContext SPREADSHEET_METADATA_CONTEXT = new FakeSpreadsheetMetadataContext() {
+        @Override
+        public String toString() {
+            return FakeSpreadsheetMetadataContext.class.getSimpleName();
+        }
+    };
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = new FakeHateosResourceHandlerContext() {
         @Override
@@ -93,6 +103,11 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         @Override
         public HateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
             return this;
+        }
+
+        @Override
+        public String toString() {
+            return FakeHateosResourceHandlerContext.class.getSimpleName();
         }
     };
 
@@ -792,7 +807,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 PROVIDER_CONTEXT,
                 TERMINAL_SERVER_CONTEXT
             ),
-            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=" + SPREADSHEET_ENGINE + " currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=\"UTF-8\", currency=\"AUD\", indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user@example.com} spreadsheetMetadataContext=" + SPREADSHEET_METADATA_CONTEXT + " hateosResourceHandlerContext=" + HATEOS_RESOURCE_HANDLER_CONTEXT + " spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/wa"
+            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=" + SPREADSHEET_ENGINE + " currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=\"UTF-8\", currency=\"AUD\", indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user@example.com} spreadsheetMetadataContext=" + SPREADSHEET_METADATA_CONTEXT + " hateosResourceHandlerContext=" + HATEOS_RESOURCE_HANDLER_CONTEXT + " spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection"
         );
     }
 
