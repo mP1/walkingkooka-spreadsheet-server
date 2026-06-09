@@ -374,11 +374,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             private final SpreadsheetMetadataStore metadata = SpreadsheetMetadataStores.treeMap();
 
             @Override
-            public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
+            public SpreadsheetCellRangeStore rangeToCells() {
                 return this.rangeToCells;
             }
 
-            private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
+            private final SpreadsheetCellRangeStore rangeToCells = SpreadsheetCellRangeStores.treeMap();
 
             @Override
             public SpreadsheetRowStore rows() {
