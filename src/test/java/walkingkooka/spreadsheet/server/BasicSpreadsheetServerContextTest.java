@@ -55,6 +55,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.store.StoreWatcher;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.server.FakeTerminalServerContext;
@@ -476,6 +477,64 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             locale2
         );
     }
+
+    @Test
+    public void testAddMetadataWatcherAndCreateEmptySpreadsheet() {
+        final Locale locale = Locale.forLanguageTag("en-AU");
+
+        final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
+
+        this.fired = false;
+
+        spreadsheetServerContext.addMetadataWatcher(
+            new StoreWatcher<SpreadsheetMetadata>() {
+                @Override
+                public void onValueChange(final Optional<SpreadsheetMetadata> oldValue,
+                                          final Optional<SpreadsheetMetadata> newValue) {
+                    // FIXME https://github.com/mP1/walkingkooka-store/issues/136
+                    checkNotEquals(
+                        Optional.empty(),
+                        oldValue,
+                        "oldValue"
+                    );
+                    checkEquals(
+                        Optional.empty(),
+                        newValue,
+                        "newValue"
+                    );
+
+                    BasicSpreadsheetServerContextTest.this.fired = true;
+                }
+            }
+        );
+
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
+            Optional.of(locale)
+        );
+
+        this.checkEquals(
+            true,
+            this.fired,
+            "fired"
+        );
+
+        this.checkNotEquals(
+            null,
+            spreadsheetContext
+        );
+
+        this.userAndCheck(
+            spreadsheetContext,
+            USER
+        );
+
+        this.localeAndCheck(
+            spreadsheetContext,
+            locale
+        );
+    }
+
+    private boolean fired;
 
     // createSpreadsheetContext.........................................................................................
 
