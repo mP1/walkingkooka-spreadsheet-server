@@ -68,6 +68,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.Storages;
+import walkingkooka.store.StoreWatcher;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
@@ -259,6 +260,18 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         @Override
         public SpreadsheetMetadata createMetadata(final EmailAddress user,
                                                   final Optional<Locale> locale) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Runnable addMetadataWatcher(final StoreWatcher<SpreadsheetMetadata> watcher) {
+            Objects.requireNonNull(watcher, "watcher");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Runnable addMetadataWatcherOnce(final StoreWatcher<SpreadsheetMetadata> watcher) {
+            Objects.requireNonNull(watcher, "watcher");
             throw new UnsupportedOperationException();
         }
 

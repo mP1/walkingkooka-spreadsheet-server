@@ -81,6 +81,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.StoragePath;
+import walkingkooka.store.StoreWatcher;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -204,6 +205,16 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
                                                                    final int offset,
                                                                    final int count) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addMetadataWatcher(final StoreWatcher<SpreadsheetMetadata> watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addMetadataWatcherOnce(final StoreWatcher<SpreadsheetMetadata> watcher) {
         throw new UnsupportedOperationException();
     }
 

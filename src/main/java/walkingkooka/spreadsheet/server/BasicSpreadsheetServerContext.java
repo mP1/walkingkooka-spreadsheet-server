@@ -47,6 +47,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.store.StoreWatcher;
 import walkingkooka.terminal.server.TerminalServerContext;
 import walkingkooka.text.CaseKind;
 import walkingkooka.text.Indentation;
@@ -343,6 +344,16 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             offset,
             count
         );
+    }
+
+    @Override
+    public Runnable addMetadataWatcher(final StoreWatcher<SpreadsheetMetadata> watcher) {
+        return this.spreadsheetMetadataContext.addMetadataWatcher(watcher);
+    }
+
+    @Override
+    public Runnable addMetadataWatcherOnce(final StoreWatcher<SpreadsheetMetadata> watcher) {
+        return this.spreadsheetMetadataContext.addMetadataWatcherOnce(watcher);
     }
 
     private final SpreadsheetMetadataContext spreadsheetMetadataContext;
