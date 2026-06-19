@@ -491,13 +491,12 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 @Override
                 public void onValueChange(final Optional<SpreadsheetMetadata> oldValue,
                                           final Optional<SpreadsheetMetadata> newValue) {
-                    // FIXME https://github.com/mP1/walkingkooka-store/issues/136
-                    checkNotEquals(
+                    checkEquals(
                         Optional.empty(),
                         oldValue,
                         "oldValue"
                     );
-                    checkEquals(
+                    checkNotEquals(
                         Optional.empty(),
                         newValue,
                         "newValue"
