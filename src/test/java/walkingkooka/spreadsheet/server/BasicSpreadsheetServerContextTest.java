@@ -352,11 +352,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testCreateEmptySpreadsheet() {
-        final Locale locale = Locale.forLanguageTag("en-AU");
-
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(locale)
+            Optional.of(LOCALE)
             );
         this.checkNotEquals(
             null,
@@ -370,7 +368,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.localeAndCheck(
             spreadsheetContext,
-            locale
+            LOCALE
         );
     }
 
@@ -391,9 +389,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             )
         );
 
-        final Locale locale = Locale.forLanguageTag("en-AU");
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(locale)
+            Optional.of(LOCALE)
         );
         this.checkNotEquals(
             null,
@@ -424,7 +421,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.localeAndCheck(
             spreadsheetContext,
-            locale
+            LOCALE
         );
     }
 
@@ -432,11 +429,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testCreateEmptySpreadsheetTwice() {
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(user1);
-
-        final Locale locale1 = Locale.forLanguageTag("en-AU");
         
         final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(locale1)
+            Optional.of(LOCALE)
         );
         this.checkNotEquals(
             null,
@@ -447,10 +442,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         spreadsheetServerContext.setUser(
             Optional.of(user2)
         );
-        final Locale locale2 = Locale.forLanguageTag("en-AU");
-
         final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(locale2)
+            Optional.of(LOCALE)
         );
         this.checkNotEquals(
             null,
@@ -464,7 +457,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.localeAndCheck(
             spreadsheetContext1,
-            locale1
+            LOCALE
         );
 
         this.userAndCheck(
@@ -474,14 +467,12 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.localeAndCheck(
             spreadsheetContext2,
-            locale2
+            LOCALE
         );
     }
 
     @Test
     public void testAddMetadataWatcherAndCreateEmptySpreadsheet() {
-        final Locale locale = Locale.forLanguageTag("en-AU");
-
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
 
         this.fired = false;
@@ -508,7 +499,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         );
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(locale)
+            Optional.of(LOCALE)
         );
 
         this.checkEquals(
@@ -529,7 +520,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.localeAndCheck(
             spreadsheetContext,
-            locale
+            LOCALE
         );
     }
 
@@ -579,10 +570,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testSpreadsheetContext() {
         final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
 
-        final Locale locale1 = Locale.forLanguageTag("en-AU");
-
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(locale1)
+            Optional.of(LOCALE)
         );
         this.checkNotEquals(
             null,
