@@ -54,6 +54,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
         return SpreadsheetMetadataHttpHandler.with(
             SpreadsheetServerContexts.basic(
                 MEDIA_TYPE_DETECTOR,
+                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SpreadsheetEngines.fake(),
                 (id) -> Optional.of(

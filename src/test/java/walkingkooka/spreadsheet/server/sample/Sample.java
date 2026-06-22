@@ -67,6 +67,7 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterAliasSet;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterProviders;
+import walkingkooka.spreadsheet.meta.FakeSpreadsheetMetadataCreator;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -332,6 +333,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
                 return SpreadsheetServerContexts.basic(
                     MediaTypeDetectors.fake(),
+                    new FakeSpreadsheetMetadataCreator(),
                     BinaryNumberConverterFunctions.fake(),
                     SpreadsheetEngines.fake(),
                     (id) -> Optional.of(
