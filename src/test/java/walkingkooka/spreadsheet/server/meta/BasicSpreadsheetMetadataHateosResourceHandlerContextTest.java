@@ -975,6 +975,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
             SpreadsheetServerContexts.basic(
                 MEDIA_TYPE_DETECTOR,
+                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 (id) -> Optional.of(

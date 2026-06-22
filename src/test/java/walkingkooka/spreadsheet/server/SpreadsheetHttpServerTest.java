@@ -13677,6 +13677,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
                 return SpreadsheetServerContexts.basic(
                     MEDIA_TYPE_DETECTOR,
+                    SPREADSHEET_METADATA_CREATOR,
                     MULTIPLIER,
                     SPREADSHEET_ENGINE,
                     (id) -> Optional.of(
