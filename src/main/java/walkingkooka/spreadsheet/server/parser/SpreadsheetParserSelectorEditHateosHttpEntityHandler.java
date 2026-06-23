@@ -119,6 +119,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                     SpreadsheetLabelNameResolvers.empty(),
                     context.lineEnding(),
                     context.multiplier(),
+                    context, // SpreadsheetMetadataLoader
                     context, // CurrencyLocaleContext
                     context, // SpreadsheetProvider
                     providerContext // ProviderContext
