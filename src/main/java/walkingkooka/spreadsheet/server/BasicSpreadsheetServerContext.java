@@ -42,7 +42,6 @@ import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegat
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataCreator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
@@ -77,7 +76,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     TreePrintable {
 
     static BasicSpreadsheetServerContext with(final MediaTypeDetector mediaTypeDetector,
-                                              final SpreadsheetMetadataCreator createMetadata,
                                               final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                               final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
@@ -90,7 +88,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
-            Objects.requireNonNull(createMetadata, "createMetadata"),
             Objects.requireNonNull(multiplier, "multiplier"),
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(spreadsheetIdToSpreadsheetStoreRepository, "spreadsheetIdToSpreadsheetStoreRepository"),
@@ -105,7 +102,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     private BasicSpreadsheetServerContext(final MediaTypeDetector mediaTypeDetector,
-                                          final SpreadsheetMetadataCreator createMetadata,
                                           final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                           final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
@@ -119,8 +115,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         super();
 
         this.mediaTypeDetector = mediaTypeDetector;
-
-        this.createMetadata = createMetadata;
 
         this.multiplier = multiplier;
 
@@ -161,7 +155,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
             this.mediaTypeDetector,
-            this.createMetadata,
+            this.spreadsheetMetadataContext, // SpreadsheetMetadataCreator
             this.multiplier,
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
@@ -188,7 +182,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     public SpreadsheetContext createSpreadsheetContext() {
         return SpreadsheetContexts.mutableSpreadsheetId(
             this.mediaTypeDetector,
-            this.createMetadata,
             this.multiplier,
             this.spreadsheetEngine,
             this, // SpreadsheetContextSupplier
@@ -201,8 +194,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     private final MediaTypeDetector mediaTypeDetector;
-
-    private final SpreadsheetMetadataCreator createMetadata;
 
     private final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier;
 
@@ -263,7 +254,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this :
             new BasicSpreadsheetServerContext(
                 this.mediaTypeDetector,
-                this.createMetadata,
                 this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
@@ -397,7 +387,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this :
             new BasicSpreadsheetServerContext(
                 this.mediaTypeDetector,
-                this.createMetadata,
                 this.multiplier,
                 this.spreadsheetEngine,
                 this.spreadsheetIdToSpreadsheetStoreRepository,
@@ -436,8 +425,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         return ToStringBuilder.empty()
             .label("mediaTypeDetector")
             .value(this.mediaTypeDetector)
-            .label("createMetadata")
-            .value(this.createMetadata)
             .label("multiplier")
             .value(this.multiplier)
             .label("spreadsheetEngine")
@@ -472,12 +459,6 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 printer,
                 MediaTypeDetector.class.getSimpleName(),
                 this.mediaTypeDetector
-            );
-
-            this.printTreeWithLabel(
-                printer,
-                SpreadsheetMetadataCreator.class.getSimpleName(),
-                this.createMetadata
             );
 
             this.printTreeWithLabel(

@@ -124,28 +124,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 null,
-                SPREADSHEET_METADATA_CREATOR,
-                MULTIPLIER,
-                SPREADSHEET_ENGINE,
-                SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
-                SPREADSHEET_PROVIDER,
-                CURRENCY_LOCALE_CONTEXT,
-                SPREADSHEET_ENVIRONMENT_CONTEXT,
-                SPREADSHEET_METADATA_CONTEXT,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT,
-                TERMINAL_SERVER_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetMetadataCreatorFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
-                MEDIA_TYPE_DETECTOR,
-                null,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -166,7 +144,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 null,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -187,7 +164,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 null,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -208,7 +184,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 null,
@@ -229,7 +204,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -250,7 +224,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -271,7 +244,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -292,7 +264,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -313,7 +284,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -334,7 +304,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -355,7 +324,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             NullPointerException.class,
             () -> BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -635,7 +603,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         final SpreadsheetServerContext before = BasicSpreadsheetServerContext.with(
             MEDIA_TYPE_DETECTOR,
-            SPREADSHEET_METADATA_CREATOR,
             MULTIPLIER,
             SPREADSHEET_ENGINE,
             SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -774,7 +741,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         return BasicSpreadsheetServerContext.with(
             MEDIA_TYPE_DETECTOR,
-            SPREADSHEET_METADATA_CREATOR,
             MULTIPLIER,
             SPREADSHEET_ENGINE,
             (id) -> Optional.of(
@@ -877,7 +843,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         this.toStringAndCheck(
             BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -889,7 +854,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 PROVIDER_CONTEXT,
                 TERMINAL_SERVER_CONTEXT
             ),
-            "mediaTypeDetector=application/octet-stream createMetadata=SpreadsheetMetadataTesting$SpreadsheetMetadataCreator multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=\"UTF-8\", currency=\"AUD\", indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosResourceHandlerContext=FakeHateosResourceHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection,"
+            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=\"UTF-8\", currency=\"AUD\", indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosResourceHandlerContext=FakeHateosResourceHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection"
         );
     }
 
@@ -900,7 +865,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         this.treePrintAndCheck(
             BasicSpreadsheetServerContext.with(
                 MEDIA_TYPE_DETECTOR,
-                SPREADSHEET_METADATA_CREATOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
                 SPREADSHEET_ID_TO_SPREADSHEET_STORE_REPOSITORY,
@@ -915,8 +879,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             "BasicSpreadsheetServerContext\n" +
                 "  mediaTypeDetector\n" +
                 "    application/octet-stream (walkingkooka.net.header.BinaryMediaTypeDetector)\n" +
-                "  spreadsheetMetadataCreator\n" +
-                "    SpreadsheetMetadataTesting$SpreadsheetMetadataCreator (walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting$4)\n" +
                 "  currencyLocaleContext\n" +
                 "    JRE ReadOnly JRE en-AU (walkingkooka.currency.ReadOnlyCurrencyLocaleContext)\n" +
                 "  spreadsheetEnvironmentContext\n" +
