@@ -272,6 +272,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             SpreadsheetLabelNameResolvers.fake(),
                             SpreadsheetMetadataTesting.LINE_ENDING,
                             MULTIPLIER,
+                            SPREADSHEET_METADATA_LOADER,
                             CURRENCY_LOCALE_CONTEXT,
                             SPREADSHEET_PROVIDER,
                             PROVIDER_CONTEXT

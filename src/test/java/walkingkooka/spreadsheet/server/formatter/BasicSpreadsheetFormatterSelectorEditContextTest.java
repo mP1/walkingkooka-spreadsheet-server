@@ -42,6 +42,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.storage.HasUserDirectorieses;
@@ -135,6 +136,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             Converters.objectToString(),
             ExpressionNumberBinaryNumberConverterFunctions.multiply(), // multiplier
             SpreadsheetLabelNameResolvers.fake(),
+            SpreadsheetMetadataLoaders.empty(),
             JsonNodeConverterContexts.basic(
                 ExpressionNumberConverterContexts.basic(
                     Converters.fake(),
