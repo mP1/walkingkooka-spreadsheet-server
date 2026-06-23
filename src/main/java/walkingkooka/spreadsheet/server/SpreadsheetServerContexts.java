@@ -28,7 +28,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataCreator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.terminal.server.TerminalServerContext;
@@ -42,7 +41,6 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
      * {@see BasicSpreadsheetServerContext}
      */
     public static SpreadsheetServerContext basic(final MediaTypeDetector mediaTypeDetector,
-                                                 final SpreadsheetMetadataCreator createMetadata,
                                                  final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                                  final SpreadsheetEngine spreadsheetEngine,
                                                  final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
@@ -55,7 +53,6 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
                                                  final TerminalServerContext terminalServerContext) {
         return BasicSpreadsheetServerContext.with(
             mediaTypeDetector,
-            createMetadata,
             multiplier,
             spreadsheetEngine,
             spreadsheetIdToSpreadsheetStoreRepository,
