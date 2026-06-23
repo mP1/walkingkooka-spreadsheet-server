@@ -36,10 +36,32 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 
 public final class SpreadsheetFormatterMenuContextTestingTest implements SpreadsheetFormatterMenuContextTesting<TestSpreadsheetFormatterMenuContext>,
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
+
+    @Override
+    public void testSetObjectPostProcessor() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetObjectPostProcessorSame() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetPreProcessor() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetPreProcessorSame() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public TestSpreadsheetFormatterMenuContext createContext() {
         return new TestSpreadsheetFormatterMenuContext();
@@ -90,11 +112,13 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
 
         @Override
         public SpreadsheetFormatterProviderSamplesContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+            Objects.requireNonNull(processor, "processor");
             throw new UnsupportedOperationException();
         }
 
         @Override
         public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            Objects.requireNonNull(processor, "processor");
             throw new UnsupportedOperationException();
         }
 

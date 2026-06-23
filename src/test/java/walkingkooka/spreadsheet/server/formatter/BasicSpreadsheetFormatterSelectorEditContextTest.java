@@ -51,7 +51,9 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberBinaryNumberConverterFunctions;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
@@ -124,6 +126,8 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
         final Locale locale = Locale.forLanguageTag("EN-AU");
         final LocaleContext localeContext = LocaleContexts.jre(locale);
 
+        final MathContext mathContext = MathContext.DECIMAL32;
+
         return SpreadsheetConverterContexts.basic(
             HasUserDirectorieses.fake(),
             SpreadsheetConverterContexts.NO_METADATA,
@@ -177,13 +181,18 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                             50, // two-digit-year
                             LocalDateTime::now
                         ),
-                        DecimalNumberContexts.american(
-                            MathContext.DECIMAL32
-                        )
+                        DecimalNumberContexts.american(mathContext)
                     ),
                     ExpressionNumberKind.BIG_DECIMAL
                 ),
-                JsonNodeMarshallUnmarshallContexts.fake()
+                JsonNodeMarshallUnmarshallContexts.basic(
+                    JsonNodeMarshallContexts.basic(),
+                    JsonNodeUnmarshallContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        CURRENCY_LOCALE_CONTEXT,
+                        mathContext
+                    )
+                )
             ),
             localeContext
         );
