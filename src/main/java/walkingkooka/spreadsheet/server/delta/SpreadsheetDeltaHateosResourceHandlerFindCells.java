@@ -41,7 +41,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#findCells(SpreadsheetCellRangeReference, SpreadsheetCellRangeReferencePath, int, int, ValueType, Expression, Set, SpreadsheetEngineContext)}.
+ * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#queryCells(SpreadsheetCellRangeReference, SpreadsheetCellRangeReferencePath, int, int, ValueType, Expression, Set, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
