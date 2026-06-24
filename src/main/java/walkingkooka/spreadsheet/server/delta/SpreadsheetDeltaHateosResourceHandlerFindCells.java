@@ -111,17 +111,17 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetCellQueryRequest find = SpreadsheetCellQueryRequest.extract(parameters);
+        final SpreadsheetCellQueryRequest query = SpreadsheetCellQueryRequest.extract(parameters);
 
         return Optional.ofNullable(
             context.spreadsheetEngine()
                 .queryCells(
                     cells, // cells
-                    find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
-                    find.offset().orElse(DEFAULT_OFFSET), // offset
-                    find.count().orElse(DEFAULT_COUNT), // count
-                    find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
-                    find.query()
+                    query.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
+                    query.offset().orElse(DEFAULT_OFFSET), // offset
+                    query.count().orElse(DEFAULT_COUNT), // count
+                    query.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
+                    query.query()
                         .map(q -> context.toExpression(
                                 q.parserToken()
                             ).orElse(DEFAULT_QUERY)
