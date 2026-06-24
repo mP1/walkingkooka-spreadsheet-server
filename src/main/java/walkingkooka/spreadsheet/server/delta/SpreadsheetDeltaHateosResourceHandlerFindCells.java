@@ -92,7 +92,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
-        return this.findCells(
+        return this.queryCells(
             SpreadsheetSelection.cellRange(cells),
             resource,
             parameters,
@@ -101,11 +101,11 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         );
     }
 
-    private Optional<SpreadsheetDelta> findCells(final SpreadsheetCellRangeReference cells,
-                                                 final Optional<SpreadsheetDelta> resource,
-                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                 final UrlPath path,
-                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private Optional<SpreadsheetDelta> queryCells(final SpreadsheetCellRangeReference cells,
+                                                  final Optional<SpreadsheetDelta> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final UrlPath path,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -115,7 +115,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
         return Optional.ofNullable(
             context.spreadsheetEngine()
-                .findCells(
+                .queryCells(
                     cells, // cells
                     find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
                     find.offset().orElse(DEFAULT_OFFSET), // offset
