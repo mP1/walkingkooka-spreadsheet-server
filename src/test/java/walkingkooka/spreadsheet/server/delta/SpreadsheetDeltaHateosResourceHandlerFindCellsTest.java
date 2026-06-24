@@ -101,14 +101,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                     return new FakeSpreadsheetEngine() {
 
                         @Override
-                        public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final ValueType v,
-                                                          final Expression e,
-                                                          final Set<SpreadsheetDeltaProperties> properties,
-                                                          final SpreadsheetEngineContext context) {
+                        public SpreadsheetDelta queryCells(final SpreadsheetCellRangeReference r,
+                                                           final SpreadsheetCellRangeReferencePath p,
+                                                           final int o,
+                                                           final int c,
+                                                           final ValueType v,
+                                                           final Expression e,
+                                                           final Set<SpreadsheetDeltaProperties> properties,
+                                                           final SpreadsheetEngineContext context) {
                             checkEquals(b2.toCellRange(), r, "range");
                             checkEquals(path, p, "path");
                             checkEquals(offset, o, "offset");
@@ -196,14 +196,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                     return new FakeSpreadsheetEngine() {
 
                         @Override
-                        public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final ValueType v,
-                                                          final Expression e,
-                                                          final Set<SpreadsheetDeltaProperties> properties,
-                                                          final SpreadsheetEngineContext context) {
+                        public SpreadsheetDelta queryCells(final SpreadsheetCellRangeReference r,
+                                                           final SpreadsheetCellRangeReferencePath p,
+                                                           final int o,
+                                                           final int c,
+                                                           final ValueType v,
+                                                           final Expression e,
+                                                           final Set<SpreadsheetDeltaProperties> properties,
+                                                           final SpreadsheetEngineContext context) {
                             checkEquals(range, r, "range");
                             checkEquals(path, p, "path");
                             checkEquals(offset, o, "offset");
@@ -291,14 +291,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                     return new FakeSpreadsheetEngine() {
 
                         @Override
-                        public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final ValueType v,
-                                                          final Expression e,
-                                                          final Set<SpreadsheetDeltaProperties> properties,
-                                                          final SpreadsheetEngineContext context) {
+                        public SpreadsheetDelta queryCells(final SpreadsheetCellRangeReference r,
+                                                           final SpreadsheetCellRangeReferencePath p,
+                                                           final int o,
+                                                           final int c,
+                                                           final ValueType v,
+                                                           final Expression e,
+                                                           final Set<SpreadsheetDeltaProperties> properties,
+                                                           final SpreadsheetEngineContext context) {
                             checkEquals(range, r, "range");
                             checkEquals(path, p, "path");
                             checkEquals(offset, o, "offset");
@@ -394,14 +394,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
-                                                      final SpreadsheetCellRangeReferencePath p,
-                                                      final int o,
-                                                      final int c,
-                                                      final ValueType v,
-                                                      final Expression e,
-                                                      final Set<SpreadsheetDeltaProperties> properties,
-                                                      final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta queryCells(final SpreadsheetCellRangeReference r,
+                                                       final SpreadsheetCellRangeReferencePath p,
+                                                       final int o,
+                                                       final int c,
+                                                       final ValueType v,
+                                                       final Expression e,
+                                                       final Set<SpreadsheetDeltaProperties> properties,
+                                                       final SpreadsheetEngineContext context) {
                         checkEquals(range, r, "range");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_CELL_RANGE_PATH, p, "path");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_OFFSET, o, "offset");
