@@ -427,7 +427,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            SpreadsheetEngine.class.getSimpleName() + ".findCells"
+            SpreadsheetEngine.class.getSimpleName() + ".queryCells"
         );
     }
 

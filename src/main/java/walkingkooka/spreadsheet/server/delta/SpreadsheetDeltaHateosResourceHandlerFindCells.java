@@ -144,6 +144,6 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
     @Override
     String operation() {
-        return "findCells";
+        return "queryCells";
     }
 }
