@@ -40,11 +40,6 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> FILTER = LinkRelation.with("filter");
 
-    /**
-     * A {@link LinkRelation} with <code>find</code>.
-     */
-    public static final LinkRelation<?> FIND = LinkRelation.with("find");
-
     public final static LinkRelation<?> FORM = LinkRelation.with("form");
 
     public final static LinkRelation<?> FORMATTER_EDIT = LinkRelation.with("formatter-edit");
@@ -67,6 +62,11 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
     public final static LinkRelation<?> MENU = LinkRelation.with("menu");
 
     public final static LinkRelation<?> NEXT_TOKEN = LinkRelation.with("next-token");
+
+    /**
+     * A {@link LinkRelation} with <code>query</code>
+     */
+    public static final LinkRelation<?> QUERY = LinkRelation.with("query");
 
     /**
      * A {@link LinkRelation} with <code>references</code>.
