@@ -129,12 +129,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetDeltaHateosResourceHandlerFillCells.INSTANCE
         );
 
-        cell = cell.setHateosResourceHandler(
-            SpreadsheetServerLinkRelations.FIND,
-            HttpMethod.GET,
-            SpreadsheetDeltaHateosResourceHandlerQueryCells.INSTANCE
-        );
-
         cell = cell.setHateosHttpHandler(
             FormName.HATEOS_RESOURCE_NAME.toUrlPathName(),
             SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.INSTANCE
@@ -144,6 +138,12 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetServerLinkRelations.LABELS,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.INSTANCE
+        );
+
+        cell = cell.setHateosResourceHandler(
+            SpreadsheetServerLinkRelations.QUERY,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerQueryCells.INSTANCE
         );
 
         cell = cell.setHateosResourceHandler(
