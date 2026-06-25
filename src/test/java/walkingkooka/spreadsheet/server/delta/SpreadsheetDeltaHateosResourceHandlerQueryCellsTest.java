@@ -53,7 +53,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerFindCells,
+public final class SpreadsheetDeltaHateosResourceHandlerQueryCellsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerQueryCells,
     SpreadsheetCellReference> {
 
     private final static SpreadsheetCellRangeReferencePath PATH = SpreadsheetCellRangeReferencePath.LRTD;
@@ -403,11 +403,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                                                        final Set<SpreadsheetDeltaProperties> properties,
                                                        final SpreadsheetEngineContext context) {
                         checkEquals(range, r, "range");
-                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_CELL_RANGE_PATH, p, "path");
-                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_OFFSET, o, "offset");
-                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_COUNT, c, "count");
-                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_VALUE_TYPE, v, "valueType");
-                        checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_QUERY, e, "expression");
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerQueryCells.DEFAULT_CELL_RANGE_PATH, p, "path");
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerQueryCells.DEFAULT_OFFSET, o, "offset");
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerQueryCells.DEFAULT_COUNT, c, "count");
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerQueryCells.DEFAULT_VALUE_TYPE, v, "valueType");
+                        checkEquals(SpreadsheetDeltaHateosResourceHandlerQueryCells.DEFAULT_QUERY, e, "expression");
 
                         return SpreadsheetDelta.EMPTY.setCells(found);
                     }
@@ -432,8 +432,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Override
-    public SpreadsheetDeltaHateosResourceHandlerFindCells createHandler() {
-        return SpreadsheetDeltaHateosResourceHandlerFindCells.INSTANCE;
+    public SpreadsheetDeltaHateosResourceHandlerQueryCells createHandler() {
+        return SpreadsheetDeltaHateosResourceHandlerQueryCells.INSTANCE;
     }
 
     @Override
@@ -477,7 +477,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetDeltaHateosResourceHandlerFindCells> type() {
-        return SpreadsheetDeltaHateosResourceHandlerFindCells.class;
+    public Class<SpreadsheetDeltaHateosResourceHandlerQueryCells> type() {
+        return SpreadsheetDeltaHateosResourceHandlerQueryCells.class;
     }
 }
