@@ -80,6 +80,12 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
      */
     public static final LinkRelation<?> SORT = LinkRelation.with("sort");
 
+    /**
+     * A {@link LinkRelation} with <code>storage</code>. This may be used to interact with {@link walkingkooka.storage.Storage}
+     * for a single {@link walkingkooka.spreadsheet.meta.SpreadsheetId}.
+     */
+    public static final LinkRelation<?> STORAGE = LinkRelation.with("storage");
+
     public final static LinkRelation<?> TOKENS = LinkRelation.with("tokens");
 
     public final static LinkRelation<?> UPLOAD = LinkRelation.with("upload");
