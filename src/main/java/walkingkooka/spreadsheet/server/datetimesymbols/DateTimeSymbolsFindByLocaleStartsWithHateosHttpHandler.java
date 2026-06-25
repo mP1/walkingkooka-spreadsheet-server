@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.datetimesymbols;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
@@ -25,10 +24,10 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
@@ -36,13 +35,12 @@ import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.SortedSet;
 
 /**
  * A {@link HateosHttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DateTimeSymbols} for each.
  */
-final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements HateosHttpHandler<LocaleHateosResourceHandlerContext> {
+final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements GetOrHeadHeaderHateosHttpHandler<LocaleHateosResourceHandlerContext> {
 
     final static DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler INSTANCE = new DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler();
 
@@ -51,31 +49,9 @@ final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler implements Ha
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final LocaleHateosResourceHandlerContext context) {
-        Objects.requireNonNull(request, "request");
-        Objects.requireNonNull(response, "response");
-        Objects.requireNonNull(context, "context");
-
-        final HttpMethod httpMethod = request.method();
-        if (httpMethod == HttpMethod.GET) {
-            this.handleGet(
-                request,
-                response,
-                context
-            );
-        } else {
-            response.setMethodNotAllowed(
-                httpMethod,
-                Lists.of(HttpMethod.GET)
-            );
-        }
-    }
-
-    private void handleGet(final HttpRequest request,
-                           final HttpResponse response,
-                           final LocaleHateosResourceHandlerContext context) {
+    public void handleGetOrHead(final HttpRequest request,
+                                final HttpResponse response,
+                                final LocaleHateosResourceHandlerContext context) {
         final MediaType requiredContentType = context.contentType();
 
         HttpHeaderName.ACCEPT.headerOrFail(request)
