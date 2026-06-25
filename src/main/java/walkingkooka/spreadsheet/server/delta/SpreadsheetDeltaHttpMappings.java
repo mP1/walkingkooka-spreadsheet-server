@@ -122,7 +122,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             );
         }
 
-        // cell/fill/find/sort POST.....................................................................................
+        // cell/fill/query/sort POST....................................................................................
         cell = cell.setHateosResourceHandler(
             SpreadsheetServerLinkRelations.FILL,
             HttpMethod.POST,
