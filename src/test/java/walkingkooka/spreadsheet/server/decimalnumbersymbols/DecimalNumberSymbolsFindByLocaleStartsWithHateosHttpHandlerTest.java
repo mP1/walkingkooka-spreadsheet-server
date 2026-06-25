@@ -18,10 +18,13 @@
 package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
@@ -45,6 +48,33 @@ import java.util.Set;
 
 public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTest implements HateosHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler, LocaleHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
+
+    @Test
+    public void testHandlePostMethodNotAllowed() {
+        final HttpResponse response = HttpResponses.recording();
+        response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Method POST not allowed"));
+        response.setEntity(
+            HttpEntity.EMPTY.addHeader(
+                HttpHeaderName.ALLOW,
+                Lists.of(
+                    HttpMethod.GET
+                )
+            )
+        );
+
+        this.handleAndCheck(
+            HttpRequests.post(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=0&count=2"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                )
+            ),
+            this.context(),
+            response
+        );
+    }
 
     @Test
     public void testHandleGetAcceptApplicationJsonOffsetZeroCountOne() {

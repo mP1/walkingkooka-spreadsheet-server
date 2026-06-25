@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
@@ -24,6 +25,7 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
@@ -57,6 +59,24 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler implemen
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
+        final HttpMethod httpMethod = request.method();
+        if (httpMethod == HttpMethod.GET) {
+            this.handleGet(
+                request,
+                response,
+                context
+            );
+        } else {
+            response.setMethodNotAllowed(
+                httpMethod,
+                Lists.of(HttpMethod.GET)
+            );
+        }
+    }
+
+    private void handleGet(final HttpRequest request,
+                           final HttpResponse response,
+                           final LocaleHateosResourceHandlerContext context) {
         final MediaType requiredContentType = context.contentType();
 
         HttpHeaderName.ACCEPT.headerOrFail(request)
