@@ -24,7 +24,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHttpHandler;
+import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
@@ -37,7 +37,7 @@ import java.util.Optional;
 /**
  * A handler that returns all available {@link SpreadsheetFormatterMenu}
  */
-final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetFormatterMenuHateosHttpHandler implements GetOrHeadHeaderHateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -48,9 +48,9 @@ final class SpreadsheetFormatterMenuHateosHttpHandler implements HateosHttpHandl
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+    public void handleGetOrHead(final HttpRequest request,
+                                final HttpResponse response,
+                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
