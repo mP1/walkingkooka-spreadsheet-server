@@ -32,7 +32,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosHttpHandlerTesting;
+import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -61,7 +61,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest implements HateosHttpHandlerTesting<SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest implements GetOrHeadHeaderHateosHttpHandlerTesting<SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata, SpreadsheetEngineHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata> {
 
