@@ -43,14 +43,14 @@ import java.util.Set;
 /**
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#queryCells(SpreadsheetCellRangeReference, SpreadsheetCellRangeReferencePath, int, int, ValueType, Expression, Set, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
+final class SpreadsheetDeltaHateosResourceHandlerQueryCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
     /**
      * Singleton
      */
-    final static SpreadsheetDeltaHateosResourceHandlerFindCells INSTANCE = new SpreadsheetDeltaHateosResourceHandlerFindCells();
+    final static SpreadsheetDeltaHateosResourceHandlerQueryCells INSTANCE = new SpreadsheetDeltaHateosResourceHandlerQueryCells();
 
-    private SpreadsheetDeltaHateosResourceHandlerFindCells() {
+    private SpreadsheetDeltaHateosResourceHandlerQueryCells() {
         super();
     }
 
