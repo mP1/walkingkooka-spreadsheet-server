@@ -57,13 +57,12 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.StoragePath;
@@ -306,16 +305,13 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             return this.storeRepository;
         }
 
-        private final SpreadsheetStoreRepository storeRepository = new FakeSpreadsheetStoreRepository() {
-            @Override
-            public SpreadsheetLabelStore labels() {
-                return SpreadsheetLabelStores.fake();
-            }
-        };
+        private final SpreadsheetStoreRepository storeRepository = SpreadsheetStoreRepositories.treeMap(
+            SpreadsheetMetadataStores.treeMap()
+        );
 
         @Override
         public SpreadsheetEngine spreadsheetEngine() {
-            throw new UnsupportedOperationException();
+            return SpreadsheetEngines.basic();
         }
 
         @Override
