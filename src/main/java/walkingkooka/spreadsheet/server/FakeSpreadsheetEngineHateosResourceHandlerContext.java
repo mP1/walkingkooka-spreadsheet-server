@@ -73,11 +73,14 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoader;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.StoragePath;
@@ -97,8 +100,10 @@ import walkingkooka.tree.text.TextNode;
 import walkingkooka.validation.ValidationReference;
 import walkingkooka.validation.Validator;
 import walkingkooka.validation.ValidatorContext;
+import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormHandler;
 import walkingkooka.validation.form.FormHandlerContext;
+import walkingkooka.validation.form.FormName;
 import walkingkooka.validation.form.provider.FormHandlerInfoSet;
 import walkingkooka.validation.form.provider.FormHandlerName;
 import walkingkooka.validation.form.provider.FormHandlerSelector;
@@ -302,6 +307,101 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        throw new UnsupportedOperationException();
+    }
+
+    // cells............................................................................................................
+
+    @Override
+    public Set<SpreadsheetCell> loadCells(final SpreadsheetExpressionReference cellsOrLabel) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<SpreadsheetCell> saveCells(final Set<SpreadsheetCell> cells) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteCells(final SpreadsheetExpressionReference cellsOrLabel) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addCellWatcher(final StoreWatcher<SpreadsheetCell> watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addCellWatcherOnce(final StoreWatcher<SpreadsheetCell> watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    // forms............................................................................................................
+
+    @Override
+    public Optional<Form<SpreadsheetValidationReference>> loadForm(final FormName formName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Form<SpreadsheetValidationReference> saveForm(final Form<SpreadsheetValidationReference> form) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteForm(final FormName formName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<Form<SpreadsheetValidationReference>> findFormsByName(final String formName,
+                                                                     final int offset,
+                                                                     final int count) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addFormWatcher(final StoreWatcher<Form<SpreadsheetValidationReference>> watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addFormWatcherOnce(final StoreWatcher<Form<SpreadsheetValidationReference>> watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    // labels...........................................................................................................
+
+    @Override
+    public Optional<SpreadsheetLabelMapping> loadLabel(final SpreadsheetLabelName labelName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetLabelMapping saveLabel(final SpreadsheetLabelMapping label) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteLabel(final SpreadsheetLabelName labelName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<SpreadsheetLabelName> findLabelsByName(final String labelName,
+                                                      final int offset,
+                                                      final int count) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addLabelWatcher(final StoreWatcher<SpreadsheetLabelMapping> watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addLabelWatcherOnce(final StoreWatcher<SpreadsheetLabelMapping> watcher) {
         throw new UnsupportedOperationException();
     }
 
