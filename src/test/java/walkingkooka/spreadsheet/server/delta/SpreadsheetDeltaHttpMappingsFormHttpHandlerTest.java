@@ -17,17 +17,17 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.net.http.server.hateos.HateosHttpHandlerTesting;
+import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 
-public final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandlerTest implements HateosHttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHateosHttpHandler,
+public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements HttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHttpHandler,
     SpreadsheetEngineHateosResourceHandlerContext> {
 
     @Override
-    public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHttpHandler() {
-        return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.INSTANCE;
+    public SpreadsheetDeltaHttpMappingsFormHttpHandler createHttpHandler() {
+        return SpreadsheetDeltaHttpMappingsFormHttpHandler.INSTANCE;
     }
 
     @Override
@@ -38,8 +38,8 @@ public final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandlerTest impleme
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetDeltaHttpMappingsFormHateosHttpHandler> type() {
-        return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.class;
+    public Class<SpreadsheetDeltaHttpMappingsFormHttpHandler> type() {
+        return SpreadsheetDeltaHttpMappingsFormHttpHandler.class;
     }
 
     @Override

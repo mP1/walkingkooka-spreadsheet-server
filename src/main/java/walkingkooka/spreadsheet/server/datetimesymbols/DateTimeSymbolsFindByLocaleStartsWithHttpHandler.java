@@ -26,9 +26,9 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.GetOrHeadHttpHandler;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
@@ -38,7 +38,7 @@ import java.util.Locale;
 import java.util.SortedSet;
 
 /**
- * A {@link HateosHttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DateTimeSymbols} for each.
+ * A {@link HttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DateTimeSymbols} for each.
  */
 final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosResourceHandlerContext> {
 
