@@ -30,9 +30,9 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.GetOrHeadHttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -61,9 +61,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest implements GetOrHeadHeaderHateosHttpHandlerTesting<SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata, SpreadsheetEngineHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting,
-    ToStringTesting<SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata> {
+    ToStringTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata> {
 
     @Test
     public void testHandleMissingAcceptApplicationJsonFails() {
@@ -311,8 +311,8 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
     }
 
     @Override
-    public SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata createHttpHandler() {
-        return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.INSTANCE;
+    public SpreadsheetFormatterSelectorEditHttpHandlerMetadata createHttpHandler() {
+        return SpreadsheetFormatterSelectorEditHttpHandlerMetadata.INSTANCE;
     }
 
     @Override
@@ -321,7 +321,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
 
             @Override
             public Charset charset() {
-                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.CHARSET;
+                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.CHARSET;
             }
 
             @Override
@@ -331,12 +331,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
 
             @Override
             public Optional<StoragePath> currentWorkingDirectory() {
-                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.CURRENT_WORKING_DIRECTORY;
+                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.CURRENT_WORKING_DIRECTORY;
             }
 
             @Override
             public Indentation indentation() {
-                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.INDENTATION;
+                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.INDENTATION;
             }
 
             @Override
@@ -423,7 +423,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
 
             @Override
             public Locale locale() {
-                return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest.LOCALE;
+                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.LOCALE;
             }
 
             @Override
@@ -454,15 +454,15 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
     public void testToString() {
         this.toStringAndCheck(
             this.createHttpHandler(),
-            SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.class.getSimpleName()
+            SpreadsheetFormatterSelectorEditHttpHandlerMetadata.class.getSimpleName()
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata> type() {
-        return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.class;
+    public Class<SpreadsheetFormatterSelectorEditHttpHandlerMetadata> type() {
+        return SpreadsheetFormatterSelectorEditHttpHandlerMetadata.class;
     }
 
     @Override

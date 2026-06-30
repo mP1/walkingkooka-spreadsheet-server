@@ -25,10 +25,10 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.GetOrHeadHttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest implements GetOrHeadHeaderHateosHttpHandlerTesting<DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler, LocaleHateosResourceHandlerContext>,
+public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DateTimeSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -275,8 +275,8 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
     }
 
     @Override
-    public DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler createHttpHandler() {
-        return DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
+    public DateTimeSymbolsFindByLocaleStartsWithHttpHandler createHttpHandler() {
+        return DateTimeSymbolsFindByLocaleStartsWithHttpHandler.INSTANCE;
     }
 
     @Override
@@ -324,8 +324,8 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
     // class............................................................................................................
 
     @Override
-    public Class<DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler> type() {
-        return DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler.class;
+    public Class<DateTimeSymbolsFindByLocaleStartsWithHttpHandler> type() {
+        return DateTimeSymbolsFindByLocaleStartsWithHttpHandler.class;
     }
 
     @Override

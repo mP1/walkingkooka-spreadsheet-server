@@ -29,14 +29,14 @@ import java.util.Map;
 /**
  * A handler returns the {@link SpreadsheetFormatterSelectorEdit} with no {@link SpreadsheetCell} in the context.
  */
-final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata extends SpreadsheetFormatterSelectorEditHateosHttpHandler {
+final class SpreadsheetFormatterSelectorEditHttpHandlerMetadata extends SpreadsheetFormatterSelectorEditHttpHandler {
 
     /**
      * Singleton
      */
-    final static SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata INSTANCE = new SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata();
+    final static SpreadsheetFormatterSelectorEditHttpHandlerMetadata INSTANCE = new SpreadsheetFormatterSelectorEditHttpHandlerMetadata();
 
-    private SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata() {
+    private SpreadsheetFormatterSelectorEditHttpHandlerMetadata() {
     }
 
     @Override

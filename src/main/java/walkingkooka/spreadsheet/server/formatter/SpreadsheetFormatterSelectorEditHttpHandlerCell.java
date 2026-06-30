@@ -34,14 +34,14 @@ import java.util.Map;
  * A handler that returns a {@link SpreadsheetFormatterSelectorEdit} loading the cell in the URL so the {@link SpreadsheetCell} value
  * can be used when generating samples.
  */
-final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCell extends SpreadsheetFormatterSelectorEditHateosHttpHandler {
+final class SpreadsheetFormatterSelectorEditHttpHandlerCell extends SpreadsheetFormatterSelectorEditHttpHandler {
 
     /**
      * Singleton
      */
-    final static SpreadsheetFormatterSelectorEditHateosHttpHandlerCell INSTANCE = new SpreadsheetFormatterSelectorEditHateosHttpHandlerCell();
+    final static SpreadsheetFormatterSelectorEditHttpHandlerCell INSTANCE = new SpreadsheetFormatterSelectorEditHttpHandlerCell();
 
-    private SpreadsheetFormatterSelectorEditHateosHttpHandlerCell() {
+    private SpreadsheetFormatterSelectorEditHttpHandlerCell() {
     }
 
     @Override
