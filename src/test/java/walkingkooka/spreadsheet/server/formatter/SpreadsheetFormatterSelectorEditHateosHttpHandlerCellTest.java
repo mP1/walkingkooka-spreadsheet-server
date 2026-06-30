@@ -77,7 +77,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
     public void testHandleMissingAcceptApplicationJsonFails() {
         final HeaderException thrown = assertThrows(
             HeaderException.class,
-            () -> this.createHateosHttpHandler()
+            () -> this.createHttpHandler()
                 .handle(
                     HttpRequests.get(
                         HttpTransport.UNSECURED,
@@ -112,7 +112,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 33\r\n" +
@@ -137,7 +137,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 33\r\n" +
@@ -162,7 +162,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 2395\r\n" +
@@ -320,7 +320,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
 
     @Test
     public void testHandleDateWithCellWithValue() {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
+        final SpreadsheetEngineHateosResourceHandlerContext context = this.createContext();
 
         final LocalDateTime value = LocalDateTime.of(
             1970,
@@ -514,7 +514,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
 
     @Test
     public void testHandleWithDateTimeCellWithValue() {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
+        final SpreadsheetEngineHateosResourceHandlerContext context = this.createContext();
 
         final LocalDateTime value = LocalDateTime.of(
             1970,
@@ -783,12 +783,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
     }
 
     @Override
-    public SpreadsheetFormatterSelectorEditHateosHttpHandlerCell createHateosHttpHandler() {
+    public SpreadsheetFormatterSelectorEditHateosHttpHandlerCell createHttpHandler() {
         return SpreadsheetFormatterSelectorEditHateosHttpHandlerCell.INSTANCE;
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
@@ -941,17 +941,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerCellTest imp
         };
     }
 
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            this.createHateosHttpHandler(),
+            this.createHttpHandler(),
             SpreadsheetFormatterSelectorEditHateosHttpHandlerCell.class.getSimpleName()
         );
     }
