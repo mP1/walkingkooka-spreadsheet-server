@@ -102,11 +102,11 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             LinkRelation.SELF,
             HttpMethod.PATCH,
             SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.INSTANCE
-        ).setHateosHttpHandler(
+        ).setHttpHandler(
             SpreadsheetServerLinkRelations.FORMATTER_EDIT.toUrlPathName()
                 .get(),
             SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandlerCell()
-        ).setHateosHttpHandler(
+        ).setHttpHandler(
             SpreadsheetServerLinkRelations.FORMATTER_MENU.toUrlPathName()
                 .get(),
             SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterMenuHateosHttpHandler()
@@ -129,7 +129,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetDeltaHateosResourceHandlerFillCells.INSTANCE
         );
 
-        cell = cell.setHateosHttpHandler(
+        cell = cell.setHttpHandler(
             FormName.HATEOS_RESOURCE_NAME.toUrlPathName(),
             SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.INSTANCE
         );
