@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
@@ -30,7 +31,7 @@ import java.util.Objects;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements HttpHandler {
+final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
     /**
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler} handler.
@@ -54,10 +55,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final SpreadsheetServerContext context) {
         SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
             request,
             response,
+            context,
             this
         ).handle();
     }
@@ -70,7 +73,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     /**
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, HttpHandler> router(final SpreadsheetId id) {
+    Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router(final SpreadsheetId id) {
         return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
             this.context
         ).httpRouter(id);

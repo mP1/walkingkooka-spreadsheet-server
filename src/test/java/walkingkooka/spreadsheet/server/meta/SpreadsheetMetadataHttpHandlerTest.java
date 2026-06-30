@@ -18,12 +18,14 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 
@@ -31,7 +33,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting<SpreadsheetMetadataHttpHandler>,
+public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting<SpreadsheetMetadataHttpHandler, HttpHandlerContext>,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -52,21 +54,26 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     @Override
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
-            SpreadsheetServerContexts.basic(
-                MEDIA_TYPE_DETECTOR,
-                MULTIPLIER,
-                SpreadsheetEngines.fake(),
-                (id) -> Optional.of(
-                    SpreadsheetStoreRepositories.fake()
-                ),
-                SPREADSHEET_PROVIDER,
-                CURRENCY_LOCALE_CONTEXT,
-                SPREADSHEET_ENVIRONMENT_CONTEXT,
-                SpreadsheetMetadataContexts.fake(),
-                HateosResourceHandlerContexts.fake(),
-                PROVIDER_CONTEXT,
-                TERMINAL_SERVER_CONTEXT
-            )
+            this.createContext()
+        );
+    }
+
+    @Override
+    public SpreadsheetServerContext createContext() {
+        return SpreadsheetServerContexts.basic(
+            MEDIA_TYPE_DETECTOR,
+            MULTIPLIER,
+            SpreadsheetEngines.fake(),
+            (id) -> Optional.of(
+                SpreadsheetStoreRepositories.fake()
+            ),
+            SPREADSHEET_PROVIDER,
+            CURRENCY_LOCALE_CONTEXT,
+            SPREADSHEET_ENVIRONMENT_CONTEXT,
+            SpreadsheetMetadataContexts.fake(),
+            HateosResourceHandlerContexts.fake(),
+            PROVIDER_CONTEXT,
+            TERMINAL_SERVER_CONTEXT
         );
     }
 

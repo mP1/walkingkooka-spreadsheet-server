@@ -17,16 +17,21 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
@@ -103,6 +108,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
@@ -396,13 +402,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             SPREADSHEET_ID
         );
 
-        final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
-            MEDIA_TYPE_DETECTOR,
-            SPREADSHEET_METADATA_CREATOR,
-            MULTIPLIER,
-            SpreadsheetEngines.basic(),
-            repos,
-            (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
+        final Function<SpreadsheetEngineContext, Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>>> httpRouterFactory = (SpreadsheetEngineContext c) -> Cast.to(
+            SpreadsheetIdRouter.create(
                 c,
                 new FakeHateosResourceHandlerContext() {
                     @Override
@@ -415,7 +416,16 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                         return this;
                     }
                 }
-            ),
+            )
+        );
+
+        final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
+            MEDIA_TYPE_DETECTOR,
+            SPREADSHEET_METADATA_CREATOR,
+            MULTIPLIER,
+            SpreadsheetEngines.basic(),
+            repos,
+            httpRouterFactory,
             CURRENCY_LOCALE_CONTEXT,
             spreadsheetEnvironmentContext,
             SPREADSHEET_PROVIDER,

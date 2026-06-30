@@ -67,7 +67,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler, SpreadsheetServerContext>,
     ToStringTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
     TypeNameTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
     SpreadsheetMetadataTesting {
@@ -371,75 +371,81 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             .get()
             .handle(
                 request,
-                response
+                response,
+                handler.context
             );
     }
 
     @Override
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
-            SpreadsheetServerContexts.basic(
-                MEDIA_TYPE_DETECTOR,
-                MULTIPLIER,
-                SpreadsheetEngines.basic(),
-                (id) -> Optional.of(
-                    SpreadsheetStoreRepositories.treeMap(metadataStore)
-                ),
-                SpreadsheetProviders.basic(
-                    CONVERTER_PROVIDER,
-                    ExpressionFunctionProviders.basic(
-                        Url.parseAbsolute("https://example.com/functions"),
-                        SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY,
-                        Sets.of(
-                            ExpressionFunctions.typeName()
-                        )
-                    ),
-                    SPREADSHEET_COMPARATOR_PROVIDER,
-                    SPREADSHEET_EXPORTER_PROVIDER,
-                    SPREADSHEET_FORMATTER_PROVIDER,
-                    FORM_HANDLER_PROVIDER,
-                    SPREADSHEET_IMPORTER_PROVIDER,
-                    SPREADSHEET_PARSER_PROVIDER,
-                    VALIDATOR_PROVIDER
-                ),
-                CURRENCY_LOCALE_CONTEXT,
-                SPREADSHEET_ENVIRONMENT_CONTEXT,
-                SpreadsheetMetadataContexts.basic(
-                    (u, l) -> {
-                        final LocalDateTime now = HAS_NOW.now();
+            this.createContext()
+        );
+    }
 
-                        final Locale locale = Locale.forLanguageTag("EN-AU");
-
-                        final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                            .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
-                            .loadFromLocale(
-                                CURRENCY_CONTEXT.setLocaleContext(
-                                    LocaleContexts.jre(locale)
-                                )
-                            ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
-                            .set(
-                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                AuditInfo.create(
-                                    USER,
-                                    now
-                                )
-                            ).set(
-                                SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
-                                SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector()
-                            );
-
-                        return this.metadataStore.save(metadata);
-                    },
-                    this.metadataStore
-                ), // SpreadsheetMetadataContext
-                HateosResourceHandlerContexts.basic(
-                    INDENTATION,
-                    EOL,
-                    JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+    @Override
+    public SpreadsheetServerContext createContext() {
+        return SpreadsheetServerContexts.basic(
+            MEDIA_TYPE_DETECTOR,
+            MULTIPLIER,
+            SpreadsheetEngines.basic(),
+            (id) -> Optional.of(
+                SpreadsheetStoreRepositories.treeMap(metadataStore)
+            ),
+            SpreadsheetProviders.basic(
+                CONVERTER_PROVIDER,
+                ExpressionFunctionProviders.basic(
+                    Url.parseAbsolute("https://example.com/functions"),
+                    SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY,
+                    Sets.of(
+                        ExpressionFunctions.typeName()
+                    )
                 ),
-                PROVIDER_CONTEXT.cloneEnvironment(),
-                TERMINAL_SERVER_CONTEXT
-            )
+                SPREADSHEET_COMPARATOR_PROVIDER,
+                SPREADSHEET_EXPORTER_PROVIDER,
+                SPREADSHEET_FORMATTER_PROVIDER,
+                FORM_HANDLER_PROVIDER,
+                SPREADSHEET_IMPORTER_PROVIDER,
+                SPREADSHEET_PARSER_PROVIDER,
+                VALIDATOR_PROVIDER
+            ),
+            CURRENCY_LOCALE_CONTEXT,
+            SPREADSHEET_ENVIRONMENT_CONTEXT,
+            SpreadsheetMetadataContexts.basic(
+                (u, l) -> {
+                    final LocalDateTime now = HAS_NOW.now();
+
+                    final Locale locale = Locale.forLanguageTag("EN-AU");
+
+                    final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                        .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+                        .loadFromLocale(
+                            CURRENCY_CONTEXT.setLocaleContext(
+                                LocaleContexts.jre(locale)
+                            )
+                        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
+                        .set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AuditInfo.create(
+                                USER,
+                                now
+                            )
+                        ).set(
+                            SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
+                            SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector()
+                        );
+
+                    return this.metadataStore.save(metadata);
+                },
+                this.metadataStore
+            ), // SpreadsheetMetadataContext
+            HateosResourceHandlerContexts.basic(
+                INDENTATION,
+                EOL,
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+            ),
+            PROVIDER_CONTEXT.cloneEnvironment(),
+            TERMINAL_SERVER_CONTEXT
         );
     }
 

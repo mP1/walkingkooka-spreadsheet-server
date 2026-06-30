@@ -51,7 +51,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesting<PluginFileDownloadHttpHandler>,
+public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesting<PluginFileDownloadHttpHandler, PluginHateosResourceHandlerContext>,
     JarFileTesting,
     SpreadsheetMetadataTesting {
 
@@ -312,6 +312,11 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
             PLUGIN_STORE,
             CONTENT_TYPE_DETECTOR
         );
+    }
+
+    @Override
+    public PluginHateosResourceHandlerContext createContext() {
+        return new FakePluginHateosResourceHandlerContext();
     }
 
     // class............................................................................................................

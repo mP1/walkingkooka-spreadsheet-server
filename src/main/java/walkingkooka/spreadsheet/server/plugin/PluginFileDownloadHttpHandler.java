@@ -46,7 +46,7 @@ import java.util.Optional;
 /**
  * A {@link HttpHandler} that loads the plugin for a given {@link PluginName} and then returns the file in the file-path portion of the URL.
  */
-final class PluginFileDownloadHttpHandler implements HttpHandler {
+final class PluginFileDownloadHttpHandler implements HttpHandler<PluginHateosResourceHandlerContext> {
 
     static PluginFileDownloadHttpHandler with(final AbsoluteUrl base,
                                               final PluginStore pluginStore,
@@ -68,9 +68,11 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final PluginHateosResourceHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         // response will be empty if file content/type is not compatible with Accept
         final Accept accept = HttpHeaderName.ACCEPT.header(request)

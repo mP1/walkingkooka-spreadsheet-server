@@ -37,6 +37,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
@@ -134,7 +135,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter() {
+    public Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> httpRouter() {
         throw new UnsupportedOperationException();
     }
 

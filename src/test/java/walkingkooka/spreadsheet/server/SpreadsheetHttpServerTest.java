@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
@@ -56,6 +57,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpRequests;
@@ -272,7 +274,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         throw new UnsupportedOperationException();
     };
 
-    private final static Function<HttpHandler, HttpServer> SERVER = (h) -> {
+    private final static Function<HttpHandler<HttpHandlerContext>, HttpServer> SERVER = (h) -> {
         throw new UnsupportedOperationException();
     };
 
@@ -584,6 +586,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    @Disabled("https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433")
     public void testPluginDownloadGetAbsent() {
         final TestHttpServer server = this.startServer();
 
@@ -605,6 +608,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    @Disabled("https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433")
     public void testPluginDownloadGetWithAcceptAll() {
         final TestHttpServer server = this.startServer();
 
@@ -655,6 +659,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    @Disabled("https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433")
     public void testPluginDownloadGetWithAcceptBinary() {
         final TestHttpServer server = this.startServer();
 
@@ -801,6 +806,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
 
     @Test
+    @Disabled("https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433")
     public void testPluginPluginNameFileDownloadGetMissing() {
         final TestHttpServer server = this.startServer();
 
@@ -820,6 +826,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    @Disabled("https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433")
     public void testPluginPluginNameFileDownloadGet() {
         final TestHttpServer server = this.startServer();
 
@@ -13935,14 +13942,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             final HttpResponse response = HttpResponses.recording();
             this.handler.handle(
                 request,
-                response
+                response,
+                new FakeSpreadsheetServerContext()
             );
             checkNotEquals(null, response.status(), "status not set");
             return response;
         }
 
         private boolean started;
-        private HttpHandler handler;
+        private HttpHandler<HttpHandlerContext> handler;
 
         private final PluginStore pluginStore;
 

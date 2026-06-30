@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
@@ -25,6 +26,7 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -62,7 +64,7 @@ import java.util.function.Predicate;
 /**
  * A {@link HttpHandler} which routes requests to all the API end points and file server using the given {@link SpreadsheetServerContext}.
  */
-final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
+final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerContext> {
 
     static SpreadsheetHttpServerHttpHandler with(final MediaTypeDetector mediaTypeDetector,
                                                  final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -99,7 +101,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
 
         final AbsoluteUrl serverUrl = context.serverUrl();
 
-        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<?>>empty()
             .add(
                 routing(SpreadsheetHttpServer.API_COMPARATOR),
                 httpHandler(this.comparatorRouter())
@@ -162,13 +164,16 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
             ).router();
     }
 
-    private static HttpHandler httpHandler(final Router<HttpRequestAttribute<?>, HttpHandler> router) {
-        return (HttpRequest request, HttpResponse response) ->
+    private static <T extends HttpHandlerContext> HttpHandler<?> httpHandler(final Router<HttpRequestAttribute<?>, HttpHandler<T>> router) {
+        return (final HttpRequest request,
+                final HttpResponse response,
+                final HttpHandlerContext context) ->
             router.route(request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
                 .handle(
                     request,
-                    response
+                    response,
+                    Cast.to(context)
                 );
     }
 
@@ -180,85 +185,85 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
             .build();
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> comparatorRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> comparatorRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetComparatorHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> converterRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> converterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             ConverterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> currencyRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosResourceHandlerContext>> currencyRouter() {
         return this.currencyHateosResourceHandlerContextRouter(
             CurrencyHateosResourceMappings.currencyHateosResourceHandlerContext()
         );
     }
     
-    private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> dateTimeSymbolsRouter() {
         return this.localeHateosResourceHandlerContextRouter(
             DateTimeSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> decimalNumberSymbolsRouter() {
         return this.localeHateosResourceHandlerContextRouter(
             DecimalNumberSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> exporterRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> exporterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetExporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> formatterRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> formatterRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetFormatterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> formHandlerRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> formHandlerRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             FormHandlerHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> functionRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> functionRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             ExpressionFunctionHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> importerRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> importerRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetImporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> localeRouter() {
         return this.localeHateosResourceHandlerContextRouter(
             LocaleHateosResourceMappings.localeHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> parserRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> parserRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             SpreadsheetParserHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> validatorRouter() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> validatorRouter() {
         return this.spreadsheetProviderHateosResourceHandlerContextRouter(
             ValidationHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> currencyHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosResourceHandlerContext>> currencyHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.currencyHateosResourceHandlerContext
@@ -267,7 +272,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
 
     private final CurrencyHateosResourceHandlerContext currencyHateosResourceHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> localeHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> localeHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.localeHateosResourceHandlerContext
@@ -276,7 +281,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
 
     private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> spreadsheetProviderHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> spreadsheetProviderHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosResourceHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
             this.spreadsheetProviderHateosResourceHandlerContext
@@ -285,8 +290,8 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
 
     private final SpreadsheetProviderHateosResourceHandlerContext spreadsheetProviderHateosResourceHandlerContext;
 
-    private <X extends HateosResourceHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
-                                                                                                                               final X context) {
+    private <X extends HateosResourceHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler<X>> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
+                                                                                                                                  final X context) {
         return HateosResourceMappings.router(
             SpreadsheetHttpServer.API,
             Sets.of(mappings),
@@ -301,11 +306,11 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
                 .append(UrlPathName.WILDCARD)
         ).build();
 
-    private HttpHandler spreadsheetEngineHttpHandler() {
+    private HttpHandler<SpreadsheetServerContext> spreadsheetEngineHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(this.context);
     }
 
-    private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
+    private HttpHandler<HttpHandlerContext> pluginHttpHandler(final AbsoluteUrl apiPlugin) {
         final SpreadsheetServerContext context = this.context;
 
         return PluginHttpHandler.with(
@@ -318,7 +323,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
 
     private final MediaTypeDetector mediaTypeDetector;
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
+    private final Router<HttpRequestAttribute<?>, HttpHandler<?>> router;
 
     private final SpreadsheetServerContext context;
 
@@ -326,7 +331,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
 
     private final static Map<HttpRequestAttribute<?>, Predicate<?>> FILE_SERVER_ROUTING = routing(UrlPath.parse("/*"));
 
-    private HttpHandler fileServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+    private HttpHandler<HttpHandlerContext> fileServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         return HttpHandlers.webFile(
             UrlPath.ROOT,
             fileServer
@@ -336,18 +341,20 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler {
     // HttpHandler......................................................................................................
 
     /**
-     * Asks the router for a target default to {@link SpreadsheetHttpServer#notFound(HttpRequest, HttpResponse)} and dispatches the
+     * Asks the router for a target default to {@link SpreadsheetHttpServer#notFound(HttpRequest, HttpResponse, HttpHandlerContext)} and dispatches the
      * given request/response.
      */
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final HttpHandlerContext context) {
         this.router.route(
                 request.routerParameters()
             ).orElse(SpreadsheetHttpServer::notFound)
             .handle(
                 request,
-                response
+                response,
+                Cast.to(context)
             );
     }
 

@@ -59,7 +59,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
     /**
      * Builds a {@link Router} that handles all operations, using the given {@link HateosResourceHandler handlers}.
      */
-    static Router<HttpRequestAttribute<?>, HttpHandler> with(final SpreadsheetMetadataHateosResourceHandlerContext context) {
+    static Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> with(final SpreadsheetMetadataHateosResourceHandlerContext context) {
         Objects.requireNonNull(context, "context");
 
         // metadata GET, POST...........................................................................................

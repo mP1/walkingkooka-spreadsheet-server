@@ -21,6 +21,7 @@ import walkingkooka.Context;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -45,7 +46,7 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends Spreads
     /**
      * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id);
+    Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> httpRouter(final SpreadsheetId id);
 
     @Override
     default SpreadsheetEnvironmentContext cloneEnvironment() {

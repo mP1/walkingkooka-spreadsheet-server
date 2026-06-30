@@ -35,20 +35,24 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest with(final HttpRequest request,
                                                                             final HttpResponse response,
+                                                                            final SpreadsheetServerContext context,
                                                                             final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler engine) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(
             Objects.requireNonNull(request, "request"),
             Objects.requireNonNull(response, "response"),
+            Objects.requireNonNull(context, "context"),
             engine
         );
     }
 
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(final HttpRequest request,
                                                                         final HttpResponse response,
+                                                                        final SpreadsheetServerContext context,
                                                                         final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler) {
         super();
         this.request = request;
         this.response = response;
+        this.context = context;
         this.handler = handler;
     }
 
@@ -58,7 +62,11 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
         if (path.isPresent()) {
             this.handle0();
         } else {
-            SpreadsheetHttpServer.notFound(request, response);
+            SpreadsheetHttpServer.notFound(
+                request,
+                response,
+                handler.context
+            );
         }
     }
 
@@ -99,7 +107,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
             .orElse(SpreadsheetHttpServer::notFound)
             .handle(
                 this.request,
-                this.response
+                this.response,
+                this.handler.context
             );
     }
 
@@ -120,6 +129,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     private final HttpRequest request;
     private final HttpResponse response;
+    private final SpreadsheetServerContext context;
     private final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler;
 
     // String...........................................................................................................

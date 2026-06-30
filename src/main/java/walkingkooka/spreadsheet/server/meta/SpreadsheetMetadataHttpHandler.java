@@ -17,12 +17,14 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.Cast;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -44,7 +46,7 @@ import java.util.function.Predicate;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
+public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHandlerContext> {
 
     /**
      * Creates a new {@link SpreadsheetMetadataHttpHandler} handler
@@ -65,14 +67,16 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
         this.context = spreadsheetMetadataHateosResourceHandlerContext;
 
-        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<?>>empty()
             .add(
                 metadataPatchRouterPredicate(),
                 this::metadataPatchHttpHandler
             ).router()
             .then(
-                SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                    spreadsheetMetadataHateosResourceHandlerContext
+                Cast.to(
+                    SpreadsheetMetadataHateosResourceHandlersRouter.with(
+                        spreadsheetMetadataHateosResourceHandlerContext
+                    )
                 )
             );
     }
@@ -89,9 +93,11 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
     );
 
     private void metadataPatchHttpHandler(final HttpRequest request,
-                                          final HttpResponse response) {
+                                          final HttpResponse response,
+                                          final HttpHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         // PATCH
         // content type = JSON
@@ -114,7 +120,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             )
         ).handle(
             request,
-            response
+            response,
+            this.context
         );
     }
 
@@ -131,16 +138,24 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final HttpHandlerContext context) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
+
         this.router.route(request.routerParameters())
             .orElse(SpreadsheetHttpServer::notFound)
             .handle(
                 request,
-                response
+                response,
+                // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433
+                // SpreadsheetMetadataHttpHandler.with: remove SpreadsheetServerContext parameter
+                Cast.to(this.context)
             );
     }
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
+    private final Router<HttpRequestAttribute<?>, HttpHandler<?>> router;
 
     // toString.........................................................................................................
 

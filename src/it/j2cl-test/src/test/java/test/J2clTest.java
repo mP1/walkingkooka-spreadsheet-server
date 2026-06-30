@@ -51,6 +51,7 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
+import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
@@ -138,7 +139,8 @@ public class J2clTest {
                     )
                 )
             ),
-            response
+            response,
+            new FakeHateosResourceHandlerContext()
         );
 
         checkEquals(

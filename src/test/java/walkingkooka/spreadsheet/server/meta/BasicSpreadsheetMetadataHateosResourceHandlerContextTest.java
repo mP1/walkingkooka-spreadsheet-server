@@ -38,6 +38,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
@@ -576,7 +577,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final SpreadsheetId id = spreadsheetContext.spreadsheetIdOrFail();
 
-        final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(id);
+        final Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router = context.httpRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell cell = cellReference
@@ -637,14 +638,15 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 }
             };
 
-            final Optional<HttpHandler> mapped = router.route(request.routerParameters());
+            final Optional<HttpHandler<HttpHandlerContext>> mapped = router.route(request.routerParameters());
             this.checkNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
 
             final HttpResponse response = HttpResponses.recording();
-            @SuppressWarnings("OptionalGetWithoutIsPresent") final HttpHandler httpHandler = mapped.get();
+            @SuppressWarnings("OptionalGetWithoutIsPresent") final HttpHandler<HttpHandlerContext> httpHandler = mapped.get();
             httpHandler.handle(
                 request,
-                response
+                response,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
             );
         }
 
@@ -682,15 +684,16 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 }
             };
 
-            final Optional<HttpHandler> mapped = router.route(request.routerParameters());
+            final Optional<HttpHandler<HttpHandlerContext>> mapped = router.route(request.routerParameters());
             this.checkNotEquals(Optional.empty(), mapped, "request " + request.parameters());
 
             final HttpResponse response = HttpResponses.recording();
             //noinspection OptionalGetWithoutIsPresent
-            final HttpHandler httpHandler = mapped.get();
+            final HttpHandler<HttpHandlerContext> httpHandler = mapped.get();
             httpHandler.handle(
                 request,
-                response
+                response,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
             );
 
             final HttpResponse expected = HttpResponses.recording();
@@ -727,7 +730,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             Optional.of(LOCALE)
         );
 
-        final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(
+        final Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router = context.httpRouter(
             spreadsheetContext.spreadsheetIdOrFail()
         );
 
@@ -758,7 +761,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             }
         };
 
-        final Optional<HttpHandler> mapped = router.route(request.routerParameters());
+        final Optional<HttpHandler<HttpHandlerContext>> mapped = router.route(request.routerParameters());
         this.checkEquals(
             Optional.empty(),
             mapped,

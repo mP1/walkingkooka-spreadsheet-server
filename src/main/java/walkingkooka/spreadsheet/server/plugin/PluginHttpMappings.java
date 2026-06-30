@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
@@ -119,14 +120,16 @@ final class PluginHttpMappings implements StaticHelper {
     /**
      * {@see PluginHateosResourceHandlersRouter}
      */
-    static Router<HttpRequestAttribute<?>, HttpHandler> router(final UrlPath basePath,
-                                                               final PluginHateosResourceHandlerContext context) {
-        return HateosResourceMappings.router(
-            basePath,
-            Sets.of(
-                PluginHttpMappings.pluginHateosResourceHandlerContext()
-            ),
-            context
+    static Router<HttpRequestAttribute<?>, HttpHandler<?>> router(final UrlPath basePath,
+                                                                  final PluginHateosResourceHandlerContext context) {
+        return Cast.to(
+            HateosResourceMappings.router(
+                basePath,
+                Sets.of(
+                    PluginHttpMappings.pluginHateosResourceHandlerContext()
+                ),
+                context
+            )
         );
     }
 

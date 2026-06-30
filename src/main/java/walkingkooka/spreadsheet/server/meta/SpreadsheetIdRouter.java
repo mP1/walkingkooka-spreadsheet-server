@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -53,8 +54,8 @@ import walkingkooka.validation.form.FormName;
 
 public final class SpreadsheetIdRouter implements PublicStaticHelper {
 
-    public static Router<HttpRequestAttribute<?>, HttpHandler> create(final SpreadsheetEngineContext spreadsheetEngineContext,
-                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext) {
+    public static Router<HttpRequestAttribute<?>, HttpHandler<?>> create(final SpreadsheetEngineContext spreadsheetEngineContext,
+                                                                         final HateosResourceHandlerContext hateosResourceHandlerContext) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
             UrlPathName.with(
                 spreadsheetEngineContext.spreadsheetIdOrFail()
@@ -101,18 +102,20 @@ public final class SpreadsheetIdRouter implements PublicStaticHelper {
 
         final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosResourceHandlerContext> row = SpreadsheetDeltaHttpMappings.row();
 
-        return HateosResourceMappings.router(
-            deltaUrlPath,
-            Sets.of(
-                cell,
-                column,
-                form,
-                label,
-                metadata,
-                parser, // /parser
-                row
-            ),
-            handlerContext
+        return Cast.to(
+            HateosResourceMappings.router(
+                deltaUrlPath,
+                Sets.of(
+                    cell,
+                    column,
+                    form,
+                    label,
+                    metadata,
+                    parser, // /parser
+                    row
+                ),
+                handlerContext
+            )
         );
     }
 
