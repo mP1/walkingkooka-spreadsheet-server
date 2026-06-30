@@ -23,6 +23,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -66,7 +67,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // SpreadsheetContext...............................................................................................
 
     @Override
-    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id) {
+    public Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> httpRouter(final SpreadsheetId id) {
         return this.context.spreadsheetContextOrFail(id)
             .httpRouter();
     }

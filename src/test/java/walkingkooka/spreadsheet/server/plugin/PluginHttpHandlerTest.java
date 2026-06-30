@@ -22,6 +22,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetector;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
@@ -34,7 +35,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHttpHandler>,
+public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHttpHandler, HttpHandlerContext>,
     ClassTesting<PluginHttpHandler> {
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
@@ -112,6 +113,11 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
             PROVIDER_CONTEXT,
             CONTENT_TYPE_DETECTOR
         );
+    }
+
+    @Override
+    public HttpHandlerContext createContext() {
+        return HATEOS_RESOURCE_HANDLER_CONTEXT;
     }
 
     // class............................................................................................................

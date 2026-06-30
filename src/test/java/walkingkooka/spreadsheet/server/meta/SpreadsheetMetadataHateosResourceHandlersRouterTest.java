@@ -367,7 +367,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private boolean deleted;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
         return SpreadsheetMetadataHateosResourceHandlersRouter.with(context);
     }
 
@@ -382,7 +382,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             url,
             requestBody
         );
-        final Optional<HttpHandler> possible = this.route(
+        final Optional<HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> possible = this.route(
             context,
             request
         );
@@ -395,7 +395,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             possible.get()
                 .handle(
                     request,
-                    response
+                    response,
+                    context
                 );
             this.checkEquals(
                 statusCode,
@@ -421,7 +422,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             url,
             requestBody
         );
-        final Optional<HttpHandler> possible = this.route(
+        final Optional<HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> possible = this.route(
             CONTEXT,
             request
         );
@@ -430,7 +431,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             possible.get()
                 .handle(
                     request,
-                    response
+                    response,
+                    CONTEXT
                 );
             this.checkEquals(statusCode,
                 response.status().map(HttpStatus::value).orElse(null),
@@ -438,8 +440,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         }
     }
 
-    private Optional<HttpHandler> route(final TestSpreadsheetMetadataHateosResourceHandlerContext context,
-                                        final HttpRequest request) {
+    private Optional<HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> route(final TestSpreadsheetMetadataHateosResourceHandlerContext context,
+                                                                                         final HttpRequest request) {
         return this.router(context)
             .route(request.routerParameters());
     }

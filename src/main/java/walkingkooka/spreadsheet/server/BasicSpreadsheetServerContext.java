@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.BinaryNumberConverterFunction;
@@ -160,9 +161,11 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
                 .orElseThrow(spreadsheetId::missingSpreadsheetException),
-            (SpreadsheetEngineContext c) -> SpreadsheetIdRouter.create(
-                c,
-                this.hateosResourceHandlerContext
+            (SpreadsheetEngineContext c) -> Cast.to(
+                SpreadsheetIdRouter.create(
+                    c,
+                    this.hateosResourceHandlerContext
+                )
             ),
             this.currencyLocaleContext,
             metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),

@@ -883,7 +883,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String message
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<HttpHandler> possible = HateosResourceMappings.router(
+        final Optional<HttpHandler<SpreadsheetEngineHateosResourceHandlerContext>> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             context
@@ -900,7 +900,8 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             possible.get()
                 .handle(
                     request,
-                    response
+                    response,
+                    context
                 );
             this.checkEquals(statusCode,
                 response.status().map(HttpStatus::value).orElse(null),
@@ -919,7 +920,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String requestBody,
                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<HttpHandler> possible = HateosResourceMappings.router(
+        final Optional<HttpHandler<SpreadsheetEngineHateosResourceHandlerContext>> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             context
@@ -931,7 +932,8 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         possible.get()
             .handle(
                 request,
-                response
+                response,
+                context
             );
         return response;
     }

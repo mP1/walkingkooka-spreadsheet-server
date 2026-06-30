@@ -109,7 +109,8 @@ final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosH
                     ).ifPresent(
                         (HttpHandler handler) -> handler.handle(
                             request,
-                            response
+                            response,
+                            context
                         )
                     );
                     break ForLoop;

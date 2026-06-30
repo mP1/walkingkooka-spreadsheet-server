@@ -29,6 +29,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
@@ -139,7 +140,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     public static SpreadsheetHttpServer with(final MediaTypeDetector mediaTypeDetector,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                             final Function<HttpHandler, HttpServer> server,
+                                             final Function<HttpHandler<HttpHandlerContext>, HttpServer> server,
                                              final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                              final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         return new SpreadsheetHttpServer(
@@ -156,7 +157,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * This hopefully leaves 404 responses for only invalid resource urls.
      */
     public static void notFound(final HttpRequest request,
-                                final HttpResponse response) {
+                                final HttpResponse response,
+                                final HttpHandlerContext context) {
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
         response.setEntity(HttpEntity.EMPTY);
     }
@@ -166,7 +168,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private SpreadsheetHttpServer(final MediaTypeDetector mediaTypeDetector,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                  final Function<HttpHandler, HttpServer> server,
+                                  final Function<HttpHandler<HttpHandlerContext>, HttpServer> server,
                                   final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                   final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         super();
@@ -195,8 +197,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private void handle(final HttpRequest request,
-                        final HttpResponse response) {
-        HttpHandler httpHandler;
+                        final HttpResponse response,
+                        final HttpHandlerContext context) {
+        HttpHandler<HttpHandlerContext> httpHandler;
 
         final Optional<EmailAddress> userOrAnonymous = this.httpRequestUserExtractor.apply(request);
         final EmailAddress user = userOrAnonymous.orElse(null);
@@ -224,7 +227,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         httpHandler.handle(
             request,
-            response
+            response,
+            context
         );
     }
 
@@ -242,13 +246,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * A {@link HttpHandler} that has a {@link SpreadsheetServerContext} with an anonymous user.
      */
-    private final HttpHandler anonymousHttpHandler;
+    private final HttpHandler<HttpHandlerContext> anonymousHttpHandler;
 
     /**
      * Maps authenticated users to a {@link HttpHandler} with a {@link SpreadsheetServerContext} with the environment
      * set to the user.
      */
-    private final Map<EmailAddress, HttpHandler> userToHttpHandler = Maps.concurrent();
+    private final Map<EmailAddress, HttpHandler<HttpHandlerContext>> userToHttpHandler = Maps.concurrent();
 
     // HttpServer.......................................................................................................
 

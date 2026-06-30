@@ -17,11 +17,13 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.Cast;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
@@ -41,7 +43,7 @@ import java.util.function.Predicate;
 /**
  * A handler that routes all plugin API calls.
  */
-public final class PluginHttpHandler implements HttpHandler {
+public final class PluginHttpHandler implements HttpHandler<HttpHandlerContext> {
 
     static {
         PluginNameSet.parse(""); // force json marshaller/unmarshaller registry
@@ -81,7 +83,7 @@ public final class PluginHttpHandler implements HttpHandler {
                 )
             ).build();
 
-        final HttpHandler fileDownloadHttpHandler = PluginFileDownloadHttpHandler.with(
+        final HttpHandler<PluginHateosResourceHandlerContext> fileDownloadHttpHandler = PluginFileDownloadHttpHandler.with(
             serverUrl.appendPathName(
                 Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
             ),
@@ -89,7 +91,7 @@ public final class PluginHttpHandler implements HttpHandler {
             contentTypeDetector
         );
 
-        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<?>>empty()
             .add(
                 fileDownloadPredicate,
                 fileDownloadHttpHandler
@@ -109,19 +111,22 @@ public final class PluginHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final HttpHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         this.router.route(request.routerParameters())
             .orElse(SpreadsheetHttpServer::notFound)
             .handle(
                 request,
-                response
+                response,
+                Cast.to(context)
             );
     }
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
+    private final Router<HttpRequestAttribute<?>, HttpHandler<?>> router;
 
     // toString.........................................................................................................
 

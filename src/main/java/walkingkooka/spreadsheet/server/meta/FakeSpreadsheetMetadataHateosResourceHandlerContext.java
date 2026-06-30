@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
@@ -33,7 +34,7 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeSpr
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
 
     @Override
-    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id) {
+    public Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> httpRouter(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
