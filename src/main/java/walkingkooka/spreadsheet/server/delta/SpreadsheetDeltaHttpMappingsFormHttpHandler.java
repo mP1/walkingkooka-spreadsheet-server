@@ -25,7 +25,6 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -41,11 +40,11 @@ import java.util.Objects;
 /**
  * Glue that handles dispatching to {@link walkingkooka.net.http.server.hateos.HateosResourceHandler} for forms.
  */
-final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandler implements HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
-    final static SpreadsheetDeltaHttpMappingsFormHateosHttpHandler INSTANCE = new SpreadsheetDeltaHttpMappingsFormHateosHttpHandler();
+    final static SpreadsheetDeltaHttpMappingsFormHttpHandler INSTANCE = new SpreadsheetDeltaHttpMappingsFormHttpHandler();
 
-    private SpreadsheetDeltaHttpMappingsFormHateosHttpHandler() {
+    private SpreadsheetDeltaHttpMappingsFormHttpHandler() {
     }
 
     @Override
