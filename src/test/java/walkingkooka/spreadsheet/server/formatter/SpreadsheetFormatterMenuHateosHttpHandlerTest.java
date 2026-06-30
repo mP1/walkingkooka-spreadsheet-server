@@ -70,7 +70,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
     public void testHandleMissingAcceptApplicationJsonFails() {
         final HeaderException thrown = assertThrows(
             HeaderException.class,
-            () -> this.createHateosHttpHandler()
+            () -> this.createHttpHandler()
                 .handle(
                     HttpRequests.get(
                         HttpTransport.UNSECURED,
@@ -379,12 +379,12 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
     }
 
     @Override
-    public SpreadsheetFormatterMenuHateosHttpHandler createHateosHttpHandler() {
+    public SpreadsheetFormatterMenuHateosHttpHandler createHttpHandler() {
         return SpreadsheetFormatterMenuHateosHttpHandler.INSTANCE;
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
             @Override
             public MediaType contentType() {
@@ -405,16 +405,9 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            this.createHateosHttpHandler(),
+            this.createHttpHandler(),
             SpreadsheetFormatterMenuHateosHttpHandler.class.getSimpleName()
         );
-    }
-
-    // type name.........................................................................................................
-
-    @Override
-    public String typeNamePrefix() {
-        return SpreadsheetFormatter.class.getSimpleName();
     }
 
     // class............................................................................................................

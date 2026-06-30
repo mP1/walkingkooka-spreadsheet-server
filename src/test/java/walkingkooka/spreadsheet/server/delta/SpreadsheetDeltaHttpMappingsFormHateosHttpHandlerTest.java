@@ -26,12 +26,12 @@ public final class SpreadsheetDeltaHttpMappingsFormHateosHttpHandlerTest impleme
     SpreadsheetEngineHateosResourceHandlerContext> {
 
     @Override
-    public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHateosHttpHandler() {
+    public SpreadsheetDeltaHttpMappingsFormHateosHttpHandler createHttpHandler() {
         return SpreadsheetDeltaHttpMappingsFormHateosHttpHandler.INSTANCE;
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
         return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 

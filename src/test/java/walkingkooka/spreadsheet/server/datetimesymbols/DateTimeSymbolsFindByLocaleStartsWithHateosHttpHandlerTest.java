@@ -183,7 +183,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             response
         );
     }
@@ -269,18 +269,18 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandlerTest im
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             response
         );
     }
 
     @Override
-    public DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler createHateosHttpHandler() {
+    public DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler createHttpHandler() {
         return DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
     }
 
     @Override
-    public FakeLocaleHateosResourceHandlerContext context() {
+    public FakeLocaleHateosResourceHandlerContext createContext() {
         return new FakeLocaleHateosResourceHandlerContext() {
             @Override
             public MediaType contentType() {

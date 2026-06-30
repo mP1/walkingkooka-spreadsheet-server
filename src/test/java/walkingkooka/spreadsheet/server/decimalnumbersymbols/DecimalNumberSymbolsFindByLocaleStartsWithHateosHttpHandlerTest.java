@@ -107,7 +107,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             response
         );
     }
@@ -155,18 +155,18 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
                     SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             response
         );
     }
 
     @Override
-    public DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler createHateosHttpHandler() {
+    public DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler createHttpHandler() {
         return DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
     }
 
     @Override
-    public LocaleHateosResourceHandlerContext context() {
+    public LocaleHateosResourceHandlerContext createContext() {
         return new FakeLocaleHateosResourceHandlerContext() {
             @Override
             public MediaType contentType() {

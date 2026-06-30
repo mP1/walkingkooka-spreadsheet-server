@@ -69,7 +69,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
     public void testHandleMissingAcceptApplicationJsonFails() {
         final HeaderException thrown = assertThrows(
             HeaderException.class,
-            () -> this.createHateosHttpHandler()
+            () -> this.createHttpHandler()
                 .handle(
                     HttpRequests.get(
                         HttpTransport.UNSECURED,
@@ -104,7 +104,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 33\r\n" +
@@ -129,7 +129,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 33\r\n" +
@@ -154,7 +154,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            this.context(),
+            this.createContext(),
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 2395\r\n" +
@@ -311,12 +311,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
     }
 
     @Override
-    public SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata createHateosHttpHandler() {
+    public SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata createHttpHandler() {
         return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.INSTANCE;
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
@@ -448,17 +448,12 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadataTest
         };
     }
 
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            this.createHateosHttpHandler(),
+            this.createHttpHandler(),
             SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.class.getSimpleName()
         );
     }
