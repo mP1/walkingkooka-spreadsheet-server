@@ -31,9 +31,9 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.GetOrHeadHttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -62,9 +62,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetOrHeadHeaderHateosHttpHandlerTesting<SpreadsheetFormatterMenuHateosHttpHandler, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterMenuHttpHandler, SpreadsheetEngineHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting,
-    ToStringTesting<SpreadsheetFormatterMenuHateosHttpHandler> {
+    ToStringTesting<SpreadsheetFormatterMenuHttpHandler> {
 
     @Test
     public void testHandleMissingAcceptApplicationJsonFails() {
@@ -109,7 +109,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
 
                 @Override
                 public Charset charset() {
-                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.CHARSET;
+                    return SpreadsheetFormatterMenuHttpHandlerTest.CHARSET;
                 }
 
                 @Override
@@ -119,12 +119,12 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
 
                 @Override
                 public Optional<StoragePath> currentWorkingDirectory() {
-                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.CURRENT_WORKING_DIRECTORY;
+                    return SpreadsheetFormatterMenuHttpHandlerTest.CURRENT_WORKING_DIRECTORY;
                 }
 
                 @Override
                 public Indentation indentation() {
-                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.INDENTATION;
+                    return SpreadsheetFormatterMenuHttpHandlerTest.INDENTATION;
                 }
 
                 @Override
@@ -216,7 +216,7 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
 
                 @Override
                 public Locale locale() {
-                    return SpreadsheetFormatterMenuHateosHttpHandlerTest.LOCALE;
+                    return SpreadsheetFormatterMenuHttpHandlerTest.LOCALE;
                 }
 
                 @Override
@@ -379,8 +379,8 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
     }
 
     @Override
-    public SpreadsheetFormatterMenuHateosHttpHandler createHttpHandler() {
-        return SpreadsheetFormatterMenuHateosHttpHandler.INSTANCE;
+    public SpreadsheetFormatterMenuHttpHandler createHttpHandler() {
+        return SpreadsheetFormatterMenuHttpHandler.INSTANCE;
     }
 
     @Override
@@ -406,15 +406,15 @@ public final class SpreadsheetFormatterMenuHateosHttpHandlerTest implements GetO
     public void testToString() {
         this.toStringAndCheck(
             this.createHttpHandler(),
-            SpreadsheetFormatterMenuHateosHttpHandler.class.getSimpleName()
+            SpreadsheetFormatterMenuHttpHandler.class.getSimpleName()
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetFormatterMenuHateosHttpHandler> type() {
-        return SpreadsheetFormatterMenuHateosHttpHandler.class;
+    public Class<SpreadsheetFormatterMenuHttpHandler> type() {
+        return SpreadsheetFormatterMenuHttpHandler.class;
     }
 
     @Override

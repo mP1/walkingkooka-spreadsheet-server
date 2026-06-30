@@ -23,9 +23,9 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
@@ -43,7 +43,7 @@ import java.util.Optional;
 /**
  * A handler that accepts a request with a possible {@link SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
-abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements GetOrHeadHeaderHateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         try {
@@ -56,7 +56,7 @@ abstract class SpreadsheetFormatterSelectorEditHateosHttpHandler implements GetO
         }
     }
 
-    SpreadsheetFormatterSelectorEditHateosHttpHandler() {
+    SpreadsheetFormatterSelectorEditHttpHandler() {
         super();
     }
 

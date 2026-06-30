@@ -20,13 +20,13 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class SpreadsheetFormatterSelectorEditHateosHttpHandlerTest implements ClassTesting<SpreadsheetFormatterSelectorEditHateosHttpHandler> {
+public final class SpreadsheetFormatterSelectorEditHttpHandlerTest implements ClassTesting<SpreadsheetFormatterSelectorEditHttpHandler> {
 
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetFormatterSelectorEditHateosHttpHandler> type() {
-        return SpreadsheetFormatterSelectorEditHateosHttpHandler.class;
+    public Class<SpreadsheetFormatterSelectorEditHttpHandler> type() {
+        return SpreadsheetFormatterSelectorEditHttpHandler.class;
     }
 
     @Override

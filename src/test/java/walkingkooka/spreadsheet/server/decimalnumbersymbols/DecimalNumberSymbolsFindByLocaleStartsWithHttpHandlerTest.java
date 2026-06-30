@@ -25,10 +25,10 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.GetOrHeadHttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTest implements GetOrHeadHeaderHateosHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler, LocaleHateosResourceHandlerContext>,
+public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosResourceHandlerContext>,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -161,8 +161,8 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
     }
 
     @Override
-    public DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler createHttpHandler() {
-        return DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE;
+    public DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler createHttpHandler() {
+        return DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler.INSTANCE;
     }
 
     @Override
@@ -211,8 +211,8 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandlerTe
     // class............................................................................................................
 
     @Override
-    public Class<DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler> type() {
-        return DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.class;
+    public Class<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler> type() {
+        return DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler.class;
     }
 
     @Override

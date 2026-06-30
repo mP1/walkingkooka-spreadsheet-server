@@ -22,9 +22,9 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.GetOrHeadHeaderHateosHttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
@@ -37,14 +37,14 @@ import java.util.Optional;
 /**
  * A handler that returns all available {@link SpreadsheetFormatterMenu}
  */
-final class SpreadsheetFormatterMenuHateosHttpHandler implements GetOrHeadHeaderHateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
      */
-    final static SpreadsheetFormatterMenuHateosHttpHandler INSTANCE = new SpreadsheetFormatterMenuHateosHttpHandler();
+    final static SpreadsheetFormatterMenuHttpHandler INSTANCE = new SpreadsheetFormatterMenuHttpHandler();
 
-    private SpreadsheetFormatterMenuHateosHttpHandler() {
+    private SpreadsheetFormatterMenuHttpHandler() {
     }
 
     @Override

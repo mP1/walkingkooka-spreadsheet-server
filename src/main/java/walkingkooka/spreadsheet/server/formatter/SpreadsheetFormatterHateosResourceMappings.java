@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosHttpHandler;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -33,24 +33,24 @@ import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerC
 public final class SpreadsheetFormatterHateosResourceMappings implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetFormatterSelectorEditHateosHttpHandlerCell}
+     * {@see SpreadsheetFormatterSelectorEditHttpHandlerCell}
      */
-    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerCell() {
-        return SpreadsheetFormatterSelectorEditHateosHttpHandlerCell.INSTANCE;
+    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerCell() {
+        return SpreadsheetFormatterSelectorEditHttpHandlerCell.INSTANCE;
     }
 
     /**
-     * {@see SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata}
+     * {@see SpreadsheetFormatterSelectorEditHttpHandlerMetadata}
      */
-    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerMetadata() {
-        return SpreadsheetFormatterSelectorEditHateosHttpHandlerMetadata.INSTANCE;
+    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerMetadata() {
+        return SpreadsheetFormatterSelectorEditHttpHandlerMetadata.INSTANCE;
     }
 
     /**
-     * {@see SpreadsheetFormatterMenuHateosHttpHandler}
+     * {@see SpreadsheetFormatterMenuHttpHandler}
      */
-    public static HateosHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterMenuHateosHttpHandler() {
-        return SpreadsheetFormatterMenuHateosHttpHandler.INSTANCE;
+    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterMenuHateosHttpHandler() {
+        return SpreadsheetFormatterMenuHttpHandler.INSTANCE;
     }
 
     public static HateosResourceMappings<SpreadsheetFormatterName,
