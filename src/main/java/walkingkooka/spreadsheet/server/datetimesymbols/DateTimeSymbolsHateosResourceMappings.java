@@ -45,7 +45,7 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
             LinkRelation.SELF,
             HttpMethod.GET,
             DateTimeSymbolsHateosResourceHandlerLoad.INSTANCE
-        ).setHateosHttpHandler(
+        ).setHttpHandler(
             SpreadsheetServerLinkRelations.LOCALE_STARTS_WITH.toUrlPathName()
                 .get(),
             DateTimeSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE

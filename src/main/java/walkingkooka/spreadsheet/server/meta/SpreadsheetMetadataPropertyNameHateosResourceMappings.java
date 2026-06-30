@@ -49,7 +49,7 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
             SpreadsheetServerLinkRelations.VERIFY,
             HttpMethod.POST,
             ConverterSelectorVerifyHateosHttpEntityHandler.INSTANCE
-        ).setHateosHttpHandler(
+        ).setHttpHandler(
             SpreadsheetServerLinkRelations.EDIT.toUrlPathName()
                 .get(),
             SpreadsheetFormatterHateosResourceMappings.spreadsheetFormatterSelectorEditHateosHttpHandlerMetadata()

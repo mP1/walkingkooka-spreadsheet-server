@@ -45,7 +45,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
             LinkRelation.SELF,
             HttpMethod.GET,
             DecimalNumberSymbolsHateosResourceHandlerLoad.INSTANCE
-        ).setHateosHttpHandler(
+        ).setHttpHandler(
             SpreadsheetServerLinkRelations.LOCALE_STARTS_WITH.toUrlPathName()
                 .get(),
             DecimalNumberSymbolsFindByLocaleStartsWithHateosHttpHandler.INSTANCE
