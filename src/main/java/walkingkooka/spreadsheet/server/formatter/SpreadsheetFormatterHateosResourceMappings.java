@@ -35,21 +35,21 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
     /**
      * {@see SpreadsheetFormatterSelectorEditHttpHandlerCell}
      */
-    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerCell() {
+    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHttpHandlerCell() {
         return SpreadsheetFormatterSelectorEditHttpHandlerCell.INSTANCE;
     }
 
     /**
      * {@see SpreadsheetFormatterSelectorEditHttpHandlerMetadata}
      */
-    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHateosHttpHandlerMetadata() {
+    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHttpHandlerMetadata() {
         return SpreadsheetFormatterSelectorEditHttpHandlerMetadata.INSTANCE;
     }
 
     /**
      * {@see SpreadsheetFormatterMenuHttpHandler}
      */
-    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterMenuHateosHttpHandler() {
+    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterMenuHttpHandler() {
         return SpreadsheetFormatterMenuHttpHandler.INSTANCE;
     }
 
