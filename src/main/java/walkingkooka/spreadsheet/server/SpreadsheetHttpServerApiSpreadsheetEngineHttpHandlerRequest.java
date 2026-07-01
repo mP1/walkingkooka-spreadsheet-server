@@ -50,6 +50,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
                                                                         final SpreadsheetServerContext context,
                                                                         final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler) {
         super();
+
         this.request = request;
         this.response = response;
         this.context = context;
@@ -60,7 +61,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
         // verify spreadsheetId is present...
         final Optional<UrlPathName> path = this.path(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1);
         if (path.isPresent()) {
-            this.handle0();
+            this.handleSpreadsheetIdOrMissing();
         } else {
             SpreadsheetHttpServer.notFound(
                 request,
@@ -70,7 +71,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
         }
     }
 
-    private void handle0() {
+    private void handleSpreadsheetIdOrMissing() {
         final Optional<UrlPathName> path = path(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT);
         if (path.isPresent()) {
             this.handleSpreadsheetId(path.get());
@@ -94,22 +95,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
                 "Invalid " + SpreadsheetId.class.getSimpleName());
         }
         if (null != id) {
-            this.handleSpreadsheetId0(id);
+            this.handler.router(id)
+                .route(this.request.routerParameters())
+                .orElse(SpreadsheetHttpServer::notFound)
+                .handle(
+                    this.request,
+                    this.response,
+                    this.handler.context
+                );
         }
-    }
-
-    /**
-     * Uses the {@link SpreadsheetId} to locate the handle0 router and dispatches.
-     */
-    private void handleSpreadsheetId0(final SpreadsheetId id) {
-        this.handler.router(id)
-            .route(this.request.routerParameters())
-            .orElse(SpreadsheetHttpServer::notFound)
-            .handle(
-                this.request,
-                this.response,
-                this.handler.context
-            );
     }
 
     /**
