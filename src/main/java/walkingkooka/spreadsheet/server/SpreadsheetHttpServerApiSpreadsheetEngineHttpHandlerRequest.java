@@ -123,6 +123,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
     private void setStatus(final HttpStatusCode status,
                            final String message) {
         final HttpResponse response = this.response;
+
+        response.setVersion(this.request.protocolVersion());
         response.setStatus(status.setMessage(message));
         response.setEntity(HttpEntity.EMPTY);
     }

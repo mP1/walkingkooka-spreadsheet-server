@@ -88,6 +88,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
             }
         }
 
+        response.setVersion(request.protocolVersion());
         response.setStatus(
             HttpStatusCode.OK.status()
         );

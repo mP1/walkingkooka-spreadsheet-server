@@ -35,6 +35,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpHandler;
@@ -697,6 +698,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             );
 
             final HttpResponse expected = HttpResponses.recording();
+            expected.setVersion(HttpProtocolVersion.VERSION_1_0);
             expected.setStatus(HttpStatusCode.OK.status());
 
             expected.setEntity(
@@ -1093,6 +1095,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     abstract static class TestHttpRequest extends FakeHttpRequest {
         TestHttpRequest() {
             super();
+        }
+
+        @Override
+        public HttpProtocolVersion protocolVersion() {
+            return HttpProtocolVersion.VERSION_1_0;
         }
 
         @Override

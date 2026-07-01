@@ -88,6 +88,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
             }
         }
 
+        response.setVersion(request.protocolVersion());
         response.setStatus(
             HttpStatusCode.OK.status()
         );

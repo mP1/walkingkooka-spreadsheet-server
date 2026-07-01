@@ -88,6 +88,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
         );
 
         // write TextNodes as JSON response
+        response.setVersion(request.protocolVersion());
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
