@@ -28,6 +28,7 @@ import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
@@ -392,6 +393,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         );
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
+            response.setVersion(HttpProtocolVersion.VERSION_1_0);
+
             possible.get()
                 .handle(
                     request,
@@ -450,6 +453,11 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                                 final String url,
                                 final String body) {
         return new FakeHttpRequest() {
+
+            @Override
+            public HttpProtocolVersion protocolVersion() {
+                return HttpProtocolVersion.VERSION_1_0;
+            }
 
             @Override
             public RelativeUrl url() {

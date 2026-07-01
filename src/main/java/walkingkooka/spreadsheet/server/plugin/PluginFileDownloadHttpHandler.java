@@ -153,6 +153,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler<PluginHateosRes
             }
         }
 
+        response.setVersion(request.protocolVersion());
         response.setStatus(
             (entity.isEmpty() ?
                 HttpStatusCode.NO_CONTENT :

@@ -159,6 +159,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public static void notFound(final HttpRequest request,
                                 final HttpResponse response,
                                 final HttpHandlerContext context) {
+        response.setVersion(request.protocolVersion());
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
         response.setEntity(HttpEntity.EMPTY);
     }

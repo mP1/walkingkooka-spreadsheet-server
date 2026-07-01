@@ -161,6 +161,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandlePluginNameNotFound() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
 
         this.handleAndCheck(
@@ -173,6 +175,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleFileNotFound() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
 
         this.handleAndCheck(
@@ -185,6 +189,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleWithoutFilePathAndAcceptMissing() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(HTTP_ENTITY_WITH_JAR);
 
@@ -198,6 +204,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleWithoutFilePathAndAcceptStarStar() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(HTTP_ENTITY_WITH_JAR);
 
@@ -211,6 +219,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleWithoutFilePathAndAcceptExact() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(HTTP_ENTITY_WITH_JAR);
 
@@ -226,6 +236,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleWithoutFilePathAndAcceptTestFalse() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
         response.setEntity(HttpEntity.EMPTY);
 
@@ -239,6 +251,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleOnlySlash() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
 
         this.handleAndCheck(
@@ -251,6 +265,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleExistingFileAcceptMissing() {
         final HttpResponse response = HttpResponses.recording();
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(HTTP_ENTITY_WITH_FILE);
 
@@ -264,6 +279,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleExistingFileAcceptStarStar() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(HTTP_ENTITY_WITH_FILE);
 
@@ -279,6 +296,8 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
     @Test
     public void testHandleExistingFileAcceptTestFalse() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
         response.setEntity(HttpEntity.EMPTY);
 

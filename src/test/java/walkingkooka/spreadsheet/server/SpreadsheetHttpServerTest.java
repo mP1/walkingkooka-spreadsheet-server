@@ -14074,6 +14074,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private HttpResponse response(final HttpStatus status) {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(status);
         return response;
     }

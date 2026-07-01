@@ -49,6 +49,8 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
     @Test
     public void testHandleGetAcceptApplicationJsonOffsetZeroCountOne() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
@@ -191,6 +193,8 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
     @Test
     public void testHandleGetAcceptApplicationJsonOffset7Count1() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
             HttpEntity.EMPTY.setContentType(

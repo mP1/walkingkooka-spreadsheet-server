@@ -68,6 +68,8 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
+        response.setVersion(request.protocolVersion());
+
 
         final MediaType requiredContentType = context.contentType();
 
@@ -80,6 +82,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
             context
         );
 
+        response.setVersion(request.protocolVersion());
         response.setStatus(HttpStatusCode.OK.status());
 
         // write TextNodes as JSON response
