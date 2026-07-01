@@ -40,6 +40,7 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
     /**
      * Getter that returns a {@link SpreadsheetEngine}.
      */
+    @Override
     SpreadsheetEngine spreadsheetEngine();
 
     @Override
