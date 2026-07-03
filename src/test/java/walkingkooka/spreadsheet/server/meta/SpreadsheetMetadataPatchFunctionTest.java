@@ -106,7 +106,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
         );
         this.checkEquals(
-            "Unable to load spreadsheet with id=7b",
+            "Spreadsheet \"7b\" not found",
             thrown.getMessage()
         );
     }

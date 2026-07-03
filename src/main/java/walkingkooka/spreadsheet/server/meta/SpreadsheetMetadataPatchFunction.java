@@ -65,7 +65,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
             return saved.jsonNodeMarshallContext()
                 .marshall(saved);
         } catch (final MissingStoreException cause) {
-            throw new MissingStoreException("Unable to load spreadsheet with id=" + id);
+            throw id.missingSpreadsheetException();
         }
     }
 
