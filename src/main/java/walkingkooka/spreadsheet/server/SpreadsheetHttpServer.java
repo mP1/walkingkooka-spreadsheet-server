@@ -179,7 +179,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.spreadsheetServerContextFactory = spreadsheetServerContextFactory;
 
         this.anonymousHttpHandler = SpreadsheetHttpServerHttpHandler.with(
-            mediaTypeDetector,
             fileServer,
             spreadsheetServerContextFactory.apply(EnvironmentContext.ANONYMOUS)
         );
@@ -214,7 +213,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             httpHandler = this.userToHttpHandler.get(user);
             if (null == httpHandler) {
                 httpHandler = SpreadsheetHttpServerHttpHandler.with(
-                    this.mediaTypeDetector,
                     this.fileServer,
                     this.spreadsheetServerContextFactory.apply(userOrAnonymous)
                 );

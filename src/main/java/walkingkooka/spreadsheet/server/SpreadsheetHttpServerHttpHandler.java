@@ -23,7 +23,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
@@ -54,7 +53,6 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceMappings;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
-import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 
 import java.util.Map;
@@ -66,21 +64,16 @@ import java.util.function.Predicate;
  */
 final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerContext> {
 
-    static SpreadsheetHttpServerHttpHandler with(final MediaTypeDetector mediaTypeDetector,
-                                                 final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+    static SpreadsheetHttpServerHttpHandler with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                                  final SpreadsheetServerContext context) {
         return new SpreadsheetHttpServerHttpHandler(
-            mediaTypeDetector,
             fileServer,
             context
         );
     }
 
-    private SpreadsheetHttpServerHttpHandler(final MediaTypeDetector mediaTypeDetector,
-                                             final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+    private SpreadsheetHttpServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final SpreadsheetServerContext context) {
-        this.mediaTypeDetector = mediaTypeDetector;
-
         this.spreadsheetProviderHateosResourceHandlerContext = SpreadsheetProviderHateosResourceHandlerContexts.basic(
             context, // SpreadsheetProvider
             context.providerContext(),
@@ -142,11 +135,6 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
             ).add(
                 routing(SpreadsheetHttpServer.API_PARSER),
                 httpHandler(this.parserRouter())
-            ).add(
-                routing(SpreadsheetHttpServer.API_PLUGIN),
-                this.pluginHttpHandler(
-                    serverUrl.setPath(SpreadsheetHttpServer.API)
-                )
             ).add(
                 routing(SpreadsheetHttpServer.API_VALIDATOR),
                 httpHandler(this.validatorRouter())
@@ -309,19 +297,6 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
     private HttpHandler<SpreadsheetServerContext> spreadsheetEngineHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(this.context);
     }
-
-    private HttpHandler<HttpHandlerContext> pluginHttpHandler(final AbsoluteUrl apiPlugin) {
-        final SpreadsheetServerContext context = this.context;
-
-        return PluginHttpHandler.with(
-            apiPlugin,
-            context, // HateosResourceHandlerContext
-            context.providerContext(),
-            this.mediaTypeDetector
-        );
-    }
-
-    private final MediaTypeDetector mediaTypeDetector;
 
     private final Router<HttpRequestAttribute<?>, HttpHandler<?>> router;
 
