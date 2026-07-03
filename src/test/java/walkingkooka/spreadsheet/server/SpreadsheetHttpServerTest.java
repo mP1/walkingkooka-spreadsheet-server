@@ -13907,7 +13907,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 checkEquals(
                     bodyTextContains,
                     body,
-                    () -> "REQUEST\n" + request + "\nRESPONE\n" + response
+                    () -> "REQUEST\n" + request + "\nRESPONSE\n" + response
                 );
             } else {
                 checkNotEquals(
@@ -13919,7 +13919,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 checkEquals(
                     true,
                     body.contains(bodyTextContains),
-                    () -> "REQUEST\n" + request + "\nRESPONE\n" + response
+                    () -> "REQUEST\n" + request + "\nRESPONSE\n" + response
                 );
             }
         }
