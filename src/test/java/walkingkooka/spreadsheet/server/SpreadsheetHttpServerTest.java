@@ -1377,8 +1377,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     RoundingMode.FLOOR.name()
                 )
                 .toString(),
-            HttpStatusCode.NO_CONTENT.setMessage("Unable to load spreadsheet with id=1"),
-            "walkingkooka.store.MissingStoreException: Unable to load spreadsheet with id=1"
+            HttpStatusCode.NO_CONTENT.setMessage("Spreadsheet \"1\" not found"),
+            "walkingkooka.spreadsheet.meta.MissingSpreadsheetException: Spreadsheet \"1\" not found"
         );
     }
 
