@@ -29,7 +29,6 @@ public final class SpreadsheetServerContextTest implements ClassTesting<Spreadsh
         return SpreadsheetServerContext.class;
     }
 
-
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
