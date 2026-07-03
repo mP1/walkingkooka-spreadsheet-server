@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdi
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataSet;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
-import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 
 /**
@@ -47,8 +46,6 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
 
         DateTimeSymbolsHateosResourceSet.EMPTY.size();
         DecimalNumberSymbolsHateosResourceSet.EMPTY.size();
-
-        JarEntryInfoList.EMPTY.size();
 
         LocaleHateosResourceSet.EMPTY.size();
         LocaleLanguageTag.parse("en-AU");

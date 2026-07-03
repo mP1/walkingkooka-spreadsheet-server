@@ -22,24 +22,6 @@ A swagger-ui is available at:
 - Simple payloads are present.
 - The following tests contain many examples [SpreadsheetHttpServerTest](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/test/java/walkingkooka/spreadsheet/server/SpreadsheetHttpServerTest.java)
 
-### Plugin
-
-A collection of end points to help manage plugins.
-
-- **GET** /api/plugin/*
-- **GET** /api/plugin/[PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java)
-- **GET** /api/plugin/[from PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java):[to PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java)
-- **POST** /api/plugin/[PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java)
- Body contains Plugin as JSON.
-- **DELETE** /api/plugin/*
-- **DELETE** /api/plugin/[PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java)
-- **DELETE** /api/plugin/[from PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java):[to PluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/PluginName.java)
-- **POST** /api/plugin/*/upload 
- Multipart file upload Binary file upload
-- **GET** /api/plugin/[pluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/pluginName.java)/download
-- **GET** /api/plugin/[pluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/pluginName.java)/list
-- **GET** /api/plugin/[pluginName](https://github.com/mP1/walkingkooka-plugin/blob/master/src/main/java/walkingkooka/plugin/pluginName.java)/filter?query=$query&offset=0&count=1
-
 ### [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/metadata/SpreadsheetMetadata.java)
 
 A collection of end points that support CRUD operations on spreadsheets. Note all payloads are in `JSON` form.
