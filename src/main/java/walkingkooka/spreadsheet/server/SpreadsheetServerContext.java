@@ -27,7 +27,6 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContextSupplier;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
-import walkingkooka.spreadsheet.net.HasSpreadsheetServerUrl;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -41,7 +40,6 @@ import java.util.Optional;
 public interface SpreadsheetServerContext extends SpreadsheetContextSupplier,
     SpreadsheetMetadataContext,
     SpreadsheetEnvironmentContext,
-    HasSpreadsheetServerUrl,
     CurrencyLocaleContext,
     HateosResourceHandlerContext,
     SpreadsheetProvider,
