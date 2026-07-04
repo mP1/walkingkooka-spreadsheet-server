@@ -59,7 +59,7 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
             )
         );
     }
-    
+
     public static DecimalNumberSymbolsHateosResource with(final LocaleLanguageTag localeLanguageTag,
                                                           final String localeText,
                                                           final DecimalNumberSymbols decimalNumberSymbols) {

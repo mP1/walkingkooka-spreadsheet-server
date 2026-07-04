@@ -95,7 +95,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
             )
         );
     }
-    
+
     public LocaleLanguageTag localeLanguageTag(final UrlPath path) {
         return getOrFail(
             path,
@@ -108,42 +108,42 @@ public final class SpreadsheetUrlPathTemplate implements Template {
 
     public SpreadsheetColumnReferenceOrRange spreadsheetColumnReferenceOrRange(final UrlPath path) {
         return this.getOrFail(
-                path,
-                SPREADSHEET_COLUMN_REFERENCE_OR_RANGE,
-                removeSlashFirstAndParse(
-                    SpreadsheetSelection::parseColumnOrColumnRange
-                )
-            );
+            path,
+            SPREADSHEET_COLUMN_REFERENCE_OR_RANGE,
+            removeSlashFirstAndParse(
+                SpreadsheetSelection::parseColumnOrColumnRange
+            )
+        );
     }
 
     public SpreadsheetEngineEvaluation spreadsheetEngineEvaluation(final UrlPath path) {
         return this.getOrFail(
-                path,
-                SPREADSHEET_ENGINE_EVALUATION,
-                removeSlashFirstAndParse(
-                    SpreadsheetEngineEvaluation::parse
-                )
-            );
+            path,
+            SPREADSHEET_ENGINE_EVALUATION,
+            removeSlashFirstAndParse(
+                SpreadsheetEngineEvaluation::parse
+            )
+        );
     }
 
     public SpreadsheetExpressionReference spreadsheetExpressionReference(final UrlPath path) {
         return this.getOrFail(
-                path,
-                SPREADSHEET_EXPRESSION_REFERENCE,
-                removeSlashFirstAndParse(
-                    SpreadsheetSelection::parseExpressionReference
-                )
-            );
+            path,
+            SPREADSHEET_EXPRESSION_REFERENCE,
+            removeSlashFirstAndParse(
+                SpreadsheetSelection::parseExpressionReference
+            )
+        );
     }
 
     public SpreadsheetFormatterSelector spreadsheetFormatterSelector(final UrlPath path) {
         return this.getOrFail(
-                path,
-                SPREADSHEET_FORMATTER_SELECTOR,
-                removeSlashFirstAndParse(
-                    SpreadsheetFormatterSelector::parse
-                )
-            );
+            path,
+            SPREADSHEET_FORMATTER_SELECTOR,
+            removeSlashFirstAndParse(
+                SpreadsheetFormatterSelector::parse
+            )
+        );
     }
 
     public Optional<SpreadsheetId> spreadsheetId(final UrlPath path) {
@@ -241,7 +241,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
         Objects.requireNonNull(parser, "parser");
 
         return this.template.tryPrepareValues(path)
-                .flatMap(v -> v.get(name, parser));
+            .flatMap(v -> v.get(name, parser));
     }
 
     public Map<TemplateValueName, Object> extract(final UrlPath path) {
@@ -277,7 +277,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                 final Object v;
 
                 final String without = removeRootSlashIfNecessary(s);
-                
+
                 switch (name.value()) {
                     case "LocaleLanguageTag":
                         v = LocaleLanguageTag.parse(without);
@@ -357,7 +357,7 @@ public final class SpreadsheetUrlPathTemplate implements Template {
                         stringValue = value.toString();
                         break;
                     case "TextStylePropertyName":
-                        stringValue = ((TextStylePropertyName<?>)value).text();
+                        stringValue = ((TextStylePropertyName<?>) value).text();
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown placeholder: " + n);

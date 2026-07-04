@@ -93,7 +93,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
 
         this.checkEquals(
             "en-AU",
-                resource.hateosLinkId()
+            resource.hateosLinkId()
         );
 
         this.textAndCheck(

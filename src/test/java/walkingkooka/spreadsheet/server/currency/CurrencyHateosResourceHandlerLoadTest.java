@@ -106,9 +106,9 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
             this.context(),
             Optional.of(
                 CurrencyHateosResourceSet.EMPTY.concat(
-                        CurrencyHateosResource.fromCurrency(
-                            Currency.getInstance("AED")
-                        )
+                    CurrencyHateosResource.fromCurrency(
+                        Currency.getInstance("AED")
+                    )
                 ).concat(
                     CurrencyHateosResource.fromCurrency(
                         Currency.getInstance("AFA")

@@ -137,7 +137,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
             resource.value()
         );
     }
-    
+
     // TreePrintable....................................................................................................
 
     @Test

@@ -474,7 +474,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         final List<JsonNode> children = Lists.array();
 
         final Optional<SpreadsheetFormatterSelector> selector = this.selector;
-        if(selector.isPresent()) {
+        if (selector.isPresent()) {
             children.add(
                 context.marshallOptional(selector)
                     .setName(SELECTOR_PROPERTY)
@@ -490,7 +490,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         }
 
         final List<SpreadsheetFormatterSelectorToken> tokens = this.tokens;
-        if(false == tokens.isEmpty()) {
+        if (false == tokens.isEmpty()) {
             children.add(
                 context.marshall(tokens)
                     .setName(TOKENS_PROPERTY)
@@ -498,7 +498,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         }
 
         final Optional<SpreadsheetFormatterSelectorToken> next = this.next;
-        if(next.isPresent()) {
+        if (next.isPresent()) {
             children.add(
                 context.marshallOptional(next)
                     .setName(NEXT_PROPERTY)
@@ -506,7 +506,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         }
 
         final List<SpreadsheetFormatterSample> samples = this.samples;
-        if(false == samples.isEmpty()) {
+        if (false == samples.isEmpty()) {
             children.add(
                 context.marshall(this.samples)
                     .setName(SAMPLES_PROPERTY)

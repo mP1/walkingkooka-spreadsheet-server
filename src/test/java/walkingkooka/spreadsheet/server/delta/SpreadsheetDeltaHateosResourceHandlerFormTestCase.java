@@ -49,7 +49,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extend
     abstract SpreadsheetEngine engine();
 
     final TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine,
-                                                                    final SpreadsheetFormStore store) {
+                                                            final SpreadsheetFormStore store) {
         return new TestSpreadsheetEngineHateosHandlerContext() {
 
             @Override

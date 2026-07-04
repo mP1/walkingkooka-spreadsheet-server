@@ -214,7 +214,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 .setLabelMappingReference(
                     this.cell()
                         .reference()
-            )
+                )
         );
     }
 
@@ -337,7 +337,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     }
 
     TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine,
-                                                              final SpreadsheetCellStore cellStore) {
+                                                      final SpreadsheetCellStore cellStore) {
         final SpreadsheetStoreRepository repos = new FakeSpreadsheetStoreRepository() {
             @Override
             public SpreadsheetCellStore cells() {

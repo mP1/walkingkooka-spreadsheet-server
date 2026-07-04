@@ -42,7 +42,7 @@ import java.util.SortedSet;
  */
 final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosHandlerContext> {
 
-    final static DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler INSTANCE =  new DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler();
+    final static DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler INSTANCE = new DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler();
 
     private DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler() {
         super();

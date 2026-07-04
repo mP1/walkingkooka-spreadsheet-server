@@ -764,7 +764,7 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
     public void setIndentation(final Indentation indentation) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     public LineEnding lineEnding() {
         throw new UnsupportedOperationException();

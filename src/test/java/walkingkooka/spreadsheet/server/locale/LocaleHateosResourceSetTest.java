@@ -275,8 +275,8 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
         final SortedSet<LocaleHateosResource> locales = SortedSets.tree();
         locales.addAll(
             Arrays.stream(
-                Locale.getAvailableLocales()
-            ).map(LocaleHateosResource::fromLocale)
+                    Locale.getAvailableLocales()
+                ).map(LocaleHateosResource::fromLocale)
                 .collect(Collectors.toList())
         );
 

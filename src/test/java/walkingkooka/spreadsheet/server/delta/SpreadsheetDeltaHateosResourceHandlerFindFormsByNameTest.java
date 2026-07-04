@@ -67,9 +67,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindFormsByNameTest exte
 
                     @Override
                     public SpreadsheetDelta findFormsByName(final String t,
-                                                             final int offset,
-                                                             final int count,
-                                                             final SpreadsheetEngineContext context) {
+                                                            final int offset,
+                                                            final int count,
+                                                            final SpreadsheetEngineContext context) {
                         checkEquals(text, t, "text");
                         checkEquals(OFFSET, offset, "offset");
                         checkEquals(COUNT, count, "count");
