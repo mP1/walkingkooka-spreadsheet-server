@@ -19,13 +19,13 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.HasSpreadsheetProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-public interface SpreadsheetProviderHateosHandlerContext extends ProviderContext, HateosHandlerContext {
-
-    SpreadsheetProvider spreadsheetProvider();
+public interface SpreadsheetProviderHateosHandlerContext extends HateosHandlerContext,
+    ProviderContext,
+    HasSpreadsheetProvider {
 
     @Override
     SpreadsheetProviderHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
