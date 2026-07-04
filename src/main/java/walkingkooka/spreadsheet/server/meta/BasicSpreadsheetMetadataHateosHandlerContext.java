@@ -139,7 +139,7 @@ final class BasicSpreadsheetMetadataHateosHandlerContext implements SpreadsheetM
 
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     public Locale locale() {
         throw new UnsupportedOperationException();

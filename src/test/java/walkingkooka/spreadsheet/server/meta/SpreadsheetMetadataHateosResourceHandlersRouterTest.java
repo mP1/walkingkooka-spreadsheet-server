@@ -444,7 +444,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     }
 
     private Optional<HttpHandler<SpreadsheetMetadataHateosHandlerContext>> route(final TestSpreadsheetMetadataHateosHandlerContext context,
-                                                                                         final HttpRequest request) {
+                                                                                 final HttpRequest request) {
         return this.router(context)
             .route(request.routerParameters());
     }

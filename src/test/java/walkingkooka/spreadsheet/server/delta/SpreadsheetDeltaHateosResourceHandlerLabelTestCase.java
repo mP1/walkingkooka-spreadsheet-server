@@ -40,7 +40,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
     }
 
     final TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine,
-                                                                    final SpreadsheetLabelStore store) {
+                                                            final SpreadsheetLabelStore store) {
         return new TestSpreadsheetEngineHateosHandlerContext() {
 
             @Override

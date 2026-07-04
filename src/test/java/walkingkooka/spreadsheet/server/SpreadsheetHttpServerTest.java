@@ -264,7 +264,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         throw new UnsupportedOperationException();
     };
 
-    private final static Function<Optional<EmailAddress>, SpreadsheetServerContext> SPREADSHEET_SERVER_CONTEXT_FACTORY = (u) -> 
+    private final static Function<Optional<EmailAddress>, SpreadsheetServerContext> SPREADSHEET_SERVER_CONTEXT_FACTORY = (u) ->
         SpreadsheetServerContexts.fake();
 
     @Test
@@ -518,7 +518,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             );
         }
     }
-    
+
     private EmailAddress currentUser;
 
     @Test
@@ -687,7 +687,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
-    
+
     @Test
     public void testMetadataCreateAndPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
@@ -749,7 +749,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     // cell.............................................................................................................
-    
+
     @Test
     public void testCellPostSaveApostropheString() {
         this.createSpreadsheetSaveCellAndCheck(
@@ -9375,7 +9375,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
-    
+
     // DateTimeSymbols..................................................................................................
 
     @Test
@@ -9629,7 +9629,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
-    
+
     // exporters........................................................................................................
 
     @Test
@@ -13169,7 +13169,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-    
+
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {
         return path.normalize().equals(FILE) ?

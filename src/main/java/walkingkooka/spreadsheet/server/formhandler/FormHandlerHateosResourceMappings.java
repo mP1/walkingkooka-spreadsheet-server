@@ -71,7 +71,7 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
 
         return selection;
     }
-    
+
     /**
      * Stop creation
      */

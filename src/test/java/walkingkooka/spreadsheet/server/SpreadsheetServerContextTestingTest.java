@@ -256,7 +256,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         public void setCurrency(final Currency currency) {
             Objects.requireNonNull(currency, "currency");
         }
-        
+
         @Override
         public LineEnding lineEnding() {
             return SpreadsheetServerContextTestingTest.LINE_ENDING;

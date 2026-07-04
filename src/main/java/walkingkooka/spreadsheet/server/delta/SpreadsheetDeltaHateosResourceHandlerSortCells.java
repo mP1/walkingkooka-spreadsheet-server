@@ -44,7 +44,7 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    final static SpreadsheetDeltaHateosResourceHandlerSortCells INSTANCE =new SpreadsheetDeltaHateosResourceHandlerSortCells();
+    final static SpreadsheetDeltaHateosResourceHandlerSortCells INSTANCE = new SpreadsheetDeltaHateosResourceHandlerSortCells();
 
     private SpreadsheetDeltaHateosResourceHandlerSortCells() {
         super();

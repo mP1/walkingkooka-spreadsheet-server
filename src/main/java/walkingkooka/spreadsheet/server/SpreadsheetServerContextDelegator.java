@@ -53,7 +53,7 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
         return this.localeContext()
             .localeForLanguageTag(languageTag);
     }
-    
+
     // EnvironmentContextDelegator......................................................................................
 
     @Override
@@ -67,7 +67,7 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
         this.spreadsheetEnvironmentContext()
             .setCurrency(currency);
     }
-    
+
     @Override
     default Indentation indentation() {
         return this.spreadsheetEnvironmentContext()

@@ -96,9 +96,9 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             this.context(),
             Optional.of(
                 LocaleHateosResourceSet.EMPTY.concat(
-                        LocaleHateosResource.fromLocale(
-                            Locale.forLanguageTag("el-GR")
-                        )
+                    LocaleHateosResource.fromLocale(
+                        Locale.forLanguageTag("el-GR")
+                    )
                 ).concat(
                     LocaleHateosResource.fromLocale(
                         Locale.forLanguageTag("en")

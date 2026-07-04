@@ -80,7 +80,7 @@ class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterC
 
     @Override
     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
-                                                     final List<?> values, 
+                                                     final List<?> values,
                                                      final ProviderContext context) {
         throw new UnsupportedOperationException();
     }

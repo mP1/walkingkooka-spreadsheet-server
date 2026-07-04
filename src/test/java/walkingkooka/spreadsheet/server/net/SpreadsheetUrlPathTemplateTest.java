@@ -271,7 +271,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
                 )
         );
     }
-    
+
     // localeLanguageTag................................................................................................
 
     @Test
@@ -432,7 +432,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             template.spreadsheetFormatterSelector(path)
         );
     }
-    
+
     // spreadsheetId....................................................................................................
 
     @Test
@@ -847,10 +847,10 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     public SpreadsheetUrlPathTemplate createTemplate() {
         return SpreadsheetUrlPathTemplate.parse(
             "/api/spreadsheet/${SpreadsheetId}/name/${SpreadsheetName}" +
-            "/cell/${SpreadsheetExpressionReference}/${SpreadsheetEngineEvaluation}" +
-            "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +
-            "/label/${SpreadsheetLabelName}/metadata/${SpreadsheetMetadataPropertyName}/style/${TextStylePropertyName}" +
-            "/formatter/${SpreadsheetFormatterSelector}"
+                "/cell/${SpreadsheetExpressionReference}/${SpreadsheetEngineEvaluation}" +
+                "/column/${SpreadsheetColumnReferenceOrRange}/row/${SpreadsheetRowReferenceOrRange}" +
+                "/label/${SpreadsheetLabelName}/metadata/${SpreadsheetMetadataPropertyName}/style/${TextStylePropertyName}" +
+                "/formatter/${SpreadsheetFormatterSelector}"
         );
     }
 

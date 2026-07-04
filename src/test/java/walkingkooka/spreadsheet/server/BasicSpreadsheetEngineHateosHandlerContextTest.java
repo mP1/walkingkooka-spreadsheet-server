@@ -196,7 +196,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         public void setCurrency(final Currency currency) {
             this.environmentContext.setCurrency(currency);
         }
-        
+
         @Override
         public Optional<StoragePath> currentWorkingDirectory() {
             return this.environmentContext.environmentValue(SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY);
@@ -222,7 +222,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
                 homeDirectory
             );
         }
-        
+
         @Override
         public Locale locale() {
             return this.environmentContext.locale();
@@ -242,7 +242,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         public CurrencyContext currencyContext() {
             return CURRENCY_CONTEXT;
         }
-        
+
         @Override
         public LocaleContext localeContext() {
             return LOCALE_CONTEXT;

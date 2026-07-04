@@ -239,7 +239,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     }
 
     private final CurrencyLocaleContext currencyLocaleContext;
-    
+
     // EnvironmentContextDelegator......................................................................................
 
     @Override

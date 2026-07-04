@@ -80,45 +80,45 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
-    public <T> T unmarshall(final JsonNode json,final Class<T> type) {
+    @Override
+    public <T> T unmarshall(final JsonNode json, final Class<T> type) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T extends Enum<T>> Set<T> unmarshallEnumSet(final JsonNode json, 
+    public <T extends Enum<T>> Set<T> unmarshallEnumSet(final JsonNode json,
                                                         final Class<T> type,
                                                         final Function<String, T> function) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public <T> Optional<T> unmarshallOptional(final JsonNode json,
                                               final Class<T> type) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public <T> Optional<T> unmarshallOptionalWithType(final JsonNode json) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> List<T> unmarshallList(final JsonNode json,
-                                                final Class<T> type) {
+                                      final Class<T> type) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public <T> Set<T> unmarshallSet(final JsonNode json,
-                                              final Class<T> type) {
+                                    final Class<T> type) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
-    public <K, V> Map<K, V> unmarshallMap(final JsonNode json, 
-                                                    final Class<K> keyType, 
-                                                    final Class<V> valueType) {
+    @Override
+    public <K, V> Map<K, V> unmarshallMap(final JsonNode json,
+                                          final Class<K> keyType,
+                                          final Class<V> valueType) {
         throw new UnsupportedOperationException();
     }
 
@@ -132,12 +132,12 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public <T> Set<T> unmarshallSetWithType(final JsonNode json) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public <K, V> Map<K, V> unmarshallMapWithType(final JsonNode json) {
         throw new UnsupportedOperationException();
     }
@@ -147,7 +147,7 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public ExpressionNumberKind expressionNumberKind() {
         throw new UnsupportedOperationException();
     }
@@ -157,17 +157,17 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public JsonNode marshall(final Object value) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public JsonNode marshallEnumSet(final Set<? extends Enum<?>> set) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public JsonNode marshallWithType(final Object value) {
         throw new UnsupportedOperationException();
     }
@@ -177,12 +177,12 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public JsonNode marshallOptionalWithType(final Optional<?> value) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public JsonNode marshallCollection(final Collection<?> collection) {
         throw new UnsupportedOperationException();
     }
@@ -192,7 +192,7 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public JsonNode marshallCollectionWithType(final Collection<?> collection) {
         throw new UnsupportedOperationException();
     }
@@ -207,7 +207,7 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     public Optional<JsonString> typeName(final Class<?> type) {
         throw new UnsupportedOperationException();
     }

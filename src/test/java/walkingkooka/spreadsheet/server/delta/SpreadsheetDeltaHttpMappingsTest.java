@@ -612,7 +612,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
                 return Cast.to(
                     this.storeRepository()
-                    .labels()
+                        .labels()
                         .resolveLabel(spreadsheetLabelName)
                 );
             }

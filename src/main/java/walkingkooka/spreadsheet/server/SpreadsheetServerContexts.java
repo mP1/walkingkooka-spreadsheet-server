@@ -65,7 +65,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
             terminalServerContext
         );
     }
-    
+
     /**
      * {@see FakeSpreadsheetServerContext}
      */

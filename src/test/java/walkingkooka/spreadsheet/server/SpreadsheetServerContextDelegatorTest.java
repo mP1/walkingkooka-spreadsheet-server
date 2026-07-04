@@ -54,7 +54,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContextDelegator>,
-    SpreadsheetMetadataTesting{
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
 
@@ -266,7 +266,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         public void setCurrency(final Currency currency) {
             Objects.requireNonNull(currency, "currency");
         }
-        
+
         @Override
         public LineEnding lineEnding() {
             return SpreadsheetMetadataTesting.LINE_ENDING;

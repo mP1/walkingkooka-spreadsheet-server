@@ -942,7 +942,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     public void testSetUserWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
-    
+
     // toString.........................................................................................................
 
     @Test
@@ -974,7 +974,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     }
 
     private BasicSpreadsheetMetadataHateosHandlerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
-                                                                               final ProviderContext providerContext) {
+                                                                       final ProviderContext providerContext) {
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         return BasicSpreadsheetMetadataHateosHandlerContext.with(

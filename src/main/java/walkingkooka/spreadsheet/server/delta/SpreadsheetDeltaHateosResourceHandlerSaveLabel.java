@@ -45,7 +45,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
     UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext> {
 
-    final static SpreadsheetDeltaHateosResourceHandlerSaveLabel INSTANCE =new SpreadsheetDeltaHateosResourceHandlerSaveLabel();
+    final static SpreadsheetDeltaHateosResourceHandlerSaveLabel INSTANCE = new SpreadsheetDeltaHateosResourceHandlerSaveLabel();
 
     // handleNone.......................................................................................................
 

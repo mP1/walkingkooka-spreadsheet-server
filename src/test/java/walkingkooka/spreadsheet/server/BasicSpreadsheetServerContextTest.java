@@ -355,7 +355,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
             Optional.of(LOCALE)
-            );
+        );
         this.checkNotEquals(
             null,
             spreadsheetContext
@@ -429,7 +429,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testCreateEmptySpreadsheetTwice() {
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(user1);
-        
+
         final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(
             Optional.of(LOCALE)
         );
