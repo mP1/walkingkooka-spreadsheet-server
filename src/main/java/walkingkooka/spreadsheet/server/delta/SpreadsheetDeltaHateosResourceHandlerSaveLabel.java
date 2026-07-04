@@ -112,8 +112,8 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                 throw new IllegalArgumentException("Got " + count + " labels expected 1");
         }
 
-        if(labelName.isPresent()) {
-            if(false == labelName.get()
+        if (labelName.isPresent()) {
+            if (false == labelName.get()
                 .equals(labelMapping.label())) {
                 throw new IllegalArgumentException("Label/mapping mismatch");
             }

@@ -144,14 +144,14 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
     private static Optional<CurrencyHateosResource> fromCurrencyOptional(final Currency currency,
                                                                          final CurrencyContext context) {
         return context.currencyText(
-                CurrencyCode.fromCurrency(currency)
-            ).map(
-                t ->
-                    CurrencyHateosResource.with(
-                        CurrencyCode.fromCurrency(currency),
-                        t
-                    )
-            );
+            CurrencyCode.fromCurrency(currency)
+        ).map(
+            t ->
+                CurrencyHateosResource.with(
+                    CurrencyCode.fromCurrency(currency),
+                    t
+                )
+        );
     }
 
     // Object...........................................................................................................

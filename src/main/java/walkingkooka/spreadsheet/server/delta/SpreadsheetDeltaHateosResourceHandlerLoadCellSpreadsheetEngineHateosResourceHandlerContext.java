@@ -59,8 +59,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     JsonNodeMarshallUnmarshallContextDelegator {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext with(final SpreadsheetMetadata metadata,
-                                                                                                           final SpreadsheetEngine spreadsheetEngine,
-                                                                                                           final SpreadsheetEngineHateosHandlerContext context) {
+                                                                                                   final SpreadsheetEngine spreadsheetEngine,
+                                                                                                   final SpreadsheetEngineHateosHandlerContext context) {
         return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(
             metadata,
             spreadsheetEngine,
@@ -69,8 +69,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(final SpreadsheetMetadata metadata,
-                                                                                                       final SpreadsheetEngine spreadsheetEngine,
-                                                                                                       final SpreadsheetEngineHateosHandlerContext context) {
+                                                                                               final SpreadsheetEngine spreadsheetEngine,
+                                                                                               final SpreadsheetEngineHateosHandlerContext context) {
         this.metadata = metadata;
         this.spreadsheetEngine = spreadsheetEngine;
         this.context = context;

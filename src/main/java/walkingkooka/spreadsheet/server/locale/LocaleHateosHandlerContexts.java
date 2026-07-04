@@ -27,7 +27,7 @@ public final class LocaleHateosHandlerContexts implements PublicStaticHelper {
      * {@see BasicLocaleHateosHandlerContext}
      */
     public static LocaleHateosHandlerContext basic(final LocaleContext localeContext,
-                                                           final HateosHandlerContext hateosHandlerContext) {
+                                                   final HateosHandlerContext hateosHandlerContext) {
         return BasicLocaleHateosHandlerContext.with(
             localeContext,
             hateosHandlerContext
