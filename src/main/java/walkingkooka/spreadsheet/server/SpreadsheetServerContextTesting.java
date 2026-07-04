@@ -25,7 +25,6 @@ import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
-import walkingkooka.spreadsheet.net.HasSpreadsheetServerUrlTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
@@ -38,7 +37,6 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
     SpreadsheetEnvironmentContextTesting2<C>,
     HasProviderContextTesting,
     HasSpreadsheetMetadataTesting,
-    HasSpreadsheetServerUrlTesting,
     TreePrintableTesting {
 
     // createEmptySpreadsheet...........................................................................................
