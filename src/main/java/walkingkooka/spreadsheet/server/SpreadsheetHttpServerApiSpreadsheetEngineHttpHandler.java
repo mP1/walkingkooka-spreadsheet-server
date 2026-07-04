@@ -57,10 +57,13 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     public void handle(final HttpRequest request,
                        final HttpResponse response,
                        final SpreadsheetServerContext context) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
+
         SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
             request,
             response,
-            context,
             this
         ).handle();
     }

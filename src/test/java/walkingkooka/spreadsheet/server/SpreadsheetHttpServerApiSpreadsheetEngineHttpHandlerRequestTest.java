@@ -35,7 +35,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTe
                     }
                 },
                 HttpResponses.fake(),
-                new FakeSpreadsheetServerContext(),
                 null // SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler
             ),
             toString

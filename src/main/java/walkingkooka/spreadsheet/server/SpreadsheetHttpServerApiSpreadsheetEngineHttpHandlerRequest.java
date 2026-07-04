@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -35,25 +34,21 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest with(final HttpRequest request,
                                                                             final HttpResponse response,
-                                                                            final SpreadsheetServerContext context,
                                                                             final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler engine) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(
-            Objects.requireNonNull(request, "request"),
-            Objects.requireNonNull(response, "response"),
-            Objects.requireNonNull(context, "context"),
+            request,
+            response,
             engine
         );
     }
 
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(final HttpRequest request,
                                                                         final HttpResponse response,
-                                                                        final SpreadsheetServerContext context,
                                                                         final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler) {
         super();
 
         this.request = request;
         this.response = response;
-        this.context = context;
         this.handler = handler;
     }
 
@@ -125,7 +120,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     private final HttpRequest request;
     private final HttpResponse response;
-    private final SpreadsheetServerContext context;
     private final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler;
 
     // String...........................................................................................................
