@@ -307,7 +307,6 @@ public class J2clTest {
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
-            MediaTypeDetectors.fake(),
             (url) -> {
                 throw new UnsupportedOperationException(); // fileServer
             },

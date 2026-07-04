@@ -24,7 +24,6 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -133,13 +132,11 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
-    public static SpreadsheetHttpServer with(final MediaTypeDetector mediaTypeDetector,
-                                             final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+    public static SpreadsheetHttpServer with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<HttpHandler<HttpHandlerContext>, HttpServer> server,
                                              final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                              final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         return new SpreadsheetHttpServer(
-            Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
             Objects.requireNonNull(fileServer, "fileServer"),
             Objects.requireNonNull(server, "server"),
             Objects.requireNonNull(spreadsheetServerContextFactory, "spreadsheetServerContextFactory"),
@@ -162,14 +159,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Private ctor use factory.
      */
-    private SpreadsheetHttpServer(final MediaTypeDetector mediaTypeDetector,
-                                  final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+    private SpreadsheetHttpServer(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<HttpHandler<HttpHandlerContext>, HttpServer> server,
                                   final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                   final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         super();
 
-        this.mediaTypeDetector = mediaTypeDetector;
         this.fileServer = fileServer;
         this.spreadsheetServerContextFactory = spreadsheetServerContextFactory;
 
@@ -225,8 +220,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
             context
         );
     }
-
-    private final MediaTypeDetector mediaTypeDetector;
 
     private final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer;
 

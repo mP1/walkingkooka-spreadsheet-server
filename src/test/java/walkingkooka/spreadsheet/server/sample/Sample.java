@@ -307,7 +307,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
-            MediaTypeDetectors.fake(),
             (url) -> {
                 throw new UnsupportedOperationException(); // fileServer
             },
