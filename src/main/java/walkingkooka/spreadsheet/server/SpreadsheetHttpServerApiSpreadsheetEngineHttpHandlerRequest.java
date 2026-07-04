@@ -34,11 +34,11 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest with(final HttpRequest request,
                                                                             final HttpResponse response,
-                                                                            final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler engine) {
+                                                                            final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(
             request,
             response,
-            engine
+            handler
         );
     }
 
