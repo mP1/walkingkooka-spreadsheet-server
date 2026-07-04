@@ -149,16 +149,16 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
             ).router();
     }
 
-    private static <T extends HttpHandlerContext> HttpHandler<?> httpHandler(final Router<HttpRequestAttribute<?>, HttpHandler<T>> router) {
+    private static <C extends HttpHandlerContext> HttpHandler<C> httpHandler(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router) {
         return (final HttpRequest request,
                 final HttpResponse response,
-                final HttpHandlerContext context) ->
+                final C context) ->
             router.route(request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
                 .handle(
                     request,
                     response,
-                    Cast.to(context)
+                    context
                 );
     }
 
