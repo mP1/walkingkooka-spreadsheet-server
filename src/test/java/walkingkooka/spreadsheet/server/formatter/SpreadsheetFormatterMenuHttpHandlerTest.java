@@ -45,8 +45,8 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
@@ -62,7 +62,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterMenuHttpHandler, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterMenuHttpHandler, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetFormatterMenuHttpHandler> {
 
@@ -79,7 +79,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
                         HttpEntity.EMPTY
                     ),
                     HttpResponses.recording(),
-                    new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                    new FakeSpreadsheetEngineHateosHandlerContext() {
                         @Override
                         public MediaType contentType() {
                             return MediaType.APPLICATION_JSON;
@@ -105,7 +105,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
                     MediaType.APPLICATION_JSON.accept()
                 )
             ),
-            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+            new FakeSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public Charset charset() {
@@ -384,8 +384,8 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    public SpreadsheetEngineHateosHandlerContext createContext() {
+        return new FakeSpreadsheetEngineHateosHandlerContext() {
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;

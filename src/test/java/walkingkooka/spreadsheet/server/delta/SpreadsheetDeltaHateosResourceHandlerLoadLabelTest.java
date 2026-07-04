@@ -32,7 +32,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -163,7 +163,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
         return SpreadsheetDeltaHateosResourceHandlerLoadLabel.INSTANCE;
     }
 
-    private SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+    private SpreadsheetEngineHateosHandlerContext context(final SpreadsheetLabelStore store) {
         return this.context(
             new FakeSpreadsheetEngine() {
 

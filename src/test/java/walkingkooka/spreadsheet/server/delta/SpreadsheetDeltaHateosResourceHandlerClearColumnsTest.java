@@ -31,8 +31,8 @@ import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 
@@ -197,8 +197,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetEngineHateosHandlerContext context() {
+        return SpreadsheetEngineHateosHandlerContexts.fake();
     }
 
     @Override

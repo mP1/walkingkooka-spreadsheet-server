@@ -297,7 +297,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
             return SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
         }
 
-        // HateosResourceHandlerContext.................................................................................
+        // HateosHandlerContext.................................................................................
 
         @Override
         public MediaType contentType() {

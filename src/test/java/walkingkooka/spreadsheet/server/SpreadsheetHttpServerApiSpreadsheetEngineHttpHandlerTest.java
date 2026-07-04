@@ -37,7 +37,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
@@ -441,7 +441,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                 },
                 this.metadataStore
             ), // SpreadsheetMetadataContext
-            HateosResourceHandlerContexts.basic(
+            HateosHandlerContexts.basic(
                 INDENTATION,
                 EOL,
                 JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT

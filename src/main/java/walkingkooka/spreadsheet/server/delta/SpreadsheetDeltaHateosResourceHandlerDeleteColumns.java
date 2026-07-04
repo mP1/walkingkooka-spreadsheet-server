@@ -23,7 +23,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 import java.util.Objects;
 
@@ -51,7 +51,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends Spreadshe
     @Override
     SpreadsheetDelta execute(final SpreadsheetColumnReference column,
                              final int count,
-                             final SpreadsheetEngineHateosResourceHandlerContext context) {
+                             final SpreadsheetEngineHateosHandlerContext context) {
         return context.spreadsheetEngine()
             .deleteColumns(
                 column,

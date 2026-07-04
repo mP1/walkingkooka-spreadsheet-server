@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
@@ -38,9 +38,9 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#loadLabel(SpreadsheetLabelName, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>
-    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext> {
 
     /**
      * Singleton
@@ -58,7 +58,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         Objects.requireNonNull(label, "label");
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -78,7 +78,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPath(path);

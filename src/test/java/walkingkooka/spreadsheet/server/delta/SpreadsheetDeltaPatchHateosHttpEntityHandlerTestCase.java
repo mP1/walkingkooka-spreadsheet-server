@@ -47,8 +47,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.store.FakeSpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -71,7 +71,7 @@ import java.util.Optional;
 public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H extends SpreadsheetDeltaPatchHateosHttpEntityHandler<S, R>,
     S extends SpreadsheetSelection & Comparable<S>,
     R extends SpreadsheetSelection & Comparable<R>> implements
-    HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosResourceHandlerContext>,
+    HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosHandlerContext>,
     ClassTesting<H> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase() {
@@ -182,19 +182,19 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     }
 
     @Override
-    final public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return new TestSpreadsheetEngineHateosResourceHandlerContext(ENGINE);
+    final public SpreadsheetEngineHateosHandlerContext context() {
+        return new TestSpreadsheetEngineHateosHandlerContext(ENGINE);
     }
 
-    final public SpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine spreadsheetEngine) {
-        return new TestSpreadsheetEngineHateosResourceHandlerContext(spreadsheetEngine);
+    final public SpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine spreadsheetEngine) {
+        return new TestSpreadsheetEngineHateosHandlerContext(spreadsheetEngine);
     }
 
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+    static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
 
-        TestSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngine spreadsheetEngine) {
+        TestSpreadsheetEngineHateosHandlerContext(final SpreadsheetEngine spreadsheetEngine) {
             this.spreadsheetEngine = spreadsheetEngine;
         }
 

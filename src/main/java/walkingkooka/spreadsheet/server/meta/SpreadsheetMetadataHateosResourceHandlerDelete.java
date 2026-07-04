@@ -35,10 +35,10 @@ import java.util.Optional;
  */
 final class SpreadsheetMetadataHateosResourceHandlerDelete extends SpreadsheetMetadataHateosResourceHandler
     implements
-    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerDelete INSTANCE = new SpreadsheetMetadataHateosResourceHandlerDelete();
 
@@ -50,7 +50,7 @@ final class SpreadsheetMetadataHateosResourceHandlerDelete extends SpreadsheetMe
                                                    final Optional<SpreadsheetMetadata> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
                                                    final UrlPath path,
-                                                   final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                   final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

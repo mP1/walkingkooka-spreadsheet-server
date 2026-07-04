@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlerTesting;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
@@ -71,7 +71,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             CURRENCY_LOCALE_CONTEXT,
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             SpreadsheetMetadataContexts.fake(),
-            HateosResourceHandlerContexts.fake(),
+            HateosHandlerContexts.fake(),
             PROVIDER_CONTEXT,
             TERMINAL_SERVER_CONTEXT
         );

@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.value.SpreadsheetValueType;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.validation.ValueType;
@@ -58,7 +58,7 @@ final class SpreadsheetDeltaHateosResourceHandlerQueryCells extends SpreadsheetD
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         return this.handleRange(
             SpreadsheetSelection.ALL_CELLS.range(),
             resource,
@@ -73,7 +73,7 @@ final class SpreadsheetDeltaHateosResourceHandlerQueryCells extends SpreadsheetD
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         return this.handleRange(
             Objects.requireNonNull(cell, "cell")
                 .range(cell),
@@ -89,7 +89,7 @@ final class SpreadsheetDeltaHateosResourceHandlerQueryCells extends SpreadsheetD
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final UrlPath path,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
         return this.queryCells(
@@ -105,7 +105,7 @@ final class SpreadsheetDeltaHateosResourceHandlerQueryCells extends SpreadsheetD
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final UrlPath path,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);

@@ -24,7 +24,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
@@ -37,7 +37,7 @@ import java.util.Optional;
  */
 abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends SpreadsheetSelection & Comparable<R>>
     extends SpreadsheetDeltaHateosResourceHandler<R>
-    implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext> {
 
     SpreadsheetDeltaHateosResourceHandlerInsert() {
         super();
@@ -48,7 +48,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
                                                       final Optional<SpreadsheetDelta> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                                       final UrlPath path,
-                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                      final SpreadsheetEngineHateosHandlerContext context) {
         checkReference(columnOrRow);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -76,14 +76,14 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
      */
     abstract SpreadsheetDelta insert(final R columnOrRow,
                                      final int count,
-                                     final SpreadsheetEngineHateosResourceHandlerContext context);
+                                     final SpreadsheetEngineHateosHandlerContext context);
 
     @Override
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                                         final UrlPath path,
-                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                        final SpreadsheetEngineHateosHandlerContext context) {
         final String label = this.rangeLabel();
         Objects.requireNonNull(columnOrRow, label);
 
@@ -122,5 +122,5 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
      */
     abstract SpreadsheetDelta insert(final Range<R> columnOrRow,
                                      final int count,
-                                     final SpreadsheetEngineHateosResourceHandlerContext context);
+                                     final SpreadsheetEngineHateosHandlerContext context);
 }

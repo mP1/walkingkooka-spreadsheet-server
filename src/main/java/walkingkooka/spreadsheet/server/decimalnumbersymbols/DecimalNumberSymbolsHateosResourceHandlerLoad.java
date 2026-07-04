@@ -27,7 +27,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 
 import java.util.Locale;
 import java.util.Map;
@@ -36,12 +36,12 @@ import java.util.Optional;
 /**
  * A {@link HateosResourceHandler} that invokes {@link LocaleContext#decimalNumberSymbolsForLocale(Locale)}.
  */
-final class DecimalNumberSymbolsHateosResourceHandlerLoad implements HateosResourceHandler<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleAll<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleOne<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
+final class DecimalNumberSymbolsHateosResourceHandlerLoad implements HateosResourceHandler<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleAll<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleOne<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext> {
 
     /**
      * Singleton
@@ -56,7 +56,7 @@ final class DecimalNumberSymbolsHateosResourceHandlerLoad implements HateosResou
                                                                   final Optional<DecimalNumberSymbolsHateosResource> resource,
                                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                                   final UrlPath path,
-                                                                  final LocaleHateosResourceHandlerContext context) {
+                                                                  final LocaleHateosHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

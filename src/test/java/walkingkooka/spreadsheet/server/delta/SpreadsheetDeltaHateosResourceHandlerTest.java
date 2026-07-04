@@ -32,8 +32,8 @@ import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
@@ -237,7 +237,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
         this.prepareResponseAndCheck(
             input,
             parameters,
-            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+            new FakeSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -256,7 +256,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
 
     private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                                         final SpreadsheetEngineHateosResourceHandlerContext context,
+                                         final SpreadsheetEngineHateosHandlerContext context,
                                          final SpreadsheetDelta output,
                                          final SpreadsheetDelta expected) {
         final SpreadsheetDelta response = new SpreadsheetDeltaHateosResourceHandler<Integer>() {
@@ -265,7 +265,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
             public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> optional,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                                         final UrlPath path,
-                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                        final SpreadsheetEngineHateosHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
 
@@ -274,7 +274,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                                         final UrlPath path,
-                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                        final SpreadsheetEngineHateosHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
 
@@ -283,7 +283,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                                           final Optional<SpreadsheetDelta> resource,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                                           final UrlPath path,
-                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                          final SpreadsheetEngineHateosHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
 

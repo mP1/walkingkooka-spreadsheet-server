@@ -27,8 +27,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
@@ -68,8 +68,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelectionMaps;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
@@ -112,11 +112,11 @@ import java.util.function.Function;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
-    implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<H> {
 
-    final static FakeSpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    final static FakeSpreadsheetEngineHateosHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosHandlerContext() {
         @Override
         public SpreadsheetMetadata spreadsheetMetadata() {
             return SpreadsheetMetadata.EMPTY;
@@ -319,7 +319,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             ValidatorAliasSet.EMPTY
         );
 
-    static abstract class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+    static abstract class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
@@ -329,14 +329,14 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         abstract public SpreadsheetMetadata spreadsheetMetadata();
     }
 
-    TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine) {
+    TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine) {
         return this.context(
             engine,
             SpreadsheetCellStores.fake()
         );
     }
 
-    TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine,
+    TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine,
                                                               final SpreadsheetCellStore cellStore) {
         final SpreadsheetStoreRepository repos = new FakeSpreadsheetStoreRepository() {
             @Override
@@ -405,14 +405,14 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         final Function<SpreadsheetEngineContext, Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>>> httpRouterFactory = (SpreadsheetEngineContext c) -> Cast.to(
             SpreadsheetIdRouter.create(
                 c,
-                new FakeHateosResourceHandlerContext() {
+                new FakeHateosHandlerContext() {
                     @Override
-                    public HateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+                    public HateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
                         return this;
                     }
 
                     @Override
-                    public HateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+                    public HateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
                         return this;
                     }
                 }
@@ -434,7 +434,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
         final SpreadsheetEngineContext engineContext = spreadsheetContext.spreadsheetEngineContext();
 
-        return new TestSpreadsheetEngineHateosResourceHandlerContext() {
+        return new TestSpreadsheetEngineHateosHandlerContext() {
 
             @Override
             public SpreadsheetEngine spreadsheetEngine() {

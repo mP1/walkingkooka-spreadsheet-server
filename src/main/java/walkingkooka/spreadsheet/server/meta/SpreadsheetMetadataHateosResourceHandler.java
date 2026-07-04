@@ -25,7 +25,7 @@ import walkingkooka.store.Store;
 /**
  * A {@link HateosResourceHandler} that requires a {@link Store metadata}.
  */
-abstract class SpreadsheetMetadataHateosResourceHandler implements HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+abstract class SpreadsheetMetadataHateosResourceHandler implements HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
 
     /**
      * {@see SpreadsheetMetadataHateosResourceHandlerDelete}

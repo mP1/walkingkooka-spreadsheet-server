@@ -37,7 +37,7 @@ import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
@@ -47,11 +47,11 @@ import java.util.Objects;
 /**
  * A handler which eventually calls {@link MissingConverter#verify(Converter, SpreadsheetMetadataPropertyName, SpreadsheetConverterContext)}.
  */
-final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosResourceHandlerContext> {
+final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext> {
 
     /**
      * Singleton
@@ -70,7 +70,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                                 final HttpEntity entity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final UrlPath path,
-                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                final SpreadsheetEngineHateosHandlerContext context) {
         Objects.requireNonNull(propertyName, "propertyName");
         HateosHttpEntityHandler.checkHttpEntity(entity);
         HateosHttpEntityHandler.checkParameters(parameters);

@@ -29,7 +29,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.validation.form.Form;
@@ -40,7 +40,7 @@ import java.util.Objects;
 /**
  * Glue that handles dispatching to {@link walkingkooka.net.http.server.hateos.HateosResourceHandler} for forms.
  */
-final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler<SpreadsheetEngineHateosHandlerContext> {
 
     final static SpreadsheetDeltaHttpMappingsFormHttpHandler INSTANCE = new SpreadsheetDeltaHttpMappingsFormHttpHandler();
 
@@ -50,7 +50,7 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler<S
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response,
-                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+                       final SpreadsheetEngineHateosHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
@@ -76,13 +76,13 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler<S
                         SpreadsheetDelta,
                         SpreadsheetDelta,
                         Form<SpreadsheetValidationReference>,
-                        SpreadsheetEngineHateosResourceHandlerContext> mappings = HateosResourceMappings.with(
+                        SpreadsheetEngineHateosHandlerContext> mappings = HateosResourceMappings.with(
                         FormName.HATEOS_RESOURCE_NAME,
                         SpreadsheetDeltaHttpMappings::parseForm,
                         SpreadsheetDelta.class,
                         SpreadsheetDelta.class,
                         SpreadsheetForms.FORM_CLASS,
-                        SpreadsheetEngineHateosResourceHandlerContext.class
+                        SpreadsheetEngineHateosHandlerContext.class
                     ).setHateosResourceHandler(
                         LinkRelation.SELF,
                         HttpMethod.GET,

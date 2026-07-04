@@ -31,14 +31,14 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
-import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContext;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContexts;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceMappings;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
@@ -47,8 +47,8 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResou
 import walkingkooka.spreadsheet.server.formhandler.FormHandlerHateosResourceMappings;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContexts;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceMappings;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
@@ -73,20 +73,20 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
 
     private SpreadsheetHttpServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final SpreadsheetServerContext context) {
-        this.spreadsheetProviderHateosResourceHandlerContext = SpreadsheetProviderHateosResourceHandlerContexts.basic(
+        this.spreadsheetProviderHateosHandlerContext = SpreadsheetProviderHateosHandlerContexts.basic(
             context, // SpreadsheetProvider
             context.providerContext(),
-            context // HateosResourceHandlerContext
+            context // HateosHandlerContext
         );
 
-        this.currencyHateosResourceHandlerContext = CurrencyHateosResourceHandlerContexts.basic(
+        this.currencyHateosHandlerContext = CurrencyHateosHandlerContexts.basic(
             context, // LocaleContext
-            context //HateosResourceHandlerContext
+            context //HateosHandlerContext
         );
 
-        this.localeHateosResourceHandlerContext = LocaleHateosResourceHandlerContexts.basic(
+        this.localeHateosHandlerContext = LocaleHateosHandlerContexts.basic(
             context, // LocaleContext
-            context //HateosResourceHandlerContext
+            context //HateosHandlerContext
         );
 
         this.context = context;
@@ -170,112 +170,112 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
             .build();
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> comparatorRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            SpreadsheetComparatorHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> comparatorRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            SpreadsheetComparatorHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> converterRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            ConverterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> converterRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            ConverterHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosResourceHandlerContext>> currencyRouter() {
-        return this.currencyHateosResourceHandlerContextRouter(
-            CurrencyHateosResourceMappings.currencyHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosHandlerContext>> currencyRouter() {
+        return this.currencyHateosHandlerContextRouter(
+            CurrencyHateosResourceMappings.currencyHateosHandlerContext()
         );
     }
     
-    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> dateTimeSymbolsRouter() {
-        return this.localeHateosResourceHandlerContextRouter(
-            DateTimeSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> dateTimeSymbolsRouter() {
+        return this.localeHateosHandlerContextRouter(
+            DateTimeSymbolsHateosResourceMappings.localeHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> decimalNumberSymbolsRouter() {
-        return this.localeHateosResourceHandlerContextRouter(
-            DecimalNumberSymbolsHateosResourceMappings.localeHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> decimalNumberSymbolsRouter() {
+        return this.localeHateosHandlerContextRouter(
+            DecimalNumberSymbolsHateosResourceMappings.localeHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> exporterRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            SpreadsheetExporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> exporterRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            SpreadsheetExporterHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> formatterRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            SpreadsheetFormatterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> formatterRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            SpreadsheetFormatterHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> formHandlerRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            FormHandlerHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> formHandlerRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            FormHandlerHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> functionRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            ExpressionFunctionHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> functionRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            ExpressionFunctionHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> importerRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            SpreadsheetImporterHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> importerRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            SpreadsheetImporterHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> localeRouter() {
-        return this.localeHateosResourceHandlerContextRouter(
-            LocaleHateosResourceMappings.localeHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> localeRouter() {
+        return this.localeHateosHandlerContextRouter(
+            LocaleHateosResourceMappings.localeHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> parserRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            SpreadsheetParserHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> parserRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            SpreadsheetParserHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> validatorRouter() {
-        return this.spreadsheetProviderHateosResourceHandlerContextRouter(
-            ValidationHateosResourceMappings.spreadsheetProviderHateosResourceHandlerContext()
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> validatorRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            ValidationHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosResourceHandlerContext>> currencyHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosHandlerContext>> currencyHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyHateosHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
-            this.currencyHateosResourceHandlerContext
+            this.currencyHateosHandlerContext
         );
     }
 
-    private final CurrencyHateosResourceHandlerContext currencyHateosResourceHandlerContext;
+    private final CurrencyHateosHandlerContext currencyHateosHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosResourceHandlerContext>> localeHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> localeHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
-            this.localeHateosResourceHandlerContext
+            this.localeHateosHandlerContext
         );
     }
 
-    private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
+    private final LocaleHateosHandlerContext localeHateosHandlerContext;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosResourceHandlerContext>> spreadsheetProviderHateosResourceHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosResourceHandlerContext> mappings) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> spreadsheetProviderHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(
             mappings,
-            this.spreadsheetProviderHateosResourceHandlerContext
+            this.spreadsheetProviderHateosHandlerContext
         );
     }
 
-    private final SpreadsheetProviderHateosResourceHandlerContext spreadsheetProviderHateosResourceHandlerContext;
+    private final SpreadsheetProviderHateosHandlerContext spreadsheetProviderHateosHandlerContext;
 
-    private <X extends HateosResourceHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler<X>> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
+    private <X extends HateosHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler<X>> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
                                                                                                                                   final X context) {
         return HateosResourceMappings.router(
             SpreadsheetHttpServer.API,

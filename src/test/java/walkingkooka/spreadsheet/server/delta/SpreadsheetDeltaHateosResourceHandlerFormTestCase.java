@@ -23,8 +23,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
@@ -32,14 +32,14 @@ import walkingkooka.validation.form.FormName;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extends SpreadsheetDeltaHateosResourceHandler<FormName>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, FormName>
-    implements HateosResourceHandlerTesting<H, FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    implements HateosResourceHandlerTesting<H, FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
     ToStringTesting<H> {
 
     SpreadsheetDeltaHateosResourceHandlerFormTestCase() {
         super();
     }
 
-    final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetFormStore store) {
+    final TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetFormStore store) {
         return this.context(
             this.engine(),
             store
@@ -48,9 +48,9 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extend
 
     abstract SpreadsheetEngine engine();
 
-    final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetEngine engine,
+    final TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine,
                                                                     final SpreadsheetFormStore store) {
-        return new TestSpreadsheetEngineHateosResourceHandlerContext() {
+        return new TestSpreadsheetEngineHateosHandlerContext() {
 
             @Override
             public SpreadsheetEngine spreadsheetEngine() {
@@ -74,7 +74,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extend
         };
     }
 
-    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+    static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
@@ -82,7 +82,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extend
     }
 
     @Override
-    public final SpreadsheetEngineHateosResourceHandlerContext context() {
+    public final SpreadsheetEngineHateosHandlerContext context() {
         return CONTEXT;
     }
 }

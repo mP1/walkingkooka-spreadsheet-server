@@ -66,7 +66,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
@@ -90,7 +90,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
@@ -119,7 +119,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 Lists.of("2")
             ),
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
@@ -163,7 +163,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 Lists.of("2")
             ),
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
                 @Override
                 public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
                                                                                final int offset,
@@ -208,7 +208,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 Lists.of("2")
             ),
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
                 @Override
                 public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
                                                                                final int offset,
@@ -256,7 +256,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
                 @Override
                 public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
                     return store.load(id);
@@ -289,8 +289,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     }
 
     @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext context() {
-        return SpreadsheetMetadataHateosResourceHandlerContexts.fake();
+    public SpreadsheetMetadataHateosHandlerContext context() {
+        return SpreadsheetMetadataHateosHandlerContexts.fake();
     }
 
     private SpreadsheetMetadata metadataWithDefaults() {

@@ -71,9 +71,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private final static String URL = "https://example.com/api";
 
-    private final TestSpreadsheetMetadataHateosResourceHandlerContext CONTEXT = new TestSpreadsheetMetadataHateosResourceHandlerContext();
+    private final TestSpreadsheetMetadataHateosHandlerContext CONTEXT = new TestSpreadsheetMetadataHateosHandlerContext();
 
-    static class TestSpreadsheetMetadataHateosResourceHandlerContext extends FakeSpreadsheetMetadataHateosResourceHandlerContext {
+    static class TestSpreadsheetMetadataHateosHandlerContext extends FakeSpreadsheetMetadataHateosHandlerContext {
 
         @Override
         public MediaType contentType() {
@@ -109,7 +109,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testHandleOneLoadGet() {
         this.routeAndCheck(
-            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+            new TestSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
@@ -143,7 +143,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testHandleOneLoadGetAll() {
         this.routeAndCheck(
-            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+            new TestSpreadsheetMetadataHateosHandlerContext() {
                 @Override
                 public List<SpreadsheetMetadata> findMetadataBySpreadsheetName(final String name,
                                                                                final int offset,
@@ -200,7 +200,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testHandleOneCreatePost() {
         this.routeAndCheck(
-            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+            new TestSpreadsheetMetadataHateosHandlerContext() {
                 @Override
                 public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
                     return new FakeSpreadsheetContext() {
@@ -259,7 +259,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             );
 
         this.routeAndCheck(
-            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+            new TestSpreadsheetMetadataHateosHandlerContext() {
                 @Override
                 public <T> T unmarshall(final JsonNode json,
                                         final Class<T> type) {
@@ -340,7 +340,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.deleted = true;
 
         this.routeAndCheck(
-            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+            new TestSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public void deleteMetadata(final SpreadsheetId id) {
@@ -368,11 +368,11 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private boolean deleted;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetMetadataHateosHandlerContext>> router(final TestSpreadsheetMetadataHateosHandlerContext context) {
         return SpreadsheetMetadataHateosResourceHandlersRouter.with(context);
     }
 
-    private void routeAndCheck(final TestSpreadsheetMetadataHateosResourceHandlerContext context,
+    private void routeAndCheck(final TestSpreadsheetMetadataHateosHandlerContext context,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
@@ -383,7 +383,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             url,
             requestBody
         );
-        final Optional<HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> possible = this.route(
+        final Optional<HttpHandler<SpreadsheetMetadataHateosHandlerContext>> possible = this.route(
             context,
             request
         );
@@ -425,7 +425,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             url,
             requestBody
         );
-        final Optional<HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> possible = this.route(
+        final Optional<HttpHandler<SpreadsheetMetadataHateosHandlerContext>> possible = this.route(
             CONTEXT,
             request
         );
@@ -443,7 +443,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         }
     }
 
-    private Optional<HttpHandler<SpreadsheetMetadataHateosResourceHandlerContext>> route(final TestSpreadsheetMetadataHateosResourceHandlerContext context,
+    private Optional<HttpHandler<SpreadsheetMetadataHateosHandlerContext>> route(final TestSpreadsheetMetadataHateosHandlerContext context,
                                                                                          final HttpRequest request) {
         return this.router(context)
             .route(request.routerParameters());

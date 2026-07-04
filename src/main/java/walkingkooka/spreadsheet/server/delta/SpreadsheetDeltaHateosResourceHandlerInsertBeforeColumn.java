@@ -21,7 +21,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 import java.util.Objects;
 
@@ -46,7 +46,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn extends Spre
     @Override
     SpreadsheetDelta insert(final SpreadsheetColumnReference column,
                             final int count,
-                            final SpreadsheetEngineHateosResourceHandlerContext context) {
+                            final SpreadsheetEngineHateosHandlerContext context) {
         return this.insertBefore(
             column,
             count,
@@ -57,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn extends Spre
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetColumnReference> column,
                             final int count,
-                            final SpreadsheetEngineHateosResourceHandlerContext context) {
+                            final SpreadsheetEngineHateosHandlerContext context) {
         return this.insertBefore(
             column.lowerBound()
                 .value()
@@ -69,7 +69,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn extends Spre
 
     private SpreadsheetDelta insertBefore(final SpreadsheetColumnReference column,
                                           final int count,
-                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                          final SpreadsheetEngineHateosHandlerContext context) {
         return context.spreadsheetEngine()
             .insertColumns(
                 column,

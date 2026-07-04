@@ -30,7 +30,7 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
         LocaleHateosResource,
         LocaleHateosResourceSet,
         LocaleHateosResource,
-        LocaleHateosResourceHandlerContext> localeHateosResourceHandlerContext() {
+        LocaleHateosHandlerContext> localeHateosHandlerContext() {
 
         return HateosResourceMappings.with(
             LocaleHateosResource.HATEOS_RESOURCE_NAME,
@@ -38,7 +38,7 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
             LocaleHateosResource.class, // valueType
             LocaleHateosResourceSet.class, // collectionType
             LocaleHateosResource.class,// resourceType
-            LocaleHateosResourceHandlerContext.class // context
+            LocaleHateosHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -47,7 +47,7 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
     }
 
     private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
-                                                                             final LocaleHateosResourceHandlerContext context) {
+                                                                             final LocaleHateosHandlerContext context) {
         final HateosResourceSelection<LocaleLanguageTag> selection;
 
         switch (text) {

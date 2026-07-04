@@ -29,8 +29,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
@@ -43,7 +43,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     ValidatorName,
     ValidatorInfo,
     ValidatorInfoSet,
-    SpreadsheetProviderHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosHandlerContext>,
     ToStringTesting<ValidatorInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -58,7 +58,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
         ValidatorName.with("validator-2")
     );
 
-    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosHandlerContext() {
 
         @Override
         public SpreadsheetProvider spreadsheetProvider() {
@@ -164,7 +164,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     }
 
     @Override
-    public SpreadsheetProviderHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosHandlerContext context() {
         return CONTEXT;
     }
 

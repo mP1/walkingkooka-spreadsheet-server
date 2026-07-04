@@ -32,8 +32,8 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosResourceHandlerContext>,
+public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosHandlerContext>,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -170,8 +170,8 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
     }
 
     @Override
-    public LocaleHateosResourceHandlerContext createContext() {
-        return new FakeLocaleHateosResourceHandlerContext() {
+    public LocaleHateosHandlerContext createContext() {
+        return new FakeLocaleHateosHandlerContext() {
             @Override
             public MediaType contentType() {
                 return SpreadsheetServerMediaTypes.CONTENT_TYPE;

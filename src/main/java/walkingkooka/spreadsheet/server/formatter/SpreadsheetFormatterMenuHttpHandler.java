@@ -29,7 +29,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -37,7 +37,7 @@ import java.util.Optional;
 /**
  * A handler that returns all available {@link SpreadsheetFormatterMenu}
  */
-final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosHandlerContext> {
 
     /**
      * Singleton
@@ -50,7 +50,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
     @Override
     public void handleGetOrHead(final HttpRequest request,
                                 final HttpResponse response,
-                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                final SpreadsheetEngineHateosHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");

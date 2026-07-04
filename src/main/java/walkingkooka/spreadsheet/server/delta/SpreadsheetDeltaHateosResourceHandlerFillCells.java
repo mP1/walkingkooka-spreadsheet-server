@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 import java.util.Collection;
 import java.util.Map;
@@ -40,8 +40,8 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRangeReference, SpreadsheetCellRangeReference, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
-    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext> {
 
     final static SpreadsheetDeltaHateosResourceHandlerFillCells INSTANCE = new SpreadsheetDeltaHateosResourceHandlerFillCells();
 
@@ -54,7 +54,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final UrlPath path,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosHandlerContext context) {
         final SpreadsheetCellRangeReference range = SpreadsheetSelection.cellRange(to);
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

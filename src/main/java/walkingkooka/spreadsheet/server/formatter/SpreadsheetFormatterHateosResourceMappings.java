@@ -20,36 +20,36 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 
 public final class SpreadsheetFormatterHateosResourceMappings implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetFormatterSelectorEditHttpHandlerCell}
      */
-    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHttpHandlerCell() {
+    public static HttpHandler<SpreadsheetEngineHateosHandlerContext> spreadsheetFormatterSelectorEditHttpHandlerCell() {
         return SpreadsheetFormatterSelectorEditHttpHandlerCell.INSTANCE;
     }
 
     /**
      * {@see SpreadsheetFormatterSelectorEditHttpHandlerMetadata}
      */
-    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterSelectorEditHttpHandlerMetadata() {
+    public static HttpHandler<SpreadsheetEngineHateosHandlerContext> spreadsheetFormatterSelectorEditHttpHandlerMetadata() {
         return SpreadsheetFormatterSelectorEditHttpHandlerMetadata.INSTANCE;
     }
 
     /**
      * {@see SpreadsheetFormatterMenuHttpHandler}
      */
-    public static HttpHandler<SpreadsheetEngineHateosResourceHandlerContext> spreadsheetFormatterMenuHttpHandler() {
+    public static HttpHandler<SpreadsheetEngineHateosHandlerContext> spreadsheetFormatterMenuHttpHandler() {
         return SpreadsheetFormatterMenuHttpHandler.INSTANCE;
     }
 
@@ -57,7 +57,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         SpreadsheetFormatterInfo,
         SpreadsheetFormatterInfoSet,
         SpreadsheetFormatterInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
+        SpreadsheetProviderHateosHandlerContext> spreadsheetProviderHateosHandlerContext() {
 
         return HateosResourceMappings.with(
             SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
@@ -65,7 +65,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             SpreadsheetFormatterInfo.class, // valueType
             SpreadsheetFormatterInfoSet.class, // collectionType
             SpreadsheetFormatterInfo.class,// resourceType
-            SpreadsheetProviderHateosResourceHandlerContext.class
+            SpreadsheetProviderHateosHandlerContext.class
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -74,7 +74,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
     }
 
     private static HateosResourceSelection<SpreadsheetFormatterName> parseSelection(final String text,
-                                                                                    final HateosResourceHandlerContext context) {
+                                                                                    final HateosHandlerContext context) {
         final HateosResourceSelection<SpreadsheetFormatterName> selection;
 
         switch (text) {

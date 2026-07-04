@@ -32,8 +32,8 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetProviderHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     SpreadsheetParserName,
     SpreadsheetParserInfo,
     SpreadsheetParserInfoSet,
-    SpreadsheetProviderHateosResourceHandlerContext>,
+    SpreadsheetProviderHateosHandlerContext>,
     ToStringTesting<SpreadsheetParserInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -58,7 +58,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
         SpreadsheetParserName.with("parser-2")
     );
 
-    private final static SpreadsheetProviderHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosResourceHandlerContext() {
+    private final static SpreadsheetProviderHateosHandlerContext CONTEXT = new FakeSpreadsheetProviderHateosHandlerContext() {
 
         @Override
         public SpreadsheetProvider spreadsheetProvider() {
@@ -164,7 +164,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     }
 
     @Override
-    public SpreadsheetProviderHateosResourceHandlerContext context() {
+    public SpreadsheetProviderHateosHandlerContext context() {
         return CONTEXT;
     }
 

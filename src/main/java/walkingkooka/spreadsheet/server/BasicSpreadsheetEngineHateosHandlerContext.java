@@ -1,0 +1,279 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.spreadsheet.server;
+
+import walkingkooka.convert.ConverterLike;
+import walkingkooka.currency.CurrencyCode;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextDelegator;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
+
+import java.math.MathContext;
+import java.time.LocalDateTime;
+import java.util.Currency;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+
+final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEngineHateosHandlerContext,
+    HateosHandlerContextDelegator,
+    SpreadsheetEngineContextDelegator,
+    SpreadsheetProviderDelegator,
+    JsonNodeMarshallContextDelegator {
+
+    static BasicSpreadsheetEngineHateosHandlerContext with(final SpreadsheetEngine spreadsheetEngine,
+                                                                   final HateosHandlerContext hateosHandlerContext,
+                                                                   final SpreadsheetEngineContext engineContext) {
+        return new BasicSpreadsheetEngineHateosHandlerContext(
+            Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
+            Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext"),
+            Objects.requireNonNull(engineContext, "engineContext")
+        );
+    }
+
+    private BasicSpreadsheetEngineHateosHandlerContext(final SpreadsheetEngine spreadsheetEngine,
+                                                               final HateosHandlerContext hateosHandlerContext,
+                                                               final SpreadsheetEngineContext engineContext) {
+        this.spreadsheetEngine = spreadsheetEngine;
+        this.hateosHandlerContext = hateosHandlerContext;
+        this.engineContext = engineContext;
+    }
+
+    @Override
+    public SpreadsheetEngine spreadsheetEngine() {
+        return this.spreadsheetEngine;
+    }
+
+    private final SpreadsheetEngine spreadsheetEngine;
+
+    // 4 methods immediately below are required due to clashes between XXXDelegators
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.engineContext.spreadsheetMetadata()
+            .expressionNumberKind();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.spreadsheetMetadata()
+            .mathContext();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.engineContext.now();
+    }
+
+    @Override
+    public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName labelName) {
+        return this.engineContext.resolveLabel(labelName);
+    }
+
+    // ConvertLikeDelegator.............................................................................................
+
+    @Override
+    public ConverterLike converterLike() {
+        return this.engineContext;
+    }
+
+    // JsonNodeMarshallUnmarshallContext................................................................................
+
+    @Override
+    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
+        return this.hateosHandlerContext;
+    }
+
+    @Override
+    public BasicSpreadsheetEngineHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        return this.setHateosHandlerContext(
+            this.hateosHandlerContext.setObjectPostProcessor(processor)
+        );
+    }
+
+    @Override
+    public BasicSpreadsheetEngineHateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        return this.setHateosHandlerContext(
+            this.hateosHandlerContext.setPreProcessor(processor)
+        );
+    }
+
+    private BasicSpreadsheetEngineHateosHandlerContext setHateosHandlerContext(final HateosHandlerContext context) {
+        return this.hateosHandlerContext.equals(context) ?
+            this :
+            new BasicSpreadsheetEngineHateosHandlerContext(
+                this.spreadsheetEngine,
+                context,
+                this.engineContext
+            );
+    }
+
+    // HateosHandlerContext.....................................................................................
+
+    @Override
+    public HateosHandlerContext hateosHandlerContext() {
+        return this.hateosHandlerContext;
+    }
+
+    private final HateosHandlerContext hateosHandlerContext;
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
+        return this.localeContext()
+            .localeForLanguageTag(languageTag);
+    }
+
+    // SpreadsheetEngineContextDelegator................................................................................
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
+        return this.engineContext.currencyForCurrencyCode(currencyCode);
+    }
+
+    @Override
+    public SpreadsheetMetadata spreadsheetMetadata() {
+        return this.engineContext.spreadsheetMetadata();
+    }
+
+    @Override
+    public SpreadsheetEngineContext spreadsheetEngineContext() {
+        return this.engineContext;
+    }
+
+    // SpreadsheetFormatterProvider.....................................................................................
+
+    @Override
+    public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
+        return this.engineContext;
+    }
+
+    // SpreadsheetProvider..............................................................................................
+
+    @Override
+    public SpreadsheetProvider spreadsheetProvider() {
+        return this.engineContext;
+    }
+
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public SpreadsheetEngineHateosHandlerContext cloneEnvironment() {
+        final SpreadsheetEngineContext engineContext = this.engineContext;
+        final SpreadsheetEngineContext clone = engineContext.cloneEnvironment();
+
+        // Recreate only if different cloned EnvironmentContext, cloned environment should be equals
+        return engineContext == clone ?
+            this :
+            new BasicSpreadsheetEngineHateosHandlerContext(
+                this.spreadsheetEngine,
+                this.hateosHandlerContext,
+                clone
+            );
+    }
+
+    @Override
+    public SpreadsheetEngineHateosHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        final SpreadsheetEngineContext before = this.engineContext;
+        final SpreadsheetEngineContext after = before.setEnvironmentContext(environmentContext);
+
+        return before == after ?
+            this :
+            new BasicSpreadsheetEngineHateosHandlerContext(
+                this.spreadsheetEngine,
+                this.hateosHandlerContext,
+                after
+            );
+    }
+
+    @Override
+    public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
+                                        final T value) {
+        this.engineContext.setEnvironmentValue(
+            name,
+            value
+        );
+    }
+
+    @Override
+    public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.engineContext.removeEnvironmentValue(name);
+    }
+
+    @Override
+    public Currency currency() {
+        return this.engineContext.currency();
+    }
+
+    @Override
+    public void setCurrency(final Currency currency) {
+        this.engineContext.setCurrency(currency);
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.engineContext.indentation();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.engineContext.lineEnding();
+    }
+
+    @Override
+    public void setLineEnding(final LineEnding lineEnding) {
+        this.engineContext.setLineEnding(lineEnding);
+    }
+
+    @Override
+    public Locale locale() {
+        return this.engineContext.locale();
+    }
+
+    @Override
+    public void setLocale(final Locale locale) {
+        this.engineContext.setLocale(locale);
+    }
+
+    @Override
+    public void setUser(final Optional<EmailAddress> user) {
+        this.engineContext.setUser(user);
+    }
+
+    private final SpreadsheetEngineContext engineContext;
+}

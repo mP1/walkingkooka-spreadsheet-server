@@ -19,11 +19,11 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 
 public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements HttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHttpHandler,
-    SpreadsheetEngineHateosResourceHandlerContext> {
+    SpreadsheetEngineHateosHandlerContext> {
 
     @Override
     public SpreadsheetDeltaHttpMappingsFormHttpHandler createHttpHandler() {
@@ -31,8 +31,8 @@ public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements Ht
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetEngineHateosHandlerContext createContext() {
+        return SpreadsheetEngineHateosHandlerContexts.fake();
     }
 
     // class............................................................................................................

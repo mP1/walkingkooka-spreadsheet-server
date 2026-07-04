@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContex
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.text.CharSequences;
 
@@ -43,7 +43,7 @@ import java.util.Optional;
 /**
  * A handler that accepts a request with a possible {@link SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
-abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosResourceHandlerContext> {
+abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosHandlerContext> {
 
     static {
         try {
@@ -63,7 +63,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
     @Override
     public final void handleGetOrHead(final HttpRequest request,
                                       final HttpResponse response,
-                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                      final SpreadsheetEngineHateosHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
@@ -101,11 +101,11 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
     }
 
     abstract SpreadsheetFormatterSelectorEdit extractSelectorAndProduceEdit(final UrlPath path,
-                                                                            final SpreadsheetEngineHateosResourceHandlerContext context);
+                                                                            final SpreadsheetEngineHateosHandlerContext context);
 
     final SpreadsheetFormatterSelectorEdit produceEdit(final String formatterSelector,
                                                        final Optional<SpreadsheetCell> cell,
-                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                       final SpreadsheetEngineHateosHandlerContext context) {
         final ProviderContext providerContext = context.providerContext();
 
         return SpreadsheetFormatterSelectorEdit.parse(

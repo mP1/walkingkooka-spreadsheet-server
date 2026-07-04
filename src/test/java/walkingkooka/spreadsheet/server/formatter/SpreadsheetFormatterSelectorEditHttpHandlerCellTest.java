@@ -46,8 +46,8 @@ import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -69,7 +69,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell> {
 
@@ -86,7 +86,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
                         HttpEntity.EMPTY
                     ),
                     HttpResponses.recording(),
-                    new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                    new FakeSpreadsheetEngineHateosHandlerContext() {
                         @Override
                         public MediaType contentType() {
                             return MediaType.APPLICATION_JSON;
@@ -320,7 +320,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
     @Test
     public void testHandleDateWithCellWithValue() {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.createContext();
+        final SpreadsheetEngineHateosHandlerContext context = this.createContext();
 
         final LocalDateTime value = LocalDateTime.of(
             1970,
@@ -514,7 +514,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
     @Test
     public void testHandleWithDateTimeCellWithValue() {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.createContext();
+        final SpreadsheetEngineHateosHandlerContext context = this.createContext();
 
         final LocalDateTime value = LocalDateTime.of(
             1970,
@@ -788,8 +788,8 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    public SpreadsheetEngineHateosHandlerContext createContext() {
+        return new FakeSpreadsheetEngineHateosHandlerContext() {
 
             @Override
             public Charset charset() {

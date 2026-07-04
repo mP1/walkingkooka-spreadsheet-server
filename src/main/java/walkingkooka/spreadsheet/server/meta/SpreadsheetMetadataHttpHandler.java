@@ -63,9 +63,9 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
     private SpreadsheetMetadataHttpHandler(final SpreadsheetServerContext context) {
         super();
 
-        final SpreadsheetMetadataHateosResourceHandlerContext spreadsheetMetadataHateosResourceHandlerContext = SpreadsheetMetadataHateosResourceHandlerContexts.basic(context);
+        final SpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = SpreadsheetMetadataHateosHandlerContexts.basic(context);
 
-        this.context = spreadsheetMetadataHateosResourceHandlerContext;
+        this.context = spreadsheetMetadataHateosHandlerContext;
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<?>>empty()
             .add(
@@ -75,7 +75,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
             .then(
                 Cast.to(
                     SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                        spreadsheetMetadataHateosResourceHandlerContext
+                        spreadsheetMetadataHateosHandlerContext
                     )
                 )
             );
@@ -132,7 +132,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
         );
     }
 
-    private final SpreadsheetMetadataHateosResourceHandlerContext context;
+    private final SpreadsheetMetadataHateosHandlerContext context;
 
     // HttpHandler......................................................................................................
 

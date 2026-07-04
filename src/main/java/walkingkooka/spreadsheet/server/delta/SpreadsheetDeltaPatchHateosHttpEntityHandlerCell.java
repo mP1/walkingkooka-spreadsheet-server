@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -52,7 +52,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
 
     @Override
     JsonNode preparePatch(final JsonNode delta,
-                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                          final SpreadsheetEngineHateosHandlerContext context) {
         return SpreadsheetDelta.resolveCellLabels(
             delta.objectOrFail(),
             (e) -> context.storeRepository()
@@ -64,7 +64,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
 
     @Override
     SpreadsheetDelta load(final SpreadsheetCellRangeReference cellRange,
-                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                          final SpreadsheetEngineHateosHandlerContext context) {
         return context.spreadsheetEngine()
             .loadCells(
                 cellRange,
@@ -84,7 +84,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
                            final SpreadsheetCellRangeReference cellRange,
                            final JsonNode patch,
                            final Map<HttpRequestAttribute<?>, Object> parameters,
-                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+                           final SpreadsheetEngineHateosHandlerContext context) {
         return loaded.patchCells(
             cellRange,
             patch,
@@ -95,7 +95,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
                           final SpreadsheetCellRangeReference cellRange,
-                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                          final SpreadsheetEngineHateosHandlerContext context) {
         return context.spreadsheetEngine()
             .saveCells(
                 patched.cells(),

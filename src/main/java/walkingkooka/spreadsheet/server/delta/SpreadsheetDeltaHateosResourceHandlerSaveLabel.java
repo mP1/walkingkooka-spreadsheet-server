@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -40,10 +40,10 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#saveLabel(SpreadsheetLabelMapping, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>
-    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext> {
 
     final static SpreadsheetDeltaHateosResourceHandlerSaveLabel INSTANCE =new SpreadsheetDeltaHateosResourceHandlerSaveLabel();
 
@@ -57,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleNone(final Optional<SpreadsheetDelta> resource,
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final UrlPath path,
-                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                 final SpreadsheetEngineHateosHandlerContext context) {
         return this.saveOrUpdate(
             Optional.empty(), // no label
             resource,
@@ -74,7 +74,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         return this.saveOrUpdate(
             Optional.of(
                 Objects.requireNonNull(label, "label")
@@ -90,7 +90,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                     final Optional<SpreadsheetDelta> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final UrlPath path,
-                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                    final SpreadsheetEngineHateosHandlerContext context) {
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);

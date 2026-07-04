@@ -45,8 +45,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
@@ -205,7 +205,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             Optional.empty(),
             parameters,
             UrlPath.EMPTY,
-            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+            new TestSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -356,7 +356,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 )
             ),
             UrlPath.EMPTY,
-            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+            new TestSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -717,7 +717,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             Optional.empty(),
             parameters,
             UrlPath.EMPTY,
-            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+            new FakeSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -1211,7 +1211,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             Optional.empty(),
             parameters,
             UrlPath.EMPTY,
-            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+            new FakeSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -1389,11 +1389,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosHandlerContext context() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(METADATA);
 
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+        return new FakeSpreadsheetEngineHateosHandlerContext() {
 
             @Override
             public SpreadsheetEngine spreadsheetEngine() {

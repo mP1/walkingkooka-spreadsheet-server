@@ -32,7 +32,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -50,27 +50,27 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link SpreadsheetEngineHateosResourceHandlerContext} which delegates all methods to the given {@link SpreadsheetEngineHateosResourceHandlerContext},
+ * A {@link SpreadsheetEngineHateosHandlerContext} which delegates all methods to the given {@link SpreadsheetEngineHateosHandlerContext},
  * except for the given {@link SpreadsheetMetadata} which will have the updated {@link walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName#VIEWPORT_SELECTION}.
  */
-final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
+final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext implements SpreadsheetEngineHateosHandlerContext,
     ConverterProviderDelegator,
     SpreadsheetEngineContextDelegator,
     JsonNodeMarshallUnmarshallContextDelegator {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
+    static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext with(final SpreadsheetMetadata metadata,
                                                                                                            final SpreadsheetEngine spreadsheetEngine,
-                                                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+                                                                                                           final SpreadsheetEngineHateosHandlerContext context) {
+        return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(
             metadata,
             spreadsheetEngine,
             context
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetMetadata metadata,
+    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(final SpreadsheetMetadata metadata,
                                                                                                        final SpreadsheetEngine spreadsheetEngine,
-                                                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                                       final SpreadsheetEngineHateosHandlerContext context) {
         this.metadata = metadata;
         this.spreadsheetEngine = spreadsheetEngine;
         this.context = context;
@@ -84,23 +84,23 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     private final SpreadsheetEngine spreadsheetEngine;
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        return this.setSpreadsheetEngineHateosResourceHandlerContext(
+    public SpreadsheetEngineHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        return this.setSpreadsheetEngineHateosHandlerContext(
             this.context.setObjectPostProcessor(processor)
         );
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        return this.setSpreadsheetEngineHateosResourceHandlerContext(
+    public SpreadsheetEngineHateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        return this.setSpreadsheetEngineHateosHandlerContext(
             this.context.setPreProcessor(processor)
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext setSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext setSpreadsheetEngineHateosHandlerContext(final SpreadsheetEngineHateosHandlerContext context) {
         return this.context.equals(context) ?
             this :
-            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(
                 this.metadata,
                 this.spreadsheetEngine,
                 context
@@ -114,7 +114,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
 
     private final SpreadsheetMetadata metadata;
 
-    // SpreadsheetEngineHateosResourceHandlerContext.........................................................................
+    // SpreadsheetEngineHateosHandlerContext.........................................................................
 
     @Override
     public ConverterLike converterLike() {
@@ -182,14 +182,14 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     // EnvironmentContext...............................................................................................
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext cloneEnvironment() {
-        final SpreadsheetEngineHateosResourceHandlerContext context = this.context;
-        final SpreadsheetEngineHateosResourceHandlerContext clone = context.cloneEnvironment();
+    public SpreadsheetEngineHateosHandlerContext cloneEnvironment() {
+        final SpreadsheetEngineHateosHandlerContext context = this.context;
+        final SpreadsheetEngineHateosHandlerContext clone = context.cloneEnvironment();
 
         // Recreate only if different cloned EnvironmentContext, cloned environment should be equals
         return context == clone ?
             this :
-            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(
                 this.metadata,
                 this.spreadsheetEngine,
                 Objects.requireNonNull(clone, "environmentContext")
@@ -197,13 +197,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-        final SpreadsheetEngineHateosResourceHandlerContext before = this.context;
-        final SpreadsheetEngineHateosResourceHandlerContext after = before.setEnvironmentContext(environmentContext);
+    public SpreadsheetEngineHateosHandlerContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        final SpreadsheetEngineHateosHandlerContext before = this.context;
+        final SpreadsheetEngineHateosHandlerContext after = before.setEnvironmentContext(environmentContext);
 
         return before == after ?
             this :
-            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosHandlerContext(
                 this.metadata,
                 this.spreadsheetEngine,
                 Objects.requireNonNull(after, "environmentContext")
@@ -254,5 +254,5 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         this.context.setUser(user);
     }
 
-    private final SpreadsheetEngineHateosResourceHandlerContext context;
+    private final SpreadsheetEngineHateosHandlerContext context;
 }

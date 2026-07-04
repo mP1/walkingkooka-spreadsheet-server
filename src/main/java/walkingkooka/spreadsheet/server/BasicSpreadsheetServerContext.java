@@ -29,8 +29,8 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaTypeDetector;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
@@ -72,7 +72,7 @@ import java.util.function.Function;
 final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     CurrencyLocaleContextDelegator,
     SpreadsheetEnvironmentContextDelegator,
-    HateosResourceHandlerContextDelegator,
+    HateosHandlerContextDelegator,
     SpreadsheetProviderDelegator,
     TreePrintable {
 
@@ -84,7 +84,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final CurrencyLocaleContext currencyLocaleContext,
                                               final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                               final SpreadsheetMetadataContext spreadsheetMetadataContext,
-                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                              final HateosHandlerContext hateosHandlerContext,
                                               final ProviderContext providerContext,
                                               final TerminalServerContext terminalServerContext) {
         return new BasicSpreadsheetServerContext(
@@ -96,7 +96,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             Objects.requireNonNull(currencyLocaleContext, "currencyLocaleContext"),
             Objects.requireNonNull(spreadsheetEnvironmentContext, "spreadsheetEnvironmentContext"),
             Objects.requireNonNull(spreadsheetMetadataContext, "spreadsheetMetadataContext"),
-            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext"),
             Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(terminalServerContext, "terminalServerContext")
         );
@@ -110,7 +110,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                           final CurrencyLocaleContext currencyLocaleContext,
                                           final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                           final SpreadsheetMetadataContext spreadsheetMetadataContext,
-                                          final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                          final HateosHandlerContext hateosHandlerContext,
                                           final ProviderContext providerContext,
                                           final TerminalServerContext terminalServerContext) {
         super();
@@ -126,7 +126,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         this.currencyLocaleContext = CurrencyLocaleContexts.readOnly(currencyLocaleContext);
         this.spreadsheetEnvironmentContext = spreadsheetEnvironmentContext;
         this.spreadsheetMetadataContext = spreadsheetMetadataContext;
-        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
+        this.hateosHandlerContext = hateosHandlerContext;
         this.providerContext = providerContext;
         this.terminalServerContext = terminalServerContext;
     }
@@ -164,7 +164,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             (SpreadsheetEngineContext c) -> Cast.to(
                 SpreadsheetIdRouter.create(
                     c,
-                    this.hateosResourceHandlerContext
+                    this.hateosHandlerContext
                 )
             ),
             this.currencyLocaleContext,
@@ -264,7 +264,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.currencyLocaleContext,
                 this.spreadsheetEnvironmentContext,
                 this.spreadsheetMetadataContext,
-                this.hateosResourceHandlerContext,
+                this.hateosHandlerContext,
                 after,
                 this.terminalServerContext
             );
@@ -362,31 +362,31 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     private final SpreadsheetMetadataContext spreadsheetMetadataContext;
 
-    // HateosResourceHandlerContextDelegator............................................................................
+    // HateosHandlerContextDelegator............................................................................
 
     @Override
-    public HateosResourceHandlerContext hateosResourceHandlerContext() {
-        return this.hateosResourceHandlerContext;
+    public HateosHandlerContext hateosHandlerContext() {
+        return this.hateosHandlerContext;
     }
 
-    private final HateosResourceHandlerContext hateosResourceHandlerContext;
+    private final HateosHandlerContext hateosHandlerContext;
 
     @Override
     public SpreadsheetServerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        return this.setHateosResourceHandlerContext(
-            this.hateosResourceHandlerContext.setObjectPostProcessor(processor)
+        return this.setHateosHandlerContext(
+            this.hateosHandlerContext.setObjectPostProcessor(processor)
         );
     }
 
     @Override
     public SpreadsheetServerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        return this.setHateosResourceHandlerContext(
-            this.hateosResourceHandlerContext.setPreProcessor(processor)
+        return this.setHateosHandlerContext(
+            this.hateosHandlerContext.setPreProcessor(processor)
         );
     }
 
-    private SpreadsheetServerContext setHateosResourceHandlerContext(final HateosResourceHandlerContext context) {
-        return this.hateosResourceHandlerContext.equals(context) ?
+    private SpreadsheetServerContext setHateosHandlerContext(final HateosHandlerContext context) {
+        return this.hateosHandlerContext.equals(context) ?
             this :
             new BasicSpreadsheetServerContext(
                 this.mediaTypeDetector,
@@ -397,7 +397,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 this.currencyLocaleContext,
                 this.spreadsheetEnvironmentContext,
                 this.spreadsheetMetadataContext,
-                Objects.requireNonNull(context, "hateosResourceHandlerContext"),
+                Objects.requireNonNull(context, "hateosHandlerContext"),
                 this.providerContext,
                 this.terminalServerContext
             );
@@ -440,8 +440,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             .value(this.spreadsheetEnvironmentContext)
             .label("spreadsheetMetadataContext")
             .value(this.spreadsheetMetadataContext)
-            .label("hateosResourceHandlerContext")
-            .value(this.hateosResourceHandlerContext)
+            .label("hateosHandlerContext")
+            .value(this.hateosHandlerContext)
             .label("spreadsheetProvider")
             .value(this.spreadsheetProvider)
             .label("providerContext")
@@ -484,8 +484,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
             this.printTreeWithLabel(
                 printer,
-                HateosResourceHandlerContext.class.getSimpleName(),
-                this.hateosResourceHandlerContext
+                HateosHandlerContext.class.getSimpleName(),
+                this.hateosHandlerContext
             );
 
             this.printTreeWithLabel(
