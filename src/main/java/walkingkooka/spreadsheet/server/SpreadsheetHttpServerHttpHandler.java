@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpStatus;
@@ -91,8 +90,6 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
         );
 
         this.context = context;
-
-        final AbsoluteUrl serverUrl = context.serverUrl();
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<?>>empty()
             .add(
