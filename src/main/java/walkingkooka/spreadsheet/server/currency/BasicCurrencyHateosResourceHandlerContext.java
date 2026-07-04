@@ -34,7 +34,7 @@ final class BasicCurrencyHateosHandlerContext implements CurrencyHateosHandlerCo
     HateosHandlerContextDelegator {
 
     static BasicCurrencyHateosHandlerContext with(final CurrencyContext currencyContext,
-                                                          final HateosHandlerContext hateosHandlerContext) {
+                                                  final HateosHandlerContext hateosHandlerContext) {
         return new BasicCurrencyHateosHandlerContext(
             Objects.requireNonNull(currencyContext, "currencyContext"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext")
@@ -42,7 +42,7 @@ final class BasicCurrencyHateosHandlerContext implements CurrencyHateosHandlerCo
     }
 
     private BasicCurrencyHateosHandlerContext(final CurrencyContext currencyContext,
-                                                      final HateosHandlerContext hateosHandlerContext) {
+                                              final HateosHandlerContext hateosHandlerContext) {
         super();
 
         this.currencyContext = currencyContext;

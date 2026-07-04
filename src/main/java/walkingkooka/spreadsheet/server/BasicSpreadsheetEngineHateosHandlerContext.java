@@ -56,8 +56,8 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
     JsonNodeMarshallContextDelegator {
 
     static BasicSpreadsheetEngineHateosHandlerContext with(final SpreadsheetEngine spreadsheetEngine,
-                                                                   final HateosHandlerContext hateosHandlerContext,
-                                                                   final SpreadsheetEngineContext engineContext) {
+                                                           final HateosHandlerContext hateosHandlerContext,
+                                                           final SpreadsheetEngineContext engineContext) {
         return new BasicSpreadsheetEngineHateosHandlerContext(
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext"),
@@ -66,8 +66,8 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
     }
 
     private BasicSpreadsheetEngineHateosHandlerContext(final SpreadsheetEngine spreadsheetEngine,
-                                                               final HateosHandlerContext hateosHandlerContext,
-                                                               final SpreadsheetEngineContext engineContext) {
+                                                       final HateosHandlerContext hateosHandlerContext,
+                                                       final SpreadsheetEngineContext engineContext) {
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosHandlerContext = hateosHandlerContext;
         this.engineContext = engineContext;

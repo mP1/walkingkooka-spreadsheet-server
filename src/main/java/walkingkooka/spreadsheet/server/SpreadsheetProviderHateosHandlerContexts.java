@@ -28,8 +28,8 @@ public final class SpreadsheetProviderHateosHandlerContexts implements PublicSta
      * {@see BasicSpreadsheetProviderHateosHandlerContext}
      */
     public static SpreadsheetProviderHateosHandlerContext basic(final SpreadsheetProvider spreadsheetProvider,
-                                                                        final ProviderContext providerContext,
-                                                                        final HateosHandlerContext hateosHandlerContext) {
+                                                                final ProviderContext providerContext,
+                                                                final HateosHandlerContext hateosHandlerContext) {
         return BasicSpreadsheetProviderHateosHandlerContext.with(
             spreadsheetProvider,
             providerContext,

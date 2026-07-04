@@ -46,7 +46,7 @@ class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterC
         super();
     }
 
-    @Override 
+    @Override
     public char valueSeparator() {
         throw new UnsupportedOperationException();
     }

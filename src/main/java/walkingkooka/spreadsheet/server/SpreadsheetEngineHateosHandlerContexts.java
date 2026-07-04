@@ -28,8 +28,8 @@ public final class SpreadsheetEngineHateosHandlerContexts implements PublicStati
      * {@see BasicSpreadsheetEngineHateosHandlerContext}
      */
     public static SpreadsheetEngineHateosHandlerContext basic(final SpreadsheetEngine spreadsheetEngine,
-                                                                      final HateosHandlerContext hateosHandlerContext,
-                                                                      final SpreadsheetEngineContext engineContext) {
+                                                              final HateosHandlerContext hateosHandlerContext,
+                                                              final SpreadsheetEngineContext engineContext) {
         return BasicSpreadsheetEngineHateosHandlerContext.with(
             spreadsheetEngine,
             hateosHandlerContext,

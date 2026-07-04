@@ -34,7 +34,7 @@ final class BasicLocaleHateosHandlerContext implements LocaleHateosHandlerContex
     HateosHandlerContextDelegator {
 
     static BasicLocaleHateosHandlerContext with(final LocaleContext localeContext,
-                                                        final HateosHandlerContext hateosHandlerContext) {
+                                                final HateosHandlerContext hateosHandlerContext) {
         return new BasicLocaleHateosHandlerContext(
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext")
@@ -42,7 +42,7 @@ final class BasicLocaleHateosHandlerContext implements LocaleHateosHandlerContex
     }
 
     private BasicLocaleHateosHandlerContext(final LocaleContext localeContext,
-                                                    final HateosHandlerContext hateosHandlerContext) {
+                                            final HateosHandlerContext hateosHandlerContext) {
         super();
 
         this.localeContext = localeContext;

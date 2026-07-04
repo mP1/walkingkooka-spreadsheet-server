@@ -37,8 +37,8 @@ final class BasicSpreadsheetProviderHateosHandlerContext implements SpreadsheetP
     HateosHandlerContextDelegator {
 
     static BasicSpreadsheetProviderHateosHandlerContext with(final SpreadsheetProvider spreadsheetProvider,
-                                                                     final ProviderContext providerContext,
-                                                                     final HateosHandlerContext hateosHandlerContext) {
+                                                             final ProviderContext providerContext,
+                                                             final HateosHandlerContext hateosHandlerContext) {
         return new BasicSpreadsheetProviderHateosHandlerContext(
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(providerContext, "providerContext"),
@@ -47,8 +47,8 @@ final class BasicSpreadsheetProviderHateosHandlerContext implements SpreadsheetP
     }
 
     private BasicSpreadsheetProviderHateosHandlerContext(final SpreadsheetProvider spreadsheetProvider,
-                                                                 final ProviderContext providerContext,
-                                                                 final HateosHandlerContext hateosHandlerContext) {
+                                                         final ProviderContext providerContext,
+                                                         final HateosHandlerContext hateosHandlerContext) {
         super();
 
         this.spreadsheetProvider = spreadsheetProvider;
