@@ -390,7 +390,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             MULTIPLIER,
             SpreadsheetEngines.basic(),
             (id) -> Optional.of(
-                SpreadsheetStoreRepositories.treeMap(metadataStore)
+                SpreadsheetStoreRepositories.treeMap(
+                    SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest.this.metadataStore
+                )
             ),
             SpreadsheetProviders.basic(
                 CONVERTER_PROVIDER,
