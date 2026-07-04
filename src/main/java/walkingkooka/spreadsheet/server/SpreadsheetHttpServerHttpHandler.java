@@ -187,7 +187,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
             CurrencyHateosResourceMappings.currencyHateosHandlerContext()
         );
     }
-    
+
     private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> dateTimeSymbolsRouter() {
         return this.localeHateosHandlerContextRouter(
             DateTimeSymbolsHateosResourceMappings.localeHateosHandlerContext()
@@ -276,7 +276,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<HttpHandlerC
     private final SpreadsheetProviderHateosHandlerContext spreadsheetProviderHateosHandlerContext;
 
     private <X extends HateosHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler<X>> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
-                                                                                                                                  final X context) {
+                                                                                                                          final X context) {
         return HateosResourceMappings.router(
             SpreadsheetHttpServer.API,
             Sets.of(mappings),
