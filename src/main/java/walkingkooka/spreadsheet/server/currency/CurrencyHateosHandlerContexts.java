@@ -27,7 +27,7 @@ public final class CurrencyHateosHandlerContexts implements PublicStaticHelper {
      * {@see BasicCurrencyHateosHandlerContext}
      */
     public static CurrencyHateosHandlerContext basic(final CurrencyContext currencyContext,
-                                                             final HateosHandlerContext hateosHandlerContext) {
+                                                     final HateosHandlerContext hateosHandlerContext) {
         return BasicCurrencyHateosHandlerContext.with(
             currencyContext,
             hateosHandlerContext
