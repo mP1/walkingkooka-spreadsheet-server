@@ -36,7 +36,6 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.plugin.store.Plugin;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
@@ -112,10 +111,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_LOCALE = API.append(
         LocaleHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
-    );
-
-    public final static UrlPath API_PLUGIN = API.append(
-        Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_PARSER = API.append(
