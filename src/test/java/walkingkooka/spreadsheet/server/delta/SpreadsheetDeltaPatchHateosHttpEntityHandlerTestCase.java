@@ -182,11 +182,11 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     }
 
     @Override
-    final public SpreadsheetEngineHateosHandlerContext context() {
+    public final SpreadsheetEngineHateosHandlerContext context() {
         return new TestSpreadsheetEngineHateosHandlerContext(ENGINE);
     }
 
-    final public SpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine spreadsheetEngine) {
+    public final SpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine spreadsheetEngine) {
         return new TestSpreadsheetEngineHateosHandlerContext(spreadsheetEngine);
     }
 

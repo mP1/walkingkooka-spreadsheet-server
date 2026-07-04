@@ -64,17 +64,17 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
     }
 
     @Override
-    final public Optional<SpreadsheetDelta> resource() {
+    public final Optional<SpreadsheetDelta> resource() {
         return Optional.empty();
     }
 
     @Override
-    final public Optional<SpreadsheetDelta> collectionResource() {
+    public final Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
     }
 
     @Override
-    final public Map<HttpRequestAttribute<?>, Object> parameters() {
+    public final Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
     }
 
