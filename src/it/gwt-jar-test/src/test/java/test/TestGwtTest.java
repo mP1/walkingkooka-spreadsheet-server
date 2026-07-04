@@ -312,7 +312,6 @@ public class TestGwtTest extends GWTTestCase {
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
-            MediaTypeDetectors.fake(),
             (url) -> {
                 throw new UnsupportedOperationException(); // fileServer
             },

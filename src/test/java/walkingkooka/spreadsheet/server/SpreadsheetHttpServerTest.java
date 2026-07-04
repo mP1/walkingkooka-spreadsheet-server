@@ -268,25 +268,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         SpreadsheetServerContexts.fake();
 
     @Test
-    public void testWithNullMediaTypeDetectorFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServer.with(
-                null,
-                FILE_SERVER,
-                SERVER,
-                SPREADSHEET_SERVER_CONTEXT_FACTORY,
-                HTTP_REQUEST_DEFAULT_USER
-            )
-        );
-    }
-
-    @Test
     public void testWithNullFileServerFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                MEDIA_TYPE_DETECTOR,
                 null,
                 SERVER,
                 SPREADSHEET_SERVER_CONTEXT_FACTORY,
@@ -300,7 +285,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                MEDIA_TYPE_DETECTOR,
                 FILE_SERVER,
                 null,
                 SPREADSHEET_SERVER_CONTEXT_FACTORY,
@@ -314,7 +298,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                MEDIA_TYPE_DETECTOR,
                 FILE_SERVER,
                 SERVER,
                 null,
@@ -328,7 +311,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                MEDIA_TYPE_DETECTOR,
                 FILE_SERVER,
                 SERVER,
                 null,
@@ -13067,7 +13049,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         SpreadsheetHttpServer.with(
-            MEDIA_TYPE_DETECTOR,
             this::fileServer,
             this::server,
             (user) -> {
