@@ -38,9 +38,9 @@ import java.util.stream.Stream;
 /**
  * A {@link HateosResourceHandler} that invokes {@link CurrencyContext} to supply the requested {@link CurrencyHateosResource}.
  */
-final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosResourceHandlerContext> {
+final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosHandlerContext> {
 
     private final static int DEFAULT_COUNT = 20;
 
@@ -59,7 +59,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
                                                       final Optional<CurrencyHateosResource> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                                       final UrlPath path,
-                                                      final CurrencyHateosResourceHandlerContext context) {
+                                                      final CurrencyHateosHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -79,7 +79,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
     public Optional<CurrencyHateosResourceSet> handleAll(final Optional<CurrencyHateosResourceSet> resource,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                                          final UrlPath path,
-                                                         final CurrencyHateosResourceHandlerContext context) {
+                                                         final CurrencyHateosHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -108,7 +108,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
                                                           final Optional<CurrencyHateosResourceSet> resource,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                                           final UrlPath path,
-                                                          final CurrencyHateosResourceHandlerContext context) {
+                                                          final CurrencyHateosHandlerContext context) {
         HateosResourceHandler.checkManyIds(ids);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);

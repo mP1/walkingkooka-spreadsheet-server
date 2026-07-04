@@ -25,7 +25,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
@@ -50,7 +50,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         return this.findLabelsWithReference(
             SpreadsheetSelection.ALL_CELLS,
             resource,
@@ -65,7 +65,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosHandlerContext context) {
         return this.findLabelsWithReference(
             Objects.requireNonNull(cell, "cell"),
             resource,
@@ -80,7 +80,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final UrlPath path,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
         return this.findLabelsWithReference(
@@ -96,7 +96,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
                                                                final Optional<SpreadsheetDelta> resource,
                                                                final Map<HttpRequestAttribute<?>, Object> parameters,
                                                                final UrlPath path,
-                                                               final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                               final SpreadsheetEngineHateosHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);

@@ -29,8 +29,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetCellQueryRequest;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.validation.form.FormName;
 
@@ -129,8 +129,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindFormsByNameTest exte
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetEngineHateosHandlerContext context() {
+        return SpreadsheetEngineHateosHandlerContexts.fake();
     }
 
     // ClassTesting.....................................................................................................

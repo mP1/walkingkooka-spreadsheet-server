@@ -23,7 +23,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
@@ -40,8 +40,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
@@ -55,7 +55,7 @@ import walkingkooka.validation.form.FormName;
 public final class SpreadsheetIdRouter implements PublicStaticHelper {
 
     public static Router<HttpRequestAttribute<?>, HttpHandler<?>> create(final SpreadsheetEngineContext spreadsheetEngineContext,
-                                                                         final HateosResourceHandlerContext hateosResourceHandlerContext) {
+                                                                         final HateosHandlerContext hateosHandlerContext) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
             UrlPathName.with(
                 spreadsheetEngineContext.spreadsheetIdOrFail()
@@ -73,34 +73,34 @@ public final class SpreadsheetIdRouter implements PublicStaticHelper {
             )
         );
 
-        final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
+        final SpreadsheetEngineHateosHandlerContext handlerContext = SpreadsheetEngineHateosHandlerContexts.basic(
             engine,
-            hateosResourceHandlerContext,
+            hateosHandlerContext,
             spreadsheetEngineContext
         ).setPreProcessor(
-            SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+            SpreadsheetMetadataHateosHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
                 spreadsheetEngineContext.storeRepository()
                     .labels()
             )
         );
 
-        final HateosResourceMappings<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell();
+        final HateosResourceMappings<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell();
 
-        final HateosResourceMappings<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column();
+        final HateosResourceMappings<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosHandlerContext> column = SpreadsheetDeltaHttpMappings.column();
 
-        final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetValidationReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form();
+        final HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetValidationReference>, SpreadsheetEngineHateosHandlerContext> form = SpreadsheetDeltaHttpMappings.form();
 
-        final HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetDeltaHttpMappings.label();
+        final HateosResourceMappings<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosHandlerContext> label = SpreadsheetDeltaHttpMappings.label();
 
         final HateosResourceMappings<SpreadsheetMetadataPropertyName<?>,
             SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetMetadataPropertyNameHateosResource,
             SpreadsheetMetadataPropertyNameHateosResource,
-            SpreadsheetEngineHateosResourceHandlerContext> metadata = SpreadsheetMetadataPropertyNameHateosResourceMappings.spreadsheetEngineHateosResourceHandlerContext();
+            SpreadsheetEngineHateosHandlerContext> metadata = SpreadsheetMetadataPropertyNameHateosResourceMappings.spreadsheetEngineHateosHandlerContext();
 
-        final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.engine();
+        final HateosResourceMappings<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosHandlerContext> parser = SpreadsheetParserHateosResourceMappings.engine();
 
-        final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosResourceHandlerContext> row = SpreadsheetDeltaHttpMappings.row();
+        final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosHandlerContext> row = SpreadsheetDeltaHttpMappings.row();
 
         return Cast.to(
             HateosResourceMappings.router(

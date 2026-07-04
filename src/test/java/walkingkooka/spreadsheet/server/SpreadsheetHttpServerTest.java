@@ -56,7 +56,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.ProviderContext;
@@ -13107,7 +13107,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         ),
                         metadataStore
                     ),
-                    HateosResourceHandlerContexts.basic(
+                    HateosHandlerContexts.basic(
                         INDENTATION,
                         LINE_ENDING,
                         JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT

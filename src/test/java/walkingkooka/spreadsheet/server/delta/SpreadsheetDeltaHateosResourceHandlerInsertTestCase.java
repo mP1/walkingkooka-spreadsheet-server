@@ -23,7 +23,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
@@ -62,7 +62,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H exte
     }
 
     @Override
-    public final SpreadsheetEngineHateosResourceHandlerContext context() {
+    public final SpreadsheetEngineHateosHandlerContext context() {
         return CONTEXT;
     }
 }

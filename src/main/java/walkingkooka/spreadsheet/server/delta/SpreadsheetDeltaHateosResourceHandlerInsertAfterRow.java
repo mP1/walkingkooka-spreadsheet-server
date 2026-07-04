@@ -21,7 +21,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 import java.util.Objects;
 
@@ -46,7 +46,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
     @Override
     SpreadsheetDelta insert(final SpreadsheetRowReference row,
                             final int count,
-                            final SpreadsheetEngineHateosResourceHandlerContext context) {
+                            final SpreadsheetEngineHateosHandlerContext context) {
         return this.insertAfter(
             row.addSaturated(1),
             count,
@@ -57,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetRowReference> row,
                             final int count,
-                            final SpreadsheetEngineHateosResourceHandlerContext context) {
+                            final SpreadsheetEngineHateosHandlerContext context) {
         return this.insertAfter(
             row.upperBound()
                 .value()
@@ -70,7 +70,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
 
     private SpreadsheetDelta insertAfter(final SpreadsheetRowReference row,
                                          final int count,
-                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                         final SpreadsheetEngineHateosHandlerContext context) {
         return context.spreadsheetEngine()
             .insertRows(
                 row,

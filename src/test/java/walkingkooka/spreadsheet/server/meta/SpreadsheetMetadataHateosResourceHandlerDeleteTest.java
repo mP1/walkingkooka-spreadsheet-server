@@ -71,7 +71,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public void deleteMetadata(final SpreadsheetId id) {
@@ -95,7 +95,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public void deleteMetadata(final SpreadsheetId id) {
@@ -131,8 +131,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     }
 
     @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext context() {
-        return SpreadsheetMetadataHateosResourceHandlerContexts.fake();
+    public SpreadsheetMetadataHateosHandlerContext context() {
+        return SpreadsheetMetadataHateosHandlerContexts.fake();
     }
 
     private SpreadsheetMetadata metadataWithDefaults() {

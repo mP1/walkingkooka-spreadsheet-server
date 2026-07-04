@@ -25,7 +25,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 import walkingkooka.text.CharSequences;
 
 public final class SpreadsheetComparatorHateosResourceMappings implements PublicStaticHelper {
@@ -36,7 +36,7 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
         SpreadsheetComparatorInfo,
         SpreadsheetComparatorInfoSet,
         SpreadsheetComparatorInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
+        SpreadsheetProviderHateosHandlerContext> spreadsheetProviderHateosHandlerContext() {
 
         // comparator GET...............................................................................................
 
@@ -44,13 +44,13 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
             SpreadsheetComparatorInfo,
             SpreadsheetComparatorInfoSet,
             SpreadsheetComparatorInfo,
-            SpreadsheetProviderHateosResourceHandlerContext> comparator = HateosResourceMappings.with(
+            SpreadsheetProviderHateosHandlerContext> comparator = HateosResourceMappings.with(
             SpreadsheetComparatorName.HATEOS_RESOURCE_NAME,
             SpreadsheetComparatorHateosResourceMappings::parseComparatorSelection,
             SpreadsheetComparatorInfo.class, // valueType
             SpreadsheetComparatorInfoSet.class, // collectionType
             SpreadsheetComparatorInfo.class,// resourceType
-            SpreadsheetProviderHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -61,7 +61,7 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
     }
 
     private static HateosResourceSelection<SpreadsheetComparatorName> parseComparatorSelection(final String text,
-                                                                                               final SpreadsheetProviderHateosResourceHandlerContext context) {
+                                                                                               final SpreadsheetProviderHateosHandlerContext context) {
         final HateosResourceSelection<SpreadsheetComparatorName> selection;
 
         switch (text) {

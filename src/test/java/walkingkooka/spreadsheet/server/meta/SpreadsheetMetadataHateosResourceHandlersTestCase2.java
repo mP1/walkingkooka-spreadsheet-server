@@ -37,7 +37,7 @@ import java.util.Set;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H extends SpreadsheetMetadataHateosResourceHandler>
     extends SpreadsheetMetadataHateosResourceHandlerTestCase<H>
-    implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x1234);
 

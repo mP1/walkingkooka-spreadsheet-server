@@ -49,8 +49,8 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.StoragePath;
@@ -68,7 +68,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
 
@@ -151,7 +151,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
             UrlPath.parse(
                 "/" + SpreadsheetParserName.DATE + " dd/mm/yyyy"
             ),
-            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+            new FakeSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public Charset charset() {
@@ -493,8 +493,8 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    public SpreadsheetEngineHateosHandlerContext context() {
+        return new FakeSpreadsheetEngineHateosHandlerContext() {
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;

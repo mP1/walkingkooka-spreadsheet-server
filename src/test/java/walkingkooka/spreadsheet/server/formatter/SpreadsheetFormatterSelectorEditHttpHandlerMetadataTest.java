@@ -44,8 +44,8 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
@@ -61,7 +61,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata> {
 
@@ -78,7 +78,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
                         HttpEntity.EMPTY
                     ),
                     HttpResponses.recording(),
-                    new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                    new FakeSpreadsheetEngineHateosHandlerContext() {
                         @Override
                         public MediaType contentType() {
                             return MediaType.APPLICATION_JSON;
@@ -316,8 +316,8 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext createContext() {
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    public SpreadsheetEngineHateosHandlerContext createContext() {
+        return new FakeSpreadsheetEngineHateosHandlerContext() {
 
             @Override
             public Charset charset() {

@@ -29,8 +29,8 @@ import walkingkooka.currency.FakeCurrencyExchangeRater;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
@@ -42,7 +42,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class CurrencyHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<CurrencyHateosResourceHandlerLoad, CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosResourceHandlerContext> {
+public final class CurrencyHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<CurrencyHateosResourceHandlerLoad, CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosHandlerContext> {
 
     private final static CurrencyCode AUD = CurrencyCode.parse("AUD");
 
@@ -198,16 +198,16 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
     }
 
     @Override
-    public CurrencyHateosResourceHandlerContext context() {
+    public CurrencyHateosHandlerContext context() {
         final Locale locale = Locale.forLanguageTag("en-AU");
 
-        return CurrencyHateosResourceHandlerContexts.basic(
+        return CurrencyHateosHandlerContexts.basic(
             CurrencyContexts.jre(
                 Currency.getInstance(locale),
                 new FakeCurrencyExchangeRater(),
                 LocaleContexts.jre(locale)
             ),
-            HateosResourceHandlerContexts.fake()
+            HateosHandlerContexts.fake()
         );
     }
 

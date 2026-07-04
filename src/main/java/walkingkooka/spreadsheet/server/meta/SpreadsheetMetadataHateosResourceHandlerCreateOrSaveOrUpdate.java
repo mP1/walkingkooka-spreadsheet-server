@@ -39,9 +39,9 @@ import java.util.Optional;
  * methods to create, or save/update.
  */
 final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
-    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate INSTANCE = new SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate();
 
@@ -53,7 +53,7 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
                                                    final Optional<SpreadsheetMetadata> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
                                                    final UrlPath path,
-                                                   final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                   final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkId(id);
         final SpreadsheetMetadata metadata = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -76,7 +76,7 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
     public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final UrlPath path,
-                                                    final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                    final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);

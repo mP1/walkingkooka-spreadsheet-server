@@ -26,19 +26,19 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContexts;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DateTimeSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosResourceHandlerContext> {
+public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DateTimeSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosHandlerContext> {
 
     private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
 
@@ -111,14 +111,14 @@ public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements Hateo
     }
 
     @Override
-    public LocaleHateosResourceHandlerContext context() {
-        return LocaleHateosResourceHandlerContexts.basic(
+    public LocaleHateosHandlerContext context() {
+        return LocaleHateosHandlerContexts.basic(
             LocaleContexts.jre(
                 Locale.forLanguageTag(
                     EN_AU.value()
                 )
             ),
-            HateosResourceHandlerContexts.fake()
+            HateosHandlerContexts.fake()
         );
     }
 

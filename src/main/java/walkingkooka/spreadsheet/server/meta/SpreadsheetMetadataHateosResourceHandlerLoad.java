@@ -36,8 +36,8 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.server.SpreadsheetServerContext}.
  */
 final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMetadataHateosResourceHandler
-    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerLoad INSTANCE = new SpreadsheetMetadataHateosResourceHandlerLoad();
 
@@ -49,7 +49,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
                                                    final Optional<SpreadsheetMetadata> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
                                                    final UrlPath path,
-                                                   final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                   final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -65,7 +65,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     public Optional<SpreadsheetMetadataSet> handleAll(final Optional<SpreadsheetMetadataSet> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                                       final UrlPath path,
-                                                      final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                      final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -104,7 +104,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
                                                        final Optional<SpreadsheetMetadataSet> resource,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
                                                        final UrlPath path,
-                                                       final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                       final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkManyIds(ids);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);

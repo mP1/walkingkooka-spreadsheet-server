@@ -32,7 +32,7 @@ import java.util.function.UnaryOperator;
 final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> {
 
     static SpreadsheetMetadataPatchFunction with(final SpreadsheetId id,
-                                                 final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                                 final SpreadsheetMetadataHateosHandlerContext context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(context, "context");
 
@@ -40,7 +40,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
     }
 
     private SpreadsheetMetadataPatchFunction(final SpreadsheetId id,
-                                             final SpreadsheetMetadataHateosResourceHandlerContext context) {
+                                             final SpreadsheetMetadataHateosHandlerContext context) {
         super();
         this.id = id;
         this.context = context;
@@ -51,7 +51,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
         final SpreadsheetId id = this.id;
 
         try {
-            final SpreadsheetMetadataHateosResourceHandlerContext context = this.context;
+            final SpreadsheetMetadataHateosHandlerContext context = this.context;
             final SpreadsheetEngineContext engineContext = context.spreadsheetContextOrFail(id)
                 .spreadsheetEngineContext();
             final SpreadsheetMetadata loadAndPatched = engineContext.loadMetadataOrFail(id);
@@ -71,7 +71,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
 
     private final SpreadsheetId id;
 
-    private final SpreadsheetMetadataHateosResourceHandlerContext context;
+    private final SpreadsheetMetadataHateosHandlerContext context;
 
     @Override
     public String toString() {

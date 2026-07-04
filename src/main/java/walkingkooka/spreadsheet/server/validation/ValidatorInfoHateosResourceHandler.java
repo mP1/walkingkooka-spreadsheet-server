@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
@@ -35,10 +35,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link ValidatorInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class ValidatorInfoHateosResourceHandler implements HateosResourceHandler<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosResourceHandlerContext> {
+final class ValidatorInfoHateosResourceHandler implements HateosResourceHandler<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<ValidatorName, ValidatorInfo, ValidatorInfoSet, SpreadsheetProviderHateosHandlerContext> {
 
     /**
      * Singleton
@@ -53,7 +53,7 @@ final class ValidatorInfoHateosResourceHandler implements HateosResourceHandler<
     public Optional<ValidatorInfoSet> handleAll(final Optional<ValidatorInfoSet> infos,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final UrlPath path,
-                                                final SpreadsheetProviderHateosResourceHandlerContext context) {
+                                                final SpreadsheetProviderHateosHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -70,7 +70,7 @@ final class ValidatorInfoHateosResourceHandler implements HateosResourceHandler<
                                              final Optional<ValidatorInfo> info,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final UrlPath path,
-                                             final SpreadsheetProviderHateosResourceHandlerContext context) {
+                                             final SpreadsheetProviderHateosHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);

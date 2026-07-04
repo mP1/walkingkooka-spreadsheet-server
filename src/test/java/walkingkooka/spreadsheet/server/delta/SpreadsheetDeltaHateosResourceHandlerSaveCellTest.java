@@ -37,7 +37,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.spreadsheet.value.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
@@ -146,7 +146,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                 Lists.of(query)
             ),
             this.path(),
-            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+            new TestSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -415,7 +415,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosHandlerContext context() {
         return CONTEXT;
     }
 

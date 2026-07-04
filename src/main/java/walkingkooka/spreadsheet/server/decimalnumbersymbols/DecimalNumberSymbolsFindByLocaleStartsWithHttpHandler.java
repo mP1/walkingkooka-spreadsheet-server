@@ -30,7 +30,7 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.List;
@@ -40,7 +40,7 @@ import java.util.SortedSet;
 /**
  * A {@link HttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DecimalNumberSymbols} for each.
  */
-final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosResourceHandlerContext> {
+final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosHandlerContext> {
 
     final static DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler INSTANCE =  new DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler();
 
@@ -51,7 +51,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
     @Override
     public void handleGetOrHead(final HttpRequest request,
                                 final HttpResponse response,
-                                final LocaleHateosResourceHandlerContext context) {
+                                final LocaleHateosHandlerContext context) {
         final MediaType requiredContentType = context.contentType();
 
         HttpHeaderName.ACCEPT.headerOrFail(request)

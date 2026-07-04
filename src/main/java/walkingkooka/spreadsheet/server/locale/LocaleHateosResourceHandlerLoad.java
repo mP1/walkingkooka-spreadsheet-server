@@ -38,9 +38,9 @@ import java.util.stream.Stream;
 /**
  * A {@link HateosResourceHandler} that invokes {@link LocaleContext#availableLocales()} to supply the requested {@link LocaleHateosResource}.
  */
-final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
+final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext> {
 
     private final static int DEFAULT_COUNT = 20;
 
@@ -59,7 +59,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
                                                     final Optional<LocaleHateosResource> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final UrlPath path,
-                                                    final LocaleHateosResourceHandlerContext context) {
+                                                    final LocaleHateosHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -80,7 +80,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
     public Optional<LocaleHateosResourceSet> handleAll(final Optional<LocaleHateosResourceSet> resource,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
                                                        final UrlPath path,
-                                                       final LocaleHateosResourceHandlerContext context) {
+                                                       final LocaleHateosHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -109,7 +109,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
                                                         final Optional<LocaleHateosResourceSet> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                                         final UrlPath path,
-                                                        final LocaleHateosResourceHandlerContext context) {
+                                                        final LocaleHateosHandlerContext context) {
         HateosResourceHandler.checkManyIds(ids);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);

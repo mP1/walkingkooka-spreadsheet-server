@@ -41,8 +41,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -94,7 +94,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerQueryCellsTest extends S
                 SpreadsheetCellQueryRequest.QUERY, Lists.of(String.valueOf(expression))
             ), // parameters
             UrlPath.EMPTY,
-            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+            new TestSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -189,7 +189,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerQueryCellsTest extends S
                 SpreadsheetCellQueryRequest.QUERY, Lists.of("" + expression)
             ), // parameters
             UrlPath.EMPTY,
-            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+            new TestSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -284,7 +284,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerQueryCellsTest extends S
                 SpreadsheetCellQueryRequest.QUERY, Lists.of("" + expression)
             ), // parameters
             UrlPath.EMPTY,
-            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+            new TestSpreadsheetEngineHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetEngine spreadsheetEngine() {
@@ -470,8 +470,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerQueryCellsTest extends S
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetEngineHateosHandlerContext context() {
+        return SpreadsheetEngineHateosHandlerContexts.fake();
     }
 
     // ClassTesting.....................................................................................................

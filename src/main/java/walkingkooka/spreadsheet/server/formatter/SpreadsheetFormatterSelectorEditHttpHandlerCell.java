@@ -22,7 +22,7 @@ import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContex
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlPathTemplate;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
@@ -46,7 +46,7 @@ final class SpreadsheetFormatterSelectorEditHttpHandlerCell extends SpreadsheetF
 
     @Override
     SpreadsheetFormatterSelectorEdit extractSelectorAndProduceEdit(final UrlPath path,
-                                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                   final SpreadsheetEngineHateosHandlerContext context) {
         final Map<TemplateValueName, Object> values = TEMPLATE.extract(path);
         final SpreadsheetExpressionReference cellOrLabel = (SpreadsheetExpressionReference) values.get(SpreadsheetUrlPathTemplate.SPREADSHEET_EXPRESSION_REFERENCE);
         final String spreadsheetFormatterSelector = (String) values.get(STRING);

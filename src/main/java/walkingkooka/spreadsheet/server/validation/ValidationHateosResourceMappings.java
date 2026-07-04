@@ -22,7 +22,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
@@ -36,7 +36,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
         ValidatorInfo,
         ValidatorInfoSet,
         ValidatorInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
+        SpreadsheetProviderHateosHandlerContext> spreadsheetProviderHateosHandlerContext() {
 
         // validator GET...............................................................................................
 
@@ -46,7 +46,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
             ValidatorInfo.class, // valueType
             ValidatorInfoSet.class, // collectionType
             ValidatorInfo.class,// resourceType
-            SpreadsheetProviderHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -55,7 +55,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
     }
 
     private static HateosResourceSelection<ValidatorName> parseSelection(final String text,
-                                                                         final SpreadsheetProviderHateosResourceHandlerContext context) {
+                                                                         final SpreadsheetProviderHateosHandlerContext context) {
         final HateosResourceSelection<ValidatorName> selection;
 
         switch (text) {

@@ -23,8 +23,8 @@ import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -46,7 +46,7 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     CurrencyLocaleContextDelegator,
     SpreadsheetEnvironmentContextDelegator,
     SpreadsheetMetadataContextDelegator,
-    HateosResourceHandlerContextDelegator {
+    HateosHandlerContextDelegator {
 
     @Override
     default Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
@@ -130,10 +130,10 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
             .providerContext();
     }
 
-    // HateosResourceHandlerContextDelegator............................................................................
+    // HateosHandlerContextDelegator............................................................................
 
     @Override
-    default HateosResourceHandlerContext hateosResourceHandlerContext() {
+    default HateosHandlerContext hateosHandlerContext() {
         return this.spreadsheetServerContext();
     }
 

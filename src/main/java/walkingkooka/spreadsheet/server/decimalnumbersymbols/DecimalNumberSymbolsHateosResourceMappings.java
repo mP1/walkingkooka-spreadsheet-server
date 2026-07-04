@@ -23,7 +23,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
 public final class DecimalNumberSymbolsHateosResourceMappings implements PublicStaticHelper {
@@ -32,7 +32,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
         DecimalNumberSymbolsHateosResource,
         DecimalNumberSymbolsHateosResourceSet,
         DecimalNumberSymbolsHateosResource,
-        LocaleHateosResourceHandlerContext> localeHateosResourceHandlerContext() {
+        LocaleHateosHandlerContext> localeHateosHandlerContext() {
 
         return HateosResourceMappings.with(
             DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME,
@@ -40,7 +40,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
             DecimalNumberSymbolsHateosResource.class, // valueType
             DecimalNumberSymbolsHateosResourceSet.class, // collectionType
             DecimalNumberSymbolsHateosResource.class,// resourceType
-            LocaleHateosResourceHandlerContext.class // context
+            LocaleHateosHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -53,7 +53,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
     }
 
     private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
-                                                                             final LocaleHateosResourceHandlerContext context) {
+                                                                             final LocaleHateosHandlerContext context) {
         final HateosResourceSelection<LocaleLanguageTag> selection;
 
         switch (text) {

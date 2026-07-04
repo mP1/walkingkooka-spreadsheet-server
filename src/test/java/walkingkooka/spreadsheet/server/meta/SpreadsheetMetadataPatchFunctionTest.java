@@ -54,7 +54,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     private final static SpreadsheetId ID = SpreadsheetId.with(123);
 
-    private final static SpreadsheetMetadataHateosResourceHandlerContext CONTEXT = SpreadsheetMetadataHateosResourceHandlerContexts.fake();
+    private final static SpreadsheetMetadataHateosHandlerContext CONTEXT = SpreadsheetMetadataHateosHandlerContexts.fake();
 
     @Test
     public void testWithNullIdFails() {
@@ -70,7 +70,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
     public void testApplyLoadFails() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
 
-        final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+        final SpreadsheetMetadataHateosHandlerContext context = new FakeSpreadsheetMetadataHateosHandlerContext() {
 
             @Override
             public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
@@ -139,7 +139,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                 )
         );
 
-        final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+        final SpreadsheetMetadataHateosHandlerContext context = new FakeSpreadsheetMetadataHateosHandlerContext() {
 
             @Override
             public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {

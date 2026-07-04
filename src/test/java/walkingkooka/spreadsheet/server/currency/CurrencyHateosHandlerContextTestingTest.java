@@ -1,0 +1,145 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.spreadsheet.server.currency;
+
+import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
+import walkingkooka.currency.CurrencyContext;
+import walkingkooka.currency.CurrencyContextDelegator;
+import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.header.MediaType;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContextTestingTest.TestCurrencyHateosHandlerContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
+
+import java.math.MathContext;
+import java.util.Currency;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+
+public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHateosHandlerContextTesting<TestCurrencyHateosHandlerContext>,
+    SpreadsheetMetadataTesting {
+
+    @Override
+    public void testSetObjectPostProcessorSame() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetPreProcessorSame() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TestCurrencyHateosHandlerContext createContext() {
+        return new TestCurrencyHateosHandlerContext();
+    }
+
+    @Override
+    public Class<TestCurrencyHateosHandlerContext> type() {
+        return TestCurrencyHateosHandlerContext.class;
+    }
+
+    final static class TestCurrencyHateosHandlerContext implements CurrencyHateosHandlerContext, CurrencyContextDelegator,
+        JsonNodeMarshallUnmarshallContextDelegator {
+
+        @Override
+        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
+            return CurrencyContextDelegator.super.currencyForCurrencyCode(currencyCode);
+        }
+
+        @Override
+        public CurrencyContext currencyContext() {
+            return CURRENCY_CONTEXT;
+        }
+
+        @Override
+        public MediaType contentType() {
+            return MediaType.TEXT_PLAIN;
+        }
+
+        @Override
+        public Indentation indentation() {
+            return INDENTATION;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return EOL;
+        }
+
+        @Override
+        public CurrencyHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+            Objects.requireNonNull(processor, "processor");
+
+            return new TestCurrencyHateosHandlerContext();
+        }
+
+        @Override
+        public CurrencyHateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            Objects.requireNonNull(processor, "processor");
+
+            return new TestCurrencyHateosHandlerContext();
+        }
+
+        @Override
+        public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
+            return JsonNodeMarshallUnmarshallContexts.basic(
+                JsonNodeMarshallContexts.basic(),
+                JsonNodeUnmarshallContexts.basic(
+                    ExpressionNumberKind.BIG_DECIMAL,
+                    new CurrencyCodeLanguageTagContext() {
+                        @Override
+                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
+                            return Optional.ofNullable(
+                                Currency.getInstance(
+                                    currencyCode.value()
+                                )
+                            );
+                        }
+
+                        @Override
+                        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
+                            return Optional.of(
+                                Locale.forLanguageTag(
+                                    languageTag.value()
+                                )
+                            );
+                        }
+                    },
+                    MathContext.UNLIMITED
+                )
+            );
+        }
+
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+    }
+}

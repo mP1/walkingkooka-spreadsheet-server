@@ -20,8 +20,8 @@ package walkingkooka.spreadsheet.server.currency;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -29,24 +29,24 @@ import java.util.Currency;
 import java.util.Objects;
 import java.util.Optional;
 
-final class BasicCurrencyHateosResourceHandlerContext implements CurrencyHateosResourceHandlerContext,
+final class BasicCurrencyHateosHandlerContext implements CurrencyHateosHandlerContext,
     CurrencyContextDelegator,
-    HateosResourceHandlerContextDelegator {
+    HateosHandlerContextDelegator {
 
-    static BasicCurrencyHateosResourceHandlerContext with(final CurrencyContext currencyContext,
-                                                          final HateosResourceHandlerContext hateosResourceHandlerContext) {
-        return new BasicCurrencyHateosResourceHandlerContext(
+    static BasicCurrencyHateosHandlerContext with(final CurrencyContext currencyContext,
+                                                          final HateosHandlerContext hateosHandlerContext) {
+        return new BasicCurrencyHateosHandlerContext(
             Objects.requireNonNull(currencyContext, "currencyContext"),
-            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext")
+            Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext")
         );
     }
 
-    private BasicCurrencyHateosResourceHandlerContext(final CurrencyContext currencyContext,
-                                                      final HateosResourceHandlerContext hateosResourceHandlerContext) {
+    private BasicCurrencyHateosHandlerContext(final CurrencyContext currencyContext,
+                                                      final HateosHandlerContext hateosHandlerContext) {
         super();
 
         this.currencyContext = currencyContext;
-        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
+        this.hateosHandlerContext = hateosHandlerContext;
     }
 
     // CurrencyContextDelegator.........................................................................................
@@ -63,31 +63,31 @@ final class BasicCurrencyHateosResourceHandlerContext implements CurrencyHateosR
 
     private final CurrencyContext currencyContext;
 
-    // HateosResourceHandlerContext.....................................................................................
+    // HateosHandlerContext.....................................................................................
 
     @Override
-    public HateosResourceHandlerContext hateosResourceHandlerContext() {
-        return this.hateosResourceHandlerContext;
+    public HateosHandlerContext hateosHandlerContext() {
+        return this.hateosHandlerContext;
     }
 
-    private final HateosResourceHandlerContext hateosResourceHandlerContext;
+    private final HateosHandlerContext hateosHandlerContext;
 
     @Override
-    public CurrencyHateosResourceHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-        return this.setHateosResourceHandlerContext(
-            this.hateosResourceHandlerContext.setObjectPostProcessor(processor)
+    public CurrencyHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        return this.setHateosHandlerContext(
+            this.hateosHandlerContext.setObjectPostProcessor(processor)
         );
     }
 
     @Override
-    public CurrencyHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        return this.setHateosResourceHandlerContext(
-            this.hateosResourceHandlerContext.setPreProcessor(processor)
+    public CurrencyHateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        return this.setHateosHandlerContext(
+            this.hateosHandlerContext.setPreProcessor(processor)
         );
     }
 
-    private CurrencyHateosResourceHandlerContext setHateosResourceHandlerContext(final HateosResourceHandlerContext context) {
-        return this.hateosResourceHandlerContext.equals(context) ?
+    private CurrencyHateosHandlerContext setHateosHandlerContext(final HateosHandlerContext context) {
+        return this.hateosHandlerContext.equals(context) ?
             this :
             with(
                 this.currencyContext,
@@ -101,6 +101,6 @@ final class BasicCurrencyHateosResourceHandlerContext implements CurrencyHateosR
     public String toString() {
         return this.currencyContext +
             " " +
-            this.hateosResourceHandlerContext;
+            this.hateosHandlerContext;
     }
 }

@@ -357,7 +357,7 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
         throw new UnsupportedOperationException();
     }
 
-    // HateosResourceHandlerContext.....................................................................................
+    // HateosHandlerContext.....................................................................................
 
     @Override
     public MediaType contentType() {

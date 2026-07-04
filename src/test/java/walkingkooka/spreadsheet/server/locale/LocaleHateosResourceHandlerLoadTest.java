@@ -27,8 +27,8 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
@@ -40,7 +40,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosResourceHandlerContext> {
+public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext> {
 
     private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
 
@@ -188,12 +188,12 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
     }
 
     @Override
-    public LocaleHateosResourceHandlerContext context() {
-        return LocaleHateosResourceHandlerContexts.basic(
+    public LocaleHateosHandlerContext context() {
+        return LocaleHateosHandlerContexts.basic(
             LocaleContexts.jre(
                 Locale.forLanguageTag("EN-AU")
             ),
-            HateosResourceHandlerContexts.fake()
+            HateosHandlerContexts.fake()
         );
     }
 

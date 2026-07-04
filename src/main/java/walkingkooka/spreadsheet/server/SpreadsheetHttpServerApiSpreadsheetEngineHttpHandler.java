@@ -24,7 +24,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosHandlerContexts;
 
 import java.util.Objects;
 
@@ -77,7 +77,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
     Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router(final SpreadsheetId id) {
-        return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
+        return SpreadsheetMetadataHateosHandlerContexts.basic(
             this.context
         ).httpRouter(id);
     }

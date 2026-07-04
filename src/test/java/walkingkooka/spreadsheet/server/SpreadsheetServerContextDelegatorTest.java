@@ -302,7 +302,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
             return SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
         }
 
-        // HateosResourceHandlerContext.................................................................................
+        // HateosHandlerContext.................................................................................
 
         @Override
         public MediaType contentType() {

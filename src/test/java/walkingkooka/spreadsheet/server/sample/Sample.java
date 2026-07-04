@@ -48,8 +48,8 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
-import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
@@ -140,7 +140,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 )
             ),
             response,
-            new FakeHateosResourceHandlerContext()
+            new FakeHateosHandlerContext()
         );
 
         checkEquals(
@@ -379,7 +379,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         ),
                         metadataStore
                     ),
-                    HateosResourceHandlerContexts.basic(
+                    HateosHandlerContexts.basic(
                         Indentation.SPACES2,
                         lineEnding,
                         JsonNodeMarshallUnmarshallContexts.basic(

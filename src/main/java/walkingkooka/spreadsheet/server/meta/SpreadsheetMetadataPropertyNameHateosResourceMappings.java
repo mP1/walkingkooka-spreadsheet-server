@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 
@@ -35,7 +35,7 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
         SpreadsheetMetadataPropertyNameHateosResource,
         SpreadsheetMetadataPropertyNameHateosResource,
         SpreadsheetMetadataPropertyNameHateosResource,
-        SpreadsheetEngineHateosResourceHandlerContext> spreadsheetEngineHateosResourceHandlerContext() {
+        SpreadsheetEngineHateosHandlerContext> spreadsheetEngineHateosHandlerContext() {
 
         // /api/spreadsheet/SpreadsheetId/metadata/FormulaConverter/verify
         return HateosResourceMappings.with(
@@ -44,7 +44,7 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
             SpreadsheetMetadataPropertyNameHateosResource.class, // valueType
             SpreadsheetMetadataPropertyNameHateosResource.class, // collectionType
             SpreadsheetMetadataPropertyNameHateosResource.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetEngineHateosHandlerContext.class // context
         ).setHateosHttpEntityHandler(
             SpreadsheetServerLinkRelations.VERIFY,
             HttpMethod.POST,
@@ -57,7 +57,7 @@ public final class SpreadsheetMetadataPropertyNameHateosResourceMappings impleme
     }
 
     private static HateosResourceSelection<SpreadsheetMetadataPropertyName<?>> parseSelection(final String text,
-                                                                                              final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                              final SpreadsheetEngineHateosHandlerContext context) {
         return HateosResourceSelection.one(
             SpreadsheetMetadataPropertyName.with(text)
         );

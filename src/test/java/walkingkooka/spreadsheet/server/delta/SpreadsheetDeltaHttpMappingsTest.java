@@ -71,8 +71,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -469,7 +469,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         };
     }
 
-    private SpreadsheetEngineHateosResourceHandlerContext context() {
+    private SpreadsheetEngineHateosHandlerContext context() {
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetLabelName label123 = SpreadsheetExpressionReference.labelName("Label123");
 
@@ -481,7 +481,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
         metadataStore.save(METADATA_EN_AU);
 
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+        return new FakeSpreadsheetEngineHateosHandlerContext() {
 
             @Override
             public MediaType contentType() {
@@ -858,7 +858,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     // helpers..........................................................................................................
 
-    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosResourceHandlerContext> mapping,
+    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosHandlerContext> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
@@ -874,16 +874,16 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         );
     }
 
-    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosResourceHandlerContext> mapping,
+    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosHandlerContext> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
-                               final SpreadsheetEngineHateosResourceHandlerContext context,
+                               final SpreadsheetEngineHateosHandlerContext context,
                                final HttpStatusCode statusCode,
                                final String message
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<HttpHandler<SpreadsheetEngineHateosResourceHandlerContext>> possible = HateosResourceMappings.router(
+        final Optional<HttpHandler<SpreadsheetEngineHateosHandlerContext>> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             context
@@ -914,13 +914,13 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         }
     }
 
-    private HttpResponse route(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosResourceHandlerContext> mapping,
+    private HttpResponse route(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetEngineHateosHandlerContext> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
-                               final SpreadsheetEngineHateosResourceHandlerContext context) {
+                               final SpreadsheetEngineHateosHandlerContext context) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<HttpHandler<SpreadsheetEngineHateosResourceHandlerContext>> possible = HateosResourceMappings.router(
+        final Optional<HttpHandler<SpreadsheetEngineHateosHandlerContext>> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             context

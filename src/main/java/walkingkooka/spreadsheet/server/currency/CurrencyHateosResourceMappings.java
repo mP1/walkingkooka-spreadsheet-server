@@ -30,7 +30,7 @@ public final class CurrencyHateosResourceMappings implements PublicStaticHelper 
         CurrencyHateosResource,
         CurrencyHateosResourceSet,
         CurrencyHateosResource,
-        CurrencyHateosResourceHandlerContext> currencyHateosResourceHandlerContext() {
+        CurrencyHateosHandlerContext> currencyHateosHandlerContext() {
 
         return HateosResourceMappings.with(
             CurrencyHateosResource.HATEOS_RESOURCE_NAME,
@@ -38,7 +38,7 @@ public final class CurrencyHateosResourceMappings implements PublicStaticHelper 
             CurrencyHateosResource.class, // valueType
             CurrencyHateosResourceSet.class, // collectionType
             CurrencyHateosResource.class,// resourceType
-            CurrencyHateosResourceHandlerContext.class // context
+            CurrencyHateosHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -47,7 +47,7 @@ public final class CurrencyHateosResourceMappings implements PublicStaticHelper 
     }
 
     private static HateosResourceSelection<CurrencyCode> parseSelection(final String text,
-                                                                        final CurrencyHateosResourceHandlerContext context) {
+                                                                        final CurrencyHateosHandlerContext context) {
         final HateosResourceSelection<CurrencyCode> selection;
 
         switch (text) {

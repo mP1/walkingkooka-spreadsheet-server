@@ -26,7 +26,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 
 public final class ConverterHateosResourceMappings implements PublicStaticHelper {
 
@@ -36,7 +36,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
         ConverterInfo,
         ConverterInfoSet,
         ConverterInfo,
-        SpreadsheetProviderHateosResourceHandlerContext> spreadsheetProviderHateosResourceHandlerContext() {
+        SpreadsheetProviderHateosHandlerContext> spreadsheetProviderHateosHandlerContext() {
 
         // converter GET...............................................................................................
 
@@ -46,7 +46,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
             ConverterInfo.class, // valueType
             ConverterInfoSet.class, // collectionType
             ConverterInfo.class,// resourceType
-            SpreadsheetProviderHateosResourceHandlerContext.class // context
+            SpreadsheetProviderHateosHandlerContext.class // context
         ).setHateosResourceHandler(
             LinkRelation.SELF,
             HttpMethod.GET,
@@ -55,7 +55,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
     }
 
     private static HateosResourceSelection<ConverterName> parseConverterSelection(final String text,
-                                                                                  final SpreadsheetProviderHateosResourceHandlerContext context) {
+                                                                                  final SpreadsheetProviderHateosHandlerContext context) {
         final HateosResourceSelection<ConverterName> selection;
 
         switch (text) {

@@ -120,7 +120,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                 AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
             ),
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
@@ -168,7 +168,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
@@ -223,7 +223,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
             Optional.of(metadata),
             this.parameters(),
             this.path(),
-            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            new FakeSpreadsheetMetadataHateosHandlerContext() {
 
                 @Override
                 public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId i) {
@@ -254,8 +254,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
     }
 
     @Override
-    public SpreadsheetMetadataHateosResourceHandlerContext context() {
-        return new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+    public SpreadsheetMetadataHateosHandlerContext context() {
+        return new FakeSpreadsheetMetadataHateosHandlerContext() {
             @Override
             public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
                 return SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.this.metadata()
