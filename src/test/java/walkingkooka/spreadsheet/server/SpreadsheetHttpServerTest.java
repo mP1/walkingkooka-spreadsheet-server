@@ -13233,7 +13233,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.pluginStore = PluginStores.treeMap();
         }
 
-        void setHandler(final HttpHandler handler) {
+        void setHandler(final HttpHandler<HttpHandlerContext> handler) {
             this.handler = handler;
         }
 
