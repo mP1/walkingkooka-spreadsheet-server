@@ -67,9 +67,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler, SpreadsheetServerContext>,
-    ToStringTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
-    TypeNameTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetServerContext>,
+    ToStringTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
+    TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     SpreadsheetMetadataTesting {
 
     private final static String SERVER_URL = "https://example.com";
@@ -81,7 +81,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     public void testWithNullContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(null)
+            () -> SpreadsheetHttpServerSpreadsheetHttpHandler.with(null)
         );
     }
 
@@ -354,7 +354,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     private void handleRequest(final HttpRequest request,
                                final HttpResponse response) {
-        final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler = this.createHttpHandler();
+        final SpreadsheetHttpServerSpreadsheetHttpHandler handler = this.createHttpHandler();
         final SpreadsheetContext spreadsheetContext = handler.context.createEmptySpreadsheet(
             Optional.of(LOCALE)
         );
@@ -377,8 +377,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     }
 
     @Override
-    public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
+    public SpreadsheetHttpServerSpreadsheetHttpHandler createHttpHandler() {
+        return SpreadsheetHttpServerSpreadsheetHttpHandler.with(
             this.createContext()
         );
     }
@@ -391,7 +391,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             SpreadsheetEngines.basic(),
             (id) -> Optional.of(
                 SpreadsheetStoreRepositories.treeMap(
-                    SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest.this.metadataStore
+                    SpreadsheetHttpServerSpreadsheetHttpHandlerTest.this.metadataStore
                 )
             ),
             SpreadsheetProviders.basic(
@@ -459,7 +459,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     @Test
     public void testToString() {
-        final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler = this.createHttpHandler();
+        final SpreadsheetHttpServerSpreadsheetHttpHandler handler = this.createHttpHandler();
 
         this.toStringAndCheck(
             handler,
@@ -470,8 +470,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler> type() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.class;
+    public Class<SpreadsheetHttpServerSpreadsheetHttpHandler> type() {
+        return SpreadsheetHttpServerSpreadsheetHttpHandler.class;
     }
 
     @Override
@@ -481,7 +481,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     @Override
     public String typeNamePrefix() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.class.getSimpleName();
+        return SpreadsheetHttpServerSpreadsheetHttpHandler.class.getSimpleName();
     }
 
     @Override

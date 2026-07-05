@@ -331,7 +331,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
         ).build();
 
     private HttpHandler<SpreadsheetServerContext> spreadsheetEngineHttpHandler() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(this.context);
+        return SpreadsheetHttpServerSpreadsheetHttpHandler.with(this.context);
     }
 
     private final Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>> router;
