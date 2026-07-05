@@ -13046,8 +13046,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private TestHttpServer startServer(final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-
         SpreadsheetHttpServer.with(
             this::fileServer,
             this::server,
@@ -13060,7 +13058,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     MULTIPLIER,
                     SPREADSHEET_ENGINE,
                     (id) -> Optional.of(
-                        SpreadsheetStoreRepositories.treeMap(metadataStore)
+                        SpreadsheetStoreRepositories.treeMap(SpreadsheetHttpServerTest.this.metadataStore)
                     ),
                     SpreadsheetProviders.basic(
                         CONVERTER_PROVIDER,
@@ -13076,7 +13074,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     CURRENCY_LOCALE_CONTEXT,
                     SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
                     SpreadsheetMetadataContexts.basic(
-                        (u, l) -> this.metadataStore.save(
+                        (u, l) -> SpreadsheetHttpServerTest.this.metadataStore.save(
                             this.createMetadata()
                                 .set(
                                     SpreadsheetMetadataPropertyName.AUDIT_INFO,
