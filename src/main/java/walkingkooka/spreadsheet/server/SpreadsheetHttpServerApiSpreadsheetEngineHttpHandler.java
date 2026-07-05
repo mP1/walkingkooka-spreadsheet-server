@@ -66,17 +66,20 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
-        final Optional<UrlPathName> path = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1)
+        final Optional<UrlPathName> spreadsheetPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1)
             .parameterValue(request);
-        if (path.isPresent()) {
-            final Optional<UrlPathName> path1 = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT)
+        if (spreadsheetPath.isPresent()) {
+            final Optional<UrlPathName> spreadsheetIdPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT)
                 .parameterValue(request);
-            if (path1.isPresent()) {
-                SpreadsheetId id;
+            if (spreadsheetIdPath.isPresent()) {
+                SpreadsheetId spreadsheetId;
                 try {
-                    id = SpreadsheetId.parse(path1.get().value());
+                    spreadsheetId = SpreadsheetId.parse(
+                        spreadsheetIdPath.get()
+                            .value()
+                    );
                 } catch (final RuntimeException cause) {
-                    id = null;
+                    spreadsheetId = null;
 
                     response.setVersion(request.protocolVersion());
                     response.setStatus(
@@ -85,8 +88,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                     );
                     response.setEntity(HttpEntity.EMPTY);
                 }
-                if (null != id) {
-                    this.router(id)
+                if (null != spreadsheetId) {
+                    this.router(spreadsheetId)
                         .route(request.routerParameters())
                         .orElse(SpreadsheetHttpServer::notFound)
                         .handle(
