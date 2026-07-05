@@ -18,10 +18,16 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest> {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTest implements ClassTesting2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest>,
+    TypeNameTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest>,
+    ToStringTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest> {
 
     @Test
     public void testToString() {
@@ -41,14 +47,17 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTe
         );
     }
 
-    // ClassTesting.....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest> type() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.class;
     }
 
-    // TypeNameTesting..................................................................................................
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
 
     @Override
     public String typeNamePrefix() {
