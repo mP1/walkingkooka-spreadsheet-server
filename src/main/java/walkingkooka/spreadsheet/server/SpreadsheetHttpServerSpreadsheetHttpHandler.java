@@ -36,13 +36,13 @@ import java.util.Optional;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements HttpHandler<SpreadsheetServerContext> {
+final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
     /**
-     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler} handler.
+     * Creates a new {@link SpreadsheetHttpServerSpreadsheetHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final SpreadsheetServerContext context) {
-        return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
+    static SpreadsheetHttpServerSpreadsheetHttpHandler with(final SpreadsheetServerContext context) {
+        return new SpreadsheetHttpServerSpreadsheetHttpHandler(
             Objects.requireNonNull(context, "context")
         );
     }
@@ -50,7 +50,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final SpreadsheetServerContext context) {
+    private SpreadsheetHttpServerSpreadsheetHttpHandler(final SpreadsheetServerContext context) {
         super();
 
         this.context = context;
@@ -66,10 +66,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
-        final Optional<UrlPathName> spreadsheetPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1)
+        final Optional<UrlPathName> spreadsheetPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerSpreadsheetHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1)
             .parameterValue(request);
         if (spreadsheetPath.isPresent()) {
-            final Optional<UrlPathName> spreadsheetIdPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.SPREADSHEET_ID_PATH_COMPONENT)
+            final Optional<UrlPathName> spreadsheetIdPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerSpreadsheetHttpHandler.SPREADSHEET_ID_PATH_COMPONENT)
                 .parameterValue(request);
             if (spreadsheetIdPath.isPresent()) {
                 SpreadsheetId spreadsheetId;
