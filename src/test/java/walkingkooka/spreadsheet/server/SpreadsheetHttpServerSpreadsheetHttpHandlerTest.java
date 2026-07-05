@@ -73,7 +73,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     SpreadsheetMetadataTesting {
 
     private final static String SERVER_URL = "https://example.com";
-    private final static SpreadsheetId ID = SpreadsheetId.with(1);
+    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
 
     // with.............................................................................................................
 
@@ -425,7 +425,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
                             CURRENCY_CONTEXT.setLocaleContext(
                                 LocaleContexts.jre(locale)
                             )
-                        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
+                        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                         .set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
