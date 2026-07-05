@@ -133,7 +133,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
     public static SpreadsheetHttpServer with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                             final Function<HttpHandler<HttpHandlerContext>, HttpServer> server,
+                                             final Function<HttpHandler<SpreadsheetServerContext>, HttpServer> server,
                                              final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                              final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         return new SpreadsheetHttpServer(
@@ -160,7 +160,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * Private ctor use factory.
      */
     private SpreadsheetHttpServer(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                  final Function<HttpHandler<HttpHandlerContext>, HttpServer> server,
+                                  final Function<HttpHandler<SpreadsheetServerContext>, HttpServer> server,
                                   final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                   final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         super();
@@ -188,8 +188,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private void handle(final HttpRequest request,
                         final HttpResponse response,
-                        final HttpHandlerContext context) {
-        HttpHandler<HttpHandlerContext> httpHandler;
+                        final SpreadsheetServerContext context) {
+        HttpHandler<SpreadsheetServerContext> httpHandler;
 
         final Optional<EmailAddress> userOrAnonymous = this.httpRequestUserExtractor.apply(request);
         final EmailAddress user = userOrAnonymous.orElse(null);
@@ -233,13 +233,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * A {@link HttpHandler} that has a {@link SpreadsheetServerContext} with an anonymous user.
      */
-    private final HttpHandler<HttpHandlerContext> anonymousHttpHandler;
+    private final HttpHandler<SpreadsheetServerContext> anonymousHttpHandler;
 
     /**
      * Maps authenticated users to a {@link HttpHandler} with a {@link SpreadsheetServerContext} with the environment
      * set to the user.
      */
-    private final Map<EmailAddress, HttpHandler<HttpHandlerContext>> userToHttpHandler = Maps.concurrent();
+    private final Map<EmailAddress, HttpHandler<SpreadsheetServerContext>> userToHttpHandler = Maps.concurrent();
 
     // HttpServer.......................................................................................................
 

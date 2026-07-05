@@ -80,6 +80,7 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
@@ -145,7 +146,7 @@ public class TestGwtTest extends GWTTestCase {
                 )
             ),
             response,
-            new FakeHateosHandlerContext()
+            new FakeSpreadsheetServerContext()
         );
 
         checkEquals(

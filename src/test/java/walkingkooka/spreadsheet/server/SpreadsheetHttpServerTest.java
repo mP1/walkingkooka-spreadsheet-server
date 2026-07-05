@@ -49,7 +49,6 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
@@ -260,7 +259,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         throw new UnsupportedOperationException();
     };
 
-    private final static Function<HttpHandler<HttpHandlerContext>, HttpServer> SERVER = (h) -> {
+    private final static Function<HttpHandler<SpreadsheetServerContext>, HttpServer> SERVER = (h) -> {
         throw new UnsupportedOperationException();
     };
 
@@ -13046,74 +13045,80 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private TestHttpServer startServer(final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
+        this.httpServer = new TestHttpServer(
+            this.createSpreadsheetServerContext(SpreadsheetServerContext.ANONYMOUS)
+        );
+
         SpreadsheetHttpServer.with(
             this::fileServer,
             this::server,
-            (user) -> {
-                final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
-                spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
-
-                return SpreadsheetServerContexts.basic(
-                    MEDIA_TYPE_DETECTOR,
-                    MULTIPLIER,
-                    SPREADSHEET_ENGINE,
-                    (id) -> Optional.of(
-                        SpreadsheetStoreRepositories.treeMap(SpreadsheetHttpServerTest.this.metadataStore)
-                    ),
-                    SpreadsheetProviders.basic(
-                        CONVERTER_PROVIDER,
-                        EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
-                        SPREADSHEET_COMPARATOR_PROVIDER,
-                        SPREADSHEET_EXPORTER_PROVIDER,
-                        SPREADSHEET_FORMATTER_PROVIDER,
-                        FORM_HANDLER_PROVIDER,
-                        SPREADSHEET_IMPORTER_PROVIDER,
-                        SPREADSHEET_PARSER_PROVIDER,
-                        VALIDATOR_PROVIDER
-                    ),
-                    CURRENCY_LOCALE_CONTEXT,
-                    SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
-                    SpreadsheetMetadataContexts.basic(
-                        (u, l) -> SpreadsheetHttpServerTest.this.metadataStore.save(
-                            this.createMetadata()
-                                .set(
-                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                    AuditInfo.create(
-                                        u,
-                                        HAS_NOW.now()
-                                    )
-                                )
-                        ),
-                        metadataStore
-                    ),
-                    HateosHandlerContexts.basic(
-                        INDENTATION,
-                        LINE_ENDING,
-                        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
-                    ),
-                    ProviderContexts.basic(
-                        ConverterContexts.fake(), // ConverterLike
-                        EnvironmentContexts.map(
-                            EnvironmentContexts.empty(
-                                CHARSET,
-                                CURRENCY,
-                                INDENTATION,
-                                LINE_ENDING,
-                                LOCALE,
-                                HAS_NOW,
-                                user
-                            )
-                        ),
-                        SpreadsheetHttpServerTest.this.httpServer.pluginStore
-                    ),
-                    TERMINAL_SERVER_CONTEXT
-                );
-            },
+            this::createSpreadsheetServerContext,
             httpRequestUserExtractor
         );
 
         this.httpServer.start();
         return this.httpServer;
+    }
+
+    private SpreadsheetServerContext createSpreadsheetServerContext(final Optional<EmailAddress> user) {
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
+
+        return SpreadsheetServerContexts.basic(
+            MEDIA_TYPE_DETECTOR,
+            MULTIPLIER,
+            SPREADSHEET_ENGINE,
+            (id) -> Optional.of(
+                SpreadsheetStoreRepositories.treeMap(SpreadsheetHttpServerTest.this.metadataStore)
+            ),
+            SpreadsheetProviders.basic(
+                CONVERTER_PROVIDER,
+                EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
+                SPREADSHEET_COMPARATOR_PROVIDER,
+                SPREADSHEET_EXPORTER_PROVIDER,
+                SPREADSHEET_FORMATTER_PROVIDER,
+                FORM_HANDLER_PROVIDER,
+                SPREADSHEET_IMPORTER_PROVIDER,
+                SPREADSHEET_PARSER_PROVIDER,
+                VALIDATOR_PROVIDER
+            ),
+            CURRENCY_LOCALE_CONTEXT,
+            SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
+            SpreadsheetMetadataContexts.basic(
+                (u, l) -> SpreadsheetHttpServerTest.this.metadataStore.save(
+                    this.createMetadata()
+                        .set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AuditInfo.create(
+                                u,
+                                HAS_NOW.now()
+                            )
+                        )
+                ),
+                metadataStore
+            ),
+            HateosHandlerContexts.basic(
+                INDENTATION,
+                LINE_ENDING,
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+            ),
+            ProviderContexts.basic(
+                ConverterContexts.fake(), // ConverterLike
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        CHARSET,
+                        CURRENCY,
+                        INDENTATION,
+                        LINE_ENDING,
+                        LOCALE,
+                        HAS_NOW,
+                        user
+                    )
+                ),
+                this.pluginStore
+            ),
+            TERMINAL_SERVER_CONTEXT
+        );
     }
 
     private TestHttpServer startServerAndCreateEmptySpreadsheet() {
@@ -13213,25 +13218,27 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     /**
      * Initializes the test {@link HttpServer}.
      */
-    private HttpServer server(final HttpHandler<HttpHandlerContext> handler) {
+    private HttpServer server(final HttpHandler<SpreadsheetServerContext> handler) {
         this.checkNotEquals(null, handler, "handler");
         this.httpServer.setHandler(handler);
         return this.httpServer;
     }
 
-    private final TestHttpServer httpServer = new TestHttpServer();
+    private TestHttpServer httpServer;
+
+    private PluginStore pluginStore = PluginStores.treeMap();
 
     /**
      * A {@link HttpServer} that allows direct invocation of the main handler skipping the HTTP transport layer
      */
     private class TestHttpServer implements HttpServer {
 
-        private TestHttpServer() {
+        private TestHttpServer(final SpreadsheetServerContext context) {
             super();
-            this.pluginStore = PluginStores.treeMap();
+            this.context = context;
         }
 
-        void setHandler(final HttpHandler<HttpHandlerContext> handler) {
+        void setHandler(final HttpHandler<SpreadsheetServerContext> handler) {
             this.handler = handler;
         }
 
@@ -13310,16 +13317,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.handler.handle(
                 request,
                 response,
-                new FakeSpreadsheetServerContext()
+                this.context
             );
             checkNotEquals(null, response.status(), "status not set");
             return response;
         }
 
         private boolean started;
-        private HttpHandler<HttpHandlerContext> handler;
 
-        private final PluginStore pluginStore;
+        private HttpHandler<SpreadsheetServerContext> handler;
+
+        private SpreadsheetServerContext context;
 
         @Override
         public String toString() {
