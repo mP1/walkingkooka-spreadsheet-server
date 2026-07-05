@@ -61,7 +61,9 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
@@ -142,8 +144,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer>
-    implements SpreadsheetMetadataTesting,
+public final class SpreadsheetHttpServerTest implements ClassTesting2<SpreadsheetHttpServer>,
+    TypeNameTesting<SpreadsheetHttpServer>,
+    SpreadsheetMetadataTesting,
     JarFileTesting,
     TreePrintableTesting {
 
@@ -13512,7 +13515,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             .toString();
     }
 
-    // ClassTesting.....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<SpreadsheetHttpServer> type() {
@@ -13523,8 +13526,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
-
-    // TypeNameTesting..................................................................................................
 
     @Override
     public String typeNamePrefix() {
