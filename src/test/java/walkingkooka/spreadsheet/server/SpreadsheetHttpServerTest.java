@@ -13215,7 +13215,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     /**
      * Initializes the test {@link HttpServer}.
      */
-    private HttpServer server(final HttpHandler handler) {
+    private HttpServer server(final HttpHandler<HttpHandlerContext> handler) {
         this.checkNotEquals(null, handler, "handler");
         this.httpServer.setHandler(handler);
         return this.httpServer;
