@@ -36,7 +36,6 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -110,8 +109,6 @@ import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -134,7 +131,6 @@ import walkingkooka.validation.provider.ValidatorInfoSet;
 import java.io.InputStream;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -150,10 +146,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     implements SpreadsheetMetadataTesting,
     JarFileTesting,
     TreePrintableTesting {
-
-    private final static Charset CHARSET = StandardCharsets.UTF_8;
-
-    private final static CharsetName CHARSET_NAME = CharsetName.UTF_8;
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -243,10 +235,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     // with.............................................................................................................
-
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     private final static Function<HttpRequest, Optional<EmailAddress>> HTTP_REQUEST_DEFAULT_USER = (r) -> Optional.of(SpreadsheetMetadataTesting.USER);
 
