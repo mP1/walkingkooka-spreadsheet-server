@@ -161,9 +161,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
                 this.spreadsheetEngineHttpHandler()
             ).add(
                 routing(SpreadsheetHttpServer.API),
-                SpreadsheetHttpServerHttpHandlerSpreadsheetMetadataHateosHandlerContext.with(
-                    SpreadsheetMetadataHttpHandler.with(context)
-                )
+                SpreadsheetMetadataHttpHandler.with(context)
             ).add(
                 FILE_SERVER_ROUTING,
                 this.fileServerHttpHandler(

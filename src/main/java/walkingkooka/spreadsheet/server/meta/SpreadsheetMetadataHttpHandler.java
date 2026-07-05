@@ -24,7 +24,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -46,7 +45,7 @@ import java.util.function.Predicate;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHandlerContext> {
+public final class SpreadsheetMetadataHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
     /**
      * Creates a new {@link SpreadsheetMetadataHttpHandler} handler
@@ -67,7 +66,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
 
         this.context = spreadsheetMetadataHateosHandlerContext;
 
-        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<?>>empty()
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>>empty()
             .add(
                 metadataPatchRouterPredicate(),
                 this::metadataPatchHttpHandler
@@ -94,7 +93,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
 
     private void metadataPatchHttpHandler(final HttpRequest request,
                                           final HttpResponse response,
-                                          final HttpHandlerContext context) {
+                                          final SpreadsheetServerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
@@ -139,7 +138,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response,
-                       final HttpHandlerContext context) {
+                       final SpreadsheetServerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
@@ -149,13 +148,11 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<HttpHan
             .handle(
                 request,
                 response,
-                // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/2433
-                // SpreadsheetMetadataHttpHandler.with: remove SpreadsheetServerContext parameter
-                Cast.to(this.context)
+                context
             );
     }
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler<?>> router;
+    private final Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>> router;
 
     // toString.........................................................................................................
 
