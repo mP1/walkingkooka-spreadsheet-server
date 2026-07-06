@@ -88,8 +88,6 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
             context //HateosHandlerContext
         );
 
-        this.context = context;
-
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>>empty()
             .add(
                 routing(SpreadsheetHttpServer.API_COMPARATOR),
@@ -158,7 +156,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
                 )
             ).add(
                 SPREADSHEET_ENGINE_ROUTING,
-                this.spreadsheetEngineHttpHandler()
+                SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE
             ).add(
                 routing(SpreadsheetHttpServer.API),
                 SpreadsheetMetadataHttpHandler.with(context)
@@ -330,13 +328,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
                 .append(UrlPathName.WILDCARD)
         ).build();
 
-    private HttpHandler<SpreadsheetServerContext> spreadsheetEngineHttpHandler() {
-        return SpreadsheetHttpServerSpreadsheetHttpHandler.with(this.context);
-    }
-
     private final Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>> router;
-
-    private final SpreadsheetServerContext context;
 
     // files............................................................................................................
 

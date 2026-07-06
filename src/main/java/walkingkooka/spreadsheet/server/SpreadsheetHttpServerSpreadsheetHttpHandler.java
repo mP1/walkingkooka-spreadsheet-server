@@ -38,22 +38,13 @@ import java.util.Optional;
  */
 final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
-    /**
-     * Creates a new {@link SpreadsheetHttpServerSpreadsheetHttpHandler} handler.
-     */
-    static SpreadsheetHttpServerSpreadsheetHttpHandler with(final SpreadsheetServerContext context) {
-        return new SpreadsheetHttpServerSpreadsheetHttpHandler(
-            Objects.requireNonNull(context, "context")
-        );
-    }
+    final static SpreadsheetHttpServerSpreadsheetHttpHandler INSTANCE = new SpreadsheetHttpServerSpreadsheetHttpHandler();
 
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerSpreadsheetHttpHandler(final SpreadsheetServerContext context) {
+    private SpreadsheetHttpServerSpreadsheetHttpHandler() {
         super();
-
-        this.context = context;
     }
 
     // Router...........................................................................................................
@@ -89,7 +80,7 @@ final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<S
                     response.setEntity(HttpEntity.EMPTY);
                 }
                 if (null != spreadsheetId) {
-                    this.router(spreadsheetId)
+                    this.router(spreadsheetId, context)
                         .route(request.routerParameters())
                         .orElse(SpreadsheetHttpServer::notFound)
                         .handle(
@@ -123,19 +114,17 @@ final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<S
     /**
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router(final SpreadsheetId id) {
-        return SpreadsheetMetadataHateosHandlerContexts.basic(
-            this.context
-        ).httpRouter(id);
+    Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router(final SpreadsheetId id,
+                                                                            final SpreadsheetServerContext context) {
+        return SpreadsheetMetadataHateosHandlerContexts.basic(context)
+            .httpRouter(id);
     }
-
-    // @VisibleForTesting
-    final SpreadsheetServerContext context;
 
     // toString.........................................................................................................
 
     @Override
     public String toString() {
-        return this.context.toString();
+        return this.getClass()
+            .getSimpleName();
     }
 }

@@ -75,16 +75,6 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     private final static String SERVER_URL = "https://example.com";
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
 
-    // with.............................................................................................................
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetHttpServerSpreadsheetHttpHandler.with(null)
-        );
-    }
-
     // cell.............................................................................................................
 
     @Test
@@ -355,7 +345,10 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     private void handleRequest(final HttpRequest request,
                                final HttpResponse response) {
         final SpreadsheetHttpServerSpreadsheetHttpHandler handler = this.createHttpHandler();
-        final SpreadsheetContext spreadsheetContext = handler.context.createEmptySpreadsheet(
+
+        final SpreadsheetServerContext context = this.createContext();
+
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             Optional.of(LOCALE)
         );
 
@@ -366,21 +359,19 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
             spreadsheetId.id()
         );
 
-        handler.router(spreadsheetId)
+        handler.router(spreadsheetId, context)
             .route(request.routerParameters())
             .get()
             .handle(
                 request,
                 response,
-                handler.context
+                context
             );
     }
 
     @Override
     public SpreadsheetHttpServerSpreadsheetHttpHandler createHttpHandler() {
-        return SpreadsheetHttpServerSpreadsheetHttpHandler.with(
-            this.createContext()
-        );
+        return SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE;
     }
 
     @Override
@@ -459,11 +450,9 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
 
     @Test
     public void testToString() {
-        final SpreadsheetHttpServerSpreadsheetHttpHandler handler = this.createHttpHandler();
-
         this.toStringAndCheck(
-            handler,
-            handler.context.toString()
+            SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE,
+            "SpreadsheetHttpServerSpreadsheetHttpHandler"
         );
     }
 

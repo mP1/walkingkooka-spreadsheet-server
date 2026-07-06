@@ -13037,7 +13037,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     private TestHttpServer startServer(final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         this.httpServer = new TestHttpServer(
-            this.createSpreadsheetServerContext(SpreadsheetServerContext.ANONYMOUS)
+            this.createSpreadsheetServerContext(
+                Optional.of(USER)
+            )
         );
 
         SpreadsheetHttpServer.with(
