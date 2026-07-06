@@ -107,6 +107,7 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
@@ -13061,9 +13062,23 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
             SPREADSHEET_ENGINE,
-            (id) -> Optional.of(
-                SpreadsheetStoreRepositories.treeMap(SpreadsheetHttpServerTest.this.metadataStore)
-            ),
+            (SpreadsheetId spreadsheetId) -> {
+                SpreadsheetStoreRepository repo = SpreadsheetHttpServerTest.this.spreadsheetIdToRepository.get(spreadsheetId);
+
+                if(null == repo) {
+                    final SpreadsheetMetadata metadata = SpreadsheetHttpServerTest.this.metadataStore.load(spreadsheetId)
+                        .orElse(null);
+                    if(null != metadata) {
+                        repo = SpreadsheetStoreRepositories.treeMap(SpreadsheetHttpServerTest.this.metadataStore);
+                        this.spreadsheetIdToRepository.put(
+                            spreadsheetId,
+                            repo
+                        );
+                    }
+                }
+
+                return Optional.ofNullable(repo);
+            },
             SpreadsheetProviders.basic(
                 CONVERTER_PROVIDER,
                 EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
@@ -13113,6 +13128,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             TERMINAL_SERVER_CONTEXT
         );
     }
+
+    private final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = Maps.sorted();
 
     private TestHttpServer startServerAndCreateEmptySpreadsheet() {
         return this.startServerAndCreateEmptySpreadsheet(HTTP_REQUEST_DEFAULT_USER);
@@ -13165,7 +13182,6 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {
         return path.normalize().equals(FILE) ?
