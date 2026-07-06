@@ -374,7 +374,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     @Test
-    public void testMetadataPostCreate2() {
+    public void testMetadataPostCreateWithDifferentUser() {
         final EmailAddress user = EmailAddress.parse("different@example.com");
 
         final TestHttpServer server = this.startServer(
