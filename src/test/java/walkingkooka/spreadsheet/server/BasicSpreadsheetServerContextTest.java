@@ -567,7 +567,38 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     @Test
-    public void testSpreadsheetContext() {
+    public void testSpreadsheetContextAfterSaveMetadata() {
+        final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
+
+        final SpreadsheetMetadata spreadsheetMetadata = spreadsheetServerContext.saveMetadata(
+            METADATA_EN_AU
+        );
+
+        final SpreadsheetId spreadsheetId = spreadsheetMetadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.spreadsheetContextOrFail(spreadsheetId);
+
+        this.checkNotEquals(
+            null,
+            spreadsheetContext,
+            () -> "spreadsheetId " + spreadsheetId + " " + spreadsheetContext
+        );
+
+        this.spreadsheetMetadataAndCheck(
+            spreadsheetContext,
+            spreadsheetMetadata
+        );
+
+        // SpreadsheetContext should be cached
+        this.spreadsheetContextAndCheck(
+            spreadsheetServerContext,
+            spreadsheetId,
+            spreadsheetContext
+        );
+    }
+
+    @Test
+    public void testSpreadsheetContextAfterCreateEmptySpreadsheet() {
         final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
