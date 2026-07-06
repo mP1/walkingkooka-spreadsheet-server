@@ -199,12 +199,14 @@ public final class SpreadsheetHttpServer implements HttpServer {
             httpHandler = this.userToHttpHandler.get(user);
         }
 
+        final SpreadsheetServerContext contextWithUser = this.spreadsheetServerContextFactory.apply(userOrAnonymous);
+
         if (null == httpHandler) {
             httpHandler = this.userToHttpHandler.get(user);
             if (null == httpHandler) {
                 httpHandler = SpreadsheetHttpServerHttpHandler.with(
                     this.fileServer,
-                    this.spreadsheetServerContextFactory.apply(userOrAnonymous)
+                    contextWithUser
                 );
 
                 this.userToHttpHandler.put(
@@ -217,7 +219,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         httpHandler.handle(
             request,
             response,
-            context
+            contextWithUser
         );
     }
 
