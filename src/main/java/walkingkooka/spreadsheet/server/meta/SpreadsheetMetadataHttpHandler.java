@@ -48,36 +48,15 @@ import java.util.function.Predicate;
 public final class SpreadsheetMetadataHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
     /**
-     * Creates a new {@link SpreadsheetMetadataHttpHandler} handler
+     * Singleton
      */
-    public static SpreadsheetMetadataHttpHandler with(final SpreadsheetServerContext context) {
-        return new SpreadsheetMetadataHttpHandler(
-            Objects.requireNonNull(context, "context")
-        );
-    }
+    public final static SpreadsheetMetadataHttpHandler INSTANCE = new SpreadsheetMetadataHttpHandler();
 
     /**
      * Private ctor
      */
-    private SpreadsheetMetadataHttpHandler(final SpreadsheetServerContext context) {
+    private SpreadsheetMetadataHttpHandler() {
         super();
-
-        final SpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = SpreadsheetMetadataHateosHandlerContexts.basic(context);
-
-        this.context = spreadsheetMetadataHateosHandlerContext;
-
-        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>>empty()
-            .add(
-                metadataPatchRouterPredicate(),
-                this::metadataPatchHttpHandler
-            ).router()
-            .then(
-                Cast.to(
-                    SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                        spreadsheetMetadataHateosHandlerContext
-                    )
-                )
-            );
     }
 
     private static Map<HttpRequestAttribute<?>, Predicate<?>> metadataPatchRouterPredicate() {
@@ -112,7 +91,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
                                 .name()
                                 .value()
                         ),
-                        this.context
+                        context
                     ).apply(json),
                     SpreadsheetMetadataHttpHandler::patchPost
                 )
@@ -120,7 +99,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
         ).handle(
             request,
             response,
-            this.context
+            context
         );
     }
 
@@ -130,8 +109,6 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
             SpreadsheetMetadata.class.getSimpleName()
         );
     }
-
-    private final SpreadsheetMetadataHateosHandlerContext context;
 
     // HttpHandler......................................................................................................
 
@@ -143,7 +120,22 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
-        this.router.route(request.routerParameters())
+        final SpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = SpreadsheetMetadataHateosHandlerContexts.basic(context);
+
+        final Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>> router  = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>>empty()
+            .add(
+                metadataPatchRouterPredicate(),
+                this::metadataPatchHttpHandler
+            ).router()
+            .then(
+                Cast.to(
+                    SpreadsheetMetadataHateosResourceHandlersRouter.with(
+                        spreadsheetMetadataHateosHandlerContext
+                    )
+                )
+            );
+
+        router.route(request.routerParameters())
             .orElse(SpreadsheetHttpServer::notFound)
             .handle(
                 request,
@@ -152,13 +144,11 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
             );
     }
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>> router;
-
     // toString.........................................................................................................
 
     @Override
     public String toString() {
-        return this.context.serverUrl()
-            .toString();
+        return this.getClass()
+            .getSimpleName();
     }
 }

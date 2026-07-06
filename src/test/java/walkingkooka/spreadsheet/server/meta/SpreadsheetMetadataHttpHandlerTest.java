@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
@@ -30,18 +29,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting<SpreadsheetMetadataHttpHandler, SpreadsheetServerContext>,
     SpreadsheetMetadataTesting {
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetMetadataHttpHandler.with(null)
-        );
-    }
 
     // HttpHandler......................................................................................................
 
@@ -52,9 +41,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
 
     @Override
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
-        return SpreadsheetMetadataHttpHandler.with(
-            this.createContext()
-        );
+        return SpreadsheetMetadataHttpHandler.INSTANCE;
     }
 
     @Override
