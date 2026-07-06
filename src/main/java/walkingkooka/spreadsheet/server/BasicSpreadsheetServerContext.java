@@ -135,50 +135,14 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public SpreadsheetContext createEmptySpreadsheet(final Optional<Locale> locale) {
-        final EmailAddress user = this.userOrFail();
+        Objects.requireNonNull(locale, "locale");
 
-        final SpreadsheetMetadata metadata = this.spreadsheetMetadataContext.createMetadata(
-            user,
-            locale
+        return this.fixedSpreadsheetContext(
+            this.spreadsheetMetadataContext.createMetadata(
+                this.userOrFail(),
+                locale
+            )
         );
-
-        final SpreadsheetId spreadsheetId = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
-
-        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
-        spreadsheetEnvironmentContext.setSpreadsheetId(
-            Optional.of(spreadsheetId)
-        );
-
-        final ProviderContext providerContext = this.providerContext.cloneEnvironment();
-        providerContext.setUser(
-            Optional.of(user)
-        );
-
-        final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
-            this.mediaTypeDetector,
-            this.spreadsheetMetadataContext, // SpreadsheetMetadataCreator
-            this.multiplier,
-            this.spreadsheetEngine,
-            this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
-                .orElseThrow(spreadsheetId::missingSpreadsheetException),
-            (SpreadsheetEngineContext c) -> Cast.to(
-                SpreadsheetIdRouter.create(
-                    c,
-                    this.hateosHandlerContext
-                )
-            ),
-            this.currencyLocaleContext,
-            metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),
-            this.spreadsheetProvider,
-            ProviderContexts.readOnly(providerContext)
-        );
-
-        this.spreadsheetIdToSpreadsheetContext.put(
-            spreadsheetId,
-            context
-        );
-
-        return context;
     }
 
     @Override
@@ -212,11 +176,65 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     private final TerminalServerContext terminalServerContext;
 
     @Override
-    public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
+    public synchronized Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
         Objects.requireNonNull(id, "id");
-        return Optional.ofNullable(
-            this.spreadsheetIdToSpreadsheetContext.get(id)
+
+        SpreadsheetContext context = this.spreadsheetIdToSpreadsheetContext.get(id);
+
+        if (null == context) {
+            final SpreadsheetMetadata metadata = this.loadMetadata(id)
+                .orElse(null);
+            if (null != metadata) {
+                context = this.fixedSpreadsheetContext(metadata);
+            }
+        }
+
+        return Optional.ofNullable(context);
+    }
+
+    /**
+     * Uses the provided {@link SpreadsheetId} to get or lazily create a {@link SpreadsheetContext}.
+     */
+    private SpreadsheetContext fixedSpreadsheetContext(final SpreadsheetMetadata metadata) {
+        final SpreadsheetId spreadsheetId = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = this.spreadsheetEnvironmentContext.cloneEnvironment();
+        spreadsheetEnvironmentContext.setSpreadsheetId(
+            Optional.of(spreadsheetId)
         );
+
+        final ProviderContext providerContext = this.providerContext.cloneEnvironment();
+        providerContext.setUser(
+            Optional.of(
+                this.userOrFail()
+            )
+        );
+
+        final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+            this.mediaTypeDetector,
+            this.spreadsheetMetadataContext, // SpreadsheetMetadataCreator
+            this.multiplier,
+            this.spreadsheetEngine,
+            this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
+                .orElseThrow(spreadsheetId::missingSpreadsheetException),
+            (SpreadsheetEngineContext c) -> Cast.to(
+                SpreadsheetIdRouter.create(
+                    c,
+                    this.hateosHandlerContext
+                )
+            ),
+            this.currencyLocaleContext,
+            metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),
+            this.spreadsheetProvider,
+            ProviderContexts.readOnly(providerContext)
+        );
+
+        this.spreadsheetIdToSpreadsheetContext.put(
+            spreadsheetId,
+            context
+        );
+
+        return context;
     }
 
     private final Map<SpreadsheetId, SpreadsheetContext> spreadsheetIdToSpreadsheetContext = Maps.concurrent();
