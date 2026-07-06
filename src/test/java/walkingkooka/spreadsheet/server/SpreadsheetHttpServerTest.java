@@ -13552,6 +13552,6 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     @Override
     public String typeNameSuffix() {
-        return "Server";
+        return HttpServer.class.getSimpleName();
     }
 }
