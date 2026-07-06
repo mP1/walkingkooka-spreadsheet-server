@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
 
@@ -32,7 +33,7 @@ import java.util.function.UnaryOperator;
 final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> {
 
     static SpreadsheetMetadataPatchFunction with(final SpreadsheetId id,
-                                                 final SpreadsheetMetadataHateosHandlerContext context) {
+                                                 final SpreadsheetServerContext context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(context, "context");
 
@@ -40,7 +41,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
     }
 
     private SpreadsheetMetadataPatchFunction(final SpreadsheetId id,
-                                             final SpreadsheetMetadataHateosHandlerContext context) {
+                                             final SpreadsheetServerContext context) {
         super();
         this.id = id;
         this.context = context;
@@ -51,7 +52,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
         final SpreadsheetId id = this.id;
 
         try {
-            final SpreadsheetMetadataHateosHandlerContext context = this.context;
+            final SpreadsheetServerContext context = this.context;
             final SpreadsheetEngineContext engineContext = context.spreadsheetContextOrFail(id)
                 .spreadsheetEngineContext();
             final SpreadsheetMetadata loadAndPatched = engineContext.loadMetadataOrFail(id);
@@ -71,7 +72,7 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
 
     private final SpreadsheetId id;
 
-    private final SpreadsheetMetadataHateosHandlerContext context;
+    private final SpreadsheetServerContext context;
 
     @Override
     public String toString() {
