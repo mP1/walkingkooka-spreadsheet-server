@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
 import java.util.Objects;
@@ -84,15 +85,17 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
             HttpHandlers.contentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE,
                 JsonHttpHandlers.json(
-                    (json) -> SpreadsheetMetadataPatchFunction.with(
+                    (final JsonNode json, final SpreadsheetServerContext c) -> SpreadsheetMetadataPatchFunction.with(
                         SpreadsheetId.parse(
                             request.url()
                                 .path()
                                 .name()
                                 .value()
-                        ),
+                        )
+                    ).apply(
+                        json,
                         context
-                    ).apply(json),
+                    ),
                     SpreadsheetMetadataHttpHandler::patchPost
                 )
             )
@@ -103,7 +106,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
         );
     }
 
-    private static HttpEntity patchPost(final HttpEntity response) {
+    private static HttpEntity patchPost(final HttpEntity response,
+                                        final SpreadsheetServerContext context) {
         return response.addHeader(
             HateosResourceMappings.X_CONTENT_TYPE_NAME,
             SpreadsheetMetadata.class.getSimpleName()
