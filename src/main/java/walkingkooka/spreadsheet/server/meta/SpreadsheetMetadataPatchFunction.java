@@ -25,34 +25,31 @@ import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.UnaryOperator;
 
 /**
  * A {@link UnaryOperator} that accepts a JSON object which represents a patch on the {@link SpreadsheetMetadata}.
  */
-final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> {
+final class SpreadsheetMetadataPatchFunction implements BiFunction<JsonNode, SpreadsheetServerContext, JsonNode> {
 
-    static SpreadsheetMetadataPatchFunction with(final SpreadsheetId id,
-                                                 final SpreadsheetServerContext context) {
-        Objects.requireNonNull(id, "id");
-        Objects.requireNonNull(context, "context");
-
-        return new SpreadsheetMetadataPatchFunction(id, context);
+    static SpreadsheetMetadataPatchFunction with(final SpreadsheetId id) {
+        return new SpreadsheetMetadataPatchFunction(
+            Objects.requireNonNull(id, "id")
+        );
     }
 
-    private SpreadsheetMetadataPatchFunction(final SpreadsheetId id,
-                                             final SpreadsheetServerContext context) {
+    private SpreadsheetMetadataPatchFunction(final SpreadsheetId id) {
         super();
         this.id = id;
-        this.context = context;
     }
 
     @Override
-    public JsonNode apply(final JsonNode json) {
+    public JsonNode apply(final JsonNode json,
+                          final SpreadsheetServerContext context) {
         final SpreadsheetId id = this.id;
 
         try {
-            final SpreadsheetServerContext context = this.context;
             final SpreadsheetEngineContext engineContext = context.spreadsheetContextOrFail(id)
                 .spreadsheetEngineContext();
             final SpreadsheetMetadata loadAndPatched = engineContext.loadMetadataOrFail(id);
@@ -72,10 +69,8 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
 
     private final SpreadsheetId id;
 
-    private final SpreadsheetServerContext context;
-
     @Override
     public String toString() {
-        return this.id + " " + this.context;
+        return this.id.toString();
     }
 }

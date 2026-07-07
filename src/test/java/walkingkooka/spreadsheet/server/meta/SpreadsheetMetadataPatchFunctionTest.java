@@ -33,12 +33,13 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
+import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.util.FunctionTesting;
+import walkingkooka.util.BiFunctionTesting;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -47,7 +48,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesting<SpreadsheetMetadataPatchFunction, JsonNode, JsonNode>,
+public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTesting<SpreadsheetMetadataPatchFunction, JsonNode, SpreadsheetServerContext, JsonNode>,
     ClassTesting<SpreadsheetMetadataPatchFunction>,
     ToStringTesting<SpreadsheetMetadataPatchFunction>,
     SpreadsheetMetadataTesting {
@@ -58,12 +59,10 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     @Test
     public void testWithNullIdFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetMetadataPatchFunction.with(null, CONTEXT));
-    }
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetMetadataPatchFunction.with(ID, null));
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetMetadataPatchFunction.with(null)
+        );
     }
 
     @Test
@@ -95,13 +94,14 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
         final MissingStoreException thrown = assertThrows(
             MissingStoreException.class,
-            () -> SpreadsheetMetadataPatchFunction.with(ID, context)
+            () -> SpreadsheetMetadataPatchFunction.with(ID)
                 .apply(
                     JsonNode.object()
                         .set(
                             JsonPropertyName.with(SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()),
                             RoundingMode.HALF_DOWN.name()
-                        )
+                        ),
+                    context
                 )
 
         );
@@ -178,12 +178,13 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         final JsonNodeMarshallContext marshallContext = metadata.jsonNodeMarshallContext();
 
         this.applyAndCheck(
-            SpreadsheetMetadataPatchFunction.with(ID, context),
+            SpreadsheetMetadataPatchFunction.with(ID),
             JsonNode.object()
                 .set(
                     JsonPropertyName.with(propertyName.value()),
                     marshallContext.marshall(propertyValue)
                 ),
+            context,
             marshallContext.marshall(
                 metadata.set(
                     propertyName,
@@ -195,12 +196,15 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createFunction(), ID + " " + CONTEXT);
+        this.toStringAndCheck(
+            this.createBiFunction(),
+            ID.toString()
+        );
     }
 
     @Override
-    public SpreadsheetMetadataPatchFunction createFunction() {
-        return SpreadsheetMetadataPatchFunction.with(ID, CONTEXT);
+    public SpreadsheetMetadataPatchFunction createBiFunction() {
+        return SpreadsheetMetadataPatchFunction.with(ID);
     }
 
     @Override
