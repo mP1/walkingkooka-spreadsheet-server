@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.Either;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
@@ -165,13 +164,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         super();
 
-        this.fileServer = fileServer;
         this.spreadsheetServerContextFactory = spreadsheetServerContextFactory;
-
-        this.anonymousHttpHandler = SpreadsheetHttpServerHttpHandler.with(
-            fileServer,
-            spreadsheetServerContextFactory.apply(EnvironmentContext.ANONYMOUS)
-        );
+        this.httpHandler = SpreadsheetHttpServerHttpHandler.with(fileServer);
 
         this.server = server.apply(
             HttpHandlers.stacktraceDumping(
@@ -189,41 +183,30 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private void handle(final HttpRequest request,
                         final HttpResponse response,
                         final SpreadsheetServerContext context) {
-        HttpHandler<SpreadsheetServerContext> httpHandler;
+        SpreadsheetServerContext contextWithUser = context;
 
         final Optional<EmailAddress> userOrAnonymous = this.httpRequestUserExtractor.apply(request);
-        final EmailAddress user = userOrAnonymous.orElse(null);
-        if (null == user) {
-            httpHandler = this.anonymousHttpHandler;
-        } else {
-            httpHandler = this.userToHttpHandler.get(user);
-        }
 
-        final SpreadsheetServerContext contextWithUser = this.spreadsheetServerContextFactory.apply(userOrAnonymous);
+        if (userOrAnonymous.isPresent()) {
+            final EmailAddress userEmail = userOrAnonymous.get();
 
-        if (null == httpHandler) {
-            httpHandler = this.userToHttpHandler.get(user);
-            if (null == httpHandler) {
-                httpHandler = SpreadsheetHttpServerHttpHandler.with(
-                    this.fileServer,
+            contextWithUser = this.userToContext.get(userEmail);
+            if (null == contextWithUser) {
+                contextWithUser = this.spreadsheetServerContextFactory.apply(userOrAnonymous);
+
+                this.userToContext.put(
+                    userEmail,
                     contextWithUser
-                );
-
-                this.userToHttpHandler.put(
-                    user,
-                    httpHandler
                 );
             }
         }
 
-        httpHandler.handle(
+        this.httpHandler.handle(
             request,
             response,
             contextWithUser
         );
     }
-
-    private final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer;
 
     private final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory;
 
@@ -232,16 +215,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor;
 
-    /**
-     * A {@link HttpHandler} that has a {@link SpreadsheetServerContext} with an anonymous user.
-     */
-    private final HttpHandler<SpreadsheetServerContext> anonymousHttpHandler;
+    private final SpreadsheetHttpServerHttpHandler httpHandler;
 
     /**
-     * Maps authenticated users to a {@link HttpHandler} with a {@link SpreadsheetServerContext} with the environment
-     * set to the user.
+     * Maps authenticated users to a {@link SpreadsheetServerContext}
      */
-    private final Map<EmailAddress, HttpHandler<SpreadsheetServerContext>> userToHttpHandler = Maps.concurrent();
+    private final Map<EmailAddress, SpreadsheetServerContext> userToContext = Maps.concurrent();
 
     // HttpServer.......................................................................................................
 
