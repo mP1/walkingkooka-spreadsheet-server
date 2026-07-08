@@ -92,8 +92,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
                         HttpMethod.PATCH,
                         HateosResourceHandlers.fake()
                     )
-            ),
-            context
+            )
         );
     }
 

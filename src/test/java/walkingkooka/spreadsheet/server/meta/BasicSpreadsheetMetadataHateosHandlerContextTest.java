@@ -70,6 +70,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServerSpreadsheetHttpHandler;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
@@ -565,20 +566,18 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
             SERVER_URL
         );
 
-        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext(
+        final BasicSpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
                 STORAGE,
                 environmentContext
             )
         );
 
-        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
+        final SpreadsheetContext spreadsheetContext = spreadsheetMetadataHateosHandlerContext.createEmptySpreadsheet(
             Optional.of(LOCALE)
         );
 
         final SpreadsheetId id = spreadsheetContext.spreadsheetIdOrFail();
-
-        final Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router = context.httpRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell cell = cellReference
@@ -639,15 +638,12 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
                 }
             };
 
-            final Optional<HttpHandler<HttpHandlerContext>> mapped = router.route(request.routerParameters());
-            this.checkNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
-
             final HttpResponse response = HttpResponses.recording();
-            @SuppressWarnings("OptionalGetWithoutIsPresent") final HttpHandler<HttpHandlerContext> httpHandler = mapped.get();
+            final HttpHandler<SpreadsheetServerContext> httpHandler = SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE;
             httpHandler.handle(
                 request,
                 response,
-                HATEOS_HANDLER_CONTEXT
+                spreadsheetMetadataHateosHandlerContext.context
             );
         }
 
@@ -685,16 +681,14 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
                 }
             };
 
-            final Optional<HttpHandler<HttpHandlerContext>> mapped = router.route(request.routerParameters());
-            this.checkNotEquals(Optional.empty(), mapped, "request " + request.parameters());
-
             final HttpResponse response = HttpResponses.recording();
-            //noinspection OptionalGetWithoutIsPresent
-            final HttpHandler<HttpHandlerContext> httpHandler = mapped.get();
+
+            final HttpHandler<SpreadsheetServerContext> httpHandler = SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE;
+
             httpHandler.handle(
                 request,
                 response,
-                HATEOS_HANDLER_CONTEXT
+                spreadsheetMetadataHateosHandlerContext.context
             );
 
             final HttpResponse expected = HttpResponses.recording();
@@ -718,7 +712,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
         this.checkEquals(
             updatedTimestamp,
-            context.loadMetadataOrFail(id)
+            spreadsheetMetadataHateosHandlerContext.loadMetadataOrFail(id)
                 .getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO).modifiedTimestamp(),
             () -> "Metadata " + SpreadsheetMetadataPropertyName.AUDIT_INFO + ".modifiedTimestamp not updated when cell saved"
         );

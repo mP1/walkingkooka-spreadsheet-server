@@ -217,11 +217,8 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetEngine,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
                 .orElseThrow(spreadsheetId::missingSpreadsheetException),
-            (SpreadsheetEngineContext c) -> Cast.to(
-                SpreadsheetIdRouter.create(
-                    c,
-                    this.hateosHandlerContext
-                )
+            (SpreadsheetEngineContext spreadsheetEngineContext) -> Cast.to(
+                SpreadsheetIdRouter.create(spreadsheetEngineContext)
             ),
             this.currencyLocaleContext,
             metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),

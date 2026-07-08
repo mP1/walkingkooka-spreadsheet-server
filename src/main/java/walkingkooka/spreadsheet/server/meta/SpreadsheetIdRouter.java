@@ -17,20 +17,16 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfoSet;
@@ -41,7 +37,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
@@ -54,33 +49,11 @@ import walkingkooka.validation.form.FormName;
 
 public final class SpreadsheetIdRouter implements PublicStaticHelper {
 
-    public static Router<HttpRequestAttribute<?>, HttpHandler<?>> create(final SpreadsheetEngineContext spreadsheetEngineContext,
-                                                                         final HateosHandlerContext hateosHandlerContext) {
+    public static Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetEngineHateosHandlerContext>> create(final SpreadsheetEngineContext spreadsheetEngineContext) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
             UrlPathName.with(
                 spreadsheetEngineContext.spreadsheetIdOrFail()
                     .toString()
-            )
-        );
-
-        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-            SpreadsheetEngines.basic(),
-            metadata -> metadata.set(
-                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                spreadsheetEngineContext.refreshModifiedAuditInfo(
-                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                )
-            )
-        );
-
-        final SpreadsheetEngineHateosHandlerContext handlerContext = SpreadsheetEngineHateosHandlerContexts.basic(
-            engine,
-            hateosHandlerContext,
-            spreadsheetEngineContext
-        ).setPreProcessor(
-            SpreadsheetMetadataHateosHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                spreadsheetEngineContext.storeRepository()
-                    .labels()
             )
         );
 
@@ -102,19 +75,16 @@ public final class SpreadsheetIdRouter implements PublicStaticHelper {
 
         final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosHandlerContext> row = SpreadsheetDeltaHttpMappings.row();
 
-        return Cast.to(
-            HateosResourceMappings.router(
-                deltaUrlPath,
-                Sets.of(
-                    cell,
-                    column,
-                    form,
-                    label,
-                    metadata,
-                    parser, // /parser
-                    row
-                ),
-                handlerContext
+        return HateosResourceMappings.router(
+            deltaUrlPath,
+            Sets.of(
+                cell,
+                column,
+                form,
+                label,
+                metadata,
+                parser, // /parser
+                row
             )
         );
     }
