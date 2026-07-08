@@ -359,14 +359,11 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
             spreadsheetId.id()
         );
 
-        handler.router(spreadsheetId, context)
-            .route(request.routerParameters())
-            .get()
-            .handle(
-                request,
-                response,
-                context
-            );
+        handler.handle(
+            request,
+            response,
+            context
+        );
     }
 
     @Override

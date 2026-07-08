@@ -27,7 +27,12 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosHandlerContexts;
 
 import java.util.Objects;
@@ -36,9 +41,9 @@ import java.util.Optional;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<SpreadsheetServerContext> {
+public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
-    final static SpreadsheetHttpServerSpreadsheetHttpHandler INSTANCE = new SpreadsheetHttpServerSpreadsheetHttpHandler();
+    public final static SpreadsheetHttpServerSpreadsheetHttpHandler INSTANCE = new SpreadsheetHttpServerSpreadsheetHttpHandler();
 
     /**
      * Private ctor
@@ -80,14 +85,51 @@ final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<S
                     response.setEntity(HttpEntity.EMPTY);
                 }
                 if (null != spreadsheetId) {
-                    this.router(spreadsheetId, context)
+                    boolean notFound = true;
+
+                    final HttpHandler<HttpHandlerContext> spreadsheetIdHttpHandler = this.router(spreadsheetId, context)
                         .route(request.routerParameters())
-                        .orElse(SpreadsheetHttpServer::notFound)
-                        .handle(
-                            request,
-                            response,
-                            context
-                        );
+                        .orElse(null);
+                    if(null != spreadsheetIdHttpHandler) {
+                        final SpreadsheetContext spreadsheetContext = context.spreadsheetContext(spreadsheetId)
+                                .orElse(null);
+                        if(null != spreadsheetContext) {
+                            notFound = false;
+
+                            final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
+
+                            final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
+                                SpreadsheetEngines.basic(),
+                                metadata -> metadata.set(
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    spreadsheetEngineContext.refreshModifiedAuditInfo(
+                                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                    )
+                                )
+                            );
+
+                            final SpreadsheetEngineHateosHandlerContext spreadsheetEngineContext2 = SpreadsheetEngineHateosHandlerContexts.basic(
+                                engine,
+                                context, // HateosHandlerContext,
+                                spreadsheetEngineContext
+                            ).setPreProcessor(
+                                SpreadsheetMetadataHateosHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+                                    spreadsheetEngineContext.storeRepository()
+                                        .labels()
+                                )
+                            );
+
+                            spreadsheetIdHttpHandler.handle(
+                                request,
+                                response,
+                                spreadsheetEngineContext2
+                            );
+                        }
+                    }
+
+                    if(notFound) {
+                        SpreadsheetHttpServer.notFound(request, response, context);
+                    }
                 }
             } else {
                 response.setVersion(request.protocolVersion());

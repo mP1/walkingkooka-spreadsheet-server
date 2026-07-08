@@ -885,8 +885,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler<SpreadsheetEngineHateosHandlerContext>> possible = HateosResourceMappings.router(
             URL.path(),
-            Sets.of(mapping),
-            context
+            Sets.of(mapping)
         ).route(request.routerParameters());
 
         this.checkNotEquals(
@@ -922,8 +921,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler<SpreadsheetEngineHateosHandlerContext>> possible = HateosResourceMappings.router(
             URL.path(),
-            Sets.of(mapping),
-            context
+            Sets.of(mapping)
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
             possible,

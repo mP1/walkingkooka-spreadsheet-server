@@ -101,8 +101,7 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler<S
                         formPath,
                         Sets.of(
                             mappings
-                        ),
-                        context
+                        )
                     ).route(
                         request.routerParameters()
                     ).ifPresent(

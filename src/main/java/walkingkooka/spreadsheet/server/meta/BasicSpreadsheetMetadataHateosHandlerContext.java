@@ -188,7 +188,8 @@ final class BasicSpreadsheetMetadataHateosHandlerContext implements SpreadsheetM
         return this.context;
     }
 
-    private final SpreadsheetServerContext context;
+    // @VisibleForTesting
+    final SpreadsheetServerContext context;
 
     // Object...........................................................................................................
 

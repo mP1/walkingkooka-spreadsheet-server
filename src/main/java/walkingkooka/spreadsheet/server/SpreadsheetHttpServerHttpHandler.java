@@ -55,8 +55,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
                        final HttpResponse response,
                        final SpreadsheetServerContext context) {
         SpreadsheetHttpServerHttpHandlerRouterFactory.with(
-            this.fileServer,
-            context
+                this.fileServer
             ).router
             .route(
                 request.routerParameters()

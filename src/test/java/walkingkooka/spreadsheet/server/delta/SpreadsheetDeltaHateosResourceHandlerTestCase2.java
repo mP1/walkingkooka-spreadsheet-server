@@ -27,8 +27,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
@@ -92,8 +90,6 @@ import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
@@ -402,21 +398,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             SPREADSHEET_ID
         );
 
-        final Function<SpreadsheetEngineContext, Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>>> httpRouterFactory = (SpreadsheetEngineContext c) -> Cast.to(
-            SpreadsheetIdRouter.create(
-                c,
-                new FakeHateosHandlerContext() {
-                    @Override
-                    public HateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
-                        return this;
-                    }
-
-                    @Override
-                    public HateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-                        return this;
-                    }
-                }
-            )
+        final Function<SpreadsheetEngineContext, Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>>> httpRouterFactory = (SpreadsheetEngineContext spreadsheetEngineContext) -> Cast.to(
+            SpreadsheetIdRouter.create(spreadsheetEngineContext)
         );
 
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(

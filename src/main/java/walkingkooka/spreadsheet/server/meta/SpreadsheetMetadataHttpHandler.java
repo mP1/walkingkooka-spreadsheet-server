@@ -144,7 +144,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
             .handle(
                 request,
                 response,
-                context
+                spreadsheetMetadataHateosHandlerContext
             );
     }
 

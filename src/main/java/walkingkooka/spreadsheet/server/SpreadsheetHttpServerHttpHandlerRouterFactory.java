@@ -37,7 +37,6 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContext;
-import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContexts;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceMappings;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
@@ -47,7 +46,6 @@ import walkingkooka.spreadsheet.server.formhandler.FormHandlerHateosResourceMapp
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
-import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContexts;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceMappings;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
@@ -59,33 +57,12 @@ import java.util.function.Predicate;
 
 final class SpreadsheetHttpServerHttpHandlerRouterFactory {
 
-    static SpreadsheetHttpServerHttpHandlerRouterFactory with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                                              final SpreadsheetServerContext context) {
-        return new SpreadsheetHttpServerHttpHandlerRouterFactory(
-            fileServer,
-            context
-        );
+    static SpreadsheetHttpServerHttpHandlerRouterFactory with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+        return new SpreadsheetHttpServerHttpHandlerRouterFactory(fileServer);
     }
 
-    private SpreadsheetHttpServerHttpHandlerRouterFactory(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                                          final SpreadsheetServerContext context) {
+    private SpreadsheetHttpServerHttpHandlerRouterFactory(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         super();
-
-        this.spreadsheetProviderHateosHandlerContext = SpreadsheetProviderHateosHandlerContexts.basic(
-            context, // SpreadsheetProvider
-            context.providerContext(),
-            context // HateosHandlerContext
-        );
-
-        this.currencyHateosHandlerContext = CurrencyHateosHandlerContexts.basic(
-            context, // LocaleContext
-            context //HateosHandlerContext
-        );
-
-        this.localeHateosHandlerContext = LocaleHateosHandlerContexts.basic(
-            context, // LocaleContext
-            context //HateosHandlerContext
-        );
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>>empty()
             .add(
@@ -285,38 +262,21 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosHandlerContext>> currencyHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyHateosHandlerContext> mappings) {
-        return this.hateosResourceMappingsRouter(
-            mappings,
-            this.currencyHateosHandlerContext
-        );
+        return this.hateosResourceMappingsRouter(mappings);
     }
-
-    private final CurrencyHateosHandlerContext currencyHateosHandlerContext;
 
     private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> localeHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosHandlerContext> mappings) {
-        return this.hateosResourceMappingsRouter(
-            mappings,
-            this.localeHateosHandlerContext
-        );
+        return this.hateosResourceMappingsRouter(mappings);
     }
-
-    private final LocaleHateosHandlerContext localeHateosHandlerContext;
 
     private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> spreadsheetProviderHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, SpreadsheetProviderHateosHandlerContext> mappings) {
-        return this.hateosResourceMappingsRouter(
-            mappings,
-            this.spreadsheetProviderHateosHandlerContext
-        );
+        return this.hateosResourceMappingsRouter(mappings);
     }
 
-    private final SpreadsheetProviderHateosHandlerContext spreadsheetProviderHateosHandlerContext;
-
-    private <X extends HateosHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler<X>> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings,
-                                                                                                                          final X context) {
+    private <X extends HateosHandlerContext> Router<HttpRequestAttribute<?>, HttpHandler<X>> hateosResourceMappingsRouter(final HateosResourceMappings<?, ?, ?, ?, X> mappings) {
         return HateosResourceMappings.router(
             SpreadsheetHttpServer.API,
-            Sets.of(mappings),
-            context
+            Sets.of(mappings)
         );
     }
 
