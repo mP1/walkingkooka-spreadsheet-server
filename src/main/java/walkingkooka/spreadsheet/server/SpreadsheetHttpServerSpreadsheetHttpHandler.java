@@ -106,8 +106,7 @@ final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<S
         }
     }
 
-    // shared with SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest
-    final static int SPREADSHEET_ID_PATH_COMPONENT = SpreadsheetHttpServer.API_SPREADSHEET
+    private final static int SPREADSHEET_ID_PATH_COMPONENT = SpreadsheetHttpServer.API_SPREADSHEET
         .namesList()
         .size();
 
