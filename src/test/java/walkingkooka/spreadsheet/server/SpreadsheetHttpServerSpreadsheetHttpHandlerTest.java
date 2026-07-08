@@ -462,7 +462,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 
     @Override
