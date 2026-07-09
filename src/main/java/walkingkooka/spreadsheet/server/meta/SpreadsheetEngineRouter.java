@@ -47,7 +47,7 @@ import walkingkooka.spreadsheet.value.SpreadsheetRow;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 
-public final class SpreadsheetIdRouter implements PublicStaticHelper {
+public final class SpreadsheetEngineRouter implements PublicStaticHelper {
 
     public static Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetEngineHateosHandlerContext>> create(final SpreadsheetEngineContext spreadsheetEngineContext) {
         final UrlPath deltaUrlPath = SpreadsheetHttpServer.API_SPREADSHEET.append(
@@ -92,7 +92,7 @@ public final class SpreadsheetIdRouter implements PublicStaticHelper {
     /**
      * Stop creation
      */
-    private SpreadsheetIdRouter() {
+    private SpreadsheetEngineRouter() {
         throw new UnsupportedOperationException();
     }
 }

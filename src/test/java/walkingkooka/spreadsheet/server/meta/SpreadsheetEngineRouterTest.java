@@ -22,11 +22,11 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class SpreadsheetIdRouterTest implements PublicStaticHelperTesting<SpreadsheetIdRouter> {
+public final class SpreadsheetEngineRouterTest implements PublicStaticHelperTesting<SpreadsheetEngineRouter> {
 
     @Override
-    public Class<SpreadsheetIdRouter> type() {
-        return SpreadsheetIdRouter.class;
+    public Class<SpreadsheetEngineRouter> type() {
+        return SpreadsheetEngineRouter.class;
     }
 
     @Override
