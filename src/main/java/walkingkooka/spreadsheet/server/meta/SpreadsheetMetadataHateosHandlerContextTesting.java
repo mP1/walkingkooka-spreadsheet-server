@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface SpreadsheetEngineHateosHandlerContextTesting<C extends SpreadsheetMetadataHateosHandlerContext> extends EnvironmentContextTesting2<C>,
+public interface SpreadsheetMetadataHateosHandlerContextTesting<C extends SpreadsheetMetadataHateosHandlerContext> extends EnvironmentContextTesting2<C>,
     HateosHandlerContextTesting<C>,
     TypeNameTesting<C> {
 

@@ -89,7 +89,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements SpreadsheetEngineHateosHandlerContextTesting<BasicSpreadsheetMetadataHateosHandlerContext>,
+public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements SpreadsheetMetadataHateosHandlerContextTesting<BasicSpreadsheetMetadataHateosHandlerContext>,
     SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
