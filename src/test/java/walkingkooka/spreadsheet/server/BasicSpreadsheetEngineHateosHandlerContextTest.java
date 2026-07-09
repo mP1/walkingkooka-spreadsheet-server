@@ -359,7 +359,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         );
     }
 
-    // SpreadsheetEngineHateosHandlerContextTesting.............................................................
+    // SpreadsheetMetadataHateosHandlerContextTesting.............................................................
 
     @Override
     public void testCreateMetadataWithNullUserFails() {
