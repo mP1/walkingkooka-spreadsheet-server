@@ -46,7 +46,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetEngineRouter;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.StoreWatcher;
 import walkingkooka.terminal.server.TerminalServerContext;
@@ -218,7 +218,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
             this.spreadsheetIdToSpreadsheetStoreRepository.apply(spreadsheetId)
                 .orElseThrow(spreadsheetId::missingSpreadsheetException),
             (SpreadsheetEngineContext spreadsheetEngineContext) -> Cast.to(
-                SpreadsheetIdRouter.create(spreadsheetEngineContext)
+                SpreadsheetEngineRouter.create(spreadsheetEngineContext)
             ),
             this.currencyLocaleContext,
             metadata.spreadsheetEnvironmentContext(spreadsheetEnvironmentContext),

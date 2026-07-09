@@ -68,7 +68,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelectionMaps;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetIdRouter;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetEngineRouter;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStore;
@@ -399,7 +399,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         );
 
         final Function<SpreadsheetEngineContext, Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>>> httpRouterFactory = (SpreadsheetEngineContext spreadsheetEngineContext) -> Cast.to(
-            SpreadsheetIdRouter.create(spreadsheetEngineContext)
+            SpreadsheetEngineRouter.create(spreadsheetEngineContext)
         );
 
         final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
