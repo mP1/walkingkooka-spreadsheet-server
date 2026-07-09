@@ -235,7 +235,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
 
         @Override
         public Storage<SpreadsheetStorageContext> storage() {
-            return Storages.fake();
+            return Storages.empty();
         }
 
         @Override
