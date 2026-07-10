@@ -132,7 +132,7 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
                 )
             ).add(
                 SPREADSHEET_ENGINE_ROUTING,
-                SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE
+                SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext.with(SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE)
             ).add(
                 routing(SpreadsheetHttpServer.API),
                 SpreadsheetMetadataHttpHandler.INSTANCE

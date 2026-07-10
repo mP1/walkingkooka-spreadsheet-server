@@ -70,6 +70,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServerSpreadsheetHttpHandler;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
@@ -639,8 +640,8 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
             };
 
             final HttpResponse response = HttpResponses.recording();
-            final HttpHandler<SpreadsheetServerContext> httpHandler = SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE;
-            httpHandler.handle(
+            SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext.with(SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE)
+                .handle(
                 request,
                 response,
                 spreadsheetMetadataHateosHandlerContext.context
@@ -683,13 +684,12 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
             final HttpResponse response = HttpResponses.recording();
 
-            final HttpHandler<SpreadsheetServerContext> httpHandler = SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE;
-
-            httpHandler.handle(
-                request,
-                response,
-                spreadsheetMetadataHateosHandlerContext.context
-            );
+            SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext.with(SpreadsheetHttpServerSpreadsheetHttpHandler.INSTANCE)
+                .handle(
+                    request,
+                    response,
+                    spreadsheetMetadataHateosHandlerContext.context
+                );
 
             final HttpResponse expected = HttpResponses.recording();
             expected.setVersion(HttpProtocolVersion.VERSION_1_0);
@@ -706,7 +706,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
             this.checkEquals(
                 expected,
                 response,
-                () -> "consumer: " + httpHandler + ", request: " + request
+                request::toString
             );
         }
 

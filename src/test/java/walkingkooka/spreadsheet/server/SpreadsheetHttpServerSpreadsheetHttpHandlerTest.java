@@ -67,7 +67,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetServerContext>,
+public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetEngineHateosHandlerContext>,
     ToStringTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     SpreadsheetMetadataTesting {
@@ -346,7 +346,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
                                final HttpResponse response) {
         final SpreadsheetHttpServerSpreadsheetHttpHandler handler = this.createHttpHandler();
 
-        final SpreadsheetServerContext context = this.createContext();
+        final SpreadsheetServerContext context = this.createSpreadsheetServerContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             Optional.of(LOCALE)
@@ -362,7 +362,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
         handler.handle(
             request,
             response,
-            context
+            this.createContext(context)
         );
     }
 
@@ -372,7 +372,25 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     }
 
     @Override
-    public SpreadsheetServerContext createContext() {
+    public SpreadsheetEngineHateosHandlerContext createContext() {
+        return SpreadsheetEngineHateosHandlerContexts.fake();
+    }
+
+    private SpreadsheetEngineHateosHandlerContext createContext(final SpreadsheetServerContext context) {
+        return SpreadsheetEngineHateosHandlerContexts.basic(
+            SpreadsheetEngines.basic(),
+            HateosHandlerContexts.basic(
+                INDENTATION,
+                EOL,
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+            ),
+            context.spreadsheetContext(SPREADSHEET_ID)
+                .get()
+                .spreadsheetEngineContext()
+        );
+    }
+
+    private SpreadsheetServerContext createSpreadsheetServerContext() {
         return SpreadsheetServerContexts.basic(
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
