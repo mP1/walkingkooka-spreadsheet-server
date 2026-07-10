@@ -23,10 +23,8 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -87,7 +85,8 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHa
                 if (null != spreadsheetId) {
                     boolean notFound = true;
 
-                    final HttpHandler<HttpHandlerContext> spreadsheetIdHttpHandler = this.router(spreadsheetId, context)
+                    final HttpHandler<HttpHandlerContext> spreadsheetIdHttpHandler = context.spreadsheetContextOrFail(spreadsheetId)
+                        .httpRouter()
                         .route(request.routerParameters())
                         .orElse(null);
                     if(null != spreadsheetIdHttpHandler) {
@@ -151,15 +150,6 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHa
     private final static int SPREADSHEET_ID_PATH_COMPONENT = SpreadsheetHttpServer.API_SPREADSHEET
         .namesList()
         .size();
-
-    /**
-     * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
-     */
-    Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router(final SpreadsheetId id,
-                                                                            final SpreadsheetServerContext context) {
-        return SpreadsheetMetadataHateosHandlerContexts.basic(context)
-            .httpRouter(id);
-    }
 
     // toString.........................................................................................................
 
