@@ -21,6 +21,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
@@ -30,6 +31,7 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
@@ -38,6 +40,7 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
+import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
@@ -127,6 +130,54 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * This request parameter will hold the {@link EmailAddress} of the user making the request.
      */
     public final static HttpRequestParameterName CURRENT_USER = HttpRequestParameterName.with("currentUser");
+
+    /**
+     * Extracts the {@link SpreadsheetId} from the {@link HttpRequest#url()}, setting the response to {@link HttpStatusCode#NOT_FOUND}
+     * or {@link HttpStatusCode#BAD_REQUEST}.
+     */
+    public static Optional<SpreadsheetId> spreadsheetId(final HttpRequest request,
+                                                        final HttpResponse response,
+                                                        final HttpHandlerContext context) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
+
+        SpreadsheetId spreadsheetId = null;
+
+        final Optional<UrlPathName> spreadsheetIdPath = HttpRequestAttributes.pathComponent(SPREADSHEET_ID_PATH_COMPONENT)
+            .parameterValue(request);
+        if (spreadsheetIdPath.isPresent()) {
+            try {
+                spreadsheetId = SpreadsheetId.parse(
+                    spreadsheetIdPath.get()
+                        .value()
+                );
+            } catch (final RuntimeException cause) {
+                response.setVersion(request.protocolVersion());
+                response.setStatus(
+                    HttpStatusCode.BAD_REQUEST.setMessage(
+                        "Invalid " + SpreadsheetId.class.getSimpleName())
+                );
+                response.setEntity(HttpEntity.EMPTY);
+            }
+        }
+
+        if (null == spreadsheetId) {
+            response.setVersion(request.protocolVersion());
+            response.setStatus(
+                HttpStatusCode.BAD_REQUEST.setMessage(
+                    "Missing " + SpreadsheetId.class.getSimpleName())
+            );
+            response.setEntity(HttpEntity.EMPTY);
+        }
+
+        return Optional.ofNullable(spreadsheetId);
+    }
+
+    private final static int SPREADSHEET_ID_PATH_COMPONENT = SpreadsheetHttpServer.API_SPREADSHEET
+        .namesList()
+        .size();
+
 
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.

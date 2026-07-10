@@ -47,9 +47,13 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.FakeHttpHandlerContext;
+import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
+import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
@@ -150,6 +154,162 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     SpreadsheetMetadataTesting,
     JarFileTesting,
     TreePrintableTesting {
+
+    // spreadsheetId....................................................................................................
+
+    private final static HttpRequest REQUEST = HttpRequests.fake();
+    private final static HttpResponse RESPONSE = HttpResponses.fake();
+    private final static HttpHandlerContext HTTP_HANDLER_CONTEXT = new FakeHttpHandlerContext();
+
+    @Test
+    public void testSpreadsheetIdWithNullRequestFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.spreadsheetId(
+                null,
+                RESPONSE,
+                HTTP_HANDLER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdWithNullResponseFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.spreadsheetId(
+                REQUEST,
+                null,
+                HTTP_HANDLER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdWithNullContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.spreadsheetId(
+                REQUEST,
+                RESPONSE,
+                null
+            )
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdUrlMissingSpreadsheetIdFails() {
+        final HttpResponse response = HttpResponses.recording();
+
+        this.spreadsheetIdAndCheck(
+            "/api/wrong",
+            response,
+            Optional.empty()
+        );
+
+        this.checkEquals(
+            HttpResponses.parse(
+                "HTTP/1.0 400 Missing SpreadsheetId\r\n" +
+                    "\r\n"
+            ),
+            response
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdUrlMissingSpreadsheetIdFails2() {
+        final HttpResponse response = HttpResponses.recording();
+
+        this.spreadsheetIdAndCheck(
+            "/api/spreadsheet",
+            response,
+            Optional.empty()
+        );
+
+        this.checkEquals(
+            HttpResponses.parse(
+                "HTTP/1.0 400 Missing SpreadsheetId\r\n" +
+                    "\r\n"
+            ),
+            response
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdUrlWithInvalidSpreadsheetIdFails2() {
+        final HttpResponse response = HttpResponses.recording();
+
+        this.spreadsheetIdAndCheck(
+            "/api/spreadsheet/!Invalid",
+            response,
+            Optional.empty()
+        );
+
+        this.checkEquals(
+            HttpResponses.parse(
+                "HTTP/1.0 400 Missing SpreadsheetId\r\n" +
+                    "\r\n"
+            ),
+            response
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdUrl() {
+        this.spreadsheetIdAndCheck(
+            "/api/spreadsheet/1",
+            HttpResponses.fake(),
+            Optional.of(
+                SpreadsheetId.with(1)
+            )
+        );
+    }
+
+    @Test
+    public void testSpreadsheetIdUrl2() {
+        this.spreadsheetIdAndCheck(
+            "/api/spreadsheet/1/xyz",
+            HttpResponses.fake(),
+            Optional.of(
+                SpreadsheetId.with(1)
+            )
+        );
+    }
+
+    private void spreadsheetIdAndCheck(final String url,
+                                       final HttpResponse response,
+                                       final Optional<SpreadsheetId> expected) {
+        this.spreadsheetIdAndCheck(
+            new FakeHttpRequest() {
+
+                @Override
+                public HttpProtocolVersion protocolVersion() {
+                    return HttpProtocolVersion.VERSION_1_0;
+                }
+
+                @Override
+                public RelativeUrl url() {
+                    return Url.parseRelative(url);
+                }
+            },
+            response,
+            expected
+        );
+    }
+
+    private void spreadsheetIdAndCheck(final HttpRequest request,
+                                       final HttpResponse response,
+                                       final Optional<SpreadsheetId> expected) {
+        this.checkEquals(
+            expected,
+            SpreadsheetHttpServer.spreadsheetId(
+                request,
+                response,
+                new FakeHttpHandlerContext()
+            ),
+            "spreadsheetId"
+        );
+    }
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
