@@ -37,8 +37,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
@@ -88,12 +86,6 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
 
     private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
-
-    private final static HateosHandlerContext HATEOS_HANDLER_CONTEXT = HateosHandlerContexts.basic(
-        INDENTATION,
-        EOL,
-        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
-    );
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.fake();
 

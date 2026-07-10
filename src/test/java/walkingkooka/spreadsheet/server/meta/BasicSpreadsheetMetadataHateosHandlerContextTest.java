@@ -45,8 +45,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
@@ -94,12 +92,6 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
-
-    private final static HateosHandlerContext HATEOS_HANDLER_CONTEXT = HateosHandlerContexts.basic(
-        INDENTATION,
-        EOL,
-        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
-    );
 
     private final static EmailAddress USER = EmailAddress.parse("user@example.com");
 
