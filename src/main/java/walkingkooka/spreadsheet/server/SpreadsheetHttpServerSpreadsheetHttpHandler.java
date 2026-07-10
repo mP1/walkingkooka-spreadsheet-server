@@ -76,7 +76,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHa
                     final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
 
                     final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                        SpreadsheetEngines.basic(),
+                        spreadsheetEngineContext.spreadsheetEngine(),
                         metadata -> metadata.set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             spreadsheetEngineContext.refreshModifiedAuditInfo(
