@@ -17,13 +17,9 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.net.UrlPathName;
-import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -34,7 +30,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosHandlerContexts;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A handler that routes all spreadsheet API calls.
@@ -60,96 +55,60 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHa
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
-        final Optional<UrlPathName> spreadsheetPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerSpreadsheetHttpHandler.SPREADSHEET_ID_PATH_COMPONENT + 1)
-            .parameterValue(request);
-        if (spreadsheetPath.isPresent()) {
-            final Optional<UrlPathName> spreadsheetIdPath = HttpRequestAttributes.pathComponent(SpreadsheetHttpServerSpreadsheetHttpHandler.SPREADSHEET_ID_PATH_COMPONENT)
-                .parameterValue(request);
-            if (spreadsheetIdPath.isPresent()) {
-                SpreadsheetId spreadsheetId;
-                try {
-                    spreadsheetId = SpreadsheetId.parse(
-                        spreadsheetIdPath.get()
-                            .value()
+        final SpreadsheetId spreadsheetId = SpreadsheetHttpServer.spreadsheetId(
+            request,
+            response,
+            context
+        ).orElse(null);
+        if (null != spreadsheetId) {
+            boolean notFound = true;
+
+            final HttpHandler<HttpHandlerContext> spreadsheetIdHttpHandler = context.spreadsheetContextOrFail(spreadsheetId)
+                .httpRouter()
+                .route(request.routerParameters())
+                .orElse(null);
+            if (null != spreadsheetIdHttpHandler) {
+                final SpreadsheetContext spreadsheetContext = context.spreadsheetContext(spreadsheetId)
+                    .orElse(null);
+                if (null != spreadsheetContext) {
+                    notFound = false;
+
+                    final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
+
+                    final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
+                        SpreadsheetEngines.basic(),
+                        metadata -> metadata.set(
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            spreadsheetEngineContext.refreshModifiedAuditInfo(
+                                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                            )
+                        )
                     );
-                } catch (final RuntimeException cause) {
-                    spreadsheetId = null;
 
-                    response.setVersion(request.protocolVersion());
-                    response.setStatus(
-                        HttpStatusCode.BAD_REQUEST.setMessage(
-                            "Invalid " + SpreadsheetId.class.getSimpleName())
+                    final SpreadsheetEngineHateosHandlerContext spreadsheetEngineContext2 = SpreadsheetEngineHateosHandlerContexts.basic(
+                        engine,
+                        context, // HateosHandlerContext,
+                        spreadsheetEngineContext
+                    ).setPreProcessor(
+                        SpreadsheetMetadataHateosHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+                            spreadsheetEngineContext.storeRepository()
+                                .labels()
+                        )
                     );
-                    response.setEntity(HttpEntity.EMPTY);
+
+                    spreadsheetIdHttpHandler.handle(
+                        request,
+                        response,
+                        spreadsheetEngineContext2
+                    );
                 }
-                if (null != spreadsheetId) {
-                    boolean notFound = true;
-
-                    final HttpHandler<HttpHandlerContext> spreadsheetIdHttpHandler = context.spreadsheetContextOrFail(spreadsheetId)
-                        .httpRouter()
-                        .route(request.routerParameters())
-                        .orElse(null);
-                    if(null != spreadsheetIdHttpHandler) {
-                        final SpreadsheetContext spreadsheetContext = context.spreadsheetContext(spreadsheetId)
-                                .orElse(null);
-                        if(null != spreadsheetContext) {
-                            notFound = false;
-
-                            final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
-
-                            final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                                SpreadsheetEngines.basic(),
-                                metadata -> metadata.set(
-                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                    spreadsheetEngineContext.refreshModifiedAuditInfo(
-                                        metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                    )
-                                )
-                            );
-
-                            final SpreadsheetEngineHateosHandlerContext spreadsheetEngineContext2 = SpreadsheetEngineHateosHandlerContexts.basic(
-                                engine,
-                                context, // HateosHandlerContext,
-                                spreadsheetEngineContext
-                            ).setPreProcessor(
-                                SpreadsheetMetadataHateosHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                                    spreadsheetEngineContext.storeRepository()
-                                        .labels()
-                                )
-                            );
-
-                            spreadsheetIdHttpHandler.handle(
-                                request,
-                                response,
-                                spreadsheetEngineContext2
-                            );
-                        }
-                    }
-
-                    if(notFound) {
-                        SpreadsheetHttpServer.notFound(request, response, context);
-                    }
-                }
-            } else {
-                response.setVersion(request.protocolVersion());
-                response.setStatus(
-                    HttpStatusCode.BAD_REQUEST.setMessage(
-                        "Missing " + SpreadsheetId.class.getSimpleName())
-                );
-                response.setEntity(HttpEntity.EMPTY);
             }
-        } else {
-            SpreadsheetHttpServer.notFound(
-                request,
-                response,
-                context
-            );
+
+            if (notFound) {
+                SpreadsheetHttpServer.notFound(request, response, context);
+            }
         }
     }
-
-    private final static int SPREADSHEET_ID_PATH_COMPONENT = SpreadsheetHttpServer.API_SPREADSHEET
-        .namesList()
-        .size();
 
     // toString.........................................................................................................
 
