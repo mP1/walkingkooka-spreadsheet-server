@@ -37,6 +37,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
@@ -74,6 +75,12 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
 
     private final static String SERVER_URL = "https://example.com";
     private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
+
+    private final static HateosHandlerContext HATEOS_HANDLER_CONTEXT = HateosHandlerContexts.basic(
+        INDENTATION,
+        EOL,
+        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+    );
 
     // cell.............................................................................................................
 
@@ -429,11 +436,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
                 },
                 this.metadataStore
             ), // SpreadsheetMetadataContext
-            HateosHandlerContexts.basic(
-                INDENTATION,
-                EOL,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
-            ),
+            HATEOS_HANDLER_CONTEXT,
             PROVIDER_CONTEXT.cloneEnvironment(),
             TERMINAL_SERVER_CONTEXT
         );
