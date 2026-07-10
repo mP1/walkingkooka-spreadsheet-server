@@ -21,20 +21,13 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.spreadsheet.SpreadsheetContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosHandlerContexts;
 
 import java.util.Objects;
 
 /**
  * A handler that routes all spreadsheet API calls.
  */
-public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<SpreadsheetServerContext> {
+public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHandler<SpreadsheetEngineHateosHandlerContext> {
 
     public final static SpreadsheetHttpServerSpreadsheetHttpHandler INSTANCE = new SpreadsheetHttpServerSpreadsheetHttpHandler();
 
@@ -50,63 +43,26 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandler implements HttpHa
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response,
-                       final SpreadsheetServerContext context) {
+                       final SpreadsheetEngineHateosHandlerContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
-        final SpreadsheetId spreadsheetId = SpreadsheetHttpServer.spreadsheetId(
-            request,
-            response,
-            context
-        ).orElse(null);
-        if (null != spreadsheetId) {
-            boolean notFound = true;
-
-            final HttpHandler<HttpHandlerContext> spreadsheetIdHttpHandler = context.spreadsheetContextOrFail(spreadsheetId)
-                .httpRouter()
-                .route(request.routerParameters())
-                .orElse(null);
-            if (null != spreadsheetIdHttpHandler) {
-                final SpreadsheetContext spreadsheetContext = context.spreadsheetContext(spreadsheetId)
-                    .orElse(null);
-                if (null != spreadsheetContext) {
-                    notFound = false;
-
-                    final SpreadsheetEngineContext spreadsheetEngineContext = spreadsheetContext.spreadsheetEngineContext();
-
-                    final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                        spreadsheetEngineContext.spreadsheetEngine(),
-                        metadata -> metadata.set(
-                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                            spreadsheetEngineContext.refreshModifiedAuditInfo(
-                                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                            )
-                        )
-                    );
-
-                    final SpreadsheetEngineHateosHandlerContext spreadsheetEngineContext2 = SpreadsheetEngineHateosHandlerContexts.basic(
-                        engine,
-                        context, // HateosHandlerContext,
-                        spreadsheetEngineContext
-                    ).setPreProcessor(
-                        SpreadsheetMetadataHateosHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                            spreadsheetEngineContext.storeRepository()
-                                .labels()
-                        )
-                    );
-
-                    spreadsheetIdHttpHandler.handle(
-                        request,
-                        response,
-                        spreadsheetEngineContext2
-                    );
-                }
-            }
-
-            if (notFound) {
-                SpreadsheetHttpServer.notFound(request, response, context);
-            }
+        final HttpHandler<HttpHandlerContext> httpHandler = context.httpRouter()
+            .route(request.routerParameters())
+            .orElse(null);
+        if (null != httpHandler) {
+            httpHandler.handle(
+                request,
+                response,
+                context
+            );
+        } else {
+            SpreadsheetHttpServer.notFound(
+                request,
+                response,
+                context
+            );
         }
     }
 
