@@ -271,6 +271,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION,
                             SpreadsheetLabelNameResolvers.fake(),
                             SpreadsheetMetadataTesting.LINE_ENDING,
+                            MEDIA_TYPE_DETECTOR,
                             MULTIPLIER,
                             SPREADSHEET_METADATA_LOADER,
                             CURRENCY_LOCALE_CONTEXT,

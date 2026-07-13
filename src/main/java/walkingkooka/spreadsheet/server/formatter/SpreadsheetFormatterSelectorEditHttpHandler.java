@@ -133,6 +133,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                         context.indentation(),
                         SpreadsheetLabelNameResolvers.empty(),
                         context.lineEnding(),
+                        context, // MediaTypeDetector
                         context.multiplier(),
                         context, // SpreadsheetMetadataLoader
                         context, // CurrencyLocaleContext
