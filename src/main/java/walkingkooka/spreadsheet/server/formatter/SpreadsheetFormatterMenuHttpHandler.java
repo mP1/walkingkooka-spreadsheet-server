@@ -76,6 +76,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
                             context.indentation(),
                             context, // SpreadsheetLabelNameResolver
                             context.lineEnding(),
+                            context, // MediaTypeDetector
                             context.multiplier(),
                             context, // SpreadsheetMetadataLoader
                             context, // CurrencyLocaleContext

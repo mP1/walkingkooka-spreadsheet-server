@@ -809,6 +809,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             ),
             HATEOS_HANDLER_CONTEXT,
             SpreadsheetProviderContexts.spreadsheet(
+                MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 PluginStores.fake(),
                 CURRENCY_LOCALE_CONTEXT,

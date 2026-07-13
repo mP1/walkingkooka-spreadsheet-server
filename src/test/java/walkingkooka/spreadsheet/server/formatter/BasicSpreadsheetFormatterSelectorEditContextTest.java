@@ -134,6 +134,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             SpreadsheetConverterContexts.NO_METADATA,
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
+            MEDIA_TYPE_DETECTOR,
             ExpressionNumberBinaryNumberConverterFunctions.multiply(), // multiplier
             SpreadsheetLabelNameResolvers.fake(),
             SpreadsheetMetadataLoaders.empty(),
