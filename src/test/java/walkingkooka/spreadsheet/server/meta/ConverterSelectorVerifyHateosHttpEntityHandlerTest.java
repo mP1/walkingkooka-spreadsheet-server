@@ -41,6 +41,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
+import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -67,6 +68,13 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     SpreadsheetMetadataTesting {
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
+
+    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
+
+    private final static SpreadsheetMetadata SPREADSHEET_METADATA = METADATA_EN_AU.set(
+        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+        SPREADSHEET_ID
+    );
 
     @Test
     public void testHandleOne() {
@@ -225,7 +233,16 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return METADATA_EN_AU;
+                return SPREADSHEET_METADATA;
+            }
+
+            @Override
+            public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
+                return Optional.ofNullable(
+                    ConverterSelectorVerifyHateosHttpEntityHandlerTest.SPREADSHEET_ID.equals(id) ?
+                        SPREADSHEET_METADATA :
+                        null
+                );
             }
 
             @Override
