@@ -863,10 +863,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
                     ),
                     roundingMode.name()
-                ).toJsonText(
-                    INDENTATION,
-                    LINE_ENDING
-                ),
+                ).toJsonText(TEXT_CONTEXT),
             this.response(
                 HttpStatusCode.OK.status(),
                 loaded.set(
