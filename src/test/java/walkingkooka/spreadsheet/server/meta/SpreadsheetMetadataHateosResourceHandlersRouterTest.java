@@ -66,7 +66,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private final static AuditInfo AUDIT_INFO = AuditInfo.create(
         USER,
-        HAS_NOW.now()
+        NOW
     );
 
     private final static String URL = "https://example.com/api";
@@ -132,9 +132,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 "  \"spreadsheetId\": \"12ef\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user@example.com\",\n" +
-                "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                 "    \"modifiedBy\": \"user@example.com\",\n" +
-                "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "  }\n" +
                 "}"
         );
@@ -178,18 +178,18 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 "    \"spreadsheetId\": \"1\",\n" +
                 "    \"auditInfo\": {\n" +
                 "      \"createdBy\": \"user@example.com\",\n" +
-                "      \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "      \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                 "      \"modifiedBy\": \"user@example.com\",\n" +
-                "      \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "      \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"spreadsheetId\": \"2\",\n" +
                 "    \"auditInfo\": {\n" +
                 "      \"createdBy\": \"user@example.com\",\n" +
-                "      \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "      \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                 "      \"modifiedBy\": \"user@example.com\",\n" +
-                "      \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "      \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "    }\n" +
                 "  }\n" +
                 "]"
@@ -235,9 +235,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 "  \"spreadsheetId\": \"12ef\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user@example.com\",\n" +
-                "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                 "    \"modifiedBy\": \"user@example.com\",\n" +
-                "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "  }\n" +
                 "}"
         );
@@ -299,9 +299,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 "  \"spreadsheetId\": \"12ef\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user@example.com\",\n" +
-                "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                 "    \"modifiedBy\": \"saved@example.com\",\n" +
-                "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "  }\n" +
                 "}"
         );

@@ -433,7 +433,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
 
             @Override
             public LocalDateTime now() {
-                return HAS_NOW.now();
+                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.NOW;
             }
 
             @Override

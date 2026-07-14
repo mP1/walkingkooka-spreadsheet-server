@@ -61,7 +61,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -421,8 +420,6 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             SpreadsheetMetadataContexts.basic(
                 (u, l) -> {
-                    final LocalDateTime now = HAS_NOW.now();
-
                     final Locale locale = Locale.forLanguageTag("EN-AU");
 
                     final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
@@ -436,7 +433,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
                                 USER,
-                                now
+                                NOW
                             )
                         ).set(
                             SpreadsheetMetadataPropertyName.TEXT_FORMATTER,

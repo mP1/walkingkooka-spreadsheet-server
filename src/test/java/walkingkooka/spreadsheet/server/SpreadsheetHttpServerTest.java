@@ -555,7 +555,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         SpreadsheetMetadataPropertyName.AUDIT_INFO,
                         AuditInfo.create(
                             user,
-                            HAS_NOW.now()
+                            NOW
                         )
                     )
             )
@@ -566,7 +566,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         this.checkEquals(
             AuditInfo.create(
                 user,
-                HAS_NOW.now()
+                NOW
             ),
             created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
             created::toString
@@ -602,7 +602,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
                                 user,
-                                HAS_NOW.now()
+                                NOW
                             )
                         )
                 )
@@ -613,7 +613,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             this.checkEquals(
                 AuditInfo.create(
                     user,
-                    HAS_NOW.now()
+                    NOW
                 ),
                 created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
                 created::toString
@@ -645,7 +645,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
                                 user2,
-                                HAS_NOW.now()
+                                NOW
                             )
                         )
                 )
@@ -656,7 +656,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             this.checkEquals(
                 AuditInfo.create(
                     user2,
-                    HAS_NOW.now()
+                    NOW
                 ),
                 created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
                 created::toString
@@ -705,9 +705,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
-                    "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                    "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
-                    "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                    "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
@@ -5287,9 +5287,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
-                    "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                    "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
-                    "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                    "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
@@ -5760,9 +5760,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
-                    "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                    "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
-                    "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                    "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
@@ -6022,9 +6022,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
-                    "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                    "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
-                    "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                    "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
                     "  \"cellCharacterWidth\": 1,\n" +
@@ -13260,7 +13260,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
                                 u,
-                                HAS_NOW.now()
+                                NOW
                             )
                         )
                 ),
