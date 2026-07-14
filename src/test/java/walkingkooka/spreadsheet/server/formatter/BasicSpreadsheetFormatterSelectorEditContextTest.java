@@ -48,6 +48,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.storage.HasUserDirectorieses;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberBinaryNumberConverterFunctions;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
@@ -144,13 +145,14 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                     Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ExpressionNumberConverterContext>
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
-                        CHARSET,
                         Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                        Indentation.SPACES2,
-                        LineEnding.NL,
                         ',', // valueSeparator
                         Converters.objectToString(),
                         Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ConverterContext>
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            LineEnding.NL
+                        ).setCharset(CHARSET),
                         new FakeCurrencyContext() {
 
                             @Override
