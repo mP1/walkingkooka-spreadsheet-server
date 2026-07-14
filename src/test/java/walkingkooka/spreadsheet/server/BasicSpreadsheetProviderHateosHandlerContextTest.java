@@ -32,7 +32,6 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
-import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -59,7 +58,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
                 EnvironmentContexts.empty(
                     CHARSET,
                     Currency.getInstance("AUD"),
-                    Indentation.SPACES4,
+                    INDENTATION,
                     LineEnding.NL,
                     Locale.FRANCE,
                     () -> LocalDateTime.MIN,
