@@ -68,17 +68,15 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
                     context.spreadsheetMetadata()
                         .spreadsheetFormatterContext(
                             SpreadsheetMetadata.NO_CELL,
-                            context.charset(),
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
                             },
                             context, // HasUserDirectories
-                            context.indentation(),
                             context, // SpreadsheetLabelNameResolver
-                            context.lineEnding(),
                             context, // MediaTypeDetector
                             context.multiplier(),
                             context, // SpreadsheetMetadataLoader
+                            context, // BinaryTextContext
                             context, // CurrencyLocaleContext
                             context, // SpreadsheetProvider
                             providerContext // ProviderContext

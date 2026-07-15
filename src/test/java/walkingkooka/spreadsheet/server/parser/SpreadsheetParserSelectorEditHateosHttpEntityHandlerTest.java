@@ -263,17 +263,15 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         value,
                         SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
                             Optional.of(cell),
-                            SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.CHARSET,
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
                             HAS_USER_DIRECTORIES,
-                            SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.INDENTATION,
                             SpreadsheetLabelNameResolvers.fake(),
-                            SpreadsheetMetadataTesting.LINE_ENDING,
                             MEDIA_TYPE_DETECTOR,
                             MULTIPLIER,
                             SPREADSHEET_METADATA_LOADER,
+                            BINARY_TEXT_CONTEXT,
                             CURRENCY_LOCALE_CONTEXT,
                             SPREADSHEET_PROVIDER,
                             PROVIDER_CONTEXT

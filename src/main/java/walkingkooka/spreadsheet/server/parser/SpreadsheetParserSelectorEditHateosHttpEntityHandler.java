@@ -105,7 +105,6 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 ), // SpreadsheetParserContext,
                 metadata.spreadsheetFormatterContext(
                     SpreadsheetMetadata.NO_CELL,
-                    context.charset(),
                     (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                         .spreadsheetExpressionEvaluationContext(
                             SpreadsheetMetadata.NO_CELL,
@@ -115,12 +114,11 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                             v
                         ),
                     context, // HasUserDirectories
-                    context.indentation(),
                     SpreadsheetLabelNameResolvers.empty(),
-                    context.lineEnding(),
                     context, // MediaTypeDetector
                     context.multiplier(),
                     context, // SpreadsheetMetadataLoader
+                    context, // BinaryTextContext
                     context, // CurrencyLocaleContext
                     context, // SpreadsheetProvider
                     providerContext // ProviderContext
