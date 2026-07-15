@@ -93,8 +93,6 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final static EmailAddress USER = EmailAddress.parse("user@example.com");
-
     @Test
     public void testWithNullContextFails() {
         assertThrows(
