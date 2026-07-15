@@ -713,18 +713,17 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testUser() {
-        final EmailAddress user = EmailAddress.parse("different@example.com");
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
             STORAGE,
             ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
         spreadsheetEnvironmentContext.setUser(
-            Optional.of(user)
+            Optional.of(DIFFERENT_USER)
         );
 
         this.userAndCheck(
             this.createContext(spreadsheetEnvironmentContext),
-            user
+            DIFFERENT_USER
         );
     }
 
@@ -886,7 +885,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 PROVIDER_CONTEXT,
                 TERMINAL_SERVER_CONTEXT
             ),
-            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=\"UTF-8\", currency=\"AUD\", indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection-to collection-t"
+            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=\"UTF-8\", currency=\"AUD\", indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection-to collectio"
         );
     }
 
@@ -936,7 +935,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "              timeOffset\n" +
                 "                Z (java.time.ZoneOffset)\n" +
                 "              user\n" +
-                "                user@example.com (walkingkooka.net.email.EmailAddress)\n" +
+                "                user123@example.com (walkingkooka.net.email.EmailAddress)\n" +
                 "          readOnlyNames\n" +
                 "            * (walkingkooka.predicate.AlwaysPredicate)\n" +
                 "      storage\n" +

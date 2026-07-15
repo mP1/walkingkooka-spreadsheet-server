@@ -131,9 +131,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "{\n" +
                 "  \"spreadsheetId\": \"12ef\",\n" +
                 "  \"auditInfo\": {\n" +
-                "    \"createdBy\": \"user@example.com\",\n" +
+                "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                "    \"modifiedBy\": \"user@example.com\",\n" +
+                "    \"modifiedBy\": \"user123@example.com\",\n" +
                 "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "  }\n" +
                 "}"
@@ -177,18 +177,18 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 "  {\n" +
                 "    \"spreadsheetId\": \"1\",\n" +
                 "    \"auditInfo\": {\n" +
-                "      \"createdBy\": \"user@example.com\",\n" +
+                "      \"createdBy\": \"user123@example.com\",\n" +
                 "      \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                "      \"modifiedBy\": \"user@example.com\",\n" +
+                "      \"modifiedBy\": \"user123@example.com\",\n" +
                 "      \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"spreadsheetId\": \"2\",\n" +
                 "    \"auditInfo\": {\n" +
-                "      \"createdBy\": \"user@example.com\",\n" +
+                "      \"createdBy\": \"user123@example.com\",\n" +
                 "      \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                "      \"modifiedBy\": \"user@example.com\",\n" +
+                "      \"modifiedBy\": \"user123@example.com\",\n" +
                 "      \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "    }\n" +
                 "  }\n" +
@@ -234,9 +234,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "{\n" +
                 "  \"spreadsheetId\": \"12ef\",\n" +
                 "  \"auditInfo\": {\n" +
-                "    \"createdBy\": \"user@example.com\",\n" +
+                "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                "    \"modifiedBy\": \"user@example.com\",\n" +
+                "    \"modifiedBy\": \"user123@example.com\",\n" +
                 "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                 "  }\n" +
                 "}"
@@ -298,7 +298,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "{\n" +
                 "  \"spreadsheetId\": \"12ef\",\n" +
                 "  \"auditInfo\": {\n" +
-                "    \"createdBy\": \"user@example.com\",\n" +
+                "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                 "    \"modifiedBy\": \"saved@example.com\",\n" +
                 "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +

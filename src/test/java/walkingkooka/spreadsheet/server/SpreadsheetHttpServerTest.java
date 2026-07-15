@@ -536,10 +536,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     @Test
     public void testMetadataPostCreateWithDifferentUser() {
-        final EmailAddress user = EmailAddress.parse("different@example.com");
-
         final TestHttpServer server = this.startServer(
-            (r) -> Optional.of(user)
+            (r) -> Optional.of(DIFFERENT_USER)
         );
 
         server.handleAndCheck(
@@ -554,7 +552,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     .set(
                         SpreadsheetMetadataPropertyName.AUDIT_INFO,
                         AuditInfo.create(
-                            user,
+                            DIFFERENT_USER,
                             NOW
                         )
                     )
@@ -565,7 +563,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
         this.checkEquals(
             AuditInfo.create(
-                user,
+                DIFFERENT_USER,
                 NOW
             ),
             created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
@@ -581,8 +579,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     @Test
     public void testMetadataPostCreateDifferentUsers() {
-        final EmailAddress user = EmailAddress.parse("different@example.com");
-        this.currentUser = user;
+        this.currentUser = DIFFERENT_USER;
 
         final TestHttpServer server = this.startServer(
             (r) -> Optional.ofNullable(this.currentUser)
@@ -601,7 +598,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         .set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(
-                                user,
+                                DIFFERENT_USER,
                                 NOW
                             )
                         )
@@ -612,7 +609,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
             this.checkEquals(
                 AuditInfo.create(
-                    user,
+                    DIFFERENT_USER,
                     NOW
                 ),
                 created.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO),
@@ -704,9 +701,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 "{\n" +
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
-                    "    \"createdBy\": \"user@example.com\",\n" +
+                    "    \"createdBy\": \"user123@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                    "    \"modifiedBy\": \"user@example.com\",\n" +
+                    "    \"modifiedBy\": \"user123@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
@@ -5286,9 +5283,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 "{\n" +
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
-                    "    \"createdBy\": \"user@example.com\",\n" +
+                    "    \"createdBy\": \"user123@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                    "    \"modifiedBy\": \"user@example.com\",\n" +
+                    "    \"modifiedBy\": \"user123@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
@@ -5759,9 +5756,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 "{\n" +
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
-                    "    \"createdBy\": \"user@example.com\",\n" +
+                    "    \"createdBy\": \"user123@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                    "    \"modifiedBy\": \"user@example.com\",\n" +
+                    "    \"modifiedBy\": \"user123@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
@@ -6021,9 +6018,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 "{\n" +
                     "  \"spreadsheetId\": \"1\",\n" +
                     "  \"auditInfo\": {\n" +
-                    "    \"createdBy\": \"user@example.com\",\n" +
+                    "    \"createdBy\": \"user123@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                    "    \"modifiedBy\": \"user@example.com\",\n" +
+                    "    \"modifiedBy\": \"user123@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"autoHideScrollbars\": false,\n" +
