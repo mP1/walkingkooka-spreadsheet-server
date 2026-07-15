@@ -120,7 +120,6 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
                         cell,
-                        context.charset(),
                         (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                             .spreadsheetExpressionEvaluationContext(
                                 cell,
@@ -130,12 +129,11 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                                 v
                             ),
                         context, // HasUserDirectories
-                        context.indentation(),
                         SpreadsheetLabelNameResolvers.empty(),
-                        context.lineEnding(),
                         context, // MediaTypeDetector
                         context.multiplier(),
                         context, // SpreadsheetMetadataLoader
+                        context, // BinaryTextContext
                         context, // CurrencyLocaleContext
                         context, // // SpreadsheetProvider
                         providerContext // ProviderContext
