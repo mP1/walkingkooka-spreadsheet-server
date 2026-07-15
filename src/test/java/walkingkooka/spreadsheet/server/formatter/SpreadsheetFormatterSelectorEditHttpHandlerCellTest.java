@@ -333,7 +333,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
         this.checkNotEquals(
             value,
-            HAS_NOW.now(),
+            NOW,
             "value must be different from NOW"
         );
 
@@ -527,7 +527,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
         this.checkNotEquals(
             value,
-            HAS_NOW.now(),
+            NOW,
             "value must be different from NOW"
         );
 
@@ -905,7 +905,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
             @Override
             public LocalDateTime now() {
-                return HAS_NOW.now();
+                return SpreadsheetFormatterSelectorEditHttpHandlerCellTest.NOW;
             }
 
             @Override

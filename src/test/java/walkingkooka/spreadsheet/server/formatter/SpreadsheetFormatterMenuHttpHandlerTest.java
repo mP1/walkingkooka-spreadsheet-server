@@ -221,7 +221,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
 
                 @Override
                 public LocalDateTime now() {
-                    return HAS_NOW.now();
+                    return SpreadsheetFormatterMenuHttpHandlerTest.NOW;
                 }
 
                 @Override

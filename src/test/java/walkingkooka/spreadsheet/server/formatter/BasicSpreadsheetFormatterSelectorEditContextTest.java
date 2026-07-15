@@ -46,6 +46,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.storage.HasUserDirectorieses;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberBinaryNumberConverterFunctions;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
@@ -146,7 +149,10 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         ',', // valueSeparator
                         Converters.objectToString(),
                         Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ConverterContext>
-                        BINARY_TEXT_CONTEXT,
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            LineEnding.NL
+                        ).setCharset(CHARSET),
                         new FakeCurrencyContext() {
 
                             @Override
