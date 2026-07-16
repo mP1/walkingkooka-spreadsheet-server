@@ -385,8 +385,6 @@ public class TestGwtTest extends GWTTestCase {
                         metadataStore
                     ),
                     HateosHandlerContexts.basic(
-                        Indentation.SPACES2,
-                        lineEnding,
                         JsonNodeMarshallUnmarshallContexts.basic(
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(
@@ -394,6 +392,10 @@ public class TestGwtTest extends GWTTestCase {
                                 CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )
+                        ),
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            lineEnding
                         )
                     ),
                     ProviderContexts.basic(

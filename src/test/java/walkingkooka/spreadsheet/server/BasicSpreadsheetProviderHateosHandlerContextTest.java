@@ -70,8 +70,6 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     );
 
     private final static HateosHandlerContext HATEOS_HANDLER_CONTEXT = HateosHandlerContexts.basic(
-        INDENTATION,
-        EOL,
         JsonNodeMarshallUnmarshallContexts.basic(
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(
@@ -97,7 +95,8 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
                 },
                 MathContext.DECIMAL32
             )
-        )
+        ),
+        TEXT_CONTEXT
     );
 
     @Test
