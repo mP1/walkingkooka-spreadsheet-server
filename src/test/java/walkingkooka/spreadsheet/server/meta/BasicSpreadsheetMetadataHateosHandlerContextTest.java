@@ -107,9 +107,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     public void testHateosRouter() {
         final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         this.checkNotEquals(
             null,
@@ -564,9 +562,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
             )
         );
 
-        final SpreadsheetContext spreadsheetContext = spreadsheetMetadataHateosHandlerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = spreadsheetMetadataHateosHandlerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         final SpreadsheetId id = spreadsheetContext.spreadsheetIdOrFail();
 
@@ -712,9 +708,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     public void testHateosRouterAndRouteInvalidRequest() {
         final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         final Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> router = context.httpRouter(
             spreadsheetContext.spreadsheetIdOrFail()
@@ -763,7 +757,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
         final SpreadsheetMetadata metadata = context.createMetadata(
             USER,
-            Optional.of(LOCALE)
+            OPTIONAL_LOCALE
         );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetName> propertyName = SpreadsheetMetadataPropertyName.SPREADSHEET_NAME;
@@ -786,9 +780,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     public void testSaveMetadataSelectionCell() {
         final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata()
             .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
@@ -813,9 +805,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     public void testSaveMetadataViewportSelectionUnknownLabel() {
         final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata()
             .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
