@@ -39,8 +39,6 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
     extends SpreadsheetMetadataHateosResourceHandlerTestCase<H>
     implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
 
-    final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x1234);
-
     SpreadsheetMetadataHateosResourceHandlersTestCase2() {
         super();
     }

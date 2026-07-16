@@ -83,8 +83,6 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
-    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
-
     private final static SpreadsheetEngine SPREADSHEET_ENGINE = SpreadsheetEngines.fake();
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.fake();

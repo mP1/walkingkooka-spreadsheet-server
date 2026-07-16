@@ -803,7 +803,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
             @Override
             public Optional<StoragePath> currentWorkingDirectory() {
-                return SpreadsheetFormatterSelectorEditHttpHandlerCellTest.CURRENT_WORKING_DIRECTORY;
+                return OPTIONAL_CURRENT_WORKING_DIRECTORY;
             }
 
             @Override

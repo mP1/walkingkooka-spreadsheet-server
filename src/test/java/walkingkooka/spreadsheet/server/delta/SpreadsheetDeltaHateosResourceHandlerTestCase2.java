@@ -49,7 +49,6 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterAliasSet;
-import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -246,8 +245,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(text, number, basic, spreadsheet-value)");
-
-    final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
 
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
         .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)

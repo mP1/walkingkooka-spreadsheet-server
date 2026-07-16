@@ -119,7 +119,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
 
                 @Override
                 public Optional<StoragePath> currentWorkingDirectory() {
-                    return SpreadsheetFormatterMenuHttpHandlerTest.CURRENT_WORKING_DIRECTORY;
+                    return OPTIONAL_CURRENT_WORKING_DIRECTORY;
                 }
 
                 @Override

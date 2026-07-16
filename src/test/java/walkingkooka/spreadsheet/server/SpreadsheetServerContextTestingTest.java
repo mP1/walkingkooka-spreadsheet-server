@@ -57,8 +57,6 @@ import java.util.Optional;
 public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext>,
     SpreadsheetMetadataTesting {
 
-    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
-
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
 
     // spreadsheetContextAndCheck.......................................................................................
