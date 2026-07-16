@@ -77,7 +77,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteCellGetLoadCell() {
         this.routeAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/cell/A1",
+            "/api/spreadsheet/123/cell/A1",
             HttpStatusCode.OK
         );
     }
@@ -88,7 +88,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
             IllegalArgumentException.class,
             () -> this.route(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/cell/A1",
+                "/api/spreadsheet/123/cell/A1",
                 ""
             )
         );
@@ -96,14 +96,14 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
 
     @Test
     public void testRouteCellPutFails() {
-        this.routeAndFail(HttpMethod.PUT, "/api/spreadsheet/1/cell/A1");
+        this.routeAndFail(HttpMethod.PUT, "/api/spreadsheet/123/cell/A1");
     }
 
     @Test
     public void testRouteCellDelete() {
         this.routeAndCheck(
             HttpMethod.DELETE,
-            "/api/spreadsheet/1/cell/A1",
+            "/api/spreadsheet/123/cell/A1",
             HttpStatusCode.OK
         );
     }
@@ -112,7 +112,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteCellDeleteRange() {
         this.routeAndCheck(
             HttpMethod.DELETE,
-            "/api/spreadsheet/1/cell/A1:B2",
+            "/api/spreadsheet/123/cell/A1:B2",
             HttpStatusCode.OK
         );
     }
@@ -124,7 +124,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
         for (SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
             this.routeAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/A1/" + evaluation.toLinkRelation()
+                "/api/spreadsheet/123/cell/A1/" + evaluation.toLinkRelation()
                     .toString(),
                 HttpStatusCode.OK
             );
@@ -137,7 +137,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteColumnsGetFails() {
         this.routeAndFail(
             HttpMethod.GET,
-            "/api/spreadsheet/1/column/A"
+            "/api/spreadsheet/123/column/A"
         );
     }
 
@@ -145,7 +145,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteColumnsPostFails() {
         this.routeAndFail(
             HttpMethod.POST,
-            "/api/spreadsheet/1/column/A"
+            "/api/spreadsheet/123/column/A"
         );
     }
 
@@ -153,7 +153,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteColumnsPutFails() {
         this.routeAndFail(
             HttpMethod.PUT,
-            "/api/spreadsheet/1/column/A"
+            "/api/spreadsheet/123/column/A"
         );
     }
 
@@ -161,7 +161,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteColumnsDelete() {
         this.routeAndCheck(
             HttpMethod.DELETE,
-            "/api/spreadsheet/1/column/A",
+            "/api/spreadsheet/123/column/A",
             HttpStatusCode.OK
         );
     }
@@ -172,7 +172,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteRowsGetFails() {
         this.routeAndFail(
             HttpMethod.GET,
-            "/api/spreadsheet/1/row/1"
+            "/api/spreadsheet/123/row/1"
         );
     }
 
@@ -180,7 +180,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteRowsPostFails() {
         this.routeAndFail(
             HttpMethod.POST,
-            "/api/spreadsheet/1/row/1"
+            "/api/spreadsheet/123/row/1"
         );
     }
 
@@ -188,7 +188,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteRowsPutFails() {
         this.routeAndFail(
             HttpMethod.PUT,
-            "/api/spreadsheet/1/row/1"
+            "/api/spreadsheet/123/row/1"
         );
     }
 
@@ -196,7 +196,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteRowsDelete() {
         this.routeAndCheck(
             HttpMethod.DELETE,
-            "/api/spreadsheet/1/row/1",
+            "/api/spreadsheet/123/row/1",
             HttpStatusCode.OK
         );
     }
@@ -207,7 +207,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteFillCellsGetFails() {
         this.routeAndFail(
             HttpMethod.GET,
-            "/api/spreadsheet/1/cell/A1:B2/fill"
+            "/api/spreadsheet/123/cell/A1:B2/fill"
         );
     }
 
@@ -215,7 +215,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteFillCellsPost() {
         this.routeAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/cell/A1:B2/fill",
+            "/api/spreadsheet/123/cell/A1:B2/fill",
             JSON_NODE_MARSHALL_CONTEXT.marshall(
                 SpreadsheetDelta.EMPTY
                     .setCells(
@@ -236,7 +236,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteFillCellsPutFails() {
         this.routeAndFail(
             HttpMethod.PUT,
-            "/api/spreadsheet/1/cell/A1:B2/fill"
+            "/api/spreadsheet/123/cell/A1:B2/fill"
         );
     }
 
@@ -244,7 +244,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteFillCellsDeleteFails() {
         this.routeAndFail(
             HttpMethod.DELETE,
-            "/api/spreadsheet/1/cell/A1:B2/fill"
+            "/api/spreadsheet/123/cell/A1:B2/fill"
         );
     }
 
@@ -254,7 +254,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteLabelGetNotFound() {
         this.routeAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/label/UnknownLabel99",
+            "/api/spreadsheet/123/label/UnknownLabel99",
             HttpStatusCode.OK
         );
     }
@@ -263,7 +263,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     public void testRouteLabelGet() {
         this.routeAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/label/" + LABEL,
+            "/api/spreadsheet/123/label/" + LABEL,
             HttpStatusCode.OK
         );
     }
@@ -351,8 +351,8 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
         final SpreadsheetId spreadsheetId = spreadsheetContext.spreadsheetIdOrFail();
 
         this.checkEquals(
-            1L,
-            spreadsheetId.id()
+            SPREADSHEET_ID,
+            spreadsheetId
         );
 
         handler.handle(
