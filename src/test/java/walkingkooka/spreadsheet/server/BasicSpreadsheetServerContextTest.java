@@ -374,7 +374,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testCreateEmptySpreadsheetEnvironmentValueSpreadsheetIdReplaced() {
         final SpreadsheetId spreadsheetId = SpreadsheetId.with(0x9999);
 
-        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        final EnvironmentContext environmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
         environmentContext.setEnvironmentValue(
             SpreadsheetEnvironmentContext.SPREADSHEET_ID,
             spreadsheetId
@@ -747,21 +747,16 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     private BasicSpreadsheetServerContext createContext(final EmailAddress user) {
-        final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
-        environmentContext.setUser(
+        final SpreadsheetEnvironmentContext context = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        context.setUser(
             Optional.of(user)
         );
-        environmentContext.setEnvironmentValue(
+        context.setEnvironmentValue(
             SpreadsheetEnvironmentContext.SPREADSHEET_ID,
             SPREADSHEET_ID
         );
 
-        return this.createContext(
-            SpreadsheetEnvironmentContexts.basic(
-                STORAGE,
-                environmentContext
-            )
-        );
+        return this.createContext(context);
     }
 
     private BasicSpreadsheetServerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
