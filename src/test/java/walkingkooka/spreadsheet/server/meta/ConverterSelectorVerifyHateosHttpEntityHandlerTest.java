@@ -69,8 +69,6 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
 
-    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
-
     private final static SpreadsheetMetadata SPREADSHEET_METADATA = METADATA_EN_AU.set(
         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
         SPREADSHEET_ID
@@ -164,7 +162,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public Optional<StoragePath> currentWorkingDirectory() {
-                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY;
+                return OPTIONAL_CURRENT_WORKING_DIRECTORY;
             }
 
             @Override

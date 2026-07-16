@@ -114,8 +114,6 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
-    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(123);
-
     // with.............................................................................................................
 
     @Test

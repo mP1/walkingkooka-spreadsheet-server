@@ -331,7 +331,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
 
             @Override
             public Optional<StoragePath> currentWorkingDirectory() {
-                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.CURRENT_WORKING_DIRECTORY;
+                return OPTIONAL_CURRENT_WORKING_DIRECTORY;
             }
 
             @Override

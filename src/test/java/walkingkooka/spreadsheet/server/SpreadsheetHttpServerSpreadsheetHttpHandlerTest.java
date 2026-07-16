@@ -71,9 +71,6 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     SpreadsheetMetadataTesting {
 
-    private final static String SERVER_URL = "https://example.com";
-    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1);
-
     // cell.............................................................................................................
 
     @Test

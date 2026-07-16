@@ -165,7 +165,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                 @Override
                 public Optional<StoragePath> currentWorkingDirectory() {
-                    return SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.CURRENT_WORKING_DIRECTORY;
+                    return OPTIONAL_CURRENT_WORKING_DIRECTORY;
                 }
 
                 @Override

@@ -62,8 +62,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    private final static SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x12ef);
-
     private final static AuditInfo AUDIT_INFO = AuditInfo.create(
         USER,
         NOW
@@ -125,11 +123,11 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
             },
             HttpMethod.GET,
-            URL + "/spreadsheet/12ef",
+            URL + "/spreadsheet/1",
             "", // request body
             HttpStatusCode.OK,
             "{\n" +
-                "  \"spreadsheetId\": \"12ef\",\n" +
+                "  \"spreadsheetId\": \"1\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
@@ -232,7 +230,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "", // request body
             HttpStatusCode.CREATED,
             "{\n" +
-                "  \"spreadsheetId\": \"12ef\",\n" +
+                "  \"spreadsheetId\": \"1\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
@@ -272,7 +270,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 @Override
                 public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
                     return Optional.ofNullable(
-                        0x12ef == id.id() ?
+                        0x1 == id.id() ?
                             new FakeSpreadsheetContext() {
 
                                 @Override
@@ -291,12 +289,12 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
             },
             HttpMethod.POST,
-            URL + "/spreadsheet/12ef",
+            URL + "/spreadsheet/1",
             JSON_NODE_MARSHALL_CONTEXT.marshall(unsaved)
                 .toString(),
             HttpStatusCode.OK,
             "{\n" +
-                "  \"spreadsheetId\": \"12ef\",\n" +
+                "  \"spreadsheetId\": \"1\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
@@ -319,7 +317,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     public void testHandleOneMetadataPut() {
         this.routeAndFail(
             HttpMethod.PUT,
-            URL + "/spreadsheet/12ef",
+            URL + "/spreadsheet/1",
             "", // request body
             HttpStatusCode.METHOD_NOT_ALLOWED
         );
@@ -353,7 +351,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
             },
             HttpMethod.DELETE,
-            URL + "/spreadsheet/12ef",
+            URL + "/spreadsheet/1",
             "", // request body
             HttpStatusCode.NO_CONTENT,
             ""
