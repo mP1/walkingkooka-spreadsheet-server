@@ -13265,9 +13265,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 metadataStore
             ),
             HateosHandlerContexts.basic(
-                INDENTATION,
-                LINE_ENDING,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                TEXT_CONTEXT
             ),
             ProviderContexts.basic(
                 ConverterContexts.fake(), // ConverterLike

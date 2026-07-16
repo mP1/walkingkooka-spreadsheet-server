@@ -374,9 +374,8 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
         return SpreadsheetEngineHateosHandlerContexts.basic(
             SpreadsheetEngines.basic(),
             HateosHandlerContexts.basic(
-                INDENTATION,
-                EOL,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                TEXT_CONTEXT
             ),
             context.spreadsheetContext(SPREADSHEET_ID)
                 .get()
