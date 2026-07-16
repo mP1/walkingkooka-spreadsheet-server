@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
@@ -46,7 +47,6 @@ import walkingkooka.template.TemplateValueName;
 import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.util.Currency;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -55,12 +55,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<SpreadsheetUrlPathTemplate>,
-    HashCodeEqualsDefinedTesting2<SpreadsheetUrlPathTemplate> {
-
-    private final static SpreadsheetId ID = SpreadsheetId.with(0x123);
-    private final static SpreadsheetName NAME = SpreadsheetName.with("SpreadsheetName456");
-
-    private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
+    HashCodeEqualsDefinedTesting2<SpreadsheetUrlPathTemplate>,
+    SpreadsheetMetadataTesting {
 
     private final CurrencyCode CURRENCY_CODE = CurrencyCode.fromCurrency(
         Currency.getInstance(LOCALE)
@@ -182,7 +178,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "/api/spreadsheet/123/name/SpreadsheetName456/cell",
             SpreadsheetUrlPathTemplate.SPREADSHEET_ID,
             SpreadsheetId::parse,
-            Optional.of(ID)
+            Optional.of(SPREADSHEET_ID)
         );
     }
 
@@ -193,7 +189,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "/api/spreadsheet/123/name/SpreadsheetName456/cell",
             SpreadsheetUrlPathTemplate.SPREADSHEET_NAME,
             SpreadsheetName::with,
-            Optional.of(NAME)
+            Optional.of(SPREADSHEET_NAME)
         );
     }
 
@@ -440,7 +436,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         this.spreadsheetIdAndCheck(
             "/api/spreadsheet/${SpreadsheetId}/",
             "/api/spreadsheet/123/different",
-            Optional.of(ID)
+            Optional.of(SPREADSHEET_ID)
         );
     }
 
@@ -555,7 +551,7 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     @Test
     public void testSpreadsheetName() {
         this.checkEquals(
-            NAME,
+            SPREADSHEET_NAME,
             SpreadsheetUrlPathTemplate.parse("/api/spreadsheetName/${SpreadsheetName}/")
                 .spreadsheetName(
                     UrlPath.parse("/api/spreadsheetName/SpreadsheetName456/"
@@ -648,11 +644,11 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         final Map<TemplateValueName, Object> expected = Maps.sorted();
         expected.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_ID,
-            ID
+            SPREADSHEET_ID
         );
         expected.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_NAME,
-            NAME
+            SPREADSHEET_NAME
         );
         expected.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_EXPRESSION_REFERENCE,
@@ -704,11 +700,11 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         final Map<TemplateValueName, Object> expected = Maps.sorted();
         expected.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_ID,
-            ID
+            SPREADSHEET_ID
         );
         expected.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_NAME,
-            NAME
+            SPREADSHEET_NAME
         );
         expected.put(
             TemplateValueName.with("Custom1"),
@@ -739,10 +735,10 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             TemplateContexts.renderOnly(
                 (n) -> {
                     if (n.equals(SpreadsheetUrlPathTemplate.SPREADSHEET_ID)) {
-                        return ID.toString();
+                        return SPREADSHEET_ID.toString();
                     }
                     if (n.equals(SpreadsheetUrlPathTemplate.SPREADSHEET_NAME)) {
-                        return NAME.toString();
+                        return SPREADSHEET_NAME.toString();
                     }
                     if (n.equals(SpreadsheetUrlPathTemplate.SPREADSHEET_EXPRESSION_REFERENCE)) {
                         return CELL.toString();
@@ -787,11 +783,11 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
         final Map<TemplateValueName, Object> values = Maps.sorted();
         values.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_ID,
-            ID
+            SPREADSHEET_ID
         );
         values.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_NAME,
-            NAME
+            SPREADSHEET_NAME
         );
         values.put(
             SpreadsheetUrlPathTemplate.SPREADSHEET_EXPRESSION_REFERENCE,
