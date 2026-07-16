@@ -91,6 +91,7 @@ import walkingkooka.storage.Storages;
 import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -381,8 +382,6 @@ public class J2clTest {
                         metadataStore
                     ),
                     HateosHandlerContexts.basic(
-                        Indentation.SPACES2,
-                        lineEnding,
                         JsonNodeMarshallUnmarshallContexts.basic(
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(
@@ -390,6 +389,11 @@ public class J2clTest {
                                 CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )
+                        ),
+                        ,
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            lineEnding
                         )
                     ),
                     ProviderContexts.basic(
