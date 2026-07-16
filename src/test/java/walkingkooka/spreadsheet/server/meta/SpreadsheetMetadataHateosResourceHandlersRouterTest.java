@@ -123,11 +123,11 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
             },
             HttpMethod.GET,
-            URL + "/spreadsheet/1",
+            URL + "/spreadsheet/123",
             "", // request body
             HttpStatusCode.OK,
             "{\n" +
-                "  \"spreadsheetId\": \"1\",\n" +
+                "  \"spreadsheetId\": \"123\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
@@ -230,7 +230,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "", // request body
             HttpStatusCode.CREATED,
             "{\n" +
-                "  \"spreadsheetId\": \"1\",\n" +
+                "  \"spreadsheetId\": \"123\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
@@ -270,7 +270,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 @Override
                 public Optional<SpreadsheetContext> spreadsheetContext(final SpreadsheetId id) {
                     return Optional.ofNullable(
-                        0x1 == id.id() ?
+                        SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID.equals(id) ?
                             new FakeSpreadsheetContext() {
 
                                 @Override
@@ -289,12 +289,12 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
             },
             HttpMethod.POST,
-            URL + "/spreadsheet/1",
+            URL + "/spreadsheet/123",
             JSON_NODE_MARSHALL_CONTEXT.marshall(unsaved)
                 .toString(),
             HttpStatusCode.OK,
             "{\n" +
-                "  \"spreadsheetId\": \"1\",\n" +
+                "  \"spreadsheetId\": \"123\",\n" +
                 "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user123@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
@@ -317,7 +317,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     public void testHandleOneMetadataPut() {
         this.routeAndFail(
             HttpMethod.PUT,
-            URL + "/spreadsheet/1",
+            URL + "/spreadsheet/123",
             "", // request body
             HttpStatusCode.METHOD_NOT_ALLOWED
         );
@@ -351,7 +351,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 }
             },
             HttpMethod.DELETE,
-            URL + "/spreadsheet/1",
+            URL + "/spreadsheet/123",
             "", // request body
             HttpStatusCode.NO_CONTENT,
             ""

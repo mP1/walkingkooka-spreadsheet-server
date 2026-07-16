@@ -326,6 +326,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
+    // must be 1 because Store will give 1 to the first created SpreadsheetMetadata
+    private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
+
     private static final ExpressionFunctionProvider<SpreadsheetExpressionEvaluationContext> EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider<>() {
 
         @Override
