@@ -351,9 +351,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Test
     public void testCreateEmptySpreadsheet() {
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext();
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
             null,
             spreadsheetContext
@@ -387,9 +385,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             )
         );
 
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
             null,
             spreadsheetContext
@@ -428,9 +424,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(user1);
 
-        final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
             null,
             spreadsheetContext1
@@ -440,9 +434,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         spreadsheetServerContext.setUser(
             Optional.of(user2)
         );
-        final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
             null,
             spreadsheetContext2
@@ -496,9 +488,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             }
         );
 
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         this.checkEquals(
             true,
@@ -599,9 +589,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testSpreadsheetContextAfterCreateEmptySpreadsheet() {
         final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
 
-        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
             null,
             spreadsheetContext

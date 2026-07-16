@@ -344,9 +344,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
 
         final SpreadsheetServerContext context = this.createSpreadsheetServerContext();
 
-        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
-            Optional.of(LOCALE)
-        );
+        final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
         final SpreadsheetId spreadsheetId = spreadsheetContext.spreadsheetIdOrFail();
 
