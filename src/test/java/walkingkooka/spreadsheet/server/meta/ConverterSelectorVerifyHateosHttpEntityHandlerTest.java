@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
@@ -32,6 +33,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
@@ -266,6 +268,15 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             @Override
             public ProviderContext providerContext() {
                 return PROVIDER_CONTEXT;
+            }
+
+            @Override
+            public MediaType detect(final String filename,
+                                    final Binary content) {
+                return MEDIA_TYPE_DETECTOR.detect(
+                    filename,
+                    content
+                );
             }
         };
     }
