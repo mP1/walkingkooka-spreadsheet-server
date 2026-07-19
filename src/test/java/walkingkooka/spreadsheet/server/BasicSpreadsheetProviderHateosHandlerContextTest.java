@@ -19,11 +19,8 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
-import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
@@ -33,16 +30,10 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -70,32 +61,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     );
 
     private final static HateosHandlerContext HATEOS_HANDLER_CONTEXT = HateosHandlerContexts.basic(
-        JsonNodeMarshallUnmarshallContexts.basic(
-            JsonNodeMarshallContexts.basic(),
-            JsonNodeUnmarshallContexts.basic(
-                ExpressionNumberKind.BIG_DECIMAL,
-                new CurrencyCodeLanguageTagContext() {
-                    @Override
-                    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                        return Optional.ofNullable(
-                            Currency.getInstance(
-                                currencyCode.value()
-                            )
-                        );
-                    }
-
-                    @Override
-                    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
-                        return Optional.of(
-                            Locale.forLanguageTag(
-                                languageTag.value()
-                            )
-                        );
-                    }
-                },
-                MathContext.DECIMAL32
-            )
-        ),
+        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
         TEXT_CONTEXT
     );
 

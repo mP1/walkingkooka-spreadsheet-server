@@ -18,27 +18,19 @@
 package walkingkooka.spreadsheet.server.currency;
 
 import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
-import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContextTestingTest.TestCurrencyHateosHandlerContext;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.math.MathContext;
 import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -109,32 +101,7 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
 
         @Override
         public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
-            return JsonNodeMarshallUnmarshallContexts.basic(
-                JsonNodeMarshallContexts.basic(),
-                JsonNodeUnmarshallContexts.basic(
-                    ExpressionNumberKind.BIG_DECIMAL,
-                    new CurrencyCodeLanguageTagContext() {
-                        @Override
-                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                            return Optional.ofNullable(
-                                Currency.getInstance(
-                                    currencyCode.value()
-                                )
-                            );
-                        }
-
-                        @Override
-                        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
-                            return Optional.of(
-                                Locale.forLanguageTag(
-                                    languageTag.value()
-                                )
-                            );
-                        }
-                    },
-                    MathContext.UNLIMITED
-                )
-            );
+            return JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT;
         }
 
         @Override
