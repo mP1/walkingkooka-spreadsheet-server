@@ -22,16 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyExchange;
-import walkingkooka.currency.FakeCurrencyContext;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -55,10 +47,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -122,11 +110,6 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     }
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
-        final Locale locale = Locale.forLanguageTag("EN-AU");
-        final LocaleContext localeContext = LocaleContexts.jre(locale);
-
-        final MathContext mathContext = MathContext.DECIMAL32;
-
         return SpreadsheetConverterContexts.basic(
             HasUserDirectorieses.fake(),
             SpreadsheetConverterContexts.NO_METADATA,
@@ -147,40 +130,9 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         Converters.objectToString(),
                         Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ConverterContext>
                         BINARY_TEXT_CONTEXT,
-                        new FakeCurrencyContext() {
-
-                            @Override
-                            public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
-                                                                         final Optional<LocalDateTime> dateTime) {
-                                Objects.requireNonNull(currencyExchange, "currencyExchange");
-                                Objects.requireNonNull(dateTime, "dateTime");
-
-                                throw new UnsupportedOperationException();
-                            }
-
-                            @Override
-                            public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                                Objects.requireNonNull(currencyCode, "currencyCode");
-                                throw new UnsupportedOperationException();
-                            }
-
-                            @Override
-                            public Optional<Currency> currencyForLocale(final Locale locale) {
-                                return Optional.of(
-                                    Currency.getInstance(locale)
-                                );
-                            }
-                        }.setLocaleContext(localeContext),
-                        DateTimeContexts.basic(
-                            DateTimeSymbols.fromDateFormatSymbols(
-                                new DateFormatSymbols(locale)
-                            ),
-                            locale,
-                            1950, // default year
-                            50, // two-digit-year
-                            LocalDateTime::now
-                        ),
-                        DecimalNumberContexts.american(mathContext)
+                        CURRENCY_LOCALE_CONTEXT,
+                        DATE_TIME_CONTEXT,
+                        DECIMAL_NUMBER_CONTEXT
                     ),
                     ExpressionNumberKind.BIG_DECIMAL
                 ),
@@ -189,11 +141,11 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                     JsonNodeUnmarshallContexts.basic(
                         EXPRESSION_NUMBER_KIND,
                         CURRENCY_LOCALE_CONTEXT,
-                        mathContext
+                        MATH_CONTEXT
                     )
                 )
             ),
-            localeContext
+            LOCALE_CONTEXT
         );
     }
 
