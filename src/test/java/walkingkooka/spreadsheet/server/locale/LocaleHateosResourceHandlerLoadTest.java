@@ -23,7 +23,7 @@ import walkingkooka.collect.RangeBound;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.locale.LocaleContextTesting;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -40,9 +40,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext> {
+public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext>,
+    LocaleContextTesting {
 
-    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
+    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static LocaleLanguageTag EN_NZ = LocaleLanguageTag.parse("EN-NZ");
 
@@ -55,11 +56,7 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                LocaleHateosResource.fromLocale(
-                    Locale.forLanguageTag(
-                        EN_AU.value()
-                    )
-                )
+                LocaleHateosResource.fromLocale(LOCALE)
             )
         );
     }
@@ -190,9 +187,7 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
     @Override
     public LocaleHateosHandlerContext context() {
         return LocaleHateosHandlerContexts.basic(
-            LocaleContexts.jre(
-                Locale.forLanguageTag("EN-AU")
-            ),
+            LOCALE_CONTEXT,
             HateosHandlerContexts.fake()
         );
     }

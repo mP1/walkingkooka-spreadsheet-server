@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.RangeBound;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.locale.LocaleContextTesting;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
@@ -38,9 +38,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DecimalNumberSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext> {
+public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DecimalNumberSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    LocaleContextTesting {
 
-    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
+    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static LocaleLanguageTag EN_NZ = LocaleLanguageTag.parse("en-NZ");
 
@@ -115,11 +116,7 @@ public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements 
     @Override
     public LocaleHateosHandlerContext context() {
         return LocaleHateosHandlerContexts.basic(
-            LocaleContexts.jre(
-                Locale.forLanguageTag(
-                    EN_AU.value()
-                )
-            ),
+            LOCALE_CONTEXT,
             HateosHandlerContexts.fake()
         );
     }

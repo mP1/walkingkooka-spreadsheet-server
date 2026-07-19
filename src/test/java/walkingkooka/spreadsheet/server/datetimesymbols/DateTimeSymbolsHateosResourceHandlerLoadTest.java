@@ -22,7 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.RangeBound;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.locale.LocaleContextTesting;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -38,9 +38,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DateTimeSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosHandlerContext> {
+public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DateTimeSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DateTimeSymbolsHateosResource, DateTimeSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+    LocaleContextTesting {
 
-    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.parse("en-AU");
+    private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static LocaleLanguageTag EN_NZ = LocaleLanguageTag.parse("en-NZ");
 
@@ -113,11 +114,7 @@ public final class DateTimeSymbolsHateosResourceHandlerLoadTest implements Hateo
     @Override
     public LocaleHateosHandlerContext context() {
         return LocaleHateosHandlerContexts.basic(
-            LocaleContexts.jre(
-                Locale.forLanguageTag(
-                    EN_AU.value()
-                )
-            ),
+            LOCALE_CONTEXT,
             HateosHandlerContexts.fake()
         );
     }
