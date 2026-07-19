@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -61,7 +60,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
-import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -414,15 +412,10 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             SpreadsheetMetadataContexts.basic(
                 (u, l) -> {
-                    final Locale locale = Locale.forLanguageTag("EN-AU");
-
                     final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                        .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
-                        .loadFromLocale(
-                            CURRENCY_CONTEXT.setLocaleContext(
-                                LocaleContexts.jre(locale)
-                            )
-                        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
+                        .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
+                        .loadFromLocale(CURRENCY_LOCALE_CONTEXT)
+                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                         .set(
                             SpreadsheetMetadataPropertyName.AUDIT_INFO,
                             AuditInfo.create(

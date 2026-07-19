@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.FakeSpreadsheetContext;
@@ -43,7 +42,6 @@ import walkingkooka.util.BiFunctionTesting;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -115,8 +113,6 @@ public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTes
     public void testApply() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
 
-        final Locale locale = Locale.forLanguageTag("EN-AU");
-
         final SpreadsheetMetadata metadata = store.save(
             SpreadsheetMetadata.EMPTY
                 .set(
@@ -127,16 +123,12 @@ public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTes
                         USER,
                         LocalDateTime.of(2021, 10, 10, 17, 3, 0)
                     )
-                ).set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+                ).set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                .loadFromLocale(
-                    CURRENCY_CONTEXT.setLocaleContext(
-                        LocaleContexts.jre(locale)
-                    )
-                )
+                .loadFromLocale(CURRENCY_LOCALE_CONTEXT)
         );
 
         final SpreadsheetMetadataHateosHandlerContext context = new FakeSpreadsheetMetadataHateosHandlerContext() {
