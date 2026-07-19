@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.datetimesymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.HasDateTimeSymbolsTesting;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -37,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DateTimeSymbolsHateosResourceTest implements ComparableTesting2<DateTimeSymbolsHateosResource>,
     TreePrintableTesting,
+    HasDateTimeSymbolsTesting,
     HasTextTesting,
     JsonNodeMarshallingTesting<DateTimeSymbolsHateosResource>,
     ClassTesting2<DateTimeSymbolsHateosResource> {
@@ -46,10 +48,6 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     private final static LocaleLanguageTag LOCALE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
 
     private final static String LOCALE_TEXT = "English (Australia)";
-
-    private final static DateTimeSymbols DATE_TIME_SYMBOLS = DateTimeSymbols.fromDateFormatSymbols(
-        new DateFormatSymbols(LOCALE)
-    );
 
     @Test
     public void testWithNullLocaleLanguageTagFails() {
