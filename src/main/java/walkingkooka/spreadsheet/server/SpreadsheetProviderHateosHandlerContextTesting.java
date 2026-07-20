@@ -17,10 +17,10 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 import walkingkooka.plugin.ProviderContextTesting;
 
-public interface SpreadsheetProviderHateosHandlerContextTesting<C extends SpreadsheetProviderHateosHandlerContext> extends HateosHandlerContextTesting<C>,
+public interface SpreadsheetProviderHateosHandlerContextTesting<C extends SpreadsheetProviderHateosHandlerContext> extends HateosHandlerContextTesting2<C>,
     ProviderContextTesting<C> {
 
     @Override

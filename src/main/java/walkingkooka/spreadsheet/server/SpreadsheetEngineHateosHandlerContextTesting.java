@@ -18,10 +18,10 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting;
 
-public interface SpreadsheetEngineHateosHandlerContextTesting<C extends SpreadsheetEngineHateosHandlerContext> extends HateosHandlerContextTesting<C>,
+public interface SpreadsheetEngineHateosHandlerContextTesting<C extends SpreadsheetEngineHateosHandlerContext> extends HateosHandlerContextTesting2<C>,
     SpreadsheetEngineContextTesting<C> {
 
     @Test
@@ -37,6 +37,6 @@ public interface SpreadsheetEngineHateosHandlerContextTesting<C extends Spreadsh
 
     @Override
     default String typeNameSuffix() {
-        return HateosHandlerContextTesting.super.typeNameSuffix();
+        return HateosHandlerContextTesting2.super.typeNameSuffix();
     }
 }

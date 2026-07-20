@@ -19,9 +19,10 @@ package walkingkooka.spreadsheet.server.locale;
 
 import walkingkooka.locale.LocaleContextTesting2;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 
-public interface LocaleHateosHandlerContextTesting<C extends LocaleHateosHandlerContext> extends LocaleContextTesting2<C>, HateosHandlerContextTesting<C> {
+public interface LocaleHateosHandlerContextTesting<C extends LocaleHateosHandlerContext> extends LocaleContextTesting2<C>,
+    HateosHandlerContextTesting2<C> {
 
     @Override
     default C createCanLocaleForLanguageTag() {

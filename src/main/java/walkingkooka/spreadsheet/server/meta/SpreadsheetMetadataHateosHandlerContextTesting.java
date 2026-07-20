@@ -20,14 +20,14 @@ package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.EnvironmentContextTesting2;
-import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SpreadsheetMetadataHateosHandlerContextTesting<C extends SpreadsheetMetadataHateosHandlerContext> extends EnvironmentContextTesting2<C>,
-    HateosHandlerContextTesting<C>,
+    HateosHandlerContextTesting2<C>,
     TypeNameTesting<C> {
 
     @Test
