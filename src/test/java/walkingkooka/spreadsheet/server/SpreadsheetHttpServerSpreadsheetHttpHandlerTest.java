@@ -36,7 +36,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
@@ -65,6 +65,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetEngineHateosHandlerContext>,
+    HateosHandlerContextTesting,
     ToStringTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     SpreadsheetMetadataTesting {
@@ -371,10 +372,7 @@ public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements Ht
     private SpreadsheetEngineHateosHandlerContext createContext(final SpreadsheetServerContext context) {
         return SpreadsheetEngineHateosHandlerContexts.basic(
             SpreadsheetEngines.basic(),
-            HateosHandlerContexts.basic(
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-                TEXT_CONTEXT
-            ),
+            HATEOS_HANDLER_CONTEXT,
             context.spreadsheetContext(SPREADSHEET_ID)
                 .get()
                 .spreadsheetEngineContext()

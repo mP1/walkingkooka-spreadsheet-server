@@ -58,7 +58,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.ProviderContext;
@@ -150,6 +150,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerTest implements ClassTesting2<SpreadsheetHttpServer>,
+    HateosHandlerContextTesting,
     TypeNameTesting<SpreadsheetHttpServer>,
     SpreadsheetMetadataTesting,
     JarFileTesting,
@@ -13275,10 +13276,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 ),
                 metadataStore
             ),
-            HateosHandlerContexts.basic(
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-                TEXT_CONTEXT
-            ),
+            HATEOS_HANDLER_CONTEXT,
             ProviderContexts.basic(
                 ConverterContexts.fake(), // ConverterLike
                 EnvironmentContexts.map(
