@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
@@ -58,11 +56,6 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
             )
         ),
         PluginStores.treeMap()
-    );
-
-    private final static HateosHandlerContext HATEOS_HANDLER_CONTEXT = HateosHandlerContexts.basic(
-        JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-        TEXT_CONTEXT
     );
 
     @Test

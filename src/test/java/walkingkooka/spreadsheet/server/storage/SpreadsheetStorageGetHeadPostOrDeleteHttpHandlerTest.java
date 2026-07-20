@@ -27,6 +27,7 @@ import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.GetHeadPostOrDeleteHttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -52,6 +53,7 @@ import walkingkooka.tree.json.JsonPropertyName;
 import java.util.Optional;
 
 public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implements GetHeadPostOrDeleteHttpHandlerTesting<SpreadsheetStorageGetHeadPostOrDeleteHttpHandler, SpreadsheetEngineHateosHandlerContext>,
+    HateosHandlerContextTesting,
     SpreadsheetMetadataTesting,
     SpreadsheetStorageContextTesting {
 
