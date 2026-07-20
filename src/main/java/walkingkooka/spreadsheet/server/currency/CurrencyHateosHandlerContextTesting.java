@@ -19,9 +19,9 @@ package walkingkooka.spreadsheet.server.currency;
 
 import walkingkooka.currency.CurrencyContextTesting2;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
+import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 
-public interface CurrencyHateosHandlerContextTesting<C extends CurrencyHateosHandlerContext> extends CurrencyContextTesting2<C>, HateosHandlerContextTesting<C> {
+public interface CurrencyHateosHandlerContextTesting<C extends CurrencyHateosHandlerContext> extends CurrencyContextTesting2<C>, HateosHandlerContextTesting2<C> {
 
     @Override
     default String typeNameSuffix() {
