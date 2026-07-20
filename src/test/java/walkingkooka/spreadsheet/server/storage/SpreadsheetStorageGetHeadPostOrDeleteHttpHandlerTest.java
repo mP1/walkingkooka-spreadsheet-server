@@ -221,7 +221,7 @@ public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implemen
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 26\r\n" +
-                    "Content-Type: application/json;\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
                     "\r\n" +
                     "{\n" +
                     "  \"hello\": \"World 123\"\n" +
@@ -255,7 +255,7 @@ public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implemen
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 16\r\n" +
-                    "Content-Type: text/plain;\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
                     "\r\n" +
                     "File Content 123"
             )

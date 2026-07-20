@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.storage;
 import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.Accept;
+import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -193,10 +194,15 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                 response.setEntity(HttpEntity.EMPTY);
             } else {
                 response.setEntity(
-                    HttpEntity.EMPTY.setContentType(responseContentType)
-                        .setBody(
-                            storageBinary.binary()
-                        ).setContentLength()
+                    HttpEntity.EMPTY.setContentType(responseContentType.setCharset(
+                            CharsetName.with(
+                                context.charset()
+                                    .name()
+                            )
+                        )
+                    ).setBody(
+                        storageBinary.binary()
+                    ).setContentLength()
                 );
             }
 
