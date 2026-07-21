@@ -30,6 +30,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.nio.charset.Charset;
 import java.util.Currency;
 import java.util.Objects;
 import java.util.Optional;
@@ -68,6 +69,11 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
         @Override
         public CurrencyContext currencyContext() {
             return CURRENCY_CONTEXT;
+        }
+
+        @Override
+        public Charset charset() {
+            throw new UnsupportedOperationException();
         }
 
         @Override

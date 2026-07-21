@@ -43,6 +43,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -71,6 +72,11 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosHandlerContext = hateosHandlerContext;
         this.engineContext = engineContext;
+    }
+
+    @Override
+    public Charset charset() {
+        return this.hateosHandlerContext.charset();
     }
 
     @Override

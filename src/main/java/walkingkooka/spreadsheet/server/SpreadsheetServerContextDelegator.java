@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
+import java.nio.charset.Charset;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
@@ -54,7 +55,13 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
             .localeForLanguageTag(languageTag);
     }
 
-    // EnvironmentContextDelegator......................................................................................
+    // SpreadsheetEnvironmentContextDelegator...........................................................................
+
+    @Override
+    default Charset charset() {
+        return this.spreadsheetEnvironmentContext()
+            .charset();
+    }
 
     @Override
     default Currency currency() {

@@ -29,6 +29,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -96,6 +97,11 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         public Set<Locale> findByLocaleText(final String text,
                                             final int offset,
                                             final int count) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Charset charset() {
             throw new UnsupportedOperationException();
         }
 
