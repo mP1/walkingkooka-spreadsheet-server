@@ -35,6 +35,7 @@ import walkingkooka.storage.StorageBinary;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.StorageValue;
 import walkingkooka.storage.StorageValueInfo;
+import walkingkooka.storage.StorageValueInfoList;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
@@ -148,14 +149,14 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             HttpStatusCode.OK.status()
         );
 
-        // convert StorageValueInfo to JsonNode and then Binary
+        // convert StorageValueInfoList to JsonNode and then Binary
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
                 context.contentType()
             ).setBodyText(
                 context.toJsonText(
-                context.convertOrFail(
-                        infos,
+                    context.convertOrFail(
+                        StorageValueInfoList.with(infos),
                         JsonNode.class
                     )
                 )
