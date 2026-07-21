@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -25,6 +26,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
+import walkingkooka.route.Routers;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -39,7 +41,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
+import walkingkooka.spreadsheet.server.net.SpreadsheetServerLinkRelations;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
+import walkingkooka.spreadsheet.server.storage.SpreadsheetServerStorageRouter;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.spreadsheet.value.SpreadsheetColumn;
@@ -75,16 +79,28 @@ public final class SpreadsheetIdRouter implements PublicStaticHelper {
 
         final HateosResourceMappings<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosHandlerContext> row = SpreadsheetDeltaHttpMappings.row();
 
-        return HateosResourceMappings.router(
-            deltaUrlPath,
-            Sets.of(
-                cell,
-                column,
-                form,
-                label,
-                metadata,
-                parser, // /parser
-                row
+        // must try storage first
+        return Routers.collection(
+            Lists.of(
+                SpreadsheetServerStorageRouter.with(
+                    deltaUrlPath.append(
+                        SpreadsheetServerLinkRelations.STORAGE
+                            .toUrlPathName()
+                            .get()
+                    )
+                ),
+                HateosResourceMappings.router(
+                    deltaUrlPath,
+                    Sets.of(
+                        cell,
+                        column,
+                        form,
+                        label,
+                        metadata,
+                        parser, // /parser
+                        row
+                    )
+                )
             )
         );
     }

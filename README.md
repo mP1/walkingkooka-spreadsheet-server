@@ -205,6 +205,14 @@ Many of these are very closely mapped to the context menu that appears when row/
 - **DELETE** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/row/1
 - **DELETE** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/row/1:2
 
+#### [Storage](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetRow.java)
+
+Spreadsheet context sensitive storage APIs
+
+- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/storage/[StoragePath](https://github.com/mP1/walkingkooka-storage/blob/master/src/main/java/walkingkooka/storage/StoragePath.java)
+- **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/storage/[StoragePath](https://github.com/mP1/walkingkooka-storage/blob/master/src/main/java/walkingkooka/storage/StoragePath.java)
+- **DELETE** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/storage/[StoragePath](https://github.com/mP1/walkingkooka-storage/blob/master/src/main/java/walkingkooka/storage/StoragePath.java)
+
 #### [Validator](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/validation/Validator.java)
 
 These end points may be used to work with

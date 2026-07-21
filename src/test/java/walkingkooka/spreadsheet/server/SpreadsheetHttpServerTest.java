@@ -115,6 +115,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
+import walkingkooka.storage.Storages;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -13100,6 +13101,148 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         );
     }
 
+    // storage..........................................................................................................
+
+    @Test
+    public void testStorageSaveAndLoad() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "POST /api/spreadsheet/1/storage/uploaded-file.txt HTTP/1.0\r\n" +
+                    "Content-Length: 16\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
+                    "\r\n" +
+                    "Hello"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "\r\n"
+            )
+        );
+
+        // load storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "GET /api/spreadsheet/1/storage/uploaded-file.txt HTTP/1.0\r\n" +
+                    "Accept: */*\r\n" +
+                    "Content-Length: 16\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
+                    "\r\n"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 5\r\n" +
+                    "Content-Type: application/octet-stream; charset=UTF-8\r\n" +
+                    "\r\n" +
+                    "Hello"
+            )
+        );
+    }
+
+    @Test
+    public void testStorageDelete() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "POST /api/spreadsheet/1/storage/uploaded-file.txt HTTP/1.0\r\n" +
+                    "Content-Length: 16\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
+                    "\r\n" +
+                    "Hello"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "\r\n"
+            )
+        );
+
+        // DELETE storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "DELETE /api/spreadsheet/1/storage/uploaded-file.txt HTTP/1.0\r\n" +
+                    "\r\n"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "\r\n"
+            )
+        );
+
+        // load storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "GET /api/spreadsheet/1/storage/uploaded-file.txt HTTP/1.0\r\n" +
+                    "Accept: */*\r\n" +
+                    "Content-Length: 16\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
+                    "\r\n"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 404 Not found\r\n" +
+                    "\r\n"
+            )
+        );
+    }
+
+    @Test
+    public void testStorageGetListing() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "POST /api/spreadsheet/1/storage/uploaded-file.txt HTTP/1.0\r\n" +
+                    "Content-Length: 16\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
+                    "\r\n" +
+                    "Hello"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "\r\n"
+            )
+        );
+
+        // load storage
+        server.handleAndCheck(
+            HttpRequests.parse(
+                HttpTransport.UNSECURED,
+                "GET /api/spreadsheet/1/storage/ HTTP/1.0\r\n" +
+                    "Accept: */*\r\n" +
+                    "Content-Length: 16\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
+                    "\r\n"
+            ),
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK\r\n" +
+                    "Content-Length: 253\r\n" +
+                    "Content-Type: application/json; charset=UTF-8\r\n" +
+                    "\r\n" +
+                    "[\n" +
+                    "  {\n" +
+                    "    \"path\": \"/uploaded-file.txt\",\n" +
+                    "    \"auditInfo\": {\n" +
+                    "      \"createdBy\": \"user123@example.com\",\n" +
+                    "      \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
+                    "      \"modifiedBy\": \"user123@example.com\",\n" +
+                    "      \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "]"
+            )
+        );
+    }
+
     // validators........................................................................................................
 
     @Test
@@ -13226,7 +13369,11 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     private SpreadsheetServerContext createSpreadsheetServerContext(final Optional<EmailAddress> user) {
-        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        //final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
+            Storages.treeMapStore(),
+            SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
+        );
         spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
         return SpreadsheetServerContexts.basic(
