@@ -58,6 +58,7 @@ import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.nio.charset.Charset;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -283,6 +284,12 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                 after,
                 this.terminalServerContext
             );
+    }
+
+    @Override
+    public Charset charset() {
+        return this.spreadsheetEnvironmentContext()
+            .charset();
     }
 
     @Override

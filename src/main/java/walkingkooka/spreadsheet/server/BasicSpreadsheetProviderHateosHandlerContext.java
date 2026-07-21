@@ -29,6 +29,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -82,6 +83,11 @@ final class BasicSpreadsheetProviderHateosHandlerContext implements SpreadsheetP
             name,
             value
         );
+    }
+
+    @Override
+    public Charset charset() {
+        return this.hateosHandlerContext.charset();
     }
 
     @Override

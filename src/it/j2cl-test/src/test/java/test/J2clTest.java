@@ -382,6 +382,10 @@ public class J2clTest {
                         metadataStore
                     ),
                     HateosHandlerContexts.basic(
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            lineEnding
+                        ).setCharset(charset),
                         JsonNodeMarshallUnmarshallContexts.basic(
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(
@@ -389,11 +393,6 @@ public class J2clTest {
                                 CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )
-                        ),
-                        ,
-                        TextPrinting.with(
-                            Indentation.SPACES2,
-                            lineEnding
                         )
                     ),
                     ProviderContexts.basic(
