@@ -17,9 +17,18 @@
 
 package walkingkooka.spreadsheet.server.storage;
 
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 
 public final class SpreadsheetServerStorageHttpHandlers implements PublicStaticHelper {
+
+    /**
+     * {@see SpreadsheetStorageGetHeadPostOrDeleteHttpHandler}
+     */
+    public static HttpHandler<SpreadsheetEngineHateosHandlerContext> storage() {
+        return SpreadsheetStorageGetHeadPostOrDeleteHttpHandler.INSTANCE;
+    }
 
     /**
      * Stop creation
