@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.locale;
 
 import walkingkooka.locale.LocaleContextTesting2;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 
 public interface LocaleHateosHandlerContextTesting<C extends LocaleHateosHandlerContext> extends LocaleContextTesting2<C>,
@@ -31,6 +30,6 @@ public interface LocaleHateosHandlerContextTesting<C extends LocaleHateosHandler
 
     @Override
     default String typeNameSuffix() {
-        return HateosHandlerContext.class.getSimpleName();
+        return HateosHandlerContextTesting2.super.typeNameSuffix();
     }
 }
