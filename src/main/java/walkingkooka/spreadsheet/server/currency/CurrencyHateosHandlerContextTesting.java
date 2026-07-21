@@ -18,13 +18,12 @@
 package walkingkooka.spreadsheet.server.currency;
 
 import walkingkooka.currency.CurrencyContextTesting2;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
 
 public interface CurrencyHateosHandlerContextTesting<C extends CurrencyHateosHandlerContext> extends CurrencyContextTesting2<C>, HateosHandlerContextTesting2<C> {
 
     @Override
     default String typeNameSuffix() {
-        return HateosHandlerContext.class.getSimpleName();
+        return HateosHandlerContextTesting2.super.typeNameSuffix();
     }
 }
