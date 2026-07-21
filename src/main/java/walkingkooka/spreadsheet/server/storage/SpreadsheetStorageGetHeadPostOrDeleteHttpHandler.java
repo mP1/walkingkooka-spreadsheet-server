@@ -272,11 +272,9 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
     private static StoragePath path(final HttpRequest request) {
         final UrlPath urlPath = request.url()
             .path();
-        final StoragePath storagePath = StoragePath.parse(
+        return StoragePath.parse(
             urlPath.pathAfter(4)
                 .value()
         );
-        System.out.println("storagePath: " + storagePath);
-        return storagePath;
     }
 }
