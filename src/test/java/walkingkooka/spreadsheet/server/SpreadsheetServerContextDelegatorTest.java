@@ -165,7 +165,7 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
             Objects.requireNonNull(id, "id");
 
             return Optional.ofNullable(
-                id.equals(SPREADSHEET_ID) ?
+                id.equals(SpreadsheetServerContextDelegatorTest.SPREADSHEET_ID) ?
                     SPREADSHEET_CONTEXT :
                     null
             );
