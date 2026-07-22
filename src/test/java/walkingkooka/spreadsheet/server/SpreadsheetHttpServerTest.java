@@ -13136,7 +13136,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             HttpResponses.parse(
                 "HTTP/1.0 200 OK\r\n" +
                     "Content-Length: 5\r\n" +
-                    "Content-Type: application/octet-stream; charset=UTF-8\r\n" +
+                    "Content-Type: text/plain; charset=UTF-8\r\n" +
                     "\r\n" +
                     "Hello"
             )
