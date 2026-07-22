@@ -13650,7 +13650,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
         private HttpHandler<SpreadsheetServerContext> handler;
 
-        private SpreadsheetServerContext context;
+        private final SpreadsheetServerContext context;
 
         @Override
         public String toString() {
