@@ -332,6 +332,8 @@ public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implemen
             StorageValue.with(path)
                 .setValue(
                     Optional.of(content)
+                ).setContentType(
+                    Optional.of(MediaType.TEXT_PLAIN)
                 )
         );
     }
