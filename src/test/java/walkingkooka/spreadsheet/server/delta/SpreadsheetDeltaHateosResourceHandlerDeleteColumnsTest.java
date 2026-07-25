@@ -156,8 +156,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
     }
 
     private void handleRangeFails2(final Range<SpreadsheetColumnReference> columns) {
-        this.checkEquals(
-            "Range with both columns required=" + columns,
+        this.getMessageAndCheck(
             this.handleRangeFails(
                 columns,
                 this.collectionResource(),
@@ -165,8 +164,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                 UrlPath.EMPTY,
                 this.context(),
                 IllegalArgumentException.class
-            ).getMessage(),
-            "message"
+            ),
+            "Range with both columns required=" + columns
         );
     }
 

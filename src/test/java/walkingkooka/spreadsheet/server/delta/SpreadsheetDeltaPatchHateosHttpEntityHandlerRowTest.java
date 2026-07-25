@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -40,7 +41,9 @@ import java.util.stream.Collectors;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerRow,
     SpreadsheetRowReference,
-    SpreadsheetRowRangeReference> {
+    SpreadsheetRowRangeReference>
+    implements ThrowableTesting {
+
     final static SpreadsheetRowReference ROW = SpreadsheetSelection.parseRow("2");
 
     final static SpreadsheetRowReference ROW2 = SpreadsheetSelection.parseRow("3");
@@ -76,9 +79,9 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            "Patch row(s): " + ROW + " includes invalid row 99",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Patch row(s): " + ROW + " includes invalid row 99"
         );
     }
 
@@ -330,9 +333,9 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            "Patch row(s): " + ROW_RANGE + " includes invalid row 99",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Patch row(s): " + ROW_RANGE + " includes invalid row 99"
         );
     }
 

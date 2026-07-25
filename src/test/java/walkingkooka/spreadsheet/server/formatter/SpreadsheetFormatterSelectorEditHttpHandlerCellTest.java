@@ -35,6 +35,7 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
@@ -71,6 +72,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
+    ThrowableTesting,
     ToStringTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell> {
 
     @Test
@@ -95,9 +97,9 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
                 )
         );
 
-        this.checkEquals(
-            "Missing header Accept",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Missing header Accept"
         );
     }
 

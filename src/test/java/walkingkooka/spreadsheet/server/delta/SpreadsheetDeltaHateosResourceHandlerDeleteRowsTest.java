@@ -157,16 +157,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     }
 
     private void handleRangeFails2(final Range<SpreadsheetRowReference> rows) {
-        this.checkEquals(
-            "Range with both rows required=" + rows,
+        this.getMessageAndCheck(
             this.handleRangeFails(
                 rows,
                 this.collectionResource(),
                 HateosResourceHandler.NO_PARAMETERS,
                 UrlPath.EMPTY,
                 this.context(),
-                IllegalArgumentException.class).getMessage(),
-            "message"
+                IllegalArgumentException.class
+            ),
+            "Range with both rows required=" + rows
         );
     }
 

@@ -36,6 +36,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
@@ -70,6 +71,7 @@ import java.util.Set;
 
 public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
+    ThrowableTesting,
     ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
 
     private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE;
@@ -134,9 +136,9 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
             this.context(),
             IllegalArgumentException.class
         );
-        this.checkEquals(
-            "Accept: Got application/json require text/plain",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Accept: Got application/json require text/plain"
         );
     }
 

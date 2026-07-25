@@ -44,6 +44,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
@@ -101,7 +102,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<SpreadsheetDeltaHttpMappings>,
-    SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting,
+    ThrowableTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -405,10 +407,9 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             body,
             thrown
         );
-        this.checkEquals(
-            message,
-            throwable.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            throwable,
+            message
         );
     }
 

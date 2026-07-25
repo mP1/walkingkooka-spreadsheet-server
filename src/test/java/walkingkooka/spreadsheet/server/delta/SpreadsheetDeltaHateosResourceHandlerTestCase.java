@@ -20,13 +20,15 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase<T> implements ClassTesting<T>,
     TypeNameTesting<T>,
-    SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting,
+    ThrowableTesting {
 
     SpreadsheetDeltaHateosResourceHandlerTestCase() {
         super();
