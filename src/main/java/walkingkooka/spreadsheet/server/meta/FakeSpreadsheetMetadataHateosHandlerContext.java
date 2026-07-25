@@ -17,7 +17,9 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.Binary;
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
@@ -27,6 +29,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetServerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
+
+import java.util.Optional;
 
 public class FakeSpreadsheetMetadataHateosHandlerContext extends FakeSpreadsheetServerContext
     implements SpreadsheetMetadataHateosHandlerContext {
@@ -39,6 +43,11 @@ public class FakeSpreadsheetMetadataHateosHandlerContext extends FakeSpreadsheet
     }
 
     // HateosHandlerContext.....................................................................................
+
+    @Override
+    public Optional<ETag> computeETag(final Binary binary) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public MediaType contentType() {

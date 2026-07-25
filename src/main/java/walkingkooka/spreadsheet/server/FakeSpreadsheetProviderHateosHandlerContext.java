@@ -17,11 +17,13 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.Binary;
 import walkingkooka.Either;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
@@ -59,6 +61,11 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
     }
 
     // HateosHandlerContext.....................................................................................
+
+    @Override
+    public Optional<ETag> computeETag(final Binary binary) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public MediaType contentType() {

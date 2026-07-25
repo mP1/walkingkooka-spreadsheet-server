@@ -17,9 +17,11 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
+import walkingkooka.Binary;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContextTestingTest.TestLocaleHateosHandlerContext;
 import walkingkooka.text.Indentation;
@@ -97,6 +99,11 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         public Set<Locale> findByLocaleText(final String text,
                                             final int offset,
                                             final int count) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Optional<ETag> computeETag(final Binary binary) {
             throw new UnsupportedOperationException();
         }
 
