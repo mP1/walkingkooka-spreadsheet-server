@@ -36,6 +36,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ETagComputers;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetectors;
@@ -390,6 +391,7 @@ public class TestGwtTest extends GWTTestCase {
                             Indentation.SPACES2,
                             lineEnding
                         ).setCharset(charset),
+                        ETagComputers.fake(),
                         JsonNodeMarshallUnmarshallContexts.basic(
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(

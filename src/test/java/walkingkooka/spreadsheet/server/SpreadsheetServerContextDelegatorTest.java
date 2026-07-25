@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.Binary;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
@@ -25,6 +26,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
@@ -303,6 +305,11 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         }
 
         // HateosHandlerContext.................................................................................
+
+        @Override
+        public Optional<ETag> computeETag(final Binary binary) {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public MediaType contentType() {

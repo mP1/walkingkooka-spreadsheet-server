@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.Binary;
 import walkingkooka.convert.ConverterLike;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.currency.CurrencyCode;
@@ -24,6 +25,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -82,6 +84,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     private final SpreadsheetEngine spreadsheetEngine;
+
+    @Override
+    public Optional<ETag> computeETag(final Binary binary) {
+        return this.context.computeETag(binary);
+    }
 
     @Override
     public SpreadsheetEngineHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
