@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -41,7 +42,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStaticHelperTesting<SpreadsheetDeltaUrlQueryParameters> {
+public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStaticHelperTesting<SpreadsheetDeltaUrlQueryParameters>,
+    ThrowableTesting {
 
     // window...........................................................................................................
 
@@ -158,9 +160,9 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
                 SpreadsheetEngineContexts.fake()
             )
         );
-        this.checkEquals(
-            expected,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            expected
         );
     }
 
@@ -515,9 +517,9 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
             )
         );
 
-        this.checkEquals(
-            expected,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            expected
         );
     }
 

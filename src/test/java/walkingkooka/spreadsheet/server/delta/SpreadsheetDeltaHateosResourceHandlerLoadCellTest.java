@@ -552,10 +552,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             this.context(),
             IllegalArgumentException.class
         );
-        this.checkEquals(
-            message,
-            thrown.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            thrown,
+            message
         );
     }
 

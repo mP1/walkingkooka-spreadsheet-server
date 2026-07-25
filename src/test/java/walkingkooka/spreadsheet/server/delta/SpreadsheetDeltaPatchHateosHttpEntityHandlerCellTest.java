@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
@@ -42,7 +43,8 @@ import java.util.Set;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerCell,
     SpreadsheetCellReference,
-    SpreadsheetCellRangeReference> {
+    SpreadsheetCellRangeReference>
+    implements ThrowableTesting {
 
     // handleOne........................................................................................................
 
@@ -79,9 +81,9 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            "Patch includes cells Z99 outside " + CELL,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Patch includes cells Z99 outside " + CELL
         );
     }
 
@@ -331,8 +333,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            thrown.getMessage(),
+        this.getMessageAndCheck(
+            thrown,
             "Patch includes cells Z99 outside " + CELL_RANGE
         );
     }

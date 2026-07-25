@@ -79,10 +79,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            "Label/mapping mismatch",
-            thrown.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            thrown,
+            "Label/mapping mismatch"
         );
     }
 

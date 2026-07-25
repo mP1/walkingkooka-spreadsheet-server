@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -39,7 +40,8 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn,
-    SpreadsheetColumnReference, SpreadsheetColumnRangeReference> {
+    SpreadsheetColumnReference, SpreadsheetColumnRangeReference>
+    implements ThrowableTesting {
 
     final static SpreadsheetColumnReference COLUMN = SpreadsheetSelection.parseColumn("B");
 
@@ -76,9 +78,9 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            "Patch column(s): " + COLUMN + " includes invalid column Z",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Patch column(s): " + COLUMN + " includes invalid column Z"
         );
     }
 
@@ -330,9 +332,9 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             IllegalArgumentException.class
         );
 
-        this.checkEquals(
-            "Patch column(s): " + COLUMN_RANGE + " includes invalid column Z",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Patch column(s): " + COLUMN_RANGE + " includes invalid column Z"
         );
     }
 
