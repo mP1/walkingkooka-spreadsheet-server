@@ -116,6 +116,11 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
     }
 
     @Override
+    public void testSetServerWithDifferentUrlFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetSpreadsheetIdWithSame() {
         throw new UnsupportedOperationException();
     }
