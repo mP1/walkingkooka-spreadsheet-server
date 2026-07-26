@@ -870,7 +870,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "  currencyLocaleContext\n" +
                 "    JRE ReadOnly JRE en-AU (walkingkooka.currency.ReadOnlyCurrencyLocaleContext)\n" +
                 "  spreadsheetEnvironmentContext\n" +
-                "    BasicSpreadsheetEnvironmentContext\n" +
+                "    SpreadsheetEnvironmentContextBasic\n" +
                 "      environment\n" +
                 "        EnvironmentContextSharedReadOnly\n" +
                 "          environmentContext\n" +
