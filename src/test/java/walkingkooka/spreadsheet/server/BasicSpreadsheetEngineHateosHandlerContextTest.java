@@ -25,7 +25,6 @@ import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
@@ -166,9 +165,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         }
 
         {
-            this.environmentContext = EnvironmentContexts.map(
-                SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
-            );
+            this.environmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
             this.environmentContext.setEnvironmentValue(
                 SPREADSHEET_ID,
                 BasicSpreadsheetEngineHateosHandlerContextTest.SPREADSHEET_ID
