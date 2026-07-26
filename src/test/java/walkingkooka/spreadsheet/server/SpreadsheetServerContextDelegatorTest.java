@@ -96,6 +96,11 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     }
 
     @Override
+    public void testSetServerWithDifferentUrlFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetSpreadsheetIdWithSame() {
         throw new UnsupportedOperationException();
     }
