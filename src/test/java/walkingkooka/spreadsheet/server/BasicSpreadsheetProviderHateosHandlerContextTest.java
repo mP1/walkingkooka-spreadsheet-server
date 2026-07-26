@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
@@ -27,11 +26,6 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
-import walkingkooka.text.LineEnding;
-
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -43,17 +37,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
         ConverterContexts.fake(),
         EnvironmentContexts.readOnly(
             Predicates.always(), // all values read-only
-            EnvironmentContexts.map(
-                EnvironmentContexts.empty(
-                    CHARSET,
-                    Currency.getInstance("AUD"),
-                    INDENTATION,
-                    LineEnding.NL,
-                    Locale.FRANCE,
-                    () -> LocalDateTime.MIN,
-                    EnvironmentContext.ANONYMOUS
-                )
-            )
+            ENVIRONMENT_CONTEXT
         ),
         PluginStores.treeMap()
     );
