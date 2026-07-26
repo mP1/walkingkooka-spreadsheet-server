@@ -23,7 +23,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
@@ -60,7 +59,6 @@ import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
 import walkingkooka.terminal.server.FakeTerminalServerContext;
 import walkingkooka.terminal.server.TerminalServerContext;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -421,8 +419,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testCreateEmptySpreadsheetTwice() {
-        final EmailAddress user1 = EmailAddress.parse("spreadsheet-user1@example.com");
-        final SpreadsheetServerContext spreadsheetServerContext = this.createContext(user1);
+        final SpreadsheetServerContext spreadsheetServerContext = this.createContext(USER);
 
         final SpreadsheetContext spreadsheetContext1 = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
@@ -430,9 +427,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             spreadsheetContext1
         );
 
-        final EmailAddress user2 = EmailAddress.parse("spreadsheet-user2@example.com");
         spreadsheetServerContext.setUser(
-            Optional.of(user2)
+            Optional.of(DIFFERENT_USER)
         );
         final SpreadsheetContext spreadsheetContext2 = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
@@ -442,7 +438,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.userAndCheck(
             spreadsheetContext1,
-            user1
+            USER
         );
 
         this.localeAndCheck(
@@ -452,7 +448,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         this.userAndCheck(
             spreadsheetContext2,
-            user2
+            DIFFERENT_USER
         );
 
         this.localeAndCheck(
@@ -606,15 +602,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testSetEnvironmentContextWithDifferent() {
-        final EnvironmentContext environmentContext = EnvironmentContexts.empty(
-            CHARSET,
-            CURRENCY,
-            INDENTATION,
-            LineEnding.NL,
-            LOCALE,
-            HAS_NOW,
-            EnvironmentContext.ANONYMOUS
-        );
+        final EnvironmentContext environmentContext = DIFFERENT_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         final PluginStore pluginStore = PluginStores.fake();
 
@@ -636,15 +624,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             TERMINAL_SERVER_CONTEXT
         );
 
-        final EnvironmentContext differentEnvironmentContext = environmentContext.cloneEnvironment();
-        differentEnvironmentContext.setLineEnding(LineEnding.CRNL);
 
-        this.checkNotEquals(
-            environmentContext,
-            differentEnvironmentContext
-        );
-
-        final SpreadsheetServerContext after = before.setEnvironmentContext(differentEnvironmentContext);
+        final SpreadsheetServerContext after = before.setEnvironmentContext(DIFFERENT_ENVIRONMENT_CONTEXT);
         this.checkNotEquals(
             before,
             after
@@ -655,26 +636,24 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testLocale() {
-        final Locale locale = Locale.FRANCE;
-
         this.localeAndCheck(
             this.createContext(
                 new FakeSpreadsheetEnvironmentContext() {
                     @Override
                     public Locale locale() {
-                        return locale;
+                        return DIFFERENT_LOCALE;
                     }
 
                     @Override
                     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
                         checkEquals(LOCALE, name);
                         return Optional.of(
-                            Cast.to(locale)
+                            Cast.to(DIFFERENT_LOCALE)
                         );
                     }
                 }
             ),
-            locale
+            DIFFERENT_LOCALE
         );
     }
 
@@ -686,12 +665,11 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             LOCALE
         );
 
-        final Locale locale = Locale.FRANCE;
-        context.setLocale(locale);
+        context.setLocale(DIFFERENT_LOCALE);
 
         this.localeAndCheck(
             context,
-            locale
+            DIFFERENT_LOCALE
         );
     }
 
@@ -721,11 +699,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             USER
         );
 
-        final EmailAddress user = EmailAddress.parse("different@example.com");
-
         this.setUserAndCheck(
             context,
-            user
+            DIFFERENT_USER
         );
     }
 
