@@ -13430,15 +13430,13 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             ProviderContexts.basic(
                 ConverterContexts.fake(), // ConverterLike
                 EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        CHARSET,
-                        CURRENCY,
-                        INDENTATION,
-                        LINE_ENDING,
-                        LOCALE,
-                        HAS_NOW,
-                        user
-                    )
+                    CHARSET,
+                    CURRENCY,
+                    INDENTATION,
+                    LINE_ENDING,
+                    LOCALE,
+                    HAS_NOW,
+                    user
                 ),
                 this.pluginStore
             ),

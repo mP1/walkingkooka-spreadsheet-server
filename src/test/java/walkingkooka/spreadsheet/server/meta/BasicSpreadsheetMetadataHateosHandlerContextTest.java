@@ -540,15 +540,13 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
         now.set(HAS_NOW.now());
 
         final EnvironmentContext environmentContext = EnvironmentContexts.map(
-            EnvironmentContexts.empty(
-                CHARSET,
-                CURRENCY,
-                INDENTATION,
-                LINE_ENDING,
-                LOCALE,
-                now::get,
-                Optional.of(USER)
-            )
+            CHARSET,
+            CURRENCY,
+            INDENTATION,
+            LINE_ENDING,
+            LOCALE,
+            now::get,
+            Optional.of(USER)
         );
         environmentContext.setEnvironmentValue(
             SpreadsheetEnvironmentContext.SERVER_URL,

@@ -320,15 +320,13 @@ public class J2clTest {
             },
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        charset,
-                        Currency.getInstance("AUD"),
-                        Indentation.SPACES4,
-                        lineEnding,
-                        locale,
-                        () -> now,
-                        user
-                    )
+                    charset,
+                    Currency.getInstance("AUD"),
+                    Indentation.SPACES4,
+                    lineEnding,
+                    locale,
+                    () -> now,
+                    user
                 );
                 environmentContext.setEnvironmentValue(
                     SpreadsheetEnvironmentContext.SERVER_URL,
@@ -400,15 +398,13 @@ public class J2clTest {
                     ProviderContexts.basic(
                         ConverterContexts.fake(), // ConverterLike
                         EnvironmentContexts.map(
-                            EnvironmentContexts.empty(
-                                charset,
-                                Currency.getInstance("AUD"),
-                                Indentation.SPACES4,
-                                lineEnding,
-                                locale,
-                                LocalDateTime::now,
-                                user
-                            )
+                            charset,
+                            Currency.getInstance("AUD"),
+                            Indentation.SPACES4,
+                            lineEnding,
+                            locale,
+                            LocalDateTime::now,
+                            user
                         ),
                         PluginStores.treeMap()
                     ),
