@@ -65,6 +65,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
@@ -13411,7 +13412,10 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 VALIDATOR_PROVIDER
             ),
             CURRENCY_LOCALE_CONTEXT,
-            SpreadsheetEnvironmentContexts.readOnly(spreadsheetEnvironmentContext), // EnvironmentContext
+            SpreadsheetEnvironmentContexts.readOnly(
+                Predicates.always(), // all values are readonly
+                spreadsheetEnvironmentContext
+            ), // EnvironmentContext
             SpreadsheetMetadataContexts.basic(
                 (u, l) -> SpreadsheetHttpServerTest.this.metadataStore.save(
                     this.createMetadata()
