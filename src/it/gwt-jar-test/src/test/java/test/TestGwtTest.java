@@ -86,6 +86,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.storage.StorageEnvironmentContexts;
 import walkingkooka.storage.Storages;
 import walkingkooka.terminal.server.TerminalServerContexts;
 import walkingkooka.text.Indentation;
@@ -370,7 +371,7 @@ public class TestGwtTest extends GWTTestCase {
                         ),
                     SpreadsheetEnvironmentContexts.basic(
                         Storages.fake(),
-                        environmentContext
+                        StorageEnvironmentContexts.basic(environmentContext)
                     ),
                     SpreadsheetMetadataContexts.basic(
                         (e, dl) -> metadataStore.save(

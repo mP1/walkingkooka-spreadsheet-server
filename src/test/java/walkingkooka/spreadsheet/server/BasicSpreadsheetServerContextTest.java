@@ -370,8 +370,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testCreateEmptySpreadsheetEnvironmentValueSpreadsheetIdReplaced() {
         final SpreadsheetId spreadsheetId = SpreadsheetId.with(0x9999);
 
-        final EnvironmentContext environmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
-        environmentContext.setEnvironmentValue(
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        spreadsheetEnvironmentContext.setEnvironmentValue(
             SpreadsheetEnvironmentContext.SPREADSHEET_ID,
             spreadsheetId
         );
@@ -379,7 +379,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
                 STORAGE,
-                environmentContext
+                spreadsheetEnvironmentContext
             )
         );
 
@@ -396,7 +396,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         // original EnvironmentContext and SpreadsheetServerContext not changed.
         this.environmentValueAndCheck(
-            environmentContext,
+            spreadsheetEnvironmentContext,
             SpreadsheetEnvironmentContext.SPREADSHEET_ID,
             spreadsheetId
         );
@@ -679,7 +679,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testUser() {
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
             STORAGE,
-            ENVIRONMENT_CONTEXT.cloneEnvironment()
+            SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
         spreadsheetEnvironmentContext.setUser(
             Optional.of(DIFFERENT_USER)
@@ -842,7 +842,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 PROVIDER_CONTEXT,
                 TERMINAL_SERVER_CONTEXT
             ),
-            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=UTF-8, currency=AUD, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary-to-text binary-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collecti"
+            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=UTF-8, currency=AUD, currentWorkingDirectory=/current1/working2/directory3, homeDirectory=/home/user, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary-to-text binary-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-te"
         );
     }
 
@@ -870,15 +870,19 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "  currencyLocaleContext\n" +
                 "    JRE ReadOnly JRE en-AU (walkingkooka.currency.ReadOnlyCurrencyLocaleContext)\n" +
                 "  spreadsheetEnvironmentContext\n" +
-                "    SpreadsheetEnvironmentContextBasic\n" +
-                "      environment\n" +
-                "        EnvironmentContextSharedReadOnly\n" +
-                "          environmentContext\n" +
+                "    SpreadsheetEnvironmentContextReadOnly\n" +
+                "      SpreadsheetEnvironmentContextBasic\n" +
+                "        environment\n" +
+                "          StorageEnvironmentContextBasic\n" +
                 "            EnvironmentContextSharedMap\n" +
                 "              charset\n" +
                 "                UTF-8 (sun.nio.cs.UTF_8)\n" +
                 "              currency\n" +
                 "                AUD (java.util.Currency)\n" +
+                "              currentWorkingDirectory\n" +
+                "                /current1/working2/directory3\n" +
+                "              homeDirectory\n" +
+                "                /home/user\n" +
                 "              indentation\n" +
                 "                \"  \" (walkingkooka.text.Indentation)\n" +
                 "              lineEnding\n" +
@@ -893,10 +897,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "                Z (java.time.ZoneOffset)\n" +
                 "              user\n" +
                 "                user123@example.com (walkingkooka.net.email.EmailAddress)\n" +
-                "          readOnlyNames\n" +
-                "            * (walkingkooka.predicate.AlwaysPredicate)\n" +
-                "      storage\n" +
-                "         (walkingkooka.storage.StorageSharedEmpty)\n" +
+                "        storage\n" +
+                "           (walkingkooka.storage.StorageSharedEmpty)\n" +
                 "  spreadsheetMetadataContext\n" +
                 "    TestSpreadsheetMetadataContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestSpreadsheetMetadataContext)\n" +
                 "  hateosHandlerContext\n" +

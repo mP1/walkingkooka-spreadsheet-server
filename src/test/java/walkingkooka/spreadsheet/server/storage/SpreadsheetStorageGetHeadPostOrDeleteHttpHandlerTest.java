@@ -395,7 +395,7 @@ public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implemen
     public SpreadsheetEngineHateosHandlerContext createContext() {
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
             Storages.treeMapStore(),
-            ENVIRONMENT_CONTEXT.cloneEnvironment()
+            SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
 
         final SpreadsheetId spreadsheetId = SpreadsheetId.with(1);

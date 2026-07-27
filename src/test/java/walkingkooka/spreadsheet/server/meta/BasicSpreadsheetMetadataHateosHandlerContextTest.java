@@ -75,6 +75,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.spreadsheet.viewport.AnchoredSpreadsheetSelection;
+import walkingkooka.storage.StorageEnvironmentContexts;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 
@@ -556,7 +557,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
         final BasicSpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
                 STORAGE,
-                environmentContext
+                StorageEnvironmentContexts.basic(environmentContext)
             )
         );
 
