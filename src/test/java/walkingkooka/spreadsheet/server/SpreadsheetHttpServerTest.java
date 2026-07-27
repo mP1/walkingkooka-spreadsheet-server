@@ -13380,7 +13380,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
         final EnvironmentContext providerEnvironmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
-        providerEnvironmentContext.setUser(EnvironmentContext.ANONYMOUS);
+        providerEnvironmentContext.clearUser();
 
         return SpreadsheetServerContexts.basic(
             MEDIA_TYPE_DETECTOR,
