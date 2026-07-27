@@ -29,7 +29,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
@@ -13379,6 +13379,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         );
         spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
+        final EnvironmentContext providerEnvironmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        providerEnvironmentContext.setUser(EnvironmentContext.ANONYMOUS);
+
         return SpreadsheetServerContexts.basic(
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
@@ -13432,15 +13435,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             HATEOS_HANDLER_CONTEXT,
             ProviderContexts.basic(
                 ConverterContexts.fake(), // ConverterLike
-                EnvironmentContexts.map(
-                    CHARSET,
-                    CURRENCY,
-                    INDENTATION,
-                    LINE_ENDING,
-                    LOCALE,
-                    HAS_NOW,
-                    user
-                ),
+                providerEnvironmentContext,
                 this.pluginStore
             ),
             TERMINAL_SERVER_CONTEXT
