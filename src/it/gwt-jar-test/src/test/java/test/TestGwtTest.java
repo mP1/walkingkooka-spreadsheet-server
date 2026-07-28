@@ -86,6 +86,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.storage.StorageContexts;
 import walkingkooka.storage.StorageEnvironmentContexts;
 import walkingkooka.storage.Storages;
 import walkingkooka.terminal.server.TerminalServerContexts;
@@ -401,17 +402,20 @@ public class TestGwtTest extends GWTTestCase {
                         )
                     ),
                     ProviderContexts.basic(
-                        ConverterContexts.fake(), // ConverterLike
-                        EnvironmentContexts.map(
-                            charset,
-                            Currency.getInstance("AUD"),
-                            Indentation.SPACES4,
-                            lineEnding,
-                            locale,
-                            LocalDateTime::now,
-                            user
-                        ),
-                        PluginStores.treeMap()
+                        PluginStores.treeMap(),
+                        StorageContexts.basic(
+                            ConverterContexts.fake(), // ConverterLike
+                            MediaTypeDetectors.fake(),
+                            EnvironmentContexts.map(
+                                charset,
+                                Currency.getInstance("AUD"),
+                                Indentation.SPACES4,
+                                lineEnding,
+                                locale,
+                                LocalDateTime::now,
+                                user
+                            )
+                        )
                     ),
                     TerminalServerContexts.fake()
                 );

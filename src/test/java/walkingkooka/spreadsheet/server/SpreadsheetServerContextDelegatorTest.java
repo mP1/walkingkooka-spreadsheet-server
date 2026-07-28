@@ -40,6 +40,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegatorTest.TestSpreadsheetServerContextDelegator;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.store.Store;
 import walkingkooka.store.StoreWatcher;
 import walkingkooka.text.Indentation;
@@ -273,6 +274,26 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         public void setCurrency(final Currency currency) {
             Objects.requireNonNull(currency, "currency");
         }
+        
+        @Override
+        public Optional<StoragePath> currentWorkingDirectory() {
+            return this.spreadsheetEnvironmentContext.currentWorkingDirectory();
+        }
+        
+        @Override
+        public void setCurrentWorkingDirectory(final Optional<StoragePath> path) {
+            this.spreadsheetEnvironmentContext.setCurrentWorkingDirectory(path);
+        }
+
+        @Override
+        public Optional<StoragePath> homeDirectory() {
+            return this.spreadsheetEnvironmentContext.homeDirectory();
+        }
+
+        @Override
+        public void setHomeDirectory(final Optional<StoragePath> path) {
+            this.spreadsheetEnvironmentContext.setHomeDirectory(path);
+        }
 
         @Override
         public LineEnding lineEnding() {
@@ -306,10 +327,12 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
 
         @Override
         public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
-            return SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+            return this.spreadsheetEnvironmentContext;
         }
 
-        // HateosHandlerContext.................................................................................
+        private final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+
+        // HateosHandlerContext.........................................................................................
 
         @Override
         public Optional<ETag> computeETag(final Binary binary) {

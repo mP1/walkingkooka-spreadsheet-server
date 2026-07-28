@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
-import walkingkooka.convert.ConverterContexts;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
@@ -54,6 +53,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.storage.StorageContextTesting;
 import walkingkooka.store.StoreWatcher;
 import walkingkooka.terminal.TerminalContext;
 import walkingkooka.terminal.TerminalId;
@@ -75,6 +75,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting<BasicSpreadsheetServerContext>,
     ToStringTesting<BasicSpreadsheetServerContext>,
     SpreadsheetMetadataTesting,
+    StorageContextTesting,
     TreePrintableTesting {
 
     private final static SpreadsheetEngine SPREADSHEET_ENGINE = new FakeSpreadsheetEngine() {
@@ -617,9 +618,8 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
             SPREADSHEET_METADATA_CONTEXT,
             HATEOS_HANDLER_CONTEXT,
             ProviderContexts.basic(
-                ConverterContexts.fake(),
-                environmentContext,
-                pluginStore
+                pluginStore,
+                STORAGE_CONTEXT
             ),
             TERMINAL_SERVER_CONTEXT
         );

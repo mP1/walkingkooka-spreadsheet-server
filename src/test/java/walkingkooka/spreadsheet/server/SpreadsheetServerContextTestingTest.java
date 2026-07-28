@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.convert.ConverterLikeTesting;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
@@ -41,6 +42,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextTestingTest.TestSpreadsheetServerContext;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.store.Store;
 import walkingkooka.store.StoreWatcher;
 import walkingkooka.text.Indentation;
@@ -57,6 +59,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext>,
+    ConverterLikeTesting,
     SpreadsheetMetadataTesting {
 
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
@@ -263,6 +266,26 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         }
 
         @Override
+        public Optional<StoragePath> currentWorkingDirectory() {
+            return this.spreadsheetEnvironmentContext.currentWorkingDirectory();
+        }
+
+        @Override
+        public void setCurrentWorkingDirectory(final Optional<StoragePath> path) {
+            this.spreadsheetEnvironmentContext.setCurrentWorkingDirectory(path);
+        }
+
+        @Override
+        public Optional<StoragePath> homeDirectory() {
+            return this.spreadsheetEnvironmentContext.homeDirectory();
+        }
+
+        @Override
+        public void setHomeDirectory(final Optional<StoragePath> path) {
+            this.spreadsheetEnvironmentContext.setHomeDirectory(path);
+        }
+
+        @Override
         public LineEnding lineEnding() {
             return SpreadsheetServerContextTestingTest.LINE_ENDING;
         }
@@ -299,8 +322,10 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
-            return SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+            return this.spreadsheetEnvironmentContext;
         }
+
+        private SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         // HateosHandlerContext.................................................................................
 
