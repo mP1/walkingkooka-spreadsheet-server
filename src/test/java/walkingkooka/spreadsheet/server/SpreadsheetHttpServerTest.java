@@ -25,7 +25,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.ConverterLikeTesting;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.AuditInfo;
@@ -116,6 +116,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
+import walkingkooka.storage.StorageContexts;
 import walkingkooka.storage.Storages;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -152,6 +153,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerTest implements ClassTesting2<SpreadsheetHttpServer>,
+    ConverterLikeTesting,
     HateosHandlerContextTesting,
     TypeNameTesting<SpreadsheetHttpServer>,
     SpreadsheetMetadataTesting,
@@ -13434,9 +13436,12 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             ),
             HATEOS_HANDLER_CONTEXT,
             ProviderContexts.basic(
-                ConverterContexts.fake(), // ConverterLike
-                providerEnvironmentContext,
-                this.pluginStore
+                this.pluginStore,
+                StorageContexts.basic(
+                    CONVERTER_LIKE,
+                    MEDIA_TYPE_DETECTOR,
+                    providerEnvironmentContext
+                )
             ),
             TERMINAL_SERVER_CONTEXT
         );

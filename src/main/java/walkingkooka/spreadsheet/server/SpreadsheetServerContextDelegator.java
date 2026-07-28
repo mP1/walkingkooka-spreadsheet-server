@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextDelegator;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
+import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
@@ -73,6 +74,18 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     default void setCurrency(final Currency currency) {
         this.spreadsheetEnvironmentContext()
             .setCurrency(currency);
+    }
+
+    @Override
+    default Optional<StoragePath> currentWorkingDirectory() {
+        return this.spreadsheetEnvironmentContext()
+            .currentWorkingDirectory();
+    }
+
+    @Override
+    default Optional<StoragePath> homeDirectory() {
+        return this.spreadsheetEnvironmentContext()
+            .homeDirectory();
     }
 
     @Override
