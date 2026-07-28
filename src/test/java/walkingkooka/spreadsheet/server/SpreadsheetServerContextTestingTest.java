@@ -26,7 +26,6 @@ import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
@@ -83,60 +82,60 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         );
     }
 
-    @Override
-    public void testRemoveEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetCurrencyWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetIndentationWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLineEndingWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLocaleWithDifferent() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetLocaleWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetServerWithDifferentUrlFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetSpreadsheetIdWithSame() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetTimeOffsetWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetUserWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
+//    @Override
+//    public void testRemoveEnvironmentValueWithNowFails() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetEnvironmentValueWithNowFails() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetCurrencyWithDifferentAndWatcher() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetIndentationWithDifferentAndWatcher() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetLineEndingWithDifferentAndWatcher() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetLocaleWithDifferent() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetLocaleWithDifferentAndWatcher() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetServerWithDifferentUrlFails() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetSpreadsheetIdWithSame() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetTimeOffsetWithDifferentAndWatcher() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public void testSetUserWithDifferentAndWatcher() {
+//        throw new UnsupportedOperationException();
+//    }
 
     final static class TestSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
         SpreadsheetEnvironmentContextDelegator,
@@ -242,27 +241,25 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
         @Override
         public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
                                             final T value) {
-            Objects.requireNonNull(name, "name");
-            Objects.requireNonNull(value, "value");
-
-            throw new UnsupportedOperationException();
+            this.spreadsheetEnvironmentContext.setEnvironmentValue(
+                name,
+                value
+            );
         }
 
         @Override
         public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
-            Objects.requireNonNull(name, "name");
-
-            throw new UnsupportedOperationException();
+            this.spreadsheetEnvironmentContext.removeEnvironmentValue(name);
         }
 
         @Override
         public Currency currency() {
-            return SpreadsheetServerContextTestingTest.CURRENCY;
+            return this.spreadsheetEnvironmentContext.currency();
         }
 
         @Override
         public void setCurrency(final Currency currency) {
-            Objects.requireNonNull(currency, "currency");
+            this.spreadsheetEnvironmentContext.setCurrency(currency);
         }
 
         @Override
@@ -287,32 +284,27 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public LineEnding lineEnding() {
-            return SpreadsheetServerContextTestingTest.LINE_ENDING;
+            return this.spreadsheetEnvironmentContext.lineEnding();
         }
 
         @Override
         public void setLineEnding(final LineEnding lineEnding) {
-            Objects.requireNonNull(lineEnding, "lineEnding");
+            this.spreadsheetEnvironmentContext.setLineEnding(lineEnding);
         }
 
         @Override
         public Locale locale() {
-            return SpreadsheetServerContextTestingTest.LOCALE;
+            return this.spreadsheetEnvironmentContext.locale();
         }
 
         @Override
         public void setLocale(final Locale locale) {
-            Objects.requireNonNull(locale, "locale");
-        }
-
-        @Override
-        public AbsoluteUrl serverUrl() {
-            return SpreadsheetServerContextTestingTest.SERVER_URL;
+            this.spreadsheetEnvironmentContext.setLocale(locale);
         }
 
         @Override
         public void setUser(final Optional<EmailAddress> user) {
-            Objects.requireNonNull(user, "user");
+            this.spreadsheetEnvironmentContext.setUser(user);
         }
 
         @Override
@@ -325,9 +317,9 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
             return this.spreadsheetEnvironmentContext;
         }
 
-        private SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+        private final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
-        // HateosHandlerContext.................................................................................
+        // HateosHandlerContext.........................................................................................
 
         @Override
         public Optional<ETag> computeETag(final Binary binary) {
@@ -341,7 +333,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
 
         @Override
         public Indentation indentation() {
-            return Indentation.SPACES2;
+            return this.spreadsheetEnvironmentContext.indentation();
         }
 
         // JsonNodeMarshallUnmarshallContextDelegator...................................................................
