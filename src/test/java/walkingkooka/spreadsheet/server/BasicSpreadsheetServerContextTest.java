@@ -842,7 +842,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 PROVIDER_CONTEXT,
                 TERMINAL_SERVER_CONTEXT
             ),
-            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=UTF-8, currency=AUD, currentWorkingDirectory=/current1/working2/directory3, homeDirectory=/home/user/, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary-to-text binary-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-t"
+            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=UTF-8, currency=AUD, currentWorkingDirectory=/current1/working2/directory3/, homeDirectory=/home/user/, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=[https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary binary, https://github.com/mP1/walkingkooka-spreadsheet/Converter/binary-to-text binary-to-text, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean boolean, https://github.com/mP1/walkingkooka-spreadsheet/Converter/boolean-to-text boolean-to-"
         );
     }
 
@@ -880,7 +880,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "              currency\n" +
                 "                AUD (java.util.Currency)\n" +
                 "              currentWorkingDirectory\n" +
-                "                /current1/working2/directory3\n" +
+                "                /current1/working2/directory3/\n" +
                 "              homeDirectory\n" +
                 "                /home/user/\n" +
                 "              indentation\n" +
