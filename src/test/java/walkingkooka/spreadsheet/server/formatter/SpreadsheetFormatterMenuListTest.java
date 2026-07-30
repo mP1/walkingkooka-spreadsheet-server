@@ -187,4 +187,28 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
     public SpreadsheetFormatterMenuList createJsonNodeMarshallingValue() {
         return this.createList();
     }
+
+    // firstOrEmpty.....................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            SpreadsheetFormatterMenuList.with(
+                Lists.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmpty() {
+        this.firstOrEmptyAndCheck(
+            SpreadsheetFormatterMenuList.with(
+                Lists.of(
+                    MENU1,
+                    MENU2
+                )
+            ),
+            MENU1
+        );
+    }
 }
