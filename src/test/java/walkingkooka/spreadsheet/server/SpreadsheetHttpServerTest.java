@@ -13340,7 +13340,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 HttpStatusCode.OK.status(),
                 HttpEntity.EMPTY.setContentType(FILE_CONTENT_TYPE)
                     .addHeader(HttpHeaderName.CONTENT_LENGTH, 6L)
-                    .addHeader(HttpHeaderName.LAST_MODIFIED, FILE_LAST_MODIFIED)
+                    .setLastModified(FILE_LAST_MODIFIED)
                     .setBody(FILE_BINARY)));
     }
 
