@@ -172,78 +172,76 @@ public class TestGwtTest extends GWTTestCase {
 
         checkEquals(
             HttpEntity.EMPTY.setContentType(
-                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-            ).addHeader(
-                HttpHeaderName.with("X-Content-Type-Name"),
-                Cast.to(SpreadsheetMetadata.class.getSimpleName())
-            ).addHeader(
-                HttpHeaderName.LAST_MODIFIED,
-                NOW
-            ).setBodyText(
-                "{\n" +
-                    "    \"spreadsheetId\": \"1\",\n" +
-                    "    \"auditInfo\": {\n" +
-                    "        \"createdBy\": \"user@example.com\",\n" +
-                    "        \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
-                    "        \"modifiedBy\": \"user@example.com\",\n" +
-                    "        \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
-                    "    },\n" +
-                    "    \"cellCharacterWidth\": 10,\n" +
-                    "    \"comparators\": \"\",\n" +
-                    "    \"converters\": \"basic, binary, binary-to-text, boolean, boolean-to-text, collection, collection-to, collection-to-list, color, color-to-color, color-to-number, currency, currency-code-to-currency, currency-value-to, currency-value-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-parser-selector, has-spreadsheet-selection, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-currency-value, number-to-number, number-to-text, optional-to, plugins, properties, properties-to-date-time-symbols, properties-to-decimal-number-symbols, properties-to-spreadsheet-metadata, properties-to-text-style, spreadsheet-cell-set, spreadsheet-id-to-spreadsheet-metadata, spreadsheet-metadata, spreadsheet-selection, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, storage, storage-binary-to-storage-value-binary, storage-binary-to-storage-value-csv, storage-binary-to-storage-value-expression, storage-binary-to-storage-value-json, storage-binary-to-storage-value-properties, storage-binary-to-storage-value-tsv, storage-binary-to-storage-value-txt, storage-value-info-list-to-text, storage-value-to-storage-binary-binary, storage-value-to-storage-binary-csv, storage-value-to-storage-binary-expression, storage-value-to-storage-binary-json, storage-value-to-storage-binary-properties, storage-value-to-storage-binary-tsv, storage-value-to-storage-binary-txt, style, system, template, text, text-node, text-to-binary, text-to-boolean-list, text-to-border, text-to-charset, text-to-color, text-to-csv-string-list, text-to-csv-string-set, text-to-currency, text-to-currency-code, text-to-currency-value, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-flag, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-indentation, text-to-json, text-to-json-pointer, text-to-json-selector, text-to-line-ending, text-to-locale, text-to-locale-language-tag, text-to-margin, text-to-media-type, text-to-number-list, text-to-object, text-to-padding, text-to-properties, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-storage-path, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-tsv-string-list, text-to-tsv-string-set, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, text-to-zone-offset, to-binary, to-boolean, to-date-time-symbols, to-decimal-number-symbols, to-host-address, to-json-node, to-json-text, to-locale, to-locale-language-tag, to-number, to-properties, to-string, to-style, to-styleable, to-text-node, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, to-value, url, url-to-hyperlink, url-to-image\",\n" +
-                    "    \"dateFormatter\": \"date DD/MM/YYYY\",\n" +
-                    "    \"dateParser\": \"date DD/MM/YYYYDDMMYYYY\",\n" +
-                    "    \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
-                    "    \"dateTimeOffset\": \"0\",\n" +
-                    "    \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                    "    \"decimalNumberDigitCount\": 8,\n" +
-                    "    \"decimalNumberSymbols\": {\n" +
-                    "        \"negativeSign\": \"-\",\n" +
-                    "        \"positiveSign\": \"+\",\n" +
-                    "        \"zeroDigit\": \"0\",\n" +
-                    "        \"currencySymbol\": \"$AUD\",\n" +
-                    "        \"decimalSeparator\": \".\",\n" +
-                    "        \"exponentSymbol\": \"E\",\n" +
-                    "        \"groupSeparator\": \",\",\n" +
-                    "        \"infinitySymbol\": \"Infinity!\",\n" +
-                    "        \"monetaryDecimalSeparator\": \".\",\n" +
-                    "        \"nanSymbol\": \"Nan!\",\n" +
-                    "        \"percentSymbol\": \"%\",\n" +
-                    "        \"permillSymbol\": \"^\"\n" +
-                    "    },\n" +
-                    "    \"defaultFormHandler\": \"non-null\",\n" +
-                    "    \"defaultYear\": 1900,\n" +
-                    "    \"exporters\": \"\",\n" +
-                    "    \"expressionNumberKind\": \"DOUBLE\",\n" +
-                    "    \"formHandlers\": \"basic\",\n" +
-                    "    \"formatters\": \"simple\",\n" +
-                    "    \"formattingConverter\": \"simple\",\n" +
-                    "    \"formulaConverter\": \"collection(text, number, basic, spreadsheet-value)\",\n" +
-                    "    \"formulaFunctions\": \"@\",\n" +
-                    "    \"frozenColumns\": \"A:B\",\n" +
-                    "    \"frozenRows\": \"1:2\",\n" +
-                    "    \"functions\": \"@\",\n" +
-                    "    \"importers\": \"\",\n" +
-                    "    \"locale\": \"en-AU\",\n" +
-                    "    \"numberFormatter\": \"number #0.0\",\n" +
-                    "    \"numberParser\": \"number #\",\n" +
-                    "    \"parsers\": \"\",\n" +
-                    "    \"precision\": 123,\n" +
-                    "    \"roundingMode\": \"FLOOR\",\n" +
-                    "    \"style\": {\n" +
-                    "        \"height\": \"50px\",\n" +
-                    "        \"width\": \"50px\"\n" +
-                    "    },\n" +
-                    "    \"textFormatter\": \"text @@\",\n" +
-                    "    \"timeFormatter\": \"time hh:mm\",\n" +
-                    "    \"timeParser\": \"time hh:mmhh:mm:ss.000\",\n" +
-                    "    \"twoDigitYear\": 31,\n" +
-                    "    \"validationFunctions\": \"@\",\n" +
-                    "    \"validationValidators\": \"\",\n" +
-                    "    \"validators\": \"\",\n" +
-                    "    \"valueSeparator\": \",\"\n" +
-                    "}"
-            ).setContentLength(),
+                    MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+                ).addHeader(
+                    HttpHeaderName.with("X-Content-Type-Name"),
+                    Cast.to(SpreadsheetMetadata.class.getSimpleName())
+                ).setLastModified(NOW)
+                .setBodyText(
+                    "{\n" +
+                        "    \"spreadsheetId\": \"1\",\n" +
+                        "    \"auditInfo\": {\n" +
+                        "        \"createdBy\": \"user@example.com\",\n" +
+                        "        \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
+                        "        \"modifiedBy\": \"user@example.com\",\n" +
+                        "        \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
+                        "    },\n" +
+                        "    \"cellCharacterWidth\": 10,\n" +
+                        "    \"comparators\": \"\",\n" +
+                        "    \"converters\": \"basic, binary, binary-to-text, boolean, boolean-to-text, collection, collection-to, collection-to-list, color, color-to-color, color-to-number, currency, currency-code-to-currency, currency-value-to, currency-value-to-number, date-time, date-time-symbols, decimal-number-symbols, environment, error-throwing, error-to-error, error-to-number, expression, form-and-validation, format-pattern-to-string, has-formatter-selector, has-parser-selector, has-spreadsheet-selection, has-validator-selector, json, json-to, locale, locale-to-text, net, null-to-number, number, number-to-color, number-to-currency-value, number-to-number, number-to-text, optional-to, plugins, properties, properties-to-date-time-symbols, properties-to-decimal-number-symbols, properties-to-spreadsheet-metadata, properties-to-text-style, spreadsheet-cell-set, spreadsheet-id-to-spreadsheet-metadata, spreadsheet-metadata, spreadsheet-selection, spreadsheet-selection-to-spreadsheet-selection, spreadsheet-selection-to-text, spreadsheet-value, storage, storage-binary-to-storage-value-binary, storage-binary-to-storage-value-csv, storage-binary-to-storage-value-expression, storage-binary-to-storage-value-json, storage-binary-to-storage-value-properties, storage-binary-to-storage-value-tsv, storage-binary-to-storage-value-txt, storage-value-info-list-to-text, storage-value-to-storage-binary-binary, storage-value-to-storage-binary-csv, storage-value-to-storage-binary-expression, storage-value-to-storage-binary-json, storage-value-to-storage-binary-properties, storage-value-to-storage-binary-tsv, storage-value-to-storage-binary-txt, style, system, template, text, text-node, text-to-binary, text-to-boolean-list, text-to-border, text-to-charset, text-to-color, text-to-csv-string-list, text-to-csv-string-set, text-to-currency, text-to-currency-code, text-to-currency-value, text-to-date-list, text-to-date-time-list, text-to-email-address, text-to-environment-value-name, text-to-error, text-to-expression, text-to-flag, text-to-form-name, text-to-has-host-address, text-to-host-address, text-to-indentation, text-to-json, text-to-json-pointer, text-to-json-selector, text-to-line-ending, text-to-locale, text-to-locale-language-tag, text-to-margin, text-to-media-type, text-to-number-list, text-to-object, text-to-padding, text-to-properties, text-to-spreadsheet-color-name, text-to-spreadsheet-formatter-selector, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-selection, text-to-spreadsheet-text, text-to-storage-path, text-to-string-list, text-to-template-value-name, text-to-text, text-to-text-node, text-to-text-style, text-to-text-style-property-name, text-to-time-list, text-to-tsv-string-list, text-to-tsv-string-set, text-to-url, text-to-url-fragment, text-to-url-query-string, text-to-validation-error, text-to-validator-selector, text-to-value-type, text-to-zone-offset, to-binary, to-boolean, to-date-time-symbols, to-decimal-number-symbols, to-host-address, to-json-node, to-json-text, to-locale, to-locale-language-tag, to-number, to-properties, to-string, to-style, to-styleable, to-text-node, to-validation-checkbox, to-validation-choice, to-validation-choice-list, to-validation-error-list, to-value, url, url-to-hyperlink, url-to-image\",\n" +
+                        "    \"dateFormatter\": \"date DD/MM/YYYY\",\n" +
+                        "    \"dateParser\": \"date DD/MM/YYYYDDMMYYYY\",\n" +
+                        "    \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
+                        "    \"dateTimeOffset\": \"0\",\n" +
+                        "    \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                        "    \"decimalNumberDigitCount\": 8,\n" +
+                        "    \"decimalNumberSymbols\": {\n" +
+                        "        \"negativeSign\": \"-\",\n" +
+                        "        \"positiveSign\": \"+\",\n" +
+                        "        \"zeroDigit\": \"0\",\n" +
+                        "        \"currencySymbol\": \"$AUD\",\n" +
+                        "        \"decimalSeparator\": \".\",\n" +
+                        "        \"exponentSymbol\": \"E\",\n" +
+                        "        \"groupSeparator\": \",\",\n" +
+                        "        \"infinitySymbol\": \"Infinity!\",\n" +
+                        "        \"monetaryDecimalSeparator\": \".\",\n" +
+                        "        \"nanSymbol\": \"Nan!\",\n" +
+                        "        \"percentSymbol\": \"%\",\n" +
+                        "        \"permillSymbol\": \"^\"\n" +
+                        "    },\n" +
+                        "    \"defaultFormHandler\": \"non-null\",\n" +
+                        "    \"defaultYear\": 1900,\n" +
+                        "    \"exporters\": \"\",\n" +
+                        "    \"expressionNumberKind\": \"DOUBLE\",\n" +
+                        "    \"formHandlers\": \"basic\",\n" +
+                        "    \"formatters\": \"simple\",\n" +
+                        "    \"formattingConverter\": \"simple\",\n" +
+                        "    \"formulaConverter\": \"collection(text, number, basic, spreadsheet-value)\",\n" +
+                        "    \"formulaFunctions\": \"@\",\n" +
+                        "    \"frozenColumns\": \"A:B\",\n" +
+                        "    \"frozenRows\": \"1:2\",\n" +
+                        "    \"functions\": \"@\",\n" +
+                        "    \"importers\": \"\",\n" +
+                        "    \"locale\": \"en-AU\",\n" +
+                        "    \"numberFormatter\": \"number #0.0\",\n" +
+                        "    \"numberParser\": \"number #\",\n" +
+                        "    \"parsers\": \"\",\n" +
+                        "    \"precision\": 123,\n" +
+                        "    \"roundingMode\": \"FLOOR\",\n" +
+                        "    \"style\": {\n" +
+                        "        \"height\": \"50px\",\n" +
+                        "        \"width\": \"50px\"\n" +
+                        "    },\n" +
+                        "    \"textFormatter\": \"text @@\",\n" +
+                        "    \"timeFormatter\": \"time hh:mm\",\n" +
+                        "    \"timeParser\": \"time hh:mmhh:mm:ss.000\",\n" +
+                        "    \"twoDigitYear\": 31,\n" +
+                        "    \"validationFunctions\": \"@\",\n" +
+                        "    \"validationValidators\": \"\",\n" +
+                        "    \"validators\": \"\",\n" +
+                        "    \"valueSeparator\": \",\"\n" +
+                        "}"
+                ).setContentLength(),
             response.entity(),
             "POST /api/spreadsheet response"
         );
