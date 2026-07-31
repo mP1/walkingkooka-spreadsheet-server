@@ -131,6 +131,15 @@ public class TestGwtTest extends GWTTestCase {
         );
     }
 
+    private final static LocalDateTime NOW = LocalDateTime.of(
+        1999,
+        12,
+        31,
+        12,
+        58,
+        59
+    );
+
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
         spreadsheetHttpServer(httpServer);
@@ -167,6 +176,9 @@ public class TestGwtTest extends GWTTestCase {
             ).addHeader(
                 HttpHeaderName.with("X-Content-Type-Name"),
                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
+            ).addHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                NOW
             ).setBodyText(
                 "{\n" +
                     "    \"spreadsheetId\": \"1\",\n" +
@@ -239,7 +251,6 @@ public class TestGwtTest extends GWTTestCase {
 
     private static SpreadsheetHttpServer spreadsheetHttpServer(final TestHttpServer httpServer) {
         final SpreadsheetId createdId = SpreadsheetId.with(1);
-        final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
         final Locale locale = Locale.forLanguageTag("en-AU");
 
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.DOUBLE;
@@ -331,7 +342,7 @@ public class TestGwtTest extends GWTTestCase {
                     Indentation.SPACES4,
                     lineEnding,
                     locale,
-                    () -> now,
+                    () -> NOW,
                     user
                 );
                 environmentContext.setEnvironmentValue(
@@ -380,7 +391,7 @@ public class TestGwtTest extends GWTTestCase {
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 AuditInfo.create(
                                     e,
-                                    now
+                                    NOW
                                 )
                             )
                         ),

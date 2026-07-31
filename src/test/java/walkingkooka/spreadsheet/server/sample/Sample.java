@@ -124,6 +124,15 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         this.testCreateSpreadsheet();
     }
 
+    private final static LocalDateTime NOW = LocalDateTime.of(
+        1999,
+        12,
+        31,
+        12,
+        58,
+        59
+    );
+
     @Test
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
@@ -161,6 +170,9 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             ).addHeader(
                 HttpHeaderName.with("X-Content-Type-Name"),
                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
+            ).addHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                NOW
             ).setBodyText(
                 "{\n" +
                     "    \"spreadsheetId\": \"1\",\n" +
@@ -233,7 +245,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
     private static SpreadsheetHttpServer spreadsheetHttpServer(final TestHttpServer httpServer) {
         final SpreadsheetId createdId = SpreadsheetId.with(1);
-        final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
         final Locale locale = Locale.forLanguageTag("en-AU");
 
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.DOUBLE;
@@ -325,7 +336,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     Indentation.SPACES4,
                     lineEnding,
                     locale,
-                    () -> now,
+                    () -> NOW,
                     user
                 );
                 environmentContext.setEnvironmentValue(
@@ -374,7 +385,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 AuditInfo.create(
                                     e,
-                                    now
+                                    NOW
                                 )
                             )
                         ),
