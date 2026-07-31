@@ -126,6 +126,15 @@ public class J2clTest {
 
     private final static LineEnding EOL = LineEnding.NL;
 
+    private final static LocalDateTime NOW = LocalDateTime.of(
+        1999,
+        12,
+        31,
+        12,
+        58,
+        59
+    );
+
     @Test
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
@@ -163,6 +172,9 @@ public class J2clTest {
             ).addHeader(
                 HttpHeaderName.with("X-Content-Type-Name"),
                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
+            ).addHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                NOW
             ).setBodyText(
                 "{\n" +
                     "    \"spreadsheetId\": \"1\",\n" +
@@ -235,7 +247,6 @@ public class J2clTest {
 
     private static SpreadsheetHttpServer spreadsheetHttpServer(final TestHttpServer httpServer) {
         final SpreadsheetId createdId = SpreadsheetId.with(1);
-        final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
         final Locale locale = Locale.forLanguageTag("en-AU");
 
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.DOUBLE;
@@ -327,7 +338,7 @@ public class J2clTest {
                     Indentation.SPACES4,
                     lineEnding,
                     locale,
-                    () -> now,
+                    () -> NOW,
                     user
                 );
                 environmentContext.setEnvironmentValue(
@@ -376,7 +387,7 @@ public class J2clTest {
                                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                                 AuditInfo.create(
                                     e,
-                                    now
+                                    NOW
                                 )
                             )
                         ),
