@@ -154,12 +154,10 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             HttpEntity.EMPTY.setContentType(
                 context.contentType()
             ).setBodyText(
-                context.toJsonText(
-                    context.convertOrFail(
-                        StorageValueInfoList.with(infos),
-                        JsonNode.class
-                    )
-                )
+                context.convertOrFail(
+                    StorageValueInfoList.with(infos),
+                    JsonNode.class
+                ).toJsonText(context)
             ).setContentLength()
         );
     }

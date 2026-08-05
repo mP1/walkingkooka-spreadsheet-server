@@ -135,9 +135,8 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
             HateosResourceMappings.X_CONTENT_TYPE_NAME,
             response.getClass().getSimpleName()
         ).setBodyText(
-            context.toJsonText(
-                context.marshall(response)
-            )
+            context.marshall(response)
+                .toJsonText(context)
         ).setContentLength();
     }
 

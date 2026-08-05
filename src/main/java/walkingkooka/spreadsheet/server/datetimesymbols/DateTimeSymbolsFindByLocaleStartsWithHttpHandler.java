@@ -99,11 +99,9 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DateTimeSymbolsHateosResourceSet.class.getSimpleName()
             ).setBodyText(
-                context.toJsonText(
-                    context.marshall(
-                        DateTimeSymbolsHateosResourceSet.with(all)
-                    )
-                )
+                context.marshall(
+                    DateTimeSymbolsHateosResourceSet.with(all)
+                ).toJsonText(context)
             ).setContentLength()
         );
     }

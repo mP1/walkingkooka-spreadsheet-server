@@ -93,9 +93,8 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 edit.getClass().getSimpleName()
             ).setBodyText(
-                context.toJsonText(
-                    context.marshall(edit)
-                )
+                context.marshall(edit)
+                    .toJsonText(context)
             ).setContentLength()
         );
     }
