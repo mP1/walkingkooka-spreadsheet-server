@@ -38,6 +38,9 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
+import walkingkooka.net.header.AcceptEncoding;
+import walkingkooka.net.header.AcceptEncodingValue;
+import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -140,6 +143,7 @@ import walkingkooka.validation.form.provider.FormHandlerInfoSet;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
@@ -13358,6 +13362,37 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     .addHeader(HttpHeaderName.CONTENT_LENGTH, 6L)
                     .setLastModified(FILE_LAST_MODIFIED)
                     .setBody(FILE_BINARY)));
+    }
+
+    @Test
+    public void testFileFoundWithAcceptEncodingGzip() throws IOException {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            FILE.value(),
+            Maps.of(
+                HttpHeaderName.ACCEPT,
+                Lists.of(
+                    MediaType.ALL.accept()
+                ),
+                HttpHeaderName.ACCEPT_ENCODING,
+                Lists.of(
+                    AcceptEncoding.with(
+                        Lists.of(AcceptEncodingValue.GZIP)
+                    )
+                )
+            ),
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(FILE_CONTENT_TYPE)
+                    .addHeader(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.GZIP)
+                    .setLastModified(FILE_LAST_MODIFIED)
+                    .setBody(FILE_BINARY.gzip())
+                    .setContentLength()
+            )
+        );
     }
 
     @Test

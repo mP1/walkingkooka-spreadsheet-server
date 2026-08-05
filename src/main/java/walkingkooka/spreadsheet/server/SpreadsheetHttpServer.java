@@ -219,12 +219,14 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.httpHandler = SpreadsheetHttpServerHttpHandler.with(fileServer);
 
         this.server = server.apply(
-            HttpHandlers.stacktraceDumping(
-                HttpHandlers.headerCopy(
-                    Sets.of(TRANSACTION_ID),
-                    this::handle
-                ),
-                HttpHandlers.throwableTranslator()
+            HttpHandlers.autoGzipEncoding(
+                HttpHandlers.stacktraceDumping(
+                    HttpHandlers.headerCopy(
+                        Sets.of(TRANSACTION_ID),
+                        this::handle
+                    ),
+                    HttpHandlers.throwableTranslator()
+                )
             )
         );
 
