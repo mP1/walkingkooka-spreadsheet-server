@@ -18,14 +18,13 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetMetadataMode;
@@ -43,7 +42,8 @@ import java.util.Optional;
 /**
  * A handler that accepts a request with a possible {@link SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
-abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosHandlerContext> {
+abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadHttpHandler<SpreadsheetEngineHateosHandlerContext>,
+    HasHateosContentType {
 
     static {
         try {
@@ -71,7 +71,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
         response.setVersion(request.protocolVersion());
 
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(HateosHandlerContext.HATEOS_CONTENT_TYPE);
+            .testOrFail(HATEOS_CONTENT_TYPE);
 
         final SpreadsheetFormatterSelectorEdit edit = this.extractSelectorAndProduceEdit(
             request.url()
@@ -84,15 +84,14 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
 
         // write TextNodes as JSON response
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
-            ).addHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                edit.getClass().getSimpleName()
-            ).setBodyText(
-                context.marshall(edit)
-                    .toJsonText(context)
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .addHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    edit.getClass().getSimpleName()
+                ).setBodyText(
+                    context.marshall(edit)
+                        .toJsonText(context)
+                ).setContentLength()
         );
     }
 
