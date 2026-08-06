@@ -600,7 +600,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(
                         HttpHeaderName.ACCEPT, CONTENT_TYPE.accept(),
-                        HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                        HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.UTF_8,
                         HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
                         HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE
                     );
@@ -650,7 +650,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(
                         HttpHeaderName.ACCEPT, CONTENT_TYPE.accept(),
-                        HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                        HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.UTF_8,
                         HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
                         HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE
                     );
