@@ -52,7 +52,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
                                 final HttpResponse response,
                                 final LocaleHateosHandlerContext context) {
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE);
+            .testOrFail(HateosHandlerContext.HATEOS_CONTENT_TYPE);
 
         final List<UrlPathName> names = request.url()
             .path()
@@ -91,7 +91,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
         );
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                HateosHandlerContext.HATEOS_CONTENT_TYPE
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DateTimeSymbolsHateosResourceSet.class.getSimpleName()

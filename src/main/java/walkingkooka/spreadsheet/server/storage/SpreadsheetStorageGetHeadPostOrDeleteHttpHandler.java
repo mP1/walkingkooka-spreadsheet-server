@@ -108,11 +108,11 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                                              final HttpRequest request,
                                              final HttpResponse response,
                                              final SpreadsheetEngineHateosHandlerContext context) {
-        if (false == accept.test(HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE)) {
+        if (false == accept.test(HateosHandlerContext.HATEOS_CONTENT_TYPE)) {
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.setMessage(
                     accept.requireIncompatibleMessage(
-                        HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                        HateosHandlerContext.HATEOS_CONTENT_TYPE
                     )
                 )
             );
@@ -155,7 +155,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
         // convert StorageValueInfoList to JsonNode and then Binary
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                HateosHandlerContext.HATEOS_CONTENT_TYPE
             ).setBodyText(
                 context.convertOrFail(
                     StorageValueInfoList.with(infos),

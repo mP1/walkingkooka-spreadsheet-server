@@ -57,7 +57,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
 
         HttpHeaderName.ACCEPT.headerOrFail(request)
             .testOrFail(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                HateosHandlerContext.HATEOS_CONTENT_TYPE
             );
 
         final ProviderContext providerContext = context.providerContext();
@@ -92,7 +92,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 menuList.getClass().getSimpleName()

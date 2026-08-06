@@ -120,12 +120,12 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
         HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
-        HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.requireContentType(
+        HateosHandlerContext.HATEOS_CONTENT_TYPE.requireContentType(
             HttpHeaderName.CONTENT_TYPE.header(entity)
                 .orElse(null)
         );
         HttpHeaderName.ACCEPT.headerOrFail(entity)
-            .testOrFail(HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE);
+            .testOrFail(HateosHandlerContext.HATEOS_CONTENT_TYPE);
 
         // parse HttpEntity as JSON giving the PATCH as JsonNode
         final JsonNode patch = this.preparePatch(
@@ -275,7 +275,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                                         final SpreadsheetEngineHateosHandlerContext context) {
         return HttpEntity.EMPTY
             .setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
             ).addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
             .setBodyText(
                 context.marshall(response)

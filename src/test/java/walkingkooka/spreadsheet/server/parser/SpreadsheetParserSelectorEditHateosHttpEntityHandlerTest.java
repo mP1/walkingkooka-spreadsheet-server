@@ -496,7 +496,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
     private HttpEntity httpEntity(final String value) {
         return HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
             ).setBodyText(value)
             .setContentLength();
     }

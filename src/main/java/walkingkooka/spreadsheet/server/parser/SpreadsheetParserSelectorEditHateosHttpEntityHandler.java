@@ -87,7 +87,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
             .testOrFail(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                HateosHandlerContext.HATEOS_CONTENT_TYPE
             );
 
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
@@ -131,7 +131,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
 
         // write TextNodes as JSON response
         return HttpEntity.EMPTY.setContentType(
-            HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+            HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
         ).addHeader(
             HateosResourceMappings.X_CONTENT_TYPE_NAME,
             response.getClass().getSimpleName()
