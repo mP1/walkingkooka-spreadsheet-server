@@ -24,12 +24,10 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.locale.LocaleLanguageTag;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
@@ -100,16 +98,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase.CONTENT_TYPE;
 
 public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<SpreadsheetDeltaHttpMappings>,
     SpreadsheetMetadataTesting,
     ThrowableTesting {
-
-    private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
-
-    private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     // cell.............................................................................................................
 
@@ -968,16 +961,16 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final HttpStatusCode statusCode,
                                final String message
     ) {
-        final HttpRequest request = this.request(method, URL + url, requestBody);
+        final HttpRequest request = this.request(method, SERVER_URL + url, requestBody);
         final Optional<HttpHandler<SpreadsheetEngineHateosHandlerContext>> possible = HateosResourceMappings.router(
-            URL.path(),
+            SERVER_URL.path(),
             Sets.of(mapping)
         ).route(request.routerParameters());
 
         this.checkNotEquals(
             Optional.empty(),
             possible,
-            () -> method + " " + URL + url
+            () -> method + " " + SERVER_URL + url
         );
 
         if (possible.isPresent()) {
@@ -1010,14 +1003,14 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String url,
                                final String requestBody,
                                final SpreadsheetEngineHateosHandlerContext context) {
-        final HttpRequest request = this.request(method, URL + url, requestBody);
+        final HttpRequest request = this.request(method, SERVER_URL + url, requestBody);
         final Optional<HttpHandler<SpreadsheetEngineHateosHandlerContext>> possible = HateosResourceMappings.router(
-            URL.path(),
+            SERVER_URL.path(),
             Sets.of(mapping)
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
             possible,
-            () -> method + " " + URL + url);
+            () -> method + " " + SERVER_URL + url);
         final HttpResponse response = HttpResponses.recording();
         possible.get()
             .handle(
@@ -1057,9 +1050,20 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.of(
-                    HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
-                    HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE.setCharset(CharsetName.UTF_8)),
-                    HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(this.bodyLength()))
+                    HttpHeaderName.ACCEPT,
+                    Lists.of(
+                        CONTENT_TYPE.accept()
+                    ),
+                    HttpHeaderName.CONTENT_TYPE,
+                    Lists.of(
+                        CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                    ),
+                    HttpHeaderName.CONTENT_LENGTH,
+                    Lists.of(
+                        Long.valueOf(
+                            this.bodyLength()
+                        )
+                    )
                 );
             }
 
