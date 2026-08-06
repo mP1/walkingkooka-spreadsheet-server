@@ -466,7 +466,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.of(
                     HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
-                    HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.parse("UTF-8")),
+                    HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.UTF_8),
                     HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE),
                     HttpHeaderName.CONTENT_LENGTH, Lists.of(this.bodyLength())
                 );
