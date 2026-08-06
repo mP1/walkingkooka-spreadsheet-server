@@ -25,7 +25,6 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -378,13 +377,6 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
     @Override
     public SpreadsheetEngineHateosHandlerContext createContext() {
         return new FakeSpreadsheetEngineHateosHandlerContext();
-    }
-
-    private HttpEntity httpEntity(final String value) {
-        return HttpEntity.EMPTY.setContentType(
-                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-            ).setBodyText(value)
-            .setContentLength();
     }
 
     // toString.........................................................................................................
