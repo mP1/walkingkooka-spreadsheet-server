@@ -36,6 +36,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETagComputers;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetectors;
@@ -82,7 +83,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.storage.StorageContexts;
 import walkingkooka.storage.StorageEnvironmentContexts;
@@ -114,7 +114,8 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 
-public final class Sample implements walkingkooka.text.printer.TreePrintableTesting {
+public final class Sample implements HasHateosContentType,
+    walkingkooka.text.printer.TreePrintableTesting {
 
     public static void main(final String[] args) {
         new Sample();
@@ -148,7 +149,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     Accept.with(
-                        Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                        Lists.of(HATEOS_CONTENT_TYPE)
                     )
                 )
             ),

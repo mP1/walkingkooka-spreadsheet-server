@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
@@ -33,7 +34,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -43,6 +43,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosHandlerContext>,
+    HasHateosContentType,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -52,51 +53,50 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE
-            ).addHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
-            ).setBodyText(
-                "[\n" +
-                    "  {\n" +
-                    "    \"locale\": \"en\",\n" +
-                    "    \"text\": \"English\",\n" +
-                    "    \"decimalNumberSymbols\": {\n" +
-                    "      \"negativeSign\": \"-\",\n" +
-                    "      \"positiveSign\": \"+\",\n" +
-                    "      \"zeroDigit\": \"0\",\n" +
-                    "      \"currencySymbol\": \"¤\",\n" +
-                    "      \"decimalSeparator\": \".\",\n" +
-                    "      \"exponentSymbol\": \"E\",\n" +
-                    "      \"groupSeparator\": \",\",\n" +
-                    "      \"infinitySymbol\": \"∞\",\n" +
-                    "      \"monetaryDecimalSeparator\": \".\",\n" +
-                    "      \"nanSymbol\": \"NaN\",\n" +
-                    "      \"percentSymbol\": \"%\",\n" +
-                    "      \"permillSymbol\": \"‰\"\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"locale\": \"en-001\",\n" +
-                    "    \"text\": \"English (World)\",\n" +
-                    "    \"decimalNumberSymbols\": {\n" +
-                    "      \"negativeSign\": \"-\",\n" +
-                    "      \"positiveSign\": \"+\",\n" +
-                    "      \"zeroDigit\": \"0\",\n" +
-                    "      \"currencySymbol\": \"¤\",\n" +
-                    "      \"decimalSeparator\": \".\",\n" +
-                    "      \"exponentSymbol\": \"E\",\n" +
-                    "      \"groupSeparator\": \",\",\n" +
-                    "      \"infinitySymbol\": \"∞\",\n" +
-                    "      \"monetaryDecimalSeparator\": \".\",\n" +
-                    "      \"nanSymbol\": \"NaN\",\n" +
-                    "      \"percentSymbol\": \"%\",\n" +
-                    "      \"permillSymbol\": \"‰\"\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "]"
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .addHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
+                ).setBodyText(
+                    "[\n" +
+                        "  {\n" +
+                        "    \"locale\": \"en\",\n" +
+                        "    \"text\": \"English\",\n" +
+                        "    \"decimalNumberSymbols\": {\n" +
+                        "      \"negativeSign\": \"-\",\n" +
+                        "      \"positiveSign\": \"+\",\n" +
+                        "      \"zeroDigit\": \"0\",\n" +
+                        "      \"currencySymbol\": \"¤\",\n" +
+                        "      \"decimalSeparator\": \".\",\n" +
+                        "      \"exponentSymbol\": \"E\",\n" +
+                        "      \"groupSeparator\": \",\",\n" +
+                        "      \"infinitySymbol\": \"∞\",\n" +
+                        "      \"monetaryDecimalSeparator\": \".\",\n" +
+                        "      \"nanSymbol\": \"NaN\",\n" +
+                        "      \"percentSymbol\": \"%\",\n" +
+                        "      \"permillSymbol\": \"‰\"\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"locale\": \"en-001\",\n" +
+                        "    \"text\": \"English (World)\",\n" +
+                        "    \"decimalNumberSymbols\": {\n" +
+                        "      \"negativeSign\": \"-\",\n" +
+                        "      \"positiveSign\": \"+\",\n" +
+                        "      \"zeroDigit\": \"0\",\n" +
+                        "      \"currencySymbol\": \"¤\",\n" +
+                        "      \"decimalSeparator\": \".\",\n" +
+                        "      \"exponentSymbol\": \"E\",\n" +
+                        "      \"groupSeparator\": \",\",\n" +
+                        "      \"infinitySymbol\": \"∞\",\n" +
+                        "      \"monetaryDecimalSeparator\": \".\",\n" +
+                        "      \"nanSymbol\": \"NaN\",\n" +
+                        "      \"percentSymbol\": \"%\",\n" +
+                        "      \"permillSymbol\": \"‰\"\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "]"
+                ).setContentLength()
         );
 
         this.handleAndCheck(
@@ -105,7 +105,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
                 Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=0&count=2"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
-                    SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                    HATEOS_CONTENT_TYPE.accept()
                 )
             ),
             this.createContext(),
@@ -120,33 +120,32 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE
-            ).addHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
-            ).setBodyText(
-                "[\n" +
-                    "  {\n" +
-                    "    \"locale\": \"en-AU\",\n" +
-                    "    \"text\": \"English (Australia)\",\n" +
-                    "    \"decimalNumberSymbols\": {\n" +
-                    "      \"negativeSign\": \"-\",\n" +
-                    "      \"positiveSign\": \"+\",\n" +
-                    "      \"zeroDigit\": \"0\",\n" +
-                    "      \"currencySymbol\": \"$\",\n" +
-                    "      \"decimalSeparator\": \".\",\n" +
-                    "      \"exponentSymbol\": \"e\",\n" +
-                    "      \"groupSeparator\": \",\",\n" +
-                    "      \"infinitySymbol\": \"∞\",\n" +
-                    "      \"monetaryDecimalSeparator\": \".\",\n" +
-                    "      \"nanSymbol\": \"NaN\",\n" +
-                    "      \"percentSymbol\": \"%\",\n" +
-                    "      \"permillSymbol\": \"‰\"\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "]"
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .addHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
+                ).setBodyText(
+                    "[\n" +
+                        "  {\n" +
+                        "    \"locale\": \"en-AU\",\n" +
+                        "    \"text\": \"English (Australia)\",\n" +
+                        "    \"decimalNumberSymbols\": {\n" +
+                        "      \"negativeSign\": \"-\",\n" +
+                        "      \"positiveSign\": \"+\",\n" +
+                        "      \"zeroDigit\": \"0\",\n" +
+                        "      \"currencySymbol\": \"$\",\n" +
+                        "      \"decimalSeparator\": \".\",\n" +
+                        "      \"exponentSymbol\": \"e\",\n" +
+                        "      \"groupSeparator\": \",\",\n" +
+                        "      \"infinitySymbol\": \"∞\",\n" +
+                        "      \"monetaryDecimalSeparator\": \".\",\n" +
+                        "      \"nanSymbol\": \"NaN\",\n" +
+                        "      \"percentSymbol\": \"%\",\n" +
+                        "      \"permillSymbol\": \"‰\"\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "]"
+                ).setContentLength()
         );
 
         this.handleAndCheck(
@@ -155,7 +154,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
                 Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=7&count=1"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
-                    SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                    HATEOS_CONTENT_TYPE.accept()
                 )
             ),
             this.createContext(),

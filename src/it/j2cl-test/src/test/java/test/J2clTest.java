@@ -39,6 +39,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETagComputers;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetectors;
@@ -52,7 +53,6 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
-import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
@@ -86,7 +86,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.storage.StorageContexts;
 import walkingkooka.storage.StorageEnvironmentContexts;
@@ -120,7 +119,7 @@ import java.util.Optional;
 
 // copied from Sample
 @J2clTestInput(J2clTest.class)
-public class J2clTest {
+public class J2clTest implements HasHateosContentType {
 
     private final static Indentation INDENTATION = Indentation.with("  ");
 
@@ -150,7 +149,7 @@ public class J2clTest {
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
                     Accept.with(
-                        Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                        Lists.of(HATEOS_CONTENT_TYPE)
                     )
                 )
             ),
