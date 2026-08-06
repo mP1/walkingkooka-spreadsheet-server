@@ -805,7 +805,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
             @Override
             public LineEnding lineEnding() {
-                return LineEnding.NL;
+                return SpreadsheetFormatterSelectorEditHttpHandlerCellTest.LINE_ENDING;
             }
 
             @Override

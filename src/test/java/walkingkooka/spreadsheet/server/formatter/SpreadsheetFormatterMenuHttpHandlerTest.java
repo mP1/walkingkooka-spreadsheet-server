@@ -120,7 +120,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
 
                 @Override
                 public LineEnding lineEnding() {
-                    return LineEnding.NL;
+                    return SpreadsheetFormatterMenuHttpHandlerTest.LINE_ENDING;
                 }
 
                 @Override

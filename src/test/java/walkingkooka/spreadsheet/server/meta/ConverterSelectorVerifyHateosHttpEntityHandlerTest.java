@@ -174,7 +174,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public LineEnding lineEnding() {
-                return LineEnding.NL;
+                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.LINE_ENDING;
             }
 
             @Override
