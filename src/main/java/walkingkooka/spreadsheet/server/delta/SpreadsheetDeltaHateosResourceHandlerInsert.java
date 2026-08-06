@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -112,7 +113,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
 
     private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return SpreadsheetUrlQueryParameters.count(parameters)
-            .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT));
+            .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + UrlParameterName.COUNT));
     }
 
     abstract String rangeLabel();

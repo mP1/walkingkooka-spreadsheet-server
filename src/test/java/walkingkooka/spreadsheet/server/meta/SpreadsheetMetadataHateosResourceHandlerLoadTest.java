@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
@@ -31,7 +32,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 import walkingkooka.store.MissingStoreException;
 
 import java.time.LocalDateTime;
@@ -113,9 +113,9 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.OFFSET,
+                UrlParameterName.OFFSET,
                 Lists.of("0"),
-                SpreadsheetUrlQueryParameters.COUNT,
+                UrlParameterName.COUNT,
                 Lists.of("2")
             ),
             UrlPath.EMPTY,
@@ -159,7 +159,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.COUNT,
+                UrlParameterName.COUNT,
                 Lists.of("2")
             ),
             UrlPath.EMPTY,
@@ -202,9 +202,9 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.OFFSET,
+                UrlParameterName.OFFSET,
                 Lists.of("1"),
-                SpreadsheetUrlQueryParameters.COUNT,
+                UrlParameterName.COUNT,
                 Lists.of("2")
             ),
             UrlPath.EMPTY,

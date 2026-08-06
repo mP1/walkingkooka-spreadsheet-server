@@ -27,13 +27,13 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContexts;
 import walkingkooka.currency.FakeCurrencyExchangeRater;
 import walkingkooka.locale.LocaleContextTesting;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Currency;
 import java.util.Map;
@@ -72,7 +72,7 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("10")
+                UrlParameterName.COUNT, Lists.of("10")
             ),
             UrlPath.EMPTY,
             this.context(),
@@ -99,8 +99,8 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+                UrlParameterName.OFFSET, Lists.of("1"),
+                UrlParameterName.COUNT, Lists.of("2")
             ),
             UrlPath.EMPTY,
             this.context(),

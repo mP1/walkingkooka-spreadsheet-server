@@ -25,13 +25,13 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.locale.LocaleContextTesting;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -66,7 +66,7 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("10000")
+                UrlParameterName.COUNT, Lists.of("10000")
             ),
             UrlPath.EMPTY,
             this.context(),
@@ -86,8 +86,8 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.OFFSET, Lists.of("130"),
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+                UrlParameterName.OFFSET, Lists.of("130"),
+                UrlParameterName.COUNT, Lists.of("2")
             ),
             UrlPath.EMPTY,
             this.context(),

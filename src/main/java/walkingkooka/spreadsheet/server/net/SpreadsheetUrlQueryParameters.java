@@ -37,36 +37,27 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
      */
     public static OptionalInt count(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
-            COUNT,
+            UrlParameterName.COUNT,
             parameters
         );
     }
 
-    // @VisibleForTesting
-    public final static UrlParameterName COUNT = UrlParameterName.with("count");
-
     public static Locale locale(final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final LocaleContext context) {
-        return LOCALE.firstParameterValue(parameters)
+        return UrlParameterName.LOCALE.firstParameterValue(parameters)
             .map((Locale::forLanguageTag))
             .orElse(context.locale());
     }
-
-    // @VisibleForTesting
-    public final static UrlParameterName LOCALE = UrlParameterName.with("locale");
 
     /**
      * Returns the offset parameter as an integer.
      */
     public static OptionalInt offset(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
-            OFFSET,
+            UrlParameterName.OFFSET,
             parameters
         );
     }
-
-    // @VisibleForTesting
-    public final static UrlParameterName OFFSET = UrlParameterName.with("offset");
 
     private static OptionalInt get(final UrlParameterName parameter,
                                    final Map<HttpRequestAttribute<?>, Object> parameters) {

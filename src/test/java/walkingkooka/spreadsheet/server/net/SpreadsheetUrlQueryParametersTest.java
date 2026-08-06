@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.locale.FakeLocaleContext;
 import walkingkooka.locale.LocaleContext;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
@@ -53,7 +54,7 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
             OptionalInt.of(123),
             SpreadsheetUrlQueryParameters.count(
                 Maps.of(
-                    SpreadsheetUrlQueryParameters.COUNT,
+                    UrlParameterName.COUNT,
                     Lists.of("123")
                 )
             )
@@ -89,7 +90,7 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
             Cast.to(
                 parameters.map(
                     l -> Maps.of(
-                        SpreadsheetUrlQueryParameters.LOCALE,
+                        UrlParameterName.LOCALE,
                         Lists.of(
                             l.toLanguageTag()
                         )
@@ -137,7 +138,7 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
             OptionalInt.of(123),
             SpreadsheetUrlQueryParameters.offset(
                 Maps.of(
-                    SpreadsheetUrlQueryParameters.OFFSET,
+                    UrlParameterName.OFFSET,
                     Lists.of("123")
                 )
             )
