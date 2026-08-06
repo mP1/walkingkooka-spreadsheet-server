@@ -21,6 +21,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
@@ -28,7 +29,6 @@ import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 
@@ -39,7 +39,8 @@ import java.util.SortedSet;
 /**
  * A {@link HttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DateTimeSymbols} for each.
  */
-final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosHandlerContext> {
+final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosHandlerContext>,
+    HasHateosContentType {
 
     final static DateTimeSymbolsFindByLocaleStartsWithHttpHandler INSTANCE = new DateTimeSymbolsFindByLocaleStartsWithHttpHandler();
 
@@ -52,7 +53,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
                                 final HttpResponse response,
                                 final LocaleHateosHandlerContext context) {
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(HateosHandlerContext.HATEOS_CONTENT_TYPE);
+            .testOrFail(HATEOS_CONTENT_TYPE);
 
         final List<UrlPathName> names = request.url()
             .path()
@@ -91,7 +92,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
         );
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE
+                HATEOS_CONTENT_TYPE
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DateTimeSymbolsHateosResourceSet.class.getSimpleName()
