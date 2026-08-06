@@ -22,6 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
@@ -29,7 +30,6 @@ import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 
@@ -80,7 +80,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
             c3.column(),
             RESOURCE,
             Maps.of(
-                SpreadsheetUrlQueryParameters.COUNT,
+                UrlParameterName.COUNT,
                 Lists.of("" + count)
             ),
             UrlPath.EMPTY,
@@ -158,7 +158,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
             c3.column().range(d4.column()),
             RESOURCE,
             Maps.of(
-                SpreadsheetUrlQueryParameters.COUNT,
+                UrlParameterName.COUNT,
                 Lists.of("" + count)
             ),
             UrlPath.EMPTY,

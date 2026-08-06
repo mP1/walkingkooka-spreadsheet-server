@@ -19,12 +19,12 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -52,7 +52,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H exte
     @Override
     public final Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(
-            SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + COUNT)
+            UrlParameterName.COUNT, Lists.of("" + COUNT)
         );
     }
 

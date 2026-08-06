@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
@@ -155,8 +154,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
         this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
-                SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+                UrlParameterName.OFFSET, Lists.of("1"),
+                UrlParameterName.COUNT, Lists.of("2")
             ),
             UrlPath.EMPTY,
             this.context(store),
