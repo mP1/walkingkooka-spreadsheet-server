@@ -380,7 +380,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         }
     };
 
-    static class TestFunction extends FakeExpressionFunction<Object, SpreadsheetExpressionEvaluationContext> {
+    final static class TestFunction extends FakeExpressionFunction<Object, SpreadsheetExpressionEvaluationContext> {
 
         TestFunction(final ExpressionFunctionName name) {
             this.name = name;

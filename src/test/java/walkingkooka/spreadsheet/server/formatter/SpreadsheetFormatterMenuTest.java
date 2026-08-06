@@ -221,7 +221,7 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
         );
     }
 
-    static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
+    final static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetFormatterContextDelegator {
 

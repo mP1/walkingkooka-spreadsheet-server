@@ -73,7 +73,7 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         return TestLocaleHateosHandlerContext.class;
     }
 
-    static class TestLocaleHateosHandlerContext implements LocaleHateosHandlerContext, JsonNodeMarshallUnmarshallContextDelegator {
+    final static class TestLocaleHateosHandlerContext implements LocaleHateosHandlerContext, JsonNodeMarshallUnmarshallContextDelegator {
 
         @Override
         public Set<Locale> availableLocales() {

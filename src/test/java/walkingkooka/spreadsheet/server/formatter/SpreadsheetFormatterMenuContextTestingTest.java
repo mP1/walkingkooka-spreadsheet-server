@@ -101,7 +101,7 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
+    final static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator {
 
