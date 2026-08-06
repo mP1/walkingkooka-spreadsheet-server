@@ -80,7 +80,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
         @Override
         public LineEnding lineEnding() {
-            return LineEnding.NL;
+            return SpreadsheetMetadataHateosResourceHandlersRouterTest.LINE_ENDING;
         }
 
         @Override

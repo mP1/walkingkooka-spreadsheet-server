@@ -173,7 +173,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                 @Override
                 public LineEnding lineEnding() {
-                    return LineEnding.NL;
+                    return SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest.LINE_ENDING;
                 }
 
                 @Override

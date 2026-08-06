@@ -333,7 +333,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
 
             @Override
             public LineEnding lineEnding() {
-                return LineEnding.NL;
+                return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.LINE_ENDING;
             }
 
             @Override

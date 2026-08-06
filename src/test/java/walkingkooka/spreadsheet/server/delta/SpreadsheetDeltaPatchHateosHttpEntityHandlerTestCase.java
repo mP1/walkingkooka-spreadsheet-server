@@ -55,6 +55,7 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
+import walkingkooka.text.HasLineEndingTesting;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -72,6 +73,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     S extends SpreadsheetSelection & Comparable<S>,
     R extends SpreadsheetSelection & Comparable<R>> implements
     HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosHandlerContext>,
+    HasLineEndingTesting,
     ClassTesting<H> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase() {
@@ -205,7 +207,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
         @Override
         public LineEnding lineEnding() {
-            return LineEnding.NL;
+            return SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase.LINE_ENDING;
         }
 
         @Override

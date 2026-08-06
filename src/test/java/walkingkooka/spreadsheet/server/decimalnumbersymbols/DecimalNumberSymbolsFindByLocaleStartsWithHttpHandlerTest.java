@@ -179,7 +179,7 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
 
             @Override
             public LineEnding lineEnding() {
-                return LineEnding.NL;
+                return DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest.LINE_ENDING;
             }
 
             @Override

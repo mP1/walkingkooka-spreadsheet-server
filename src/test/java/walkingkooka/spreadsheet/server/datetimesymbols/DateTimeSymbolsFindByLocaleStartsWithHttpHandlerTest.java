@@ -293,7 +293,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
 
             @Override
             public LineEnding lineEnding() {
-                return LineEnding.NL;
+                return DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest.LINE_ENDING;
             }
 
             @Override
