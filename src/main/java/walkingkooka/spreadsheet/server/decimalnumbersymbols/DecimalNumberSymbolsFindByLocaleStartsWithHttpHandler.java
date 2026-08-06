@@ -31,7 +31,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.List;
 import java.util.Locale;
@@ -68,9 +67,9 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
 
         final SortedSet<DecimalNumberSymbolsHateosResource> all = SortedSets.tree();
 
-        final int offset = SpreadsheetUrlQueryParameters.offset(request.routerParameters())
+        final int offset = HttpRequest.offset(request.routerParameters())
             .orElse(0);
-        final int count = SpreadsheetUrlQueryParameters.count(request.routerParameters())
+        final int count = HttpRequest.count(request.routerParameters())
             .orElse(DEFAULT_COUNT);
 
         for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {

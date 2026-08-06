@@ -30,7 +30,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 import walkingkooka.storage.StorageBinary;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.StorageValue;
@@ -133,9 +132,9 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                                     final SpreadsheetEngineHateosHandlerContext context) {
         final Map<HttpRequestAttribute<?>, Object> parameters = request.routerParameters();
 
-        final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
+        final int offset = HttpRequest.offset(parameters)
             .orElse(0);
-        final int count = SpreadsheetUrlQueryParameters.count(parameters)
+        final int count = HttpRequest.count(parameters)
             .orElse(DEFAULT_COUNT);
 
         final List<StorageValueInfo> infos = context.listStorage(

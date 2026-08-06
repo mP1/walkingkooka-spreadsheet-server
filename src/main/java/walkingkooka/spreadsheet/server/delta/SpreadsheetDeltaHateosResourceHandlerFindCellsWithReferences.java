@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -26,7 +27,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Objects;
@@ -106,9 +106,9 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends
             context.spreadsheetEngine()
                 .findCellsWithReference(
                     reference,
-                    SpreadsheetUrlQueryParameters.offset(parameters)
+                    HttpRequest.offset(parameters)
                         .orElse(0),
-                    SpreadsheetUrlQueryParameters.count(parameters)
+                    HttpRequest.count(parameters)
                         .orElse(DEFAULT_COUNT),
                     context
                 )
