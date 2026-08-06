@@ -62,7 +62,6 @@ public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implemen
         final SpreadsheetEngineHateosHandlerContext context = this.createContext();
 
         this.handleAndCheck(
-            SpreadsheetStorageGetHeadPostOrDeleteHttpHandler.INSTANCE,
             HttpRequests.parse(
                 HttpTransport.UNSECURED,
                 "GET /api/spreadsheet/1/storage/ HTTP/1.0\r\n" +
@@ -81,7 +80,6 @@ public final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandlerTest implemen
         final SpreadsheetEngineHateosHandlerContext context = this.createContext();
 
         this.handleAndCheck(
-            SpreadsheetStorageGetHeadPostOrDeleteHttpHandler.INSTANCE,
             HttpRequests.parse(
                 HttpTransport.UNSECURED,
                 "GET /api/spreadsheet/1/storage/ HTTP/1.0\r\n" +
