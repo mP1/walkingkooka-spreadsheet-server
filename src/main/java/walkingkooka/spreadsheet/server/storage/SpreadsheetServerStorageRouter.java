@@ -26,13 +26,14 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.storage.http.StorageHttpHandlers;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link Router} that matches the {@link SpreadsheetStorageGetHeadPostOrDeleteHttpHandler} if the path matches the given base.
+ * A {@link Router} that matches the {@link StorageHttpHandlers#storage(int)} if the path matches the given base.
  */
 public final class SpreadsheetServerStorageRouter implements Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetEngineHateosHandlerContext>> {
 
@@ -57,7 +58,7 @@ public final class SpreadsheetServerStorageRouter implements Router<HttpRequestA
         return Optional.ofNullable(
             -1 == this.consumeBasePath(parameters) ?
                 null :
-                SpreadsheetStorageGetHeadPostOrDeleteHttpHandler.INSTANCE
+                StorageHttpHandlers.storage(4)
         );
     }
 
