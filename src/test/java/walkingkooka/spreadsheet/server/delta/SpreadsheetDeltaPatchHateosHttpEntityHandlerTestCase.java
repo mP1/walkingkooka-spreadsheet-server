@@ -192,7 +192,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
+    final static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
 
         TestSpreadsheetEngineHateosHandlerContext(final SpreadsheetEngine spreadsheetEngine) {
             this.spreadsheetEngine = spreadsheetEngine;

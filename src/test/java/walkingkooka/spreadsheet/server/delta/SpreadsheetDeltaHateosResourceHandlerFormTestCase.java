@@ -73,7 +73,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extend
         };
     }
 
-    static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
+    abstract static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
     }
 
     @Override
