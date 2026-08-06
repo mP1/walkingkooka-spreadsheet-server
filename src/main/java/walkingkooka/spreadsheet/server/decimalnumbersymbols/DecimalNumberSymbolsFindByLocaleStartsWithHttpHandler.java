@@ -21,6 +21,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
@@ -28,7 +29,6 @@ import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 
@@ -39,7 +39,8 @@ import java.util.SortedSet;
 /**
  * A {@link HttpHandler} that finds all {@link Locale} that match a search string and returns the {@link DecimalNumberSymbols} for each.
  */
-final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosHandlerContext> {
+final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHeadHttpHandler<LocaleHateosHandlerContext>,
+    HasHateosContentType {
 
     final static DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler INSTANCE = new DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler();
 
@@ -52,9 +53,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
                                 final HttpResponse response,
                                 final LocaleHateosHandlerContext context) {
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE
-            );
+            .testOrFail(HATEOS_CONTENT_TYPE);
 
         final List<UrlPathName> names = request.url()
             .path()
@@ -92,16 +91,15 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
             HttpStatusCode.OK.status()
         );
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE
-            ).addHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
-            ).setBodyText(
-                context.marshall(
-                    DecimalNumberSymbolsHateosResourceSet.with(all)
-                ).toJsonText(context)
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .addHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
+                ).setBodyText(
+                    context.marshall(
+                        DecimalNumberSymbolsHateosResourceSet.with(all)
+                    ).toJsonText(context)
+                ).setContentLength()
         );
     }
 
