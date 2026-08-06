@@ -26,7 +26,6 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
@@ -35,7 +34,6 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -126,11 +124,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public ConverterLike converterLike() {
         return this.context;
-    }
-
-    @Override
-    public MediaType contentType() {
-        return SpreadsheetServerMediaTypes.CONTENT_TYPE;
     }
 
     // must be overridden because of clashes between various XXXDelegators

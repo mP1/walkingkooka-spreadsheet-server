@@ -24,7 +24,6 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.store.PluginStore;
@@ -64,11 +63,6 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
 
     @Override
     public Optional<ETag> computeETag(final Binary binary) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public MediaType contentType() {
         throw new UnsupportedOperationException();
     }
 

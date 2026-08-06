@@ -74,11 +74,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     static class TestSpreadsheetMetadataHateosHandlerContext extends FakeSpreadsheetMetadataHateosHandlerContext {
 
         @Override
-        public MediaType contentType() {
-            return CONTENT_TYPE;
-        }
-
-        @Override
         public Indentation indentation() {
             return Indentation.SPACES2;
         }

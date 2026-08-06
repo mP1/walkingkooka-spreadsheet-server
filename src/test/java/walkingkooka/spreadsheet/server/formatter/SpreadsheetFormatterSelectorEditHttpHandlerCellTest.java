@@ -88,12 +88,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
                         HttpEntity.EMPTY
                     ),
                     HttpResponses.recording(),
-                    new FakeSpreadsheetEngineHateosHandlerContext() {
-                        @Override
-                        public MediaType contentType() {
-                            return MediaType.APPLICATION_JSON;
-                        }
-                    }
+                    new FakeSpreadsheetEngineHateosHandlerContext()
                 )
         );
 
@@ -796,11 +791,6 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
             @Override
             public Charset charset() {
                 return SpreadsheetFormatterSelectorEditHttpHandlerCellTest.CHARSET;
-            }
-
-            @Override
-            public MediaType contentType() {
-                return MediaType.APPLICATION_JSON;
             }
 
             @Override

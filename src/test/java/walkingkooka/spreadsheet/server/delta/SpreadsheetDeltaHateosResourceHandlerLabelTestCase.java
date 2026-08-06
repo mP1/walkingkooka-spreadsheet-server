@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.ToStringTesting;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -66,10 +65,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
     }
 
     static class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
-        @Override
-        public MediaType contentType() {
-            return CONTENT_TYPE;
-        }
     }
 
     @Override

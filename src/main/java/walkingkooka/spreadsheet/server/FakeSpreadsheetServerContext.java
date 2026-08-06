@@ -29,7 +29,6 @@ import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -363,11 +362,6 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
 
     @Override
     public Optional<ETag> computeETag(final Binary binary) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public MediaType contentType() {
         throw new UnsupportedOperationException();
     }
 

@@ -80,12 +80,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
                         HttpEntity.EMPTY
                     ),
                     HttpResponses.recording(),
-                    new FakeSpreadsheetEngineHateosHandlerContext() {
-                        @Override
-                        public MediaType contentType() {
-                            return MediaType.APPLICATION_JSON;
-                        }
-                    }
+                    new FakeSpreadsheetEngineHateosHandlerContext()
                 )
         );
 
@@ -324,11 +319,6 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
             @Override
             public Charset charset() {
                 return SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest.CHARSET;
-            }
-
-            @Override
-            public MediaType contentType() {
-                return MediaType.APPLICATION_JSON;
             }
 
             @Override

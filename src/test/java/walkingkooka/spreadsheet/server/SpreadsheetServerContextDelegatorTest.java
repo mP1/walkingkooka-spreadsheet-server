@@ -27,7 +27,6 @@ import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
@@ -280,11 +279,6 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         @Override
         public Optional<ETag> computeETag(final Binary binary) {
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public MediaType contentType() {
-            return MediaType.APPLICATION_JSON;
         }
 
         @Override

@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.Binary;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -46,11 +45,6 @@ public class FakeSpreadsheetMetadataHateosHandlerContext extends FakeSpreadsheet
 
     @Override
     public Optional<ETag> computeETag(final Binary binary) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public MediaType contentType() {
         throw new UnsupportedOperationException();
     }
 

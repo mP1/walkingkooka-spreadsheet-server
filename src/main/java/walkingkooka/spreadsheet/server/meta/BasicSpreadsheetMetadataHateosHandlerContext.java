@@ -21,7 +21,6 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -30,7 +29,6 @@ import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextDelegator;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.storage.Storage;
@@ -70,11 +68,6 @@ final class BasicSpreadsheetMetadataHateosHandlerContext implements SpreadsheetM
     public Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> httpRouter(final SpreadsheetId id) {
         return this.context.spreadsheetContextOrFail(id)
             .httpRouter();
-    }
-
-    @Override
-    public MediaType contentType() {
-        return SpreadsheetServerMediaTypes.CONTENT_TYPE;
     }
 
     // HateosHandlerContext ............................................................................................

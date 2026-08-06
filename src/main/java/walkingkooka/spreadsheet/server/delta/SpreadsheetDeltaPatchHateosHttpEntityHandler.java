@@ -22,11 +22,11 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
@@ -120,13 +120,12 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
         HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
-        final MediaType requiredContentType = context.contentType();
-        requiredContentType.requireContentType(
+        HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.requireContentType(
             HttpHeaderName.CONTENT_TYPE.header(entity)
                 .orElse(null)
         );
         HttpHeaderName.ACCEPT.headerOrFail(entity)
-            .testOrFail(requiredContentType);
+            .testOrFail(HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE);
 
         // parse HttpEntity as JSON giving the PATCH as JsonNode
         final JsonNode patch = this.preparePatch(
@@ -276,8 +275,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                                         final SpreadsheetEngineHateosHandlerContext context) {
         return HttpEntity.EMPTY
             .setContentType(
-                context.contentType()
-                    .setCharset(CharsetName.UTF_8)
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
             ).addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
             .setBodyText(
                 context.marshall(response)
