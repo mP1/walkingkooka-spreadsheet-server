@@ -38,7 +38,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -115,17 +114,16 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
             )
         );
 
-        return HttpEntity.EMPTY.setContentType(
-            SpreadsheetServerMediaTypes.CONTENT_TYPE
-        ).setHeader(
-            HateosResourceMappings.X_CONTENT_TYPE_NAME,
-            Lists.of(
-                MissingConverterSet.class.getSimpleName()
-            )
-        ).setBodyText(
-            context.marshall(response)
-                .toJsonText(context)
-        ).setContentLength();
+        return HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+            .setHeader(
+                HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                Lists.of(
+                    MissingConverterSet.class.getSimpleName()
+                )
+            ).setBodyText(
+                context.marshall(response)
+                    .toJsonText(context)
+            ).setContentLength();
     }
 
     @Override

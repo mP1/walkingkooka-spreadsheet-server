@@ -33,6 +33,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -49,7 +50,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -67,6 +67,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
+    HasHateosContentType,
     SpreadsheetMetadataTesting {
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
@@ -84,18 +85,17 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             HateosHttpEntityHandler.NO_PARAMETERS,
             this.path(),
             this.context(),
-            HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE
-            ).setHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                Lists.of(
-                    MissingConverterSet.class.getSimpleName()
-                )
-            ).setBodyText(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(
-                    MissingConverterSet.EMPTY
-                ).toString()
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .setHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    Lists.of(
+                        MissingConverterSet.class.getSimpleName()
+                    )
+                ).setBodyText(
+                    JSON_NODE_MARSHALL_CONTEXT.marshall(
+                        MissingConverterSet.EMPTY
+                    ).toString()
+                ).setContentLength()
         );
     }
 

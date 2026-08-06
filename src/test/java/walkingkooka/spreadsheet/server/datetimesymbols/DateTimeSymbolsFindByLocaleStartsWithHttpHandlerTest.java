@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.datetimesymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
@@ -33,7 +34,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -43,6 +43,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DateTimeSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosHandlerContext>,
+    HasHateosContentType,
     SpreadsheetMetadataTesting {
 
     @Test
@@ -52,127 +53,126 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE
-            ).addHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                DateTimeSymbolsHateosResourceSet.class.getSimpleName()
-            ).setBodyText(
-                "[\n" +
-                    "  {\n" +
-                    "    \"locale\": \"en\",\n" +
-                    "    \"text\": \"English\",\n" +
-                    "    \"dateTimeSymbols\": {\n" +
-                    "      \"ampms\": [\n" +
-                    "        \"AM\",\n" +
-                    "        \"PM\"\n" +
-                    "      ],\n" +
-                    "      \"monthNames\": [\n" +
-                    "        \"January\",\n" +
-                    "        \"February\",\n" +
-                    "        \"March\",\n" +
-                    "        \"April\",\n" +
-                    "        \"May\",\n" +
-                    "        \"June\",\n" +
-                    "        \"July\",\n" +
-                    "        \"August\",\n" +
-                    "        \"September\",\n" +
-                    "        \"October\",\n" +
-                    "        \"November\",\n" +
-                    "        \"December\"\n" +
-                    "      ],\n" +
-                    "      \"monthNameAbbreviations\": [\n" +
-                    "        \"Jan\",\n" +
-                    "        \"Feb\",\n" +
-                    "        \"Mar\",\n" +
-                    "        \"Apr\",\n" +
-                    "        \"May\",\n" +
-                    "        \"Jun\",\n" +
-                    "        \"Jul\",\n" +
-                    "        \"Aug\",\n" +
-                    "        \"Sep\",\n" +
-                    "        \"Oct\",\n" +
-                    "        \"Nov\",\n" +
-                    "        \"Dec\"\n" +
-                    "      ],\n" +
-                    "      \"weekDayNames\": [\n" +
-                    "        \"Sunday\",\n" +
-                    "        \"Monday\",\n" +
-                    "        \"Tuesday\",\n" +
-                    "        \"Wednesday\",\n" +
-                    "        \"Thursday\",\n" +
-                    "        \"Friday\",\n" +
-                    "        \"Saturday\"\n" +
-                    "      ],\n" +
-                    "      \"weekDayNameAbbreviations\": [\n" +
-                    "        \"Sun\",\n" +
-                    "        \"Mon\",\n" +
-                    "        \"Tue\",\n" +
-                    "        \"Wed\",\n" +
-                    "        \"Thu\",\n" +
-                    "        \"Fri\",\n" +
-                    "        \"Sat\"\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"locale\": \"en-001\",\n" +
-                    "    \"text\": \"English (World)\",\n" +
-                    "    \"dateTimeSymbols\": {\n" +
-                    "      \"ampms\": [\n" +
-                    "        \"AM\",\n" +
-                    "        \"PM\"\n" +
-                    "      ],\n" +
-                    "      \"monthNames\": [\n" +
-                    "        \"January\",\n" +
-                    "        \"February\",\n" +
-                    "        \"March\",\n" +
-                    "        \"April\",\n" +
-                    "        \"May\",\n" +
-                    "        \"June\",\n" +
-                    "        \"July\",\n" +
-                    "        \"August\",\n" +
-                    "        \"September\",\n" +
-                    "        \"October\",\n" +
-                    "        \"November\",\n" +
-                    "        \"December\"\n" +
-                    "      ],\n" +
-                    "      \"monthNameAbbreviations\": [\n" +
-                    "        \"Jan\",\n" +
-                    "        \"Feb\",\n" +
-                    "        \"Mar\",\n" +
-                    "        \"Apr\",\n" +
-                    "        \"May\",\n" +
-                    "        \"Jun\",\n" +
-                    "        \"Jul\",\n" +
-                    "        \"Aug\",\n" +
-                    "        \"Sep\",\n" +
-                    "        \"Oct\",\n" +
-                    "        \"Nov\",\n" +
-                    "        \"Dec\"\n" +
-                    "      ],\n" +
-                    "      \"weekDayNames\": [\n" +
-                    "        \"Sunday\",\n" +
-                    "        \"Monday\",\n" +
-                    "        \"Tuesday\",\n" +
-                    "        \"Wednesday\",\n" +
-                    "        \"Thursday\",\n" +
-                    "        \"Friday\",\n" +
-                    "        \"Saturday\"\n" +
-                    "      ],\n" +
-                    "      \"weekDayNameAbbreviations\": [\n" +
-                    "        \"Sun\",\n" +
-                    "        \"Mon\",\n" +
-                    "        \"Tue\",\n" +
-                    "        \"Wed\",\n" +
-                    "        \"Thu\",\n" +
-                    "        \"Fri\",\n" +
-                    "        \"Sat\"\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "]"
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .addHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    DateTimeSymbolsHateosResourceSet.class.getSimpleName()
+                ).setBodyText(
+                    "[\n" +
+                        "  {\n" +
+                        "    \"locale\": \"en\",\n" +
+                        "    \"text\": \"English\",\n" +
+                        "    \"dateTimeSymbols\": {\n" +
+                        "      \"ampms\": [\n" +
+                        "        \"AM\",\n" +
+                        "        \"PM\"\n" +
+                        "      ],\n" +
+                        "      \"monthNames\": [\n" +
+                        "        \"January\",\n" +
+                        "        \"February\",\n" +
+                        "        \"March\",\n" +
+                        "        \"April\",\n" +
+                        "        \"May\",\n" +
+                        "        \"June\",\n" +
+                        "        \"July\",\n" +
+                        "        \"August\",\n" +
+                        "        \"September\",\n" +
+                        "        \"October\",\n" +
+                        "        \"November\",\n" +
+                        "        \"December\"\n" +
+                        "      ],\n" +
+                        "      \"monthNameAbbreviations\": [\n" +
+                        "        \"Jan\",\n" +
+                        "        \"Feb\",\n" +
+                        "        \"Mar\",\n" +
+                        "        \"Apr\",\n" +
+                        "        \"May\",\n" +
+                        "        \"Jun\",\n" +
+                        "        \"Jul\",\n" +
+                        "        \"Aug\",\n" +
+                        "        \"Sep\",\n" +
+                        "        \"Oct\",\n" +
+                        "        \"Nov\",\n" +
+                        "        \"Dec\"\n" +
+                        "      ],\n" +
+                        "      \"weekDayNames\": [\n" +
+                        "        \"Sunday\",\n" +
+                        "        \"Monday\",\n" +
+                        "        \"Tuesday\",\n" +
+                        "        \"Wednesday\",\n" +
+                        "        \"Thursday\",\n" +
+                        "        \"Friday\",\n" +
+                        "        \"Saturday\"\n" +
+                        "      ],\n" +
+                        "      \"weekDayNameAbbreviations\": [\n" +
+                        "        \"Sun\",\n" +
+                        "        \"Mon\",\n" +
+                        "        \"Tue\",\n" +
+                        "        \"Wed\",\n" +
+                        "        \"Thu\",\n" +
+                        "        \"Fri\",\n" +
+                        "        \"Sat\"\n" +
+                        "      ]\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"locale\": \"en-001\",\n" +
+                        "    \"text\": \"English (World)\",\n" +
+                        "    \"dateTimeSymbols\": {\n" +
+                        "      \"ampms\": [\n" +
+                        "        \"AM\",\n" +
+                        "        \"PM\"\n" +
+                        "      ],\n" +
+                        "      \"monthNames\": [\n" +
+                        "        \"January\",\n" +
+                        "        \"February\",\n" +
+                        "        \"March\",\n" +
+                        "        \"April\",\n" +
+                        "        \"May\",\n" +
+                        "        \"June\",\n" +
+                        "        \"July\",\n" +
+                        "        \"August\",\n" +
+                        "        \"September\",\n" +
+                        "        \"October\",\n" +
+                        "        \"November\",\n" +
+                        "        \"December\"\n" +
+                        "      ],\n" +
+                        "      \"monthNameAbbreviations\": [\n" +
+                        "        \"Jan\",\n" +
+                        "        \"Feb\",\n" +
+                        "        \"Mar\",\n" +
+                        "        \"Apr\",\n" +
+                        "        \"May\",\n" +
+                        "        \"Jun\",\n" +
+                        "        \"Jul\",\n" +
+                        "        \"Aug\",\n" +
+                        "        \"Sep\",\n" +
+                        "        \"Oct\",\n" +
+                        "        \"Nov\",\n" +
+                        "        \"Dec\"\n" +
+                        "      ],\n" +
+                        "      \"weekDayNames\": [\n" +
+                        "        \"Sunday\",\n" +
+                        "        \"Monday\",\n" +
+                        "        \"Tuesday\",\n" +
+                        "        \"Wednesday\",\n" +
+                        "        \"Thursday\",\n" +
+                        "        \"Friday\",\n" +
+                        "        \"Saturday\"\n" +
+                        "      ],\n" +
+                        "      \"weekDayNameAbbreviations\": [\n" +
+                        "        \"Sun\",\n" +
+                        "        \"Mon\",\n" +
+                        "        \"Tue\",\n" +
+                        "        \"Wed\",\n" +
+                        "        \"Thu\",\n" +
+                        "        \"Fri\",\n" +
+                        "        \"Sat\"\n" +
+                        "      ]\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "]"
+                ).setContentLength()
         );
 
         this.handleAndCheck(
@@ -181,7 +181,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
                 Url.parseRelative("/api/dateTimeSymbols/*/localeStartsWith/English?offset=0&count=2"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
-                    SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                    HATEOS_CONTENT_TYPE.accept()
                 )
             ),
             this.createContext(),
@@ -196,71 +196,70 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE
-            ).addHeader(
-                HateosResourceMappings.X_CONTENT_TYPE_NAME,
-                DateTimeSymbolsHateosResourceSet.class.getSimpleName()
-            ).setBodyText(
-                "[\n" +
-                    "  {\n" +
-                    "    \"locale\": \"en-AU\",\n" +
-                    "    \"text\": \"English (Australia)\",\n" +
-                    "    \"dateTimeSymbols\": {\n" +
-                    "      \"ampms\": [\n" +
-                    "        \"am\",\n" +
-                    "        \"pm\"\n" +
-                    "      ],\n" +
-                    "      \"monthNames\": [\n" +
-                    "        \"January\",\n" +
-                    "        \"February\",\n" +
-                    "        \"March\",\n" +
-                    "        \"April\",\n" +
-                    "        \"May\",\n" +
-                    "        \"June\",\n" +
-                    "        \"July\",\n" +
-                    "        \"August\",\n" +
-                    "        \"September\",\n" +
-                    "        \"October\",\n" +
-                    "        \"November\",\n" +
-                    "        \"December\"\n" +
-                    "      ],\n" +
-                    "      \"monthNameAbbreviations\": [\n" +
-                    "        \"Jan.\",\n" +
-                    "        \"Feb.\",\n" +
-                    "        \"Mar.\",\n" +
-                    "        \"Apr.\",\n" +
-                    "        \"May\",\n" +
-                    "        \"Jun.\",\n" +
-                    "        \"Jul.\",\n" +
-                    "        \"Aug.\",\n" +
-                    "        \"Sep.\",\n" +
-                    "        \"Oct.\",\n" +
-                    "        \"Nov.\",\n" +
-                    "        \"Dec.\"\n" +
-                    "      ],\n" +
-                    "      \"weekDayNames\": [\n" +
-                    "        \"Sunday\",\n" +
-                    "        \"Monday\",\n" +
-                    "        \"Tuesday\",\n" +
-                    "        \"Wednesday\",\n" +
-                    "        \"Thursday\",\n" +
-                    "        \"Friday\",\n" +
-                    "        \"Saturday\"\n" +
-                    "      ],\n" +
-                    "      \"weekDayNameAbbreviations\": [\n" +
-                    "        \"Sun.\",\n" +
-                    "        \"Mon.\",\n" +
-                    "        \"Tue.\",\n" +
-                    "        \"Wed.\",\n" +
-                    "        \"Thu.\",\n" +
-                    "        \"Fri.\",\n" +
-                    "        \"Sat.\"\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "]"
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .addHeader(
+                    HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                    DateTimeSymbolsHateosResourceSet.class.getSimpleName()
+                ).setBodyText(
+                    "[\n" +
+                        "  {\n" +
+                        "    \"locale\": \"en-AU\",\n" +
+                        "    \"text\": \"English (Australia)\",\n" +
+                        "    \"dateTimeSymbols\": {\n" +
+                        "      \"ampms\": [\n" +
+                        "        \"am\",\n" +
+                        "        \"pm\"\n" +
+                        "      ],\n" +
+                        "      \"monthNames\": [\n" +
+                        "        \"January\",\n" +
+                        "        \"February\",\n" +
+                        "        \"March\",\n" +
+                        "        \"April\",\n" +
+                        "        \"May\",\n" +
+                        "        \"June\",\n" +
+                        "        \"July\",\n" +
+                        "        \"August\",\n" +
+                        "        \"September\",\n" +
+                        "        \"October\",\n" +
+                        "        \"November\",\n" +
+                        "        \"December\"\n" +
+                        "      ],\n" +
+                        "      \"monthNameAbbreviations\": [\n" +
+                        "        \"Jan.\",\n" +
+                        "        \"Feb.\",\n" +
+                        "        \"Mar.\",\n" +
+                        "        \"Apr.\",\n" +
+                        "        \"May\",\n" +
+                        "        \"Jun.\",\n" +
+                        "        \"Jul.\",\n" +
+                        "        \"Aug.\",\n" +
+                        "        \"Sep.\",\n" +
+                        "        \"Oct.\",\n" +
+                        "        \"Nov.\",\n" +
+                        "        \"Dec.\"\n" +
+                        "      ],\n" +
+                        "      \"weekDayNames\": [\n" +
+                        "        \"Sunday\",\n" +
+                        "        \"Monday\",\n" +
+                        "        \"Tuesday\",\n" +
+                        "        \"Wednesday\",\n" +
+                        "        \"Thursday\",\n" +
+                        "        \"Friday\",\n" +
+                        "        \"Saturday\"\n" +
+                        "      ],\n" +
+                        "      \"weekDayNameAbbreviations\": [\n" +
+                        "        \"Sun.\",\n" +
+                        "        \"Mon.\",\n" +
+                        "        \"Tue.\",\n" +
+                        "        \"Wed.\",\n" +
+                        "        \"Thu.\",\n" +
+                        "        \"Fri.\",\n" +
+                        "        \"Sat.\"\n" +
+                        "      ]\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "]"
+                ).setContentLength()
         );
 
         this.handleAndCheck(
@@ -269,7 +268,7 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
                 Url.parseRelative("/api/dateTimeSymbols/*/localeStartsWith/English?offset=7&count=1"),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY.setAccept(
-                    SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                    HATEOS_CONTENT_TYPE.accept()
                 )
             ),
             this.createContext(),

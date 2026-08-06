@@ -42,6 +42,7 @@ import walkingkooka.net.header.AcceptEncoding;
 import walkingkooka.net.header.AcceptEncodingValue;
 import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetector;
@@ -114,7 +115,6 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuList;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -160,6 +160,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerTest implements ClassTesting2<SpreadsheetHttpServer>,
     ConverterLikeTesting,
+    HasHateosContentType,
     HateosHandlerContextTesting,
     TypeNameTesting<SpreadsheetHttpServer>,
     SpreadsheetMetadataTesting,
@@ -9508,9 +9509,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             ).toString(),
             this.response(
                 HttpStatusCode.OK.status(),
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                    ).setHeader(
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
                         HateosResourceMappings.X_CONTENT_TYPE_NAME,
                         Lists.of(
                             MissingConverterSet.class.getSimpleName()

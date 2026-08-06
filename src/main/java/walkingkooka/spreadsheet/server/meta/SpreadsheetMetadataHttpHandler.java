@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.Cast;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpHandlers;
@@ -36,7 +37,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -46,7 +46,8 @@ import java.util.function.Predicate;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-public final class SpreadsheetMetadataHttpHandler implements HttpHandler<SpreadsheetServerContext> {
+public final class SpreadsheetMetadataHttpHandler implements HttpHandler<SpreadsheetServerContext>,
+    HasHateosContentType {
 
     /**
      * Singleton
@@ -83,7 +84,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
         HttpHandlers.methodNotAllowed(
             HttpMethod.PATCH,
             HttpHandlers.contentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE,
+                HATEOS_CONTENT_TYPE,
                 JsonHttpHandlers.json(
                     (final JsonNode json, final SpreadsheetServerContext c) -> SpreadsheetMetadataPatchFunction.with(
                         SpreadsheetId.parse(
