@@ -31,6 +31,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
@@ -158,11 +159,6 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 @Override
                 public Charset charset() {
                     return SpreadsheetHttpServerSpreadsheetHttpHandlerTest.CHARSET;
-                }
-
-                @Override
-                public MediaType contentType() {
-                    return MediaType.APPLICATION_JSON;
                 }
 
                 @Override
@@ -495,17 +491,13 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
     @Override
     public SpreadsheetEngineHateosHandlerContext context() {
-        return new FakeSpreadsheetEngineHateosHandlerContext() {
-            @Override
-            public MediaType contentType() {
-                return MediaType.APPLICATION_JSON;
-            }
-        };
+        return new FakeSpreadsheetEngineHateosHandlerContext();
     }
 
     private HttpEntity httpEntity(final String value) {
-        return HttpEntity.EMPTY.setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
-            .setBodyText(value)
+        return HttpEntity.EMPTY.setContentType(
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+            ).setBodyText(value)
             .setContentLength();
     }
 

@@ -313,10 +313,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         );
 
     static abstract class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
-        @Override
-        public MediaType contentType() {
-            return CONTENT_TYPE;
-        }
 
         @Override
         abstract public SpreadsheetMetadata spreadsheetMetadata();

@@ -81,12 +81,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
                         HttpEntity.EMPTY
                     ),
                     HttpResponses.recording(),
-                    new FakeSpreadsheetEngineHateosHandlerContext() {
-                        @Override
-                        public MediaType contentType() {
-                            return MediaType.APPLICATION_JSON;
-                        }
-                    }
+                    new FakeSpreadsheetEngineHateosHandlerContext()
                 )
         );
 
@@ -112,11 +107,6 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
                 @Override
                 public Charset charset() {
                     return SpreadsheetFormatterMenuHttpHandlerTest.CHARSET;
-                }
-
-                @Override
-                public MediaType contentType() {
-                    return MediaType.APPLICATION_JSON;
                 }
 
                 @Override
@@ -387,12 +377,7 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
 
     @Override
     public SpreadsheetEngineHateosHandlerContext createContext() {
-        return new FakeSpreadsheetEngineHateosHandlerContext() {
-            @Override
-            public MediaType contentType() {
-                return MediaType.APPLICATION_JSON;
-            }
-        };
+        return new FakeSpreadsheetEngineHateosHandlerContext();
     }
 
     private HttpEntity httpEntity(final String value) {

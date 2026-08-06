@@ -199,11 +199,6 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         }
 
         @Override
-        public MediaType contentType() {
-            return CONTENT_TYPE;
-        }
-
-        @Override
         public Indentation indentation() {
             return SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase.INDENTATION;
         }

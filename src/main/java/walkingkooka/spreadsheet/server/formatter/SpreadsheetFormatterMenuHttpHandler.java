@@ -19,12 +19,12 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
@@ -55,9 +55,10 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
         Objects.requireNonNull(response, "response");
         Objects.requireNonNull(context, "context");
 
-        final MediaType requiredContentType = context.contentType();
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(requiredContentType);
+            .testOrFail(
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+            );
 
         final ProviderContext providerContext = context.providerContext();
 
@@ -91,7 +92,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
         response.setStatus(HttpStatusCode.OK.status());
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 menuList.getClass().getSimpleName()

@@ -22,7 +22,6 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContextTestingTest.TestCurrencyHateosHandlerContext;
 import walkingkooka.text.Indentation;
@@ -81,11 +80,6 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
         @Override
         public Optional<ETag> computeETag(final Binary binary) {
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public MediaType contentType() {
-            return MediaType.TEXT_PLAIN;
         }
 
         @Override

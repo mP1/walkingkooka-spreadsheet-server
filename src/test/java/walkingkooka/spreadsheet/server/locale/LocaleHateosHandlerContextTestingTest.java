@@ -22,7 +22,6 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContextTestingTest.TestLocaleHateosHandlerContext;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -133,11 +132,6 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         public Optional<String> localeText(final Locale locale) {
             Objects.requireNonNull(locale, "locale");
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public MediaType contentType() {
-            return MediaType.TEXT_PLAIN;
         }
 
         @Override

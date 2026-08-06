@@ -491,11 +491,6 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         return new FakeSpreadsheetEngineHateosHandlerContext() {
 
             @Override
-            public MediaType contentType() {
-                return CONTENT_TYPE;
-            }
-
-            @Override
             public Indentation indentation() {
                 return SpreadsheetDeltaHttpMappingsTest.INDENTATION;
             }

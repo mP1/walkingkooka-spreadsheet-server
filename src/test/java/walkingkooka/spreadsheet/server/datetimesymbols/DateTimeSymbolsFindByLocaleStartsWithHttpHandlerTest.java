@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.datetimesymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
@@ -286,10 +285,6 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
     @Override
     public FakeLocaleHateosHandlerContext createContext() {
         return new FakeLocaleHateosHandlerContext() {
-            @Override
-            public MediaType contentType() {
-                return SpreadsheetServerMediaTypes.CONTENT_TYPE;
-            }
 
             @Override
             public Indentation indentation() {

@@ -29,6 +29,7 @@ import walkingkooka.net.http.server.GetHeadPostOrDeleteHttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.storage.StorageBinary;
 import walkingkooka.storage.StoragePath;
@@ -107,10 +108,13 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                                              final HttpRequest request,
                                              final HttpResponse response,
                                              final SpreadsheetEngineHateosHandlerContext context) {
-        final MediaType contentType = context.contentType();
-        if (false == accept.test(contentType)) {
+        if (false == accept.test(HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE)) {
             response.setStatus(
-                HttpStatusCode.BAD_REQUEST.setMessage(accept.requireIncompatibleMessage(contentType))
+                HttpStatusCode.BAD_REQUEST.setMessage(
+                    accept.requireIncompatibleMessage(
+                        HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                    )
+                )
             );
             response.clearEntity();
         } else {
@@ -151,7 +155,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
         // convert StorageValueInfoList to JsonNode and then Binary
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                context.contentType()
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
             ).setBodyText(
                 context.convertOrFail(
                     StorageValueInfoList.with(infos),

@@ -22,13 +22,13 @@ import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.GetOrHeadHttpHandler;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 
@@ -51,10 +51,10 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
     public void handleGetOrHead(final HttpRequest request,
                                 final HttpResponse response,
                                 final LocaleHateosHandlerContext context) {
-        final MediaType requiredContentType = context.contentType();
-
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(requiredContentType);
+            .testOrFail(
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+            );
 
         final List<UrlPathName> names = request.url()
             .path()
@@ -93,7 +93,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
         );
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                context.contentType()
+                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()

@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
@@ -172,10 +171,6 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
     @Override
     public LocaleHateosHandlerContext createContext() {
         return new FakeLocaleHateosHandlerContext() {
-            @Override
-            public MediaType contentType() {
-                return SpreadsheetServerMediaTypes.CONTENT_TYPE;
-            }
 
             @Override
             public Indentation indentation() {
