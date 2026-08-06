@@ -71,7 +71,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
         response.setVersion(request.protocolVersion());
 
         HttpHeaderName.ACCEPT.headerOrFail(request)
-            .testOrFail(HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE);
+            .testOrFail(HateosHandlerContext.HATEOS_CONTENT_TYPE);
 
         final SpreadsheetFormatterSelectorEdit edit = this.extractSelectorAndProduceEdit(
             request.url()
@@ -85,7 +85,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
         // write TextNodes as JSON response
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 edit.getClass().getSimpleName()

@@ -53,7 +53,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
                                 final LocaleHateosHandlerContext context) {
         HttpHeaderName.ACCEPT.headerOrFail(request)
             .testOrFail(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                HateosHandlerContext.HATEOS_CONTENT_TYPE
             );
 
         final List<UrlPathName> names = request.url()
@@ -93,7 +93,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
         );
         response.setEntity(
             HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE
+                HateosHandlerContext.HATEOS_CONTENT_TYPE
             ).addHeader(
                 HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()

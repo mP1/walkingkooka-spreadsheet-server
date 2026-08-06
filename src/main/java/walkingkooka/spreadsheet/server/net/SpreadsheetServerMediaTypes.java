@@ -32,7 +32,7 @@ public final class SpreadsheetServerMediaTypes implements PublicStaticHelper {
      * <br>
      * Adding Charset=UTF-8, solves a few server charset decoding problems
      */
-    public final static MediaType CONTENT_TYPE = HateosHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE.setCharset(CharsetName.UTF_8);
+    public final static MediaType CONTENT_TYPE = HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8);
 
     /**
      * The content-type for binary non multi-part requests.
