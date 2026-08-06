@@ -22,7 +22,6 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
@@ -87,7 +86,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
             .testOrFail(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE
+                HATEOS_CONTENT_TYPE
             );
 
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
@@ -131,7 +130,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
 
         // write TextNodes as JSON response
         return HttpEntity.EMPTY.setContentType(
-            HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+            HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
         ).addHeader(
             HateosResourceMappings.X_CONTENT_TYPE_NAME,
             response.getClass().getSimpleName()

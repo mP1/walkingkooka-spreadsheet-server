@@ -20,13 +20,11 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
@@ -120,12 +118,12 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
         HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
-        HateosHandlerContext.HATEOS_CONTENT_TYPE.requireContentType(
+        HATEOS_CONTENT_TYPE.requireContentType(
             HttpHeaderName.CONTENT_TYPE.header(entity)
                 .orElse(null)
         );
         HttpHeaderName.ACCEPT.headerOrFail(entity)
-            .testOrFail(HateosHandlerContext.HATEOS_CONTENT_TYPE);
+            .testOrFail(HATEOS_CONTENT_TYPE);
 
         // parse HttpEntity as JSON giving the PATCH as JsonNode
         final JsonNode patch = this.preparePatch(
@@ -275,7 +273,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                                         final SpreadsheetEngineHateosHandlerContext context) {
         return HttpEntity.EMPTY
             .setContentType(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                HATEOS_CONTENT_TYPE
             ).addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
             .setBodyText(
                 context.marshall(response)
