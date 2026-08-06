@@ -76,7 +76,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             );
             response.setEntity(HttpEntity.EMPTY);
         } else {
-            final StoragePath path = path(request);
+            final StoragePath path = extractStoragePath(request);
 
             if (path.isParent()) {
                 acceptAndListStorage(
@@ -221,7 +221,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
         response.setVersion(request.protocolVersion());
 
         final StorageBinary storageBinary = StorageBinary.with(
-            path(request),
+            extractStoragePath(request),
             httpEntity.binary()
         );
 
@@ -250,7 +250,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
     public void handleDelete(final HttpRequest request,
                              final HttpResponse response,
                              final SpreadsheetEngineHateosHandlerContext context) {
-        final StoragePath storagePath = path(request);
+        final StoragePath storagePath = extractStoragePath(request);
         final Optional<StorageValue> loaded = context.loadStorage(storagePath);
 
         context.deleteStorage(storagePath);
@@ -268,7 +268,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
      * Helper that extracts the {@link StoragePath} from the {@link HttpRequest#url()}
      */
     // /api/spreadsheet/1/storage
-    private static StoragePath path(final HttpRequest request) {
+    private static StoragePath extractStoragePath(final HttpRequest request) {
         final UrlPath urlPath = request.url()
             .path();
         return StoragePath.parse(
