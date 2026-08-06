@@ -218,7 +218,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.httpHandler = SpreadsheetHttpServerHttpHandler.with(fileServer);
 
         this.server = server.apply(
-            HttpHandlers.autoGzipEncoding(
+            // necessary because HttpHandlers.autoGzipEncoding is @GwtIncompatible
+            SpreadsheetHttpServerAutoGzipEncoding.autoGzipEncoding(
                 HttpHandlers.stacktraceDumping(
                     HttpHandlers.headerCopy(
                         Sets.of(TRANSACTION_ID),
