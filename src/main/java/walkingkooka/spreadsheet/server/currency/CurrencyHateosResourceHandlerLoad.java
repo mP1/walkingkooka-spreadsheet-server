@@ -21,11 +21,11 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Currency;
 import java.util.Map;
@@ -85,9 +85,9 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
+        final int offset = HttpRequest.offset(parameters)
             .orElse(0);
-        final int count = SpreadsheetUrlQueryParameters.count(parameters)
+        final int count = HttpRequest.count(parameters)
             .orElse(DEFAULT_COUNT);
 
         final SortedSet<CurrencyHateosResource> all = SortedSets.tree();

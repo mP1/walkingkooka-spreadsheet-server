@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -28,7 +29,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlPathTemplate;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -71,9 +71,9 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsByName extends Spread
                     SpreadsheetUrlPathTemplate.removeRootSlashIfNecessary(
                         path.value()
                     ), // skip leading slash
-                    SpreadsheetUrlQueryParameters.offset(parameters)
+                    HttpRequest.offset(parameters)
                         .orElse(0),
-                    SpreadsheetUrlQueryParameters.count(parameters)
+                    HttpRequest.count(parameters)
                         .orElse(DEFAULT_COUNT),
                     context
                 )

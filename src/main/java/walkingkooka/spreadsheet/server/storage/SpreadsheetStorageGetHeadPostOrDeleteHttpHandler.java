@@ -30,7 +30,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 import walkingkooka.storage.StorageBinary;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.StorageValue;
@@ -74,7 +73,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.setMessage("Missing " + HttpHeaderName.ACCEPT)
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         } else {
             final StoragePath path = extractStoragePath(request);
 
@@ -113,7 +112,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.setMessage(accept.requireIncompatibleMessage(contentType))
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         } else {
             listStorage(
                 path,
@@ -133,9 +132,9 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                                     final SpreadsheetEngineHateosHandlerContext context) {
         final Map<HttpRequestAttribute<?>, Object> parameters = request.routerParameters();
 
-        final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
+        final int offset = HttpRequest.offset(parameters)
             .orElse(0);
-        final int count = SpreadsheetUrlQueryParameters.count(parameters)
+        final int count = HttpRequest.count(parameters)
             .orElse(DEFAULT_COUNT);
 
         final List<StorageValueInfo> infos = context.listStorage(
@@ -190,7 +189,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                 response.setStatus(
                     HttpStatusCode.BAD_REQUEST.setMessage(accept.requireIncompatibleMessage(responseContentType))
                 );
-                response.setEntity(HttpEntity.EMPTY);
+                response.clearEntity();
             } else {
                 response.setEntity(
                     HttpEntity.EMPTY.setContentType(responseContentType.setCharset(
@@ -209,7 +208,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.NOT_FOUND.status()
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
     }
 
@@ -233,7 +232,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.status()
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         } else {
             context.saveStorage(
                 storageValue.leftValue()
@@ -242,7 +241,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.OK.status()
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
     }
 
@@ -261,7 +260,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                 HttpStatusCode.OK.status() :
                 HttpStatusCode.NOT_FOUND.setMessage("StorageValue not found")
         );
-        response.setEntity(HttpEntity.EMPTY);
+        response.clearEntity();
     }
 
     /**
