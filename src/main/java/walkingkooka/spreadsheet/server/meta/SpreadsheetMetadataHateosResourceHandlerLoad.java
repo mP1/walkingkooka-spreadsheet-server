@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -26,7 +27,6 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -71,9 +71,9 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
+        final int offset = HttpRequest.offset(parameters)
             .orElse(0);
-        final int count = SpreadsheetUrlQueryParameters.count(parameters)
+        final int count = HttpRequest.count(parameters)
             .orElse(DEFAULT_COUNT);
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());

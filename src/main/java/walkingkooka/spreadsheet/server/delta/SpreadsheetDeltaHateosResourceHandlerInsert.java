@@ -20,13 +20,13 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
-import walkingkooka.spreadsheet.server.net.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Objects;
@@ -112,7 +112,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     }
 
     private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return SpreadsheetUrlQueryParameters.count(parameters)
+        return HttpRequest.count(parameters)
             .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + UrlParameterName.COUNT));
     }
 
