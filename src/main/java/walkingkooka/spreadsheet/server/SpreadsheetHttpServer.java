@@ -24,7 +24,6 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
@@ -158,7 +157,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                     HttpStatusCode.BAD_REQUEST.setMessage(
                         "Invalid " + SpreadsheetId.class.getSimpleName())
                 );
-                response.setEntity(HttpEntity.EMPTY);
+                response.clearEntity();
             }
         }
 
@@ -168,7 +167,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 HttpStatusCode.BAD_REQUEST.setMessage(
                     "Missing " + SpreadsheetId.class.getSimpleName())
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
 
         return Optional.ofNullable(spreadsheetId);
@@ -203,7 +202,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                 final HttpHandlerContext context) {
         response.setVersion(request.protocolVersion());
         response.setStatus(HttpStatusCode.NO_CONTENT.status());
-        response.setEntity(HttpEntity.EMPTY);
+        response.clearEntity();
     }
 
     /**

@@ -73,7 +73,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.setMessage("Missing " + HttpHeaderName.ACCEPT)
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         } else {
             final StoragePath path = extractStoragePath(request);
 
@@ -112,7 +112,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.setMessage(accept.requireIncompatibleMessage(contentType))
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         } else {
             listStorage(
                 path,
@@ -189,7 +189,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                 response.setStatus(
                     HttpStatusCode.BAD_REQUEST.setMessage(accept.requireIncompatibleMessage(responseContentType))
                 );
-                response.setEntity(HttpEntity.EMPTY);
+                response.clearEntity();
             } else {
                 response.setEntity(
                     HttpEntity.EMPTY.setContentType(responseContentType.setCharset(
@@ -208,7 +208,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.NOT_FOUND.status()
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
     }
 
@@ -232,7 +232,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.status()
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         } else {
             context.saveStorage(
                 storageValue.leftValue()
@@ -241,7 +241,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
             response.setStatus(
                 HttpStatusCode.OK.status()
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
     }
 
@@ -260,7 +260,7 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                 HttpStatusCode.OK.status() :
                 HttpStatusCode.NOT_FOUND.setMessage("StorageValue not found")
         );
-        response.setEntity(HttpEntity.EMPTY);
+        response.clearEntity();
     }
 
     /**
