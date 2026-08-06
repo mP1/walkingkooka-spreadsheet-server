@@ -21,6 +21,7 @@ import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HasHateosContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -29,7 +30,6 @@ import walkingkooka.net.http.server.GetHeadPostOrDeleteHttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.storage.StorageBinary;
 import walkingkooka.storage.StoragePath;
@@ -45,7 +45,8 @@ import java.util.Optional;
 /**
  * A {@link walkingkooka.net.http.server.HttpHandler} that handles all {@link walkingkooka.storage.Storage} CRUD operations.
  */
-final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadPostOrDeleteHttpHandler<SpreadsheetEngineHateosHandlerContext> {
+final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadPostOrDeleteHttpHandler<SpreadsheetEngineHateosHandlerContext>,
+    HasHateosContentType {
 
     private final static int DEFAULT_COUNT = 20;
 
@@ -108,12 +109,10 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
                                              final HttpRequest request,
                                              final HttpResponse response,
                                              final SpreadsheetEngineHateosHandlerContext context) {
-        if (false == accept.test(HateosHandlerContext.HATEOS_CONTENT_TYPE)) {
+        if (false == accept.test(HATEOS_CONTENT_TYPE)) {
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST.setMessage(
-                    accept.requireIncompatibleMessage(
-                        HateosHandlerContext.HATEOS_CONTENT_TYPE
-                    )
+                    accept.requireIncompatibleMessage(HATEOS_CONTENT_TYPE)
                 )
             );
             response.clearEntity();
@@ -154,14 +153,13 @@ final class SpreadsheetStorageGetHeadPostOrDeleteHttpHandler implements GetHeadP
 
         // convert StorageValueInfoList to JsonNode and then Binary
         response.setEntity(
-            HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE
-            ).setBodyText(
-                context.convertOrFail(
-                    StorageValueInfoList.with(infos),
-                    JsonNode.class
-                ).toJsonText(context)
-            ).setContentLength()
+            HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                .setBodyText(
+                    context.convertOrFail(
+                        StorageValueInfoList.with(infos),
+                        JsonNode.class
+                    ).toJsonText(context)
+                ).setContentLength()
         );
     }
 
