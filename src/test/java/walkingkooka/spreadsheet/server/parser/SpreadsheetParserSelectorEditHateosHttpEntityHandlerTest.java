@@ -27,11 +27,9 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
@@ -495,9 +493,8 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
     }
 
     private HttpEntity httpEntity(final String value) {
-        return HttpEntity.EMPTY.setContentType(
-                HateosHandlerContext.HATEOS_CONTENT_TYPE.setCharset(CharsetName.UTF_8)
-            ).setBodyText(value)
+        return HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+            .setBodyText(value)
             .setContentLength();
     }
 
