@@ -17,19 +17,15 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
-import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.route.RouteMappings;
@@ -52,16 +48,15 @@ import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMap
 import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 
 import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 final class SpreadsheetHttpServerHttpHandlerRouterFactory {
 
-    static SpreadsheetHttpServerHttpHandlerRouterFactory with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
-        return new SpreadsheetHttpServerHttpHandlerRouterFactory(fileServer);
+    static SpreadsheetHttpServerHttpHandlerRouterFactory with(final HttpHandler<SpreadsheetServerContext> publicHttpHandler) {
+        return new SpreadsheetHttpServerHttpHandlerRouterFactory(publicHttpHandler);
     }
 
-    private SpreadsheetHttpServerHttpHandlerRouterFactory(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+    private SpreadsheetHttpServerHttpHandlerRouterFactory(final HttpHandler<SpreadsheetServerContext> publicHttpHandler) {
         super();
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler<SpreadsheetServerContext>>empty()
@@ -138,9 +133,7 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
                 SpreadsheetMetadataHttpHandler.INSTANCE
             ).add(
                 FILE_SERVER_ROUTING,
-                this.fileServerHttpHandler(
-                    fileServer
-                )
+                publicHttpHandler
             ).router();
     }
 
@@ -293,11 +286,4 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
     // files............................................................................................................
 
     private final static Map<HttpRequestAttribute<?>, Predicate<?>> FILE_SERVER_ROUTING = routing(UrlPath.parse("/*"));
-
-    private HttpHandler<SpreadsheetServerContext> fileServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
-        return HttpHandlers.webFile(
-            UrlPath.ROOT,
-            fileServer
-        );
-    }
 }

@@ -17,14 +17,12 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.Either;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
@@ -34,7 +32,6 @@ import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
-import walkingkooka.net.http.server.WebFile;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
@@ -181,12 +178,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
-    public static SpreadsheetHttpServer with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+    public static SpreadsheetHttpServer with(final HttpHandler<SpreadsheetServerContext> publicHttpHandler,
                                              final Function<HttpHandler<SpreadsheetServerContext>, HttpServer> server,
                                              final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                              final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         return new SpreadsheetHttpServer(
-            Objects.requireNonNull(fileServer, "fileServer"),
+            Objects.requireNonNull(publicHttpHandler, "publicHttpHandler"),
             Objects.requireNonNull(server, "server"),
             Objects.requireNonNull(spreadsheetServerContextFactory, "spreadsheetServerContextFactory"),
             Objects.requireNonNull(httpRequestUserExtractor, "httpRequestUserExtractor")
@@ -208,14 +205,14 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Private ctor use factory.
      */
-    private SpreadsheetHttpServer(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+    private SpreadsheetHttpServer(final HttpHandler<SpreadsheetServerContext> publicHttpHandler,
                                   final Function<HttpHandler<SpreadsheetServerContext>, HttpServer> server,
                                   final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                   final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         super();
 
         this.spreadsheetServerContextFactory = spreadsheetServerContextFactory;
-        this.httpHandler = SpreadsheetHttpServerHttpHandler.with(fileServer);
+        this.httpHandler = SpreadsheetHttpServerHttpHandler.with(publicHttpHandler);
 
         this.server = server.apply(
             // necessary because HttpHandlers.autoGzipEncoding is @GwtIncompatible
@@ -268,7 +265,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor;
 
-    private final SpreadsheetHttpServerHttpHandler httpHandler;
+    private final HttpHandler<SpreadsheetServerContext> httpHandler;
 
     /**
      * Maps authenticated users to a {@link SpreadsheetServerContext}
