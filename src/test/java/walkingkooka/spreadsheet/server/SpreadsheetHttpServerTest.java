@@ -57,6 +57,7 @@ import walkingkooka.net.http.server.FakeHttpHandlerContext;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
+import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpRequests;
@@ -420,9 +421,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             MediaType.parse("text/java") :
             MediaType.BINARY;
 
-    private final static Function<UrlPath, Either<WebFile, HttpStatus>> FILE_SERVER = (p) -> {
-        throw new UnsupportedOperationException();
-    };
+    private final static HttpHandler<SpreadsheetServerContext> PUBLIC_HTTP_HANDLER = HttpHandlers.fake();
 
     private final static Function<HttpHandler<SpreadsheetServerContext>, HttpServer> SERVER = (h) -> {
         throw new UnsupportedOperationException();
@@ -432,7 +431,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         SpreadsheetServerContexts.fake();
 
     @Test
-    public void testWithNullFileServerFails() {
+    public void testWithNullPublicHttpHandlerFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
@@ -449,7 +448,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                FILE_SERVER,
+                PUBLIC_HTTP_HANDLER,
                 null,
                 SPREADSHEET_SERVER_CONTEXT_FACTORY,
                 HTTP_REQUEST_DEFAULT_USER
@@ -462,7 +461,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                FILE_SERVER,
+                PUBLIC_HTTP_HANDLER,
                 SERVER,
                 null,
                 HTTP_REQUEST_DEFAULT_USER
@@ -475,7 +474,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                FILE_SERVER,
+                PUBLIC_HTTP_HANDLER,
                 SERVER,
                 null,
                 HTTP_REQUEST_DEFAULT_USER
@@ -13423,7 +13422,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         );
 
         SpreadsheetHttpServer.with(
-            this::fileServer,
+            this.publicHttpHandler(),
             this::server,
             this::createSpreadsheetServerContext,
             httpRequestUserExtractor
@@ -13560,40 +13559,43 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-    private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {
-        return path.normalize().equals(FILE) ?
-            Either.left(new WebFile() {
-                @Override
-                public LocalDateTime lastModified() {
-                    return FILE_LAST_MODIFIED;
-                }
+    private HttpHandler<SpreadsheetServerContext> publicHttpHandler() {
+        return HttpHandlers.webFile(
+            UrlPath.ROOT,
+            (UrlPath path) -> path.normalize().equals(FILE) ?
+                Either.left(new WebFile() {
+                    @Override
+                    public LocalDateTime lastModified() {
+                        return FILE_LAST_MODIFIED;
+                    }
 
-                @Override
-                public MediaType contentType() {
-                    return FILE_CONTENT_TYPE;
-                }
+                    @Override
+                    public MediaType contentType() {
+                        return FILE_CONTENT_TYPE;
+                    }
 
-                @Override
-                public long contentSize() {
-                    return FILE_BINARY.size();
-                }
+                    @Override
+                    public long contentSize() {
+                        return FILE_BINARY.size();
+                    }
 
-                @Override
-                public InputStream content() {
-                    return FILE_BINARY.inputStream();
-                }
+                    @Override
+                    public InputStream content() {
+                        return FILE_BINARY.inputStream();
+                    }
 
-                @Override
-                public Optional<ETag> etag() {
-                    return Optional.empty();
-                }
+                    @Override
+                    public Optional<ETag> etag() {
+                        return Optional.empty();
+                    }
 
-                @Override
-                public String toString() {
-                    return path.toString();
-                }
-            }) :
-            Either.right(FILE_NOT_FOUND);
+                    @Override
+                    public String toString() {
+                        return path.toString();
+                    }
+                }) :
+                Either.right(FILE_NOT_FOUND)
+        );
     }
 
     private static SpreadsheetFormula formula(final String text) {

@@ -49,6 +49,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
@@ -321,9 +322,7 @@ public class J2clTest implements HasHateosContentType {
         final LineEnding lineEnding = LineEnding.NL;
 
         return SpreadsheetHttpServer.with(
-            (url) -> {
-                throw new UnsupportedOperationException(); // fileServer
-            },
+            HttpHandlers.fake(), // public HttpHandler,
             (handler) -> {
                 httpServer.handler = handler;
                 return httpServer;

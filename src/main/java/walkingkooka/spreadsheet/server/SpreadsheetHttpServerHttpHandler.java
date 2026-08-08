@@ -17,32 +17,26 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.Either;
-import walkingkooka.net.UrlPath;
-import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.WebFile;
-
-import java.util.function.Function;
 
 /**
  * A {@link HttpHandler} which routes requests to all the API end points and file server using the given {@link SpreadsheetServerContext}.
  */
 final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetServerContext> {
 
-    static SpreadsheetHttpServerHttpHandler with(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
-        return new SpreadsheetHttpServerHttpHandler(fileServer);
+    static SpreadsheetHttpServerHttpHandler with(final HttpHandler<SpreadsheetServerContext> publicHttpHandler) {
+        return new SpreadsheetHttpServerHttpHandler(publicHttpHandler);
     }
 
-    private SpreadsheetHttpServerHttpHandler(final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+    private SpreadsheetHttpServerHttpHandler(final HttpHandler<SpreadsheetServerContext> publicHttpHandler) {
         super();
-        this.fileServer = fileServer;
+        this.publicHttpHandler = publicHttpHandler;
     }
 
-    private final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer;
+    private final HttpHandler<SpreadsheetServerContext> publicHttpHandler;
 
     // HttpHandler......................................................................................................
 
@@ -55,7 +49,7 @@ final class SpreadsheetHttpServerHttpHandler implements HttpHandler<SpreadsheetS
                        final HttpResponse response,
                        final SpreadsheetServerContext context) {
         SpreadsheetHttpServerHttpHandlerRouterFactory.with(
-                this.fileServer
+                this.publicHttpHandler
             ).router
             .route(
                 request.routerParameters()
