@@ -898,7 +898,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "              user\n" +
                 "                user123@example.com (walkingkooka.net.email.EmailAddress)\n" +
                 "        storage\n" +
-                "           (walkingkooka.storage.StorageSharedEmpty)\n" +
+                "           (walkingkooka.storage.StorageShared2Empty)\n" +
                 "  spreadsheetMetadataContext\n" +
                 "    TestSpreadsheetMetadataContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestSpreadsheetMetadataContext)\n" +
                 "  hateosHandlerContext\n" +
