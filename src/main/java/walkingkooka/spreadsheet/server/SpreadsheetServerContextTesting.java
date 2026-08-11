@@ -24,7 +24,7 @@ import walkingkooka.spreadsheet.SpreadsheetContextSupplierTesting;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting2;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
@@ -33,7 +33,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetContextSupplierTesting<C>,
-    SpreadsheetMetadataContextTesting<C>,
+    SpreadsheetMetadataContextTesting2<C>,
     SpreadsheetEnvironmentContextTesting2<C>,
     HasProviderContextTesting,
     HasSpreadsheetMetadataTesting,
