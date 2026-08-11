@@ -19,15 +19,15 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting2;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting2;
 
 public interface SpreadsheetEngineHateosHandlerContextTesting<C extends SpreadsheetEngineHateosHandlerContext> extends HateosHandlerContextTesting2<C>,
-    SpreadsheetEngineContextTesting<C> {
+    SpreadsheetEngineContextTesting2<C> {
 
     @Test
     @Override
     default void testSpreadsheetExpressionEvaluationContextWithNullCellFails() {
-        SpreadsheetEngineContextTesting.super.testSpreadsheetExpressionEvaluationContextWithNullCellFails();
+        SpreadsheetEngineContextTesting2.super.testSpreadsheetExpressionEvaluationContextWithNullCellFails();
     }
 
     @Override
