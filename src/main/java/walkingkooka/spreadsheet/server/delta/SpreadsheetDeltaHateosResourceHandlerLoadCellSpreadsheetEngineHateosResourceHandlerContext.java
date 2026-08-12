@@ -179,6 +179,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         return this.context;
     }
 
+    // StorageContext...................................................................................................
+
     // EnvironmentContext...............................................................................................
 
     @Override

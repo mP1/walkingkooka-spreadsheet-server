@@ -379,7 +379,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
-                STORAGE,
+                Cast.to(STORAGE),
                 spreadsheetEnvironmentContext
             )
         );
@@ -678,7 +678,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Test
     public void testUser() {
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
-            STORAGE,
+            STORAGE_SPREADSHEET_STORAGE_CONTEXT,
             SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
         spreadsheetEnvironmentContext.setUser(
@@ -768,6 +768,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 PluginStores.fake(),
+                STORAGE,
                 CURRENCY_LOCALE_CONTEXT,
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.LOCALE,

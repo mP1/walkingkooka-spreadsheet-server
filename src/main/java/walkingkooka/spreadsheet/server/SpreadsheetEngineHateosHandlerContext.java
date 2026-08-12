@@ -21,16 +21,10 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.storage.StoragePath;
-import walkingkooka.storage.StorageValue;
-import walkingkooka.storage.StorageValueInfo;
 import walkingkooka.storage.http.StorageHttpHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * A {@link HateosHandlerContext} that includes {@link SpreadsheetEngineContext}.
@@ -41,31 +35,31 @@ public interface SpreadsheetEngineHateosHandlerContext extends HateosHandlerCont
 
     // StorageHttpHandlerContext........................................................................................
 
-    @Override
-    default Optional<StorageValue> loadStorage(final StoragePath path) {
-        return SpreadsheetEngineContext.super.loadStorage(path);
-    }
-
-    @Override
-    default StorageValue saveStorage(final StorageValue value) {
-        return SpreadsheetEngineContext.super.saveStorage(value);
-    }
-
-    @Override
-    default void deleteStorage(final StoragePath path) {
-        SpreadsheetEngineContext.super.deleteStorage(path);
-    }
-
-    @Override
-    default List<StorageValueInfo> listStorage(final StoragePath parent,
-                                               final int offset,
-                                               final int count) {
-        return SpreadsheetEngineContext.super.listStorage(
-            parent,
-            offset,
-            count
-        );
-    }
+//    @Override
+//    default Optional<StorageValue> loadStorage(final StoragePath path) {
+//        return SpreadsheetEngineContext.super.loadStorage(path);
+//    }
+//
+//    @Override
+//    default StorageValue saveStorage(final StorageValue value) {
+//        return SpreadsheetEngineContext.super.saveStorage(value);
+//    }
+//
+//    @Override
+//    default void deleteStorage(final StoragePath path) {
+//        SpreadsheetEngineContext.super.deleteStorage(path);
+//    }
+//
+//    @Override
+//    default List<StorageValueInfo> listStorage(final StoragePath parent,
+//                                               final int offset,
+//                                               final int count) {
+//        return SpreadsheetEngineContext.super.listStorage(
+//            parent,
+//            offset,
+//            count
+//        );
+//    }
 
     // SpreadsheetEnvironmentContext....................................................................................
 
