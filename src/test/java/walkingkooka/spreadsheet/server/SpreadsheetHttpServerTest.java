@@ -122,6 +122,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.SpreadsheetValidationReference;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
+import walkingkooka.storage.StorageContextTesting;
 import walkingkooka.storage.StorageContexts;
 import walkingkooka.storage.Storages;
 import walkingkooka.text.CaseSensitivity;
@@ -165,6 +166,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     HateosHandlerContextTesting,
     TypeNameTesting<SpreadsheetHttpServer>,
     SpreadsheetMetadataTesting,
+    StorageContextTesting,
     JarFileTesting,
     TreePrintableTesting {
 
@@ -13498,6 +13500,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 StorageContexts.basic(
                     CONVERTER_LIKE,
                     MEDIA_TYPE_DETECTOR,
+                    STORAGE,
                     providerEnvironmentContext
                 )
             ),

@@ -38,6 +38,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
         StorageContexts.basic(
             CONVERTER_LIKE,
             MEDIA_TYPE_DETECTOR,
+            STORAGE,
             EnvironmentContexts.readOnly(
                 Predicates.always(), // all values read-only
                 ENVIRONMENT_CONTEXT

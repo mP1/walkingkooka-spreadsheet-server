@@ -409,6 +409,7 @@ public class J2clTest implements HasHateosContentType {
                         StorageContexts.basic(
                             ConverterContexts.fake(), // ConverterLike
                             MediaTypeDetectors.fake(),
+                            Storages.fake(),
                             EnvironmentContexts.map(
                                 charset,
                                 Currency.getInstance("AUD"),

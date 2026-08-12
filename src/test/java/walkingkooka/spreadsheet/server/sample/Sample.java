@@ -409,6 +409,7 @@ public final class Sample implements HasHateosContentType,
                         StorageContexts.basic(
                             ConverterContexts.fake(), // ConverterLike
                             MediaTypeDetectors.fake(),
+                            Storages.fake(),
                             EnvironmentContexts.map(
                                 charset,
                                 Currency.getInstance("AUD"),

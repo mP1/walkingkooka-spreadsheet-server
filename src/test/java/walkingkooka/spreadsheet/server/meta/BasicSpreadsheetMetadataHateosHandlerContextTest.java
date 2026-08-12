@@ -556,7 +556,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
         final BasicSpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
-                STORAGE,
+                STORAGE_SPREADSHEET_STORAGE_CONTEXT,
                 StorageEnvironmentContexts.basic(environmentContext)
             )
         );
