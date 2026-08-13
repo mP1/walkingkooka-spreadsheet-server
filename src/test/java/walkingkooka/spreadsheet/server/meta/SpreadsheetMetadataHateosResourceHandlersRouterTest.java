@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -61,11 +60,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     implements SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
-
-    private final static AuditInfo AUDIT_INFO = AuditInfo.create(
-        USER,
-        NOW
-    );
 
     private final static String URL = "https://example.com/api";
 
