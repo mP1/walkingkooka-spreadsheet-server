@@ -725,6 +725,10 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean canWriteStorage(final StoragePath path) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public Optional<StorageValue> loadStorage(final StoragePath path) {
