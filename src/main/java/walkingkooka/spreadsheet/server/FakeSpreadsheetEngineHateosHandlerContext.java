@@ -718,8 +718,6 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
 
     // StorageContext...................................................................................................
 
-    // StorageContext...................................................................................................
-
     @Override
     public boolean canReadStorage(final StoragePath path) {
         Objects.requireNonNull(path, "path");
