@@ -121,6 +121,7 @@ import java.time.ZoneOffset;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -718,6 +719,14 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
     // StorageContext...................................................................................................
 
     // StorageContext...................................................................................................
+
+    @Override
+    public boolean canReadStorage(final StoragePath path) {
+        Objects.requireNonNull(path, "path");
+
+        throw new UnsupportedOperationException();
+    }
+
 
     @Override
     public Optional<StorageValue> loadStorage(final StoragePath path) {
