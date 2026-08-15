@@ -17,42 +17,24 @@
 
 package walkingkooka.spreadsheet.server;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.plugin.HasProviderContextTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
-import walkingkooka.spreadsheet.SpreadsheetContextSupplierTesting;
-import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting2;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting2;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerContext> extends SpreadsheetContextSupplierTesting<C>,
-    SpreadsheetMetadataContextTesting2<C>,
-    SpreadsheetEnvironmentContextTesting2<C>,
+public interface SpreadsheetServerContextTesting extends SpreadsheetEnvironmentContextTesting,
+    SpreadsheetMetadataContextTesting,
     HasProviderContextTesting,
     HasSpreadsheetMetadataTesting,
     TreePrintableTesting {
 
-    // createEmptySpreadsheet...........................................................................................
-
-    @Test
-    default void testCreateEmptySpreadsheetWithNullLocaleFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .createEmptySpreadsheet(
-                    null // locale
-                )
-        );
-    }
-
-    default void createEmptySpreadsheetAndCheck(final C context,
+    default void createEmptySpreadsheetAndCheck(final SpreadsheetServerContext context,
                                                 final Optional<Locale> locale,
                                                 final SpreadsheetMetadata expected) {
         this.checkEquals(
@@ -64,26 +46,12 @@ public interface SpreadsheetServerContextTesting<C extends SpreadsheetServerCont
         );
     }
 
-    default void createEmptySpreadsheetAndCheck(final C context,
+    default void createEmptySpreadsheetAndCheck(final SpreadsheetServerContext context,
                                                 final Optional<Locale> locale,
                                                 final SpreadsheetContext expected) {
         this.checkEquals(
             expected,
             context.createEmptySpreadsheet(locale)
         );
-    }
-
-    // SpreadsheetContextSupplierTesting................................................................................
-
-    @Override
-    default C createSpreadsheetContextSupplier() {
-        return null;
-    }
-
-    // class............................................................................................................
-
-    @Override
-    default String typeNameSuffix() {
-        return SpreadsheetServerContext.class.getSimpleName();
     }
 }

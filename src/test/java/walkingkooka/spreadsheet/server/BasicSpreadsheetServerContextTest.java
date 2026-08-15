@@ -72,7 +72,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting<BasicSpreadsheetServerContext>,
+public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting2<BasicSpreadsheetServerContext>,
     ToStringTesting<BasicSpreadsheetServerContext>,
     SpreadsheetMetadataTesting,
     StorageContextTesting,
