@@ -46,7 +46,7 @@ public interface SpreadsheetServerContextTesting2<C extends SpreadsheetServerCon
 
     @Override
     default C createSpreadsheetContextSupplier() {
-        return null;
+        return this.createContext();
     }
 
     // class............................................................................................................
