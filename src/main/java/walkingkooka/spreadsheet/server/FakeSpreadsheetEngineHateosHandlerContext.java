@@ -88,6 +88,7 @@ import walkingkooka.storage.StorageMountPoint;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.StorageValue;
 import walkingkooka.storage.StorageValueInfo;
+import walkingkooka.storage.StorageWatcher;
 import walkingkooka.store.StoreWatcher;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
@@ -769,6 +770,16 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
 
     @Override
     public List<StorageMountPoint<?>> storageMountPoints() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addStorageWatcher(final StorageWatcher watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addStorageWatcherOnce(final StorageWatcher watcher) {
         throw new UnsupportedOperationException();
     }
 
