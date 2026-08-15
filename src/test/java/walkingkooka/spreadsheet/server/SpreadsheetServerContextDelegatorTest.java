@@ -55,7 +55,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContextDelegator>,
+public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetServerContextTesting2<TestSpreadsheetServerContextDelegator>,
     SpreadsheetMetadataTesting {
 
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();

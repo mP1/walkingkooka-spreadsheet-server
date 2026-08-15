@@ -39,7 +39,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
-import walkingkooka.spreadsheet.server.SpreadsheetServerContextTestingTest.TestSpreadsheetServerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetServerContextTesting2Test.TestSpreadsheetServerContext;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.store.Store;
 import walkingkooka.store.StoreWatcher;
@@ -56,7 +56,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class SpreadsheetServerContextTestingTest implements SpreadsheetServerContextTesting<TestSpreadsheetServerContext>,
+public final class SpreadsheetServerContextTesting2Test implements SpreadsheetServerContextTesting2<TestSpreadsheetServerContext>,
     ConverterLikeTesting,
     SpreadsheetMetadataTesting {
 
@@ -161,7 +161,7 @@ public final class SpreadsheetServerContextTestingTest implements SpreadsheetSer
             Objects.requireNonNull(id, "id");
 
             return Optional.ofNullable(
-                id.equals(SpreadsheetServerContextTestingTest.SPREADSHEET_ID) ?
+                id.equals(SpreadsheetServerContextTesting2Test.SPREADSHEET_ID) ?
                     SPREADSHEET_CONTEXT :
                     null
             );
