@@ -19,20 +19,20 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.plugin.HasProviderContextTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetContextSupplierTesting;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContextTesting;
-import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Locale;
 import java.util.Optional;
 
-public interface SpreadsheetServerContextTesting extends SpreadsheetEnvironmentContextTesting,
+public interface SpreadsheetServerContextTesting extends SpreadsheetContextSupplierTesting,
+    SpreadsheetEnvironmentContextTesting,
     SpreadsheetMetadataContextTesting,
     HasProviderContextTesting,
-    HasSpreadsheetMetadataTesting,
-    TreePrintableTesting {
+    HasSpreadsheetMetadataTesting {
 
     default void createEmptySpreadsheetAndCheck(final SpreadsheetServerContext context,
                                                 final Optional<Locale> locale,
