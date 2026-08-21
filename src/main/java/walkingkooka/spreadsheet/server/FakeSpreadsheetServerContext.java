@@ -200,6 +200,11 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
     }
 
     @Override
+    public EnvironmentValueName<?> parseEnvironmentValueName(final String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Storage<SpreadsheetStorageContext> storage() {
         throw new UnsupportedOperationException();
     }

@@ -876,6 +876,13 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
         throw new UnsupportedOperationException();
     }
 
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    public EnvironmentValueName<?> parseEnvironmentValueName(final String name) {
+        throw new UnsupportedOperationException();
+    }
+
     // HasProviderContext...............................................................................................
 
     @Override
