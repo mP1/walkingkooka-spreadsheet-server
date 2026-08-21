@@ -414,14 +414,16 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                             ConverterContexts.fake(), // ConverterLike
                             MediaTypeDetectors.fake(),
                             Storages.fake(),
-                            EnvironmentContexts.map(
-                                charset,
-                                Currency.getInstance("AUD"),
-                                Indentation.SPACES4,
-                                lineEnding,
-                                locale,
-                                LocalDateTime::now,
-                                user
+                            StorageEnvironmentContexts.basic(
+                                EnvironmentContexts.map(
+                                    charset,
+                                    Currency.getInstance("AUD"),
+                                    Indentation.SPACES4,
+                                    lineEnding,
+                                    locale,
+                                    LocalDateTime::now,
+                                    user
+                                )
                             )
                         )
                     ),

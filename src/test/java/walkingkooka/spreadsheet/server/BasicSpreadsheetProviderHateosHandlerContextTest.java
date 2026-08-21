@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
@@ -26,6 +25,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.storage.StorageContexts;
+import walkingkooka.storage.StorageEnvironmentContexts;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,9 +39,9 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
             CONVERTER_LIKE,
             MEDIA_TYPE_DETECTOR,
             STORAGE,
-            EnvironmentContexts.readOnly(
+            StorageEnvironmentContexts.readOnly(
                 Predicates.always(), // all values read-only
-                ENVIRONMENT_CONTEXT
+                STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
             )
         )
     );
