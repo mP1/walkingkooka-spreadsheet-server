@@ -31,7 +31,6 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.datetime.HasLastModified;
 import walkingkooka.datetime.HasOptionalLastModified;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
@@ -124,6 +123,7 @@ import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.storage.StorageContextTesting;
 import walkingkooka.storage.StorageContexts;
+import walkingkooka.storage.StorageEnvironmentContext;
 import walkingkooka.storage.Storages;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -13446,7 +13446,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         );
         spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
 
-        final EnvironmentContext providerEnvironmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
+        final StorageEnvironmentContext providerEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
         providerEnvironmentContext.clearUser();
 
         return SpreadsheetServerContexts.basic(
