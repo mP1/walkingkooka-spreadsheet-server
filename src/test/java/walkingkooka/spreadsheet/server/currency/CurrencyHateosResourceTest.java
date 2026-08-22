@@ -26,7 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Currency;
@@ -37,7 +37,7 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
     HasTextTesting,
     HasCurrencyTesting,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<CurrencyHateosResource>,
+    JsonNodeMarshallerTesting<CurrencyHateosResource>,
     ClassTesting2<CurrencyHateosResource> {
 
     private final static Currency CURRENCY = Currency.getInstance("AUD");

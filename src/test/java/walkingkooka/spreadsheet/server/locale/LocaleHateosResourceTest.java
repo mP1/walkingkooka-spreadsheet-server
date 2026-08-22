@@ -25,7 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.util.HasLocaleTesting;
 
@@ -37,7 +37,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     HasTextTesting,
     HasLocaleTesting,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<LocaleHateosResource>,
+    JsonNodeMarshallerTesting<LocaleHateosResource>,
     ClassTesting2<LocaleHateosResource> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");

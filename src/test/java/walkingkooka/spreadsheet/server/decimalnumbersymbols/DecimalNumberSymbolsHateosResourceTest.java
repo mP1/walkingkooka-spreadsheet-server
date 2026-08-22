@@ -26,7 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.text.DecimalFormatSymbols;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class DecimalNumberSymbolsHateosResourceTest implements ComparableTesting2<DecimalNumberSymbolsHateosResource>,
     HasTextTesting,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<DecimalNumberSymbolsHateosResource>,
+    JsonNodeMarshallerTesting<DecimalNumberSymbolsHateosResource>,
     ClassTesting2<DecimalNumberSymbolsHateosResource> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");

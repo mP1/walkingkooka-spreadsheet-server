@@ -26,7 +26,7 @@ import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Currency;
@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTesting<CurrencyHateosResourceSet, CurrencyHateosResource>,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<CurrencyHateosResourceSet> {
+    JsonNodeMarshallerTesting<CurrencyHateosResourceSet> {
 
     private final static CurrencyHateosResource AUD = CurrencyHateosResource.fromCurrency(
         Currency.getInstance("AUD")

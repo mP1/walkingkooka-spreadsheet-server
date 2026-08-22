@@ -22,7 +22,7 @@ import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Arrays;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DecimalNumberSymbolsHateosResourceSetTest implements ImmutableSortedSetTesting<DecimalNumberSymbolsHateosResourceSet, DecimalNumberSymbolsHateosResource>,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<DecimalNumberSymbolsHateosResourceSet> {
+    JsonNodeMarshallerTesting<DecimalNumberSymbolsHateosResourceSet> {
 
     private final static DecimalNumberSymbolsHateosResource EN_AU = DecimalNumberSymbolsHateosResource.fromLocale(
         Locale.forLanguageTag("EN-AU")

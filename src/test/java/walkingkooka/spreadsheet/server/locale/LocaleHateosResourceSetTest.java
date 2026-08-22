@@ -26,7 +26,7 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTesting<LocaleHateosResourceSet, LocaleHateosResource>,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<LocaleHateosResourceSet> {
+    JsonNodeMarshallerTesting<LocaleHateosResourceSet> {
 
     private final static LocaleHateosResource EN_AU = LocaleHateosResource.fromLocale(
         Locale.forLanguageTag("EN-AU")
