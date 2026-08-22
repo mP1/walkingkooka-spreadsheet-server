@@ -32,7 +32,7 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelectorTokenAl
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.List;
@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetParserSelectorEditTest implements ParseStringTesting<SpreadsheetParserSelectorEdit>,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<SpreadsheetParserSelectorEdit>,
+    JsonNodeMarshallerTesting<SpreadsheetParserSelectorEdit>,
     SpreadsheetMetadataTesting,
     ClassTesting<SpreadsheetParserSelectorEdit> {
 

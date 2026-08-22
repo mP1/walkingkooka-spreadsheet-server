@@ -27,7 +27,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.text.DateFormatSymbols;
@@ -40,7 +40,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     TreePrintableTesting,
     HasDateTimeSymbolsTesting,
     HasTextTesting,
-    JsonNodeMarshallingTesting<DateTimeSymbolsHateosResource>,
+    JsonNodeMarshallerTesting<DateTimeSymbolsHateosResource>,
     ClassTesting2<DateTimeSymbolsHateosResource> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");

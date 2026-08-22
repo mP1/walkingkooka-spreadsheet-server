@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -43,7 +43,7 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLikeTesting<SpreadsheetFormatterMenu, SpreadsheetFormatterSelector, SpreadsheetFormatterName>,
-    JsonNodeMarshallingTesting<SpreadsheetFormatterMenu>,
+    JsonNodeMarshallerTesting<SpreadsheetFormatterMenu>,
     SpreadsheetMetadataTesting {
 
     @Override
