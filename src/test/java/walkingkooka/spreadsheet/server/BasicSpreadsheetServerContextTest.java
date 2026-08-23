@@ -847,6 +847,19 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         );
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.fake();
+
+        this.environmentContextAndCheck(
+            this.createContext(spreadsheetEnvironmentContext),
+            spreadsheetEnvironmentContext
+        );
+    }
+
     // TreePrintable....................................................................................................
 
     @Test

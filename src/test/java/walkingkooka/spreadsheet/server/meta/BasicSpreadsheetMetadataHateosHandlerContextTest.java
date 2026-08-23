@@ -1081,6 +1081,21 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
         }
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final SpreadsheetServerContext spreadsheetServerContext = SpreadsheetServerContexts.fake();
+
+        this.environmentContextAndCheck(
+            BasicSpreadsheetMetadataHateosHandlerContext.with(spreadsheetServerContext),
+            spreadsheetServerContext
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<BasicSpreadsheetMetadataHateosHandlerContext> type() {
         return BasicSpreadsheetMetadataHateosHandlerContext.class;
