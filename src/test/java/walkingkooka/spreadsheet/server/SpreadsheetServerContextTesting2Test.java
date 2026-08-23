@@ -81,61 +81,6 @@ public final class SpreadsheetServerContextTesting2Test implements SpreadsheetSe
         );
     }
 
-//    @Override
-//    public void testRemoveEnvironmentValueWithNowFails() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetEnvironmentValueWithNowFails() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetCurrencyWithDifferentAndWatcher() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetIndentationWithDifferentAndWatcher() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetLineEndingWithDifferentAndWatcher() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetLocaleWithDifferent() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetLocaleWithDifferentAndWatcher() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetServerWithDifferentUrlFails() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetSpreadsheetIdWithSame() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetTimeOffsetWithDifferentAndWatcher() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public void testSetUserWithDifferentAndWatcher() {
-//        throw new UnsupportedOperationException();
-//    }
-
     // HasEnvironmentContext............................................................................................
 
     @Test
