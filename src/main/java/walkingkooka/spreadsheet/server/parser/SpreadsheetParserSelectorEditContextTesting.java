@@ -25,7 +25,7 @@ import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProviderTesting
 public interface SpreadsheetParserSelectorEditContextTesting<C extends SpreadsheetParserSelectorEditContext> extends SpreadsheetParserProviderTesting<C>,
     SpreadsheetParserContextTesting<C>,
     SpreadsheetFormatterProviderTesting<C>,
-    SpreadsheetFormatterContextTesting<C> {
+    SpreadsheetFormatterContextTesting {
 
     @Override
     default C createSpreadsheetFormatterProvider() {
