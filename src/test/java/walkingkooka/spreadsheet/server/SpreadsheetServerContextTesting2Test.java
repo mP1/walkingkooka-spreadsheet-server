@@ -136,6 +136,19 @@ public final class SpreadsheetServerContextTesting2Test implements SpreadsheetSe
 //        throw new UnsupportedOperationException();
 //    }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestSpreadsheetServerContext context = new TestSpreadsheetServerContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.spreadsheetEnvironmentContext
+        );
+    }
+
     final static class TestSpreadsheetServerContext extends FakeSpreadsheetProvider implements SpreadsheetServerContext,
         SpreadsheetEnvironmentContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator,

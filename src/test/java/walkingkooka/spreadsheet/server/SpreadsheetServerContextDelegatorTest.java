@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
@@ -68,6 +69,19 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
     @Override
     public TestSpreadsheetServerContextDelegator createContext() {
         return new TestSpreadsheetServerContextDelegator();
+    }
+
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestSpreadsheetServerContextDelegator context = new TestSpreadsheetServerContextDelegator();
+
+        this.environmentContextAndCheck(
+            context,
+            context.spreadsheetEnvironmentContext
+        );
     }
 
     // class............................................................................................................

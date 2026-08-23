@@ -121,6 +121,23 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
         );
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final ProviderContext providerContext = ProviderContexts.fake();
+
+        this.environmentContextAndCheck(
+            BasicSpreadsheetProviderHateosHandlerContext.with(
+                SPREADSHEET_PROVIDER,
+                providerContext,
+                HATEOS_HANDLER_CONTEXT
+            ),
+            providerContext
+        );
+    }
+
     // class............................................................................................................
 
     @Override

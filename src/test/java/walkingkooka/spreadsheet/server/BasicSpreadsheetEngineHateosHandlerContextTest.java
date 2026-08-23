@@ -420,6 +420,23 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         return SPREADSHEET_FORMATTER_CONTEXT;
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.fake();
+
+        this.environmentContextAndCheck(
+            BasicSpreadsheetEngineHateosHandlerContext.with(
+                SPREADSHEET_ENGINE,
+                HATEOS_HANDLER_CONTEXT,
+                spreadsheetEngineContext
+            ),
+            spreadsheetEngineContext
+        );
+    }
+
     // class............................................................................................................
 
     @Override
