@@ -103,7 +103,6 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         return SpreadsheetConverterContexts.basic(
-            CAN_PARSE_ENVIRONMENT_VALUE_NAME,
             HAS_USER_DIRECTORIES,
             SpreadsheetConverterContexts.NO_METADATA,
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
