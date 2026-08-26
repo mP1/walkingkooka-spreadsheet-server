@@ -57,7 +57,10 @@ final class SpreadsheetMetadataPatchFunction implements BiFunction<JsonNode, Spr
                 loadAndPatched
                     .patch(
                         json,
-                        loadAndPatched.jsonNodeUnmarshallContext(context)
+                        loadAndPatched.jsonNodeUnmarshallContext(
+                            context, // CanParseEnvironmentValueName
+                            context // CurrencyCodeLanguageTagContext
+                        )
                     )
             );
             return saved.jsonNodeMarshallContext()

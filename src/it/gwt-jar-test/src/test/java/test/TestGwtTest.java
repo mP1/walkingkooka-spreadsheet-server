@@ -403,6 +403,9 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                             JsonNodeMarshallContexts.basic(),
                             JsonNodeUnmarshallContexts.basic(
                                 expressionNumberKind,
+                                (String name)-> {
+                                    throw new UnsupportedOperationException();
+                                }, // CanParseEnvironmentValueName
                                 CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )

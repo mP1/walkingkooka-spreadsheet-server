@@ -25,6 +25,7 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
 import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.email.EmailAddress;
@@ -330,6 +331,13 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
     @Override
     public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
+        return this.spreadsheetEnvironmentContext;
+    }
+
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    public CanParseEnvironmentValueName canParseEnvironmentValueName() {
         return this.spreadsheetEnvironmentContext;
     }
 

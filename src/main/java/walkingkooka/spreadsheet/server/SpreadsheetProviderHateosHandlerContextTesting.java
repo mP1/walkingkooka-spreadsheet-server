@@ -24,6 +24,11 @@ public interface SpreadsheetProviderHateosHandlerContextTesting<C extends Spread
     ProviderContextTesting<C> {
 
     @Override
+    default C createCanParseEnvironmentValueName() {
+        return this.createContext();
+    }
+
+    @Override
     default String typeNameSuffix() {
         return SpreadsheetProviderHateosHandlerContext.class.getSimpleName();
     }
