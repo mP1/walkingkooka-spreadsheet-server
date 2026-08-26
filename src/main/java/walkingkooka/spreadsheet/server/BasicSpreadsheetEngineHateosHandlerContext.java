@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.convert.ConverterLike;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
@@ -72,6 +73,11 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
         this.spreadsheetEngine = spreadsheetEngine;
         this.hateosHandlerContext = hateosHandlerContext;
         this.engineContext = engineContext;
+    }
+
+    @Override
+    public CanParseEnvironmentValueName canParseEnvironmentValueName() {
+        return this.engineContext;
     }
 
     @Override

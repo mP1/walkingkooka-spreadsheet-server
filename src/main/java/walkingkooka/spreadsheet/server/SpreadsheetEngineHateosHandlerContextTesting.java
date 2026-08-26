@@ -31,6 +31,11 @@ public interface SpreadsheetEngineHateosHandlerContextTesting<C extends Spreadsh
     }
 
     @Override
+    default C createCanParseEnvironmentValueName() {
+        return this.createContext();
+    }
+
+    @Override
     default C createCanLocaleForLanguageTag() {
         return this.createContext();
     }

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
@@ -63,6 +64,13 @@ final class BasicSpreadsheetProviderHateosHandlerContext implements SpreadsheetP
     }
 
     private final SpreadsheetProvider spreadsheetProvider;
+
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    public CanParseEnvironmentValueName canParseEnvironmentValueName() {
+        return this.hateosHandlerContext;
+    }
 
     // EnvironmentContext...............................................................................................
 

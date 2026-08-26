@@ -21,6 +21,7 @@ import walkingkooka.Binary;
 import walkingkooka.convert.ConverterLike;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
@@ -180,6 +181,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     // StorageContext...................................................................................................
+
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    public CanParseEnvironmentValueName canParseEnvironmentValueName() {
+        return this.context;
+    }
 
     // EnvironmentContext...............................................................................................
 

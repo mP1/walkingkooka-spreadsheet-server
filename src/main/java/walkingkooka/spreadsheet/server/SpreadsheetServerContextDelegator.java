@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
+import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
@@ -127,6 +128,13 @@ public interface SpreadsheetServerContextDelegator extends SpreadsheetServerCont
     @Override
     default SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
         return this.spreadsheetServerContext();
+    }
+
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    default CanParseEnvironmentValueName canParseEnvironmentValueName() {
+        return this.spreadsheetEnvironmentContext();
     }
 
     // CurrencyLocaleContextDelegator...................................................................................

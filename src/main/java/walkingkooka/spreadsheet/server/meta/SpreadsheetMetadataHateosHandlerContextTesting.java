@@ -64,6 +64,13 @@ public interface SpreadsheetMetadataHateosHandlerContextTesting<C extends Spread
         assertThrows(NullPointerException.class, () -> this.createContext().httpRouter(null));
     }
 
+    // CanParseEnvironmentValueNameTesting..............................................................................
+
+    @Override
+    default C createCanParseEnvironmentValueName() {
+        return this.createContext();
+    }
+
     // TypeNameTesting..................................................................................................
 
     @Override

@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContext;
 import walkingkooka.currency.CurrencyLocaleContextDelegator;
+import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
@@ -189,6 +190,13 @@ public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetS
         public Runnable addMetadataWatcherOnce(final StoreWatcher<SpreadsheetMetadata> watcher) {
             Objects.requireNonNull(watcher, "watcher");
             throw new UnsupportedOperationException();
+        }
+
+        // CanParseEnvironmentValueNameDelegator........................................................................
+
+        @Override
+        public CanParseEnvironmentValueName canParseEnvironmentValueName() {
+            return this.spreadsheetEnvironmentContext;
         }
 
         // EnvironmentContextDelegator..................................................................................

@@ -18,9 +18,6 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyCodeLanguageTagContext;
-import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
@@ -58,14 +55,10 @@ import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.HasLineEndingTesting;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextTesting;
 
-import java.math.MathContext;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -74,6 +67,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     R extends SpreadsheetSelection & Comparable<R>> implements
     HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosHandlerContext>,
     HasLineEndingTesting,
+    JsonNodeMarshallUnmarshallContextTesting,
     ClassTesting<H> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase() {
@@ -224,36 +218,13 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
         @Override
         public JsonNode marshall(final Object value) {
-            return JsonNodeMarshallContexts.basic()
-                .marshall(value);
+            return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
         }
 
         @Override
         public <T> T unmarshall(final JsonNode json,
                                 final Class<T> type) {
-            return JsonNodeUnmarshallContexts.basic(
-                ExpressionNumberKind.DEFAULT,
-                new CurrencyCodeLanguageTagContext() {
-                    @Override
-                    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                        return Optional.ofNullable(
-                            Currency.getInstance(
-                                currencyCode.value()
-                            )
-                        );
-                    }
-
-                    @Override
-                    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
-                        return Optional.of(
-                            Locale.forLanguageTag(
-                                languageTag.value()
-                            )
-                        );
-                    }
-                },
-                MathContext.UNLIMITED
-            ).unmarshall(
+            return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
                 json,
                 type
             );

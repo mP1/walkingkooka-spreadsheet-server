@@ -21,9 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyCodeLanguageTagContext;
-import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.CharsetName;
@@ -81,17 +78,12 @@ import walkingkooka.spreadsheet.viewport.SpreadsheetViewport;
 import walkingkooka.spreadsheet.viewport.SpreadsheetViewportWindows;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.math.MathContext;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -568,36 +560,13 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
             @Override
             public JsonNode marshall(final Object value) {
-                return JsonNodeMarshallContexts.basic()
-                    .marshall(value);
+                return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
             }
 
             @Override
             public <T> T unmarshall(final JsonNode json,
                                     final Class<T> type) {
-                return JsonNodeUnmarshallContexts.basic(
-                    ExpressionNumberKind.DEFAULT,
-                    new CurrencyCodeLanguageTagContext() {
-                        @Override
-                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                            return Optional.ofNullable(
-                                Currency.getInstance(
-                                    currencyCode.value()
-                                )
-                            );
-                        }
-
-                        @Override
-                        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
-                            return Optional.of(
-                                Locale.forLanguageTag(
-                                    languageTag.value()
-                                )
-                            );
-                        }
-                    },
-                    MathContext.UNLIMITED
-                ).unmarshall(
+                return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
                     json,
                     type
                 );
