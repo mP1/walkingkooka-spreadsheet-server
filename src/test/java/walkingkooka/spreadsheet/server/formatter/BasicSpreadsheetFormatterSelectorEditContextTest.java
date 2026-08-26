@@ -37,9 +37,6 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.storage.HasUserDirectorieses;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.convert.ExpressionNumberBinaryNumberConverterFunctions;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContexts;
 
@@ -65,19 +62,17 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
 
     @Override
     public int decimalNumberDigitCount() {
-        return this.spreadsheetConverterContext()
-            .decimalNumberDigitCount();
+        return DECIMAL_NUMBER_CONTEXT.decimalNumberDigitCount();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.spreadsheetConverterContext()
-            .mathContext();
+        return MATH_CONTEXT;
     }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return this.spreadsheetConverterContext();
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
@@ -109,12 +104,12 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         return SpreadsheetConverterContexts.basic(
             CAN_PARSE_ENVIRONMENT_VALUE_NAME,
-            HasUserDirectorieses.fake(),
+            HAS_USER_DIRECTORIES,
             SpreadsheetConverterContexts.NO_METADATA,
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
             MEDIA_TYPE_DETECTOR,
-            ExpressionNumberBinaryNumberConverterFunctions.multiply(), // multiplier
+            MULTIPLIER, // multiplier
             SpreadsheetLabelNameResolvers.fake(),
             SpreadsheetMetadataLoaders.empty(),
             JsonNodeConverterContexts.basic(
@@ -133,7 +128,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                         DATE_TIME_CONTEXT,
                         DECIMAL_NUMBER_CONTEXT
                     ),
-                    ExpressionNumberKind.BIG_DECIMAL
+                    EXPRESSION_NUMBER_KIND
                 ),
                 JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
             ),
