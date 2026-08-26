@@ -112,7 +112,6 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             SpreadsheetLabelNameResolvers.fake(),
             SpreadsheetMetadataLoaders.empty(),
             JsonNodeConverterContexts.basic(
-                SPREADSHEET_CAN_PARSE_ENVIRONMENT_VALUE_NAME,
                 ExpressionNumberConverterContexts.basic(
                     Converters.fake(),
                     Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ExpressionNumberConverterContext>
