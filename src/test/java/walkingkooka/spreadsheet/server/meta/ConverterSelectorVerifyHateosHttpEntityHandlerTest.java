@@ -30,6 +30,7 @@ import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
@@ -145,6 +146,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     @Override
     public SpreadsheetEngineHateosHandlerContext context() {
         return new FakeSpreadsheetEngineHateosHandlerContext() {
+
+            @Override
+            public EnvironmentValueName<?> parseEnvironmentValueName(final String name) {
+                return SPREADSHEET_ENVIRONMENT_CONTEXT.parseEnvironmentValueName(name);
+            }
 
             @Override
             public Charset charset() {
