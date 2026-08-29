@@ -350,6 +350,7 @@ public final class Sample implements HasHateosContentType,
                         SpreadsheetStoreRepositories.treeMap(metadataStore)
                     ),
                     SpreadsheetProviders.basic(
+                        SpreadsheetComparatorProviders.spreadsheetComparators(),
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
                                 SpreadsheetMetadataPropertyName.LOCALE,
@@ -360,9 +361,8 @@ public final class Sample implements HasHateosContentType,
                                 p
                             )
                         ), // converterProvider
-                        ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
-                        SpreadsheetComparatorProviders.spreadsheetComparators(),
                         SpreadsheetExporterProviders.spreadsheetExport(),
+                        ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
                         spreadsheetFormatterProvider,
                         FormHandlerProviders.validation(),
                         SpreadsheetImporterProviders.spreadsheetImport(),

@@ -270,7 +270,9 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         @Override
         public SpreadsheetProvider spreadsheetProvider() {
             return SpreadsheetProviders.basic(
+                SPREADSHEET_COMPARATOR_PROVIDER,
                 CONVERTER_PROVIDER,
+                SPREADSHEET_EXPORTER_PROVIDER,
                 ExpressionFunctionProviders.basic(
                     Url.parseAbsolute("https://example.com/functions"),
                     SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY,
@@ -278,8 +280,6 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
                         ExpressionFunctions.typeName()
                     )
                 ),
-                SPREADSHEET_COMPARATOR_PROVIDER,
-                SPREADSHEET_EXPORTER_PROVIDER,
                 SPREADSHEET_FORMATTER_PROVIDER,
                 FORM_HANDLER_PROVIDER,
                 SPREADSHEET_IMPORTER_PROVIDER,
