@@ -354,6 +354,7 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                         SpreadsheetStoreRepositories.treeMap(metadataStore)
                     ),
                     SpreadsheetProviders.basic(
+                        SpreadsheetComparatorProviders.spreadsheetComparators(),
                         SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                             (ProviderContext p) -> SpreadsheetMetadata.EMPTY.set(
                                 SpreadsheetMetadataPropertyName.LOCALE,
@@ -364,9 +365,8 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                                 p
                             )
                         ), // converterProvider
-                        ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
-                        SpreadsheetComparatorProviders.spreadsheetComparators(),
                         SpreadsheetExporterProviders.spreadsheetExport(),
+                        ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
                         spreadsheetFormatterProvider,
                         FormHandlerProviders.validation(),
                         SpreadsheetImporterProviders.spreadsheetImport(),

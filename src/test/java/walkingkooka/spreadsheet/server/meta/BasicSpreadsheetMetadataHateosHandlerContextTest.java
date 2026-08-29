@@ -959,7 +959,9 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
                     SpreadsheetStoreRepositories.treeMap(metadataStore)
                 ),
                 SpreadsheetProviders.basic(
+                    SPREADSHEET_COMPARATOR_PROVIDER,
                     CONVERTER_PROVIDER,
+                    SPREADSHEET_EXPORTER_PROVIDER,
                     new FakeExpressionFunctionProvider<>() {
                         @Override
                         public ExpressionFunctionInfoSet expressionFunctionInfos() {
@@ -977,8 +979,6 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
                             );
                         }
                     },
-                    SPREADSHEET_COMPARATOR_PROVIDER,
-                    SPREADSHEET_EXPORTER_PROVIDER,
                     SPREADSHEET_FORMATTER_PROVIDER,
                     FORM_HANDLER_PROVIDER,
                     SPREADSHEET_IMPORTER_PROVIDER,

@@ -13477,10 +13477,10 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 return Optional.ofNullable(repo);
             },
             SpreadsheetProviders.basic(
-                CONVERTER_PROVIDER,
-                EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
                 SPREADSHEET_COMPARATOR_PROVIDER,
+                CONVERTER_PROVIDER,
                 SPREADSHEET_EXPORTER_PROVIDER,
+                EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
                 SPREADSHEET_FORMATTER_PROVIDER,
                 FORM_HANDLER_PROVIDER,
                 SPREADSHEET_IMPORTER_PROVIDER,
