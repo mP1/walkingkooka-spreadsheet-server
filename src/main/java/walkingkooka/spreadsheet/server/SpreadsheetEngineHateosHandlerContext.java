@@ -33,34 +33,6 @@ public interface SpreadsheetEngineHateosHandlerContext extends HateosHandlerCont
     SpreadsheetEngineContext,
     StorageHttpHandlerContext {
 
-    // StorageHttpHandlerContext........................................................................................
-
-//    @Override
-//    default Optional<StorageValue> loadStorage(final StoragePath path) {
-//        return SpreadsheetEngineContext.super.loadStorage(path);
-//    }
-//
-//    @Override
-//    default StorageValue saveStorage(final StorageValue value) {
-//        return SpreadsheetEngineContext.super.saveStorage(value);
-//    }
-//
-//    @Override
-//    default void deleteStorage(final StoragePath path) {
-//        SpreadsheetEngineContext.super.deleteStorage(path);
-//    }
-//
-//    @Override
-//    default List<StorageValueInfo> listStorage(final StoragePath parent,
-//                                               final int offset,
-//                                               final int count) {
-//        return SpreadsheetEngineContext.super.listStorage(
-//            parent,
-//            offset,
-//            count
-//        );
-//    }
-
     // SpreadsheetEnvironmentContext....................................................................................
 
     @Override
