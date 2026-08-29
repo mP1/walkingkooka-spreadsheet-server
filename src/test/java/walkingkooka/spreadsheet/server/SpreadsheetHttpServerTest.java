@@ -13479,6 +13479,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             SpreadsheetProviders.basic(
                 SPREADSHEET_COMPARATOR_PROVIDER,
                 CONVERTER_PROVIDER,
+                CURRENCY_EXCHANGE_RATER_PROVIDER,
                 SPREADSHEET_EXPORTER_PROVIDER,
                 EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
                 SPREADSHEET_FORMATTER_PROVIDER,

@@ -29,6 +29,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.currency.CurrencyContexts;
 import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.currency.provider.CurrencyExchangeRaterProviders;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
@@ -361,6 +362,7 @@ public class J2clTest implements HasHateosContentType {
                                 p
                             )
                         ), // converterProvider
+                        CurrencyExchangeRaterProviders.fake(),
                         SpreadsheetExporterProviders.spreadsheetExport(),
                         ExpressionFunctionProviders.empty(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY),
                         spreadsheetFormatterProvider,

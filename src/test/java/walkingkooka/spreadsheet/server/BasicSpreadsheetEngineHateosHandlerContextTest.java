@@ -272,6 +272,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
             return SpreadsheetProviders.basic(
                 SPREADSHEET_COMPARATOR_PROVIDER,
                 CONVERTER_PROVIDER,
+                CURRENCY_EXCHANGE_RATER_PROVIDER,
                 SPREADSHEET_EXPORTER_PROVIDER,
                 ExpressionFunctionProviders.basic(
                     Url.parseAbsolute("https://example.com/functions"),
