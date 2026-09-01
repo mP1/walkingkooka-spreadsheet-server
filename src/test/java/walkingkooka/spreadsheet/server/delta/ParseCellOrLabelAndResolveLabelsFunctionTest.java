@@ -22,13 +22,13 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.util.FunctionTesting;
+import walkingkooka.util.FunctionTesting2;
 
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements FunctionTesting<ParseCellOrLabelAndResolveLabelsFunction, String, SpreadsheetCellReference>,
+public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements FunctionTesting2<ParseCellOrLabelAndResolveLabelsFunction, String, SpreadsheetCellReference>,
     ToStringTesting<ParseCellOrLabelAndResolveLabelsFunction> {
 
     private final static SpreadsheetCellReference CELL = SpreadsheetSelection.parseCell("Z99");
