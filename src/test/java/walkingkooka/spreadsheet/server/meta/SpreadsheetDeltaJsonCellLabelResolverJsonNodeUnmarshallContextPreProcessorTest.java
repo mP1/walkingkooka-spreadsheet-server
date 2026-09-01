@@ -29,9 +29,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.util.BiFunctionTesting;
+import walkingkooka.util.BiFunctionTesting2;
 
-public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessorTest implements BiFunctionTesting<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor,
+public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessorTest implements BiFunctionTesting2<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor,
     JsonNode,
     Class<?>,
     JsonNode>,
