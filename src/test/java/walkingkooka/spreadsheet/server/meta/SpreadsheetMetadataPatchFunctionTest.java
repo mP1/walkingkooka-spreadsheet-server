@@ -38,7 +38,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.util.BiFunctionTesting;
+import walkingkooka.util.BiFunctionTesting2;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -46,7 +46,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTesting<SpreadsheetMetadataPatchFunction, JsonNode, SpreadsheetServerContext, JsonNode>,
+public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTesting2<SpreadsheetMetadataPatchFunction, JsonNode, SpreadsheetServerContext, JsonNode>,
     ClassTesting<SpreadsheetMetadataPatchFunction>,
     ToStringTesting<SpreadsheetMetadataPatchFunction>,
     SpreadsheetMetadataTesting {
