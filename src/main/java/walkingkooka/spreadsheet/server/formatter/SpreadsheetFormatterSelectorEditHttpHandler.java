@@ -90,7 +90,8 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                     edit.getClass().getSimpleName()
                 ).setBodyText(
                     context.marshall(edit)
-                        .toJsonText(context)
+                        .multiLineText(context)
+                        .text()
                 ).setContentLength()
         );
     }

@@ -98,7 +98,8 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
                 ).setBodyText(
                     context.marshall(
                         DecimalNumberSymbolsHateosResourceSet.with(all)
-                    ).toJsonText(context)
+                    ).multiLineText(context)
+                        .text()
                 ).setContentLength()
         );
     }

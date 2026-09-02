@@ -874,7 +874,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
                     ),
                     roundingMode.name()
-                ).toJsonText(TEXT_CONTEXT),
+                ).multiLineText(TEXT_CONTEXT)
+                .text(),
             removeLastModified(
                 this.response(
                     HttpStatusCode.OK.status(),

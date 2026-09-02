@@ -123,7 +123,8 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                 )
             ).setBodyText(
                 context.marshall(response)
-                    .toJsonText(context)
+                    .multiLineText(context)
+                    .text()
             ).setContentLength();
     }
 
