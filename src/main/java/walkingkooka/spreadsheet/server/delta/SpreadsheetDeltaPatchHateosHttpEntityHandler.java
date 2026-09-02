@@ -277,7 +277,8 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
             ).addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
             .setBodyText(
                 context.marshall(response)
-                    .toJsonText(context)
+                    .multiLineText(context)
+                    .text()
             ).setContentLength();
     }
 }

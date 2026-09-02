@@ -137,7 +137,8 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
             response.getClass().getSimpleName()
         ).setBodyText(
             context.marshall(response)
-                .toJsonText(context)
+                .multiLineText(context)
+                .text()
         ).setContentLength();
     }
 

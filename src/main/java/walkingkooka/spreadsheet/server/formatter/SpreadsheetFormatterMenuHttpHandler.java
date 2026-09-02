@@ -96,7 +96,8 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
                     menuList.getClass().getSimpleName()
                 ).setBodyText(
                     context.marshall(menuList)
-                        .toJsonText(context)
+                        .multiLineText(context)
+                        .text()
                 ).setContentLength()
         );
     }
