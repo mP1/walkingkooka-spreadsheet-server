@@ -65,7 +65,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
             return new FakeSpreadsheetProvider() {
                 @Override
                 public SpreadsheetComparatorInfoSet spreadsheetComparatorInfos() {
-                    return SpreadsheetComparatorInfoSet.with(
+                    return SpreadsheetComparatorInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                SpreadsheetComparatorInfoSet.with(
+                SpreadsheetComparatorInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2
