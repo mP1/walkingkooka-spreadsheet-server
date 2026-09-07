@@ -57,7 +57,7 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            SpreadsheetComparatorInfoSet.with(
+            SpreadsheetComparatorInfoSet.EMPTY.setElements(
                 context.spreadsheetProvider()
                     .spreadsheetComparatorInfos()
             )
