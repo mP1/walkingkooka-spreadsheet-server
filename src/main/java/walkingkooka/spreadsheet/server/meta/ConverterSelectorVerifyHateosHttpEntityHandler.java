@@ -101,15 +101,13 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                         SpreadsheetMetadata.NO_CELL,
                         SpreadsheetMetadata.NO_VALIDATION_REFERENCE,
                         Cast.to(propertyName),
-                        context, // CanParseEnvironmentValueName
-                        context, // HasUserDirectories
                         SpreadsheetLabelNameResolvers.empty(),
                         context, // MediaTypeDetector
                         context.multiplier(),
                         context, // ConverterProvider
                         context, // SpreadsheetMetadataLoader
-                        context, // BinaryTextContext
                         context, // CurrencyLocaleContext
+                        context, // SpreadsheetEnvironmentContext
                         providerContext // ProviderContext
                     ) // SpreadsheetConverterContext
             )

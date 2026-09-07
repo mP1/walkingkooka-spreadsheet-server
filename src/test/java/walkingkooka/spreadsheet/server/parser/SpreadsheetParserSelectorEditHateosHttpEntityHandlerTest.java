@@ -262,14 +262,12 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
-                            SPREADSHEET_CAN_PARSE_ENVIRONMENT_VALUE_NAME,
-                            HAS_USER_DIRECTORIES,
                             SpreadsheetLabelNameResolvers.fake(),
                             MEDIA_TYPE_DETECTOR,
                             MULTIPLIER,
                             SPREADSHEET_METADATA_LOADER,
-                            BINARY_TEXT_CONTEXT,
                             CURRENCY_LOCALE_CONTEXT,
+                            SPREADSHEET_ENVIRONMENT_CONTEXT,
                             SPREADSHEET_PROVIDER,
                             PROVIDER_CONTEXT
                         )

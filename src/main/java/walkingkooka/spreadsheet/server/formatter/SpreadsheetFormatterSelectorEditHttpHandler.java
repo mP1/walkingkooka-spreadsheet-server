@@ -124,14 +124,12 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                                 SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
                                 v
                             ),
-                        context, // CanParseEnvironmentValueName
-                        context, // HasUserDirectories
                         SpreadsheetLabelNameResolvers.empty(),
                         context, // MediaTypeDetector
                         context.multiplier(),
                         context, // SpreadsheetMetadataLoader
-                        context, // BinaryTextContext
                         context, // CurrencyLocaleContext
+                        context, // SpreadsheetEnvironmentContext
                         context, // // SpreadsheetProvider
                         providerContext // ProviderContext
                     ),
