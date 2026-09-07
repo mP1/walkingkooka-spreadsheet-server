@@ -65,7 +65,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
             return new FakeSpreadsheetProvider() {
                 @Override
                 public ValidatorInfoSet validatorInfos() {
-                    return ValidatorInfoSet.with(
+                    return ValidatorInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                ValidatorInfoSet.with(
+                ValidatorInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2
