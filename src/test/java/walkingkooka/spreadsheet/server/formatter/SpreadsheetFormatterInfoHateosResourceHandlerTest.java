@@ -65,7 +65,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
             return new FakeSpreadsheetProvider() {
                 @Override
                 public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
-                    return SpreadsheetFormatterInfoSet.with(
+                    return SpreadsheetFormatterInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                SpreadsheetFormatterInfoSet.with(
+                SpreadsheetFormatterInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2
