@@ -70,14 +70,12 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
                             },
-                            context, // CanParseEnvironmentValueName
-                            context, // HasUserDirectories
                             context, // SpreadsheetLabelNameResolver
                             context, // MediaTypeDetector
                             context.multiplier(),
                             context, // SpreadsheetMetadataLoader
-                            context, // BinaryTextContext
                             context, // CurrencyLocaleContext
+                            context, // SpreadsheetEnvironmentContext
                             context, // SpreadsheetProvider
                             providerContext // ProviderContext
                         ), // SpreadsheetFormatterContext
