@@ -57,7 +57,7 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            ConverterInfoSet.with(
+            ConverterInfoSet.EMPTY.setElements(
                 context.spreadsheetProvider()
                     .converterInfos()
             )

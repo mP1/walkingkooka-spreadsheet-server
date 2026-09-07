@@ -65,7 +65,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
             return new FakeSpreadsheetProvider() {
                 @Override
                 public ConverterInfoSet converterInfos() {
-                    return ConverterInfoSet.with(
+                    return ConverterInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                ConverterInfoSet.with(
+                ConverterInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2
