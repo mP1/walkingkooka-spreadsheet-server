@@ -65,7 +65,7 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
             return new FakeSpreadsheetProvider() {
                 @Override
                 public FormHandlerInfoSet formHandlerInfos() {
-                    return FormHandlerInfoSet.with(
+                    return FormHandlerInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                FormHandlerInfoSet.with(
+                FormHandlerInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2
