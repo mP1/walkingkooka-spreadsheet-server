@@ -65,7 +65,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
             return new FakeSpreadsheetProvider() {
                 @Override
                 public SpreadsheetParserInfoSet spreadsheetParserInfos() {
-                    return SpreadsheetParserInfoSet.with(
+                    return SpreadsheetParserInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                SpreadsheetParserInfoSet.with(
+                SpreadsheetParserInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2

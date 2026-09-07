@@ -65,7 +65,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
             return new FakeSpreadsheetProvider() {
                 @Override
                 public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
-                    return SpreadsheetImporterInfoSet.with(
+                    return SpreadsheetImporterInfoSet.EMPTY.setElements(
                         Sets.of(
                             INFO1,
                             INFO2
@@ -108,7 +108,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                SpreadsheetImporterInfoSet.with(
+                SpreadsheetImporterInfoSet.EMPTY.setElements(
                     Sets.of(
                         INFO1,
                         INFO2
