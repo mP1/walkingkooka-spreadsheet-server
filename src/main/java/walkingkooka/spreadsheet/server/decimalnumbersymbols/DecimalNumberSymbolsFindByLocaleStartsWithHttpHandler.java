@@ -71,7 +71,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
         final int count = HttpRequest.count(request.routerParameters())
             .orElse(DEFAULT_COUNT);
 
-        for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
+        for (final Locale locale : context.findLocaleByText(startsWith, offset, count)) {
             final DecimalNumberSymbols decimalNumberSymbols = context.decimalNumberSymbolsForLocale(locale)
                 .orElse(null);
 

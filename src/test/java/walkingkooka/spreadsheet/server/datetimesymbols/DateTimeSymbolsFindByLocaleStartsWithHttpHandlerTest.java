@@ -301,10 +301,10 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
             }
 
             @Override
-            public Set<Locale> findByLocaleText(final String text,
+            public Set<Locale> findLocaleByText(final String text,
                                                 final int offset,
                                                 final int count) {
-                return LOCALE_CONTEXT.findByLocaleText(text, offset, count);
+                return LOCALE_CONTEXT.findLocaleByText(text, offset, count);
             }
 
             @Override

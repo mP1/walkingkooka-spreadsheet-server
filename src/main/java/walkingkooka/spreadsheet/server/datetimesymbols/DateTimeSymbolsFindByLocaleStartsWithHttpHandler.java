@@ -71,7 +71,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
         final int count = HttpRequest.count(request.routerParameters())
             .orElse(DEFAULT_COUNT);
 
-        for (final Locale locale : context.findByLocaleText(startsWith, offset, count)) {
+        for (final Locale locale : context.findLocaleByText(startsWith, offset, count)) {
             final DateTimeSymbols dateTimeSymbols = context.dateTimeSymbolsForLocale(locale)
                 .orElse(null);
 

@@ -39,17 +39,17 @@ import java.util.Set;
 public final class LocaleHateosHandlerContextTestingTest implements LocaleHateosHandlerContextTesting<TestLocaleHateosHandlerContext> {
 
     @Override
-    public void testFindByLocaleTextWithNullTextFails() {
+    public void testFindLocaleByTextWithNullTextFails() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void testFindByLocaleTextWithNegativeOffsetFails() {
+    public void testFindLocaleByTextWithNegativeOffsetFails() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void testFindByLocaleTextWithInvalidCountFails() {
+    public void testFindLocaleByTextWithInvalidCountFails() {
         throw new UnsupportedOperationException();
     }
 
@@ -95,7 +95,7 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         }
 
         @Override
-        public Set<Locale> findByLocaleText(final String text,
+        public Set<Locale> findLocaleByText(final String text,
                                             final int offset,
                                             final int count) {
             throw new UnsupportedOperationException();
