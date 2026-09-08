@@ -20,17 +20,16 @@ package walkingkooka.spreadsheet.server.currencyexchangerate;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.currency.CurrencyExchange;
+import walkingkooka.net.http.server.hateos.HateosResourceTesting2;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CurrencyExchangeHateosResourceTest implements ComparableTesting2<CurrencyExchangeHateosResource>,
-    TreePrintableTesting,
+public final class CurrencyExchangeHateosResourceTest implements HateosResourceTesting2<CurrencyExchangeHateosResource, CurrencyExchange>,
+    ComparableTesting2<CurrencyExchangeHateosResource>,
     JsonNodeMarshallerTesting<CurrencyExchangeHateosResource>,
     ClassTesting2<CurrencyExchangeHateosResource> {
 
@@ -47,14 +46,14 @@ public final class CurrencyExchangeHateosResourceTest implements ComparableTesti
     
     @Test
     public void testWith() {
-        final CurrencyExchangeHateosResource resource = CurrencyExchangeHateosResource.with(
-            CURRENCY_EXCHANGE
+        this.hateosLinkIdAndCheck(
+            CURRENCY_EXCHANGE.text()
         );
+    }
 
-        this.checkEquals(
-            CURRENCY_EXCHANGE.text(),
-            resource.hateosLinkId()
-        );
+    @Override
+    public CurrencyExchangeHateosResource createHateosResource() {
+        return CurrencyExchangeHateosResource.with(CURRENCY_EXCHANGE);
     }
 
     // TreePrintable....................................................................................................
@@ -112,10 +111,5 @@ public final class CurrencyExchangeHateosResourceTest implements ComparableTesti
     @Override
     public Class<CurrencyExchangeHateosResource> type() {
         return CurrencyExchangeHateosResource.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
