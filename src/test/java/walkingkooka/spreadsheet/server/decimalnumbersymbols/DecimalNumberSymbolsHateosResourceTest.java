@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
+import walkingkooka.net.http.server.hateos.HateosResourceTesting2;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -35,7 +35,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DecimalNumberSymbolsHateosResourceTest implements ComparableTesting2<DecimalNumberSymbolsHateosResource>,
+public final class DecimalNumberSymbolsHateosResourceTest implements HateosResourceTesting2<DecimalNumberSymbolsHateosResource, LocaleLanguageTag>,
+    ComparableTesting2<DecimalNumberSymbolsHateosResource>,
     HasTextTesting,
     TreePrintableTesting,
     JsonNodeMarshallerTesting<DecimalNumberSymbolsHateosResource>,
@@ -100,14 +101,23 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
             resource.value()
         );
 
-        this.checkEquals(
-            "en-AU",
-            resource.hateosLinkId()
+        this.hateosLinkIdAndCheck(
+            resource,
+            "en-AU"
         );
 
         this.textAndCheck(
             resource,
             LOCALE_TEXT
+        );
+    }
+
+    @Override
+    public DecimalNumberSymbolsHateosResource createHateosResource() {
+        return DecimalNumberSymbolsHateosResource.with(
+            LOCALE_TAG,
+            LOCALE_TEXT,
+            DECIMAL_NUMBER_SYMBOLS
         );
     }
 
@@ -198,11 +208,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
     @Override
     public DecimalNumberSymbolsHateosResource createComparable() {
-        return DecimalNumberSymbolsHateosResource.with(
-            LOCALE_TAG,
-            LOCALE_TEXT,
-            DECIMAL_NUMBER_SYMBOLS
-        );
+        return this.createHateosResource();
     }
 
     // json.............................................................................................................
@@ -243,11 +249,7 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
 
     @Override
     public DecimalNumberSymbolsHateosResource createJsonNodeMarshallingValue() {
-        return DecimalNumberSymbolsHateosResource.with(
-            LOCALE_TAG,
-            LOCALE_TEXT,
-            DECIMAL_NUMBER_SYMBOLS
-        );
+        return this.createHateosResource();
     }
 
     // class............................................................................................................
@@ -255,10 +257,5 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
     @Override
     public Class<DecimalNumberSymbolsHateosResource> type() {
         return DecimalNumberSymbolsHateosResource.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
