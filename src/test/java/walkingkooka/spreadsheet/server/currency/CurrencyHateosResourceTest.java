@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.HasCurrencyTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceTesting2;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -33,7 +33,8 @@ import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CurrencyHateosResourceTest implements ComparableTesting2<CurrencyHateosResource>,
+public final class CurrencyHateosResourceTest implements HateosResourceTesting2<CurrencyHateosResource, CurrencyCode>,
+    ComparableTesting2<CurrencyHateosResource>,
     HasTextTesting,
     HasCurrencyTesting,
     TreePrintableTesting,
@@ -103,15 +104,20 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
         );
     }
 
+    @Override
+    public CurrencyHateosResource createHateosResource() {
+        return CurrencyHateosResource.with(
+            CURRENCY_CODE,
+            TEXT
+        );
+    }
+
     // HasText..........................................................................................................
 
     @Test
     public void testText() {
         this.textAndCheck(
-            CurrencyHateosResource.with(
-                CURRENCY_CODE,
-                TEXT
-            ),
+            this.createHateosResource(),
             TEXT
         );
     }
@@ -121,10 +127,7 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
     @Test
     public void testTreePrintable() {
         this.treePrintAndCheck(
-            CurrencyHateosResource.with(
-                CURRENCY_CODE,
-                TEXT
-            ),
+            this.createHateosResource(),
             "AUD\n" +
                 "  Australian Dollar\n"
         );
@@ -146,10 +149,7 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
 
     @Override
     public CurrencyHateosResource createComparable() {
-        return CurrencyHateosResource.with(
-            CURRENCY_CODE,
-            TEXT
-        );
+        return this.createHateosResource();
     }
 
     // json.............................................................................................................
@@ -176,10 +176,7 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
 
     @Override
     public CurrencyHateosResource createJsonNodeMarshallingValue() {
-        return CurrencyHateosResource.with(
-            CURRENCY_CODE,
-            TEXT
-        );
+        return this.createHateosResource();
     }
 
     // class............................................................................................................
@@ -187,10 +184,5 @@ public final class CurrencyHateosResourceTest implements ComparableTesting2<Curr
     @Override
     public Class<CurrencyHateosResource> type() {
         return CurrencyHateosResource.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
