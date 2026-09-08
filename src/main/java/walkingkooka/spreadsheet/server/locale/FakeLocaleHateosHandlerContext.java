@@ -50,7 +50,7 @@ public class FakeLocaleHateosHandlerContext extends FakeHateosHandlerContext imp
     }
 
     @Override
-    public Set<Locale> findByLocaleText(final String text,
+    public Set<Locale> findLocaleByText(final String text,
                                         final int offset,
                                         final int count) {
         throw new UnsupportedOperationException();

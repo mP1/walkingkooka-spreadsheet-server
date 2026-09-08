@@ -67,7 +67,7 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
 
         final Set<LocaleHateosResource> matched = Sets.ordered();
 
-        for (final Locale locale : context.findByLocaleText(
+        for (final Locale locale : context.findLocaleByText(
             startsWith,
             0,
             Integer.MAX_VALUE
