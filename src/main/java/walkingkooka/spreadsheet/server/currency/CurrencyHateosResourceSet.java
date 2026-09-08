@@ -67,7 +67,7 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
 
         final Set<CurrencyHateosResource> matched = Sets.ordered();
 
-        for (final CurrencyCode currencyCode : context.findByCurrencyText(
+        for (final CurrencyCode currencyCode : context.findCurrencyByText(
             startsWith,
             0,
             Integer.MAX_VALUE
