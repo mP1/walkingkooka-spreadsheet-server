@@ -22,8 +22,8 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.datetime.HasDateTimeSymbolsTesting;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.http.server.hateos.HateosResourceTesting2;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -36,7 +36,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DateTimeSymbolsHateosResourceTest implements ComparableTesting2<DateTimeSymbolsHateosResource>,
+public final class DateTimeSymbolsHateosResourceTest implements HateosResourceTesting2<DateTimeSymbolsHateosResource, LocaleLanguageTag>,
+    ComparableTesting2<DateTimeSymbolsHateosResource>,
     TreePrintableTesting,
     HasDateTimeSymbolsTesting,
     HasTextTesting,
@@ -87,11 +88,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
 
     @Test
     public void testWith() {
-        final DateTimeSymbolsHateosResource resource = DateTimeSymbolsHateosResource.with(
-            LOCALE_TAG,
-            LOCALE_TEXT,
-            DATE_TIME_SYMBOLS
-        );
+        final DateTimeSymbolsHateosResource resource = this.createHateosResource();
 
         this.checkEquals(
             "en-AU",
@@ -104,6 +101,15 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
         this.checkEquals(
             DATE_TIME_SYMBOLS,
             resource.value()
+        );
+    }
+
+    @Override
+    public DateTimeSymbolsHateosResource createHateosResource() {
+        return DateTimeSymbolsHateosResource.with(
+            LOCALE_TAG,
+            LOCALE_TEXT,
+            DATE_TIME_SYMBOLS
         );
     }
 
@@ -138,11 +144,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     @Test
     public void testTreePrintable() {
         this.treePrintAndCheck(
-            DateTimeSymbolsHateosResource.with(
-                LOCALE_TAG,
-                LOCALE_TEXT,
-                DATE_TIME_SYMBOLS
-            ),
+            this.createHateosResource(),
             "en-AU\n" +
                 "  English (Australia)\n" +
                 "  DateTimeSymbols\n" +
@@ -213,11 +215,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
 
     @Override
     public DateTimeSymbolsHateosResource createComparable() {
-        return DateTimeSymbolsHateosResource.with(
-            LOCALE_TAG,
-            LOCALE_TEXT,
-            DATE_TIME_SYMBOLS
-        );
+        return this.createHateosResource();
     }
 
     // json.............................................................................................................
@@ -296,11 +294,7 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
 
     @Override
     public DateTimeSymbolsHateosResource createJsonNodeMarshallingValue() {
-        return DateTimeSymbolsHateosResource.with(
-            LOCALE_TAG,
-            LOCALE_TEXT,
-            DATE_TIME_SYMBOLS
-        );
+        return this.createHateosResource();
     }
 
     // class............................................................................................................
@@ -308,10 +302,5 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
     @Override
     public Class<DateTimeSymbolsHateosResource> type() {
         return DateTimeSymbolsHateosResource.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
