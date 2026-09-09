@@ -44,19 +44,19 @@ import java.util.Optional;
  * A {@link SpreadsheetMetadataHateosHandlerContext} that creates a new {@link SpreadsheetStoreRepository} for unknown {@link SpreadsheetId}.
  * There is no way to delete existing spreadsheets.
  */
-final class BasicSpreadsheetMetadataHateosHandlerContext implements SpreadsheetMetadataHateosHandlerContext,
+final class SpreadsheetMetadataHateosHandlerContextBasic implements SpreadsheetMetadataHateosHandlerContext,
     SpreadsheetServerContextDelegator {
 
     /**
-     * Creates a new empty {@link BasicSpreadsheetMetadataHateosHandlerContext}
+     * Creates a new empty {@link SpreadsheetMetadataHateosHandlerContextBasic}
      */
-    static BasicSpreadsheetMetadataHateosHandlerContext with(final SpreadsheetServerContext context) {
-        return new BasicSpreadsheetMetadataHateosHandlerContext(
+    static SpreadsheetMetadataHateosHandlerContextBasic with(final SpreadsheetServerContext context) {
+        return new SpreadsheetMetadataHateosHandlerContextBasic(
             Objects.requireNonNull(context, "context")
         );
     }
 
-    private BasicSpreadsheetMetadataHateosHandlerContext(final SpreadsheetServerContext context) {
+    private SpreadsheetMetadataHateosHandlerContextBasic(final SpreadsheetServerContext context) {
         super();
 
         this.context = context;
@@ -87,7 +87,7 @@ final class BasicSpreadsheetMetadataHateosHandlerContext implements SpreadsheetM
         );
     }
 
-    private BasicSpreadsheetMetadataHateosHandlerContext setSpreadsheetServerContext(final SpreadsheetServerContext context) {
+    private SpreadsheetMetadataHateosHandlerContextBasic setSpreadsheetServerContext(final SpreadsheetServerContext context) {
         return this.context.equals(context) ?
             this :
             with(context);

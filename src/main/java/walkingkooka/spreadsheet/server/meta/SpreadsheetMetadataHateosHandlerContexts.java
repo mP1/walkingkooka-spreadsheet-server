@@ -25,10 +25,10 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 public final class SpreadsheetMetadataHateosHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetMetadataHateosHandlerContext}
+     * {@see SpreadsheetMetadataHateosHandlerContextBasic}
      */
     public static SpreadsheetMetadataHateosHandlerContext basic(final SpreadsheetServerContext context) {
-        return BasicSpreadsheetMetadataHateosHandlerContext.with(context);
+        return SpreadsheetMetadataHateosHandlerContextBasic.with(context);
     }
 
     /**

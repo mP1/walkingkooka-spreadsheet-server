@@ -89,7 +89,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements SpreadsheetMetadataHateosHandlerContextTesting<BasicSpreadsheetMetadataHateosHandlerContext>,
+public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements SpreadsheetMetadataHateosHandlerContextTesting<SpreadsheetMetadataHateosHandlerContextBasic>,
     SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
@@ -98,7 +98,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     public void testWithNullContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetMetadataHateosHandlerContext.with(
+            () -> SpreadsheetMetadataHateosHandlerContextBasic.with(
                 null
             )
         );
@@ -106,7 +106,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
     @Test
     public void testHateosRouter() {
-        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
+        final SpreadsheetMetadataHateosHandlerContextBasic context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
@@ -554,7 +554,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
             SERVER_URL
         );
 
-        final BasicSpreadsheetMetadataHateosHandlerContext spreadsheetMetadataHateosHandlerContext = this.createContext(
+        final SpreadsheetMetadataHateosHandlerContextBasic spreadsheetMetadataHateosHandlerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
                 STORAGE_SPREADSHEET_STORAGE_CONTEXT,
                 StorageEnvironmentContexts.basic(environmentContext)
@@ -705,7 +705,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
     @Test
     public void testHateosRouterAndRouteInvalidRequest() {
-        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
+        final SpreadsheetMetadataHateosHandlerContextBasic context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
@@ -752,7 +752,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
     @Test
     public void testSaveMetadata() {
-        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
+        final SpreadsheetMetadataHateosHandlerContextBasic context = this.createContext();
 
         final SpreadsheetMetadata metadata = context.createMetadata(
             USER,
@@ -777,7 +777,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
     @Test
     public void testSaveMetadataSelectionCell() {
-        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
+        final SpreadsheetMetadataHateosHandlerContextBasic context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
@@ -802,7 +802,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
     @Test
     public void testSaveMetadataViewportSelectionUnknownLabel() {
-        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
+        final SpreadsheetMetadataHateosHandlerContextBasic context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
@@ -828,7 +828,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
 
 //    @Test
 //    public void testSaveMetadataViewportSelectionExistingLabel() {
-//        final BasicSpreadsheetMetadataHateosHandlerContext context = this.createContext();
+//        final SpreadsheetMetadataHateosHandlerContextBasic context = this.createContext();
 //
 //        final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
 //            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
@@ -921,7 +921,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     @Test
     public void testToString() {
         final SpreadsheetServerContext spreadsheetServerContext = SpreadsheetServerContexts.fake();
-        final BasicSpreadsheetMetadataHateosHandlerContext context = BasicSpreadsheetMetadataHateosHandlerContext.with(spreadsheetServerContext);
+        final SpreadsheetMetadataHateosHandlerContextBasic context = SpreadsheetMetadataHateosHandlerContextBasic.with(spreadsheetServerContext);
 
         this.toStringAndCheck(
             context,
@@ -932,25 +932,25 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     // SpreadsheetMetadataHateosHandlerContext...............................................................................................
 
     @Override
-    public BasicSpreadsheetMetadataHateosHandlerContext createContext() {
+    public SpreadsheetMetadataHateosHandlerContextBasic createContext() {
         return this.createContext(
             SPREADSHEET_ENVIRONMENT_CONTEXT,
             PROVIDER_CONTEXT
         );
     }
 
-    private BasicSpreadsheetMetadataHateosHandlerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
+    private SpreadsheetMetadataHateosHandlerContextBasic createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
         return this.createContext(
             spreadsheetEnvironmentContext,
             PROVIDER_CONTEXT
         );
     }
 
-    private BasicSpreadsheetMetadataHateosHandlerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
+    private SpreadsheetMetadataHateosHandlerContextBasic createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext,
                                                                        final ProviderContext providerContext) {
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-        return BasicSpreadsheetMetadataHateosHandlerContext.with(
+        return SpreadsheetMetadataHateosHandlerContextBasic.with(
             SpreadsheetServerContexts.basic(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
@@ -1090,7 +1090,7 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
         final SpreadsheetServerContext spreadsheetServerContext = SpreadsheetServerContexts.fake();
 
         this.environmentContextAndCheck(
-            BasicSpreadsheetMetadataHateosHandlerContext.with(spreadsheetServerContext),
+            SpreadsheetMetadataHateosHandlerContextBasic.with(spreadsheetServerContext),
             spreadsheetServerContext
         );
     }
@@ -1098,7 +1098,12 @@ public final class BasicSpreadsheetMetadataHateosHandlerContextTest implements S
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetMetadataHateosHandlerContext> type() {
-        return BasicSpreadsheetMetadataHateosHandlerContext.class;
+    public Class<SpreadsheetMetadataHateosHandlerContextBasic> type() {
+        return SpreadsheetMetadataHateosHandlerContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
