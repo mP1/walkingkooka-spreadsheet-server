@@ -59,6 +59,11 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
         return TestCurrencyHateosHandlerContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     final static class TestCurrencyHateosHandlerContext implements CurrencyHateosHandlerContext, CurrencyContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
 
