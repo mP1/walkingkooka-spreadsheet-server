@@ -24,6 +24,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.locale.FakeLocaleContext;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
@@ -38,7 +39,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTesting<LocaleHateosResourceSet, LocaleHateosResource>,
+public final class LocaleHateosResourceSetTest implements HateosResourceSetTesting2<LocaleHateosResourceSet, LocaleHateosResource, LocaleLanguageTag>,
+    ImmutableSortedSetTesting<LocaleHateosResourceSet, LocaleHateosResource>,
     TreePrintableTesting,
     JsonNodeMarshallerTesting<LocaleHateosResourceSet> {
 
@@ -105,6 +107,18 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
                 EN_NZ
             )
         );
+    }
+
+    @Test
+    @Override
+    public void testSetElementsSame() {
+        HateosResourceSetTesting2.super.testSetElementsSame();
+    }
+
+    @Test
+    @Override
+    public void testSetElementsNullFails() {
+        HateosResourceSetTesting2.super.testSetElementsNullFails();
     }
 
     // filter...........................................................................................................

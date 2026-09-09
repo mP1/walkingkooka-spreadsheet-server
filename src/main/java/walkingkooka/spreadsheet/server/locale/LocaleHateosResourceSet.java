@@ -24,6 +24,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.http.server.hateos.HateosResourceSet;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -46,7 +47,8 @@ import java.util.TreeSet;
  * An immutable {@link Set} containing unique {@link LocaleHateosResource locales}.
  */
 public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResource>
-    implements ImmutableSortedSetDefaults<LocaleHateosResourceSet, LocaleHateosResource>,
+    implements HateosResourceSet<LocaleHateosResource, LocaleLanguageTag>,
+    ImmutableSortedSetDefaults<LocaleHateosResourceSet, LocaleHateosResource>,
     TreePrintable {
 
     /**
