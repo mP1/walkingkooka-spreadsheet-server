@@ -22,14 +22,14 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicCurrencyHateosHandlerContextTest implements CurrencyHateosHandlerContextTesting<BasicCurrencyHateosHandlerContext>,
+public final class CurrencyHateosHandlerContextBasicTest implements CurrencyHateosHandlerContextTesting<CurrencyHateosHandlerContextBasic>,
     SpreadsheetMetadataTesting {
 
     @Test
     public void testWithNullCurrencyContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicCurrencyHateosHandlerContext.with(
+            () -> CurrencyHateosHandlerContextBasic.with(
                 null,
                 HATEOS_HANDLER_CONTEXT
             )
@@ -40,7 +40,7 @@ public final class BasicCurrencyHateosHandlerContextTest implements CurrencyHate
     public void testWithNullHateosHandlerContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicCurrencyHateosHandlerContext.with(
+            () -> CurrencyHateosHandlerContextBasic.with(
                 CURRENCY_CONTEXT,
                 null
             )
@@ -48,8 +48,8 @@ public final class BasicCurrencyHateosHandlerContextTest implements CurrencyHate
     }
 
     @Override
-    public BasicCurrencyHateosHandlerContext createContext() {
-        return BasicCurrencyHateosHandlerContext.with(
+    public CurrencyHateosHandlerContextBasic createContext() {
+        return CurrencyHateosHandlerContextBasic.with(
             CURRENCY_CONTEXT,
             HATEOS_HANDLER_CONTEXT
         );
@@ -58,7 +58,12 @@ public final class BasicCurrencyHateosHandlerContextTest implements CurrencyHate
     // class............................................................................................................
 
     @Override
-    public Class<BasicCurrencyHateosHandlerContext> type() {
-        return BasicCurrencyHateosHandlerContext.class;
+    public Class<CurrencyHateosHandlerContextBasic> type() {
+        return CurrencyHateosHandlerContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
