@@ -48,14 +48,8 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
      */
     public static final DateTimeSymbolsHateosResourceSet EMPTY = new DateTimeSymbolsHateosResourceSet(SortedSets.empty());
 
-    /**
-     * Factory that creates {@link DateTimeSymbolsHateosResourceSet} with the given resources.
-     */
-    public static DateTimeSymbolsHateosResourceSet with(final Collection<DateTimeSymbolsHateosResource> resources) {
-        return EMPTY.setElements(resources);
-    }
-
-    private static DateTimeSymbolsHateosResourceSet withCopy(final SortedSet<DateTimeSymbolsHateosResource> resources) {
+    // @VisibleForTesting
+    static DateTimeSymbolsHateosResourceSet withCopy(final SortedSet<DateTimeSymbolsHateosResource> resources) {
         return resources.isEmpty() ?
             EMPTY :
             new DateTimeSymbolsHateosResourceSet(resources);
@@ -167,12 +161,10 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
 
     static DateTimeSymbolsHateosResourceSet unmarshall(final JsonNode node,
                                                        final JsonNodeUnmarshallContext context) {
-        return with(
-            new TreeSet<>(
-                context.unmarshallSet(
-                    node,
-                    DateTimeSymbolsHateosResource.class
-                )
+        return EMPTY.setElements(
+            context.unmarshallSet(
+                node,
+                DateTimeSymbolsHateosResource.class
             )
         );
     }

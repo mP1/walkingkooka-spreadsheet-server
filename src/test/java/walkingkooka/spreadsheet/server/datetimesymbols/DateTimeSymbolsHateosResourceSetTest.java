@@ -31,7 +31,6 @@ import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSortedSetTesting<DateTimeSymbolsHateosResourceSet, DateTimeSymbolsHateosResource>,
     TreePrintableTesting,
@@ -46,14 +45,6 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
     );
 
     @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> DateTimeSymbolsHateosResourceSet.with(null)
-        );
-    }
-
-    @Test
     public void testDeleteBecomesEmpty() {
         assertSame(
             DateTimeSymbolsHateosResourceSet.EMPTY,
@@ -64,7 +55,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
 
     @Test
     public void testSetElementsWithDateTimeSymbolsHateosResourceSet() {
-        final DateTimeSymbolsHateosResourceSet set = DateTimeSymbolsHateosResourceSet.with(
+        final DateTimeSymbolsHateosResourceSet set = DateTimeSymbolsHateosResourceSet.withCopy(
             SortedSets.of(
                 DateTimeSymbolsHateosResource.fromLocale(Locale.US)
             )
@@ -101,7 +92,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
         sortedSet.add(EN_AU);
         sortedSet.add(EN_NZ);
 
-        return DateTimeSymbolsHateosResourceSet.with(
+        return DateTimeSymbolsHateosResourceSet.withCopy(
             SortedSets.of(
                 english,
                 EN_AU,
@@ -457,7 +448,7 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            DateTimeSymbolsHateosResourceSet.with(locales)
+            DateTimeSymbolsHateosResourceSet.withCopy(locales)
         );
     }
 
