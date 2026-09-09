@@ -48,14 +48,8 @@ public final class DecimalNumberSymbolsHateosResourceSet extends AbstractSet<Dec
      */
     public static final DecimalNumberSymbolsHateosResourceSet EMPTY = new DecimalNumberSymbolsHateosResourceSet(SortedSets.empty());
 
-    /**
-     * Factory that creates {@link DecimalNumberSymbolsHateosResourceSet} with the given resources.
-     */
-    public static DecimalNumberSymbolsHateosResourceSet with(final Collection<DecimalNumberSymbolsHateosResource> resources) {
-        return EMPTY.setElements(resources);
-    }
-
-    private static DecimalNumberSymbolsHateosResourceSet withCopy(final SortedSet<DecimalNumberSymbolsHateosResource> resources) {
+    // @VisibleForTesting
+    static DecimalNumberSymbolsHateosResourceSet withCopy(final SortedSet<DecimalNumberSymbolsHateosResource> resources) {
         return resources.isEmpty() ?
             EMPTY :
             new DecimalNumberSymbolsHateosResourceSet(resources);
@@ -167,12 +161,10 @@ public final class DecimalNumberSymbolsHateosResourceSet extends AbstractSet<Dec
 
     static DecimalNumberSymbolsHateosResourceSet unmarshall(final JsonNode node,
                                                             final JsonNodeUnmarshallContext context) {
-        return with(
-            new TreeSet<>(
-                context.unmarshallSet(
-                    node,
-                    DecimalNumberSymbolsHateosResource.class
-                )
+        return EMPTY.setElements(
+            context.unmarshallSet(
+                node,
+                DecimalNumberSymbolsHateosResource.class
             )
         );
     }

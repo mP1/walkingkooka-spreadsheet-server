@@ -31,7 +31,6 @@ import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DecimalNumberSymbolsHateosResourceSetTest implements ImmutableSortedSetTesting<DecimalNumberSymbolsHateosResourceSet, DecimalNumberSymbolsHateosResource>,
     TreePrintableTesting,
@@ -46,14 +45,6 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
     );
 
     @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> DecimalNumberSymbolsHateosResourceSet.with(null)
-        );
-    }
-
-    @Test
     public void testDeleteBecomesEmpty() {
         assertSame(
             DecimalNumberSymbolsHateosResourceSet.EMPTY,
@@ -64,7 +55,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
 
     @Test
     public void testSetElementsWithDecimalNumberSymbolsHateosResourceSet() {
-        final DecimalNumberSymbolsHateosResourceSet set = DecimalNumberSymbolsHateosResourceSet.with(
+        final DecimalNumberSymbolsHateosResourceSet set = DecimalNumberSymbolsHateosResourceSet.withCopy(
             SortedSets.of(
                 DecimalNumberSymbolsHateosResource.fromLocale(Locale.US)
             )
@@ -101,7 +92,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
         sortedSet.add(EN_AU);
         sortedSet.add(EN_NZ);
 
-        return DecimalNumberSymbolsHateosResourceSet.with(
+        return DecimalNumberSymbolsHateosResourceSet.withCopy(
             SortedSets.of(
                 english,
                 EN_AU,
@@ -345,7 +336,7 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            DecimalNumberSymbolsHateosResourceSet.with(locales)
+            DecimalNumberSymbolsHateosResourceSet.withCopy(locales)
         );
     }
 
