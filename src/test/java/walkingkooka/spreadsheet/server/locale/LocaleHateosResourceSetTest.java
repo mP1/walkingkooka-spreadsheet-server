@@ -37,7 +37,6 @@ import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTesting<LocaleHateosResourceSet, LocaleHateosResource>,
     TreePrintableTesting,
@@ -52,14 +51,6 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
     );
 
     @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> LocaleHateosResourceSet.with(null)
-        );
-    }
-
-    @Test
     public void testDeleteBecomesEmpty() {
         assertSame(
             LocaleHateosResourceSet.EMPTY,
@@ -70,7 +61,7 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
 
     @Test
     public void testSetElementsWithLocaleHateosResourceSet() {
-        final LocaleHateosResourceSet set = LocaleHateosResourceSet.with(
+        final LocaleHateosResourceSet set = LocaleHateosResourceSet.withCopy(
             SortedSets.of(
                 LocaleHateosResource.fromLocale(
                     Locale.US
@@ -107,7 +98,7 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
         sortedSet.add(EN_AU);
         sortedSet.add(EN_NZ);
 
-        return LocaleHateosResourceSet.with(
+        return LocaleHateosResourceSet.withCopy(
             SortedSets.of(
                 LocaleHateosResource.fromLocale(Locale.ENGLISH),
                 EN_AU,
@@ -286,7 +277,7 @@ public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTest
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            LocaleHateosResourceSet.with(locales)
+            LocaleHateosResourceSet.withCopy(locales)
         );
     }
 

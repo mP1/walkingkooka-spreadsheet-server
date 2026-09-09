@@ -100,7 +100,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             .forEach(all::add);
 
         return Optional.of(
-            LocaleHateosResourceSet.with(all)
+            LocaleHateosResourceSet.EMPTY.setElements(all)
         );
     }
 
@@ -117,7 +117,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            LocaleHateosResourceSet.with(
+            LocaleHateosResourceSet.EMPTY.setElements(
                 context.availableLocales()
                     .stream()
                     .filter((Locale l) -> ids.contains(
