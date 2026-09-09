@@ -29,19 +29,19 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-final class BasicLocaleHateosHandlerContext implements LocaleHateosHandlerContext,
+final class LocaleHateosHandlerContextBasic implements LocaleHateosHandlerContext,
     LocaleContextDelegator,
     HateosHandlerContextDelegator {
 
-    static BasicLocaleHateosHandlerContext with(final LocaleContext localeContext,
+    static LocaleHateosHandlerContextBasic with(final LocaleContext localeContext,
                                                 final HateosHandlerContext hateosHandlerContext) {
-        return new BasicLocaleHateosHandlerContext(
+        return new LocaleHateosHandlerContextBasic(
             Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext")
         );
     }
 
-    private BasicLocaleHateosHandlerContext(final LocaleContext localeContext,
+    private LocaleHateosHandlerContextBasic(final LocaleContext localeContext,
                                             final HateosHandlerContext hateosHandlerContext) {
         super();
 
