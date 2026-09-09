@@ -97,7 +97,7 @@ final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler implements Get
                     DecimalNumberSymbolsHateosResourceSet.class.getSimpleName()
                 ).setBodyText(
                     context.marshall(
-                        DecimalNumberSymbolsHateosResourceSet.with(all)
+                        DecimalNumberSymbolsHateosResourceSet.EMPTY.setElements(all)
                     ).multiLineText(context)
                         .text()
                 ).setContentLength()
