@@ -34,21 +34,21 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Objects;
 
-final class BasicSpreadsheetProviderHateosHandlerContext implements SpreadsheetProviderHateosHandlerContext,
+final class SpreadsheetProviderHateosHandlerContextBasic implements SpreadsheetProviderHateosHandlerContext,
     ProviderContextDelegator,
     HateosHandlerContextDelegator {
 
-    static BasicSpreadsheetProviderHateosHandlerContext with(final SpreadsheetProvider spreadsheetProvider,
+    static SpreadsheetProviderHateosHandlerContextBasic with(final SpreadsheetProvider spreadsheetProvider,
                                                              final ProviderContext providerContext,
                                                              final HateosHandlerContext hateosHandlerContext) {
-        return new BasicSpreadsheetProviderHateosHandlerContext(
+        return new SpreadsheetProviderHateosHandlerContextBasic(
             Objects.requireNonNull(spreadsheetProvider, "spreadsheetProvider"),
             Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext")
         );
     }
 
-    private BasicSpreadsheetProviderHateosHandlerContext(final SpreadsheetProvider spreadsheetProvider,
+    private SpreadsheetProviderHateosHandlerContextBasic(final SpreadsheetProvider spreadsheetProvider,
                                                          final ProviderContext providerContext,
                                                          final HateosHandlerContext hateosHandlerContext) {
         super();
@@ -150,10 +150,10 @@ final class BasicSpreadsheetProviderHateosHandlerContext implements SpreadsheetP
         );
     }
 
-    private BasicSpreadsheetProviderHateosHandlerContext setHateosHandlerContext(final HateosHandlerContext context) {
+    private SpreadsheetProviderHateosHandlerContextBasic setHateosHandlerContext(final HateosHandlerContext context) {
         return this.hateosHandlerContext.equals(context) ?
             this :
-            new BasicSpreadsheetProviderHateosHandlerContext(
+            new SpreadsheetProviderHateosHandlerContextBasic(
                 this.spreadsheetProvider,
                 this.providerContext,
                 context
