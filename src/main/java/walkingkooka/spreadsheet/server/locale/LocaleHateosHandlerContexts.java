@@ -24,11 +24,11 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class LocaleHateosHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicLocaleHateosHandlerContext}
+     * {@see LocaleHateosHandlerContextBasic}
      */
     public static LocaleHateosHandlerContext basic(final LocaleContext localeContext,
                                                    final HateosHandlerContext hateosHandlerContext) {
-        return BasicLocaleHateosHandlerContext.with(
+        return LocaleHateosHandlerContextBasic.with(
             localeContext,
             hateosHandlerContext
         );

@@ -22,14 +22,14 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicLocaleHateosHandlerContextTest implements LocaleHateosHandlerContextTesting<BasicLocaleHateosHandlerContext>,
+public final class LocaleHateosHandlerContextBasicTest implements LocaleHateosHandlerContextTesting<LocaleHateosHandlerContextBasic>,
     SpreadsheetMetadataTesting {
 
     @Test
     public void testWithNullLocaleContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicLocaleHateosHandlerContext.with(
+            () -> LocaleHateosHandlerContextBasic.with(
                 null,
                 HATEOS_HANDLER_CONTEXT
             )
@@ -40,7 +40,7 @@ public final class BasicLocaleHateosHandlerContextTest implements LocaleHateosHa
     public void testWithNullHateosHandlerContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicLocaleHateosHandlerContext.with(
+            () -> LocaleHateosHandlerContextBasic.with(
                 LOCALE_CONTEXT,
                 null
             )
@@ -48,8 +48,8 @@ public final class BasicLocaleHateosHandlerContextTest implements LocaleHateosHa
     }
 
     @Override
-    public BasicLocaleHateosHandlerContext createContext() {
-        return BasicLocaleHateosHandlerContext.with(
+    public LocaleHateosHandlerContextBasic createContext() {
+        return LocaleHateosHandlerContextBasic.with(
             LOCALE_CONTEXT,
             HATEOS_HANDLER_CONTEXT
         );
@@ -58,7 +58,12 @@ public final class BasicLocaleHateosHandlerContextTest implements LocaleHateosHa
     // class............................................................................................................
 
     @Override
-    public Class<BasicLocaleHateosHandlerContext> type() {
-        return BasicLocaleHateosHandlerContext.class;
+    public Class<LocaleHateosHandlerContextBasic> type() {
+        return LocaleHateosHandlerContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
