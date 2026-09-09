@@ -40,8 +40,8 @@ import java.util.TreeSet;
 /**
  * A read only {@link Set} of {@link SpreadsheetMetadata} sorted by {@link walkingkooka.spreadsheet.meta.SpreadsheetId}.
  */
-public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadata>
-    implements ImmutableSortedSetDefaults<SpreadsheetMetadataSet, SpreadsheetMetadata> {
+public final class SpreadsheetMetadataHateosResourceSet extends AbstractSet<SpreadsheetMetadata>
+    implements ImmutableSortedSetDefaults<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata> {
 
     /**
      * Comparator that uses the {@link SpreadsheetMetadata#id()}, also supporting those without a {@link SpreadsheetId}.
@@ -56,21 +56,21 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
             .orElse("");
     }
 
-    public final static SpreadsheetMetadataSet EMPTY = new SpreadsheetMetadataSet(
+    public final static SpreadsheetMetadataHateosResourceSet EMPTY = new SpreadsheetMetadataHateosResourceSet(
         SortedSets.tree(COMPARATOR)
     );
 
     /**
-     * Factory that creates a {@link SpreadsheetMetadataSet} with the provided {@link SpreadsheetMetadata}.
+     * Factory that creates a {@link SpreadsheetMetadataHateosResourceSet} with the provided {@link SpreadsheetMetadata}.
      */
     // @VisibleForTesting
-    static SpreadsheetMetadataSet withCopy(final SortedSet<SpreadsheetMetadata> metadatas) {
+    static SpreadsheetMetadataHateosResourceSet withCopy(final SortedSet<SpreadsheetMetadata> metadatas) {
         return metadatas.isEmpty() ?
             EMPTY :
-            new SpreadsheetMetadataSet(metadatas);
+            new SpreadsheetMetadataHateosResourceSet(metadatas);
     }
 
-    private SpreadsheetMetadataSet(final SortedSet<SpreadsheetMetadata> metadatas) {
+    private SpreadsheetMetadataHateosResourceSet(final SortedSet<SpreadsheetMetadata> metadatas) {
         super();
 
         this.metadatas = metadatas;
@@ -96,8 +96,8 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     }
 
     @Override
-    public SpreadsheetMetadataSet subSet(final SpreadsheetMetadata from,
-                                         final SpreadsheetMetadata to) {
+    public SpreadsheetMetadataHateosResourceSet subSet(final SpreadsheetMetadata from,
+                                                       final SpreadsheetMetadata to) {
         return withCopy(
             this.metadatas.subSet(
                 from,
@@ -107,14 +107,14 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     }
 
     @Override
-    public SpreadsheetMetadataSet headSet(final SpreadsheetMetadata metadata) {
+    public SpreadsheetMetadataHateosResourceSet headSet(final SpreadsheetMetadata metadata) {
         return withCopy(
             this.metadatas.headSet(metadata)
         );
     }
 
     @Override
-    public SpreadsheetMetadataSet tailSet(final SpreadsheetMetadata metadata) {
+    public SpreadsheetMetadataHateosResourceSet tailSet(final SpreadsheetMetadata metadata) {
         return withCopy(
             this.metadatas.tailSet(metadata)
         );
@@ -136,22 +136,22 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     }
 
     @Override
-    public SpreadsheetMetadataSet setElements(final Collection<SpreadsheetMetadata> metadatas) {
-        final SpreadsheetMetadataSet spreadsheetMetadataSet;
+    public SpreadsheetMetadataHateosResourceSet setElements(final Collection<SpreadsheetMetadata> metadatas) {
+        final SpreadsheetMetadataHateosResourceSet spreadsheetMetadataHateosResourceSet;
 
-        if (metadatas instanceof SpreadsheetMetadataSet) {
-            spreadsheetMetadataSet = (SpreadsheetMetadataSet) metadatas;
+        if (metadatas instanceof SpreadsheetMetadataHateosResourceSet) {
+            spreadsheetMetadataHateosResourceSet = (SpreadsheetMetadataHateosResourceSet) metadatas;
         } else {
             final TreeSet<SpreadsheetMetadata> copy = new TreeSet<>(COMPARATOR);
             copy.addAll(
                 Objects.requireNonNull(metadatas, "metadatas")
             );
-            spreadsheetMetadataSet = this.metadatas.equals(copy) ?
+            spreadsheetMetadataHateosResourceSet = this.metadatas.equals(copy) ?
                 this :
                 withCopy(copy);
         }
 
-        return spreadsheetMetadataSet;
+        return spreadsheetMetadataHateosResourceSet;
     }
 
     private final SortedSet<SpreadsheetMetadata> metadatas;
@@ -165,10 +165,10 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
 
     static {
         JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(SpreadsheetMetadataSet.class),
-            SpreadsheetMetadataSet::unmarshall,
-            SpreadsheetMetadataSet::marshall,
-            SpreadsheetMetadataSet.class
+            JsonNodeContext.computeTypeName(SpreadsheetMetadataHateosResourceSet.class),
+            SpreadsheetMetadataHateosResourceSet::unmarshall,
+            SpreadsheetMetadataHateosResourceSet::marshall,
+            SpreadsheetMetadataHateosResourceSet.class
         );
     }
 
@@ -177,8 +177,8 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     }
 
     // @VisibleForTesting
-    static SpreadsheetMetadataSet unmarshall(final JsonNode node,
-                                             final JsonNodeUnmarshallContext context) {
+    static SpreadsheetMetadataHateosResourceSet unmarshall(final JsonNode node,
+                                                           final JsonNodeUnmarshallContext context) {
         return EMPTY.setElements(
             context.unmarshallSet(
                 node,

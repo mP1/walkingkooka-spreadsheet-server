@@ -132,7 +132,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 }
             },
             Optional.of(
-                SpreadsheetMetadataSet.EMPTY.setElements(
+                SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(
                     Lists.of(
                         metadata1,
                         metadata2
@@ -175,7 +175,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 }
             },
             Optional.of(
-                SpreadsheetMetadataSet.EMPTY.setElements(
+                SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(
                     Lists.of(
                         metadata1,
                         metadata2
@@ -220,7 +220,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 }
             },
             Optional.of(
-                SpreadsheetMetadataSet.EMPTY.setElements(
+                SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(
                     Lists.of(
                         metadata2,
                         metadata3
@@ -241,7 +241,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata2);
         store.save(metadata3);
 
-        final SpreadsheetMetadataSet all = SpreadsheetMetadataSet.EMPTY.setElements(
+        final SpreadsheetMetadataHateosResourceSet all = SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(
             Lists.of(
                 metadata1,
                 metadata3

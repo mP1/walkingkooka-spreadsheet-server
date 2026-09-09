@@ -33,20 +33,20 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.SortedSet;
 
-public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesting<SpreadsheetMetadataSet, SpreadsheetMetadata>,
-    JsonNodeMarshallerTesting<SpreadsheetMetadataSet>,
+public final class SpreadsheetMetadataHateosResourceSetTest implements ImmutableSortedSetTesting<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata>,
+    JsonNodeMarshallerTesting<SpreadsheetMetadataHateosResourceSet>,
     SpreadsheetMetadataTesting,
-    PublicClassTesting<SpreadsheetMetadataSet> {
+    PublicClassTesting<SpreadsheetMetadataHateosResourceSet> {
 
     // Set..............................................................................................................
 
     @Override
-    public SpreadsheetMetadataSet createSet() {
-        final SortedSet<SpreadsheetMetadata> sortedSet = SortedSets.tree(SpreadsheetMetadataSet.COMPARATOR);
+    public SpreadsheetMetadataHateosResourceSet createSet() {
+        final SortedSet<SpreadsheetMetadata> sortedSet = SortedSets.tree(SpreadsheetMetadataHateosResourceSet.COMPARATOR);
 
         sortedSet.add(SpreadsheetMetadataTesting.METADATA_EN_AU);
 
-        return SpreadsheetMetadataSet.withCopy(sortedSet);
+        return SpreadsheetMetadataHateosResourceSet.withCopy(sortedSet);
     }
 
     // json.............................................................................................................
@@ -54,7 +54,7 @@ public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesti
     @Test
     public void testMarshallEmpty() {
         this.marshallAndCheck(
-            SpreadsheetMetadataSet.withCopy(
+            SpreadsheetMetadataHateosResourceSet.withCopy(
                 SortedSets.empty()
             ),
             JsonNode.array()
@@ -63,7 +63,7 @@ public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesti
 
     @Test
     public void testMarshallNotEmpty() {
-        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.EMPTY.concat(
+        final SpreadsheetMetadataHateosResourceSet set = SpreadsheetMetadataHateosResourceSet.EMPTY.concat(
             SpreadsheetMetadata.EMPTY
         );
 
@@ -78,7 +78,7 @@ public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesti
 
     @Test
     public void testMarshallNotEmpty2() {
-        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.EMPTY.concat(
+        final SpreadsheetMetadataHateosResourceSet set = SpreadsheetMetadataHateosResourceSet.EMPTY.concat(
             SpreadsheetMetadata.EMPTY.set(
                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                 SpreadsheetId.with(1)
@@ -98,17 +98,17 @@ public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesti
     // json............................................................................................................
 
     @Override
-    public SpreadsheetMetadataSet unmarshall(final JsonNode node,
-                                             final JsonNodeUnmarshallContext context) {
-        return SpreadsheetMetadataSet.unmarshall(
+    public SpreadsheetMetadataHateosResourceSet unmarshall(final JsonNode node,
+                                                           final JsonNodeUnmarshallContext context) {
+        return SpreadsheetMetadataHateosResourceSet.unmarshall(
             node,
             context
         );
     }
 
     @Override
-    public SpreadsheetMetadataSet createJsonNodeMarshallingValue() {
-        return SpreadsheetMetadataSet.EMPTY.setElements(
+    public SpreadsheetMetadataHateosResourceSet createJsonNodeMarshallingValue() {
+        return SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(
             Sets.of(
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
@@ -125,8 +125,8 @@ public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesti
     // Class............................................................................................................
 
     @Override
-    public Class<SpreadsheetMetadataSet> type() {
-        return SpreadsheetMetadataSet.class;
+    public Class<SpreadsheetMetadataHateosResourceSet> type() {
+        return SpreadsheetMetadataHateosResourceSet.class;
     }
 
     @Override
