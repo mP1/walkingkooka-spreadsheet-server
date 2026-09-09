@@ -151,9 +151,15 @@ public final class DecimalNumberSymbolsHateosResourceSet extends AbstractSet<Dec
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        for (final DecimalNumberSymbolsHateosResource resource : this) {
-            resource.printTree(printer);
+        printer.println(this.getClass().getSimpleName());
+
+        printer.indent();
+        {
+            for (final DecimalNumberSymbolsHateosResource resource : this) {
+                resource.printTree(printer);
+            }
         }
+        printer.outdent();
     }
 
     // Json.............................................................................................................
