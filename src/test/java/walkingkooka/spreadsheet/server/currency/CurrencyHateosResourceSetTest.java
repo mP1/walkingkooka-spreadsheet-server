@@ -36,7 +36,6 @@ import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTesting<CurrencyHateosResourceSet, CurrencyHateosResource>,
     TreePrintableTesting,
@@ -51,14 +50,6 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
     );
 
     @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> CurrencyHateosResourceSet.with(null)
-        );
-    }
-
-    @Test
     public void testDeleteBecomesEmpty() {
         assertSame(
             CurrencyHateosResourceSet.EMPTY,
@@ -69,7 +60,7 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
 
     @Test
     public void testSetElementsWithCurrencyHateosResourceSet() {
-        final CurrencyHateosResourceSet set = CurrencyHateosResourceSet.with(
+        final CurrencyHateosResourceSet set = CurrencyHateosResourceSet.EMPTY.setElements(
             SortedSets.of(
                 CurrencyHateosResource.fromCurrency(
                     Currency.getInstance("USD")
@@ -103,7 +94,7 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
         sortedSet.add(AUD);
         sortedSet.add(NZD);
 
-        return CurrencyHateosResourceSet.with(
+        return CurrencyHateosResourceSet.withCopy(
             SortedSets.of(
                 AUD,
                 NZD
@@ -273,7 +264,7 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            CurrencyHateosResourceSet.with(currencies)
+            CurrencyHateosResourceSet.withCopy(currencies)
         );
     }
 

@@ -99,7 +99,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
             .forEach(all::add);
 
         return Optional.of(
-            CurrencyHateosResourceSet.with(all)
+            CurrencyHateosResourceSet.EMPTY.setElements(all)
         );
     }
 
@@ -116,7 +116,7 @@ final class CurrencyHateosResourceHandlerLoad implements HateosResourceHandler<C
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            CurrencyHateosResourceSet.with(
+            CurrencyHateosResourceSet.EMPTY.setElements(
                 context.availableCurrencies()
                     .stream()
                     .filter(ids::contains)
