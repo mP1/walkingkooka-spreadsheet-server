@@ -433,8 +433,8 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
 
     @Test
     public void testMarshallUnmarshallAllAvailableDateTimeSymbolsHateosResources() {
-        final SortedSet<DateTimeSymbolsHateosResource> locales = SortedSets.tree();
-        locales.addAll(
+        final SortedSet<DateTimeSymbolsHateosResource> set = SortedSets.tree();
+        set.addAll(
             Arrays.stream(
                     Locale.getAvailableLocales()
                 ).filter(l -> false == l.getDisplayName().isEmpty())
@@ -444,11 +444,11 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
 
         this.checkNotEquals(
             SortedSets.empty(),
-            locales
+            set
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            DateTimeSymbolsHateosResourceSet.withCopy(locales)
+            DateTimeSymbolsHateosResourceSet.withCopy(set)
         );
     }
 
