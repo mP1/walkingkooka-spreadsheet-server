@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.datetimesymbols;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.set.ImmutableSortedSetDefaults;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.http.server.hateos.HateosResourceSet;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
@@ -40,7 +42,8 @@ import java.util.TreeSet;
  * An immutable {@link Set} containing unique {@link DateTimeSymbolsHateosResource resources}.
  */
 public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTimeSymbolsHateosResource>
-    implements ImmutableSortedSetDefaults<DateTimeSymbolsHateosResourceSet, DateTimeSymbolsHateosResource>,
+    implements HateosResourceSet<DateTimeSymbolsHateosResource, LocaleLanguageTag>,
+    ImmutableSortedSetDefaults<DateTimeSymbolsHateosResourceSet, DateTimeSymbolsHateosResource>,
     TreePrintable {
 
     /**
