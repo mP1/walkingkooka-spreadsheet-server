@@ -44,7 +44,7 @@ import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class BasicSpreadsheetFormatterSelectorEditContextTest implements SpreadsheetFormatterSelectorEditContextTesting<BasicSpreadsheetFormatterSelectorEditContext>,
+public final class SpreadsheetFormatterSelectorEditContextBasicTest implements SpreadsheetFormatterSelectorEditContextTesting<SpreadsheetFormatterSelectorEditContextBasic>,
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
@@ -76,8 +76,8 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     }
 
     @Override
-    public BasicSpreadsheetFormatterSelectorEditContext createContext() {
-        return BasicSpreadsheetFormatterSelectorEditContext.with(
+    public SpreadsheetFormatterSelectorEditContextBasic createContext() {
+        return SpreadsheetFormatterSelectorEditContextBasic.with(
             this.spreadsheetFormatterContext(),
             SpreadsheetFormatterProviders.spreadsheetFormatters(),
             ProviderContexts.fake()
@@ -146,12 +146,17 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetFormatterSelectorEditContext> type() {
-        return BasicSpreadsheetFormatterSelectorEditContext.class;
+    public Class<SpreadsheetFormatterSelectorEditContextBasic> type() {
+        return SpreadsheetFormatterSelectorEditContextBasic.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
