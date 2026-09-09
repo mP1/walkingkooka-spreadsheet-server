@@ -222,12 +222,13 @@ public final class LocaleHateosResourceSetTest implements HateosResourceSetTesti
     public void testTreePrint() {
         this.treePrintAndCheck(
             this.createSet(),
-            "en\n" +
-                "  English\n" +
-                "en-AU\n" +
-                "  English (Australia)\n" +
-                "en-NZ\n" +
-                "  English (New Zealand)\n"
+            "LocaleHateosResourceSet\n" +
+                "  en\n" +
+                "    English\n" +
+                "  en-AU\n" +
+                "    English (Australia)\n" +
+                "  en-NZ\n" +
+                "    English (New Zealand)\n"
         );
     }
 
