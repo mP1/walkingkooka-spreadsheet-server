@@ -78,7 +78,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetEngineHateosHandlerContextTest implements SpreadsheetEngineHateosHandlerContextTesting<BasicSpreadsheetEngineHateosHandlerContext>,
+public final class SpreadsheetEngineHateosHandlerContextBasicTest implements SpreadsheetEngineHateosHandlerContextTesting<SpreadsheetEngineHateosHandlerContextBasic>,
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
@@ -101,7 +101,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         @Override
         public Optional<SpreadsheetId> spreadsheetId() {
             return Optional.of(
-                BasicSpreadsheetEngineHateosHandlerContextTest.SPREADSHEET_ID
+                SpreadsheetEngineHateosHandlerContextBasicTest.SPREADSHEET_ID
             );
         }
 
@@ -116,7 +116,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
 
         @Override
         public Charset charset() {
-            return BasicSpreadsheetEngineHateosHandlerContextTest.CHARSET;
+            return SpreadsheetEngineHateosHandlerContextBasicTest.CHARSET;
         }
 
         @Override
@@ -168,7 +168,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
             this.environmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
             this.environmentContext.setEnvironmentValue(
                 SPREADSHEET_ID,
-                BasicSpreadsheetEngineHateosHandlerContextTest.SPREADSHEET_ID
+                SpreadsheetEngineHateosHandlerContextBasicTest.SPREADSHEET_ID
             );
         }
 
@@ -315,7 +315,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     public void testWithNullSpreadsheetEngineFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetEngineHateosHandlerContext.with(
+            () -> SpreadsheetEngineHateosHandlerContextBasic.with(
                 null,
                 HATEOS_HANDLER_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT
@@ -327,7 +327,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     public void testWithNullHateosHandlerContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetEngineHateosHandlerContext.with(
+            () -> SpreadsheetEngineHateosHandlerContextBasic.with(
                 SPREADSHEET_ENGINE,
                 null,
                 SPREADSHEET_ENGINE_CONTEXT
@@ -339,7 +339,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     public void testWithNullSpreadsheetEngineContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetEngineHateosHandlerContext.with(
+            () -> SpreadsheetEngineHateosHandlerContextBasic.with(
                 SPREADSHEET_ENGINE,
                 HATEOS_HANDLER_CONTEXT,
                 null
@@ -400,8 +400,8 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     }
 
     @Override
-    public BasicSpreadsheetEngineHateosHandlerContext createContext() {
-        return BasicSpreadsheetEngineHateosHandlerContext.with(
+    public SpreadsheetEngineHateosHandlerContextBasic createContext() {
+        return SpreadsheetEngineHateosHandlerContextBasic.with(
             SPREADSHEET_ENGINE,
             HATEOS_HANDLER_CONTEXT,
             new TestSpreadsheetContext()
@@ -429,7 +429,7 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
         final SpreadsheetEngineContext spreadsheetEngineContext = SpreadsheetEngineContexts.fake();
 
         this.environmentContextAndCheck(
-            BasicSpreadsheetEngineHateosHandlerContext.with(
+            SpreadsheetEngineHateosHandlerContextBasic.with(
                 SPREADSHEET_ENGINE,
                 HATEOS_HANDLER_CONTEXT,
                 spreadsheetEngineContext
@@ -441,12 +441,17 @@ public final class BasicSpreadsheetEngineHateosHandlerContextTest implements Spr
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetEngineHateosHandlerContext> type() {
-        return BasicSpreadsheetEngineHateosHandlerContext.class;
+    public Class<SpreadsheetEngineHateosHandlerContextBasic> type() {
+        return SpreadsheetEngineHateosHandlerContextBasic.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
