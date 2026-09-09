@@ -38,7 +38,7 @@ import java.util.function.Function;
 public final class SpreadsheetServerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetServerContext}
+     * {@see SpreadsheetServerContextBasic}
      */
     public static SpreadsheetServerContext basic(final MediaTypeDetector mediaTypeDetector,
                                                  final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
@@ -51,7 +51,7 @@ public final class SpreadsheetServerContexts implements PublicStaticHelper {
                                                  final HateosHandlerContext hateosHandlerContext,
                                                  final ProviderContext providerContext,
                                                  final TerminalServerContext terminalServerContext) {
-        return BasicSpreadsheetServerContext.with(
+        return SpreadsheetServerContextBasic.with(
             mediaTypeDetector,
             multiplier,
             spreadsheetEngine,
