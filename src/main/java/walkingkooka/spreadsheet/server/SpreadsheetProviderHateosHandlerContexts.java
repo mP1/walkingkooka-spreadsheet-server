@@ -25,12 +25,12 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 public final class SpreadsheetProviderHateosHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetProviderHateosHandlerContext}
+     * {@see SpreadsheetProviderHateosHandlerContextBasic}
      */
     public static SpreadsheetProviderHateosHandlerContext basic(final SpreadsheetProvider spreadsheetProvider,
                                                                 final ProviderContext providerContext,
                                                                 final HateosHandlerContext hateosHandlerContext) {
-        return BasicSpreadsheetProviderHateosHandlerContext.with(
+        return SpreadsheetProviderHateosHandlerContextBasic.with(
             spreadsheetProvider,
             providerContext,
             hateosHandlerContext

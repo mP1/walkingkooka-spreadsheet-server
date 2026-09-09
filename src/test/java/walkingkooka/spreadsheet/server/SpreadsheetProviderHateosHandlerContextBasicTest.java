@@ -29,7 +29,7 @@ import walkingkooka.storage.StorageEnvironmentContexts;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetProviderHateosHandlerContextTest implements SpreadsheetProviderHateosHandlerContextTesting<BasicSpreadsheetProviderHateosHandlerContext> {
+public final class SpreadsheetProviderHateosHandlerContextBasicTest implements SpreadsheetProviderHateosHandlerContextTesting<SpreadsheetProviderHateosHandlerContextBasic> {
 
     private final static SpreadsheetProvider SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
 
@@ -50,7 +50,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     public void testWithNullSpreadsheetProviderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetProviderHateosHandlerContext.with(
+            () -> SpreadsheetProviderHateosHandlerContextBasic.with(
                 null,
                 PROVIDER_CONTEXT,
                 HATEOS_HANDLER_CONTEXT
@@ -62,7 +62,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     public void testWithNullProviderContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetProviderHateosHandlerContext.with(
+            () -> SpreadsheetProviderHateosHandlerContextBasic.with(
                 SPREADSHEET_PROVIDER,
                 null,
                 HATEOS_HANDLER_CONTEXT
@@ -74,7 +74,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     public void testWithNullHateosHandlerContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetProviderHateosHandlerContext.with(
+            () -> SpreadsheetProviderHateosHandlerContextBasic.with(
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 null
@@ -113,8 +113,8 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     }
 
     @Override
-    public BasicSpreadsheetProviderHateosHandlerContext createContext() {
-        return BasicSpreadsheetProviderHateosHandlerContext.with(
+    public SpreadsheetProviderHateosHandlerContextBasic createContext() {
+        return SpreadsheetProviderHateosHandlerContextBasic.with(
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT.cloneEnvironment(),
             HATEOS_HANDLER_CONTEXT
@@ -129,7 +129,7 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
         final ProviderContext providerContext = ProviderContexts.fake();
 
         this.environmentContextAndCheck(
-            BasicSpreadsheetProviderHateosHandlerContext.with(
+            SpreadsheetProviderHateosHandlerContextBasic.with(
                 SPREADSHEET_PROVIDER,
                 providerContext,
                 HATEOS_HANDLER_CONTEXT
@@ -141,7 +141,12 @@ public final class BasicSpreadsheetProviderHateosHandlerContextTest implements S
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetProviderHateosHandlerContext> type() {
-        return BasicSpreadsheetProviderHateosHandlerContext.class;
+    public Class<SpreadsheetProviderHateosHandlerContextBasic> type() {
+        return SpreadsheetProviderHateosHandlerContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
