@@ -24,11 +24,11 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class CurrencyHateosHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicCurrencyHateosHandlerContext}
+     * {@see CurrencyHateosHandlerContextBasic}
      */
     public static CurrencyHateosHandlerContext basic(final CurrencyContext currencyContext,
                                                      final HateosHandlerContext hateosHandlerContext) {
-        return BasicCurrencyHateosHandlerContext.with(
+        return CurrencyHateosHandlerContextBasic.with(
             currencyContext,
             hateosHandlerContext
         );

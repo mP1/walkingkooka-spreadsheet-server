@@ -29,19 +29,19 @@ import java.util.Currency;
 import java.util.Objects;
 import java.util.Optional;
 
-final class BasicCurrencyHateosHandlerContext implements CurrencyHateosHandlerContext,
+final class CurrencyHateosHandlerContextBasic implements CurrencyHateosHandlerContext,
     CurrencyContextDelegator,
     HateosHandlerContextDelegator {
 
-    static BasicCurrencyHateosHandlerContext with(final CurrencyContext currencyContext,
+    static CurrencyHateosHandlerContextBasic with(final CurrencyContext currencyContext,
                                                   final HateosHandlerContext hateosHandlerContext) {
-        return new BasicCurrencyHateosHandlerContext(
+        return new CurrencyHateosHandlerContextBasic(
             Objects.requireNonNull(currencyContext, "currencyContext"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext")
         );
     }
 
-    private BasicCurrencyHateosHandlerContext(final CurrencyContext currencyContext,
+    private CurrencyHateosHandlerContextBasic(final CurrencyContext currencyContext,
                                               final HateosHandlerContext hateosHandlerContext) {
         super();
 
