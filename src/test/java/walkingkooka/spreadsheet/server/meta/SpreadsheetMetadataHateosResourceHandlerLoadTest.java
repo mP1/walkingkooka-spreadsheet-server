@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.UrlParameterName;
@@ -133,8 +132,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 }
             },
             Optional.of(
-                SpreadsheetMetadataSet.with(
-                    Sets.of(
+                SpreadsheetMetadataSet.EMPTY.setElements(
+                    Lists.of(
                         metadata1,
                         metadata2
                     )
@@ -176,8 +175,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 }
             },
             Optional.of(
-                SpreadsheetMetadataSet.with(
-                    Sets.of(
+                SpreadsheetMetadataSet.EMPTY.setElements(
+                    Lists.of(
                         metadata1,
                         metadata2
                     )
@@ -221,8 +220,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 }
             },
             Optional.of(
-                SpreadsheetMetadataSet.with(
-                    Sets.of(
+                SpreadsheetMetadataSet.EMPTY.setElements(
+                    Lists.of(
                         metadata2,
                         metadata3
                     )
@@ -242,8 +241,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata2);
         store.save(metadata3);
 
-        final SpreadsheetMetadataSet all = SpreadsheetMetadataSet.with(
-            Sets.of(
+        final SpreadsheetMetadataSet all = SpreadsheetMetadataSet.EMPTY.setElements(
+            Lists.of(
                 metadata1,
                 metadata3
             )
