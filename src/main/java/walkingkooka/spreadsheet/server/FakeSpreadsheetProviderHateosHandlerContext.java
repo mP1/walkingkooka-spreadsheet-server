@@ -26,7 +26,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
-import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -224,11 +223,6 @@ public class FakeSpreadsheetProviderHateosHandlerContext extends FakeProviderCon
     }
 
     // ProviderContext..................................................................................................
-
-    @Override
-    public PluginStore pluginStore() {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public boolean canConvert(final Object value,

@@ -56,7 +56,6 @@ import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorAliasSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.provider.SpreadsheetConvertersConverterProviders;
@@ -414,7 +413,6 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                         )
                     ),
                     ProviderContexts.basic(
-                        PluginStores.treeMap(),
                         StorageContexts.basic(
                             ConverterContexts.fake(), // ConverterLike
                             MediaTypeDetectors.fake(),

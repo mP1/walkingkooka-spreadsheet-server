@@ -29,8 +29,6 @@ import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -605,8 +603,6 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
     public void testSetEnvironmentContextWithDifferent() {
         final EnvironmentContext environmentContext = DIFFERENT_ENVIRONMENT_CONTEXT.cloneEnvironment();
 
-        final PluginStore pluginStore = PluginStores.fake();
-
         final SpreadsheetServerContext before = SpreadsheetServerContextBasic.with(
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
@@ -618,7 +614,6 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
             SPREADSHEET_METADATA_CONTEXT,
             HATEOS_HANDLER_CONTEXT,
             ProviderContexts.basic(
-                pluginStore,
                 STORAGE_CONTEXT
             ),
             TERMINAL_SERVER_CONTEXT
@@ -767,7 +762,6 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
             SpreadsheetProviderContexts.spreadsheet(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
-                PluginStores.fake(),
                 STORAGE,
                 CURRENCY_LOCALE_CONTEXT,
                 SpreadsheetMetadata.EMPTY.set(

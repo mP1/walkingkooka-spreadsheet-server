@@ -69,8 +69,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -13525,7 +13523,6 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             ),
             HATEOS_HANDLER_CONTEXT,
             ProviderContexts.basic(
-                this.pluginStore,
                 StorageContexts.basic(
                     CONVERTER_LIKE,
                     MEDIA_TYPE_DETECTOR,
@@ -13645,8 +13642,6 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     private TestHttpServer httpServer;
-
-    private PluginStore pluginStore = PluginStores.treeMap();
 
     /**
      * A {@link HttpServer} that allows direct invocation of the main handler skipping the HTTP transport layer

@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
@@ -34,7 +33,6 @@ public final class SpreadsheetProviderHateosHandlerContextBasicTest implements S
     private final static SpreadsheetProvider SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
-        PluginStores.treeMap(),
         StorageContexts.basic(
             CONVERTER_LIKE,
             MEDIA_TYPE_DETECTOR,
