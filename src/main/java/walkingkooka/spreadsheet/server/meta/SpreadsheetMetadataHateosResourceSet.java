@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.set.ImmutableSortedSetDefaults;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.http.server.hateos.HateosResourceSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -41,7 +42,8 @@ import java.util.TreeSet;
  * A read only {@link Set} of {@link SpreadsheetMetadata} sorted by {@link walkingkooka.spreadsheet.meta.SpreadsheetId}.
  */
 public final class SpreadsheetMetadataHateosResourceSet extends AbstractSet<SpreadsheetMetadata>
-    implements ImmutableSortedSetDefaults<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata> {
+    implements HateosResourceSet<SpreadsheetMetadata, SpreadsheetId>,
+    ImmutableSortedSetDefaults<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata> {
 
     /**
      * Comparator that uses the {@link SpreadsheetMetadata#id()}, also supporting those without a {@link SpreadsheetId}.
