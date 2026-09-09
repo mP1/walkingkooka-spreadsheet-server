@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
@@ -28,13 +29,12 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.SortedSet;
 
-public final class SpreadsheetMetadataHateosResourceSetTest implements ImmutableSortedSetTesting<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata>,
-    JsonNodeMarshallerTesting<SpreadsheetMetadataHateosResourceSet>,
+public final class SpreadsheetMetadataHateosResourceSetTest implements HateosResourceSetTesting2<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata, SpreadsheetId>,
+    ImmutableSortedSetTesting<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata>,
     SpreadsheetMetadataTesting,
     PublicClassTesting<SpreadsheetMetadataHateosResourceSet> {
 
@@ -47,6 +47,18 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements Immutable
         sortedSet.add(SpreadsheetMetadataTesting.METADATA_EN_AU);
 
         return SpreadsheetMetadataHateosResourceSet.withCopy(sortedSet);
+    }
+
+    @Test
+    @Override
+    public void testSetElementsSame() {
+        HateosResourceSetTesting2.super.testSetElementsSame();
+    }
+
+    @Test
+    @Override
+    public void testSetElementsNullFails() {
+        HateosResourceSetTesting2.super.testSetElementsNullFails();
     }
 
     // json.............................................................................................................
