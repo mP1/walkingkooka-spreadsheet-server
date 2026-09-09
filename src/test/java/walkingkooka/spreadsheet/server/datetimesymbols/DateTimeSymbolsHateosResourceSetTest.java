@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.datetimesymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
@@ -32,7 +34,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSortedSetTesting<DateTimeSymbolsHateosResourceSet, DateTimeSymbolsHateosResource>,
+public final class DateTimeSymbolsHateosResourceSetTest implements HateosResourceSetTesting2<DateTimeSymbolsHateosResourceSet, DateTimeSymbolsHateosResource, LocaleLanguageTag>,
+    ImmutableSortedSetTesting<DateTimeSymbolsHateosResourceSet, DateTimeSymbolsHateosResource>,
     TreePrintableTesting,
     JsonNodeMarshallerTesting<DateTimeSymbolsHateosResourceSet> {
 
@@ -99,6 +102,18 @@ public final class DateTimeSymbolsHateosResourceSetTest implements ImmutableSort
                 EN_NZ
             )
         );
+    }
+
+    @Test
+    @Override
+    public void testSetElementsSame() {
+        ImmutableSortedSetTesting.super.testSetElementsSame();
+    }
+
+    @Test
+    @Override
+    public void testSetElementsNullFails() {
+        ImmutableSortedSetTesting.super.testSetElementsNullFails();
     }
 
     // TreePrintable....................................................................................................
