@@ -90,14 +90,8 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
         return matched;
     }
 
-    /**
-     * Factory that creates {@link LocaleHateosResourceSet} with the given locales.
-     */
-    public static LocaleHateosResourceSet with(final Collection<LocaleHateosResource> locales) {
-        return EMPTY.setElements(locales);
-    }
-
-    private static LocaleHateosResourceSet withCopy(final SortedSet<LocaleHateosResource> locales) {
+    // @VisibleForTesting
+    static LocaleHateosResourceSet withCopy(final SortedSet<LocaleHateosResource> locales) {
         return locales.isEmpty() ?
             EMPTY :
             new LocaleHateosResourceSet(locales);
@@ -209,12 +203,10 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
 
     static LocaleHateosResourceSet unmarshall(final JsonNode node,
                                               final JsonNodeUnmarshallContext context) {
-        return with(
-            new TreeSet<>(
-                context.unmarshallSet(
-                    node,
-                    LocaleHateosResource.class
-                )
+        return EMPTY.setElements(
+            context.unmarshallSet(
+                node,
+                LocaleHateosResource.class
             )
         );
     }
