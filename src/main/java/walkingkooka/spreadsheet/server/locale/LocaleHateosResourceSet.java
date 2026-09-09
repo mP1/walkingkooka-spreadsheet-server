@@ -192,9 +192,15 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        for (final LocaleHateosResource resource : this) {
-            resource.printTree(printer);
+        printer.println(this.getClass().getSimpleName());
+
+        printer.indent();
+        {
+            for (final LocaleHateosResource resource : this) {
+                resource.printTree(printer);
+            }
         }
+        printer.outdent();
     }
 
     // Json.............................................................................................................
