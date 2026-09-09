@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenu;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuList;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataSet;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceSet;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 
@@ -54,7 +54,7 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
             SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
         );
 
-        SpreadsheetMetadataSet.EMPTY.size();
+        SpreadsheetMetadataHateosResourceSet.EMPTY.size();
 
         SpreadsheetFormatterMenuList.with(Lists.empty());
 

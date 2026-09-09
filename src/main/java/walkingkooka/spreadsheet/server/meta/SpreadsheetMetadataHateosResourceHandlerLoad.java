@@ -36,8 +36,8 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.server.SpreadsheetServerContext}.
  */
 final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMetadataHateosResourceHandler
-    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerLoad INSTANCE = new SpreadsheetMetadataHateosResourceHandlerLoad();
 
@@ -62,10 +62,10 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     }
 
     @Override
-    public Optional<SpreadsheetMetadataSet> handleAll(final Optional<SpreadsheetMetadataSet> resource,
-                                                      final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                      final UrlPath path,
-                                                      final SpreadsheetMetadataHateosHandlerContext context) {
+    public Optional<SpreadsheetMetadataHateosResourceSet> handleAll(final Optional<SpreadsheetMetadataHateosResourceSet> resource,
+                                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                    final UrlPath path,
+                                                                    final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -89,7 +89,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         );
 
         return Optional.of(
-            SpreadsheetMetadataSet.EMPTY.setElements(all)
+            SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(all)
         );
     }
 
@@ -100,11 +100,11 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     private final static int MAX_COUNT = 40;
 
     @Override
-    public Optional<SpreadsheetMetadataSet> handleMany(final Set<SpreadsheetId> ids,
-                                                       final Optional<SpreadsheetMetadataSet> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                       final UrlPath path,
-                                                       final SpreadsheetMetadataHateosHandlerContext context) {
+    public Optional<SpreadsheetMetadataHateosResourceSet> handleMany(final Set<SpreadsheetId> ids,
+                                                                     final Optional<SpreadsheetMetadataHateosResourceSet> resource,
+                                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                     final UrlPath path,
+                                                                     final SpreadsheetMetadataHateosHandlerContext context) {
         HateosResourceHandler.checkManyIds(ids);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -119,7 +119,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         }
 
         return Optional.of(
-            SpreadsheetMetadataSet.EMPTY.setElements(all)
+            SpreadsheetMetadataHateosResourceSet.EMPTY.setElements(all)
         );
     }
 

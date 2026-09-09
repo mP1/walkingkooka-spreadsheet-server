@@ -71,7 +71,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
                         SpreadsheetMetadata.HATEOS_RESOURCE_NAME,
                         SpreadsheetMetadataHateosResourceHandlersRouter::parse,
                         SpreadsheetMetadata.class,
-                        SpreadsheetMetadataSet.class,
+                        SpreadsheetMetadataHateosResourceSet.class,
                         SpreadsheetMetadata.class,
                         SpreadsheetMetadataHateosHandlerContext.class
                     )

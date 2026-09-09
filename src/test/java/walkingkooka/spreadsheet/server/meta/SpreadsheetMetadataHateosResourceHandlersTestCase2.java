@@ -37,7 +37,7 @@ import java.util.Set;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H extends SpreadsheetMetadataHateosResourceHandler>
     extends SpreadsheetMetadataHateosResourceHandlerTestCase<H>
-    implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
+    implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext> {
 
     SpreadsheetMetadataHateosResourceHandlersTestCase2() {
         super();
@@ -108,7 +108,7 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
     }
 
     @Override
-    public final Optional<SpreadsheetMetadataSet> collectionResource() {
+    public final Optional<SpreadsheetMetadataHateosResourceSet> collectionResource() {
         return Optional.empty();
     }
 

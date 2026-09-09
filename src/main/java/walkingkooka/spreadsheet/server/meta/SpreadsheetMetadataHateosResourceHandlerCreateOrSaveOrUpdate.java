@@ -39,9 +39,9 @@ import java.util.Optional;
  * methods to create, or save/update.
  */
 final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
-    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate INSTANCE = new SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate();
 

@@ -35,10 +35,10 @@ import java.util.Optional;
  */
 final class SpreadsheetMetadataHateosResourceHandlerDelete extends SpreadsheetMetadataHateosResourceHandler
     implements
-    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerDelete INSTANCE = new SpreadsheetMetadataHateosResourceHandlerDelete();
 
