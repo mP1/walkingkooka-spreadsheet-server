@@ -73,6 +73,11 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         return TestLocaleHateosHandlerContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     final static class TestLocaleHateosHandlerContext implements LocaleHateosHandlerContext, JsonNodeMarshallUnmarshallContextDelegator {
 
         @Override
