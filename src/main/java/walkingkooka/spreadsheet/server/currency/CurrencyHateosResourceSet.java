@@ -194,9 +194,15 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        for (final CurrencyHateosResource resource : this) {
-            resource.printTree(printer);
+        printer.println(this.getClass().getSimpleName());
+
+        printer.indent();
+        {
+            for (final CurrencyHateosResource resource : this) {
+                resource.printTree(printer);
+            }
         }
+        printer.outdent();
     }
 
     // Json.............................................................................................................

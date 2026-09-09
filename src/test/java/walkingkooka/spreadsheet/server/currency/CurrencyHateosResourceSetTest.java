@@ -219,10 +219,11 @@ public final class CurrencyHateosResourceSetTest implements HateosResourceSetTes
     public void testTreePrint() {
         this.treePrintAndCheck(
             this.createSet(),
-            "AUD\n" +
-                "  Australian Dollar\n" +
-                "NZD\n" +
-                "  New Zealand Dollar\n"
+            "CurrencyHateosResourceSet\n" +
+                "  AUD\n" +
+                "    Australian Dollar\n" +
+                "  NZD\n" +
+                "    New Zealand Dollar\n"
         );
     }
 
