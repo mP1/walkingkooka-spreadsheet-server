@@ -24,6 +24,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.FakeCurrencyContext;
+import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
@@ -37,7 +38,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTesting<CurrencyHateosResourceSet, CurrencyHateosResource>,
+public final class CurrencyHateosResourceSetTest implements HateosResourceSetTesting2<CurrencyHateosResourceSet, CurrencyHateosResource, CurrencyCode>,
+    ImmutableSortedSetTesting<CurrencyHateosResourceSet, CurrencyHateosResource>,
     TreePrintableTesting,
     JsonNodeMarshallerTesting<CurrencyHateosResourceSet> {
 
@@ -100,6 +102,18 @@ public final class CurrencyHateosResourceSetTest implements ImmutableSortedSetTe
                 NZD
             )
         );
+    }
+
+    @Test
+    @Override
+    public void testSetElementsSame() {
+        ImmutableSortedSetTesting.super.testSetElementsSame();
+    }
+
+    @Test
+    @Override
+    public void testSetElementsNullFails() {
+        ImmutableSortedSetTesting.super.testSetElementsNullFails();
     }
 
     // filter...........................................................................................................

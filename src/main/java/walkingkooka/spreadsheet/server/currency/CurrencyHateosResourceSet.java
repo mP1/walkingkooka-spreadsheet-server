@@ -24,6 +24,7 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContexts;
+import walkingkooka.net.http.server.hateos.HateosResourceSet;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -46,7 +47,8 @@ import java.util.TreeSet;
  * An immutable {@link Set} containing unique {@link CurrencyHateosResource currencies}.
  */
 public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosResource>
-    implements ImmutableSortedSetDefaults<CurrencyHateosResourceSet, CurrencyHateosResource>,
+    implements HateosResourceSet<CurrencyHateosResource, CurrencyCode>,
+    ImmutableSortedSetDefaults<CurrencyHateosResourceSet, CurrencyHateosResource>,
     TreePrintable {
 
     /**
@@ -99,6 +101,10 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
         super();
         this.currencies = currencies;
     }
+
+    // HateosResourceSet................................................................................................
+
+
 
     // ImmutableSortedSet...............................................................................................
 
