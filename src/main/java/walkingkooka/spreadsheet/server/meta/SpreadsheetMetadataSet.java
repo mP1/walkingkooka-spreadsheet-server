@@ -18,40 +18,65 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.set.ImmutableSortedSetDefaults;
 import walkingkooka.collect.set.SortedSets;
-import walkingkooka.net.http.server.hateos.HateosResource;
+import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.AbstractSet;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * A read only {@link Set} of {@link SpreadsheetMetadata} sorted by {@link walkingkooka.spreadsheet.meta.SpreadsheetId}.
  */
-public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadata> {
+public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadata>
+    implements ImmutableSortedSetDefaults<SpreadsheetMetadataSet, SpreadsheetMetadata> {
+
+    /**
+     * Comparator that uses the {@link SpreadsheetMetadata#id()}, also supporting those without a {@link SpreadsheetId}.
+     */
+    public final static Comparator<SpreadsheetMetadata> COMPARATOR = (SpreadsheetMetadata left,
+                                                                      final SpreadsheetMetadata right) ->
+        string(left).compareTo(string(right));
+
+    private static String string(final SpreadsheetMetadata spreadsheetMetadata) {
+        return spreadsheetMetadata.get(SpreadsheetMetadataPropertyName.SPREADSHEET_ID)
+            .map(SpreadsheetId::text)
+            .orElse("");
+    }
+
+    public final static SpreadsheetMetadataSet EMPTY = new SpreadsheetMetadataSet(
+        SortedSets.tree(COMPARATOR)
+    );
 
     /**
      * Factory that creates a {@link SpreadsheetMetadataSet} with the provided {@link SpreadsheetMetadata}.
      */
-    public static SpreadsheetMetadataSet with(final Set<SpreadsheetMetadata> metadatas) {
-        Objects.requireNonNull(metadatas, "metadatas");
-
-        final Set<SpreadsheetMetadata> copy = SortedSets.tree(HateosResource.comparator());
-        copy.addAll(metadatas);
-        return new SpreadsheetMetadataSet(copy);
+    // @VisibleForTesting
+    static SpreadsheetMetadataSet withCopy(final SortedSet<SpreadsheetMetadata> metadatas) {
+        return metadatas.isEmpty() ?
+            EMPTY :
+            new SpreadsheetMetadataSet(metadatas);
     }
 
-    private SpreadsheetMetadataSet(final Set<SpreadsheetMetadata> metadatas) {
+    private SpreadsheetMetadataSet(final SortedSet<SpreadsheetMetadata> metadatas) {
+        super();
+
         this.metadatas = metadatas;
     }
 
-    // AbstractSet......................................................................................................
+    // ImmutableSortedSet...............................................................................................
 
     @Override
     public Iterator<SpreadsheetMetadata> iterator() {
@@ -65,7 +90,76 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
         return this.metadatas.size();
     }
 
-    private final Set<SpreadsheetMetadata> metadatas;
+    @Override
+    public Comparator<SpreadsheetMetadata> comparator() {
+        return COMPARATOR;
+    }
+
+    @Override
+    public SpreadsheetMetadataSet subSet(final SpreadsheetMetadata from,
+                                         final SpreadsheetMetadata to) {
+        return withCopy(
+            this.metadatas.subSet(
+                from,
+                to
+            )
+        );
+    }
+
+    @Override
+    public SpreadsheetMetadataSet headSet(final SpreadsheetMetadata metadata) {
+        return withCopy(
+            this.metadatas.headSet(metadata)
+        );
+    }
+
+    @Override
+    public SpreadsheetMetadataSet tailSet(final SpreadsheetMetadata metadata) {
+        return withCopy(
+            this.metadatas.tailSet(metadata)
+        );
+    }
+
+    @Override
+    public SpreadsheetMetadata first() {
+        return this.metadatas.first();
+    }
+
+    @Override
+    public SpreadsheetMetadata last() {
+        return this.metadatas.last();
+    }
+
+    @Override
+    public SortedSet<SpreadsheetMetadata> toSet() {
+        return new TreeSet<>(this.metadatas);
+    }
+
+    @Override
+    public SpreadsheetMetadataSet setElements(final Collection<SpreadsheetMetadata> metadatas) {
+        final SpreadsheetMetadataSet spreadsheetMetadataSet;
+
+        if (metadatas instanceof SpreadsheetMetadataSet) {
+            spreadsheetMetadataSet = (SpreadsheetMetadataSet) metadatas;
+        } else {
+            final TreeSet<SpreadsheetMetadata> copy = new TreeSet<>(COMPARATOR);
+            copy.addAll(
+                Objects.requireNonNull(metadatas, "metadatas")
+            );
+            spreadsheetMetadataSet = this.metadatas.equals(copy) ?
+                this :
+                withCopy(copy);
+        }
+
+        return spreadsheetMetadataSet;
+    }
+
+    private final SortedSet<SpreadsheetMetadata> metadatas;
+
+    @Override
+    public void elementCheck(final SpreadsheetMetadata metadata) {
+        Objects.requireNonNull(metadata, "metadata");
+    }
 
     // json.............................................................................................................
 
@@ -85,7 +179,7 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     // @VisibleForTesting
     static SpreadsheetMetadataSet unmarshall(final JsonNode node,
                                              final JsonNodeUnmarshallContext context) {
-        return with(
+        return EMPTY.setElements(
             context.unmarshallSet(
                 node,
                 SpreadsheetMetadata.class

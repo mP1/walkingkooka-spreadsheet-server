@@ -89,7 +89,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         );
 
         return Optional.of(
-            SpreadsheetMetadataSet.with(all)
+            SpreadsheetMetadataSet.EMPTY.setElements(all)
         );
     }
 
@@ -119,7 +119,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         }
 
         return Optional.of(
-            SpreadsheetMetadataSet.with(all)
+            SpreadsheetMetadataSet.EMPTY.setElements(all)
         );
     }
 

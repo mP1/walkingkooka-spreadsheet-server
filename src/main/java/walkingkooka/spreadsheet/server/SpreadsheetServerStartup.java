@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetStartup;
@@ -55,9 +54,7 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
             SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
         );
 
-        SpreadsheetMetadataSet.with(
-            Sets.empty()
-        );
+        SpreadsheetMetadataSet.EMPTY.size();
 
         SpreadsheetFormatterMenuList.with(Lists.empty());
 

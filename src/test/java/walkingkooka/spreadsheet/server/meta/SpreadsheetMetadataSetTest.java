@@ -18,30 +18,35 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.http.server.hateos.HateosResourceSetTesting;
-import walkingkooka.reflect.ClassTesting;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-public final class SpreadsheetMetadataSetTest implements HateosResourceSetTesting<SpreadsheetMetadataSet, SpreadsheetMetadata, SpreadsheetId>,
+import java.util.SortedSet;
+
+public final class SpreadsheetMetadataSetTest implements ImmutableSortedSetTesting<SpreadsheetMetadataSet, SpreadsheetMetadata>,
+    JsonNodeMarshallerTesting<SpreadsheetMetadataSet>,
     SpreadsheetMetadataTesting,
-    ClassTesting<SpreadsheetMetadataSet> {
+    PublicClassTesting<SpreadsheetMetadataSet> {
 
     // Set..............................................................................................................
 
     @Override
     public SpreadsheetMetadataSet createSet() {
-        return SpreadsheetMetadataSet.with(
-            Sets.of(
-                SpreadsheetMetadataTesting.METADATA_EN_AU
-            )
-        );
+        final SortedSet<SpreadsheetMetadata> sortedSet = SortedSets.tree(SpreadsheetMetadataSet.COMPARATOR);
+
+        sortedSet.add(SpreadsheetMetadataTesting.METADATA_EN_AU);
+
+        return SpreadsheetMetadataSet.withCopy(sortedSet);
     }
 
     // json.............................................................................................................
@@ -49,15 +54,17 @@ public final class SpreadsheetMetadataSetTest implements HateosResourceSetTestin
     @Test
     public void testMarshallEmpty() {
         this.marshallAndCheck(
-            SpreadsheetMetadataSet.with(Sets.empty()),
+            SpreadsheetMetadataSet.withCopy(
+                SortedSets.empty()
+            ),
             JsonNode.array()
         );
     }
 
     @Test
     public void testMarshallNotEmpty() {
-        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.with(
-            Sets.of(SpreadsheetMetadata.EMPTY)
+        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.EMPTY.concat(
+            SpreadsheetMetadata.EMPTY
         );
 
         this.marshallAndCheck(
@@ -71,12 +78,10 @@ public final class SpreadsheetMetadataSetTest implements HateosResourceSetTestin
 
     @Test
     public void testMarshallNotEmpty2() {
-        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.with(
-            Sets.of(
-                SpreadsheetMetadata.EMPTY.set(
-                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                    SpreadsheetId.with(1)
-                )
+        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.EMPTY.concat(
+            SpreadsheetMetadata.EMPTY.set(
+                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                SpreadsheetId.with(1)
             )
         );
 
@@ -103,7 +108,7 @@ public final class SpreadsheetMetadataSetTest implements HateosResourceSetTestin
 
     @Override
     public SpreadsheetMetadataSet createJsonNodeMarshallingValue() {
-        return SpreadsheetMetadataSet.with(
+        return SpreadsheetMetadataSet.EMPTY.setElements(
             Sets.of(
                 SpreadsheetMetadata.EMPTY.set(
                     SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
