@@ -31,16 +31,16 @@ import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetFormatterMenuContextTest implements SpreadsheetFormatterMenuContextTesting<BasicSpreadsheetFormatterMenuContext>,
+public final class SpreadsheetFormatterMenuContextBasicTest implements SpreadsheetFormatterMenuContextTesting<SpreadsheetFormatterMenuContextBasic>,
     SpreadsheetMetadataTesting,
-    ToStringTesting<BasicSpreadsheetFormatterMenuContext>,
+    ToStringTesting<SpreadsheetFormatterMenuContextBasic>,
     DecimalNumberContextDelegator {
 
     @Test
     public void testWithNullSpreadsheetFormatterProviderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetFormatterMenuContext.with(
+            () -> SpreadsheetFormatterMenuContextBasic.with(
                 null,
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     SPREADSHEET_FORMATTER_CONTEXT,
@@ -54,7 +54,7 @@ public final class BasicSpreadsheetFormatterMenuContextTest implements Spreadshe
     public void testWithNullSpreadsheetFormatterProviderSamplesContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetFormatterMenuContext.with(
+            () -> SpreadsheetFormatterMenuContextBasic.with(
                 SPREADSHEET_FORMATTER_PROVIDER,
                 null
             )
@@ -62,8 +62,8 @@ public final class BasicSpreadsheetFormatterMenuContextTest implements Spreadshe
     }
 
     @Override
-    public BasicSpreadsheetFormatterMenuContext createContext() {
-        return BasicSpreadsheetFormatterMenuContext.with(
+    public SpreadsheetFormatterMenuContextBasic createContext() {
+        return SpreadsheetFormatterMenuContextBasic.with(
             SPREADSHEET_FORMATTER_PROVIDER,
             SpreadsheetFormatterProviderSamplesContexts.basic(
                 SPREADSHEET_FORMATTER_CONTEXT,
@@ -104,7 +104,7 @@ public final class BasicSpreadsheetFormatterMenuContextTest implements Spreadshe
         );
 
         this.toStringAndCheck(
-            BasicSpreadsheetFormatterMenuContext.with(
+            SpreadsheetFormatterMenuContextBasic.with(
                 SPREADSHEET_FORMATTER_PROVIDER,
                 samplesContext
             ),
@@ -115,12 +115,17 @@ public final class BasicSpreadsheetFormatterMenuContextTest implements Spreadshe
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetFormatterMenuContext> type() {
-        return BasicSpreadsheetFormatterMenuContext.class;
+    public Class<SpreadsheetFormatterMenuContextBasic> type() {
+        return SpreadsheetFormatterMenuContextBasic.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
