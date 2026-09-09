@@ -98,7 +98,7 @@ final class DateTimeSymbolsFindByLocaleStartsWithHttpHandler implements GetOrHea
                 DateTimeSymbolsHateosResourceSet.class.getSimpleName()
             ).setBodyText(
                 context.marshall(
-                    DateTimeSymbolsHateosResourceSet.with(all)
+                    DateTimeSymbolsHateosResourceSet.EMPTY.setElements(all)
                 ).multiLineText(context)
                     .text()
             ).setContentLength()
