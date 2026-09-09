@@ -34,7 +34,7 @@ import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetParserSelectorEditContextTest implements SpreadsheetParserSelectorEditContextTesting<BasicSpreadsheetParserSelectorEditContext>,
+public final class SpreadsheetParserSelectorEditContextBasicTest implements SpreadsheetParserSelectorEditContextTesting<SpreadsheetParserSelectorEditContextBasic>,
     SpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
@@ -42,7 +42,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     public void testWithNullSpreadsheetParserProviderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetParserSelectorEditContext.with(
+            () -> SpreadsheetParserSelectorEditContextBasic.with(
                 null,
                 SpreadsheetParserContexts.fake(),
                 SpreadsheetFormatterContexts.fake(),
@@ -56,7 +56,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     public void testWithNullSpreadsheetParserContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetParserSelectorEditContext.with(
+            () -> SpreadsheetParserSelectorEditContextBasic.with(
                 SpreadsheetParserProviders.fake(),
                 null,
                 SpreadsheetFormatterContexts.fake(),
@@ -70,7 +70,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     public void testWithNullSpreadsheetFormatterContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetParserSelectorEditContext.with(
+            () -> SpreadsheetParserSelectorEditContextBasic.with(
                 SpreadsheetParserProviders.fake(),
                 SpreadsheetParserContexts.fake(),
                 null,
@@ -84,7 +84,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     public void testWithNullSpreadsheetFormatterProviderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetParserSelectorEditContext.with(
+            () -> SpreadsheetParserSelectorEditContextBasic.with(
                 SpreadsheetParserProviders.fake(),
                 SpreadsheetParserContexts.fake(),
                 SpreadsheetFormatterContexts.fake(),
@@ -98,7 +98,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     public void testWithNullProviderContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetParserSelectorEditContext.with(
+            () -> SpreadsheetParserSelectorEditContextBasic.with(
                 SpreadsheetParserProviders.fake(),
                 SpreadsheetParserContexts.fake(),
                 SpreadsheetFormatterContexts.fake(),
@@ -133,8 +133,8 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     }
 
     @Override
-    public BasicSpreadsheetParserSelectorEditContext createContext() {
-        return BasicSpreadsheetParserSelectorEditContext.with(
+    public SpreadsheetParserSelectorEditContextBasic createContext() {
+        return SpreadsheetParserSelectorEditContextBasic.with(
             SPREADSHEET_PARSER_PROVIDER,
             SPREADSHEET_PARSER_CONTEXT,
             SPREADSHEET_FORMATTER_CONTEXT,
@@ -163,12 +163,17 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetParserSelectorEditContext> type() {
-        return BasicSpreadsheetParserSelectorEditContext.class;
+    public Class<SpreadsheetParserSelectorEditContextBasic> type() {
+        return SpreadsheetParserSelectorEditContextBasic.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
