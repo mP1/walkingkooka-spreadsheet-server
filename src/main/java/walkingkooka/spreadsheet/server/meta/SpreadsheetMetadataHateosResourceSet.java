@@ -24,6 +24,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -43,7 +45,8 @@ import java.util.TreeSet;
  */
 public final class SpreadsheetMetadataHateosResourceSet extends AbstractSet<SpreadsheetMetadata>
     implements HateosResourceSet<SpreadsheetMetadata, SpreadsheetId>,
-    ImmutableSortedSetDefaults<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata> {
+    ImmutableSortedSetDefaults<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata>,
+    TreePrintable {
 
     /**
      * Comparator that uses the {@link SpreadsheetMetadata#id()}, also supporting those without a {@link SpreadsheetId}.
@@ -161,6 +164,21 @@ public final class SpreadsheetMetadataHateosResourceSet extends AbstractSet<Spre
     @Override
     public void elementCheck(final SpreadsheetMetadata metadata) {
         Objects.requireNonNull(metadata, "metadata");
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+
+        printer.indent();
+        {
+            for (final SpreadsheetMetadata metadata : this) {
+                metadata.printTree(printer);
+            }
+        }
+        printer.outdent();
     }
 
     // json.............................................................................................................
