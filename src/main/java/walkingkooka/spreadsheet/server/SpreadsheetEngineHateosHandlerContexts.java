@@ -25,12 +25,12 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 public final class SpreadsheetEngineHateosHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetEngineHateosHandlerContext}
+     * {@see SpreadsheetEngineHateosHandlerContextBasic}
      */
     public static SpreadsheetEngineHateosHandlerContext basic(final SpreadsheetEngine spreadsheetEngine,
                                                               final HateosHandlerContext hateosHandlerContext,
                                                               final SpreadsheetEngineContext engineContext) {
-        return BasicSpreadsheetEngineHateosHandlerContext.with(
+        return SpreadsheetEngineHateosHandlerContextBasic.with(
             spreadsheetEngine,
             hateosHandlerContext,
             engineContext

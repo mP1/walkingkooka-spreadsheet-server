@@ -51,23 +51,23 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEngineHateosHandlerContext,
+final class SpreadsheetEngineHateosHandlerContextBasic implements SpreadsheetEngineHateosHandlerContext,
     HateosHandlerContextDelegator,
     SpreadsheetEngineContextDelegator,
     SpreadsheetProviderDelegator,
     JsonNodeMarshallContextDelegator {
 
-    static BasicSpreadsheetEngineHateosHandlerContext with(final SpreadsheetEngine spreadsheetEngine,
+    static SpreadsheetEngineHateosHandlerContextBasic with(final SpreadsheetEngine spreadsheetEngine,
                                                            final HateosHandlerContext hateosHandlerContext,
                                                            final SpreadsheetEngineContext engineContext) {
-        return new BasicSpreadsheetEngineHateosHandlerContext(
+        return new SpreadsheetEngineHateosHandlerContextBasic(
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
             Objects.requireNonNull(hateosHandlerContext, "hateosHandlerContext"),
             Objects.requireNonNull(engineContext, "engineContext")
         );
     }
 
-    private BasicSpreadsheetEngineHateosHandlerContext(final SpreadsheetEngine spreadsheetEngine,
+    private SpreadsheetEngineHateosHandlerContextBasic(final SpreadsheetEngine spreadsheetEngine,
                                                        final HateosHandlerContext hateosHandlerContext,
                                                        final SpreadsheetEngineContext engineContext) {
         this.spreadsheetEngine = spreadsheetEngine;
@@ -131,23 +131,23 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
     }
 
     @Override
-    public BasicSpreadsheetEngineHateosHandlerContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+    public SpreadsheetEngineHateosHandlerContextBasic setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
         return this.setHateosHandlerContext(
             this.hateosHandlerContext.setObjectPostProcessor(processor)
         );
     }
 
     @Override
-    public BasicSpreadsheetEngineHateosHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+    public SpreadsheetEngineHateosHandlerContextBasic setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         return this.setHateosHandlerContext(
             this.hateosHandlerContext.setPreProcessor(processor)
         );
     }
 
-    private BasicSpreadsheetEngineHateosHandlerContext setHateosHandlerContext(final HateosHandlerContext context) {
+    private SpreadsheetEngineHateosHandlerContextBasic setHateosHandlerContext(final HateosHandlerContext context) {
         return this.hateosHandlerContext.equals(context) ?
             this :
-            new BasicSpreadsheetEngineHateosHandlerContext(
+            new SpreadsheetEngineHateosHandlerContextBasic(
                 this.spreadsheetEngine,
                 context,
                 this.engineContext
@@ -212,7 +212,7 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
         // Recreate only if different cloned EnvironmentContext, cloned environment should be equals
         return engineContext == clone ?
             this :
-            new BasicSpreadsheetEngineHateosHandlerContext(
+            new SpreadsheetEngineHateosHandlerContextBasic(
                 this.spreadsheetEngine,
                 this.hateosHandlerContext,
                 clone
@@ -226,7 +226,7 @@ final class BasicSpreadsheetEngineHateosHandlerContext implements SpreadsheetEng
 
         return before == after ?
             this :
-            new BasicSpreadsheetEngineHateosHandlerContext(
+            new SpreadsheetEngineHateosHandlerContextBasic(
                 this.spreadsheetEngine,
                 this.hateosHandlerContext,
                 after
