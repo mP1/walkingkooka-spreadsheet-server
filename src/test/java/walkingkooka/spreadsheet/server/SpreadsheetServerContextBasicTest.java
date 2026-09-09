@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
@@ -601,8 +600,6 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
 
     @Test
     public void testSetEnvironmentContextWithDifferent() {
-        final EnvironmentContext environmentContext = DIFFERENT_ENVIRONMENT_CONTEXT.cloneEnvironment();
-
         final SpreadsheetServerContext before = SpreadsheetServerContextBasic.with(
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
