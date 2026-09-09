@@ -32,21 +32,21 @@ import java.util.Objects;
  * A delegating {@link SpreadsheetFormatterSelectorEditContext} that uses a {@link SpreadsheetFormatterContext} and
  * {@link SpreadsheetFormatterProvider}.
  */
-final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetFormatterSelectorEditContext,
+final class SpreadsheetFormatterSelectorEditContextBasic implements SpreadsheetFormatterSelectorEditContext,
     SpreadsheetFormatterContextDelegator,
     SpreadsheetFormatterProviderDelegator {
 
-    static BasicSpreadsheetFormatterSelectorEditContext with(final SpreadsheetFormatterContext spreadsheetFormatterContext,
+    static SpreadsheetFormatterSelectorEditContextBasic with(final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                              final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                              final ProviderContext providerContext) {
-        return new BasicSpreadsheetFormatterSelectorEditContext(
+        return new SpreadsheetFormatterSelectorEditContextBasic(
             Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
             Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
             Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 
-    private BasicSpreadsheetFormatterSelectorEditContext(final SpreadsheetFormatterContext spreadsheetFormatterContext,
+    private SpreadsheetFormatterSelectorEditContextBasic(final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                          final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                          final ProviderContext providerContext) {
         this.spreadsheetFormatterContext = spreadsheetFormatterContext;

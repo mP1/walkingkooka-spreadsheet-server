@@ -30,7 +30,7 @@ public final class SpreadsheetFormatterSelectorEditContexts implements PublicSta
     public static SpreadsheetFormatterSelectorEditContext basic(final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                                 final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                                 final ProviderContext providerContext) {
-        return BasicSpreadsheetFormatterSelectorEditContext.with(
+        return SpreadsheetFormatterSelectorEditContextBasic.with(
             spreadsheetFormatterContext,
             spreadsheetFormatterProvider,
             providerContext
