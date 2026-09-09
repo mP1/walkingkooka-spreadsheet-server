@@ -321,8 +321,8 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
 
     @Test
     public void testMarshallUnmarshallAllAvailableDecimalNumberSymbolsHateosResources() {
-        final SortedSet<DecimalNumberSymbolsHateosResource> locales = SortedSets.tree();
-        locales.addAll(
+        final SortedSet<DecimalNumberSymbolsHateosResource> set = SortedSets.tree();
+        set.addAll(
             Arrays.stream(
                     Locale.getAvailableLocales()
                 ).filter(l -> false == l.getDisplayName().isEmpty() && false == l.getLanguage().contains("ar") // BUG: JRE has some AR locales with with RTL \\u200E and not the actual printable char.
@@ -332,11 +332,11 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
 
         this.checkNotEquals(
             SortedSets.empty(),
-            locales
+            set
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            DecimalNumberSymbolsHateosResourceSet.withCopy(locales)
+            DecimalNumberSymbolsHateosResourceSet.withCopy(set)
         );
     }
 
