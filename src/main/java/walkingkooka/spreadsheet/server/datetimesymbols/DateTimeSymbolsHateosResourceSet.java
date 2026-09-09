@@ -151,9 +151,15 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        for (final DateTimeSymbolsHateosResource resource : this) {
-            resource.printTree(printer);
+        printer.println(this.getClass().getSimpleName());
+
+        printer.indent();
+        {
+            for (final DateTimeSymbolsHateosResource resource : this) {
+                resource.printTree(printer);
+            }
         }
+        printer.outdent();
     }
 
     // Json.............................................................................................................
