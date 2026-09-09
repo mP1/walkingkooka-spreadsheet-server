@@ -37,17 +37,17 @@ import java.util.Objects;
  * A delegating {@link SpreadsheetParserSelectorEditContext} that uses a {@link SpreadsheetParserContext} and
  * {@link SpreadsheetParserProvider} etc.
  */
-final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
+final class SpreadsheetParserSelectorEditContextBasic implements SpreadsheetParserSelectorEditContext,
     SpreadsheetFormatterContextDelegator,
     SpreadsheetFormatterProviderDelegator,
     SpreadsheetParserProviderDelegator {
 
-    static BasicSpreadsheetParserSelectorEditContext with(final SpreadsheetParserProvider spreadsheetParserProvider,
+    static SpreadsheetParserSelectorEditContextBasic with(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                           final SpreadsheetParserContext spreadsheetParserContext,
                                                           final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                           final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                           final ProviderContext providerContext) {
-        return new BasicSpreadsheetParserSelectorEditContext(
+        return new SpreadsheetParserSelectorEditContextBasic(
             Objects.requireNonNull(spreadsheetParserProvider, "spreadsheetParserProvider"),
             Objects.requireNonNull(spreadsheetParserContext, "spreadsheetParserContext"),
             Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
@@ -56,7 +56,7 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
         );
     }
 
-    private BasicSpreadsheetParserSelectorEditContext(final SpreadsheetParserProvider spreadsheetParserProvider,
+    private SpreadsheetParserSelectorEditContextBasic(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                       final SpreadsheetParserContext spreadsheetParserContext,
                                                       final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                       final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
@@ -82,10 +82,10 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
         );
     }
 
-    private BasicSpreadsheetParserSelectorEditContext setSpreadsheetFormatterContext(final SpreadsheetFormatterContext context) {
+    private SpreadsheetParserSelectorEditContextBasic setSpreadsheetFormatterContext(final SpreadsheetFormatterContext context) {
         return this.spreadsheetFormatterContext.equals(context) ?
             this :
-            new BasicSpreadsheetParserSelectorEditContext(
+            new SpreadsheetParserSelectorEditContextBasic(
                 this.spreadsheetParserProvider,
                 this.spreadsheetParserContext,
                 context,
