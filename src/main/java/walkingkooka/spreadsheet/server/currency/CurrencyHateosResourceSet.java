@@ -88,14 +88,8 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
         return matched;
     }
 
-    /**
-     * Factory that creates {@link CurrencyHateosResourceSet} with the given currencies.
-     */
-    public static CurrencyHateosResourceSet with(final Collection<CurrencyHateosResource> currencies) {
-        return EMPTY.setElements(currencies);
-    }
-
-    private static CurrencyHateosResourceSet withCopy(final SortedSet<CurrencyHateosResource> currencies) {
+    // @VisibleForTesting
+    static CurrencyHateosResourceSet withCopy(final SortedSet<CurrencyHateosResource> currencies) {
         return currencies.isEmpty() ?
             EMPTY :
             new CurrencyHateosResourceSet(currencies);
@@ -207,12 +201,10 @@ public final class CurrencyHateosResourceSet extends AbstractSet<CurrencyHateosR
 
     static CurrencyHateosResourceSet unmarshall(final JsonNode node,
                                                 final JsonNodeUnmarshallContext context) {
-        return with(
-            new TreeSet<>(
-                context.unmarshallSet(
-                    node,
-                    CurrencyHateosResource.class
-                )
+        return EMPTY.setElements(
+            context.unmarshallSet(
+                node,
+                CurrencyHateosResource.class
             )
         );
     }
