@@ -26,19 +26,19 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Objects;
 
-final class BasicSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,
+final class SpreadsheetFormatterMenuContextBasic implements SpreadsheetFormatterMenuContext,
     SpreadsheetFormatterProviderDelegator,
     SpreadsheetFormatterProviderSamplesContextDelegator {
 
-    static BasicSpreadsheetFormatterMenuContext with(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+    static SpreadsheetFormatterMenuContextBasic with(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                      final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
-        return new BasicSpreadsheetFormatterMenuContext(
+        return new SpreadsheetFormatterMenuContextBasic(
             Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
             Objects.requireNonNull(spreadsheetFormatterProviderSamplesContext, "spreadsheetFormatterProviderSamplesContext")
         );
     }
 
-    private BasicSpreadsheetFormatterMenuContext(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+    private SpreadsheetFormatterMenuContextBasic(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                  final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
         this.spreadsheetFormatterProviderSamplesContext = spreadsheetFormatterProviderSamplesContext;
