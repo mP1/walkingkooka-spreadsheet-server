@@ -71,14 +71,14 @@ import java.util.function.Function;
 /**
  * A basic fully functional {@link SpreadsheetServerContext}
  */
-final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
+final class SpreadsheetServerContextBasic implements SpreadsheetServerContext,
     CurrencyLocaleContextDelegator,
     SpreadsheetEnvironmentContextDelegator,
     HateosHandlerContextDelegator,
     SpreadsheetProviderDelegator,
     TreePrintable {
 
-    static BasicSpreadsheetServerContext with(final MediaTypeDetector mediaTypeDetector,
+    static SpreadsheetServerContextBasic with(final MediaTypeDetector mediaTypeDetector,
                                               final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                               final SpreadsheetEngine spreadsheetEngine,
                                               final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
@@ -89,7 +89,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
                                               final HateosHandlerContext hateosHandlerContext,
                                               final ProviderContext providerContext,
                                               final TerminalServerContext terminalServerContext) {
-        return new BasicSpreadsheetServerContext(
+        return new SpreadsheetServerContextBasic(
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
             Objects.requireNonNull(multiplier, "multiplier"),
             Objects.requireNonNull(spreadsheetEngine, "spreadsheetEngine"),
@@ -104,7 +104,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
         );
     }
 
-    private BasicSpreadsheetServerContext(final MediaTypeDetector mediaTypeDetector,
+    private SpreadsheetServerContextBasic(final MediaTypeDetector mediaTypeDetector,
                                           final BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier,
                                           final SpreadsheetEngine spreadsheetEngine,
                                           final Function<SpreadsheetId, Optional<SpreadsheetStoreRepository>> spreadsheetIdToSpreadsheetStoreRepository,
@@ -272,7 +272,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
 
         return before == after ?
             this :
-            new BasicSpreadsheetServerContext(
+            new SpreadsheetServerContextBasic(
                 this.mediaTypeDetector,
                 this.multiplier,
                 this.spreadsheetEngine,
@@ -418,7 +418,7 @@ final class BasicSpreadsheetServerContext implements SpreadsheetServerContext,
     private SpreadsheetServerContext setHateosHandlerContext(final HateosHandlerContext context) {
         return this.hateosHandlerContext.equals(context) ?
             this :
-            new BasicSpreadsheetServerContext(
+            new SpreadsheetServerContextBasic(
                 this.mediaTypeDetector,
                 this.multiplier,
                 this.spreadsheetEngine,

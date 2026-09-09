@@ -72,8 +72,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetServerContextTest implements SpreadsheetServerContextTesting2<BasicSpreadsheetServerContext>,
-    ToStringTesting<BasicSpreadsheetServerContext>,
+public final class SpreadsheetServerContextBasicTest implements SpreadsheetServerContextTesting2<SpreadsheetServerContextBasic>,
+    ToStringTesting<SpreadsheetServerContextBasic>,
     SpreadsheetMetadataTesting,
     StorageContextTesting,
     TreePrintableTesting {
@@ -119,7 +119,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullMediaTypeDetectorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 null,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -139,7 +139,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullMultiplierFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 null,
                 SPREADSHEET_ENGINE,
@@ -159,7 +159,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullSpreadsheetEngineFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 null,
@@ -179,7 +179,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullSpreadsheetIdToSpreadsheetServerRepositoryFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -199,7 +199,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullSpreadsheetProviderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -219,7 +219,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullCurrencyLocaleContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -239,7 +239,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullEnvironmentContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -259,7 +259,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullSpreadsheetMetadataContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -279,7 +279,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullHateosHandlerContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -299,7 +299,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullProviderContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -319,7 +319,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     public void testWithNullTerminalServerContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicSpreadsheetServerContext.with(
+            () -> SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -480,7 +480,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                         "newValue"
                     );
 
-                    BasicSpreadsheetServerContextTest.this.fired = true;
+                    SpreadsheetServerContextBasicTest.this.fired = true;
                 }
             }
         );
@@ -515,7 +515,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testCreateSpreadsheetContext() {
-        final BasicSpreadsheetServerContext context = this.createContext();
+        final SpreadsheetServerContextBasic context = this.createContext();
 
         final SpreadsheetContext spreadsheetContext1 = context.createSpreadsheetContext();
 
@@ -553,7 +553,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testSpreadsheetContextAfterSaveMetadata() {
-        final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
+        final SpreadsheetServerContextBasic spreadsheetServerContext = this.createContext();
 
         final SpreadsheetMetadata spreadsheetMetadata = spreadsheetServerContext.saveMetadata(
             METADATA_EN_AU
@@ -584,7 +584,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testSpreadsheetContextAfterCreateEmptySpreadsheet() {
-        final BasicSpreadsheetServerContext spreadsheetServerContext = this.createContext();
+        final SpreadsheetServerContextBasic spreadsheetServerContext = this.createContext();
 
         final SpreadsheetContext spreadsheetContext = spreadsheetServerContext.createEmptySpreadsheet(OPTIONAL_LOCALE);
         this.checkNotEquals(
@@ -607,7 +607,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
         final PluginStore pluginStore = PluginStores.fake();
 
-        final SpreadsheetServerContext before = BasicSpreadsheetServerContext.with(
+        final SpreadsheetServerContext before = SpreadsheetServerContextBasic.with(
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
             SPREADSHEET_ENGINE,
@@ -659,7 +659,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testSetLocale() {
-        final BasicSpreadsheetServerContext context = this.createContext();
+        final SpreadsheetServerContextBasic context = this.createContext();
         this.localeAndCheck(
             context,
             LOCALE
@@ -693,7 +693,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
 
     @Test
     public void testSetUser() {
-        final BasicSpreadsheetServerContext context = this.createContext();
+        final SpreadsheetServerContextBasic context = this.createContext();
         this.userAndCheck(
             context,
             USER
@@ -706,11 +706,11 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     }
 
     @Override
-    public BasicSpreadsheetServerContext createContext() {
+    public SpreadsheetServerContextBasic createContext() {
         return this.createContext(USER);
     }
 
-    private BasicSpreadsheetServerContext createContext(final EmailAddress user) {
+    private SpreadsheetServerContextBasic createContext(final EmailAddress user) {
         final SpreadsheetEnvironmentContext context = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
         context.setUser(
             Optional.of(user)
@@ -723,10 +723,10 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
         return this.createContext(context);
     }
 
-    private BasicSpreadsheetServerContext createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
+    private SpreadsheetServerContextBasic createContext(final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext) {
         final SpreadsheetMetadataStore spreadsheetMetadataStore = SpreadsheetMetadataStores.treeMap();
 
-        return BasicSpreadsheetServerContext.with(
+        return SpreadsheetServerContextBasic.with(
             MEDIA_TYPE_DETECTOR,
             MULTIPLIER,
             SPREADSHEET_ENGINE,
@@ -830,7 +830,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            BasicSpreadsheetServerContext.with(
+            SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -865,7 +865,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     @Test
     public void testPrintTree() {
         this.treePrintAndCheck(
-            BasicSpreadsheetServerContext.with(
+            SpreadsheetServerContextBasic.with(
                 MEDIA_TYPE_DETECTOR,
                 MULTIPLIER,
                 SPREADSHEET_ENGINE,
@@ -878,7 +878,7 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 new TestProviderContext(),
                 new TestTerminalServerContext()
             ),
-            "BasicSpreadsheetServerContext\n" +
+            "SpreadsheetServerContextBasic\n" +
                 "  mediaTypeDetector\n" +
                 "    application/octet-stream (walkingkooka.net.header.BinaryMediaTypeDetector)\n" +
                 "  currencyLocaleContext\n" +
@@ -914,9 +914,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "        storage\n" +
                 "          {} (walkingkooka.storage.StorageShared2Empty)\n" +
                 "  spreadsheetMetadataContext\n" +
-                "    TestSpreadsheetMetadataContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestSpreadsheetMetadataContext)\n" +
+                "    TestSpreadsheetMetadataContext (walkingkooka.spreadsheet.server.SpreadsheetServerContextBasicTest$TestSpreadsheetMetadataContext)\n" +
                 "  hateosHandlerContext\n" +
-                "    TestHateosHandlerContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestHateosHandlerContext)\n" +
+                "    TestHateosHandlerContext (walkingkooka.spreadsheet.server.SpreadsheetServerContextBasicTest$TestHateosHandlerContext)\n" +
                 "  spreadsheetProvider\n" +
                 "    SpreadsheetProviderBasic\n" +
                 "      comparatorProvider\n" +
@@ -940,9 +940,9 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
                 "      validatorProvider\n" +
                 "        [https://github.com/mP1/walkingkooka-validation/Validator/absolute-url absolute-url, https://github.com/mP1/walkingkooka-validation/Validator/checkbox checkbox, https://github.com/mP1/walkingkooka-validation/Validator/choice-list choice-list, https://github.com/mP1/walkingkooka-validation/Validator/collection collection, https://github.com/mP1/walkingkooka-validation/Validator/email-address email-address, https://github.com/mP1/walkingkooka-validation/Validator/expression expression, https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null, https://github.com/mP1/walkingkooka-validation/Validator/text-length text-length, https://github.com/mP1/walkingkooka-validation/Validator/text-mask text-mask] (walkingkooka.validation.provider.AliasesValidatorProvider)\n" +
                 "  providerContext\n" +
-                "    TestProviderContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestProviderContext)\n" +
+                "    TestProviderContext (walkingkooka.spreadsheet.server.SpreadsheetServerContextBasicTest$TestProviderContext)\n" +
                 "  terminalServerContext\n" +
-                "    TestTerminalServerContext (walkingkooka.spreadsheet.server.BasicSpreadsheetServerContextTest$TestTerminalServerContext)\n"
+                "    TestTerminalServerContext (walkingkooka.spreadsheet.server.SpreadsheetServerContextBasicTest$TestTerminalServerContext)\n"
         );
     }
 
@@ -980,12 +980,17 @@ public final class BasicSpreadsheetServerContextTest implements SpreadsheetServe
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetServerContext> type() {
-        return BasicSpreadsheetServerContext.class;
+    public Class<SpreadsheetServerContextBasic> type() {
+        return SpreadsheetServerContextBasic.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
