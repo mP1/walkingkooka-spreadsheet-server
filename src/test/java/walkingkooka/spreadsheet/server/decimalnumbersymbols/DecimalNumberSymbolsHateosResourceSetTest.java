@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
@@ -32,7 +34,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class DecimalNumberSymbolsHateosResourceSetTest implements ImmutableSortedSetTesting<DecimalNumberSymbolsHateosResourceSet, DecimalNumberSymbolsHateosResource>,
+public final class DecimalNumberSymbolsHateosResourceSetTest implements HateosResourceSetTesting2<DecimalNumberSymbolsHateosResourceSet, DecimalNumberSymbolsHateosResource, LocaleLanguageTag>,
+    ImmutableSortedSetTesting<DecimalNumberSymbolsHateosResourceSet, DecimalNumberSymbolsHateosResource>,
     TreePrintableTesting,
     JsonNodeMarshallerTesting<DecimalNumberSymbolsHateosResourceSet> {
 
@@ -50,33 +53,6 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
             DecimalNumberSymbolsHateosResourceSet.EMPTY,
             DecimalNumberSymbolsHateosResourceSet.EMPTY.concat(EN_AU)
                 .delete(EN_AU)
-        );
-    }
-
-    @Test
-    public void testSetElementsWithDecimalNumberSymbolsHateosResourceSet() {
-        final DecimalNumberSymbolsHateosResourceSet set = DecimalNumberSymbolsHateosResourceSet.withCopy(
-            SortedSets.of(
-                DecimalNumberSymbolsHateosResource.fromLocale(Locale.US)
-            )
-        );
-
-        assertSame(
-            set,
-            set.setElements(set)
-        );
-    }
-
-    @Test
-    public void testSetElementsWithDecimalNumberSymbolsHateosResourceSet2() {
-        final DecimalNumberSymbolsHateosResourceSet set = this.createSet();
-        final DecimalNumberSymbolsHateosResourceSet set2 = this.createSet();
-
-        assertSame(
-            set2,
-            set.setElements(
-                set2
-            )
         );
     }
 
@@ -99,6 +75,18 @@ public final class DecimalNumberSymbolsHateosResourceSetTest implements Immutabl
                 EN_NZ
             )
         );
+    }
+
+    @Test
+    @Override
+    public void testSetElementsSame() {
+        HateosResourceSetTesting2.super.testSetElementsSame();
+    }
+
+    @Test
+    @Override
+    public void testSetElementsNullFails() {
+        HateosResourceSetTesting2.super.testSetElementsNullFails();
     }
 
     // TreePrintable....................................................................................................
