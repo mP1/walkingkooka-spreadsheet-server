@@ -541,11 +541,13 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
         now.set(HAS_NOW.now());
 
         final EnvironmentContext environmentContext = EnvironmentContexts.map(
+            CAN_LOG,
             CHARSET,
             CURRENCY,
             INDENTATION,
             LINE_ENDING,
             LOCALE,
+            LOGGING_LEVEL,
             now::get,
             Optional.of(USER)
         );
@@ -903,6 +905,11 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
 
     @Override
     public void testSetLocaleWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetLoggingLevelWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 

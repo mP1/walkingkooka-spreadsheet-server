@@ -834,7 +834,7 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                 PROVIDER_CONTEXT,
                 TERMINAL_SERVER_CONTEXT
             ),
-            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=UTF-8, currency=AUD, currentWorkingDirectory=/current1/working2/directory3, homeDirectory=/users/user123@example.com, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=spreadsheetComparatorProvider=[https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/background-color background-color, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/border-bottom-color border-bottom-color, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/border-color border-color, https://github.com/mP1/walkingkooka-"
+            "mediaTypeDetector=application/octet-stream multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction spreadsheetEngine=FakeSpreadsheetEngine currencyLocaleContext=JRE ReadOnly JRE en-AU spreadsheetEnvironmentContext={charset=UTF-8, currency=AUD, currentWorkingDirectory=/current1/working2/directory3, homeDirectory=/users/user123@example.com, indentation=\"  \", lineEnding=\"\\n\", locale=en_AU, loggingLevel=NONE, serverUrl=https://example.com, timeOffset=Z, user=user123@example.com} spreadsheetMetadataContext=FakeSpreadsheetMetadataContext hateosHandlerContext=FakeHateosHandlerContext spreadsheetProvider=spreadsheetComparatorProvider=[https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/background-color background-color, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/border-bottom-color border-bottom-color, https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/border-color border-color, https://github.co"
         );
     }
 
@@ -894,6 +894,8 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                 "                \"\\n\"\n" +
                 "              locale\n" +
                 "                en_AU (java.util.Locale)\n" +
+                "              loggingLevel\n" +
+                "                NONE\n" +
                 "              now\n" +
                 "                1999-12-31T12:58:59 (java.time.LocalDateTime)\n" +
                 "              serverUrl\n" +
