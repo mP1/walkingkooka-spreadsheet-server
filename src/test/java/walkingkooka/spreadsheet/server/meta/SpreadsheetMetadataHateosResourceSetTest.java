@@ -227,6 +227,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      json-to\n" +
                 "      locale\n" +
                 "      locale-to-text\n" +
+                "      logging\n" +
                 "      net\n" +
                 "      null-to-number\n" +
                 "      number\n" +
