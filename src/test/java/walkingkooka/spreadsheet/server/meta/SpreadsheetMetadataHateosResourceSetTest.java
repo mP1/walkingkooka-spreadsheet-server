@@ -298,6 +298,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      text-to-line-ending\n" +
                 "      text-to-locale\n" +
                 "      text-to-locale-language-tag\n" +
+                "      text-to-logging-level\n" +
                 "      text-to-margin\n" +
                 "      text-to-media-type\n" +
                 "      text-to-number-list\n" +
