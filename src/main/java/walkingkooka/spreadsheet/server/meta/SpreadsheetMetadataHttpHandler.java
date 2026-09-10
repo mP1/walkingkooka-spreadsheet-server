@@ -97,7 +97,8 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler<Spreads
                         json,
                         context
                     ),
-                    SpreadsheetMetadataHttpHandler::patchPost
+                    SpreadsheetMetadataHttpHandler::patchPost,
+                    context.lineEnding()
                 )
             )
         ).handle(
