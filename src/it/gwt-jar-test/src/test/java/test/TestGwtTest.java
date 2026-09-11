@@ -32,6 +32,9 @@ import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.CanLog;
+import walkingkooka.logging.CanLogs;
+import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -322,8 +325,10 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
             spreadsheetFormatterProvider
         );
 
+        final CanLog canLog = CanLogs.nullCanLog();
         final Charset charset = StandardCharsets.UTF_8;
         final LineEnding lineEnding = LineEnding.NL;
+        final LoggingLevel loggingLevel = LoggingLevel.NONE;
 
         return SpreadsheetHttpServer.with(
             HttpHandlers.fake(), // public HttpHandler,
@@ -333,11 +338,13 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
             },
             (user) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
+                    canLog,
                     charset,
                     Currency.getInstance("AUD"),
                     Indentation.SPACES4,
                     lineEnding,
                     locale,
+                    loggingLevel,
                     () -> NOW,
                     user
                 );
@@ -419,11 +426,13 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                             Storages.fake(),
                             StorageEnvironmentContexts.basic(
                                 EnvironmentContexts.map(
+                                    canLog,
                                     charset,
                                     Currency.getInstance("AUD"),
                                     Indentation.SPACES4,
                                     lineEnding,
                                     locale,
+                                    loggingLevel,
                                     LocalDateTime::now,
                                     user
                                 )
