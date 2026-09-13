@@ -39,7 +39,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
-import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting2;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
@@ -67,7 +67,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
+public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting2<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
     HasHateosContentType,
     SpreadsheetMetadataTesting {
 
