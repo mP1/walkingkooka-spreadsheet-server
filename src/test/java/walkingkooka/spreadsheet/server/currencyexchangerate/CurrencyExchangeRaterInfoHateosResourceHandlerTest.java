@@ -174,7 +174,7 @@ public final class CurrencyExchangeRaterInfoHateosResourceHandlerTest implements
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "CurrencyExchangeRaterProvider.currencyExchangeRaterInfos"
+            "spreadsheetProvider.currencyExchangeRaterInfos"
         );
     }
 
