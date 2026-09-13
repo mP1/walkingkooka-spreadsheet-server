@@ -23,7 +23,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -241,8 +240,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     public Set<I> manyIds() {
         return Sets.of(this.id());
     }
-
-    final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(text, number, basic, value)");
 
