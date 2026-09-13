@@ -29,7 +29,7 @@ import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
-import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting2;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -65,7 +65,7 @@ import java.util.Optional;
 public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H extends SpreadsheetDeltaPatchHateosHttpEntityHandler<S, R>,
     S extends SpreadsheetSelection & Comparable<S>,
     R extends SpreadsheetSelection & Comparable<R>> implements
-    HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosHandlerContext>,
+    HateosHttpEntityHandlerTesting2<H, S, SpreadsheetEngineHateosHandlerContext>,
     HasLineEndingTesting,
     JsonNodeMarshallUnmarshallContextTesting,
     ClassTesting<H> {
