@@ -106,6 +106,13 @@ End points to query available Currencies.
 - **GET** /api/currency/[CurrencyCode](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/currency/CurrencyCide.java)
 - **GET** /api/currency/*?offset=0&count=1
 
+#### [CurrencyExchangeRater](https://github.com/mP1/walkingkooka-currency/blob/master/src/main/java/walkingkooka/currency/CurrencyExchangeRater.java)
+
+These end points may be used to work with available [CurrencyExchangeRaterInfoSet](https://github.com/mP1/walkingkooka-currency-provider/blob/master/src/main/java/walkingkooka/currency/provider/CurrencyExchangeRaterInfoSet.java)
+
+- **GET** /api/currencyExchangeRater
+- **GET** /api/currencyExchangeRater/[CurrencyExchangeRaterName](https://github.com/mP1/walkingkooka-currency-provider/blob/master/src/main/java/walkingkooka/currency/provider/CurrencyExchangeRaterName.java)
+- 
 #### [DateTimeSymbols](https://github.com/mP1/walkingkooka-datetime/blob/master/src/main/java/walkingkooka/datetime/DateTimeSymbols.java)
 
 End points to fetch `DateTimeSymbols` for a given `Locale`.

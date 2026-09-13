@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.currency.provider.CurrencyExchangeRaterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
@@ -76,6 +77,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_CURRENCY = API.append(
         CurrencyHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_CURRENCY_EXCHANGE_RATER = API.append(
+        CurrencyExchangeRaterName.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_DATE_TIME_SYMBOLS = API.append(

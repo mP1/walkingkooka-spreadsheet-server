@@ -28,6 +28,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterLikeTesting;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.currency.provider.CurrencyExchangeRaterInfo;
+import walkingkooka.currency.provider.CurrencyExchangeRaterInfoSet;
 import walkingkooka.datetime.HasLastModified;
 import walkingkooka.datetime.HasOptionalLastModified;
 import walkingkooka.environment.AuditInfo;
@@ -9602,6 +9604,64 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
         );
     }
 
+    // currencyExchangeRaters......................................................................................................
+
+    @Test
+    public void testCurrencyExchangeRatersGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/currencyExchangeRater",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-currency-provider/CurrencyExchangeRater/empty empty\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-currency-provider/CurrencyExchangeRater/properties properties\"\n" +
+                    "]",
+                CurrencyExchangeRaterInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testCurrencyExchangeRatersWithNameGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/currencyExchangeRater/empty",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-currency-provider/CurrencyExchangeRater/empty empty\"",
+                CurrencyExchangeRaterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testCurrencyExchangeRatersWithNameUnknownGet() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/currencyExchangeRater/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                CurrencyExchangeRaterInfo.class.getSimpleName()
+            )
+        );
+    }
+    
     // DateTimeSymbols..................................................................................................
 
     @Test
