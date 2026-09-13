@@ -34,7 +34,6 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting2;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
@@ -524,10 +523,5 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
     @Override
     public Class<SpreadsheetParserSelectorEditHateosHttpEntityHandler> type() {
         return SpreadsheetParserSelectorEditHateosHttpEntityHandler.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
