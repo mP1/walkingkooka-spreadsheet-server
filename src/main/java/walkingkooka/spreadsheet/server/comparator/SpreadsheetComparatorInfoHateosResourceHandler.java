@@ -26,7 +26,6 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 
 import java.util.Map;
@@ -86,6 +85,6 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
 
     @Override
     public String toString() {
-        return SpreadsheetComparatorProvider.class.getSimpleName() + ".spreadsheetComparatorInfos";
+        return "spreadsheetProvider.spreadsheetComparatorInfos";
     }
 }
