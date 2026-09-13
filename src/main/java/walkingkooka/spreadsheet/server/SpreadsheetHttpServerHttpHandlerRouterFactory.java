@@ -34,6 +34,8 @@ import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosRes
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContext;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosResourceMappings;
+import walkingkooka.spreadsheet.server.currencyexchangerate.CurrencyExchangeRaterHateosHandlerContext;
+import walkingkooka.spreadsheet.server.currencyexchangerate.CurrencyExchangeRaterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
@@ -74,6 +76,11 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
                 routing(SpreadsheetHttpServer.API_CURRENCY),
                 currencyHateosHandlerContextHttpHandler(
                     this.currencyRouter()
+                )
+            ).add(
+                routing(SpreadsheetHttpServer.API_CURRENCY_EXCHANGE_RATER),
+                spreadsheetProviderHateosHandlerContextHttpHandler(
+                    this.currencyExchangeRaterRouter()
                 )
             ).add(
                 routing(SpreadsheetHttpServer.API_DATE_TIME_SYMBOLS),
@@ -194,6 +201,12 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
         );
     }
 
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> currencyExchangeRaterRouter() {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            CurrencyExchangeRaterHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
+        );
+    }
+
     private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> dateTimeSymbolsRouter() {
         return this.localeHateosHandlerContextRouter(
             DateTimeSymbolsHateosResourceMappings.localeHateosHandlerContext()
@@ -256,6 +269,12 @@ final class SpreadsheetHttpServerHttpHandlerRouterFactory {
 
     private Router<HttpRequestAttribute<?>, HttpHandler<CurrencyHateosHandlerContext>> currencyHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyHateosHandlerContext> mappings) {
         return this.hateosResourceMappingsRouter(mappings);
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler<SpreadsheetProviderHateosHandlerContext>> currencyExchangeRaterHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, CurrencyExchangeRaterHateosHandlerContext> mappings) {
+        return this.spreadsheetProviderHateosHandlerContextRouter(
+            CurrencyExchangeRaterHateosResourceMappings.spreadsheetProviderHateosHandlerContext()
+        );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler<LocaleHateosHandlerContext>> localeHateosHandlerContextRouter(final HateosResourceMappings<?, ?, ?, ?, LocaleHateosHandlerContext> mappings) {
