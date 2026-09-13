@@ -174,7 +174,7 @@ public final class SpreadsheetExporterInfoHateosResourceHandlerTest implements H
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "systemSpreadsheetProvider.spreadsheetExporterInfos"
+            "spreadsheetProvider.spreadsheetExporterInfos"
         );
     }
 
