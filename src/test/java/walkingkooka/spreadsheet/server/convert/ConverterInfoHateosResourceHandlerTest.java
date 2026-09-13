@@ -174,7 +174,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "ConverterProvider.converterInfos"
+            "spreadsheetProvider.converterInfos"
         );
     }
 
