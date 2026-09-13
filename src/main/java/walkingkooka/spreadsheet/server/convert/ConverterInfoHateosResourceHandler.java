@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.convert;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -86,6 +85,6 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
 
     @Override
     public String toString() {
-        return ConverterProvider.class.getSimpleName() +  ".converterInfos";
+        return "spreadsheetProvider.converterInfos";
     }
 }
