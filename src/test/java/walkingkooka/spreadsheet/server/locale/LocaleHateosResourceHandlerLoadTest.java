@@ -30,8 +30,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -40,7 +39,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext>,
+public final class LocaleHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting2<LocaleHateosResourceHandlerLoad, LocaleLanguageTag, LocaleHateosResource, LocaleHateosResourceSet, LocaleHateosHandlerContext>,
     LocaleContextTesting {
 
     private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.fromLocale(LOCALE);
@@ -195,11 +194,6 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
     @Override
     public Class<LocaleHateosResourceHandlerLoad> type() {
         return LocaleHateosResourceHandlerLoad.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

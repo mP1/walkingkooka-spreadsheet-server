@@ -25,8 +25,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
@@ -39,7 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetImporterInfoHateosResourceHandler,
+public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting2<SpreadsheetImporterInfoHateosResourceHandler,
     SpreadsheetImporterName,
     SpreadsheetImporterInfo,
     SpreadsheetImporterInfoSet,
@@ -190,10 +189,5 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     @Override
     public Class<SpreadsheetImporterInfoHateosResourceHandler> type() {
         return SpreadsheetImporterInfoHateosResourceHandler.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

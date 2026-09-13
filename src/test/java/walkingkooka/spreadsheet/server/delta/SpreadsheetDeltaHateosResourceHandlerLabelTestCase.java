@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.ToStringTesting;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -31,7 +31,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, SpreadsheetLabelName>
-    implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    implements HateosResourceHandlerTesting2<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
     ToStringTesting<H> {
 
     SpreadsheetDeltaHateosResourceHandlerLabelTestCase() {

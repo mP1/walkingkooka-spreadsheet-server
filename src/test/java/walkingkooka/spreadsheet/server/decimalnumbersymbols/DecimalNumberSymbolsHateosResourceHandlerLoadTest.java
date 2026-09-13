@@ -28,8 +28,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContexts;
 
@@ -38,7 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<DecimalNumberSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
+public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting2<DecimalNumberSymbolsHateosResourceHandlerLoad, LocaleLanguageTag, DecimalNumberSymbolsHateosResource, DecimalNumberSymbolsHateosResourceSet, LocaleHateosHandlerContext>,
     LocaleContextTesting {
 
     private final static LocaleLanguageTag EN_AU = LocaleLanguageTag.fromLocale(LOCALE);
@@ -124,11 +123,6 @@ public final class DecimalNumberSymbolsHateosResourceHandlerLoadTest implements 
     @Override
     public Class<DecimalNumberSymbolsHateosResourceHandlerLoad> type() {
         return DecimalNumberSymbolsHateosResourceHandlerLoad.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

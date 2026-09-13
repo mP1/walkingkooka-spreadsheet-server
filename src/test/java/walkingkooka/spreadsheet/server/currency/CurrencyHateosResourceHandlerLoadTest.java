@@ -32,8 +32,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 
 import java.util.Currency;
 import java.util.Map;
@@ -41,7 +40,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class CurrencyHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting<CurrencyHateosResourceHandlerLoad, CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosHandlerContext>,
+public final class CurrencyHateosResourceHandlerLoadTest implements HateosResourceHandlerTesting2<CurrencyHateosResourceHandlerLoad, CurrencyCode, CurrencyHateosResource, CurrencyHateosResourceSet, CurrencyHateosHandlerContext>,
     LocaleContextTesting {
 
     private final static CurrencyCode AUD = CurrencyCode.parse("AUD");
@@ -212,11 +211,6 @@ public final class CurrencyHateosResourceHandlerLoadTest implements HateosResour
     @Override
     public Class<CurrencyHateosResourceHandlerLoad> type() {
         return CurrencyHateosResourceHandlerLoad.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

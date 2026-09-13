@@ -25,7 +25,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -37,7 +37,7 @@ import java.util.Set;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H extends SpreadsheetMetadataHateosResourceHandler>
     extends SpreadsheetMetadataHateosResourceHandlerTestCase<H>
-    implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext> {
+    implements HateosResourceHandlerTesting2<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadataHateosHandlerContext> {
 
     SpreadsheetMetadataHateosResourceHandlersTestCase2() {
         super();
