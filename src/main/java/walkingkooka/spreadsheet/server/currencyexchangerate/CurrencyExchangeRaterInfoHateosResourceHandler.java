@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.currencyexchangerate;
 import walkingkooka.currency.provider.CurrencyExchangeRaterInfo;
 import walkingkooka.currency.provider.CurrencyExchangeRaterInfoSet;
 import walkingkooka.currency.provider.CurrencyExchangeRaterName;
-import walkingkooka.currency.provider.CurrencyExchangeRaterProvider;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -85,6 +84,6 @@ final class CurrencyExchangeRaterInfoHateosResourceHandler implements HateosReso
 
     @Override
     public String toString() {
-        return CurrencyExchangeRaterProvider.class.getSimpleName() + ".currencyExchangeRaterInfos";
+        return "spreadsheetProvider.currencyExchangeRaterInfos";
     }
 }
