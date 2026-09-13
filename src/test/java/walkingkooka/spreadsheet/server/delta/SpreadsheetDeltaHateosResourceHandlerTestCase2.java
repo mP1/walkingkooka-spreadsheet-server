@@ -27,7 +27,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting2;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
@@ -107,7 +107,7 @@ import java.util.function.Function;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
-    implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
+    implements HateosResourceHandlerTesting2<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetMetadataTesting,
     ToStringTesting<H> {
 
