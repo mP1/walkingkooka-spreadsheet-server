@@ -83,7 +83,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            this.context(),
+            CONTEXT,
             Optional.of(INFO1)
         );
     }
@@ -95,7 +95,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            this.context(),
+            CONTEXT,
             Optional.empty()
         );
     }
@@ -106,7 +106,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
             Optional.empty(), // resource
             HateosResourceHandler.NO_PARAMETERS,
             UrlPath.EMPTY,
-            this.context(),
+            CONTEXT,
             Optional.of(
                 ConverterInfoSet.EMPTY.setElements(
                     Sets.of(
