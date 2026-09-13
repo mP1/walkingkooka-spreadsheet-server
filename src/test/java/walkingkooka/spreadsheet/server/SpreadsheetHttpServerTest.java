@@ -9619,8 +9619,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             this.response(
                 HttpStatusCode.OK.status(),
                 "[\n" +
-                    "  \"https://github.com/mP1/walkingkooka-currency-provider/CurrencyExchangeRater/empty empty\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-currency-provider/CurrencyExchangeRater/properties properties\"\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/CurrencyExchangeRater/empty empty\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/CurrencyExchangeRater/properties properties\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/CurrencyExchangeRater/storage-path-properties storage-path-properties\"\n" +
                     "]",
                 CurrencyExchangeRaterInfoSet.class.getSimpleName()
             )
@@ -9639,7 +9640,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "",
             this.response(
                 HttpStatusCode.OK.status(),
-                "\"https://github.com/mP1/walkingkooka-currency-provider/CurrencyExchangeRater/empty empty\"",
+                "\"https://github.com/mP1/walkingkooka-spreadsheet/CurrencyExchangeRater/empty empty\"",
                 CurrencyExchangeRaterInfo.class.getSimpleName()
             )
         );
