@@ -86,6 +86,6 @@ final class SpreadsheetExporterInfoHateosResourceHandler implements HateosResour
 
     @Override
     public String toString() {
-        return "systemSpreadsheetProvider.spreadsheetExporterInfos";
+        return "spreadsheetProvider.spreadsheetExporterInfos";
     }
 }
