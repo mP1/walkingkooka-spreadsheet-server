@@ -174,7 +174,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
     public void testToString() {
         this.toStringAndCheck(
             this.createHandler(),
-            "SpreadsheetProvider.spreadsheetComparatorInfos"
+            "SpreadsheetComparatorProvider.spreadsheetComparatorInfos"
         );
     }
 
