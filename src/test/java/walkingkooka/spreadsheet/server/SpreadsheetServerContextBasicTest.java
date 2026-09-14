@@ -968,7 +968,7 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
             ),
             "SpreadsheetServerContextBasic\n" +
                 "  mediaTypeDetector\n" +
-                "    application/octet-stream (walkingkooka.net.header.BinaryMediaTypeDetector)\n" +
+                "    application/octet-stream (walkingkooka.net.header.MediaTypeDetectorBinary)\n" +
                 "  currencyLocaleContext\n" +
                 "    JRE ReadOnly JRE en-AU (walkingkooka.currency.CurrencyLocaleContextReadOnly)\n" +
                 "  spreadsheetEnvironmentContext\n" +
