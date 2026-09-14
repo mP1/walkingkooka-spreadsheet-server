@@ -30,7 +30,6 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
@@ -211,10 +210,5 @@ public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest imp
     @Override
     public Class<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler> type() {
         return DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

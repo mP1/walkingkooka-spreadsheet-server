@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.net.http.server.HttpHandlerTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 
@@ -40,10 +39,5 @@ public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements Ht
     @Override
     public Class<SpreadsheetDeltaHttpMappingsFormHttpHandler> type() {
         return SpreadsheetDeltaHttpMappingsFormHttpHandler.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

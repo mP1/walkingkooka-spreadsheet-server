@@ -34,7 +34,6 @@ import walkingkooka.net.http.server.GetOrHeadHttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
@@ -455,10 +454,5 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
     @Override
     public Class<SpreadsheetFormatterSelectorEditHttpHandlerMetadata> type() {
         return SpreadsheetFormatterSelectorEditHttpHandlerMetadata.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
