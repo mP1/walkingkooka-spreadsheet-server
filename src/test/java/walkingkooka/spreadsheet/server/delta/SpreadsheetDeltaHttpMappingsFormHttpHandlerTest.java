@@ -17,12 +17,12 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.net.http.server.HttpHandlerTesting;
+import walkingkooka.net.http.server.HttpHandlerTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContexts;
 
-public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements HttpHandlerTesting<SpreadsheetDeltaHttpMappingsFormHttpHandler,
+public final class SpreadsheetDeltaHttpMappingsFormHttpHandlerTest implements HttpHandlerTesting2<SpreadsheetDeltaHttpMappingsFormHttpHandler,
     SpreadsheetEngineHateosHandlerContext> {
 
     @Override
