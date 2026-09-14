@@ -23,11 +23,14 @@ import walkingkooka.currency.provider.CurrencyExchangeRaterName;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
 
 public final class CurrencyExchangeRaterHateosResourceMappings implements PublicStaticHelper {
+
+    public final static HateosResourceName HATEOS_RESOURCE_NAME = CurrencyExchangeRaterName.HATEOS_RESOURCE_NAME;
 
     public static HateosResourceMappings<CurrencyExchangeRaterName,
         CurrencyExchangeRaterInfo,
