@@ -30,7 +30,6 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
@@ -324,10 +323,5 @@ public final class DateTimeSymbolsFindByLocaleStartsWithHttpHandlerTest implemen
     @Override
     public Class<DateTimeSymbolsFindByLocaleStartsWithHttpHandler> type() {
         return DateTimeSymbolsFindByLocaleStartsWithHttpHandler.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
