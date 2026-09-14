@@ -39,7 +39,7 @@ public final class CurrencyExchangeRaterHateosResourceMappings implements Public
         SpreadsheetProviderHateosHandlerContext> spreadsheetProviderHateosHandlerContext() {
 
         return HateosResourceMappings.with(
-            CurrencyExchangeRaterName.HATEOS_RESOURCE_NAME,
+            HATEOS_RESOURCE_NAME,
             CurrencyExchangeRaterHateosResourceMappings::parseSelection,
             CurrencyExchangeRaterInfo.class, // valueType
             CurrencyExchangeRaterInfoSet.class, // collectionType
