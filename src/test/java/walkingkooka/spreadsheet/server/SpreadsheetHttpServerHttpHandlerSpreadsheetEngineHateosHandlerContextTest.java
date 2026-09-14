@@ -17,11 +17,11 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.net.http.server.HttpHandlerTesting;
+import walkingkooka.net.http.server.HttpHandlerTesting2;
 import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContextTest implements HttpHandlerTesting<SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext, SpreadsheetServerContext> {
+public final class SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContextTest implements HttpHandlerTesting2<SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext, SpreadsheetServerContext> {
 
     @Override
     public SpreadsheetHttpServerHttpHandlerSpreadsheetEngineHateosHandlerContext createHttpHandler() {

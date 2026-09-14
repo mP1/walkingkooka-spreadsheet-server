@@ -31,7 +31,7 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.HttpHandlerTesting;
+import walkingkooka.net.http.server.HttpHandlerTesting2;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
@@ -64,7 +64,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetEngineHateosHandlerContext>,
+public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting2<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetEngineHateosHandlerContext>,
     HateosHandlerContextTesting,
     ToStringTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
