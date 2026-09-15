@@ -72,7 +72,7 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             Optional.of(
                 LocaleHateosResourceSet.EMPTY.concatAll(
                     Arrays.stream(Locale.getAvailableLocales())
-                        .filter((l) -> false == l.getDisplayName().isEmpty())
+                        .filter((l) -> false == l.getDisplayName().isEmpty() && l.getExtensionKeys().isEmpty())
                         .map(LocaleHateosResource::fromLocale)
                         .collect(Collectors.toList())
                 )
