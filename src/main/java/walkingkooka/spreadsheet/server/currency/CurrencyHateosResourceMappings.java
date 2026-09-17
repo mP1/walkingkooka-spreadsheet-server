@@ -34,7 +34,11 @@ public final class CurrencyHateosResourceMappings implements PublicStaticHelper 
 
         return HateosResourceMappings.with(
             CurrencyHateosResource.HATEOS_RESOURCE_NAME,
-            CurrencyHateosResourceMappings::parseSelection,
+            (final String text,
+             final CurrencyHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                CurrencyCode::parse
+            ),
             CurrencyHateosResource.class, // valueType
             CurrencyHateosResourceSet.class, // collectionType
             CurrencyHateosResource.class,// resourceType
@@ -44,27 +48,6 @@ public final class CurrencyHateosResourceMappings implements PublicStaticHelper 
             HttpMethod.GET,
             CurrencyHateosResourceHandlerLoad.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<CurrencyCode> parseSelection(final String text,
-                                                                        final CurrencyHateosHandlerContext context) {
-        final HateosResourceSelection<CurrencyCode> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    CurrencyCode.parse(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

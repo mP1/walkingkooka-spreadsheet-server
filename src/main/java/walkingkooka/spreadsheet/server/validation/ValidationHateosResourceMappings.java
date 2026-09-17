@@ -23,7 +23,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
-import walkingkooka.text.CharSequences;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
@@ -42,7 +41,10 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
 
         return HateosResourceMappings.with(
             ValidatorName.HATEOS_RESOURCE_NAME,
-            ValidationHateosResourceMappings::parseSelection,
+            (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                ValidatorName::with
+            ),
             ValidatorInfo.class, // valueType
             ValidatorInfoSet.class, // collectionType
             ValidatorInfo.class,// resourceType
@@ -52,26 +54,6 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
             HttpMethod.GET,
             ValidatorInfoHateosResourceHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<ValidatorName> parseSelection(final String text,
-                                                                         final SpreadsheetProviderHateosHandlerContext context) {
-        final HateosResourceSelection<ValidatorName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                throw new IllegalArgumentException("Invalid validator selection " + CharSequences.quoteAndEscape(text));
-            default:
-                selection = HateosResourceSelection.one(
-                    ValidatorName.with(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

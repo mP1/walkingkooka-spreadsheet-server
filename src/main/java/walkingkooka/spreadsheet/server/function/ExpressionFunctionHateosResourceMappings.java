@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -44,7 +43,10 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
 
         return HateosResourceMappings.with(
                 HATEOS_RESOURCE_NAME,
-                ExpressionFunctionHateosResourceMappings::parseSelection,
+                (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                    text,
+                    SpreadsheetExpressionFunctions::name
+                ),
                 ExpressionFunctionInfo.class, // valueType
                 ExpressionFunctionInfoSet.class, // collectionType
                 ExpressionFunctionInfo.class,// resourceType
@@ -55,26 +57,6 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 HttpMethod.GET,
                 ExpressionFunctionInfoHateosResourceHandler.INSTANCE
             );
-    }
-
-    private static HateosResourceSelection<ExpressionFunctionName> parseSelection(final String text,
-                                                                                  final SpreadsheetProviderHateosHandlerContext context) {
-        final HateosResourceSelection<ExpressionFunctionName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                throw new IllegalArgumentException("Invalid function selection " + CharSequences.quoteAndEscape(text));
-            default:
-                selection = HateosResourceSelection.one(
-                    SpreadsheetExpressionFunctions.name(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

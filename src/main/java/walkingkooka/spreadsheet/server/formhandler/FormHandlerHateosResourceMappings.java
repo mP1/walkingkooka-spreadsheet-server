@@ -23,7 +23,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
-import walkingkooka.text.CharSequences;
 import walkingkooka.validation.form.provider.FormHandlerInfo;
 import walkingkooka.validation.form.provider.FormHandlerInfoSet;
 import walkingkooka.validation.form.provider.FormHandlerName;
@@ -40,7 +39,10 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
 
         return HateosResourceMappings.with(
             FormHandlerName.HATEOS_RESOURCE_NAME,
-            FormHandlerHateosResourceMappings::parseFormHandlerSelection,
+            (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                FormHandlerName::with
+            ),
             FormHandlerInfo.class, // valueType
             FormHandlerInfoSet.class, // collectionType
             FormHandlerInfo.class,// resourceType
@@ -50,26 +52,6 @@ public final class FormHandlerHateosResourceMappings implements PublicStaticHelp
             HttpMethod.GET,
             FormHandlerInfoHateosResourceHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<FormHandlerName> parseFormHandlerSelection(final String text,
-                                                                                      final SpreadsheetProviderHateosHandlerContext context) {
-        final HateosResourceSelection<FormHandlerName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                throw new IllegalArgumentException("Invalid formHandler selection " + CharSequences.quoteAndEscape(text));
-            default:
-                selection = HateosResourceSelection.one(
-                    FormHandlerName.with(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

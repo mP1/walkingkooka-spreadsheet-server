@@ -78,23 +78,10 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
 
     private static HateosResourceSelection<SpreadsheetParserName> parseSelection(final String text,
                                                                                  final HateosHandlerContext context) {
-        final HateosResourceSelection<SpreadsheetParserName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    SpreadsheetParserName.with(text)
-                );
-                break;
-        }
-
-        return selection;
+        return HateosResourceSelection.parseOneOrAll(
+            text,
+            SpreadsheetParserName::with
+        );
     }
 
     /**
