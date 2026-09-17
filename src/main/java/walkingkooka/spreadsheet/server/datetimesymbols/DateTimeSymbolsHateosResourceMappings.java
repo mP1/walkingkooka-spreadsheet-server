@@ -36,7 +36,10 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
 
         return HateosResourceMappings.with(
             DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME,
-            DateTimeSymbolsHateosResourceMappings::parseSelection,
+            (final String text, final LocaleHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                LocaleLanguageTag::parse
+            ),
             DateTimeSymbolsHateosResource.class, // valueType
             DateTimeSymbolsHateosResourceSet.class, // collectionType
             DateTimeSymbolsHateosResource.class,// resourceType
@@ -50,27 +53,6 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
                 .get(),
             DateTimeSymbolsFindByLocaleStartsWithHttpHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
-                                                                             final LocaleHateosHandlerContext context) {
-        final HateosResourceSelection<LocaleLanguageTag> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    LocaleLanguageTag.parse(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

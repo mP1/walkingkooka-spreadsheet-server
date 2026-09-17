@@ -40,7 +40,10 @@ public final class CurrencyExchangeRaterHateosResourceMappings implements Public
 
         return HateosResourceMappings.with(
             HATEOS_RESOURCE_NAME,
-            CurrencyExchangeRaterHateosResourceMappings::parseSelection,
+            (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                CurrencyExchangeRaterName::with
+            ),
             CurrencyExchangeRaterInfo.class, // valueType
             CurrencyExchangeRaterInfoSet.class, // collectionType
             CurrencyExchangeRaterInfo.class,// resourceType
@@ -50,27 +53,6 @@ public final class CurrencyExchangeRaterHateosResourceMappings implements Public
             HttpMethod.GET,
             CurrencyExchangeRaterInfoHateosResourceHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<CurrencyExchangeRaterName> parseSelection(final String text,
-                                                                                     final SpreadsheetProviderHateosHandlerContext context) {
-        final HateosResourceSelection<CurrencyExchangeRaterName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    CurrencyExchangeRaterName.with(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

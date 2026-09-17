@@ -26,7 +26,6 @@ import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterName;
 import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosHandlerContext;
-import walkingkooka.text.CharSequences;
 
 public final class SpreadsheetImporterHateosResourceMappings implements PublicStaticHelper {
 
@@ -42,7 +41,10 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
 
         return HateosResourceMappings.with(
             SpreadsheetImporterName.HATEOS_RESOURCE_NAME,
-            SpreadsheetImporterHateosResourceMappings::parseSelection,
+            (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                SpreadsheetImporterName::with
+            ),
             SpreadsheetImporterInfo.class, // valueType
             SpreadsheetImporterInfoSet.class, // collectionType
             SpreadsheetImporterInfo.class,// resourceType
@@ -52,26 +54,6 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
             HttpMethod.GET,
             SpreadsheetImporterInfoHateosResourceHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<SpreadsheetImporterName> parseSelection(final String text,
-                                                                                   final SpreadsheetProviderHateosHandlerContext context) {
-        final HateosResourceSelection<SpreadsheetImporterName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                throw new IllegalArgumentException("Invalid importer selection " + CharSequences.quoteAndEscape(text));
-            default:
-                selection = HateosResourceSelection.one(
-                    SpreadsheetImporterName.with(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

@@ -36,7 +36,10 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
 
         return HateosResourceMappings.with(
             DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME,
-            DecimalNumberSymbolsHateosResourceMappings::parseSelection,
+            (final String text, final LocaleHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                LocaleLanguageTag::parse
+            ),
             DecimalNumberSymbolsHateosResource.class, // valueType
             DecimalNumberSymbolsHateosResourceSet.class, // collectionType
             DecimalNumberSymbolsHateosResource.class,// resourceType
@@ -50,27 +53,6 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
                 .get(),
             DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
-                                                                             final LocaleHateosHandlerContext context) {
-        final HateosResourceSelection<LocaleLanguageTag> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.none();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    LocaleLanguageTag.parse(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

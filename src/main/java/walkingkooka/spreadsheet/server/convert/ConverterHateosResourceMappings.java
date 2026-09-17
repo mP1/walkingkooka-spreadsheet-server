@@ -42,7 +42,10 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
 
         return HateosResourceMappings.with(
             HATEOS_RESOURCE_NAME,
-            ConverterHateosResourceMappings::parseConverterSelection,
+            (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                ConverterName::with
+            ),
             ConverterInfo.class, // valueType
             ConverterInfoSet.class, // collectionType
             ConverterInfo.class,// resourceType
@@ -52,27 +55,6 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
             HttpMethod.GET,
             ConverterInfoHateosResourceHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<ConverterName> parseConverterSelection(final String text,
-                                                                                  final SpreadsheetProviderHateosHandlerContext context) {
-        final HateosResourceSelection<ConverterName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    ConverterName.with(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

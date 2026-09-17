@@ -34,7 +34,10 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
 
         return HateosResourceMappings.with(
             LocaleHateosResource.HATEOS_RESOURCE_NAME,
-            LocaleHateosResourceMappings::parseSelection,
+            (final String text, final LocaleHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                LocaleLanguageTag::parse
+            ),
             LocaleHateosResource.class, // valueType
             LocaleHateosResourceSet.class, // collectionType
             LocaleHateosResource.class,// resourceType
@@ -44,27 +47,6 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
             HttpMethod.GET,
             LocaleHateosResourceHandlerLoad.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<LocaleLanguageTag> parseSelection(final String text,
-                                                                             final LocaleHateosHandlerContext context) {
-        final HateosResourceSelection<LocaleLanguageTag> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                selection = HateosResourceSelection.one(
-                    LocaleLanguageTag.parse(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**

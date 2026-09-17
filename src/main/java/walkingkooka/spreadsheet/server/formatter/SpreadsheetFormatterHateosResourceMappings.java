@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -61,7 +60,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
 
         return HateosResourceMappings.with(
             SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
-            SpreadsheetFormatterHateosResourceMappings::parseSelection,
+            (final String text, final SpreadsheetProviderHateosHandlerContext context) -> HateosResourceSelection.parseOneOrAll(
+                text,
+                SpreadsheetFormatterName::with
+            ),
             SpreadsheetFormatterInfo.class, // valueType
             SpreadsheetFormatterInfoSet.class, // collectionType
             SpreadsheetFormatterInfo.class,// resourceType
@@ -71,30 +73,6 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             HttpMethod.GET,
             SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
         );
-    }
-
-    private static HateosResourceSelection<SpreadsheetFormatterName> parseSelection(final String text,
-                                                                                    final HateosHandlerContext context) {
-        final HateosResourceSelection<SpreadsheetFormatterName> selection;
-
-        switch (text) {
-            case HateosResourceSelection.NONE:
-                //GET /formatters
-                selection = HateosResourceSelection.all();
-                break;
-            case HateosResourceSelection.ALL:
-                //POST /formatters/*/format
-                selection = HateosResourceSelection.all();
-                break;
-            default:
-                // POST /formatter/formatter-name
-                selection = HateosResourceSelection.one(
-                    SpreadsheetFormatterName.with(text)
-                );
-                break;
-        }
-
-        return selection;
     }
 
     /**
