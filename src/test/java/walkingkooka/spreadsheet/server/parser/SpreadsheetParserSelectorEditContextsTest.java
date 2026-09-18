@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -26,11 +25,6 @@ public final class SpreadsheetParserSelectorEditContextsTest implements PublicSt
     @Override
     public Class<SpreadsheetParserSelectorEditContexts> type() {
         return SpreadsheetParserSelectorEditContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.export;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -34,10 +33,5 @@ public final class SpreadsheetExporterHateosResourceMappingsTest implements Publ
     @Override
     public boolean canHavePublicTypes(final Method method) {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class LocaleHateosHandlerContextsTest implements PublicStaticHelper
     @Override
     public Class<LocaleHateosHandlerContexts> type() {
         return LocaleHateosHandlerContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

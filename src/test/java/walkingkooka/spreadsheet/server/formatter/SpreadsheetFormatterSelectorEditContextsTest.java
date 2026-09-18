@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -26,11 +25,6 @@ public final class SpreadsheetFormatterSelectorEditContextsTest implements Publi
     @Override
     public Class<SpreadsheetFormatterSelectorEditContexts> type() {
         return SpreadsheetFormatterSelectorEditContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
