@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class SpreadsheetProviderHateosHandlerContextsTest implements Publi
     @Override
     public Class<SpreadsheetProviderHateosHandlerContexts> type() {
         return SpreadsheetProviderHateosHandlerContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

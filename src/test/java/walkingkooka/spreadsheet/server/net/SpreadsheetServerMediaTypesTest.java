@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.net;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class SpreadsheetServerMediaTypesTest implements PublicStaticHelper
     @Override
     public Class<SpreadsheetServerMediaTypes> type() {
         return SpreadsheetServerMediaTypes.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

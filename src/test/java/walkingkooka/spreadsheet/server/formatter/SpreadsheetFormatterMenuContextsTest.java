@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class SpreadsheetFormatterMenuContextsTest implements PublicStaticH
     @Override
     public Class<SpreadsheetFormatterMenuContexts> type() {
         return SpreadsheetFormatterMenuContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
