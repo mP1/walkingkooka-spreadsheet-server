@@ -17,8 +17,9 @@
 
 package walkingkooka.spreadsheet.server.currency;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+
+import java.lang.reflect.Method;
 
 public final class CurrencyHateosHandlerContextsTest implements PublicStaticHelperTesting<CurrencyHateosHandlerContexts> {
 
@@ -28,7 +29,7 @@ public final class CurrencyHateosHandlerContextsTest implements PublicStaticHelp
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+    public boolean canHavePublicTypes(final Method method) {
+        return false;
     }
 }
