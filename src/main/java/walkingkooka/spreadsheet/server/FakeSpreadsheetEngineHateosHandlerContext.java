@@ -303,13 +303,13 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
     }
 
     @Override
-    public void log(final LoggingLevel level,
+    public void log(final LoggingLevel loggingLevel,
                     final String message) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void log(final LoggingLevel level,
+    public void log(final LoggingLevel loggingLevel,
                     final String message,
                     final Throwable throwable) {
         throw new UnsupportedOperationException();
@@ -341,7 +341,7 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
     }
 
     @Override
-    public boolean isLoggingEnabled(final LoggingLevel level) {
+    public boolean isLoggingEnabled(final LoggingLevel loggingLevel) {
         throw new UnsupportedOperationException();
     }
     
