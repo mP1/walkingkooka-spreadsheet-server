@@ -28,6 +28,7 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingContext;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
@@ -331,6 +332,11 @@ final class SpreadsheetServerContextBasic implements SpreadsheetServerContext,
 
     @Override
     public SpreadsheetEnvironmentContext spreadsheetEnvironmentContext() {
+        return this.spreadsheetEnvironmentContext;
+    }
+
+    @Override
+    public LoggingContext loggingContext() {
         return this.spreadsheetEnvironmentContext;
     }
 

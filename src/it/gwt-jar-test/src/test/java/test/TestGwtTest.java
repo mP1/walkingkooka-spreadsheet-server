@@ -417,7 +417,8 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                                 CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )
-                        )
+                        ),
+                        environmentContext // LoggingContext
                     ),
                     ProviderContexts.basic(
                         StorageContexts.basic(

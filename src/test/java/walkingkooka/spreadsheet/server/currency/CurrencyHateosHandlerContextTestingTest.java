@@ -21,6 +21,8 @@ import walkingkooka.Binary;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyContext;
 import walkingkooka.currency.CurrencyContextDelegator;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.net.header.ETag;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContextTestingTest.TestCurrencyHateosHandlerContext;
@@ -65,7 +67,8 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
     }
 
     final static class TestCurrencyHateosHandlerContext implements CurrencyHateosHandlerContext, CurrencyContextDelegator,
-        JsonNodeMarshallUnmarshallContextDelegator {
+        JsonNodeMarshallUnmarshallContextDelegator,
+        LoggingContextDelegator {
 
         @Override
         public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
@@ -114,6 +117,11 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
         @Override
         public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
             return JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT;
+        }
+
+        @Override
+        public LoggingContext loggingContext() {
+            return LOGGING_CONTEXT;
         }
 
         @Override
