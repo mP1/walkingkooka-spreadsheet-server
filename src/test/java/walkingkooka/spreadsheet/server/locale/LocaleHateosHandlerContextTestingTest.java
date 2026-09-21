@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.locale;
 import walkingkooka.Binary;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.header.ETag;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContextTestingTest.TestLocaleHateosHandlerContext;
@@ -78,7 +80,9 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         throw new UnsupportedOperationException();
     }
 
-    final static class TestLocaleHateosHandlerContext implements LocaleHateosHandlerContext, JsonNodeMarshallUnmarshallContextDelegator {
+    final static class TestLocaleHateosHandlerContext implements LocaleHateosHandlerContext,
+        JsonNodeMarshallUnmarshallContextDelegator,
+        LoggingContextDelegator {
 
         @Override
         public Set<Locale> availableLocales() {
@@ -166,6 +170,11 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
         @Override
         public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
             return JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT;
+        }
+
+        @Override
+        public LoggingContext loggingContext() {
+            return LOGGING_CONTEXT;
         }
 
         @Override

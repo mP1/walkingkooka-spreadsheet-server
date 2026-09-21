@@ -413,7 +413,8 @@ public class J2clTest implements HasHateosContentType {
                                 CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
                                 MathContext.DECIMAL32
                             )
-                        )
+                        ),
+                        environmentContext // LoggingContext
                     ),
                     ProviderContexts.basic(
                         StorageContexts.basic(

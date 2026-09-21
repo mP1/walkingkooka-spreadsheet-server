@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.environment.CanParseEnvironmentValueName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.logging.LoggingContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContextDelegator;
 import walkingkooka.plugin.ProviderContext;
@@ -116,6 +117,11 @@ final class SpreadsheetProviderHateosHandlerContextBasic implements SpreadsheetP
     @Override
     public void setLocale(final Locale locale) {
         this.providerContext.setLocale(locale);
+    }
+
+    @Override
+    public LoggingContext loggingContext() {
+        return this.hateosHandlerContext;
     }
 
     // ProviderContextDelegator.........................................................................................
