@@ -37,7 +37,6 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -455,10 +454,6 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
         return SpreadsheetEngineHateosHandlerContextBasic.class;
     }
 
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
 
     @Override
     public void testTypeNaming() {

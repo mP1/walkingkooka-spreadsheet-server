@@ -31,7 +31,6 @@ import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -1072,11 +1071,6 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
     @Override
     public Class<SpreadsheetServerContextBasic> type() {
         return SpreadsheetServerContextBasic.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

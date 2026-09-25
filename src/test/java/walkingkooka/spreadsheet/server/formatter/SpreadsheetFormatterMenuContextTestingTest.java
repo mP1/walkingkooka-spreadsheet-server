@@ -21,7 +21,6 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
@@ -94,11 +93,6 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
     @Override
     public Class<TestSpreadsheetFormatterMenuContext> type() {
         return TestSpreadsheetFormatterMenuContext.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     final static class TestSpreadsheetFormatterMenuContext implements SpreadsheetFormatterMenuContext,

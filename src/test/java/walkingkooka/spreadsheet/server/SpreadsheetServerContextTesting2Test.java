@@ -31,7 +31,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ETag;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -360,10 +359,5 @@ public final class SpreadsheetServerContextTesting2Test implements SpreadsheetSe
     @Override
     public Class<TestSpreadsheetServerContext> type() {
         return TestSpreadsheetServerContext.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
