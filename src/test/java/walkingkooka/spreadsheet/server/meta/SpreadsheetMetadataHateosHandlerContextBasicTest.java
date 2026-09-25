@@ -941,7 +941,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
     @Override
     public SpreadsheetMetadataHateosHandlerContextBasic createContext() {
         return this.createContext(
-            SPREADSHEET_ENVIRONMENT_CONTEXT,
+            SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment(),
             PROVIDER_CONTEXT
         );
     }

@@ -115,11 +115,6 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
         }
 
         @Override
-        public Charset charset() {
-            return SpreadsheetEngineHateosHandlerContextBasicTest.CHARSET;
-        }
-
-        @Override
         public MediaType detect(final String filename,
                                 final Binary content) {
             return MEDIA_TYPE_DETECTOR.detect(
@@ -173,6 +168,16 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
         }
 
         private final EnvironmentContext environmentContext;
+
+        @Override
+        public Charset charset() {
+            return this.environmentContext.charset();
+        }
+
+        @Override
+        public void setCharset(final Charset charset) {
+            this.environmentContext.setCharset(charset);
+        }
 
         @Override
         public Currency currency() {
@@ -391,6 +396,11 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
 
     @Override
     public void testSaveMetadataWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetCharset() {
         throw new UnsupportedOperationException();
     }
 

@@ -91,7 +91,22 @@ public final class SpreadsheetProviderHateosHandlerContextBasicTest implements S
     }
 
     @Override
+    public void testSetCharset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetIndentation() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testSetIndentationWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetLineEnding() {
         throw new UnsupportedOperationException();
     }
 
