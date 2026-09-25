@@ -108,41 +108,35 @@ final class SpreadsheetMetadataHateosHandlerContextBasic implements SpreadsheetM
     @Override
     public <T> void setEnvironmentValue(final EnvironmentValueName<T> name,
                                         final T value) {
-        Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(value, "value");
-
-        throw new UnsupportedOperationException();
+        this.context.setEnvironmentValue(
+            name,
+            value
+        );
     }
 
     @Override
     public void removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        Objects.requireNonNull(name, "name");
-
-        throw new UnsupportedOperationException();
+        this.context.removeEnvironmentValue(name);
     }
 
     @Override
     public Currency currency() {
-        throw new UnsupportedOperationException();
+        return this.context.currency();
     }
 
     @Override
     public void setCurrency(final Currency currency) {
-        Objects.requireNonNull(currency, "currency");
-
-        throw new UnsupportedOperationException();
+        this.context.setCurrency(currency);
     }
 
     @Override
     public Locale locale() {
-        throw new UnsupportedOperationException();
+        return this.context.locale();
     }
 
     @Override
     public void setLocale(final Locale locale) {
-        Objects.requireNonNull(locale, "locale");
-
-        throw new UnsupportedOperationException();
+        this.context.setLocale(locale);
     }
 
     @Override
