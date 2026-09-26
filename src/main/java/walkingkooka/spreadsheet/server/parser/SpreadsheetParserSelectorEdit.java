@@ -231,7 +231,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
             }
 
             final String message = this.message;
-            if (false == CharSequences.isNullOrEmpty(message)) {
+            if (CharSequences.isNotNullOrEmpty(message)) {
                 printer.println("message");
                 printer.indent();
                 {
