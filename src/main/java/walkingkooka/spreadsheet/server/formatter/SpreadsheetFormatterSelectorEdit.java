@@ -222,7 +222,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
             }
 
             final String message = this.message;
-            if (false == CharSequences.isNullOrEmpty(message)) {
+            if (CharSequences.isNotNullOrEmpty(message)) {
                 printer.println("message");
                 printer.indent();
                 {
@@ -482,7 +482,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         }
 
         final String message = this.message;
-        if (false == CharSequences.isNullOrEmpty(message)) {
+        if (CharSequences.isNotNullOrEmpty(message)) {
             children.add(
                 context.marshall(message)
                     .setName(MESSAGE_PROPERTY)
