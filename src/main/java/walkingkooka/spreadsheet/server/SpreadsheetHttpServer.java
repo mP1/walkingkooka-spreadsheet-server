@@ -59,6 +59,10 @@ import java.util.function.Function;
  */
 public final class SpreadsheetHttpServer implements HttpServer {
 
+    static {
+        SpreadsheetServerStartup.init();
+    }
+
     /**
      * This header contains the client transaction-id and is used to map responses with the original requests.
      */
