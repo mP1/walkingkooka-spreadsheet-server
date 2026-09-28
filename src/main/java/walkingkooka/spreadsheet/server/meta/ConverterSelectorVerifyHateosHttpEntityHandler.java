@@ -37,11 +37,13 @@ import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A handler which eventually calls {@link MissingConverter#verify(Converter, SpreadsheetMetadataPropertyName, SpreadsheetConverterContext)}.
@@ -99,7 +101,9 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                 context.spreadsheetMetadata()
                     .spreadsheetConverterContext(
                         SpreadsheetMetadata.NO_CELL,
-                        SpreadsheetMetadata.NO_VALIDATION_REFERENCE,
+                        Optional.of(
+                            SpreadsheetSelection.A1 // Converters such as text-to-validation-error require an active cell
+                        ),
                         Cast.to(propertyName),
                         SpreadsheetLabelNameResolvers.empty(),
                         context, // MediaTypeDetector

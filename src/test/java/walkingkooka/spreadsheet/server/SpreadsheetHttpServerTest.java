@@ -12207,21 +12207,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         Lists.of(
                             MissingConverterSet.class.getSimpleName()
                         )
-                    ).setBodyText("[\n" +
-                        "  {\n" +
-                        "    \"name\": \"form-and-validation\",\n" +
-                        "    \"values\": [\n" +
-                        "      {\n" +
-                        "        \"value\": \"Error message 123\",\n" +
-                        "        \"type\": \"walkingkooka.validation.ValidationError\"\n" +
-                        "      },\n" +
-                        "      {\n" +
-                        "        \"value\": \"Validation error message 1\",\n" +
-                        "        \"type\": \"walkingkooka.validation.ValidationErrorList\"\n" +
-                        "      }\n" +
-                        "    ]\n" +
-                        "  }\n" +
-                        "]")
+                    ).setBodyText("[]")
                     .setContentLength()
             )
         );
