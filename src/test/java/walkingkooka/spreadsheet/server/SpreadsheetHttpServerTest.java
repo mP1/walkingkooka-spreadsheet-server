@@ -9525,7 +9525,35 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     @Test
-    public void testConverterVerifyPost() {
+    public void testConverterVerifyPostWithFormattingConverter() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/formattingConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[]")
+                    .setContentLength()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPostWithFormulaConverter() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -9547,6 +9575,132 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             MissingConverterSet.class.getSimpleName()
                         )
                     ).setBodyText("[]")
+                    .setContentLength()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPostWithQueryConverter() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/queryConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.QUERY_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[]")
+                    .setContentLength()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPostWithSortConverter() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/sortConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.SORT_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[]")
+                    .setContentLength()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPostWithScriptingConverter() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/scriptingConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.SCRIPTING_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[]")
+                    .setContentLength()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPostWithValidationConverter() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/validationConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.VALIDATION_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[\n" +
+                        "  {\n" +
+                        "    \"name\": \"form-and-validation\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"Error message 123\",\n" +
+                        "        \"type\": \"walkingkooka.validation.ValidationError\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"Validation error message 1\",\n" +
+                        "        \"type\": \"walkingkooka.validation.ValidationErrorList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  }\n" +
+                        "]")
                     .setContentLength()
             )
         );
