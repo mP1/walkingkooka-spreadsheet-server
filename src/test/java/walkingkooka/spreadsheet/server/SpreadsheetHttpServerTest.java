@@ -28,6 +28,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterLikeTesting;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.currency.provider.CurrencyExchangeRaterInfo;
 import walkingkooka.currency.provider.CurrencyExchangeRaterInfoSet;
 import walkingkooka.datetime.HasLastModified;
@@ -9521,6 +9522,2525 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             this.response(
                 HttpStatusCode.NO_CONTENT.status(),
                 ConverterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerifyPostWithNever() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/metadata/formattingConverter/verify",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                ConverterSelector.parse("never")
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(HATEOS_CONTENT_TYPE)
+                    .setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[\n" +
+                        "  {\n" +
+                        "    \"name\": \"basic\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Object\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Object\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"spreadsheet-cell\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"A1\": {\n" +
+                        "              \"formula\": {\n" +
+                        "                \"text\": \"=1+2+3\"\n" +
+                        "              },\n" +
+                        "              \"dateTimeSymbols\": {\n" +
+                        "                \"ampms\": [\n" +
+                        "                  \"am\",\n" +
+                        "                  \"pm\"\n" +
+                        "                ],\n" +
+                        "                \"monthNames\": [\n" +
+                        "                  \"January\",\n" +
+                        "                  \"February\",\n" +
+                        "                  \"March\",\n" +
+                        "                  \"April\",\n" +
+                        "                  \"May\",\n" +
+                        "                  \"June\",\n" +
+                        "                  \"July\",\n" +
+                        "                  \"August\",\n" +
+                        "                  \"September\",\n" +
+                        "                  \"October\",\n" +
+                        "                  \"November\",\n" +
+                        "                  \"December\"\n" +
+                        "                ],\n" +
+                        "                \"monthNameAbbreviations\": [\n" +
+                        "                  \"Jan.\",\n" +
+                        "                  \"Feb.\",\n" +
+                        "                  \"Mar.\",\n" +
+                        "                  \"Apr.\",\n" +
+                        "                  \"May\",\n" +
+                        "                  \"Jun.\",\n" +
+                        "                  \"Jul.\",\n" +
+                        "                  \"Aug.\",\n" +
+                        "                  \"Sep.\",\n" +
+                        "                  \"Oct.\",\n" +
+                        "                  \"Nov.\",\n" +
+                        "                  \"Dec.\"\n" +
+                        "                ],\n" +
+                        "                \"weekDayNames\": [\n" +
+                        "                  \"Sunday\",\n" +
+                        "                  \"Monday\",\n" +
+                        "                  \"Tuesday\",\n" +
+                        "                  \"Wednesday\",\n" +
+                        "                  \"Thursday\",\n" +
+                        "                  \"Friday\",\n" +
+                        "                  \"Saturday\"\n" +
+                        "                ],\n" +
+                        "                \"weekDayNameAbbreviations\": [\n" +
+                        "                  \"Sun.\",\n" +
+                        "                  \"Mon.\",\n" +
+                        "                  \"Tue.\",\n" +
+                        "                  \"Wed.\",\n" +
+                        "                  \"Thu.\",\n" +
+                        "                  \"Fri.\",\n" +
+                        "                  \"Sat.\"\n" +
+                        "                ]\n" +
+                        "              },\n" +
+                        "              \"decimalNumberSymbols\": {\n" +
+                        "                \"negativeSign\": \"-\",\n" +
+                        "                \"positiveSign\": \"+\",\n" +
+                        "                \"zeroDigit\": \"0\",\n" +
+                        "                \"currencySymbol\": \"$\",\n" +
+                        "                \"decimalSeparator\": \".\",\n" +
+                        "                \"exponentSymbol\": \"e\",\n" +
+                        "                \"groupSeparator\": \",\",\n" +
+                        "                \"infinitySymbol\": \"∞\",\n" +
+                        "                \"monetaryDecimalSeparator\": \".\",\n" +
+                        "                \"nanSymbol\": \"NaN\",\n" +
+                        "                \"percentSymbol\": \"%\",\n" +
+                        "                \"permillSymbol\": \"‰\"\n" +
+                        "              },\n" +
+                        "              \"formatter\": \"test-formatter\",\n" +
+                        "              \"locale\": \"en-AU\",\n" +
+                        "              \"parser\": \"test-parser\",\n" +
+                        "              \"style\": {\n" +
+                        "                \"color\": \"black\"\n" +
+                        "              },\n" +
+                        "              \"validator\": \"test-validator\"\n" +
+                        "            }\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Object\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"boolean\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 0\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"0\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"FALSE\",\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"1\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"TRUE\",\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"TRUE\",\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"FALSE\",\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"collection-to\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            false\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            true\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date\",\n" +
+                        "              \"value\": \"1999-12-31\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDate\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date-time\",\n" +
+                        "              \"value\": \"1999-12-31T12:58\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDateTime\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            \"Hello\"\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-time\",\n" +
+                        "              \"value\": \"12:58\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalTime\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"collection-to-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            true,\n" +
+                        "            false\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.collect.list.BooleanList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            \"Apple 1\",\n" +
+                        "            \"Banana 2\"\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.collect.list.CsvStringList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date\",\n" +
+                        "              \"value\": \"1999-12-31\"\n" +
+                        "            },\n" +
+                        "            null\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalDateList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date-time\",\n" +
+                        "              \"value\": \"1999-12-31T12:58\"\n" +
+                        "            },\n" +
+                        "            null\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalDateTimeList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-time\",\n" +
+                        "              \"value\": \"12:58\"\n" +
+                        "            },\n" +
+                        "            null\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalTimeList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"1\"\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"22\"\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"333.5\"\n" +
+                        "            },\n" +
+                        "            null\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.math.NumberList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"list\",\n" +
+                        "          \"value\": [\n" +
+                        "            \"Apple 1\",\n" +
+                        "            \"Banana 2\"\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.collect.list.StringList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"color\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.color.HslColor\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.color.HsvColor\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.color.RgbColor\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"rgb\",\n" +
+                        "          \"value\": \"black\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"alpha-rgb-color-component\",\n" +
+                        "          \"value\": \"78\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"red-rgb-color-component\",\n" +
+                        "          \"value\": \"12\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"green-rgb-color-component\",\n" +
+                        "          \"value\": \"34\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"blue-rgb-color-component\",\n" +
+                        "          \"value\": \"56\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"currency\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"AUD\",\n" +
+                        "        \"type\": \"java.util.Currency\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"AUD\",\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyCode\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 1\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"long\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 3\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-value\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"float\",\n" +
+                        "              \"value\": 4\n" +
+                        "            },\n" +
+                        "            \"currencyCode\": \"AUD\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"AUD 1.5\",\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyValue\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"1.5 AUD\",\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyValue\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"1.5\",\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyValue\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"currency-code\",\n" +
+                        "          \"value\": \"AUD\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.util.Currency\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyValue\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": 1.5,\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyValue\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"2.75\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.currency.CurrencyValue\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"date-time\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDateTime\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date\",\n" +
+                        "          \"value\": \"1999-12-31\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDate\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalTime\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"1999-12-31T00:00\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDateTime\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:58\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"123\",\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"1999/12/31\",\n" +
+                        "        \"type\": \"java.time.LocalDate\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"1999/12/31 12:58\",\n" +
+                        "        \"type\": \"java.time.LocalDateTime\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"12:58:59\",\n" +
+                        "        \"type\": \"java.time.LocalTime\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"date-time-symbols\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"locale\",\n" +
+                        "          \"value\": \"en-AU\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.DateTimeSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"spreadsheet-cell\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"A1\": {\n" +
+                        "              \"formula\": {\n" +
+                        "                \"text\": \"=1+2+3\"\n" +
+                        "              },\n" +
+                        "              \"dateTimeSymbols\": {\n" +
+                        "                \"ampms\": [\n" +
+                        "                  \"am\",\n" +
+                        "                  \"pm\"\n" +
+                        "                ],\n" +
+                        "                \"monthNames\": [\n" +
+                        "                  \"January\",\n" +
+                        "                  \"February\",\n" +
+                        "                  \"March\",\n" +
+                        "                  \"April\",\n" +
+                        "                  \"May\",\n" +
+                        "                  \"June\",\n" +
+                        "                  \"July\",\n" +
+                        "                  \"August\",\n" +
+                        "                  \"September\",\n" +
+                        "                  \"October\",\n" +
+                        "                  \"November\",\n" +
+                        "                  \"December\"\n" +
+                        "                ],\n" +
+                        "                \"monthNameAbbreviations\": [\n" +
+                        "                  \"Jan.\",\n" +
+                        "                  \"Feb.\",\n" +
+                        "                  \"Mar.\",\n" +
+                        "                  \"Apr.\",\n" +
+                        "                  \"May\",\n" +
+                        "                  \"Jun.\",\n" +
+                        "                  \"Jul.\",\n" +
+                        "                  \"Aug.\",\n" +
+                        "                  \"Sep.\",\n" +
+                        "                  \"Oct.\",\n" +
+                        "                  \"Nov.\",\n" +
+                        "                  \"Dec.\"\n" +
+                        "                ],\n" +
+                        "                \"weekDayNames\": [\n" +
+                        "                  \"Sunday\",\n" +
+                        "                  \"Monday\",\n" +
+                        "                  \"Tuesday\",\n" +
+                        "                  \"Wednesday\",\n" +
+                        "                  \"Thursday\",\n" +
+                        "                  \"Friday\",\n" +
+                        "                  \"Saturday\"\n" +
+                        "                ],\n" +
+                        "                \"weekDayNameAbbreviations\": [\n" +
+                        "                  \"Sun.\",\n" +
+                        "                  \"Mon.\",\n" +
+                        "                  \"Tue.\",\n" +
+                        "                  \"Wed.\",\n" +
+                        "                  \"Thu.\",\n" +
+                        "                  \"Fri.\",\n" +
+                        "                  \"Sat.\"\n" +
+                        "                ]\n" +
+                        "              },\n" +
+                        "              \"decimalNumberSymbols\": {\n" +
+                        "                \"negativeSign\": \"-\",\n" +
+                        "                \"positiveSign\": \"+\",\n" +
+                        "                \"zeroDigit\": \"0\",\n" +
+                        "                \"currencySymbol\": \"$\",\n" +
+                        "                \"decimalSeparator\": \".\",\n" +
+                        "                \"exponentSymbol\": \"e\",\n" +
+                        "                \"groupSeparator\": \",\",\n" +
+                        "                \"infinitySymbol\": \"∞\",\n" +
+                        "                \"monetaryDecimalSeparator\": \".\",\n" +
+                        "                \"nanSymbol\": \"NaN\",\n" +
+                        "                \"percentSymbol\": \"%\",\n" +
+                        "                \"permillSymbol\": \"‰\"\n" +
+                        "              },\n" +
+                        "              \"formatter\": \"test-formatter\",\n" +
+                        "              \"locale\": \"en-AU\",\n" +
+                        "              \"parser\": \"test-parser\",\n" +
+                        "              \"style\": {\n" +
+                        "                \"color\": \"black\"\n" +
+                        "              },\n" +
+                        "              \"validator\": \"test-validator\"\n" +
+                        "            }\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.DateTimeSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"properties\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"ampms\": \"am,pm\",\n" +
+                        "            \"monthNameAbbreviations\": \"Jan.,Feb.,Mar.,Apr.,May,Jun.,Jul.,Aug.,Sep.,Oct.,Nov.,Dec.\",\n" +
+                        "            \"monthNames\": \"January,February,March,April,May,June,July,August,September,October,November,December\",\n" +
+                        "            \"weekDayNameAbbreviations\": \"Sun.,Mon.,Tue.,Wed.,Thu.,Fri.,Sat.\",\n" +
+                        "            \"weekDayNames\": \"Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.DateTimeSymbols\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"decimal-number-symbols\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"spreadsheet-cell\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"A1\": {\n" +
+                        "              \"formula\": {\n" +
+                        "                \"text\": \"=1+2+3\"\n" +
+                        "              },\n" +
+                        "              \"dateTimeSymbols\": {\n" +
+                        "                \"ampms\": [\n" +
+                        "                  \"am\",\n" +
+                        "                  \"pm\"\n" +
+                        "                ],\n" +
+                        "                \"monthNames\": [\n" +
+                        "                  \"January\",\n" +
+                        "                  \"February\",\n" +
+                        "                  \"March\",\n" +
+                        "                  \"April\",\n" +
+                        "                  \"May\",\n" +
+                        "                  \"June\",\n" +
+                        "                  \"July\",\n" +
+                        "                  \"August\",\n" +
+                        "                  \"September\",\n" +
+                        "                  \"October\",\n" +
+                        "                  \"November\",\n" +
+                        "                  \"December\"\n" +
+                        "                ],\n" +
+                        "                \"monthNameAbbreviations\": [\n" +
+                        "                  \"Jan.\",\n" +
+                        "                  \"Feb.\",\n" +
+                        "                  \"Mar.\",\n" +
+                        "                  \"Apr.\",\n" +
+                        "                  \"May\",\n" +
+                        "                  \"Jun.\",\n" +
+                        "                  \"Jul.\",\n" +
+                        "                  \"Aug.\",\n" +
+                        "                  \"Sep.\",\n" +
+                        "                  \"Oct.\",\n" +
+                        "                  \"Nov.\",\n" +
+                        "                  \"Dec.\"\n" +
+                        "                ],\n" +
+                        "                \"weekDayNames\": [\n" +
+                        "                  \"Sunday\",\n" +
+                        "                  \"Monday\",\n" +
+                        "                  \"Tuesday\",\n" +
+                        "                  \"Wednesday\",\n" +
+                        "                  \"Thursday\",\n" +
+                        "                  \"Friday\",\n" +
+                        "                  \"Saturday\"\n" +
+                        "                ],\n" +
+                        "                \"weekDayNameAbbreviations\": [\n" +
+                        "                  \"Sun.\",\n" +
+                        "                  \"Mon.\",\n" +
+                        "                  \"Tue.\",\n" +
+                        "                  \"Wed.\",\n" +
+                        "                  \"Thu.\",\n" +
+                        "                  \"Fri.\",\n" +
+                        "                  \"Sat.\"\n" +
+                        "                ]\n" +
+                        "              },\n" +
+                        "              \"decimalNumberSymbols\": {\n" +
+                        "                \"negativeSign\": \"-\",\n" +
+                        "                \"positiveSign\": \"+\",\n" +
+                        "                \"zeroDigit\": \"0\",\n" +
+                        "                \"currencySymbol\": \"$\",\n" +
+                        "                \"decimalSeparator\": \".\",\n" +
+                        "                \"exponentSymbol\": \"e\",\n" +
+                        "                \"groupSeparator\": \",\",\n" +
+                        "                \"infinitySymbol\": \"∞\",\n" +
+                        "                \"monetaryDecimalSeparator\": \".\",\n" +
+                        "                \"nanSymbol\": \"NaN\",\n" +
+                        "                \"percentSymbol\": \"%\",\n" +
+                        "                \"permillSymbol\": \"‰\"\n" +
+                        "              },\n" +
+                        "              \"formatter\": \"test-formatter\",\n" +
+                        "              \"locale\": \"en-AU\",\n" +
+                        "              \"parser\": \"test-parser\",\n" +
+                        "              \"style\": {\n" +
+                        "                \"color\": \"black\"\n" +
+                        "              },\n" +
+                        "              \"validator\": \"test-validator\"\n" +
+                        "            }\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.math.DecimalNumberSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"locale\",\n" +
+                        "          \"value\": \"en-AU\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.math.DecimalNumberSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"properties\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"currencySymbol\": \"$\",\n" +
+                        "            \"decimalSeparator\": \".\",\n" +
+                        "            \"exponentSymbol\": \"e\",\n" +
+                        "            \"groupSeparator\": \",\",\n" +
+                        "            \"infinitySymbol\": \"∞\",\n" +
+                        "            \"monetaryDecimalSeparator\": \".\",\n" +
+                        "            \"nanSymbol\": \"NaN\",\n" +
+                        "            \"negativeSign\": \"-\",\n" +
+                        "            \"percentSymbol\": \"%\",\n" +
+                        "            \"permillSymbol\": \"‰\",\n" +
+                        "            \"positiveSign\": \"+\",\n" +
+                        "            \"zeroDigit\": \"0\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.math.DecimalNumberSymbols\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"expression\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"1+sum(2)\",\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.Expression\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"locale\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"en-AU\",\n" +
+                        "        \"type\": \"walkingkooka.datetime.DateTimeSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"locale\",\n" +
+                        "          \"value\": \"en-AU\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.DateTimeSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"en-AU\",\n" +
+                        "        \"type\": \"walkingkooka.math.DecimalNumberSymbols\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"locale\",\n" +
+                        "          \"value\": \"en-AU\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.math.DecimalNumberSymbols\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"number\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"int\",\n" +
+                        "          \"value\": 1\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"optional-to\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": []\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            false\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            true\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Boolean\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"int\",\n" +
+                        "              \"value\": 123\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date\",\n" +
+                        "              \"value\": \"1999-12-31\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDate\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date-time\",\n" +
+                        "              \"value\": \"1999-12-31T12:58\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalDateTime\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-date-time\",\n" +
+                        "              \"value\": \"1999-12-31T12:58\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalDateTimeList\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            \"Hello\"\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"optional\",\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"local-time\",\n" +
+                        "              \"value\": \"12:58\"\n" +
+                        "            }\n" +
+                        "          ]\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.time.LocalTime\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"properties\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"spreadsheet-metadata\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"spreadsheetId\": \"1\",\n" +
+                        "            \"spreadsheetName\": \"Spreadsheet111\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.props.Properties\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"style\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"text-style\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"color\": \"black\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"spreadsheet-cell\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"A1\": {\n" +
+                        "              \"formula\": {},\n" +
+                        "              \"style\": {\n" +
+                        "                \"color\": \"black\"\n" +
+                        "              }\n" +
+                        "            }\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"properties\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"color\": \"black\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"color=black\\r\\n\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"black SOLID 1px\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Border\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"1px\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Margin\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"1px\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Padding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"Text123\",\n" +
+                        "        \"type\": \"walkingkooka.spreadsheet.format.SpreadsheetText\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"color: black;\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"background-color\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextStylePropertyName\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"template\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"template-value-name\",\n" +
+                        "          \"value\": \"TemplateValue123\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.template.TemplateValueName\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"character\",\n" +
+                        "          \"value\": \"A\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"Text\",\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"absolute-url\",\n" +
+                        "          \"value\": \"https://example.com/123\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"spreadsheet-formula\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"text\": \"=1+2+3\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"character\",\n" +
+                        "          \"value\": \" \"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.Character\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"character\",\n" +
+                        "          \"value\": \" \"\n" +
+                        "        },\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"A\",\n" +
+                        "        \"type\": \"java.lang.Character\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"A\",\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"UTF-8\",\n" +
+                        "        \"type\": \"java.nio.charset.Charset\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"   \",\n" +
+                        "        \"type\": \"walkingkooka.text.Indentation\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"\\r\\n\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"crnl\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-node\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"https://example.com/123\",\n" +
+                        "        \"type\": \"java.lang.String\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"https://example.com/123\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Hyperlink\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"https://example.com/123\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Image\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"text-style-node\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"styles\": {\n" +
+                        "              \"color\": \"black\"\n" +
+                        "            },\n" +
+                        "            \"children\": [\n" +
+                        "              {\n" +
+                        "                \"type\": \"text\",\n" +
+                        "                \"value\": \"Text123\"\n" +
+                        "              }\n" +
+                        "            ]\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Styleable\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"text-style\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"color\": \"black\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.Styleable\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"character\",\n" +
+                        "          \"value\": \"A\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextNode\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"Text123\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextNode\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"text\",\n" +
+                        "          \"value\": \"Text123\"\n" +
+                        "        },\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextNode\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"Text\",\n" +
+                        "        \"type\": \"walkingkooka.tree.text.TextNode\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-boolean-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"TRUE, FALSE, true\",\n" +
+                        "        \"type\": \"walkingkooka.collect.list.BooleanList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-color\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"#123456\",\n" +
+                        "        \"type\": \"walkingkooka.color.Color\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-csv-string-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"apple,banana,\\\"333 444\\\"\",\n" +
+                        "        \"type\": \"walkingkooka.collect.list.CsvStringList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-csv-string-set\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"apple,banana,\\\"333 444\\\"\",\n" +
+                        "        \"type\": \"walkingkooka.collect.set.CsvStringSet\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-date-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"1999/12/31\",\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalDateList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-date-time-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"1999/12/31 12:58\",\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalDateTimeList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-line-ending\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"\\n\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"\\r\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"\\r\\n\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"CR\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"CRLF\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"LF\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"NL\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-number-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"1, 22, 333.5\",\n" +
+                        "        \"type\": \"walkingkooka.math.NumberList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-spreadsheet-color-name\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"Black\",\n" +
+                        "        \"type\": \"walkingkooka.spreadsheet.format.SpreadsheetColorName\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-string-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"apple, banana, 333\",\n" +
+                        "        \"type\": \"walkingkooka.collect.list.StringList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-time-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"12:58:59\",\n" +
+                        "        \"type\": \"walkingkooka.datetime.LocalTimeList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-tsv-string-list\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"Apple 1\\tBanana 2\",\n" +
+                        "        \"type\": \"walkingkooka.collect.list.TsvStringList\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"text-to-tsv-string-set\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"value\": \"Apple 1\\tBanana 2\",\n" +
+                        "        \"type\": \"walkingkooka.collect.set.TsvStringSet\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"value\",\n" +
+                        "    \"values\": [\n" +
+                        "      {\n" +
+                        "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Byte\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Short\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Integer\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Long\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Float\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.lang.Double\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.math.BigInteger\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"type\": \"java.math.BigDecimal\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"value\": \"\\n\",\n" +
+                        "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  }\n" +
+                        "]"
+                    ).setContentLength()
             )
         );
     }
