@@ -30,7 +30,6 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
@@ -280,9 +279,9 @@ public final class LocaleHateosResourceSetTest implements HateosResourceSetTesti
     public void testMarshallUnmarshallAllAvailableLocaleHateosResources() {
         final SortedSet<LocaleHateosResource> locales = SortedSets.tree();
         locales.addAll(
-            Arrays.stream(
-                    Locale.getAvailableLocales()
-                ).map(LocaleHateosResource::fromLocale)
+            LOCALE_CONTEXT.availableLocales()
+                .stream()
+                .map(LocaleHateosResource::fromLocale)
                 .collect(Collectors.toList())
         );
 
