@@ -312,6 +312,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      text-to-path\n" +
                 "      text-to-properties\n" +
                 "      text-to-spreadsheet-color-name\n" +
+                "      text-to-spreadsheet-comparator-selector\n" +
                 "      text-to-spreadsheet-formatter-selector\n" +
                 "      text-to-spreadsheet-id\n" +
                 "      text-to-spreadsheet-metadata\n" +
