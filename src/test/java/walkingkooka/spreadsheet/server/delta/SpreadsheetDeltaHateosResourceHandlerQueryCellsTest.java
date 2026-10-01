@@ -59,7 +59,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerQueryCellsTest extends S
     private final static SpreadsheetCellRangeReferencePath PATH = SpreadsheetCellRangeReferencePath.LRTD;
     private final static int OFFSET = 12;
     private final static int COUNT = 34;
-    private final static ValueType VALUE_TYPE = ValueType.with("test-value-type");
+    private final static ValueType VALUE_TYPE = ValueType.TEXT;
     private final static Expression EXPRESSION = Expression.call(
         Expression.namedFunction(
             SpreadsheetExpressionFunctions.name("test123")
