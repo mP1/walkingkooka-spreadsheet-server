@@ -222,7 +222,6 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      has-formatter-selector\n" +
                 "      has-parser-selector\n" +
                 "      has-spreadsheet-selection\n" +
-                "      has-validator-selector\n" +
                 "      json\n" +
                 "      json-to\n" +
                 "      locale\n" +
@@ -363,6 +362,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      to-validation-choice\n" +
                 "      to-validation-choice-list\n" +
                 "      to-validation-error-list\n" +
+                "      to-validator-selector\n" +
                 "      to-value\n" +
                 "      tsv\n" +
                 "      url\n" +
