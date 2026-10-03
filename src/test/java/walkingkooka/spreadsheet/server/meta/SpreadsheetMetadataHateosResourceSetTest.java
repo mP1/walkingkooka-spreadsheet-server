@@ -364,6 +364,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      to-validation-error-list\n" +
                 "      to-validator-selector\n" +
                 "      to-value\n" +
+                "      to-value-type\n" +
                 "      tsv\n" +
                 "      url\n" +
                 "      url-to-hyperlink\n" +
