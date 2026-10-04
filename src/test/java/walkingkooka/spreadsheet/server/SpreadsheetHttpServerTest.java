@@ -9577,7 +9577,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": {\n" +
                             "            \"A1\": {\n" +
                             "              \"formula\": {\n" +
-                            "                \"text\": \"=1+2+3\"\n" +
+                            "                \"text\": \"=1+2+3\",\n" +
+                            "                \"valueType\": \"Text\"\n" +
                             "              },\n" +
                             "              \"currencyExchangeRater\": \"test-currency-exchange-rater\",\n" +
                             "              \"dateTimeSymbols\": {\n" +
@@ -11127,7 +11128,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": {\n" +
                             "            \"A1\": {\n" +
                             "              \"formula\": {\n" +
-                            "                \"text\": \"=1+2+3\"\n" +
+                            "                \"text\": \"=1+2+3\",\n" +
+                            "                \"valueType\": \"Text\"\n" +
                             "              },\n" +
                             "              \"currencyExchangeRater\": \"test-currency-exchange-rater\",\n" +
                             "              \"dateTimeSymbols\": {\n" +
@@ -11232,7 +11234,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": {\n" +
                             "            \"A1\": {\n" +
                             "              \"formula\": {\n" +
-                            "                \"text\": \"=1+2+3\"\n" +
+                            "                \"text\": \"=1+2+3\",\n" +
+                            "                \"valueType\": \"Text\"\n" +
                             "              },\n" +
                             "              \"currencyExchangeRater\": \"test-currency-exchange-rater\",\n" +
                             "              \"dateTimeSymbols\": {\n" +
@@ -11423,7 +11426,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "        \"type\": \"walkingkooka.tree.json.JsonObject\"\n" +
                             "      },\n" +
                             "      {\n" +
-                            "        \"value\": \"{\\n  \\\"A1\\\": {\\n    \\\"formula\\\": {\\n      \\\"text\\\": \\\"=1+2+3\\\"\\n    },\\n    \\\"currencyExchangeRater\\\": \\\"test-currency-exchange-rater\\\",\\n    \\\"dateTimeSymbols\\\": {\\n      \\\"ampms\\\": [\\n        \\\"am\\\",\\n        \\\"pm\\\"\\n      ],\\n      \\\"monthNames\\\": [\\n        \\\"January\\\",\\n        \\\"February\\\",\\n        \\\"March\\\",\\n        \\\"April\\\",\\n        \\\"May\\\",\\n        \\\"June\\\",\\n        \\\"July\\\",\\n        \\\"August\\\",\\n        \\\"September\\\",\\n        \\\"October\\\",\\n        \\\"November\\\",\\n        \\\"December\\\"\\n      ],\\n      \\\"monthNameAbbreviations\\\": [\\n        \\\"Jan.\\\",\\n        \\\"Feb.\\\",\\n        \\\"Mar.\\\",\\n        \\\"Apr.\\\",\\n        \\\"May\\\",\\n        \\\"Jun.\\\",\\n        \\\"Jul.\\\",\\n        \\\"Aug.\\\",\\n        \\\"Sep.\\\",\\n        \\\"Oct.\\\",\\n        \\\"Nov.\\\",\\n        \\\"Dec.\\\"\\n      ],\\n      \\\"weekDayNames\\\": [\\n        \\\"Sunday\\\",\\n        \\\"Monday\\\",\\n        \\\"Tuesday\\\",\\n        \\\"Wednesday\\\",\\n        \\\"Thursday\\\",\\n        \\\"Friday\\\",\\n        \\\"Saturday\\\"\\n      ],\\n      \\\"weekDayNameAbbreviations\\\": [\\n        \\\"Sun.\\\",\\n        \\\"Mon.\\\",\\n        \\\"Tue.\\\",\\n        \\\"Wed.\\\",\\n        \\\"Thu.\\\",\\n        \\\"Fri.\\\",\\n        \\\"Sat.\\\"\\n      ]\\n    },\\n    \\\"decimalNumberSymbols\\\": {\\n      \\\"negativeSign\\\": \\\"-\\\",\\n      \\\"positiveSign\\\": \\\"+\\\",\\n      \\\"zeroDigit\\\": \\\"0\\\",\\n      \\\"currencySymbol\\\": \\\"$\\\",\\n      \\\"decimalSeparator\\\": \\\".\\\",\\n      \\\"exponentSymbol\\\": \\\"e\\\",\\n      \\\"groupSeparator\\\": \\\",\\\",\\n      \\\"infinitySymbol\\\": \\\"∞\\\",\\n      \\\"monetaryDecimalSeparator\\\": \\\".\\\",\\n      \\\"nanSymbol\\\": \\\"NaN\\\",\\n      \\\"percentSymbol\\\": \\\"%\\\",\\n      \\\"permillSymbol\\\": \\\"‰\\\"\\n    },\\n    \\\"formatter\\\": \\\"test-formatter\\\",\\n    \\\"locale\\\": \\\"en-AU\\\",\\n    \\\"parser\\\": \\\"test-parser\\\",\\n    \\\"style\\\": {\\n      \\\"color\\\": \\\"black\\\"\\n    },\\n    \\\"validator\\\": \\\"test-validator\\\"\\n  }\\n}\",\n" +
+                            "        \"value\": \"{\\n  \\\"A1\\\": {\\n    \\\"formula\\\": {\\n      \\\"text\\\": \\\"=1+2+3\\\",\\n      \\\"valueType\\\": \\\"Text\\\"\\n    },\\n    \\\"currencyExchangeRater\\\": \\\"test-currency-exchange-rater\\\",\\n    \\\"dateTimeSymbols\\\": {\\n      \\\"ampms\\\": [\\n        \\\"am\\\",\\n        \\\"pm\\\"\\n      ],\\n      \\\"monthNames\\\": [\\n        \\\"January\\\",\\n        \\\"February\\\",\\n        \\\"March\\\",\\n        \\\"April\\\",\\n        \\\"May\\\",\\n        \\\"June\\\",\\n        \\\"July\\\",\\n        \\\"August\\\",\\n        \\\"September\\\",\\n        \\\"October\\\",\\n        \\\"November\\\",\\n        \\\"December\\\"\\n      ],\\n      \\\"monthNameAbbreviations\\\": [\\n        \\\"Jan.\\\",\\n        \\\"Feb.\\\",\\n        \\\"Mar.\\\",\\n        \\\"Apr.\\\",\\n        \\\"May\\\",\\n        \\\"Jun.\\\",\\n        \\\"Jul.\\\",\\n        \\\"Aug.\\\",\\n        \\\"Sep.\\\",\\n        \\\"Oct.\\\",\\n        \\\"Nov.\\\",\\n        \\\"Dec.\\\"\\n      ],\\n      \\\"weekDayNames\\\": [\\n        \\\"Sunday\\\",\\n        \\\"Monday\\\",\\n        \\\"Tuesday\\\",\\n        \\\"Wednesday\\\",\\n        \\\"Thursday\\\",\\n        \\\"Friday\\\",\\n        \\\"Saturday\\\"\\n      ],\\n      \\\"weekDayNameAbbreviations\\\": [\\n        \\\"Sun.\\\",\\n        \\\"Mon.\\\",\\n        \\\"Tue.\\\",\\n        \\\"Wed.\\\",\\n        \\\"Thu.\\\",\\n        \\\"Fri.\\\",\\n        \\\"Sat.\\\"\\n      ]\\n    },\\n    \\\"decimalNumberSymbols\\\": {\\n      \\\"negativeSign\\\": \\\"-\\\",\\n      \\\"positiveSign\\\": \\\"+\\\",\\n      \\\"zeroDigit\\\": \\\"0\\\",\\n      \\\"currencySymbol\\\": \\\"$\\\",\\n      \\\"decimalSeparator\\\": \\\".\\\",\\n      \\\"exponentSymbol\\\": \\\"e\\\",\\n      \\\"groupSeparator\\\": \\\",\\\",\\n      \\\"infinitySymbol\\\": \\\"∞\\\",\\n      \\\"monetaryDecimalSeparator\\\": \\\".\\\",\\n      \\\"nanSymbol\\\": \\\"NaN\\\",\\n      \\\"percentSymbol\\\": \\\"%\\\",\\n      \\\"permillSymbol\\\": \\\"‰\\\"\\n    },\\n    \\\"formatter\\\": \\\"test-formatter\\\",\\n    \\\"locale\\\": \\\"en-AU\\\",\\n    \\\"parser\\\": \\\"test-parser\\\",\\n    \\\"style\\\": {\\n      \\\"color\\\": \\\"black\\\"\\n    },\\n    \\\"validator\\\": \\\"test-validator\\\"\\n  }\\n}\",\n" +
                             "        \"type\": \"walkingkooka.spreadsheet.value.SpreadsheetCell\"\n" +
                             "      },\n" +
                             "      {\n" +
@@ -11478,7 +11481,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": {\n" +
                             "            \"A1\": {\n" +
                             "              \"formula\": {\n" +
-                            "                \"text\": \"=1+2+3\"\n" +
+                            "                \"text\": \"=1+2+3\",\n" +
+                            "                \"valueType\": \"Text\"\n" +
                             "              },\n" +
                             "              \"currencyExchangeRater\": \"test-currency-exchange-rater\",\n" +
                             "              \"dateTimeSymbols\": {\n" +
@@ -11576,7 +11580,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": {\n" +
                             "            \"A1\": {\n" +
                             "              \"formula\": {\n" +
-                            "                \"text\": \"=1+2+3\"\n" +
+                            "                \"text\": \"=1+2+3\",\n" +
+                            "                \"valueType\": \"Text\"\n" +
                             "              },\n" +
                             "              \"currencyExchangeRater\": \"test-currency-exchange-rater\",\n" +
                             "              \"dateTimeSymbols\": {\n" +
@@ -12398,7 +12403,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "        \"value\": {\n" +
                             "          \"type\": \"spreadsheet-formula\",\n" +
                             "          \"value\": {\n" +
-                            "            \"text\": \"=1+2+3\"\n" +
+                            "            \"text\": \"=1+2+3\",\n" +
+                            "            \"valueType\": \"Text\"\n" +
                             "          }\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.String\"\n" +
@@ -12736,6 +12742,94 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "      {\n" +
                             "        \"value\": \"\\n\",\n" +
                             "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"spreadsheet-cell\",\n" +
+                            "          \"value\": {\n" +
+                            "            \"A1\": {\n" +
+                            "              \"formula\": {\n" +
+                            "                \"text\": \"=1+2+3\",\n" +
+                            "                \"valueType\": \"Text\"\n" +
+                            "              },\n" +
+                            "              \"currencyExchangeRater\": \"test-currency-exchange-rater\",\n" +
+                            "              \"dateTimeSymbols\": {\n" +
+                            "                \"ampms\": [\n" +
+                            "                  \"am\",\n" +
+                            "                  \"pm\"\n" +
+                            "                ],\n" +
+                            "                \"monthNames\": [\n" +
+                            "                  \"January\",\n" +
+                            "                  \"February\",\n" +
+                            "                  \"March\",\n" +
+                            "                  \"April\",\n" +
+                            "                  \"May\",\n" +
+                            "                  \"June\",\n" +
+                            "                  \"July\",\n" +
+                            "                  \"August\",\n" +
+                            "                  \"September\",\n" +
+                            "                  \"October\",\n" +
+                            "                  \"November\",\n" +
+                            "                  \"December\"\n" +
+                            "                ],\n" +
+                            "                \"monthNameAbbreviations\": [\n" +
+                            "                  \"Jan.\",\n" +
+                            "                  \"Feb.\",\n" +
+                            "                  \"Mar.\",\n" +
+                            "                  \"Apr.\",\n" +
+                            "                  \"May\",\n" +
+                            "                  \"Jun.\",\n" +
+                            "                  \"Jul.\",\n" +
+                            "                  \"Aug.\",\n" +
+                            "                  \"Sep.\",\n" +
+                            "                  \"Oct.\",\n" +
+                            "                  \"Nov.\",\n" +
+                            "                  \"Dec.\"\n" +
+                            "                ],\n" +
+                            "                \"weekDayNames\": [\n" +
+                            "                  \"Sunday\",\n" +
+                            "                  \"Monday\",\n" +
+                            "                  \"Tuesday\",\n" +
+                            "                  \"Wednesday\",\n" +
+                            "                  \"Thursday\",\n" +
+                            "                  \"Friday\",\n" +
+                            "                  \"Saturday\"\n" +
+                            "                ],\n" +
+                            "                \"weekDayNameAbbreviations\": [\n" +
+                            "                  \"Sun.\",\n" +
+                            "                  \"Mon.\",\n" +
+                            "                  \"Tue.\",\n" +
+                            "                  \"Wed.\",\n" +
+                            "                  \"Thu.\",\n" +
+                            "                  \"Fri.\",\n" +
+                            "                  \"Sat.\"\n" +
+                            "                ]\n" +
+                            "              },\n" +
+                            "              \"decimalNumberSymbols\": {\n" +
+                            "                \"negativeSign\": \"-\",\n" +
+                            "                \"positiveSign\": \"+\",\n" +
+                            "                \"zeroDigit\": \"0\",\n" +
+                            "                \"currencySymbol\": \"$\",\n" +
+                            "                \"decimalSeparator\": \".\",\n" +
+                            "                \"exponentSymbol\": \"e\",\n" +
+                            "                \"groupSeparator\": \",\",\n" +
+                            "                \"infinitySymbol\": \"∞\",\n" +
+                            "                \"monetaryDecimalSeparator\": \".\",\n" +
+                            "                \"nanSymbol\": \"NaN\",\n" +
+                            "                \"percentSymbol\": \"%\",\n" +
+                            "                \"permillSymbol\": \"‰\"\n" +
+                            "              },\n" +
+                            "              \"formatter\": \"test-formatter\",\n" +
+                            "              \"locale\": \"en-AU\",\n" +
+                            "              \"parser\": \"test-parser\",\n" +
+                            "              \"style\": {\n" +
+                            "                \"color\": \"black\"\n" +
+                            "              },\n" +
+                            "              \"validator\": \"test-validator\"\n" +
+                            "            }\n" +
+                            "          }\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.validation.ValueType\"\n" +
                             "      }\n" +
                             "    ]\n" +
                             "  }\n" +
