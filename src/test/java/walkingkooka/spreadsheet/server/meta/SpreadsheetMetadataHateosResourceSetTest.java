@@ -344,6 +344,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      to-decimal-number-symbols\n" +
                 "      to-environment\n" +
                 "      to-formatter-selector\n" +
+                "      to-has-host-address\n" +
                 "      to-host-address\n" +
                 "      to-json-node\n" +
                 "      to-locale\n" +
