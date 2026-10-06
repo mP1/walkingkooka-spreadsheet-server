@@ -239,6 +239,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      properties-to-decimal-number-symbols\n" +
                 "      properties-to-spreadsheet-metadata\n" +
                 "      properties-to-text-style\n" +
+                "      simple\n" +
                 "      spreadsheet-cell-set\n" +
                 "      spreadsheet-id-to-spreadsheet-metadata\n" +
                 "      spreadsheet-metadata\n" +
