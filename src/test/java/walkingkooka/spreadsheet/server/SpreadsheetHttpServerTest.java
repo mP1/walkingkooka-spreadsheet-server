@@ -12595,6 +12595,15 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "    ]\n" +
                             "  },\n",
                             "  {\n" +
+                            "    \"name\": \"to-color-properties\",\n" +
+                            "    \"values\": [\n" +
+                            "      {\n" +
+                            "        \"value\": \"hello=BLACK\\r\\n\",\n" +
+                            "        \"type\": \"walkingkooka.color.ColorProperties\"\n" +
+                            "      }\n" +
+                            "    ]\n" +
+                            "  },\n",
+                            "  {\n" +
                             "    \"name\": \"value\",\n" +
                             "    \"values\": [\n" +
                             "      {\n" +
