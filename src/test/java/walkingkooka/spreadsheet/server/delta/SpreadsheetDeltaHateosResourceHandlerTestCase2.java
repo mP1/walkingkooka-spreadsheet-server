@@ -241,7 +241,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         return Sets.of(this.id());
     }
 
-    final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(text, number, basic, value)");
+    final static ConverterSelector CONVERTER = ConverterSelector.parse("collection(null-to-number, simple, text, number, value)");
 
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
         .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
