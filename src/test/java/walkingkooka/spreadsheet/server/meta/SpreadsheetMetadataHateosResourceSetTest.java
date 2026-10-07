@@ -337,6 +337,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      text-to-zone-offset\n" +
                 "      to-binary\n" +
                 "      to-boolean\n" +
+                "      to-color-properties\n" +
                 "      to-csv-string-list\n" +
                 "      to-currency\n" +
                 "      to-currency-code\n" +
