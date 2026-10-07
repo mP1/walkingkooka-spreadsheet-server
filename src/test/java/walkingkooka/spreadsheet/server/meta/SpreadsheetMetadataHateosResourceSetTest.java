@@ -191,7 +191,6 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      value-type\n" +
                 "      year\n" +
                 "    converters: \n" +
-                "      basic\n" +
                 "      binary\n" +
                 "      binary-to-text\n" +
                 "      boolean\n" +
