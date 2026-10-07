@@ -809,10 +809,10 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, hyperlinking, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
-                    "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                    "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                     "  \"formattingCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                     "  \"formulaCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -843,7 +843,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, optional-to, collection-to)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, logging, plugins, properties, template, json, optional-to, collection-to)\",\n" +
                     "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -5398,10 +5398,10 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, hyperlinking, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
-                    "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                    "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                     "  \"formattingCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                     "  \"formulaCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -5432,7 +5432,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, optional-to, collection-to)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, logging, plugins, properties, template, json, optional-to, collection-to)\",\n" +
                     "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -5876,10 +5876,10 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                         "  \"formHandlers\": \"\",\n" +
                         "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, hyperlinking, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
-                        "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                        "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                         "  \"formattingCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"formattingFunctions\": \"@\",\n" +
-                        "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                        "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                         "  \"formulaCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                         "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -5910,7 +5910,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
                         "  \"twoDigitYear\": 50,\n" +
-                        "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, optional-to, collection-to)\",\n" +
+                        "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, logging, plugins, properties, template, json, optional-to, collection-to)\",\n" +
                         "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"validationFunctions\": \"@\",\n" +
                         "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -6144,10 +6144,10 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                         "  \"formHandlers\": \"\",\n" +
                         "  \"formatters\": \"accounting, automatic, badge-error, collection, currency, date, date-time, default-text, expression, full-date, full-date-time, full-time, general, hyperlinking, long-date, long-date-time, long-time, medium-date, medium-date-time, medium-time, number, percent, scientific, short-date, short-date-time, short-time, text, time\",\n" +
-                        "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                        "  \"formattingConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                         "  \"formattingCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"formattingFunctions\": \"@\",\n" +
-                        "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
+                        "  \"formulaConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\",\n" +
                         "  \"formulaCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                         "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -6178,7 +6178,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
                         "  \"twoDigitYear\": 50,\n" +
-                        "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, optional-to, collection-to)\",\n" +
+                        "  \"validationConverter\": \"collection(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, logging, plugins, properties, template, json, optional-to, collection-to)\",\n" +
                         "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"validationFunctions\": \"@\",\n" +
                         "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +

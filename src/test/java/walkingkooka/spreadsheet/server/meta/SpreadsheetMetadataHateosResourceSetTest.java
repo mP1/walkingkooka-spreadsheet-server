@@ -503,14 +503,14 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      time\n" +
                 "    formattingConverter: \n" +
                 "      collection\n" +
-                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
                 "    formattingCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
                 "    formattingFunctions: \n" +
                 "    formulaConverter: \n" +
                 "      collection\n" +
-                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
                 "    formulaCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
@@ -585,7 +585,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "    twoDigitYear: 50\n" +
                 "    validationConverter: \n" +
                 "      collection\n" +
-                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, optional-to, collection-to)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, logging, plugins, properties, template, json, optional-to, collection-to)\"\n" +
                 "    validationCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
