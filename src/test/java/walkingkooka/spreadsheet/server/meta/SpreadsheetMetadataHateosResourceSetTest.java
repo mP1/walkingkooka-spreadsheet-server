@@ -503,14 +503,14 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      time\n" +
                 "    formattingConverter: \n" +
                 "      collection\n" +
-                "        \"(text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, basic)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
                 "    formattingCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
                 "    formattingFunctions: \n" +
                 "    formulaConverter: \n" +
                 "      collection\n" +
-                "        \"(text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, basic)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
                 "    formulaCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
@@ -550,12 +550,12 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "    precision: 7\n" +
                 "    queryConverter: \n" +
                 "      collection\n" +
-                "        \"(text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, properties, spreadsheet-metadata, style, text-node, template, net, basic)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, properties, spreadsheet-metadata, style, text-node, template, net, optional-to, collection-to)\"\n" +
                 "    queryFunctions: \n" +
                 "    roundingMode: HALF_UP\n" +
                 "    scriptingConverter: \n" +
                 "      collection\n" +
-                "        \"(text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, basic)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
                 "    scriptingCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
@@ -568,7 +568,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      [background-color, border-bottom-color, border-color, border-left-color, border-right-color, border-top-color, color, currency, custom-list, custom-list-case-insensitive, date, datetime, day-of-month, day-of-year, formatter, hour-of-ampm, hour-of-day, locale, minute-of-hour, month-of-year, nano-of-second, number, outline-color, parser, seconds-of-minute, text, text-case-insensitive, time, validator, value-type, year]\n" +
                 "    sortConverter: \n" +
                 "      collection\n" +
-                "        \"(text, boolean, number, date-time, locale, value, basic)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, locale, value, optional-to, collection-to)\"\n" +
                 "    style: \n" +
                 "      TextStyle\n" +
                 "        height=50px\n" +
@@ -585,7 +585,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "    twoDigitYear: 50\n" +
                 "    validationConverter: \n" +
                 "      collection\n" +
-                "        \"(text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, basic)\"\n" +
+                "        \"(null-to-number, simple, text, boolean, number, date-time, environment, value, error-throwing, expression, form-and-validation, locale, plugins, properties, template, json, optional-to, collection-to)\"\n" +
                 "    validationCurrencyExchangeRater: \n" +
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
