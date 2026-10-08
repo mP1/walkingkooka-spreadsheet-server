@@ -18,18 +18,12 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.Cast;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerTest implements ClassTesting<SpreadsheetDeltaPatchHateosHttpEntityHandler<?, ?>> {
+public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerTest implements PackagePrivateClassTesting<SpreadsheetDeltaPatchHateosHttpEntityHandler<?, ?>> {
 
     @Override
     public Class<SpreadsheetDeltaPatchHateosHttpEntityHandler<?, ?>> type() {
         return Cast.to(SpreadsheetDeltaPatchHateosHttpEntityHandler.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
