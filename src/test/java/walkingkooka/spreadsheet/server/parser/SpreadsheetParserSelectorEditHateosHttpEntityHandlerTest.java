@@ -257,7 +257,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                     ).format(
                         value,
                         SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
-                            Optional.of(cell),
+                            () -> Optional.of(cell),
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
