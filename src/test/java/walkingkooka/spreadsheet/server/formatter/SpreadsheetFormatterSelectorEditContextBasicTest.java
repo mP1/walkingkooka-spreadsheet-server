@@ -24,7 +24,6 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -136,11 +135,6 @@ public final class SpreadsheetFormatterSelectorEditContextBasicTest implements S
     @Override
     public Class<SpreadsheetFormatterSelectorEditContextBasic> type() {
         return SpreadsheetFormatterSelectorEditContextBasic.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
