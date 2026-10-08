@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
@@ -28,15 +27,14 @@ import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
-import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
+import walkingkooka.spreadsheet.value.HasSpreadsheetCell;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContexts;
 
@@ -86,9 +84,7 @@ public final class SpreadsheetFormatterSelectorEditContextBasicTest implements S
 
     private SpreadsheetFormatterContext spreadsheetFormatterContext() {
         return SpreadsheetFormatterContexts.basic(
-            SpreadsheetFormatterContext.NO_CELL,
-            this::numberToColor,
-            this::nameToColor,
+            HasSpreadsheetCell.EMPTY_HAS_SPREADSHEET_CELL,
             1, // cellCharacterWidth
             SpreadsheetFormatters.fake(), // should never be called
             (final Optional<Object> value) -> {
@@ -133,14 +129,6 @@ public final class SpreadsheetFormatterSelectorEditContextBasicTest implements S
             ),
             LOCALE_CONTEXT
         );
-    }
-
-    private Optional<Color> numberToColor(final Integer value) {
-        return SpreadsheetText.WITHOUT_COLOR; // ignore the colour number
-    }
-
-    private Optional<Color> nameToColor(final SpreadsheetColorName name) {
-        return SpreadsheetText.WITHOUT_COLOR; // ignore the colour name.
     }
 
     // class............................................................................................................
