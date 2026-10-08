@@ -19,27 +19,19 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlerTestCase<T>
-    implements ClassTesting<T>,
+    implements PackagePrivateClassTesting<T>,
     ToStringTesting<T>,
     TypeNameTesting<T>,
     SpreadsheetMetadataTesting {
 
     SpreadsheetMetadataHateosResourceHandlerTestCase() {
         super();
-    }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting..................................................................................................
