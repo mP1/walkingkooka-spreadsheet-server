@@ -12335,7 +12335,18 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "        \"type\": \"java.nio.charset.Charset\"\n" +
                             "      },\n" +
                             "      {\n" +
-                            "        \"value\": \"   \",\n" +
+                            "        \"value\": \"  \",\n" +
+                            "        \"type\": \"walkingkooka.text.Indentation\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": \"    \",\n" +
+                            "        \"type\": \"walkingkooka.text.Indentation\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"indentation\",\n" +
+                            "          \"value\": \"  \"\n" +
+                            "        },\n" +
                             "        \"type\": \"walkingkooka.text.Indentation\"\n" +
                             "      },\n" +
                             "      {\n" +
@@ -12406,10 +12417,6 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": \"Text123\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.tree.text.TextNode\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": \"Text\",\n" +
-                            "        \"type\": \"walkingkooka.tree.text.TextNode\"\n" +
                             "      }\n" +
                             "    ]\n" +
                             "  },\n",
@@ -12435,17 +12442,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "    \"name\": \"text-to-csv-string-list\",\n" +
                             "    \"values\": [\n" +
                             "      {\n" +
-                            "        \"value\": \"apple,banana,\\\"333 444\\\"\",\n" +
+                            "        \"value\": \"Apple 1,Banana 2\",\n" +
                             "        \"type\": \"walkingkooka.collect.list.CsvStringList\"\n" +
-                            "      }\n" +
-                            "    ]\n" +
-                            "  },\n",
-                            "  {\n" +
-                            "    \"name\": \"text-to-csv-string-set\",\n" +
-                            "    \"values\": [\n" +
-                            "      {\n" +
-                            "        \"value\": \"apple,banana,\\\"333 444\\\"\",\n" +
-                            "        \"type\": \"walkingkooka.collect.set.CsvStringSet\"\n" +
                             "      }\n" +
                             "    ]\n" +
                             "  },\n",
