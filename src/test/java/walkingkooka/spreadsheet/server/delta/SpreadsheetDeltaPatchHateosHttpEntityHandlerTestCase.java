@@ -31,7 +31,7 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting2;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -67,7 +67,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     HateosHttpEntityHandlerTesting2<H, S, SpreadsheetEngineHateosHandlerContext>,
     HasLineEndingTesting,
     JsonNodeMarshallUnmarshallContextTesting,
-    ClassTesting<H> {
+    PackagePrivateClassTesting<H> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase() {
         super();
