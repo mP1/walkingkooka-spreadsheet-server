@@ -17,20 +17,14 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class SpreadsheetServerContextTest implements ClassTesting<SpreadsheetServerContext> {
+public final class SpreadsheetServerContextTest implements PublicClassTesting<SpreadsheetServerContext> {
 
     // class............................................................................................................
 
     @Override
     public Class<SpreadsheetServerContext> type() {
         return SpreadsheetServerContext.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
