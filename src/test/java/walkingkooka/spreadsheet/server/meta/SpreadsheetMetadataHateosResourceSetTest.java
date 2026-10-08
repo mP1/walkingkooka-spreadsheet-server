@@ -471,7 +471,6 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      empty\n" +
                 "      json\n" +
                 "    expressionNumberKind: BIG_DECIMAL\n" +
-                "    formHandlers: \n" +
                 "    formatters: \n" +
                 "      accounting\n" +
                 "      automatic\n" +
@@ -508,6 +507,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      storage-properties\n" +
                 "        \"(\\\"/samples/CurrencyExchangeRates.properties\\\")\"\n" +
                 "    formattingFunctions: \n" +
+                "    formHandlers: \n" +
                 "    formulaConverter: \n" +
                 "      collection\n" +
                 "        \"(null-to-number, simple, text, boolean, number, date-time, environment, locale, value, error-throwing, color, expression, json, currency, logging, plugins, properties, spreadsheet-metadata, storage, style, text-node, template, net, optional-to, collection-to)\"\n" +
