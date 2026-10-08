@@ -115,7 +115,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
             SpreadsheetFormatterSelectorEditContexts.basic(
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
-                        cell,
+                        () -> cell,
                         (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                             .spreadsheetExpressionEvaluationContext(
                                 cell,

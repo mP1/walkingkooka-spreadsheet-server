@@ -27,8 +27,8 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.value.HasSpreadsheetCell;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -66,7 +66,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     context.spreadsheetMetadata()
                         .spreadsheetFormatterContext(
-                            SpreadsheetMetadata.NO_CELL,
+                            HasSpreadsheetCell.EMPTY_HAS_SPREADSHEET_CELL,
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException(); // SpreadsheetExpressionEvaluationContext not required
                             },
