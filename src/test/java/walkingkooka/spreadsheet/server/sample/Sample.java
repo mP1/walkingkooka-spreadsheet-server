@@ -212,9 +212,9 @@ public final class Sample implements HasHateosContentType,
                         "    \"defaultYear\": 1900,\n" +
                         "    \"exporters\": \"\",\n" +
                         "    \"expressionNumberKind\": \"DOUBLE\",\n" +
-                        "    \"formHandlers\": \"basic\",\n" +
                         "    \"formatters\": \"simple\",\n" +
                         "    \"formattingConverter\": \"simple\",\n" +
+                        "    \"formHandlers\": \"basic\",\n" +
                         "    \"formulaConverter\": \"collection(null-to-number, simple, text, number, value)\",\n" +
                         "    \"formulaFunctions\": \"@\",\n" +
                         "    \"frozenColumns\": \"A:B\",\n" +
