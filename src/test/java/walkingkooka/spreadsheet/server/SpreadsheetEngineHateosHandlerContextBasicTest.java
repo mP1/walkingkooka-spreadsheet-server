@@ -241,7 +241,7 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
 
         @Override
         public SpreadsheetMetadata spreadsheetMetadata() {
-            return METADATA_EN_AU.setOrRemove(
+            return SPREADSHEET_METADATA.setOrRemove(
                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                 this.spreadsheetId()
                     .orElse(null)

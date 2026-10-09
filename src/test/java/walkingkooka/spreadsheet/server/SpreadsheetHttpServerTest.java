@@ -12756,7 +12756,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "/api/spreadsheet/1/metadata/formattingConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
+                SPREADSHEET_METADATA.getOrFail(
                     SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER
                 )
             ).toString(),
@@ -12784,7 +12784,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "/api/spreadsheet/1/metadata/formulaConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
+                SPREADSHEET_METADATA.getOrFail(
                     SpreadsheetMetadataPropertyName.FORMULA_CONVERTER
                 )
             ).toString(),
@@ -12812,7 +12812,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "/api/spreadsheet/1/metadata/queryConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
+                SPREADSHEET_METADATA.getOrFail(
                     SpreadsheetMetadataPropertyName.QUERY_CONVERTER
                 )
             ).toString(),
@@ -12840,7 +12840,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "/api/spreadsheet/1/metadata/sortConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
+                SPREADSHEET_METADATA.getOrFail(
                     SpreadsheetMetadataPropertyName.SORT_CONVERTER
                 )
             ).toString(),
@@ -12868,7 +12868,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "/api/spreadsheet/1/metadata/scriptingConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
+                SPREADSHEET_METADATA.getOrFail(
                     SpreadsheetMetadataPropertyName.SCRIPTING_CONVERTER
                 )
             ).toString(),
@@ -12896,7 +12896,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
             "/api/spreadsheet/1/metadata/validationConverter/verify",
             NO_HEADERS_TRANSACTION_ID,
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(
+                SPREADSHEET_METADATA.getOrFail(
                     SpreadsheetMetadataPropertyName.VALIDATION_CONVERTER
                 )
             ).toString(),
@@ -16991,7 +16991,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     private SpreadsheetMetadata createMetadata(final Locale locale) {
-        return SpreadsheetMetadataTesting.METADATA_EN_AU
+        return SpreadsheetMetadataTesting.SPREADSHEET_METADATA
             .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy/mm/dd").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("yyyy/mm/dd").spreadsheetParserSelector())

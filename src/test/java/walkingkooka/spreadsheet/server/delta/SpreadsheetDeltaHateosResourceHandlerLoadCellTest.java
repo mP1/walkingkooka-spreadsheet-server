@@ -707,7 +707,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         );
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-        metadataStore.save(METADATA_EN_AU);
+        metadataStore.save(SPREADSHEET_METADATA);
 
         this.handleAllAndCheck(
             SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
@@ -792,7 +792,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
-                    return METADATA_EN_AU;
+                    return SPREADSHEET_METADATA;
                 }
 
                 @Override
@@ -1186,7 +1186,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
 
-        final SpreadsheetMetadata metadata = METADATA_EN_AU.set(
+        final SpreadsheetMetadata metadata = SPREADSHEET_METADATA.set(
             SpreadsheetMetadataPropertyName.STYLE,
             TextStyle.EMPTY
                 .set(
@@ -1434,7 +1434,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return METADATA_EN_AU;
+                return SPREADSHEET_METADATA;
             }
 
             @Override

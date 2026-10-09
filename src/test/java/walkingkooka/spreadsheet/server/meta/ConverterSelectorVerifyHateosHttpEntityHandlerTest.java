@@ -72,7 +72,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
 
-    private final static SpreadsheetMetadata SPREADSHEET_METADATA = METADATA_EN_AU.set(
+    private final static SpreadsheetMetadata SPREADSHEET_METADATA = SpreadsheetMetadataTesting.SPREADSHEET_METADATA.set(
         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
         SPREADSHEET_ID
     );
@@ -127,7 +127,7 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
     public HttpEntity entity() {
         return HttpEntity.EMPTY.setBodyText(
             JSON_NODE_MARSHALL_CONTEXT.marshall(
-                METADATA_EN_AU.getOrFail(PROPERTY)
+                SPREADSHEET_METADATA.getOrFail(PROPERTY)
             ).toString()
         );
     }

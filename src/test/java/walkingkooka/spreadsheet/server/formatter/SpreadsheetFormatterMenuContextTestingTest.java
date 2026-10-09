@@ -83,7 +83,7 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
         return DECIMAL_NUMBER_CONTEXT;
     }
 
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext(
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = SPREADSHEET_METADATA.decimalNumberContext(
         SpreadsheetMetadata.NO_CELL,
         LOCALE_CONTEXT
     );
