@@ -471,7 +471,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         );
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-        metadataStore.save(METADATA_EN_AU);
+        metadataStore.save(SPREADSHEET_METADATA);
 
         return new FakeSpreadsheetEngineHateosHandlerContext() {
 
@@ -492,7 +492,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return METADATA_EN_AU;
+                return SPREADSHEET_METADATA;
             }
 
             @Override

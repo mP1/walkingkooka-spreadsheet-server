@@ -44,7 +44,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
     public SpreadsheetMetadataHateosResourceSet createSet() {
         final SortedSet<SpreadsheetMetadata> sortedSet = SortedSets.tree(SpreadsheetMetadataHateosResourceSet.COMPARATOR);
 
-        sortedSet.add(SpreadsheetMetadataTesting.METADATA_EN_AU);
+        sortedSet.add(SpreadsheetMetadataTesting.SPREADSHEET_METADATA);
 
         return SpreadsheetMetadataHateosResourceSet.withCopy(sortedSet);
     }

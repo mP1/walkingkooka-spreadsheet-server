@@ -99,7 +99,7 @@ public final class SpreadsheetFormatterSelectorEditContextBasicTest implements S
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         return SpreadsheetConverterContexts.basic(
             HAS_USER_DIRECTORIES,
-            Optional.of(METADATA_EN_AU),
+            Optional.of(SPREADSHEET_METADATA),
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
             MEDIA_TYPE_DETECTOR,

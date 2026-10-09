@@ -1015,7 +1015,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
                                                final SpreadsheetMetadataStore store) {
         final LocalDateTime now = HAS_NOW.now();
 
-        SpreadsheetMetadata metadata = SpreadsheetMetadataTesting.METADATA_EN_AU
+        SpreadsheetMetadata metadata = SpreadsheetMetadataTesting.SPREADSHEET_METADATA
             .set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                 AuditInfo.create(

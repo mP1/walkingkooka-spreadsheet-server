@@ -346,7 +346,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetMetadataTesting.METADATA_EN_AU;
+                return SpreadsheetMetadataTesting.SPREADSHEET_METADATA;
             }
 
             @Override

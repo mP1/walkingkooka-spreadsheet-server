@@ -557,7 +557,7 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
         final SpreadsheetServerContextBasic spreadsheetServerContext = this.createContext();
 
         final SpreadsheetMetadata spreadsheetMetadata = spreadsheetServerContext.saveMetadata(
-            METADATA_EN_AU
+            SPREADSHEET_METADATA
         );
 
         final SpreadsheetId spreadsheetId = spreadsheetMetadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
@@ -863,34 +863,34 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                     LOCALE
                 ).set(
                     SpreadsheetMetadataPropertyName.DATE_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.DATE_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_PARSER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.DATE_PARSER)
                 ).set(
                     SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.DATE_TIME_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
                 ).set(
                     SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.NUMBER_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.NUMBER_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
                 ).set(
                     SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.TIME_FORMATTER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_FORMATTER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.TIME_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.TIME_PARSER,
-                    METADATA_EN_AU.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
+                    SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
                 ).spreadsheetEnvironmentContext(
                     SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
                 ),
