@@ -35,9 +35,9 @@ import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextDelegator;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContextTesting2Test.TestSpreadsheetServerContext;
 import walkingkooka.storage.StoragePath;
@@ -58,7 +58,7 @@ import java.util.Optional;
 
 public final class SpreadsheetServerContextTesting2Test implements SpreadsheetServerContextTesting2<TestSpreadsheetServerContext>,
     ConverterLikeTesting,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
 

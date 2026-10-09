@@ -56,11 +56,11 @@ import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
@@ -90,7 +90,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements SpreadsheetMetadataHateosHandlerContextTesting<SpreadsheetMetadataHateosHandlerContextBasic>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -1015,7 +1015,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
                                                final SpreadsheetMetadataStore store) {
         final LocalDateTime now = HAS_NOW.now();
 
-        SpreadsheetMetadata metadata = SpreadsheetMetadataTesting.SPREADSHEET_METADATA
+        SpreadsheetMetadata metadata = HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA
             .set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                 AuditInfo.create(

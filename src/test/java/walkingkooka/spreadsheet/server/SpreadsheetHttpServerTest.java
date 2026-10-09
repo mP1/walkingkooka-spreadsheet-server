@@ -92,11 +92,11 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterInfoSet;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
@@ -166,7 +166,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     HasHateosContentType,
     HateosHandlerContextTesting,
     TypeNameTesting<SpreadsheetHttpServer>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     StorageContextTesting,
     JarFileTesting,
     TreePrintableTesting {
@@ -417,7 +417,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     // with.............................................................................................................
 
-    private final static Function<HttpRequest, Optional<EmailAddress>> HTTP_REQUEST_DEFAULT_USER = (r) -> Optional.of(SpreadsheetMetadataTesting.USER);
+    private final static Function<HttpRequest, Optional<EmailAddress>> HTTP_REQUEST_DEFAULT_USER = (r) -> Optional.of(HasSpreadsheetMetadataTesting.USER);
 
     private final static MediaTypeDetector MEDIA_TYPE_DETECTOR = (filename, binary) ->
         filename.endsWith(".java") ?
@@ -16921,7 +16921,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                 CONVERTER_PROVIDER,
                 CURRENCY_EXCHANGE_RATER_PROVIDER,
                 SPREADSHEET_EXPORTER_PROVIDER,
-                EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
+                EXPRESSION_FUNCTION_PROVIDER, // not HasSpreadsheetMetadataTesting see constant above
                 SPREADSHEET_FORMATTER_PROVIDER,
                 FORM_HANDLER_PROVIDER,
                 SPREADSHEET_IMPORTER_PROVIDER,
@@ -16991,7 +16991,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     }
 
     private SpreadsheetMetadata createMetadata(final Locale locale) {
-        return SpreadsheetMetadataTesting.SPREADSHEET_METADATA
+        return HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA
             .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy/mm/dd").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("yyyy/mm/dd").spreadsheetParserSelector())

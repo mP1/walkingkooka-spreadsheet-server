@@ -21,14 +21,14 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlerTestCase<T>
     implements PackagePrivateClassTesting<T>,
     ToStringTesting<T>,
     TypeNameTesting<T>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     SpreadsheetMetadataHateosResourceHandlerTestCase() {
         super();

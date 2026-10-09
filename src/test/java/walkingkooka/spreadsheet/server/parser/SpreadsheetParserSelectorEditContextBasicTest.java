@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserProviders;
 
@@ -35,7 +35,7 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetParserSelectorEditContextBasicTest implements SpreadsheetParserSelectorEditContextTesting<SpreadsheetParserSelectorEditContextBasic>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
     @Test

@@ -21,8 +21,8 @@ import walkingkooka.net.http.server.HttpHandlerTesting2;
 import walkingkooka.net.http.server.hateos.HateosHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import java.util.Optional;
 
 public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting2<SpreadsheetMetadataHttpHandler, SpreadsheetServerContext>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     // HttpHandler......................................................................................................
 

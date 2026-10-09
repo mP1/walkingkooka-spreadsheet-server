@@ -22,7 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -35,7 +35,7 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
     JsonNode,
     Class<?>,
     JsonNode>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     private final static SpreadsheetLabelName LABEL1 = SpreadsheetExpressionReference.labelName("Label123");
     private final static SpreadsheetLabelName LABEL2 = SpreadsheetExpressionReference.labelName("Label456");

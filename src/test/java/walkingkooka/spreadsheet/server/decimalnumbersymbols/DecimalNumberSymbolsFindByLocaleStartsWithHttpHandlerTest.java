@@ -30,7 +30,7 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.locale.FakeLocaleHateosHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosHandlerContext;
 import walkingkooka.text.Indentation;
@@ -43,7 +43,7 @@ import java.util.Set;
 
 public final class DecimalNumberSymbolsFindByLocaleStartsWithHttpHandlerTest implements GetOrHeadHttpHandlerTesting<DecimalNumberSymbolsFindByLocaleStartsWithHttpHandler, LocaleHateosHandlerContext>,
     HasHateosContentType,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     @Test
     public void testHandleGetAcceptApplicationJsonOffsetZeroCountOne() {

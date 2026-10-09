@@ -44,10 +44,10 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.storage.StoragePath;
@@ -68,11 +68,11 @@ import java.util.Set;
 
 public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting2<ConverterSelectorVerifyHateosHttpEntityHandler, SpreadsheetMetadataPropertyName<?>, SpreadsheetEngineHateosHandlerContext>,
     HasHateosContentType,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     private final SpreadsheetMetadataPropertyName<ConverterSelector> PROPERTY = SpreadsheetMetadataPropertyName.FORMULA_CONVERTER;
 
-    private final static SpreadsheetMetadata SPREADSHEET_METADATA = SpreadsheetMetadataTesting.SPREADSHEET_METADATA.set(
+    private final static SpreadsheetMetadata SPREADSHEET_METADATA = HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA.set(
         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
         SPREADSHEET_ID
     );
