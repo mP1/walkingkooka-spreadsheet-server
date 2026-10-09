@@ -30,8 +30,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.value.HasSpreadsheetCell;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
@@ -42,7 +42,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class SpreadsheetFormatterSelectorEditContextBasicTest implements SpreadsheetFormatterSelectorEditContextTesting<SpreadsheetFormatterSelectorEditContextBasic>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
     // locale...........................................................................................................

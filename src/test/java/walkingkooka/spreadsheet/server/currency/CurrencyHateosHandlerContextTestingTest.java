@@ -24,7 +24,7 @@ import walkingkooka.currency.CurrencyContextDelegator;
 import walkingkooka.logging.LoggingContext;
 import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.net.header.ETag;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.currency.CurrencyHateosHandlerContextTestingTest.TestCurrencyHateosHandlerContext;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -39,7 +39,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHateosHandlerContextTesting<TestCurrencyHateosHandlerContext>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     @Override
     public void testSetObjectPostProcessorSame() {

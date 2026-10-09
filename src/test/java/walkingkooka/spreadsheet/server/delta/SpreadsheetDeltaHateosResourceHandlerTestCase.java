@@ -22,11 +22,11 @@ import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase<T> implements PackagePrivateClassTesting<T>,
     TypeNameTesting<T>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ThrowableTesting {
 
     SpreadsheetDeltaHateosResourceHandlerTestCase() {

@@ -24,10 +24,10 @@ import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicClassTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -35,7 +35,7 @@ import java.util.SortedSet;
 
 public final class SpreadsheetMetadataHateosResourceSetTest implements HateosResourceSetTesting2<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata, SpreadsheetId>,
     ImmutableSortedSetTesting<SpreadsheetMetadataHateosResourceSet, SpreadsheetMetadata>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     PublicClassTesting<SpreadsheetMetadataHateosResourceSet> {
 
     // Set..............................................................................................................
@@ -44,7 +44,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
     public SpreadsheetMetadataHateosResourceSet createSet() {
         final SortedSet<SpreadsheetMetadata> sortedSet = SortedSets.tree(SpreadsheetMetadataHateosResourceSet.COMPARATOR);
 
-        sortedSet.add(SpreadsheetMetadataTesting.SPREADSHEET_METADATA);
+        sortedSet.add(HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA);
 
         return SpreadsheetMetadataHateosResourceSet.withCopy(sortedSet);
     }

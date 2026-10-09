@@ -26,8 +26,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterMenuContextTestingTest.TestSpreadsheetFormatterMenuContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -38,7 +38,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public final class SpreadsheetFormatterMenuContextTestingTest implements SpreadsheetFormatterMenuContextTesting<TestSpreadsheetFormatterMenuContext>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     DecimalNumberContextDelegator {
 
     @Override

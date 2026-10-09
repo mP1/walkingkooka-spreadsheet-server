@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorTokenAlternative;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTesting<SpreadsheetFormatterSelectorEdit>,
     TreePrintableTesting,
     JsonNodeMarshallerTesting<SpreadsheetFormatterSelectorEdit>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ClassTesting<SpreadsheetFormatterSelectorEdit> {
 
     @Test

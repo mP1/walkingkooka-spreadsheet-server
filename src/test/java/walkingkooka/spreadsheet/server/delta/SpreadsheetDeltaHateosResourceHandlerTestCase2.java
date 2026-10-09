@@ -48,9 +48,9 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterAliasSet;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
@@ -107,7 +107,7 @@ import java.util.function.Function;
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
     implements HateosResourceHandlerTesting2<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ToStringTesting<H> {
 
     final static FakeSpreadsheetEngineHateosHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosHandlerContext() {

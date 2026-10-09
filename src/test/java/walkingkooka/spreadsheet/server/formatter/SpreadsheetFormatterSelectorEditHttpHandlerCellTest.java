@@ -43,8 +43,8 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
@@ -70,7 +70,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell, SpreadsheetEngineHateosHandlerContext>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ThrowableTesting,
     ToStringTesting<SpreadsheetFormatterSelectorEditHttpHandlerCell> {
 
@@ -823,7 +823,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetMetadataTesting.SPREADSHEET_METADATA;
+                return HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA;
             }
 
             @Override

@@ -41,8 +41,8 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamp
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserSelector;
@@ -68,7 +68,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting2<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosHandlerContext>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ThrowableTesting,
     ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
 
@@ -180,7 +180,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
-                    return SpreadsheetMetadataTesting.SPREADSHEET_METADATA;
+                    return HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA;
                 }
 
                 @Override
@@ -256,7 +256,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         PROVIDER_CONTEXT
                     ).format(
                         value,
-                        SpreadsheetMetadataTesting.SPREADSHEET_METADATA.spreadsheetFormatterContext(
+                        HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA.spreadsheetFormatterContext(
                             () -> Optional.of(cell),
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();

@@ -24,15 +24,15 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterMenuContextBasicTest implements SpreadsheetFormatterMenuContextTesting<SpreadsheetFormatterMenuContextBasic>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ToStringTesting<SpreadsheetFormatterMenuContextBasic>,
     DecimalNumberContextDelegator {
 

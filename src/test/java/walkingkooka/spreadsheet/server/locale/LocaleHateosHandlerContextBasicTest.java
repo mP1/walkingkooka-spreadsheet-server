@@ -18,12 +18,12 @@
 package walkingkooka.spreadsheet.server.locale;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LocaleHateosHandlerContextBasicTest implements LocaleHateosHandlerContextTesting<LocaleHateosHandlerContextBasic>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     @Test
     public void testWithNullLocaleContextFails() {

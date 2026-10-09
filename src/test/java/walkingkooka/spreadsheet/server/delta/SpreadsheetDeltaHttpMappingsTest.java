@@ -55,8 +55,8 @@ import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.provider.SpreadsheetParserInfo;
@@ -93,7 +93,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase.CONTENT_TYPE;
 
 public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<SpreadsheetDeltaHttpMappings>,
-    SpreadsheetMetadataTesting,
+    HasSpreadsheetMetadataTesting,
     ThrowableTesting {
 
     // cell.............................................................................................................

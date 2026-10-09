@@ -18,12 +18,12 @@
 package walkingkooka.spreadsheet.server.currency;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CurrencyHateosHandlerContextBasicTest implements CurrencyHateosHandlerContextTesting<CurrencyHateosHandlerContextBasic>,
-    SpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting {
 
     @Test
     public void testWithNullCurrencyContextFails() {
