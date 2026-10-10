@@ -12647,6 +12647,105 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "        \"type\": \"java.math.BigDecimal\"\n" +
                             "      },\n" +
                             "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Byte\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Short\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Integer\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Long\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Float\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Double\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.math.BigInteger\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.math.BigDecimal\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.lang.Byte\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.lang.Short\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.lang.Integer\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.lang.Long\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.lang.Float\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.lang.Double\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.math.BigInteger\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": 1,\n" +
+                            "        \"type\": \"java.math.BigDecimal\"\n" +
+                            "      },\n" +
+                            "      {\n" +
                             "        \"value\": \"\\n\",\n" +
                             "        \"type\": \"walkingkooka.text.LineEnding\"\n" +
                             "      },\n" +
