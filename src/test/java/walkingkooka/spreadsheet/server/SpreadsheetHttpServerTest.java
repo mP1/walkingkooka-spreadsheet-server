@@ -9816,7 +9816,8 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"type\": \"list\",\n" +
                             "          \"value\": [\n" +
                             "            true,\n" +
-                            "            false\n" +
+                            "            false,\n" +
+                            "            true\n" +
                             "          ]\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.collect.list.BooleanList\"\n" +
@@ -12560,7 +12561,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "    \"name\": \"text-to-string-list\",\n" +
                             "    \"values\": [\n" +
                             "      {\n" +
-                            "        \"value\": \"apple, banana, 333\",\n" +
+                            "        \"value\": \"Apple 1, Banana 2\",\n" +
                             "        \"type\": \"walkingkooka.collect.list.StringList\"\n" +
                             "      }\n" +
                             "    ]\n" +
