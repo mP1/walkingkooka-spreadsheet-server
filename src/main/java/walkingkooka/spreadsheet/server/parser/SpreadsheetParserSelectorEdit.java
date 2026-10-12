@@ -123,7 +123,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                 Objects.requireNonNull(tokens, "tokens")
             ),
             Objects.requireNonNull(next, "next"),
-            SpreadsheetFormatterSampleList.with(
+            SpreadsheetFormatterSampleList.EMPTY.setElements(
                 Objects.requireNonNull(samples, "samples")
             )
         );
@@ -514,13 +514,11 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     static {
         SpreadsheetParserSelectorTokenList.with(Lists.empty());
-        SpreadsheetFormatterSampleList.with(
-            Lists.of(
-                SpreadsheetFormatterSample.with(
-                    "Label",
-                    SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT,
-                    TextNode.text("123")
-                )
+        SpreadsheetFormatterSampleList.EMPTY.concat(
+            SpreadsheetFormatterSample.with(
+                "Label",
+                SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT,
+                TextNode.text("123")
             )
         );
 

@@ -114,7 +114,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                 Objects.requireNonNull(tokens, "tokens")
             ),
             Objects.requireNonNull(next, "next"),
-            SpreadsheetFormatterSampleList.with(
+            SpreadsheetFormatterSampleList.EMPTY.setElements(
                 Objects.requireNonNull(samples, "samples")
             )
         );
@@ -534,13 +534,11 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
     static {
         SpreadsheetFormatterSelectorTokenList.EMPTY.toString();
-        SpreadsheetFormatterSampleList.with(
-            Lists.of(
-                SpreadsheetFormatterSample.with(
-                    "Label",
-                    SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT,
-                    TextNode.EMPTY_TEXT
-                )
+        SpreadsheetFormatterSampleList.EMPTY.concat(
+            SpreadsheetFormatterSample.with(
+                "Label",
+                SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT,
+                TextNode.EMPTY_TEXT
             )
         );
 
