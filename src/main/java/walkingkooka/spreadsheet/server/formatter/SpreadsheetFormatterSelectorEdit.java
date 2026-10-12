@@ -110,7 +110,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         return new SpreadsheetFormatterSelectorEdit(
             Objects.requireNonNull(selector, "selector"),
             Objects.requireNonNull(message, "message"),
-            SpreadsheetFormatterSelectorTokenList.with(
+            SpreadsheetFormatterSelectorTokenList.EMPTY.setElements(
                 Objects.requireNonNull(tokens, "tokens")
             ),
             Objects.requireNonNull(next, "next"),
@@ -533,7 +533,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
     final static JsonPropertyName SAMPLES_PROPERTY = JsonPropertyName.with(SAMPLES_PROPERTY_STRING);
 
     static {
-        SpreadsheetFormatterSelectorTokenList.with(Lists.empty());
+        SpreadsheetFormatterSelectorTokenList.EMPTY.toString();
         SpreadsheetFormatterSampleList.with(
             Lists.of(
                 SpreadsheetFormatterSample.with(
