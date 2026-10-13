@@ -98,6 +98,7 @@ public final class SpreadsheetFormatterSelectorEditContextBasicTest implements S
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         return SpreadsheetConverterContexts.basic(
+            CAN_INDEXED_NAMED_COLOR,
             HAS_USER_DIRECTORIES,
             Optional.of(SPREADSHEET_METADATA),
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
