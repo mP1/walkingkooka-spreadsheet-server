@@ -333,6 +333,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      text-to-validation-error\n" +
                 "      text-to-validator-selector\n" +
                 "      text-to-value-type\n" +
+                "      text-to-web-color-name\n" +
                 "      text-to-zone-offset\n" +
                 "      to-binary\n" +
                 "      to-boolean\n" +
