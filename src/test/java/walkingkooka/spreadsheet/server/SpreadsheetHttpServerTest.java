@@ -9910,70 +9910,70 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "    \"values\": [\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.color.HslColor\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.color.HsvColor\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.color.RgbColor\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Integer\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Long\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Float\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Double\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.math.BigInteger\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"rgb\",\n" +
+                            "          \"type\": \"rgb-color\",\n" +
                             "          \"value\": \"black\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.math.BigDecimal\"\n" +
