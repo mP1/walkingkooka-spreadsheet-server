@@ -10806,6 +10806,13 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"type\": \"local-date\",\n" +
                             "          \"value\": \"1999-12-31\"\n" +
                             "        },\n" +
+                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-date\",\n" +
+                            "          \"value\": \"1999-12-31\"\n" +
+                            "        },\n" +
                             "        \"type\": \"java.lang.String\"\n" +
                             "      },\n" +
                             "      {\n" +
@@ -10856,6 +10863,13 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": \"1999-12-31T00:00\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Long\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-date-time\",\n" +
+                            "          \"value\": \"1999-12-31T00:00\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
@@ -10960,6 +10974,13 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"value\": \"00:00\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Short\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"12:58\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
                             "      }\n" +
                             "    ]\n" +
                             "  },\n",
