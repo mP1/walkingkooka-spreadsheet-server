@@ -1022,7 +1022,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
                     user,
                     now
                 )
-            ).set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+            ).set(SpreadsheetMetadataPropertyName.DATE_OFFSET, Converters.JAVA_EPOCH_OFFSET)
             .set(
                 SpreadsheetMetadataPropertyName.LOCALE,
                 locale.orElse(LOCALE)
