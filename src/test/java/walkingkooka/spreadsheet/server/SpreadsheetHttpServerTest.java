@@ -10771,35 +10771,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"type\": \"local-date\",\n" +
                             "          \"value\": \"1999-12-31\"\n" +
                             "        },\n" +
-                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date\",\n" +
-                            "          \"value\": \"1999-12-31\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Integer\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date\",\n" +
-                            "          \"value\": \"1999-12-31\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Long\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date\",\n" +
-                            "          \"value\": \"1999-12-31\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Float\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date\",\n" +
-                            "          \"value\": \"1999-12-31\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Double\"\n" +
+                            "        \"type\": \"java.math.BigDecimal\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
@@ -10813,7 +10785,21 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "          \"type\": \"local-date\",\n" +
                             "          \"value\": \"1999-12-31\"\n" +
                             "        },\n" +
-                            "        \"type\": \"java.math.BigDecimal\"\n" +
+                            "        \"type\": \"java.lang.Double\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-date\",\n" +
+                            "          \"value\": \"1999-12-31\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Float\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-date\",\n" +
+                            "          \"value\": \"1999-12-31\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Long\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
@@ -10825,7 +10811,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "      {\n" +
                             "        \"value\": {\n" +
                             "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
+                            "          \"value\": \"1999-12-31T12:58\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.Boolean\"\n" +
                             "      },\n" +
@@ -10839,44 +10825,9 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "      {\n" +
                             "        \"value\": {\n" +
                             "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
+                            "          \"value\": \"1999-12-31T12:58\"\n" +
                             "        },\n" +
-                            "        \"type\": \"java.time.LocalTime\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Integer\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Long\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Float\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Double\"\n" +
+                            "        \"type\": \"java.math.BigDecimal\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
@@ -10888,77 +10839,28 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "      {\n" +
                             "        \"value\": {\n" +
                             "          \"type\": \"local-date-time\",\n" +
-                            "          \"value\": \"1999-12-31T00:00\"\n" +
+                            "          \"value\": \"1999-12-31T12:58\"\n" +
                             "        },\n" +
-                            "        \"type\": \"java.math.BigDecimal\"\n" +
+                            "        \"type\": \"java.lang.Double\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-date-time\",\n" +
+                            "          \"value\": \"1999-12-31T12:58\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Float\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
                             "          \"type\": \"local-date-time\",\n" +
                             "          \"value\": \"1999-12-31T00:00\"\n" +
                             "        },\n" +
-                            "        \"type\": \"java.lang.String\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Boolean\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.time.LocalDateTime\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"walkingkooka.tree.expression.ExpressionNumber\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Integer\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
                             "        \"type\": \"java.lang.Long\"\n" +
                             "      },\n" +
                             "      {\n" +
                             "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Float\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.lang.Double\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
-                            "        },\n" +
-                            "        \"type\": \"java.math.BigDecimal\"\n" +
-                            "      },\n" +
-                            "      {\n" +
-                            "        \"value\": {\n" +
-                            "          \"type\": \"local-time\",\n" +
-                            "          \"value\": \"12:58\"\n" +
+                            "          \"type\": \"local-date-time\",\n" +
+                            "          \"value\": \"1999-12-31T12:58\"\n" +
                             "        },\n" +
                             "        \"type\": \"java.lang.String\"\n" +
                             "      },\n" +
@@ -11009,6 +10911,55 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
                             "      {\n" +
                             "        \"value\": \"12:58:59\",\n" +
                             "        \"type\": \"java.time.LocalTime\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"12:58\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Boolean\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"12:58\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.math.BigDecimal\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"00:00\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.math.BigInteger\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"12:58\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Double\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"12:58\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Float\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"00:00\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Long\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"local-time\",\n" +
+                            "          \"value\": \"00:00\"\n" +
+                            "        },\n" +
+                            "        \"type\": \"java.lang.Short\"\n" +
                             "      }\n" +
                             "    ]\n" +
                             "  },\n",
