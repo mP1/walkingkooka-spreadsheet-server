@@ -238,14 +238,14 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SPREADSHEET_METADATA;
+                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.SPREADSHEET_METADATA;
             }
 
             @Override
             public Optional<SpreadsheetMetadata> loadMetadata(final SpreadsheetId id) {
                 return Optional.ofNullable(
                     ConverterSelectorVerifyHateosHttpEntityHandlerTest.SPREADSHEET_ID.equals(id) ?
-                        SPREADSHEET_METADATA :
+                        ConverterSelectorVerifyHateosHttpEntityHandlerTest.SPREADSHEET_METADATA :
                         null
                 );
             }
