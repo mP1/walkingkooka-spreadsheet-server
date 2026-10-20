@@ -114,8 +114,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public SpreadsheetMetadata spreadsheetMetadata() {
-        return this.metadata;
+    public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+        return Optional.of(this.metadata);
     }
 
     private final SpreadsheetMetadata metadata;

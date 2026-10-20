@@ -64,7 +64,7 @@ final class SpreadsheetFormatterMenuHttpHandler implements GetOrHeadHttpHandler<
             SpreadsheetFormatterMenuContexts.basic(
                 context, // SpreadsheetFormatProvider
                 SpreadsheetFormatterProviderSamplesContexts.basic(
-                    context.spreadsheetMetadata()
+                    context.spreadsheetMetadataOrFail()
                         .spreadsheetFormatterContext(
                             HasSpreadsheetCell.EMPTY_HAS_SPREADSHEET_CELL,
                             (final Optional<Object> v) -> {

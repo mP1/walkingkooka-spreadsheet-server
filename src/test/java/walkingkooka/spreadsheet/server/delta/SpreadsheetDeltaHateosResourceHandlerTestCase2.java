@@ -112,8 +112,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final static FakeSpreadsheetEngineHateosHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosHandlerContext() {
         @Override
-        public SpreadsheetMetadata spreadsheetMetadata() {
-            return SpreadsheetMetadata.EMPTY;
+        public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+            return NO_METADATA;
         }
     };
 
@@ -312,7 +312,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     static abstract class TestSpreadsheetEngineHateosHandlerContext extends FakeSpreadsheetEngineHateosHandlerContext {
 
         @Override
-        abstract public SpreadsheetMetadata spreadsheetMetadata();
+        abstract public Optional<SpreadsheetMetadata> spreadsheetMetadata();
     }
 
     TestSpreadsheetEngineHateosHandlerContext context(final SpreadsheetEngine engine) {
@@ -466,8 +466,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public SpreadsheetMetadata spreadsheetMetadata() {
-                return METADATA;
+            public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                return Optional.of(METADATA);
             }
 
             @Override

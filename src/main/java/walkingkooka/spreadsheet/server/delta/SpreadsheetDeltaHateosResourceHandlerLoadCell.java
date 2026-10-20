@@ -92,7 +92,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         );
 
         // if the selection moved need to SAVE!
-        SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+        SpreadsheetMetadata metadata = context.spreadsheetMetadataOrFail();
 
         if (maybeNavigatedViewport.isPresent()) {
             final SpreadsheetViewport navigatedViewport = maybeNavigatedViewport.get();

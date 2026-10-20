@@ -88,7 +88,7 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
         );
 
         return Optional.of(
-            spreadsheetContext.spreadsheetMetadata()
+            spreadsheetContext.spreadsheetMetadataOrFail()
         );
     }
 

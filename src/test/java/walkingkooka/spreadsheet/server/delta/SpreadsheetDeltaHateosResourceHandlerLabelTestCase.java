@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
+import java.util.Optional;
+
 public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, SpreadsheetLabelName>
     implements HateosResourceHandlerTesting2<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
@@ -58,8 +60,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
             }
 
             @Override
-            public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetMetadata.EMPTY;
+            public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                return Optional.of(SpreadsheetMetadata.EMPTY);
             }
         };
     }

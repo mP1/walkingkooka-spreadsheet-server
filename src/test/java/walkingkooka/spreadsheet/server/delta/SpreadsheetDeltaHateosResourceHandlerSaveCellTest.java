@@ -196,8 +196,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return METADATA;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return Optional.of(METADATA);
                 }
             },
             Optional.of(

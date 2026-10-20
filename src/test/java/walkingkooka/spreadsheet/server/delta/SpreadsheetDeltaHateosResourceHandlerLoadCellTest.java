@@ -267,8 +267,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return metadata;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return Optional.of(metadata);
                 }
             },
             Optional.of(expected)
@@ -429,8 +429,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return METADATA;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return Optional.of(METADATA);
                 }
             },
             Optional.of(
@@ -791,8 +791,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return SpreadsheetDeltaHateosResourceHandlerLoadCellTest.SPREADSHEET_METADATA;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return OPTIONAL_SPREADSHEET_METADATA;
                 }
 
                 @Override
@@ -1254,8 +1254,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return metadata;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return Optional.of(metadata);
                 }
 
                 @Override
@@ -1433,8 +1433,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             }
 
             @Override
-            public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetDeltaHateosResourceHandlerLoadCellTest.SPREADSHEET_METADATA;
+            public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                return OPTIONAL_SPREADSHEET_METADATA;
             }
 
             @Override

@@ -98,7 +98,7 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                     providerContext
                 ),
                 converterSelectorSpreadsheetMetadataPropertyName,
-                context.spreadsheetMetadata()
+                context.spreadsheetMetadataOrFail()
                     .spreadsheetConverterContext(
                         SpreadsheetMetadata.NO_CELL,
                         Optional.of(

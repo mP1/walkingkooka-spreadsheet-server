@@ -179,8 +179,8 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return OPTIONAL_SPREADSHEET_METADATA;
                 }
 
                 @Override

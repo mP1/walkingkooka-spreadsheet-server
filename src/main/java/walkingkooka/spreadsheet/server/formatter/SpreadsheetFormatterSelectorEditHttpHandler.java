@@ -113,7 +113,7 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                 CharSequences.nullToEmpty(formatterSelector)
                     .toString(),
             SpreadsheetFormatterSelectorEditContexts.basic(
-                context.spreadsheetMetadata()
+                context.spreadsheetMetadataOrFail()
                     .spreadsheetFormatterContext(
                         () -> cell,
                         (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)

@@ -240,11 +240,13 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
         }
 
         @Override
-        public SpreadsheetMetadata spreadsheetMetadata() {
-            return SpreadsheetEngineHateosHandlerContextBasicTest.SPREADSHEET_METADATA.setOrRemove(
-                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                this.spreadsheetId()
-                    .orElse(null)
+        public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+            return Optional.of(
+                SpreadsheetEngineHateosHandlerContextBasicTest.SPREADSHEET_METADATA.setOrRemove(
+                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                    this.spreadsheetId()
+                        .orElse(null)
+                )
             );
         }
 

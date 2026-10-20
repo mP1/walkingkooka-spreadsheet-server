@@ -481,7 +481,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                                                                              final SpreadsheetEngineContext context) {
         Optional<SpreadsheetCellQuery> query = SpreadsheetCellQuery.extract(parameters);
         if (false == query.isPresent()) {
-            final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+            final SpreadsheetMetadata metadata = context.spreadsheetMetadataOrFail();
             if (metadata.get(SpreadsheetMetadataPropertyName.QUERY_HIGHLIGHTING).orElse(false)) {
                 query = metadata.get(SpreadsheetMetadataPropertyName.QUERY);
             }

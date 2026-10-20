@@ -97,13 +97,13 @@ final class SpreadsheetEngineHateosHandlerContextBasic implements SpreadsheetEng
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.engineContext.spreadsheetMetadata()
+        return this.engineContext.spreadsheetMetadataOrFail()
             .expressionNumberKind();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.spreadsheetMetadata()
+        return this.spreadsheetMetadataOrFail()
             .mathContext();
     }
 
@@ -180,7 +180,7 @@ final class SpreadsheetEngineHateosHandlerContextBasic implements SpreadsheetEng
     }
 
     @Override
-    public SpreadsheetMetadata spreadsheetMetadata() {
+    public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
         return this.engineContext.spreadsheetMetadata();
     }
 
