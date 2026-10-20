@@ -792,7 +792,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
-                    return SPREADSHEET_METADATA;
+                    return SpreadsheetDeltaHateosResourceHandlerLoadCellTest.SPREADSHEET_METADATA;
                 }
 
                 @Override
@@ -1434,7 +1434,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SPREADSHEET_METADATA;
+                return SpreadsheetDeltaHateosResourceHandlerLoadCellTest.SPREADSHEET_METADATA;
             }
 
             @Override

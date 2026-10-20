@@ -492,7 +492,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SPREADSHEET_METADATA;
+                return SpreadsheetDeltaHttpMappingsTest.SPREADSHEET_METADATA;
             }
 
             @Override
