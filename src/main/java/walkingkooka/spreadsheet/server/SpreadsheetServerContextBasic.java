@@ -213,7 +213,7 @@ final class SpreadsheetServerContextBasic implements SpreadsheetServerContext,
             )
         );
 
-        final SpreadsheetContext context = SpreadsheetContexts.fixedSpreadsheetId(
+        final SpreadsheetContext spreadsheetContext = SpreadsheetContexts.fixedSpreadsheetId(
             this.mediaTypeDetector,
             this.spreadsheetMetadataContext, // SpreadsheetMetadataCreator
             this.multiplier,
@@ -231,10 +231,10 @@ final class SpreadsheetServerContextBasic implements SpreadsheetServerContext,
 
         this.spreadsheetIdToSpreadsheetContext.put(
             spreadsheetId,
-            context
+            spreadsheetContext
         );
 
-        return context;
+        return spreadsheetContext;
     }
 
     private final Map<SpreadsheetId, SpreadsheetContext> spreadsheetIdToSpreadsheetContext = Maps.concurrent();
