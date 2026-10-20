@@ -783,7 +783,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
-        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata()
+        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadataOrFail()
             .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
 
         final SpreadsheetMetadataPropertyName<AnchoredSpreadsheetSelection> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT_SELECTION;
@@ -808,8 +808,11 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(OPTIONAL_LOCALE);
 
-        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadata()
-            .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE);
+        final SpreadsheetMetadata metadata = spreadsheetContext.spreadsheetMetadataOrFail()
+            .set(
+                SpreadsheetMetadataPropertyName.LOCALE,
+                LOCALE
+            );
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
 

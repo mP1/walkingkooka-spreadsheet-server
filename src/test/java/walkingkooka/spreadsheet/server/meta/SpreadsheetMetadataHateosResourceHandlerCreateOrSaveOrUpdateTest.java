@@ -127,18 +127,20 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                     return new FakeSpreadsheetContext() {
 
                         @Override
-                        public SpreadsheetMetadata spreadsheetMetadata() {
-                            return metadata.set(
-                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.SPREADSHEET_ID
-                            ).set(
-                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                    .setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
-                                    .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
-                            ).set(
-                                SpreadsheetMetadataPropertyName.LOCALE,
-                                locale.get()
+                        public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                            return Optional.of(
+                                metadata.set(
+                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                    SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.SPREADSHEET_ID
+                                ).set(
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                        .setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                        .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                ).set(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.get()
+                                )
                             );
                         }
                     };
@@ -175,18 +177,20 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                     return new FakeSpreadsheetContext() {
 
                         @Override
-                        public SpreadsheetMetadata spreadsheetMetadata() {
-                            return metadata.set(
-                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.SPREADSHEET_ID
-                            ).set(
-                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
-                                    .setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
-                                    .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
-                            ).setOrRemove(
-                                SpreadsheetMetadataPropertyName.LOCALE,
-                                locale.orElse(null)
+                        public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                            return Optional.of(
+                                metadata.set(
+                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                    SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.SPREADSHEET_ID
+                                ).set(
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                        .setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                        .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                ).setOrRemove(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.orElse(null)
+                                )
                             );
                         }
                     };

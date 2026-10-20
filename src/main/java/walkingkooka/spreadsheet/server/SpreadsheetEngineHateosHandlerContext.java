@@ -57,7 +57,7 @@ public interface SpreadsheetEngineHateosHandlerContext extends HateosHandlerCont
 
     @Override
     default ExpressionNumber missingCellNumberValue() {
-        return this.spreadsheetMetadata()
+        return this.spreadsheetMetadataOrFail()
             .missingCellNumberValue();
     }
 }

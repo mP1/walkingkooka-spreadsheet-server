@@ -237,8 +237,8 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             }
 
             @Override
-            public SpreadsheetMetadata spreadsheetMetadata() {
-                return ConverterSelectorVerifyHateosHttpEntityHandlerTest.SPREADSHEET_METADATA;
+            public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                return Optional.of(ConverterSelectorVerifyHateosHttpEntityHandlerTest.SPREADSHEET_METADATA);
             }
 
             @Override

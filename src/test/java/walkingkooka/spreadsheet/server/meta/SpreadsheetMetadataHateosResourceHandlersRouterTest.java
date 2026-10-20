@@ -193,17 +193,19 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                     return new FakeSpreadsheetContext() {
 
                         @Override
-                        public SpreadsheetMetadata spreadsheetMetadata() {
-                            return SpreadsheetMetadata.EMPTY.set(
-                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID
-                            ).set(
-                                SpreadsheetMetadataPropertyName.AUDIT_INFO,
-                                AUDIT_INFO.setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
-                                    .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
-                            ).setOrRemove(
-                                SpreadsheetMetadataPropertyName.LOCALE,
-                                locale.orElse(null)
+                        public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                            return Optional.of(
+                                SpreadsheetMetadata.EMPTY.set(
+                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                    SpreadsheetMetadataHateosResourceHandlersRouterTest.SPREADSHEET_ID
+                                ).set(
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    AUDIT_INFO.setCreatedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                        .setModifiedBy(SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateTest.USER)
+                                ).setOrRemove(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.orElse(null)
+                                )
                             );
                         }
                     };

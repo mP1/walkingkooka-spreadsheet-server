@@ -90,7 +90,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 HATEOS_CONTENT_TYPE
             );
 
-        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+        final SpreadsheetMetadata metadata = context.spreadsheetMetadataOrFail();
         final ProviderContext providerContext = context.providerContext();
 
         final SpreadsheetParserSelectorEdit response = SpreadsheetParserSelectorEdit.parse(

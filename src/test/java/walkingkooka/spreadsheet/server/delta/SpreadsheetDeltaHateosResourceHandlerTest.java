@@ -245,8 +245,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                 }
 
                 @Override
-                public SpreadsheetMetadata spreadsheetMetadata() {
-                    return SpreadsheetMetadata.EMPTY;
+                public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                    return Optional.of(SpreadsheetMetadata.EMPTY);
                 }
             },
             output,

@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
 import walkingkooka.validation.form.FormName;
 
+import java.util.Optional;
+
 public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extends SpreadsheetDeltaHateosResourceHandler<FormName>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, FormName>
     implements HateosResourceHandlerTesting2<H, FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
@@ -67,8 +69,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extend
             }
 
             @Override
-            public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetMetadata.EMPTY;
+            public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+                return Optional.of(SpreadsheetMetadata.EMPTY);
             }
         };
     }

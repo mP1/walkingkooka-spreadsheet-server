@@ -66,6 +66,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     R extends SpreadsheetSelection & Comparable<R>> implements
     HateosHttpEntityHandlerTesting2<H, S, SpreadsheetEngineHateosHandlerContext>,
     HasLineEndingTesting,
+    HasSpreadsheetMetadataTesting,
     JsonNodeMarshallUnmarshallContextTesting,
     PackagePrivateClassTesting<H> {
 
@@ -211,8 +212,8 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         private final SpreadsheetEngine spreadsheetEngine;
 
         @Override
-        public SpreadsheetMetadata spreadsheetMetadata() {
-            return HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA;
+        public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+            return OPTIONAL_SPREADSHEET_METADATA;
         }
 
         @Override
