@@ -380,6 +380,7 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
 
         final SpreadsheetServerContext spreadsheetServerContext = this.createContext(
             SpreadsheetEnvironmentContexts.basic(
+                SPREADSHEET_METADATA_LOADER,
                 Cast.to(STORAGE),
                 spreadsheetEnvironmentContext
             )
@@ -674,6 +675,7 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
     @Test
     public void testUser() {
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
+            SPREADSHEET_METADATA_LOADER,
             STORAGE_SPREADSHEET_STORAGE_CONTEXT,
             SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
@@ -800,6 +802,7 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
     private SpreadsheetServerContextBasic createContext(final CanLog canLog) {
         return this.createContext(
             SpreadsheetEnvironmentContexts.basic(
+                SPREADSHEET_METADATA_LOADER,
                 Cast.to(STORAGE),
                 StorageEnvironmentContexts.basic(
                     SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()

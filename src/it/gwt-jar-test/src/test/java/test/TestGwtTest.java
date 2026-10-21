@@ -77,6 +77,7 @@ import walkingkooka.spreadsheet.importer.provider.SpreadsheetImporterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataContexts;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
@@ -386,6 +387,7 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                             LocaleContexts.jre(locale)
                         ),
                     SpreadsheetEnvironmentContexts.basic(
+                        SpreadsheetMetadataLoaders.fake(),
                         Storages.fake(),
                         StorageEnvironmentContexts.basic(environmentContext)
                     ),

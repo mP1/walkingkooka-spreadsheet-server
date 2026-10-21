@@ -16950,6 +16950,7 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
 
     private SpreadsheetServerContext createSpreadsheetServerContext(final Optional<EmailAddress> user) {
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
+            SPREADSHEET_METADATA_LOADER,
             Storages.treeMapStore(),
             STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
