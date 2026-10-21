@@ -403,6 +403,11 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
     }
 
     @Override
+    public void setSpreadsheetMetadata(final Optional<SpreadsheetMetadata> spreadsheetMetadata) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
         throw new UnsupportedOperationException();
     }
