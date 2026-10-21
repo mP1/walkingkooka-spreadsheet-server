@@ -251,6 +251,12 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
         }
 
         @Override
+        public void setSpreadsheetMetadata(final Optional<SpreadsheetMetadata> spreadsheetMetadata) {
+            Objects.requireNonNull(spreadsheetMetadata, "spreadsheetMetadata");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public SpreadsheetMetadata createMetadata(final EmailAddress user,
                                                   final Optional<Locale> locale) {
             throw new UnsupportedOperationException();
