@@ -1004,6 +1004,8 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                 "                Z (java.time.ZoneOffset)\n" +
                 "              user\n" +
                 "                user123@example.com (walkingkooka.net.email.EmailAddress)\n" +
+                "        spreadsheetMetadataLoader\n" +
+                "          SpreadsheetMetadataLoaderEmpty (walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaderEmpty)\n" +
                 "        storage\n" +
                 "          {} (walkingkooka.storage.StorageShared2Empty)\n" +
                 "  spreadsheetMetadataContext\n" +
