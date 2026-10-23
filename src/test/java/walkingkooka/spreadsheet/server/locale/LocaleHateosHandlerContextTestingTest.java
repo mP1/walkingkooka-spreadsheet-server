@@ -150,7 +150,7 @@ public final class LocaleHateosHandlerContextTestingTest implements LocaleHateos
 
         @Override
         public LineEnding lineEnding() {
-            return EOL;
+            return LINE_ENDING;
         }
 
         @Override

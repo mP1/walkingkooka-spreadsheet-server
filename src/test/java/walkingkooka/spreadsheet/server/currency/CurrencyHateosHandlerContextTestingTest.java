@@ -97,7 +97,7 @@ public final class CurrencyHateosHandlerContextTestingTest implements CurrencyHa
 
         @Override
         public LineEnding lineEnding() {
-            return EOL;
+            return LINE_ENDING;
         }
 
         @Override
