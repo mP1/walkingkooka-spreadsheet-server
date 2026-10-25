@@ -29,7 +29,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosHandlerContext;
 import walkingkooka.plugin.FakeProviderContext;
-import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -111,8 +110,6 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
             return FakeHateosHandlerContext.class.getSimpleName();
         }
     };
-
-    private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
 
     // with.............................................................................................................
 
@@ -865,6 +862,9 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                     SpreadsheetMetadataPropertyName.LOCALE,
                     LOCALE
                 ).set(
+                    SpreadsheetMetadataPropertyName.DATE_OFFSET,
+                    DATE_OFFSET
+                ).set(
                     SpreadsheetMetadataPropertyName.DATE_FORMATTER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.DATE_FORMATTER)
                 ).set(
@@ -877,14 +877,29 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                     SpreadsheetMetadataPropertyName.DATE_TIME_PARSER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER)
                 ).set(
+                    SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_DIGIT_COUNT,
+                    DECIMAL_NUMBER_DIGIT_COUNT
+                ).set(
+                    SpreadsheetMetadataPropertyName.DEFAULT_YEAR,
+                    DEFAULT_YEAR
+                ).set(
                     SpreadsheetMetadataPropertyName.ERROR_FORMATTER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.ERROR_FORMATTER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND,
+                    EXPRESSION_NUMBER_KIND
                 ).set(
                     SpreadsheetMetadataPropertyName.NUMBER_FORMATTER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER)
                 ).set(
                     SpreadsheetMetadataPropertyName.NUMBER_PARSER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.PRECISION,
+                    MATH_CONTEXT.getPrecision()
+                ).set(
+                    SpreadsheetMetadataPropertyName.ROUNDING_MODE,
+                    MATH_CONTEXT.getRoundingMode()
                 ).set(
                     SpreadsheetMetadataPropertyName.TEXT_FORMATTER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.TEXT_FORMATTER)
@@ -894,6 +909,12 @@ public final class SpreadsheetServerContextBasicTest implements SpreadsheetServe
                 ).set(
                     SpreadsheetMetadataPropertyName.TIME_PARSER,
                     SPREADSHEET_METADATA.getOrFail(SpreadsheetMetadataPropertyName.TIME_PARSER)
+                ).set(
+                    SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR,
+                    TWO_DIGIT_YEAR
+                ).set(
+                    SpreadsheetMetadataPropertyName.VALUE_SEPARATOR,
+                    VALUE_SEPARATOR
                 ).spreadsheetEnvironmentContext(
                     SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment()
                 ),
