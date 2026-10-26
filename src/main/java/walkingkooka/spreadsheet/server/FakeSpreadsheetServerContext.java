@@ -366,6 +366,18 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
         throw new UnsupportedOperationException();
     }
 
+    // HasSpreadsheetMetadata...........................................................................................
+
+    @Override
+    public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setSpreadsheetMetadata(final Optional<SpreadsheetMetadata> metadata) {
+        throw new UnsupportedOperationException();
+    }
+
     // LocaleContext....................................................................................................
 
     @Override

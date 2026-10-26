@@ -36,13 +36,13 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelectorToken;
-import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
@@ -62,7 +62,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterMenuHttpHandler, SpreadsheetEngineHateosHandlerContext>,
-    HasSpreadsheetMetadataTesting,
+    SpreadsheetEnvironmentContextTesting,
     ThrowableTesting,
     ToStringTesting<SpreadsheetFormatterMenuHttpHandler> {
 
