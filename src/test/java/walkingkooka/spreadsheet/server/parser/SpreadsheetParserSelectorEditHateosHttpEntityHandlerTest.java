@@ -36,6 +36,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
@@ -68,7 +69,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting2<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosHandlerContext>,
-    HasSpreadsheetMetadataTesting,
+    SpreadsheetEnvironmentContextTesting,
     ThrowableTesting,
     ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
 

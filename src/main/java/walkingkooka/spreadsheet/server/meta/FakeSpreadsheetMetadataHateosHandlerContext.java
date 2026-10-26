@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.HttpHandlerContext;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetServerContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -38,6 +39,18 @@ public class FakeSpreadsheetMetadataHateosHandlerContext extends FakeSpreadsheet
 
     @Override
     public Router<HttpRequestAttribute<?>, HttpHandler<HttpHandlerContext>> httpRouter(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    // HasSpreadsheetMetadata...........................................................................................
+
+    @Override
+    public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setSpreadsheetMetadata(final Optional<SpreadsheetMetadata> metadata) {
         throw new UnsupportedOperationException();
     }
 
