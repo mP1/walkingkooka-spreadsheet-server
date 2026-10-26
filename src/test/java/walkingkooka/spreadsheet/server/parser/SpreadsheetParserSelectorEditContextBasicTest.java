@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetParserSelectorEditContextBasicTest implements SpreadsheetParserSelectorEditContextTesting<SpreadsheetParserSelectorEditContextBasic>,
     HasSpreadsheetMetadataTesting,
+    PackagePrivateClassTesting<SpreadsheetParserSelectorEditContextBasic>,
     DecimalNumberContextDelegator {
 
     @Test
@@ -165,11 +166,6 @@ public final class SpreadsheetParserSelectorEditContextBasicTest implements Spre
     @Override
     public Class<SpreadsheetParserSelectorEditContextBasic> type() {
         return SpreadsheetParserSelectorEditContextBasic.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

@@ -17,18 +17,12 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class SpreadsheetHttpServerAutoGzipEncodingTest implements ClassTesting<SpreadsheetHttpServerAutoGzipEncoding> {
+public final class SpreadsheetHttpServerAutoGzipEncodingTest implements PackagePrivateClassTesting<SpreadsheetHttpServerAutoGzipEncoding> {
 
     @Override
     public Class<SpreadsheetHttpServerAutoGzipEncoding> type() {
         return SpreadsheetHttpServerAutoGzipEncoding.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

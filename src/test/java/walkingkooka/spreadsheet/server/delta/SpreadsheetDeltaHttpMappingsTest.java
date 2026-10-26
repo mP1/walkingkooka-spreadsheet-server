@@ -37,8 +37,7 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
@@ -92,7 +91,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase.CONTENT_TYPE;
 
-public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<SpreadsheetDeltaHttpMappings>,
+public final class SpreadsheetDeltaHttpMappingsTest implements PublicClassTesting<SpreadsheetDeltaHttpMappings>,
     SpreadsheetEnvironmentContextTesting,
     ThrowableTesting {
 
@@ -1053,15 +1052,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         };
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<SpreadsheetDeltaHttpMappings> type() {
         return SpreadsheetDeltaHttpMappings.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

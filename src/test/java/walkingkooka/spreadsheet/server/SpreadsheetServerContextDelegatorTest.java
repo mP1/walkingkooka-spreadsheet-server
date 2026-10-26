@@ -32,6 +32,7 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContexts;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
@@ -58,7 +59,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class SpreadsheetServerContextDelegatorTest implements SpreadsheetServerContextTesting2<TestSpreadsheetServerContextDelegator>,
-    HasSpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting,
+    PackagePrivateClassTesting<TestSpreadsheetServerContextDelegator> {
 
     private final static SpreadsheetContext SPREADSHEET_CONTEXT = SpreadsheetContexts.fake();
 

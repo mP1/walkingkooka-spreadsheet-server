@@ -19,8 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
@@ -43,7 +42,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     TreePrintableTesting,
     JsonNodeMarshallerTesting<SpreadsheetFormatterSelectorEdit>,
     HasSpreadsheetMetadataTesting,
-    ClassTesting<SpreadsheetFormatterSelectorEdit> {
+    PublicClassTesting<SpreadsheetFormatterSelectorEdit> {
 
     @Test
     public void testParseWithNullContextFails() {
@@ -652,10 +651,5 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     @Override
     public Class<SpreadsheetFormatterSelectorEdit> type() {
         return SpreadsheetFormatterSelectorEdit.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
