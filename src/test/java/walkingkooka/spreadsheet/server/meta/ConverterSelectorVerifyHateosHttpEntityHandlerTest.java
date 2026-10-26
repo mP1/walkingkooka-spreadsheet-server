@@ -32,6 +32,7 @@ import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HasHateosContentType;
@@ -283,6 +284,26 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
                     filename,
                     content
                 );
+            }
+
+            @Override
+            public void logEnter(final LoggerPath logger) {
+                // nop
+            }
+
+            @Override
+            public void logExit() {
+                // nop
+            }
+
+            @Override
+            public boolean isDebugEnabled() {
+                return false;
+            }
+
+            @Override
+            public boolean isInfoEnabled() {
+                return false;
             }
         };
     }
