@@ -17,18 +17,12 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class SpreadsheetHttpServerHttpHandlerRouterFactoryTest implements ClassTesting<SpreadsheetHttpServerHttpHandlerRouterFactory> {
+public final class SpreadsheetHttpServerHttpHandlerRouterFactoryTest implements PackagePrivateClassTesting<SpreadsheetHttpServerHttpHandlerRouterFactory> {
 
     @Override
     public Class<SpreadsheetHttpServerHttpHandlerRouterFactory> type() {
         return SpreadsheetHttpServerHttpHandlerRouterFactory.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

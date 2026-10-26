@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.plugin.PluginSelectorMenuLikeTesting;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
@@ -44,7 +44,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLikeTesting<SpreadsheetFormatterMenu, SpreadsheetFormatterSelector, SpreadsheetFormatterName>,
     JsonNodeMarshallerTesting<SpreadsheetFormatterMenu>,
-    HasSpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting,
+    PublicClassTesting<SpreadsheetFormatterMenu> {
 
     @Override
     public SpreadsheetFormatterMenu createPluginSelectorMenu(final String label,
@@ -290,10 +291,5 @@ public final class SpreadsheetFormatterMenuTest implements PluginSelectorMenuLik
     @Override
     public Class<SpreadsheetFormatterMenu> type() {
         return SpreadsheetFormatterMenu.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

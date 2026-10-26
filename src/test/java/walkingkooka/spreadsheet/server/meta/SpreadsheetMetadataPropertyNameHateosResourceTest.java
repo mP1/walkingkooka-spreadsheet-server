@@ -17,18 +17,12 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class SpreadsheetMetadataPropertyNameHateosResourceTest implements ClassTesting2<SpreadsheetMetadataPropertyNameHateosResource> {
+public final class SpreadsheetMetadataPropertyNameHateosResourceTest implements PackagePrivateClassTesting<SpreadsheetMetadataPropertyNameHateosResource> {
 
     @Override
     public Class<SpreadsheetMetadataPropertyNameHateosResource> type() {
         return SpreadsheetMetadataPropertyNameHateosResource.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

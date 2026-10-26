@@ -17,18 +17,12 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class SpreadsheetHttpServerHttpHandlerCurrencyHateosHandlerContextTest implements ClassTesting<SpreadsheetHttpServerHttpHandlerCurrencyHateosHandlerContext> {
+public final class SpreadsheetHttpServerHttpHandlerCurrencyHateosHandlerContextTest implements PackagePrivateClassTesting<SpreadsheetHttpServerHttpHandlerCurrencyHateosHandlerContext> {
 
     @Override
     public Class<SpreadsheetHttpServerHttpHandlerCurrencyHateosHandlerContext> type() {
         return SpreadsheetHttpServerHttpHandlerCurrencyHateosHandlerContext.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

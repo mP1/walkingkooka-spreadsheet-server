@@ -73,8 +73,7 @@ import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
@@ -161,7 +160,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerTest implements ClassTesting2<SpreadsheetHttpServer>,
+public final class SpreadsheetHttpServerTest implements PublicClassTesting<SpreadsheetHttpServer>,
     ConverterLikeTesting,
     HasHateosContentType,
     HateosHandlerContextTesting,
@@ -17462,11 +17461,6 @@ public final class SpreadsheetHttpServerTest implements ClassTesting2<Spreadshee
     @Override
     public Class<SpreadsheetHttpServer> type() {
         return SpreadsheetHttpServer.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

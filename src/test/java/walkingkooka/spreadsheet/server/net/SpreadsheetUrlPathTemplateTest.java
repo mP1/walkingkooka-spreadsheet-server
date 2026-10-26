@@ -23,7 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
@@ -56,6 +56,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<SpreadsheetUrlPathTemplate>,
     HashCodeEqualsDefinedTesting2<SpreadsheetUrlPathTemplate>,
+    PublicClassTesting<SpreadsheetUrlPathTemplate>,
     SpreadsheetEnvironmentContextTesting {
 
     private final CurrencyCode CURRENCY_CODE = CurrencyCode.fromCurrency(
@@ -962,10 +963,5 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     @Override
     public Class<SpreadsheetUrlPathTemplate> type() {
         return SpreadsheetUrlPathTemplate.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

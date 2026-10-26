@@ -38,6 +38,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosHandlerContextTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -66,6 +67,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting2<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetEngineHateosHandlerContext>,
     HateosHandlerContextTesting,
+    PublicClassTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     ToStringTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     SpreadsheetEnvironmentContextTesting {

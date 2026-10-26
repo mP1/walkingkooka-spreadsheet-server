@@ -21,8 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.collect.list.ListTesting2;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SpreadsheetFormatterMenuListTest implements ListTesting2<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu>,
-    ClassTesting<SpreadsheetFormatterMenuList>,
+    PublicClassTesting<SpreadsheetFormatterMenuList>,
     ImmutableListTesting<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu>,
     JsonNodeMarshallerTesting<SpreadsheetFormatterMenuList> {
 
@@ -138,11 +137,6 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
     @Override
     public Class<SpreadsheetFormatterMenuList> type() {
         return SpreadsheetFormatterMenuList.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // Json...........................................................................................................

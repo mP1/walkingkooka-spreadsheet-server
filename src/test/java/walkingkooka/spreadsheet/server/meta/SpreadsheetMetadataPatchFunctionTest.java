@@ -20,8 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.spreadsheet.FakeSpreadsheetContext;
 import walkingkooka.spreadsheet.SpreadsheetContext;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -47,7 +46,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTesting2<SpreadsheetMetadataPatchFunction, JsonNode, SpreadsheetServerContext, JsonNode>,
-    ClassTesting<SpreadsheetMetadataPatchFunction>,
+    PackagePrivateClassTesting<SpreadsheetMetadataPatchFunction>,
     ToStringTesting<SpreadsheetMetadataPatchFunction>,
     HasSpreadsheetMetadataTesting {
 
@@ -202,10 +201,5 @@ public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTes
     @Override
     public Class<SpreadsheetMetadataPatchFunction> type() {
         return SpreadsheetMetadataPatchFunction.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProviderSamplesContexts;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterMenuContextBasicTest implements SpreadsheetFormatterMenuContextTesting<SpreadsheetFormatterMenuContextBasic>,
     HasSpreadsheetMetadataTesting,
+    PackagePrivateClassTesting<SpreadsheetFormatterMenuContextBasic>,
     ToStringTesting<SpreadsheetFormatterMenuContextBasic>,
     DecimalNumberContextDelegator {
 
@@ -117,11 +118,6 @@ public final class SpreadsheetFormatterMenuContextBasicTest implements Spreadshe
     @Override
     public Class<SpreadsheetFormatterMenuContextBasic> type() {
         return SpreadsheetFormatterMenuContextBasic.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

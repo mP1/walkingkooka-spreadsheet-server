@@ -22,7 +22,6 @@ import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.http.server.hateos.HateosResourceSetTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetId;
@@ -620,10 +619,5 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
     @Override
     public Class<SpreadsheetMetadataHateosResourceSet> type() {
         return SpreadsheetMetadataHateosResourceSet.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

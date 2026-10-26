@@ -19,8 +19,7 @@ package walkingkooka.spreadsheet.server.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSample;
@@ -44,7 +43,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     TreePrintableTesting,
     JsonNodeMarshallerTesting<SpreadsheetParserSelectorEdit>,
     HasSpreadsheetMetadataTesting,
-    ClassTesting<SpreadsheetParserSelectorEdit> {
+    PublicClassTesting<SpreadsheetParserSelectorEdit> {
 
     @Test
     public void testParseWithNullContextFails() {
@@ -637,10 +636,5 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     @Override
     public Class<SpreadsheetParserSelectorEdit> type() {
         return SpreadsheetParserSelectorEdit.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
