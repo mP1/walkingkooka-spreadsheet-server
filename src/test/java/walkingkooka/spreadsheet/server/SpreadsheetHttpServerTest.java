@@ -155,6 +155,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -429,7 +430,8 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
         throw new UnsupportedOperationException();
     };
 
-    private final static Function<Optional<EmailAddress>, SpreadsheetServerContext> SPREADSHEET_SERVER_CONTEXT_FACTORY = (u) ->
+    private final static BiFunction<Optional<EmailAddress>, Optional<Locale>, SpreadsheetServerContext> SPREADSHEET_SERVER_CONTEXT_FACTORY = (final Optional<EmailAddress> user,
+                                                                                                                            final Optional<Locale> locale) ->
         SpreadsheetServerContexts.fake();
 
     @Test
@@ -16933,7 +16935,8 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
     private TestHttpServer startServer(final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         this.httpServer = new TestHttpServer(
             this.createSpreadsheetServerContext(
-                Optional.of(USER)
+                Optional.of(USER),
+                OPTIONAL_DIFFERENT_LOCALE
             )
         );
 
@@ -16948,13 +16951,19 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
         return this.httpServer;
     }
 
-    private SpreadsheetServerContext createSpreadsheetServerContext(final Optional<EmailAddress> user) {
+    private SpreadsheetServerContext createSpreadsheetServerContext(final Optional<EmailAddress> user,
+                                                                    final Optional<Locale> locale) {
         final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext = SpreadsheetEnvironmentContexts.basic(
             SPREADSHEET_METADATA_LOADER,
             Storages.treeMapStore(),
             STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment()
         );
         spreadsheetEnvironmentContext.setUser(user); // replace the "default" user with the given
+        if(locale.isPresent()) {
+            spreadsheetEnvironmentContext.setLocale(
+                locale.get()
+            );
+        }
 
         final StorageEnvironmentContext providerEnvironmentContext = STORAGE_ENVIRONMENT_CONTEXT.cloneEnvironment();
         providerEnvironmentContext.clearUser();

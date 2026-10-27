@@ -337,14 +337,14 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                 httpServer.handler = handler;
                 return httpServer;
             },
-            (user) -> {
+            (final Optional<EmailAddress> user, final Optional<Locale> optionalLocale) -> {
                 final EnvironmentContext environmentContext = EnvironmentContexts.map(
                     canLog,
                     charset,
                     Currency.getInstance("AUD"),
                     Indentation.SPACES4,
                     lineEnding,
-                    locale,
+                    optionalLocale.orElse(locale),
                     loggingLevel,
                     () -> NOW,
                     user
