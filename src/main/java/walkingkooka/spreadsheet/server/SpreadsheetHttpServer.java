@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.provider.CurrencyExchangeRaterName;
@@ -61,7 +63,8 @@ import java.util.function.Function;
 /**
  * A spreadsheet server that uses the given {@link HttpServer} and some other dependencies.
  */
-public final class SpreadsheetHttpServer implements HttpServer {
+public final class SpreadsheetHttpServer implements HttpServer,
+    UsesToStringBuilder {
 
     static {
         SpreadsheetServerStartup.init();
@@ -317,6 +320,20 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     @Override
     public String toString() {
-        return this.server.toString();
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public void buildToString(final ToStringBuilder builder) {
+        builder.label("httpHandler")
+            .value(this.httpHandler)
+            .label("server")
+            .value(this.server)
+            .label("spreadsheetServerContextFactory")
+            .value(this.spreadsheetServerContextFactory)
+            .label("httpRequestUserExtractor")
+            .value(this.httpRequestUserExtractor);
     }
 }
