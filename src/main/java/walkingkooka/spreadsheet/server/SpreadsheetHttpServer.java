@@ -22,11 +22,11 @@ import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.provider.CurrencyExchangeRaterName;
-import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
+import walkingkooka.net.header.AcceptLanguageValue;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
@@ -254,11 +254,14 @@ public final class SpreadsheetHttpServer implements HttpServer,
         final Optional<EmailAddress> userOrAnonymous = this.httpRequestUserExtractor.apply(request);
         final Optional<Locale> locale = HttpHeaderName.ACCEPT_LANGUAGE.header(request)
             .flatMap(
-                (AcceptLanguage acceptLanguage) -> context.localeForLanguageTag(
-                    LocaleLanguageTag.parse(
-                        acceptLanguage.text()
+                (AcceptLanguage acceptLanguage) -> acceptLanguage.highestQualityFactorValue()
+                    .flatMap(
+                        (AcceptLanguageValue acceptLanguageValue) -> acceptLanguageValue.value()
+                            .localeLanguageTag()
+                            .flatMap(
+                                context::localeForLanguageTag
+                            )
                     )
-                )
             );
 
         if (userOrAnonymous.isPresent()) {
