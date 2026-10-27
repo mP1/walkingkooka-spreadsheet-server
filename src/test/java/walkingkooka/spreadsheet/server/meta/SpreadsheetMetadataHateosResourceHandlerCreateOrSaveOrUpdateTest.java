@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
@@ -144,6 +145,11 @@ public final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdateT
                             );
                         }
                     };
+                }
+
+                @Override
+                public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
+                    return LOCALE_CONTEXT.localeForLanguageTag(languageTag);
                 }
 
                 @Override

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.locale.CanLocaleForLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
@@ -84,7 +85,12 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
 
         final SpreadsheetContext spreadsheetContext = context.createEmptySpreadsheet(
             HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
-                .flatMap(this::preferredLocale)
+                .flatMap(
+                    (AcceptLanguage acceptLanguage) -> this.preferredLocale(
+                        acceptLanguage,
+                        context // CanLocaleForLanguageTag
+                    )
+                )
         );
 
         return Optional.of(
@@ -92,11 +98,13 @@ final class SpreadsheetMetadataHateosResourceHandlerCreateOrSaveOrUpdate extends
         );
     }
 
-    private Optional<Locale> preferredLocale(final AcceptLanguage language) {
+    private Optional<Locale> preferredLocale(final AcceptLanguage language,
+                                             final CanLocaleForLanguageTag canLocaleForLanguageTag) {
         return language.value()
             .get(0)
             .value()
-            .locale();
+            .localeLanguageTag()
+            .flatMap(canLocaleForLanguageTag::localeForLanguageTag);
     }
 
     @Override
