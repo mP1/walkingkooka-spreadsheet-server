@@ -282,6 +282,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
+    /**
+     * Accepts the user email address and {@link Locale} with the later read from the {@link HttpHeaderName#ACCEPT_LANGUAGE} header.
+     */
     private final BiFunction<Optional<EmailAddress>, Optional<Locale>, SpreadsheetServerContext> spreadsheetServerContextFactory;
 
     /**
