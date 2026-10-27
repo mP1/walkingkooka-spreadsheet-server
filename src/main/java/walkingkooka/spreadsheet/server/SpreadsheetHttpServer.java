@@ -228,7 +228,7 @@ public final class SpreadsheetHttpServer implements HttpServer,
         super();
 
         this.spreadsheetServerContextFactory = spreadsheetServerContextFactory;
-        this.httpHandler = SpreadsheetHttpServerHttpHandler.with(publicHttpHandler);
+        this.publicHttpHandler = SpreadsheetHttpServerHttpHandler.with(publicHttpHandler);
 
         this.server = server.apply(
             // necessary because HttpHandlers.autoGzipEncoding is @GwtIncompatible
@@ -278,7 +278,7 @@ public final class SpreadsheetHttpServer implements HttpServer,
             }
         }
 
-        this.httpHandler.handle(
+        this.publicHttpHandler.handle(
             request,
             response,
             contextWithUser
@@ -295,7 +295,7 @@ public final class SpreadsheetHttpServer implements HttpServer,
      */
     private final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor;
 
-    private final HttpHandler<SpreadsheetServerContext> httpHandler;
+    private final HttpHandler<SpreadsheetServerContext> publicHttpHandler;
 
     /**
      * Maps authenticated users to a {@link SpreadsheetServerContext}
@@ -327,8 +327,8 @@ public final class SpreadsheetHttpServer implements HttpServer,
 
     @Override
     public void buildToString(final ToStringBuilder builder) {
-        builder.label("httpHandler")
-            .value(this.httpHandler)
+        builder.label("publicHttpHandler")
+            .value(this.publicHttpHandler)
             .label("server")
             .value(this.server)
             .label("spreadsheetServerContextFactory")

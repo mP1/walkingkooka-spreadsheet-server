@@ -17515,7 +17515,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 }
             ),
             // server=null horrible
-            "httpHandler=SpreadsheetHttpServerHttpHandler server=handler: null spreadsheetServerContextFactory=SPREADSHEET SERVER CONTEXT FACTORY 333 httpRequestUserExtractor=HTTP REQUEST USER EXTRACTOR 444"
+            "publicHttpHandler=SpreadsheetHttpServerHttpHandler server=handler: null spreadsheetServerContextFactory=SPREADSHEET SERVER CONTEXT FACTORY 333 httpRequestUserExtractor=HTTP REQUEST USER EXTRACTOR 444"
         );
     }
 
