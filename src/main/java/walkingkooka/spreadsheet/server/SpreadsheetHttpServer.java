@@ -20,9 +20,11 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.provider.CurrencyExchangeRaterName;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpHandler;
@@ -49,9 +51,11 @@ import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.validation.form.provider.FormHandlerName;
 import walkingkooka.validation.provider.ValidatorName;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -189,7 +193,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     public static SpreadsheetHttpServer with(final HttpHandler<SpreadsheetServerContext> publicHttpHandler,
                                              final Function<HttpHandler<SpreadsheetServerContext>, HttpServer> server,
-                                             final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
+                                             final BiFunction<Optional<EmailAddress>, Optional<Locale>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                              final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         return new SpreadsheetHttpServer(
             Objects.requireNonNull(publicHttpHandler, "publicHttpHandler"),
@@ -216,7 +220,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private SpreadsheetHttpServer(final HttpHandler<SpreadsheetServerContext> publicHttpHandler,
                                   final Function<HttpHandler<SpreadsheetServerContext>, HttpServer> server,
-                                  final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory,
+                                  final BiFunction<Optional<EmailAddress>, Optional<Locale>, SpreadsheetServerContext> spreadsheetServerContextFactory,
                                   final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         super();
 
@@ -245,13 +249,24 @@ public final class SpreadsheetHttpServer implements HttpServer {
         SpreadsheetServerContext contextWithUser = context;
 
         final Optional<EmailAddress> userOrAnonymous = this.httpRequestUserExtractor.apply(request);
+        final Optional<Locale> locale = HttpHeaderName.ACCEPT_LANGUAGE.header(request)
+            .flatMap(
+                (AcceptLanguage acceptLanguage) -> context.localeForLanguageTag(
+                    LocaleLanguageTag.parse(
+                        acceptLanguage.text()
+                    )
+                )
+            );
 
         if (userOrAnonymous.isPresent()) {
             final EmailAddress userEmail = userOrAnonymous.get();
 
             contextWithUser = this.userToContext.get(userEmail);
             if (null == contextWithUser) {
-                contextWithUser = this.spreadsheetServerContextFactory.apply(userOrAnonymous);
+                contextWithUser = this.spreadsheetServerContextFactory.apply(
+                    userOrAnonymous,
+                    locale
+                );
 
                 this.userToContext.put(
                     userEmail,
@@ -267,7 +282,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    private final Function<Optional<EmailAddress>, SpreadsheetServerContext> spreadsheetServerContextFactory;
+    private final BiFunction<Optional<EmailAddress>, Optional<Locale>, SpreadsheetServerContext> spreadsheetServerContextFactory;
 
     /**
      * Extracts from a header or maps a cookie to a user {@link EmailAddress}.
