@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -55,6 +56,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.FakeHttpHandler;
 import walkingkooka.net.http.server.FakeHttpHandlerContext;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpHandler;
@@ -169,7 +171,8 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
     HasSpreadsheetMetadataTesting,
     StorageContextTesting,
     JarFileTesting,
-    TreePrintableTesting {
+    TreePrintableTesting,
+    ToStringTesting<SpreadsheetHttpServer> {
 
     // spreadsheetId....................................................................................................
 
@@ -17244,7 +17247,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
 
         @Override
         public String toString() {
-            return this.handler.toString();
+            return "handler: "+ this.handler;
         }
     }
 
@@ -17463,6 +17466,60 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 .removeHeader(HttpHeaderName.LAST_MODIFIED)
         );
         return response;
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            SpreadsheetHttpServer.with(
+                new FakeHttpHandler<>() {
+                    @Override
+                    public String toString() {
+                        return "HTTP HANDLER 111";
+                    }
+                },
+                new Function<>() {
+                    @Override
+                    public HttpServer apply(final HttpHandler<SpreadsheetServerContext> spreadsheetServerContextHttpHandler) {
+                        return new TestHttpServer(
+                            SpreadsheetServerContexts.fake()
+                        );
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "SERVER 222";
+                    }
+                },
+                new BiFunction<>() {
+                    @Override
+                    public SpreadsheetServerContext apply(final Optional<EmailAddress> emailAddress,
+                                                          final Optional<Locale> locale) {
+                        return SpreadsheetServerContexts.fake();
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "SPREADSHEET SERVER CONTEXT FACTORY 333";
+                    }
+                },
+                new Function<>() {
+                    @Override
+                    public Optional<EmailAddress> apply(final HttpRequest httpRequest) {
+                        return Optional.empty();
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "HTTP REQUEST USER EXTRACTOR 444";
+                    }
+                }
+            ),
+            // server=null horrible
+            "httpHandler=SpreadsheetHttpServerHttpHandler server=handler: null spreadsheetServerContextFactory=SPREADSHEET SERVER CONTEXT FACTORY 333 httpRequestUserExtractor=HTTP REQUEST USER EXTRACTOR 444"
+        );
     }
 
     // class............................................................................................................
