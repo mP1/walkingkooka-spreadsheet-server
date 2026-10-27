@@ -82,6 +82,7 @@ import walkingkooka.spreadsheet.compare.provider.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContext;
+import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContextTesting;
 import walkingkooka.spreadsheet.environment.SpreadsheetEnvironmentContexts;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.provider.SpreadsheetExporterInfoSet;
@@ -168,7 +169,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
     HasHateosContentType,
     HateosHandlerContextTesting,
     TypeNameTesting<SpreadsheetHttpServer>,
-    HasSpreadsheetMetadataTesting,
+    SpreadsheetEnvironmentContextTesting,
     StorageContextTesting,
     JarFileTesting,
     TreePrintableTesting,
@@ -278,9 +279,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
         this.spreadsheetIdAndCheck(
             "/api/spreadsheet/1",
             HttpResponses.fake(),
-            Optional.of(
-                SpreadsheetId.with(1)
-            )
+            Optional.of(SPREADSHEET_ID)
         );
     }
 
@@ -289,9 +288,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
         this.spreadsheetIdAndCheck(
             "/api/spreadsheet/1/xyz",
             HttpResponses.fake(),
-            Optional.of(
-                SpreadsheetId.with(1)
-            )
+            Optional.of(SPREADSHEET_ID)
         );
     }
 
@@ -556,7 +553,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
     @Test
     public void testMetadataPostCreateWithDifferentUser() {
         final TestHttpServer server = this.startServer(
-            (r) -> Optional.of(DIFFERENT_USER)
+            (r) -> OPTIONAL_DIFFERENT_USER
         );
 
         server.handleAndCheck(
@@ -16938,7 +16935,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
     private TestHttpServer startServer(final Function<HttpRequest, Optional<EmailAddress>> httpRequestUserExtractor) {
         this.httpServer = new TestHttpServer(
             this.createSpreadsheetServerContext(
-                Optional.of(USER),
+                OPTIONAL_USER,
                 OPTIONAL_DIFFERENT_LOCALE
             )
         );
