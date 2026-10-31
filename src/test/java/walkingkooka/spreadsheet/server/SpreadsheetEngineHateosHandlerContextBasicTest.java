@@ -61,6 +61,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.storage.Storages;
@@ -96,7 +97,7 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
         public AbsoluteUrl serverUrl() {
             return Url.parseAbsolute("https://example.com");
         }
-
+        
         @Override
         public Optional<SpreadsheetId> spreadsheetId() {
             return Optional.of(
@@ -155,47 +156,47 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
 
         @Override
         public EnvironmentContext environmentContext() {
-            return this.environmentContext;
+            return this.spreadsheetEnvironmentContext;
         }
 
         {
-            this.environmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
-            this.environmentContext.setEnvironmentValue(
+            this.spreadsheetEnvironmentContext = SPREADSHEET_ENVIRONMENT_CONTEXT.cloneEnvironment();
+            this.spreadsheetEnvironmentContext.setEnvironmentValue(
                 SPREADSHEET_ID,
                 SpreadsheetEngineHateosHandlerContextBasicTest.SPREADSHEET_ID
             );
         }
 
-        private final EnvironmentContext environmentContext;
+        private final SpreadsheetEnvironmentContext spreadsheetEnvironmentContext;
 
         @Override
         public Charset charset() {
-            return this.environmentContext.charset();
+            return this.spreadsheetEnvironmentContext.charset();
         }
 
         @Override
         public void setCharset(final Charset charset) {
-            this.environmentContext.setCharset(charset);
+            this.spreadsheetEnvironmentContext.setCharset(charset);
         }
 
         @Override
         public Currency currency() {
-            return this.environmentContext.currency();
+            return this.spreadsheetEnvironmentContext.currency();
         }
 
         @Override
         public void setCurrency(final Currency currency) {
-            this.environmentContext.setCurrency(currency);
+            this.spreadsheetEnvironmentContext.setCurrency(currency);
         }
 
         @Override
         public Optional<StoragePath> currentWorkingDirectory() {
-            return this.environmentContext.environmentValue(SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY);
+            return this.spreadsheetEnvironmentContext.environmentValue(SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY);
         }
 
         @Override
         public void setCurrentWorkingDirectory(final Optional<StoragePath> currentWorkingDirectory) {
-            this.environmentContext.setOrRemoveEnvironmentValue(
+            this.spreadsheetEnvironmentContext.setOrRemoveEnvironmentValue(
                 SpreadsheetEnvironmentContext.CURRENT_WORKING_DIRECTORY,
                 currentWorkingDirectory
             );
@@ -203,12 +204,12 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
 
         @Override
         public Optional<StoragePath> homeDirectory() {
-            return this.environmentContext.environmentValue(SpreadsheetEnvironmentContext.HOME_DIRECTORY);
+            return this.spreadsheetEnvironmentContext.environmentValue(SpreadsheetEnvironmentContext.HOME_DIRECTORY);
         }
 
         @Override
         public void setHomeDirectory(final Optional<StoragePath> homeDirectory) {
-            this.environmentContext.setOrRemoveEnvironmentValue(
+            this.spreadsheetEnvironmentContext.setOrRemoveEnvironmentValue(
                 SpreadsheetEnvironmentContext.HOME_DIRECTORY,
                 homeDirectory
             );
@@ -216,12 +217,22 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
 
         @Override
         public Locale locale() {
-            return this.environmentContext.locale();
+            return this.spreadsheetEnvironmentContext.locale();
         }
 
         @Override
         public void setLocale(final Locale locale) {
-            this.environmentContext.setLocale(locale);
+            this.spreadsheetEnvironmentContext.setLocale(locale);
+        }
+
+        @Override
+        public Optional<SpreadsheetCell> spreadsheetCell() {
+            return this.spreadsheetEnvironmentContext.spreadsheetCell();
+        }
+
+        @Override
+        public void setSpreadsheetCell(final Optional<SpreadsheetCell> spreadsheetCell) {
+            this.spreadsheetEnvironmentContext.setSpreadsheetCell(spreadsheetCell);
         }
 
         @Override

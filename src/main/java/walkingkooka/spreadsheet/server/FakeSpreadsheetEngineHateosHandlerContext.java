@@ -189,6 +189,16 @@ public class FakeSpreadsheetEngineHateosHandlerContext extends FakeHateosHandler
     }
 
     @Override
+    public Optional<SpreadsheetCell> spreadsheetCell() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setSpreadsheetCell(final Optional<SpreadsheetCell> spreadsheetCell) {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
     public Optional<SpreadsheetId> spreadsheetId() {
         throw new UnsupportedOperationException();
     }
