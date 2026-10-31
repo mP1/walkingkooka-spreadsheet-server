@@ -180,6 +180,11 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 }
 
                 @Override
+                public Optional<SpreadsheetCell> spreadsheetCell() {
+                    return NO_CELL;
+                }
+
+                @Override
                 public Optional<SpreadsheetMetadata> spreadsheetMetadata() {
                     return OPTIONAL_SPREADSHEET_METADATA;
                 }
@@ -258,7 +263,6 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                     ).format(
                         value,
                         HasSpreadsheetMetadataTesting.SPREADSHEET_METADATA.spreadsheetFormatterContext(
-                            () -> Optional.of(cell),
                             (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },

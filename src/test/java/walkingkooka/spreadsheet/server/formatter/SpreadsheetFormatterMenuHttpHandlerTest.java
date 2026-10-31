@@ -128,6 +128,11 @@ public final class SpreadsheetFormatterMenuHttpHandlerTest implements GetOrHeadH
                 }
 
                 @Override
+                public Optional<SpreadsheetCell> spreadsheetCell() {
+                    return NO_CELL;
+                }
+
+                @Override
                 public <T> T unmarshall(final JsonNode json,
                                         final Class<T> type) {
                     return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(

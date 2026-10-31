@@ -38,7 +38,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.net.SpreadsheetUrlPathTemplate;
-import walkingkooka.spreadsheet.value.HasSpreadsheetCell;
 
 import java.util.Map;
 import java.util.Optional;
@@ -105,7 +104,6 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                     context // HasNow
                 ), // SpreadsheetParserContext,
                 metadata.spreadsheetFormatterContext(
-                    HasSpreadsheetCell.EMPTY_HAS_SPREADSHEET_CELL,
                     (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                         .spreadsheetExpressionEvaluationContext(
                             SpreadsheetMetadata.NO_CELL,

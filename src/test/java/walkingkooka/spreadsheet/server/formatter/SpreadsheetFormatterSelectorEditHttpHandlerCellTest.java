@@ -900,6 +900,18 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
             }
 
             @Override
+            public Optional<SpreadsheetCell> spreadsheetCell() {
+                return this.spreadsheetCell;
+            }
+
+            @Override
+            public void setSpreadsheetCell(final Optional<SpreadsheetCell> spreadsheetCell) {
+                this.spreadsheetCell = spreadsheetCell;
+            }
+
+            private Optional<SpreadsheetCell> spreadsheetCell = NO_SPREADSHEET_CELL;
+
+            @Override
             public JsonNode marshall(final Object value) {
                 return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
             }

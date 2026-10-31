@@ -104,6 +104,8 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
                                                        final SpreadsheetEngineHateosHandlerContext context) {
         final ProviderContext providerContext = context.providerContext();
 
+        context.setSpreadsheetCell(cell);
+
         return SpreadsheetFormatterSelectorEdit.parse(
             null != formatterSelector && formatterSelector.startsWith(UrlPath.SEPARATOR.string()) ?
                 formatterSelector.substring(
@@ -115,7 +117,6 @@ abstract class SpreadsheetFormatterSelectorEditHttpHandler implements GetOrHeadH
             SpreadsheetFormatterSelectorEditContexts.basic(
                 context.spreadsheetMetadataOrFail()
                     .spreadsheetFormatterContext(
-                        () -> cell,
                         (final Optional<Object> v) -> context.setSpreadsheetMetadataMode(SpreadsheetMetadataMode.FORMATTING)
                             .spreadsheetExpressionEvaluationContext(
                                 cell,

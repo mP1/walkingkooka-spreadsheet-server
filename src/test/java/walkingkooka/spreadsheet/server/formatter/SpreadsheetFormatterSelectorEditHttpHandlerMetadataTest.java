@@ -336,6 +336,18 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest imple
             }
 
             @Override
+            public Optional<SpreadsheetCell> spreadsheetCell() {
+                return this.spreadsheetCell;
+            }
+
+            @Override
+            public void setSpreadsheetCell(final Optional<SpreadsheetCell> spreadsheetCell) {
+                this.spreadsheetCell = spreadsheetCell;
+            }
+
+            private Optional<SpreadsheetCell> spreadsheetCell = NO_SPREADSHEET_CELL;
+
+            @Override
             public <T> T unmarshall(final JsonNode json,
                                     final Class<T> type) {
                 return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(

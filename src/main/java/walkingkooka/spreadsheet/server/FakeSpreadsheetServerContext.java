@@ -38,6 +38,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.storage.SpreadsheetStorageContext;
+import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.Storage;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.store.StoreWatcher;
@@ -171,6 +172,16 @@ public class FakeSpreadsheetServerContext extends FakeSpreadsheetProvider implem
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public Optional<SpreadsheetCell> spreadsheetCell() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setSpreadsheetCell(final Optional<SpreadsheetCell> spreadsheetCell) {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     public Optional<SpreadsheetId> spreadsheetId() {
         throw new UnsupportedOperationException();
