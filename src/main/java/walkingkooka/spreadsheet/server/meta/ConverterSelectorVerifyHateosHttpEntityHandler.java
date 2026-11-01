@@ -34,7 +34,6 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.provider.MissingConverter;
 import walkingkooka.spreadsheet.convert.provider.MissingConverterSet;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -100,7 +99,6 @@ final class ConverterSelectorVerifyHateosHttpEntityHandler implements HateosHttp
                 converterSelectorSpreadsheetMetadataPropertyName,
                 context.spreadsheetMetadataOrFail()
                     .spreadsheetConverterContext(
-                        SpreadsheetMetadata.NO_CELL,
                         Optional.of(
                             SpreadsheetSelection.A1 // Converters such as text-to-validation-error require an active cell
                         ),
