@@ -52,6 +52,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosHandlerContext;
+import walkingkooka.spreadsheet.value.SpreadsheetCell;
 import walkingkooka.storage.StoragePath;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -187,6 +188,11 @@ public final class ConverterSelectorVerifyHateosHttpEntityHandlerTest implements
             @Override
             public BinaryNumberConverterFunction<SpreadsheetConverterContext> multiplier() {
                 return MULTIPLIER;
+            }
+
+            @Override
+            public Optional<SpreadsheetCell> spreadsheetCell() {
+                return NO_SPREADSHEET_CELL;
             }
 
             @Override
