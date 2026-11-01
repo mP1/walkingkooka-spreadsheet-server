@@ -341,6 +341,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "      to-csv-string-list\n" +
                 "      to-currency\n" +
                 "      to-currency-code\n" +
+                "      to-currency-value\n" +
                 "      to-date-time-symbols\n" +
                 "      to-decimal-number-symbols\n" +
                 "      to-environment\n" +
