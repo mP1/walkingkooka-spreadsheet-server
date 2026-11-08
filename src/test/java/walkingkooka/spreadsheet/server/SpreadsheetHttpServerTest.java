@@ -12265,7 +12265,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "        \"type\": \"java.lang.String\"\n" +
                             "      },\n" +
                             "      {\n" +
-                            "        \"value\": \"Text\",\n" +
+                            "        \"value\": \"Text123\",\n" +
                             "        \"type\": \"java.lang.String\"\n" +
                             "      },\n" +
                             "      {\n" +
