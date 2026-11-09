@@ -844,7 +844,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
                         "  \"twoDigitYear\": 50,\n" +
-                        "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, json, text, optional-to, collection-to, error-throwing)\",\n" +
+                        "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, text, json, optional-to, collection-to, error-throwing)\",\n" +
                         "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"validationFunctions\": \"@\",\n" +
                         "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -5433,7 +5433,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, json, text, optional-to, collection-to, error-throwing)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, text, json, optional-to, collection-to, error-throwing)\",\n" +
                     "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -5911,7 +5911,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
                         "  \"twoDigitYear\": 50,\n" +
-                        "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, json, text, optional-to, collection-to, error-throwing)\",\n" +
+                        "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, text, json, optional-to, collection-to, error-throwing)\",\n" +
                         "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"validationFunctions\": \"@\",\n" +
                         "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
@@ -6179,7 +6179,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
                         "  \"twoDigitYear\": 50,\n" +
-                        "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, json, text, optional-to, collection-to, error-throwing)\",\n" +
+                        "  \"validationConverter\": \"collection(null-to-number, simple, boolean, number, date-time, environment, value, expression, form-and-validation, locale, logging, plugins, properties, template, text, json, optional-to, collection-to, error-throwing)\",\n" +
                         "  \"validationCurrencyExchangeRater\": \"storage-properties(\\\"/samples/CurrencyExchangeRates.properties\\\")\",\n" +
                         "  \"validationFunctions\": \"@\",\n" +
                         "  \"validationValidators\": \"absolute-url, checkbox, choice-list, collection, email-address, expression, non-null, text-length, text-mask\",\n" +
