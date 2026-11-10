@@ -788,7 +788,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "      \"Sat.\"\n" +
                         "    ]\n" +
                         "  },\n" +
-                        "  \"decimalNumberDigitCount\": 8,\n" +
+                        "  \"decimalNumberDigitCount\": 9,\n" +
                         "  \"decimalNumberSymbols\": {\n" +
                         "    \"negativeSign\": \"-\",\n" +
                         "    \"positiveSign\": \"+\",\n" +
@@ -5377,7 +5377,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "      \"Sat.\"\n" +
                     "    ]\n" +
                     "  },\n" +
-                    "  \"decimalNumberDigitCount\": 8,\n" +
+                    "  \"decimalNumberDigitCount\": 9,\n" +
                     "  \"decimalNumberSymbols\": {\n" +
                     "    \"negativeSign\": \"-\",\n" +
                     "    \"positiveSign\": \"+\",\n" +
@@ -5855,7 +5855,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "      \"Sat.\"\n" +
                         "    ]\n" +
                         "  },\n" +
-                        "  \"decimalNumberDigitCount\": 8,\n" +
+                        "  \"decimalNumberDigitCount\": 9,\n" +
                         "  \"decimalNumberSymbols\": {\n" +
                         "    \"negativeSign\": \"-\",\n" +
                         "    \"positiveSign\": \"+\",\n" +
@@ -6123,7 +6123,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "      \"Sat.\"\n" +
                         "    ]\n" +
                         "  },\n" +
-                        "  \"decimalNumberDigitCount\": 8,\n" +
+                        "  \"decimalNumberDigitCount\": 9,\n" +
                         "  \"decimalNumberSymbols\": {\n" +
                         "    \"negativeSign\": \"-\",\n" +
                         "    \"positiveSign\": \"+\",\n" +

@@ -35,6 +35,7 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.logging.CanLog;
 import walkingkooka.logging.CanLogs;
 import walkingkooka.logging.LoggingLevel;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -198,7 +199,7 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
                         "    \"dateParser\": \"date DD/MM/YYYYDDMMYYYY\",\n" +
                         "    \"dateTimeFormatter\": \"date-time DD/MM/YYYY hh:mm\",\n" +
                         "    \"dateTimeParser\": \"date-time DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                        "    \"decimalNumberDigitCount\": 8,\n" +
+                        "    \"decimalNumberDigitCount\": 9,\n" +
                         "    \"decimalNumberSymbols\": {\n" +
                         "        \"negativeSign\": \"-\",\n" +
                         "        \"positiveSign\": \"+\",\n" +
@@ -267,7 +268,7 @@ public class TestGwtTest extends GWTTestCase implements HasHateosContentType {
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM").spreadsheetParserSelector())
             .set(
                 SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_DIGIT_COUNT,
-                8
+                DecimalNumberContext.DEFAULT_NUMBER_DIGIT_COUNT
             ).set(
                 SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS,
                 DecimalNumberSymbols.with(

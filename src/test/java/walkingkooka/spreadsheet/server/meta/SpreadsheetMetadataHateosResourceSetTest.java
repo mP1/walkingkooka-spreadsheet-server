@@ -435,7 +435,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "          Thu.\n" +
                 "          Fri.\n" +
                 "          Sat.\n" +
-                "    decimalNumberDigitCount: 8\n" +
+                "    decimalNumberDigitCount: 9\n" +
                 "    decimalNumberSymbols: \n" +
                 "      DecimalNumberSymbols\n" +
                 "        negativeSign\n" +
