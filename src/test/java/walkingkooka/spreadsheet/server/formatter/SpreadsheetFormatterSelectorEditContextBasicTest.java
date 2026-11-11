@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.value.HasSpreadsheetCell;
+import walkingkooka.storage.convert.StorageConverterContexts;
 import walkingkooka.tree.expression.convert.TreeConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContexts;
 
@@ -98,34 +99,37 @@ public final class SpreadsheetFormatterSelectorEditContextBasicTest implements S
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         return SpreadsheetConverterContexts.basic(
-            HAS_USER_DIRECTORIES,
             Optional.of(SPREADSHEET_METADATA),
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
-            MEDIA_TYPE_DETECTOR,
             MULTIPLIER, // multiplier
             SpreadsheetLabelNameResolvers.fake(),
             SpreadsheetMetadataLoaders.empty(),
             SPREADSHEET_METADATA, // ColorContext
-            JsonNodeConverterContexts.basic(
-                TreeConverterContexts.basic(
-                    Converters.fake(),
-                    EXPRESSION_NUMBER_KIND,
-                    Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<TreeConverterContext>
-                    ConverterContexts.basic(
-                        false, // canNumbersHaveGroupSeparator
-                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                        ',', // valueSeparator
-                        Converters.objectToString(),
-                        Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ConverterContext>
-                        BINARY_TEXT_CONTEXT,
-                        CURRENCY_LOCALE_CONTEXT,
-                        DATE_TIME_CONTEXT,
-                        DECIMAL_NUMBER_CONTEXT
-                    )
-                ),
-                ENVIRONMENT_CONTEXT,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+            StorageConverterContexts.basic(
+                Converters.fake(),
+                HAS_USER_DIRECTORIES,
+                MEDIA_TYPE_DETECTOR,
+                JsonNodeConverterContexts.basic(
+                    TreeConverterContexts.basic(
+                        Converters.fake(),
+                        EXPRESSION_NUMBER_KIND,
+                        Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<TreeConverterContext>
+                        ConverterContexts.basic(
+                            false, // canNumbersHaveGroupSeparator
+                            Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                            ',', // valueSeparator
+                            Converters.objectToString(),
+                            Cast.to(MULTIPLIER), // BinaryNumberConverterFunction<ConverterContext>
+                            BINARY_TEXT_CONTEXT,
+                            CURRENCY_LOCALE_CONTEXT,
+                            DATE_TIME_CONTEXT,
+                            DECIMAL_NUMBER_CONTEXT
+                        )
+                    ),
+                    ENVIRONMENT_CONTEXT,
+                    JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT
+                )
             ),
             LOCALE_CONTEXT,
             LOGGING_CONTEXT
