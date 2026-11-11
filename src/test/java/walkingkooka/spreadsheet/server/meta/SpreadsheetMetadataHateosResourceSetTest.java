@@ -387,7 +387,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "        \"yyyy/mm/dd hh:mm\"\n" +
                 "    dateTimeParser: \n" +
                 "      date-time\n" +
-                "        \"yyyy/mm/dd hh:mm\"\n" +
+                "        \"yyyy/mm/dd hh:mm:ss;yyyy/mm/dd hh:mm\"\n" +
                 "    dateTimeSymbols: \n" +
                 "      DateTimeSymbols\n" +
                 "        ampms\n" +
@@ -583,7 +583,7 @@ public final class SpreadsheetMetadataHateosResourceSetTest implements HateosRes
                 "        \"hh:mm:ss\"\n" +
                 "    timeParser: \n" +
                 "      time\n" +
-                "        \"hh:mm:ss\"\n" +
+                "        \"hh:mm:ss;hh:mm\"\n" +
                 "    twoDigitYear: 50\n" +
                 "    validationConverter: \n" +
                 "      collection\n" +
