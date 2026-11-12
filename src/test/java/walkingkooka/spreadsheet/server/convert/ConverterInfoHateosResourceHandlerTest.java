@@ -43,7 +43,7 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     ConverterInfo,
     ConverterInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<ConverterInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

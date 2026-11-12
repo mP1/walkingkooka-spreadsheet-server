@@ -64,7 +64,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetFormatterSelectorEditHttpHandlerMetadataTest implements GetOrHeadHttpHandlerTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetEnvironmentContextTesting,
     ThrowableTesting,
-    ToStringTesting<SpreadsheetFormatterSelectorEditHttpHandlerMetadata> {
+    ToStringTesting {
 
     @Test
     public void testHandleMissingAcceptApplicationJsonFails() {

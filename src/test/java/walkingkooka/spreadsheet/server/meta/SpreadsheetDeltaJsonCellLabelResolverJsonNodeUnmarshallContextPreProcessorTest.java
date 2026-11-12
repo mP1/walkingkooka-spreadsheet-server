@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.meta.HasSpreadsheetMetadataTesting;
@@ -35,7 +36,8 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
     JsonNode,
     Class<?>,
     JsonNode>,
-    HasSpreadsheetMetadataTesting {
+    HasSpreadsheetMetadataTesting,
+    PackagePrivateClassTesting<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor> {
 
     private final static SpreadsheetLabelName LABEL1 = SpreadsheetExpressionReference.labelName("Label123");
     private final static SpreadsheetLabelName LABEL2 = SpreadsheetExpressionReference.labelName("Label456");

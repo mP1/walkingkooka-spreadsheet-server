@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlerTestCase<T>
     implements PackagePrivateClassTesting<T>,
-    ToStringTesting<T>,
+    ToStringTesting,
     TypeNameTesting<T>,
     SpreadsheetEnvironmentContextTesting {
 

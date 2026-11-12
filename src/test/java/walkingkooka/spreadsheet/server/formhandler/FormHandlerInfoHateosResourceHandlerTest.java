@@ -43,7 +43,7 @@ public final class FormHandlerInfoHateosResourceHandlerTest implements HateosRes
     FormHandlerInfo,
     FormHandlerInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<FormHandlerInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

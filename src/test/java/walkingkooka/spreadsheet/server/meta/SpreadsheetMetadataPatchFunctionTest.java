@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMetadataPatchFunctionTest implements BiFunctionTesting2<SpreadsheetMetadataPatchFunction, JsonNode, SpreadsheetServerContext, JsonNode>,
     PackagePrivateClassTesting<SpreadsheetMetadataPatchFunction>,
-    ToStringTesting<SpreadsheetMetadataPatchFunction>,
+    ToStringTesting,
     HasSpreadsheetMetadataTesting {
 
     private final static SpreadsheetId ID = SpreadsheetId.with(123);

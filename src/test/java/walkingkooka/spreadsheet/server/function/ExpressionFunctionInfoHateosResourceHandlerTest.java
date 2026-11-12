@@ -44,7 +44,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     ExpressionFunctionInfo,
     ExpressionFunctionInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

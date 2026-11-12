@@ -71,7 +71,7 @@ import java.util.Set;
 public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting2<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetEnvironmentContextTesting,
     ThrowableTesting,
-    ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
+    ToStringTesting {
 
     private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE;
 

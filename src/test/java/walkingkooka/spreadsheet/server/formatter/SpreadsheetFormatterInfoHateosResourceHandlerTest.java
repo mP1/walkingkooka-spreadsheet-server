@@ -43,7 +43,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     SpreadsheetFormatterInfo,
     SpreadsheetFormatterInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<SpreadsheetFormatterInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

@@ -43,7 +43,7 @@ public final class SpreadsheetExporterInfoHateosResourceHandlerTest implements H
     SpreadsheetExporterInfo,
     SpreadsheetExporterInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<SpreadsheetExporterInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 
