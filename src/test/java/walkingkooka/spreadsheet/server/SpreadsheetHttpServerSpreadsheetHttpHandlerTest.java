@@ -68,7 +68,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetHttpServerSpreadsheetHttpHandlerTest implements HttpHandlerTesting2<SpreadsheetHttpServerSpreadsheetHttpHandler, SpreadsheetEngineHateosHandlerContext>,
     HateosHandlerContextTesting,
     PublicClassTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
-    ToStringTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
+    ToStringTesting,
     TypeNameTesting<SpreadsheetHttpServerSpreadsheetHttpHandler>,
     SpreadsheetEnvironmentContextTesting {
 

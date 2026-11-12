@@ -173,7 +173,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
     StorageContextTesting,
     JarFileTesting,
     TreePrintableTesting,
-    ToStringTesting<SpreadsheetHttpServer> {
+    ToStringTesting {
 
     // spreadsheetId....................................................................................................
 

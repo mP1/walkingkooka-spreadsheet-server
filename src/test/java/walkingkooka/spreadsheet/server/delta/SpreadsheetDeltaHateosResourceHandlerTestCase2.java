@@ -108,7 +108,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
     implements HateosResourceHandlerTesting2<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
     SpreadsheetEnvironmentContextTesting,
-    ToStringTesting<H> {
+    ToStringTesting {
 
     final static FakeSpreadsheetEngineHateosHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosHandlerContext() {
         @Override

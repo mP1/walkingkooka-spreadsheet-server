@@ -43,7 +43,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     SpreadsheetParserInfo,
     SpreadsheetParserInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<SpreadsheetParserInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

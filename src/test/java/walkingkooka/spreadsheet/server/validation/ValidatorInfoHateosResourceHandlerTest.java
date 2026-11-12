@@ -43,7 +43,7 @@ public final class ValidatorInfoHateosResourceHandlerTest implements HateosResou
     ValidatorInfo,
     ValidatorInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<ValidatorInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

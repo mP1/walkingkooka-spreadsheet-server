@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetFormatterMenuContextBasicTest implements SpreadsheetFormatterMenuContextTesting<SpreadsheetFormatterMenuContextBasic>,
     HasSpreadsheetMetadataTesting,
     PackagePrivateClassTesting<SpreadsheetFormatterMenuContextBasic>,
-    ToStringTesting<SpreadsheetFormatterMenuContextBasic>,
+    ToStringTesting,
     DecimalNumberContextDelegator {
 
     @Test

@@ -423,11 +423,6 @@ public final class SpreadsheetEngineHateosHandlerContextBasicTest implements Spr
     }
 
     @Override
-    public void testCheckToStringOverridden() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public SpreadsheetEngineHateosHandlerContextBasic createContext() {
         return SpreadsheetEngineHateosHandlerContextBasic.with(
             SPREADSHEET_ENGINE,

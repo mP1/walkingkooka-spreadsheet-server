@@ -34,7 +34,7 @@ import java.util.Optional;
 public abstract class SpreadsheetDeltaHateosResourceHandlerFormTestCase<H extends SpreadsheetDeltaHateosResourceHandler<FormName>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, FormName>
     implements HateosResourceHandlerTesting2<H, FormName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosHandlerContext>,
-    ToStringTesting<H> {
+    ToStringTesting {
 
     SpreadsheetDeltaHateosResourceHandlerFormTestCase() {
         super();

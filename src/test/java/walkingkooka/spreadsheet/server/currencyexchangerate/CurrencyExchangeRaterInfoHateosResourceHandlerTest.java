@@ -43,7 +43,7 @@ public final class CurrencyExchangeRaterInfoHateosResourceHandlerTest implements
     CurrencyExchangeRaterInfo,
     CurrencyExchangeRaterInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<CurrencyExchangeRaterInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

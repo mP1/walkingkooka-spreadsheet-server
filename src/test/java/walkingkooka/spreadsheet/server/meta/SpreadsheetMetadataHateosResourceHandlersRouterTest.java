@@ -484,12 +484,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         };
     }
 
-    // ToString.........................................................................................................
-
-    @Override
-    public void testCheckToStringOverridden() {
-    }
-
     // ClassTesting......................................................................................................
     @Override
     public Class<SpreadsheetMetadataHateosResourceHandlersRouter> type() {

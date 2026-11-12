@@ -43,7 +43,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
     SpreadsheetComparatorInfo,
     SpreadsheetComparatorInfoSet,
     SpreadsheetProviderHateosHandlerContext>,
-    ToStringTesting<SpreadsheetComparatorInfoHateosResourceHandler> {
+    ToStringTesting {
 
     // hateos...........................................................................................................
 

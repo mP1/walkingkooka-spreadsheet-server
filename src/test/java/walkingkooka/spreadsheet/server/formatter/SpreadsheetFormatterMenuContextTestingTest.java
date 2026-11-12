@@ -143,11 +143,6 @@ public final class SpreadsheetFormatterMenuContextTestingTest implements Spreads
     }
 
     @Override
-    public void testCheckToStringOverridden() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testTestNaming() {
         throw new UnsupportedOperationException();
     }
