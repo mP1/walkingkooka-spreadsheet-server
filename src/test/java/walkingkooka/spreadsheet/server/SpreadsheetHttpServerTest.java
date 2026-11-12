@@ -10927,6 +10927,10 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "        \"type\": \"java.time.LocalDateTime\"\n" +
                             "      },\n" +
                             "      {\n" +
+                            "        \"value\": \"12:58\",\n" +
+                            "        \"type\": \"java.time.LocalTime\"\n" +
+                            "      },\n" +
+                            "      {\n" +
                             "        \"value\": \"12:58:59\",\n" +
                             "        \"type\": \"java.time.LocalTime\"\n" +
                             "      },\n" +
