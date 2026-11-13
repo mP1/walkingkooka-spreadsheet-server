@@ -1177,9 +1177,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         parameters.put(
             SpreadsheetDeltaUrlQueryParameters.NAVIGATION,
             Lists.of(
-                SpreadsheetViewport.SEPARATOR.toSeparatedString(
-                    navigations,
-                    SpreadsheetViewportNavigation::text
+                SpreadsheetViewport.SEPARATOR.toDelimiteredString(
+                    navigations.stream()
+                        .map(SpreadsheetViewportNavigation::text)
+                        .collect(Collectors.toList()),
+                    SpreadsheetViewport.SEPARATOR.constantSeparator()
                 )
             )
         );
