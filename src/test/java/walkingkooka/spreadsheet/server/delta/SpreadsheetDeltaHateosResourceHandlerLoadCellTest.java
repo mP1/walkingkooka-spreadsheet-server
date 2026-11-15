@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -1178,9 +1179,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             SpreadsheetDeltaUrlQueryParameters.NAVIGATION,
             Lists.of(
                 SpreadsheetViewport.SEPARATOR.toDelimiteredString(
-                    navigations.stream()
-                        .map(SpreadsheetViewportNavigation::text)
-                        .collect(Collectors.toList()),
+                    Iterables.mapping(
+                        navigations,
+                        SpreadsheetViewportNavigation::text
+                    ),
                     SpreadsheetViewport.SEPARATOR.constantSeparator()
                 )
             )
