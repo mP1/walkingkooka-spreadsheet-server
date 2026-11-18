@@ -876,83 +876,83 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
             "SpreadsheetUrlPathTemplate\n" +
                 "  UrlPathTemplate\n" +
                 "    TemplateCollection\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"api\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"spreadsheet\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetId}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"name\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetName}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"cell\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetExpressionReference}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetEngineEvaluation}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"column\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetColumnReferenceOrRange}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"row\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetRowReferenceOrRange}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"label\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetLabelName}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"metadata\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetMetadataPropertyName}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"style\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${TextStylePropertyName}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"formatter\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${SpreadsheetFormatterSelector}\n"
