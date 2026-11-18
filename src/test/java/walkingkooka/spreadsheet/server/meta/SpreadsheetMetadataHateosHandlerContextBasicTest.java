@@ -296,7 +296,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +
@@ -407,7 +407,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +
@@ -518,7 +518,7 @@ public final class SpreadsheetMetadataHateosHandlerContextBasicTest implements S
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +

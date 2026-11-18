@@ -179,7 +179,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 ).setValue(
                     Optional.of(text)
                 )
-        ).setFormattedValue(Optional.of(Text.text(text)));
+        ).setOutput(Optional.of(Text.text(text)));
     }
 
     final SpreadsheetCell cell() {
