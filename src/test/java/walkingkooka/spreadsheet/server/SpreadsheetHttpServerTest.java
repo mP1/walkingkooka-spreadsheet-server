@@ -955,7 +955,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "        },\n" +
                 "        \"value\": \"Hello123'\"\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Text Hello123'\"\n" +
                 "      }\n" +
@@ -1037,7 +1037,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "          \"value\": \"2000-12-31\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Date 2000/12/31\"\n" +
                 "      }\n" +
@@ -1147,7 +1147,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "          \"value\": \"2000-12-31T12:34\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"DateTime 2000/12/31 12:34\"\n" +
                 "      }\n" +
@@ -1215,7 +1215,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "          \"value\": \"123.456\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 123.456\"\n" +
                 "      }\n" +
@@ -1283,7 +1283,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "          \"value\": \"12:34\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Time 12:34\"\n" +
                 "      }\n" +
@@ -1360,7 +1360,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "        },\n" +
                 "        \"value\": \"Hello 123\"\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Text Hello 123\"\n" +
                 "      }\n" +
@@ -1471,7 +1471,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +
@@ -1549,7 +1549,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "        },\n" +
                 "        \"value\": \"Hello 123\"\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Text Hello 123\"\n" +
                 "      }\n" +
@@ -1623,7 +1623,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Zebra'\"\n" +
                     "      }\n" +
@@ -1693,7 +1693,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Avacado'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Avacado'\"\n" +
                     "      }\n" +
@@ -1753,7 +1753,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Avacado'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Avacado'\"\n" +
                     "      }\n" +
@@ -1789,7 +1789,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Zebra'\"\n" +
                     "      }\n" +
@@ -1971,7 +1971,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 003.000\"\n" +
                     "      }\n" +
@@ -2103,7 +2103,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 007.000\"\n" +
                     "      }\n" +
@@ -2233,7 +2233,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 003.000\"\n" +
                     "      }\n" +
@@ -2371,7 +2371,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 007.000\"\n" +
                     "      }\n" +
@@ -2504,7 +2504,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 007.000\"\n" +
                     "      }\n" +
@@ -2617,7 +2617,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -2766,7 +2766,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 003.000\"\n" +
                     "      }\n" +
@@ -2847,7 +2847,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"2\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 002.000\"\n" +
                     "      }\n" +
@@ -2972,7 +2972,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -3054,7 +3054,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"PatchedText123\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text PatchedText123\"\n" +
                     "      }\n" +
@@ -3255,7 +3255,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"Sat.\"\n" +
                     "        ]\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 999.000\"\n" +
                     "      }\n" +
@@ -3366,7 +3366,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        \"percentSymbol\": \"%\",\n" +
                     "        \"permillSymbol\": \"‰\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 999.000\"\n" +
                     "      }\n" +
@@ -3451,7 +3451,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        }\n" +
                     "      },\n" +
                     "      \"formatter\": \"text @\",\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"999\"\n" +
                     "      }\n" +
@@ -3536,7 +3536,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        }\n" +
                     "      },\n" +
                     "      \"locale\": \"en-AU\",\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 999.000\"\n" +
                     "      }\n" +
@@ -3586,8 +3586,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          }\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"parser\": \"number ###\",\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
                     "          \"badgeText\": \"Invalid character '=' at 0 expected \\\"###\\\"\",\n" +
@@ -3598,7 +3597,8 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "            }\n" +
                     "          ]\n" +
                     "        }\n" +
-                    "      }\n" +
+                    "      },\n" +
+                    "      \"parser\": \"number ###\"\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
@@ -3681,10 +3681,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"999\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"style\": {\n" +
-                    "        \"color\": \"#123456\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text-style-node\",\n" +
                     "        \"value\": {\n" +
                     "          \"styles\": {\n" +
@@ -3697,6 +3694,9 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "            }\n" +
                     "          ]\n" +
                     "        }\n" +
+                    "      },\n" +
+                    "      \"style\": {\n" +
+                    "        \"color\": \"#123456\"\n" +
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
@@ -3737,10 +3737,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "  \"cells\": {\n" +
                     "    \"A1\": {\n" +
                     "      \"formula\": {},\n" +
-                    "      \"style\": {\n" +
-                    "        \"color\": \"#123456\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text-style-node\",\n" +
                     "        \"value\": {\n" +
                     "          \"styles\": {\n" +
@@ -3753,6 +3750,9 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "            }\n" +
                     "          ]\n" +
                     "        }\n" +
+                    "      },\n" +
+                    "      \"style\": {\n" +
+                    "        \"color\": \"#123456\"\n" +
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
@@ -3787,10 +3787,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "  \"cells\": {\n" +
                     "    \"A1\": {\n" +
                     "      \"formula\": {},\n" +
-                    "      \"style\": {\n" +
-                    "        \"textAlign\": \"LEFT\"\n" +
-                    "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text-style-node\",\n" +
                     "        \"value\": {\n" +
                     "          \"styles\": {\n" +
@@ -3803,6 +3800,9 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "            }\n" +
                     "          ]\n" +
                     "        }\n" +
+                    "      },\n" +
+                    "      \"style\": {\n" +
+                    "        \"textAlign\": \"LEFT\"\n" +
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
@@ -3888,8 +3888,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"message\": \"Unknown validator hello-validator\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"validator\": \"hello-validator\",\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
                     "          \"badgeText\": \"Unknown validator hello-validator\",\n" +
@@ -3900,7 +3899,8 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "            }\n" +
                     "          ]\n" +
                     "        }\n" +
-                    "      }\n" +
+                    "      },\n" +
+                    "      \"validator\": \"hello-validator\"\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
@@ -3985,7 +3985,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"999\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 999.000\"\n" +
                     "      }\n" +
@@ -4117,7 +4117,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 003.000\"\n" +
                     "      }\n" +
@@ -4193,7 +4193,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"PATCHED\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text PATCHED\"\n" +
                     "      }\n" +
@@ -4324,7 +4324,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 003.000\"\n" +
                     "      }\n" +
@@ -4456,7 +4456,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 007.000\"\n" +
                     "      }\n" +
@@ -4574,7 +4574,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 003.000\"\n" +
                     "      }\n" +
@@ -4673,7 +4673,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 007.000\"\n" +
                     "      }\n" +
@@ -4759,7 +4759,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -4828,7 +4828,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -4906,7 +4906,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -4976,7 +4976,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5054,7 +5054,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5124,7 +5124,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5202,7 +5202,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5272,7 +5272,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5534,7 +5534,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5618,7 +5618,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello'\"\n" +
                     "      }\n" +
@@ -5749,7 +5749,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -6009,7 +6009,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          }\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"badge\",\n" +
                     "        \"value\": {\n" +
                     "          \"badgeText\": \"Function not found: \\\"ExpressionFunction1\\\"\",\n" +
@@ -6270,7 +6270,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -6389,7 +6389,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.250\"\n" +
                     "      }\n" +
@@ -6483,7 +6483,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001,250\"\n" +
                     "      }\n" +
@@ -6557,7 +6557,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -6642,7 +6642,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -6728,7 +6728,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -6811,7 +6811,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -6902,7 +6902,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -6952,7 +6952,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -7002,7 +7002,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -7052,7 +7052,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -7128,7 +7128,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -7225,7 +7225,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -7307,7 +7307,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -7456,7 +7456,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Zebra'\"\n" +
                     "      }\n" +
@@ -7492,7 +7492,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Zebra'\"\n" +
                     "      }\n" +
@@ -7577,7 +7577,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "        },\n" +
                 "        \"value\": \"Zebra'\"\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Text Zebra'\"\n" +
                 "      }\n" +
@@ -7641,7 +7641,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -7699,7 +7699,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "        },\n" +
                 "        \"value\": \"Hello\"\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Text Hello\"\n" +
                 "      }\n" +
@@ -7787,7 +7787,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -7919,7 +7919,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1001\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 1001.000\"\n" +
                     "      }\n" +
@@ -8003,7 +8003,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.000\"\n" +
                     "      }\n" +
@@ -8083,7 +8083,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "          \"value\": \"1\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formattedValue\": {\n" +
+                "      \"output\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 001.000\"\n" +
                 "      }\n" +
@@ -8175,7 +8175,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -8294,7 +8294,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -8428,7 +8428,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -8511,7 +8511,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -8584,7 +8584,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -8675,7 +8675,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -8759,7 +8759,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -8832,7 +8832,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -8921,7 +8921,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.250\"\n" +
                     "      }\n" +
@@ -8993,7 +8993,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.250\"\n" +
                     "      }\n" +
@@ -9135,7 +9135,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello A1\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello A1\"\n" +
                     "      }\n" +
@@ -14678,7 +14678,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "  \"cells\": {\n" +
                     "    \"A1\": {\n" +
                     "      \"formula\": {},\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text \"\n" +
                     "      }\n" +
@@ -15165,7 +15165,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"100\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 100.000\"\n" +
                     "      }\n" +
@@ -15252,7 +15252,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"100\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 100.000\"\n" +
                     "      }\n" +
@@ -15668,7 +15668,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -15787,7 +15787,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello\"\n" +
                     "      }\n" +
@@ -15920,7 +15920,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -16003,7 +16003,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -16076,7 +16076,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -16166,7 +16166,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 123.000\"\n" +
                     "      }\n" +
@@ -16249,7 +16249,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -16322,7 +16322,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 456.000\"\n" +
                     "      }\n" +
@@ -16410,7 +16410,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.250\"\n" +
                     "      }\n" +
@@ -16482,7 +16482,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Number 001.250\"\n" +
                     "      }\n" +
@@ -16621,7 +16621,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "        },\n" +
                     "        \"value\": \"Hello A1\"\n" +
                     "      },\n" +
-                    "      \"formattedValue\": {\n" +
+                    "      \"output\": {\n" +
                     "        \"type\": \"text\",\n" +
                     "        \"value\": \"Text Hello A1\"\n" +
                     "      }\n" +

@@ -115,7 +115,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     @Test
     public void testFillFiltered() {
         final SpreadsheetCell unsaved1 = this.cell();
-        final SpreadsheetCell saved1 = unsaved1.setFormattedValue(
+        final SpreadsheetCell saved1 = unsaved1.setOutput(
             Optional.of(
                 TextNode.text("FORMATTED 1")
             )
@@ -149,7 +149,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                             .setCells(
                                 Sets.of(saved1,
                                     cellOutsideWindow()
-                                        .setFormattedValue(
+                                        .setOutput(
                                             Optional.of(
                                                 TextNode.text("FORMATTED 2")
                                             )
