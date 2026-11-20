@@ -12283,7 +12283,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "        \"type\": \"walkingkooka.spreadsheet.format.SpreadsheetText\"\n" +
                             "      },\n" +
                             "      {\n" +
-                            "        \"value\": \"color: black;\",\n" +
+                            "        \"value\": \"color: black\",\n" +
                             "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
                             "      },\n" +
                             "      {\n" +
