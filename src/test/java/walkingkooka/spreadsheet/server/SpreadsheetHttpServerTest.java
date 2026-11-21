@@ -836,10 +836,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "  \"showHeadings\": true,\n" +
                         "  \"sortComparators\": \"background-color, border-bottom-color, border-color, border-left-color, border-right-color, border-top-color, color, currency, custom-list, custom-list-case-insensitive, date, datetime, day-of-month, day-of-year, formatter, hour-of-ampm, hour-of-day, locale, minute-of-hour, month-of-year, nano-of-second, number, outline-color, parser, seconds-of-minute, text, text-case-insensitive, time, validator, value-type, year\",\n" +
                         "  \"sortConverter\": \"collection(null-to-number, simple, boolean, number, date-time, locale, value, text, optional-to, collection-to)\",\n" +
-                        "  \"style\": {\n" +
-                        "    \"height\": \"50px\",\n" +
-                        "    \"width\": \"100px\"\n" +
-                        "  },\n" +
+                        "  \"style\": \"height: 50px; width: 100px\",\n" +
                         "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
@@ -3695,9 +3692,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          ]\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"style\": {\n" +
-                    "        \"color\": \"#123456\"\n" +
-                    "      }\n" +
+                    "      \"style\": \"color: #123456\"\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
@@ -3725,9 +3720,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
             "{\n" +
                 "  \"cells\": {\n" +
                 "     \"a1\": {\n" +
-                "      \"style\": {\n" +
-                "            \"color\": \"#123456\"\n" +
-                "          }\n" +
+                "      \"style\": \"color: #123456\"\n" +
                 "      }\n" +
                 "    }\n" +
                 "}",
@@ -3751,9 +3744,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          ]\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"style\": {\n" +
-                    "        \"color\": \"#123456\"\n" +
-                    "      }\n" +
+                    "      \"style\": \"color: #123456\"\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
@@ -3776,9 +3767,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
             NO_HEADERS_TRANSACTION_ID,
             "{\n" +
                 "  \"style\": {\n" +
-                "    \"*\": {\n" +
-                "      \"textAlign\": \"LEFT\"\n" +
-                "    }\n" +
+                "    \"*\": \"text-align: LEFT\"\n" +
                 "  }\n" +
                 "}",
             this.response(
@@ -3801,9 +3790,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "          ]\n" +
                     "        }\n" +
                     "      },\n" +
-                    "      \"style\": {\n" +
-                    "        \"textAlign\": \"LEFT\"\n" +
-                    "      }\n" +
+                    "      \"style\": \"text-align: LEFT\"\n" +
                     "    }\n" +
                     "  },\n" +
                     "  \"columnWidths\": {\n" +
@@ -5425,10 +5412,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     "  \"showHeadings\": true,\n" +
                     "  \"sortComparators\": \"background-color, border-bottom-color, border-color, border-left-color, border-right-color, border-top-color, color, currency, custom-list, custom-list-case-insensitive, date, datetime, day-of-month, day-of-year, formatter, hour-of-ampm, hour-of-day, locale, minute-of-hour, month-of-year, nano-of-second, number, outline-color, parser, seconds-of-minute, text, text-case-insensitive, time, validator, value-type, year\",\n" +
                     "  \"sortConverter\": \"collection(null-to-number, simple, boolean, number, date-time, locale, value, text, optional-to, collection-to)\",\n" +
-                    "  \"style\": {\n" +
-                    "    \"height\": \"50px\",\n" +
-                    "    \"width\": \"100px\"\n" +
-                    "  },\n" +
+                    "  \"style\": \"height: 50px; width: 100px\",\n" +
                     "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                     "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time hh:mm\",\n" +
@@ -5903,10 +5887,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "  \"showHeadings\": true,\n" +
                         "  \"sortComparators\": \"background-color, border-bottom-color, border-color, border-left-color, border-right-color, border-top-color, color, currency, custom-list, custom-list-case-insensitive, date, datetime, day-of-month, day-of-year, formatter, hour-of-ampm, hour-of-day, locale, minute-of-hour, month-of-year, nano-of-second, number, outline-color, parser, seconds-of-minute, text, text-case-insensitive, time, validator, value-type, year\",\n" +
                         "  \"sortConverter\": \"collection(null-to-number, simple, boolean, number, date-time, locale, value, text, optional-to, collection-to)\",\n" +
-                        "  \"style\": {\n" +
-                        "    \"height\": \"50px\",\n" +
-                        "    \"width\": \"100px\"\n" +
-                        "  },\n" +
+                        "  \"style\": \"height: 50px; width: 100px\",\n" +
                         "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
@@ -6171,10 +6152,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                         "  \"showHeadings\": true,\n" +
                         "  \"sortComparators\": \"background-color, border-bottom-color, border-color, border-left-color, border-right-color, border-top-color, color, currency, custom-list, custom-list-case-insensitive, date, datetime, day-of-month, day-of-year, formatter, hour-of-ampm, hour-of-day, locale, minute-of-hour, month-of-year, nano-of-second, number, outline-color, parser, seconds-of-minute, text, text-case-insensitive, time, validator, value-type, year\",\n" +
                         "  \"sortConverter\": \"collection(null-to-number, simple, boolean, number, date-time, locale, value, text, optional-to, collection-to)\",\n" +
-                        "  \"style\": {\n" +
-                        "    \"height\": \"50px\",\n" +
-                        "    \"width\": \"100px\"\n" +
-                        "  },\n" +
+                        "  \"style\": \"height: 50px; width: 100px\",\n" +
                         "  \"textFormatter\": \"text \\\"Text\\\" @\",\n" +
                         "  \"timeFormatter\": \"time \\\"Time\\\" hh:mm\",\n" +
                         "  \"timeParser\": \"time hh:mm\",\n" +
@@ -9561,7 +9539,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                     ).setBodyText(
                        String.join(
                            "",
-                        "[\n" +
+                            "[\n" +
                             "  {\n" +
                             "    \"name\": \"binary\",\n" +
                             "    \"values\": [\n" +
@@ -11079,9 +11057,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "              \"formatter\": \"test-formatter\",\n" +
                             "              \"locale\": \"en-AU\",\n" +
                             "              \"parser\": \"test-parser\",\n" +
-                            "              \"style\": {\n" +
-                            "                \"color\": \"black\"\n" +
-                            "              },\n" +
+                            "              \"style\": \"color: black\",\n" +
                             "              \"validator\": \"test-validator\"\n" +
                             "            }\n" +
                             "          }\n" +
@@ -11185,9 +11161,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "              \"formatter\": \"test-formatter\",\n" +
                             "              \"locale\": \"en-AU\",\n" +
                             "              \"parser\": \"test-parser\",\n" +
-                            "              \"style\": {\n" +
-                            "                \"color\": \"black\"\n" +
-                            "              },\n" +
+                            "              \"style\": \"color: black\",\n" +
                             "              \"validator\": \"test-validator\"\n" +
                             "            }\n" +
                             "          }\n" +
@@ -11352,7 +11326,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "        \"type\": \"walkingkooka.tree.json.JsonString\"\n" +
                             "      },\n" +
                             "      {\n" +
-                            "        \"value\": \"{\\n  \\\"A1\\\": {\\n    \\\"formula\\\": {\\n      \\\"text\\\": \\\"=1+2+3\\\",\\n      \\\"valueType\\\": \\\"Text\\\"\\n    },\\n    \\\"currencyExchangeRater\\\": \\\"test-currency-exchange-rater\\\",\\n    \\\"dateTimeSymbols\\\": {\\n      \\\"ampms\\\": [\\n        \\\"am\\\",\\n        \\\"pm\\\"\\n      ],\\n      \\\"monthNames\\\": [\\n        \\\"January\\\",\\n        \\\"February\\\",\\n        \\\"March\\\",\\n        \\\"April\\\",\\n        \\\"May\\\",\\n        \\\"June\\\",\\n        \\\"July\\\",\\n        \\\"August\\\",\\n        \\\"September\\\",\\n        \\\"October\\\",\\n        \\\"November\\\",\\n        \\\"December\\\"\\n      ],\\n      \\\"monthNameAbbreviations\\\": [\\n        \\\"Jan.\\\",\\n        \\\"Feb.\\\",\\n        \\\"Mar.\\\",\\n        \\\"Apr.\\\",\\n        \\\"May\\\",\\n        \\\"Jun.\\\",\\n        \\\"Jul.\\\",\\n        \\\"Aug.\\\",\\n        \\\"Sep.\\\",\\n        \\\"Oct.\\\",\\n        \\\"Nov.\\\",\\n        \\\"Dec.\\\"\\n      ],\\n      \\\"weekDayNames\\\": [\\n        \\\"Sunday\\\",\\n        \\\"Monday\\\",\\n        \\\"Tuesday\\\",\\n        \\\"Wednesday\\\",\\n        \\\"Thursday\\\",\\n        \\\"Friday\\\",\\n        \\\"Saturday\\\"\\n      ],\\n      \\\"weekDayNameAbbreviations\\\": [\\n        \\\"Sun.\\\",\\n        \\\"Mon.\\\",\\n        \\\"Tue.\\\",\\n        \\\"Wed.\\\",\\n        \\\"Thu.\\\",\\n        \\\"Fri.\\\",\\n        \\\"Sat.\\\"\\n      ]\\n    },\\n    \\\"decimalNumberSymbols\\\": {\\n      \\\"negativeSign\\\": \\\"-\\\",\\n      \\\"positiveSign\\\": \\\"+\\\",\\n      \\\"zeroDigit\\\": \\\"0\\\",\\n      \\\"currencySymbol\\\": \\\"$\\\",\\n      \\\"decimalSeparator\\\": \\\".\\\",\\n      \\\"exponentSymbol\\\": \\\"e\\\",\\n      \\\"groupSeparator\\\": \\\",\\\",\\n      \\\"infinitySymbol\\\": \\\"∞\\\",\\n      \\\"monetaryDecimalSeparator\\\": \\\".\\\",\\n      \\\"nanSymbol\\\": \\\"NaN\\\",\\n      \\\"percentSymbol\\\": \\\"%\\\",\\n      \\\"permillSymbol\\\": \\\"‰\\\"\\n    },\\n    \\\"formatter\\\": \\\"test-formatter\\\",\\n    \\\"locale\\\": \\\"en-AU\\\",\\n    \\\"parser\\\": \\\"test-parser\\\",\\n    \\\"style\\\": {\\n      \\\"color\\\": \\\"black\\\"\\n    },\\n    \\\"validator\\\": \\\"test-validator\\\"\\n  }\\n}\",\n" +
+                            "        \"value\": \"{\\n  \\\"A1\\\": {\\n    \\\"formula\\\": {\\n      \\\"text\\\": \\\"=1+2+3\\\",\\n      \\\"valueType\\\": \\\"Text\\\"\\n    },\\n    \\\"currencyExchangeRater\\\": \\\"test-currency-exchange-rater\\\",\\n    \\\"dateTimeSymbols\\\": {\\n      \\\"ampms\\\": [\\n        \\\"am\\\",\\n        \\\"pm\\\"\\n      ],\\n      \\\"monthNames\\\": [\\n        \\\"January\\\",\\n        \\\"February\\\",\\n        \\\"March\\\",\\n        \\\"April\\\",\\n        \\\"May\\\",\\n        \\\"June\\\",\\n        \\\"July\\\",\\n        \\\"August\\\",\\n        \\\"September\\\",\\n        \\\"October\\\",\\n        \\\"November\\\",\\n        \\\"December\\\"\\n      ],\\n      \\\"monthNameAbbreviations\\\": [\\n        \\\"Jan.\\\",\\n        \\\"Feb.\\\",\\n        \\\"Mar.\\\",\\n        \\\"Apr.\\\",\\n        \\\"May\\\",\\n        \\\"Jun.\\\",\\n        \\\"Jul.\\\",\\n        \\\"Aug.\\\",\\n        \\\"Sep.\\\",\\n        \\\"Oct.\\\",\\n        \\\"Nov.\\\",\\n        \\\"Dec.\\\"\\n      ],\\n      \\\"weekDayNames\\\": [\\n        \\\"Sunday\\\",\\n        \\\"Monday\\\",\\n        \\\"Tuesday\\\",\\n        \\\"Wednesday\\\",\\n        \\\"Thursday\\\",\\n        \\\"Friday\\\",\\n        \\\"Saturday\\\"\\n      ],\\n      \\\"weekDayNameAbbreviations\\\": [\\n        \\\"Sun.\\\",\\n        \\\"Mon.\\\",\\n        \\\"Tue.\\\",\\n        \\\"Wed.\\\",\\n        \\\"Thu.\\\",\\n        \\\"Fri.\\\",\\n        \\\"Sat.\\\"\\n      ]\\n    },\\n    \\\"decimalNumberSymbols\\\": {\\n      \\\"negativeSign\\\": \\\"-\\\",\\n      \\\"positiveSign\\\": \\\"+\\\",\\n      \\\"zeroDigit\\\": \\\"0\\\",\\n      \\\"currencySymbol\\\": \\\"$\\\",\\n      \\\"decimalSeparator\\\": \\\".\\\",\\n      \\\"exponentSymbol\\\": \\\"e\\\",\\n      \\\"groupSeparator\\\": \\\",\\\",\\n      \\\"infinitySymbol\\\": \\\"∞\\\",\\n      \\\"monetaryDecimalSeparator\\\": \\\".\\\",\\n      \\\"nanSymbol\\\": \\\"NaN\\\",\\n      \\\"percentSymbol\\\": \\\"%\\\",\\n      \\\"permillSymbol\\\": \\\"‰\\\"\\n    },\\n    \\\"formatter\\\": \\\"test-formatter\\\",\\n    \\\"locale\\\": \\\"en-AU\\\",\\n    \\\"parser\\\": \\\"test-parser\\\",\\n    \\\"style\\\": \\\"color: black\\\",\\n    \\\"validator\\\": \\\"test-validator\\\"\\n  }\\n}\",\n" +
                             "        \"type\": \"walkingkooka.spreadsheet.value.SpreadsheetCell\"\n" +
                             "      },\n" +
                             "      {\n" +
@@ -11480,9 +11454,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "              \"formatter\": \"test-formatter\",\n" +
                             "              \"locale\": \"en-AU\",\n" +
                             "              \"parser\": \"test-parser\",\n" +
-                            "              \"style\": {\n" +
-                            "                \"color\": \"black\"\n" +
-                            "              },\n" +
+                            "              \"style\": \"color: black\",\n" +
                             "              \"validator\": \"test-validator\"\n" +
                             "            }\n" +
                             "          }\n" +
@@ -11579,9 +11551,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "              \"formatter\": \"test-formatter\",\n" +
                             "              \"locale\": \"en-AU\",\n" +
                             "              \"parser\": \"test-parser\",\n" +
-                            "              \"style\": {\n" +
-                            "                \"color\": \"black\"\n" +
-                            "              },\n" +
+                            "              \"style\": \"color: black\",\n" +
                             "              \"validator\": \"test-validator\"\n" +
                             "            }\n" +
                             "          }\n" +
@@ -12233,9 +12203,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "      {\n" +
                             "        \"value\": {\n" +
                             "          \"type\": \"text-style\",\n" +
-                            "          \"value\": {\n" +
-                            "            \"color\": \"black\"\n" +
-                            "          }\n" +
+                            "          \"value\": \"color: black\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.tree.text.TextStyle\"\n" +
                             "      },\n" +
@@ -12245,9 +12213,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "          \"value\": {\n" +
                             "            \"A1\": {\n" +
                             "              \"formula\": {},\n" +
-                            "              \"style\": {\n" +
-                            "                \"color\": \"black\"\n" +
-                            "              }\n" +
+                            "              \"style\": \"color: black\"\n" +
                             "            }\n" +
                             "          }\n" +
                             "        },\n" +
@@ -12421,9 +12387,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "      {\n" +
                             "        \"value\": {\n" +
                             "          \"type\": \"text-style\",\n" +
-                            "          \"value\": {\n" +
-                            "            \"color\": \"black\"\n" +
-                            "          }\n" +
+                            "          \"value\": \"color: black\"\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.tree.text.Styleable\"\n" +
                             "      },\n" +
@@ -12836,9 +12800,7 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "              \"formatter\": \"test-formatter\",\n" +
                             "              \"locale\": \"en-AU\",\n" +
                             "              \"parser\": \"test-parser\",\n" +
-                            "              \"style\": {\n" +
-                            "                \"color\": \"black\"\n" +
-                            "              },\n" +
+                            "              \"style\": \"color: black\",\n" +
                             "              \"validator\": \"test-validator\"\n" +
                             "            }\n" +
                             "          }\n" +

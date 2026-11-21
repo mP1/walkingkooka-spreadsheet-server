@@ -229,10 +229,7 @@ public class J2clTest implements HasHateosContentType {
                         "    \"parsers\": \"\",\n" +
                         "    \"precision\": 123,\n" +
                         "    \"roundingMode\": \"FLOOR\",\n" +
-                        "    \"style\": {\n" +
-                        "        \"height\": \"50px\",\n" +
-                        "        \"width\": \"50px\"\n" +
-                        "    },\n" +
+                        "    \"style\": \"height: 50px; width: 50px\",\n" +
                         "    \"textFormatter\": \"text @@\",\n" +
                         "    \"timeFormatter\": \"time hh:mm\",\n" +
                         "    \"timeParser\": \"time hh:mmhh:mm:ss.000\",\n" +
