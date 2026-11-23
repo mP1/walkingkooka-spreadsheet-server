@@ -2648,8 +2648,8 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                 "  }\n" +
                 "}",
             HttpStatusCode.BAD_REQUEST
-                .setMessage("Invalid character '!' at 0"),
-            "Invalid character '!' at 0"
+                .setMessage("Invalid \"Label\" character '!' at 0"),
+            "Invalid \"Label\" character '!' at 0"
         );
     }
 
