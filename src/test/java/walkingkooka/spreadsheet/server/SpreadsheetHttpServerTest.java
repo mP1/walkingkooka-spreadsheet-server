@@ -11701,6 +11701,20 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "          \"value\": 12\n" +
                             "        },\n" +
                             "        \"type\": \"walkingkooka.color.Color\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1193046\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.color.Color\"\n" +
+                            "      },\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 1193046\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.color.RgbColor\"\n" +
                             "      }\n" +
                             "    ]\n" +
                             "  },\n" +
