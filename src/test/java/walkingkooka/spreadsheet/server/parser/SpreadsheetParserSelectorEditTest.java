@@ -81,7 +81,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
             "12",
             SpreadsheetParserSelectorEdit.with(
                 Optional.empty(),
-                "Invalid \"PluginName\" character '1' at 0",
+                "Invalid \"SpreadsheetParserName\" character '1' at 0",
                 Lists.empty(),
                 Optional.empty(),
                 Lists.empty()
