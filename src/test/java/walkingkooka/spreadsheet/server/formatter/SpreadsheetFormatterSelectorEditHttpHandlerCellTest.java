@@ -25,7 +25,6 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -65,6 +64,7 @@ import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -76,8 +76,8 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
     @Test
     public void testHandleMissingAcceptApplicationJsonFails() {
-        final HeaderException thrown = assertThrows(
-            HeaderException.class,
+        final NoSuchElementException thrown = assertThrows(
+            NoSuchElementException.class,
             () -> this.createHttpHandler()
                 .handle(
                     HttpRequests.get(
@@ -93,7 +93,7 @@ public final class SpreadsheetFormatterSelectorEditHttpHandlerCellTest implement
 
         this.getMessageAndCheck(
             thrown,
-            "Missing header Accept"
+            "Missing header \"Accept\""
         );
     }
 
