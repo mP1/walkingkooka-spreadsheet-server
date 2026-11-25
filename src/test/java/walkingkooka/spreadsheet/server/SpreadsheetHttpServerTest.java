@@ -11693,6 +11693,18 @@ public final class SpreadsheetHttpServerTest implements PublicClassTesting<Sprea
                             "    ]\n" +
                             "  },\n",
                             "  {\n" +
+                            "    \"name\": \"number-to-color\",\n" +
+                            "    \"values\": [\n" +
+                            "      {\n" +
+                            "        \"value\": {\n" +
+                            "          \"type\": \"int\",\n" +
+                            "          \"value\": 12\n" +
+                            "        },\n" +
+                            "        \"type\": \"walkingkooka.color.Color\"\n" +
+                            "      }\n" +
+                            "    ]\n" +
+                            "  },\n" +
+                            "  {\n" +
                             "    \"name\": \"optional-to\",\n" +
                             "    \"values\": [\n" +
                             "      {\n" +
