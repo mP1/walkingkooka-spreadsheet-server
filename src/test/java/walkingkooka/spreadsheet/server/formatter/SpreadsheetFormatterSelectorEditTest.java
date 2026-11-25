@@ -80,7 +80,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
             "123",
             SpreadsheetFormatterSelectorEdit.with(
                 Optional.empty(),
-                "Invalid \"PluginName\" character '1' at 0",
+                "Invalid \"SpreadsheetFormatterName\" character '1' at 0",
                 Lists.empty(),
                 Optional.empty(),
                 Lists.empty()
@@ -454,7 +454,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.marshallAndCheck(
             this.parseString("!invalid"),
             "{\n" +
-                "  \"message\": \"Invalid \\\"PluginName\\\" character '!' at 0\"\n" +
+                "  \"message\": \"Invalid \\\"SpreadsheetFormatterName\\\" character '!' at 0\"\n" +
                 "}"
         );
     }
@@ -616,7 +616,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     public void testUnmarshallOnlyMessage() {
         this.unmarshallAndCheck(
             "{\n" +
-                "  \"message\": \"Invalid \\\"PluginName\\\" character '!' at 0\"\n" +
+                "  \"message\": \"Invalid \\\"SpreadsheetFormatterName\\\" character '!' at 0\"\n" +
                 "}",
             this.parseString("!invalid")
         );
