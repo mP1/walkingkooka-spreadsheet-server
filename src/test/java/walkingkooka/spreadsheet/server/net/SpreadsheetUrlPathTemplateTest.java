@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.currency.CurrencyCode;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.net.UrlPath;
 import walkingkooka.reflect.JavaVisibility;
@@ -47,7 +46,6 @@ import walkingkooka.template.TemplateTesting2;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.tree.text.TextStylePropertyName;
 
-import java.util.Currency;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -59,10 +57,6 @@ public final class SpreadsheetUrlPathTemplateTest implements TemplateTesting2<Sp
     HashCodeEqualsDefinedTesting2<SpreadsheetUrlPathTemplate>,
     PublicClassTesting<SpreadsheetUrlPathTemplate>,
     SpreadsheetEnvironmentContextTesting {
-
-    private final CurrencyCode CURRENCY_CODE = CurrencyCode.fromCurrency(
-        Currency.getInstance(LOCALE)
-    );
 
     private final LocaleLanguageTag LOCALE_LANGUAGE_TAG = LocaleLanguageTag.fromLocale(LOCALE);
 
