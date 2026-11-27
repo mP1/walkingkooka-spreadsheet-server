@@ -46,7 +46,7 @@ public final class SpreadsheetFormatterMenu implements PluginSelectorMenuLike<Sp
     public static SpreadsheetFormatterMenuList prepare(final SpreadsheetFormatterMenuContext context) {
         Objects.requireNonNull(context, "context");
 
-        return SpreadsheetFormatterMenuList.with(
+        return SpreadsheetFormatterMenuList.EMPTY.setElements(
             context.spreadsheetFormatterInfos()
                 .stream()
                 .flatMap(i -> menus(i, context).stream())

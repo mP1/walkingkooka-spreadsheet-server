@@ -37,28 +37,11 @@ import java.util.Objects;
 public final class SpreadsheetFormatterMenuList extends AbstractList<SpreadsheetFormatterMenu>
     implements ImmutableListDefaults<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu> {
 
-    public static SpreadsheetFormatterMenuList with(final Collection<SpreadsheetFormatterMenu> menus) {
-        Objects.requireNonNull(menus, "menus");
+    public final static SpreadsheetFormatterMenuList EMPTY = new SpreadsheetFormatterMenuList(
+        Lists.empty()
+    );
 
-        return menus instanceof SpreadsheetFormatterMenuList ?
-            (SpreadsheetFormatterMenuList) menus :
-            withCopy(menus);
-    }
-
-    private static SpreadsheetFormatterMenuList withCopy(final Collection<SpreadsheetFormatterMenu> menus) {
-        Objects.requireNonNull(menus, "menus");
-
-        final List<SpreadsheetFormatterMenu> copy = Lists.array();
-        for (final SpreadsheetFormatterMenu menu : menus) {
-            copy.add(
-                Objects.requireNonNull(menu, "includes null menu")
-            );
-        }
-
-        return new SpreadsheetFormatterMenuList(copy);
-    }
-
-    private SpreadsheetFormatterMenuList(final List<SpreadsheetFormatterMenu> menus) {
+    SpreadsheetFormatterMenuList(final List<SpreadsheetFormatterMenu> menus) {
         this.menus = menus;
     }
 
@@ -80,18 +63,52 @@ public final class SpreadsheetFormatterMenuList extends AbstractList<Spreadsheet
     }
 
     @Override
-    public SpreadsheetFormatterMenuList setElements(final Collection<SpreadsheetFormatterMenu> menus) {
-        final SpreadsheetFormatterMenuList copy = with(menus);
-        return this.equals(copy) ?
+    public SpreadsheetFormatterMenuList setElements(final Collection<SpreadsheetFormatterMenu> spreadsheetFormatterMenus) {
+        final SpreadsheetFormatterMenuList spreadsheetFormatterMenuList;
+
+        if (spreadsheetFormatterMenus instanceof SpreadsheetFormatterMenuList) {
+            spreadsheetFormatterMenuList = (SpreadsheetFormatterMenuList) spreadsheetFormatterMenus;
+        } else {
+            Objects.requireNonNull(spreadsheetFormatterMenus, "spreadsheetFormatterMenus");
+
+            final List<SpreadsheetFormatterMenu> copy = Lists.array();
+            for (final SpreadsheetFormatterMenu each : spreadsheetFormatterMenus) {
+                this.elementCheck(each);
+                copy.add(each);
+            }
+
+            spreadsheetFormatterMenuList = this.equals(copy) ?
+                this :
+                this.replaceSpreadsheetFormatterMenus(copy);
+        }
+
+        return spreadsheetFormatterMenuList;
+    }
+
+    @Override
+    public SpreadsheetFormatterMenuList subList(final int from,
+                                                final int to) {
+        return 0 == from && this.size() == to ?
             this :
-            copy;
+            this.replaceSpreadsheetFormatterMenus(
+                this.menus.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
+    private SpreadsheetFormatterMenuList replaceSpreadsheetFormatterMenus(final List<SpreadsheetFormatterMenu> spreadsheetFormatterMenus) {
+        return spreadsheetFormatterMenus.isEmpty() ?
+            EMPTY :
+            new SpreadsheetFormatterMenuList(spreadsheetFormatterMenus);
     }
 
     // json.............................................................................................................
 
     static SpreadsheetFormatterMenuList unmarshall(final JsonNode node,
                                                    final JsonNodeUnmarshallContext context) {
-        return with(
+        return EMPTY.setElements(
             Cast.to(
                 context.unmarshallList(
                     node,
