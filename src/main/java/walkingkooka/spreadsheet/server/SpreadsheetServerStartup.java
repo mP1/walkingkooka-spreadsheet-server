@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetStartup;
@@ -56,7 +55,7 @@ public final class SpreadsheetServerStartup implements PublicStaticHelper {
 
         SpreadsheetMetadataHateosResourceSet.EMPTY.size();
 
-        SpreadsheetFormatterMenuList.with(Lists.empty());
+        SpreadsheetFormatterMenuList.EMPTY.size();
 
         try {
             SpreadsheetFormatterSelectorEdit.parse(

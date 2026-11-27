@@ -22,15 +22,12 @@ import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.collect.list.ListTesting2;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicClassTesting;
-import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.provider.SpreadsheetFormatterSelector;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
 
 public class SpreadsheetFormatterMenuListTest implements ListTesting2<SpreadsheetFormatterMenuList, SpreadsheetFormatterMenu>,
     PublicClassTesting<SpreadsheetFormatterMenuList>,
@@ -38,45 +35,30 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
     JsonNodeMarshallerTesting<SpreadsheetFormatterMenuList> {
 
     private final static SpreadsheetFormatterMenu MENU1 = SpreadsheetFormatterMenu.with(
-        "Short",
-        SpreadsheetFormatterName.DATE.setValueText("yy/mm")
+        "Formatter-111",
+        SpreadsheetFormatterSelector.parse("formatter-111")
     );
 
     private final static SpreadsheetFormatterMenu MENU2 = SpreadsheetFormatterMenu.with(
-        "Long",
-        SpreadsheetFormatterName.TEXT.setValueText("yyyy/mm/dd")
+        "Formatter-222",
+        SpreadsheetFormatterSelector.parse("formatter-222")
     );
 
-    @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetFormatterMenuList.with(null)
-        );
-    }
+    private final static SpreadsheetFormatterMenu MENU3 = SpreadsheetFormatterMenu.with(
+        "Formatter-333",
+        SpreadsheetFormatterSelector.parse("formatter-333")
+    );
 
-    @Test
-    public void testWithIncludesNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> SpreadsheetFormatterMenuList.with(
-                Arrays.asList(
-                    MENU1,
-                    null
-                )
-            )
-        );
-    }
+    private final static SpreadsheetFormatterMenu MENU4 = SpreadsheetFormatterMenu.with(
+        "Formatter-444",
+        SpreadsheetFormatterSelector.parse("formatter-444")
+    );
 
-    @Test
-    public void testDoesntDoubleWrap() {
-        final SpreadsheetFormatterMenuList list = this.createList();
-        assertSame(
-            list,
-            SpreadsheetFormatterMenuList.with(list)
-        );
-    }
-
+    private final static SpreadsheetFormatterMenu MENU5 = SpreadsheetFormatterMenu.with(
+        "Formatter-555",
+        SpreadsheetFormatterSelector.parse("formatter-555")
+    );
+    
     @Test
     public void testGet() {
         this.getAndCheck(
@@ -124,9 +106,68 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
         );
     }
 
+    // subList..........................................................................................................
+
+    private final static List<SpreadsheetFormatterMenu> ELEMENTS = Lists.of(
+        MENU1,
+        MENU2,
+        MENU3,
+        MENU4,
+        MENU5
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new SpreadsheetFormatterMenuList(ELEMENTS),
+            0,
+            2,
+            new SpreadsheetFormatterMenuList(
+                Lists.of(
+                    MENU1,
+                    MENU2
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new SpreadsheetFormatterMenuList(ELEMENTS),
+            2,
+            4,
+            new SpreadsheetFormatterMenuList(
+                Lists.of(
+                    MENU3,
+                    MENU4
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new SpreadsheetFormatterMenuList(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // 2, 3, 4
+            1,
+            3,
+            new SpreadsheetFormatterMenuList(
+                Lists.of(
+                    MENU3,
+                    MENU4
+                )
+            )
+        );
+    }
+    
     @Override
     public SpreadsheetFormatterMenuList createList() {
-        return SpreadsheetFormatterMenuList.with(
+        return new SpreadsheetFormatterMenuList(
             Lists.of(
                 MENU1,
                 MENU2
@@ -143,12 +184,12 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
 
     private final static String JSON = "[\n" +
         "  {\n" +
-        "    \"label\": \"Short\",\n" +
-        "    \"selector\": \"date yy/mm\"\n" +
+        "    \"label\": \"Formatter-111\",\n" +
+        "    \"selector\": \"formatter-111\"\n" +
         "  },\n" +
         "  {\n" +
-        "    \"label\": \"Long\",\n" +
-        "    \"selector\": \"text yyyy/mm/dd\"\n" +
+        "    \"label\": \"Formatter-222\",\n" +
+        "    \"selector\": \"formatter-222\"\n" +
         "  }\n" +
         "]";
 
@@ -187,16 +228,14 @@ public class SpreadsheetFormatterMenuListTest implements ListTesting2<Spreadshee
     @Test
     public void testFirstOrEmptyWhenEmpty() {
         this.firstOrEmptyAndCheck(
-            SpreadsheetFormatterMenuList.with(
-                Lists.empty()
-            )
+            SpreadsheetFormatterMenuList.EMPTY
         );
     }
 
     @Test
     public void testFirstOrEmptyWhenNotEmpty() {
         this.firstOrEmptyAndCheck(
-            SpreadsheetFormatterMenuList.with(
+            SpreadsheetFormatterMenuList.EMPTY.setElements(
                 Lists.of(
                     MENU1,
                     MENU2
